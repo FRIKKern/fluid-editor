@@ -1,8 +1,11 @@
 {
   "check": "text toolbar HTML",
-  "pass": 410,
-  "total": 410,
-  "couldNotRun": [],
+  "pass": 532,
+  "total": 532,
+  "couldNotRun": [
+    "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed",
+    "CAP-E4GAP2 typed, 0.3 s, Bold pressed"
+  ],
   "results": [
     {
       "name": "Heading 1",
@@ -485,6 +488,10 @@
       "ok": true
     },
     {
+      "name": "Keys guard: a selected block no, an edit yes",
+      "ok": true
+    },
+    {
       "name": "Link two letters: 676 of 676 names",
       "ok": true
     },
@@ -841,6 +848,14 @@
       "ok": true
     },
     {
+      "name": "CAP-E4FRESH2 color, Escape, typed",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH2 empty, color, typed",
+      "ok": true
+    },
+    {
       "name": "CAP-E4FRESH2 a color over part in another",
       "ok": true
     },
@@ -966,6 +981,10 @@
     },
     {
       "name": "CAP-E4FRESH3 a highlight, caret in plain text, a color",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4FRESH3 typed, Escape, typed",
       "ok": true
     },
     {
@@ -1237,22 +1256,6 @@
       "ok": true
     },
     {
-      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed start",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, Cmd+A with no wait, Bold pressed 1",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed start",
-      "ok": true
-    },
-    {
-      "name": "CAP-E4GAP2 typed, 0.3 s, Bold pressed 1",
-      "ok": true
-    },
-    {
       "name": "CAP-E4ENTER H1, Enter at the end",
       "ok": true
     },
@@ -1473,6 +1476,10 @@
       "ok": true
     },
     {
+      "name": "CAP-T3EMPTY line break, html",
+      "ok": true
+    },
+    {
       "name": "CAP-T3EMPTY a space",
       "ok": true
     },
@@ -1629,6 +1636,10 @@
       "ok": true
     },
     {
+      "name": "CAP-E4REOPEN caret mid word, Enter to open, typed",
+      "ok": true
+    },
+    {
       "name": "CAP-E4REOPEN2 after the phone view",
       "ok": true
     },
@@ -1642,6 +1653,486 @@
     },
     {
       "name": "CAP-E4REOPEN3 two lines, opened once more",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 one Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 one Escape, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowLeft",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowLeft, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowRight",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowRight, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowUp",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowUp, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowDown",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 ArrowDown, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Home",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Home, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 End",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 End, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Backspace",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Backspace, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Delete",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Delete, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Enter",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Enter, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Shift+Enter",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Shift+Enter, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Tab",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Tab, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+a",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+a, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+b",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+b, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+i",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+i, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+u",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+u, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+k",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+k, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+z",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+z, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+Shift+z",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+Shift+z, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+x",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+x, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+c",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+c, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+d",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+d, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+Alt+6",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Meta+Alt+6, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Shift+ArrowLeft",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Shift+ArrowLeft, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 a second Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 a second Escape, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 pressed again",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 pressed again, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 a second Escape, pressed again",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 a second Escape, pressed again, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Undo button",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 Undo button, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 X, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 X, Escape, Y",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 X, Escape, Y, Escape twice",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 X, Escape, Y, Escape twice, Z",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 just added, N",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 just added, N, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC1 just added, N, Escape, pressed, M",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a real press on the block",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a real press on the block, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Write",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Write, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Write, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Write, Escape, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a drag",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a drag, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a press on the page",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a press on the page, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Duplicate",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Duplicate, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Pin",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Pin, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Layers",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Layers, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 the phone and back",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 the phone and back, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Preview and back",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Preview and back, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 two letters, Bold",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 two letters, Underline",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 two letters, cut",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Paragraph 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 typed either side of Escape start",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 typed either side of Escape 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 typed either side of Escape 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 typed either side of Escape 3",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a pause before Escape start",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a pause before Escape 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 a pause before Escape 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Cmd+Z after Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Cmd+Z after Escape, walked start",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 monospace, end of a line",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 monospace, end of a line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Enter after Escape, Escape",
+      "ok": true
+    },
+    {
+      "name": "CAP-ESC2 Enter after Escape, Escape, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK mid line",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK mid line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK end of a line",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK end of a line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK end of a line, X, Backspace",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK end of a line, X, Backspace twice",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK start of a line",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK start of a line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK twice at the end",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK twice at the end, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK heading, mid line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK list, mid line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK quote, mid line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK monospace, mid line, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK over two letters",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK over two letters, X",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK undo steps start",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK undo steps 1",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK undo steps 2",
+      "ok": true
+    },
+    {
+      "name": "CAP-E4BREAK undo steps 3",
       "ok": true
     }
   ]
