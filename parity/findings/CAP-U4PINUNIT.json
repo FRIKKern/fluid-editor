@@ -625,10 +625,8 @@
   "errors": [],
   "leftDirty": true,
   "answer": "A slider move keeps the unit. 5vh, then ArrowRight on the slider: 6vh, then 7vh, slider 6 and 7. It does not drop to px, so the note in U4 was wrong.",
-  "ours": "Ours drops it: 5vh, then ArrowRight: 6px. Read on 5210, 2026-11-06.",
-  "differs": [
-    "A Pin slider move after a value that is not in px: the oracle keeps the unit, ours drops to px."
-  ],
+  "ours": "The same now: 6vh then 7vh, slider 6 and 7 (npm run marks-check). Before, 6px then 7px: read on 5210, 2026-11-06, and on the old app 2026-11-07.",
+  "differs": [],
   "pressed": [
     "Fill on the Offset field, real key on the slider. Unnamed presses: real clicks on blocks, a drag on a block. All else by name with an on-top check."
   ]
