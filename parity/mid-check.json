@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 689,
+  "pass": 690,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 698,
+  "total": 699,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2955,7 +2955,7 @@
         "area: oracle 1/2/6/15, ours 1/2/5/15",
         "rows: oracle 11, ours 10"
       ],
-      "known": "the oracle keeps 5 rows for a text of 134.4 and takes the row off one drop later, 2 of 2 runs; no width offset explains it"
+      "known": "held, the oracle keeps 5 rows for a text of 134.4, 2 of 2 runs, and lets the row go on Escape (CAP-TEXTWIDTH4.json); no width offset explains it while held"
     },
     {
       "name": "R2 wider 6",
@@ -3079,6 +3079,10 @@
     },
     {
       "name": "R2 narrower 20",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrower 20 let go",
       "diffs": []
     },
     {

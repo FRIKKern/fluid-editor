@@ -150,6 +150,7 @@ function phoneFollowsMove(s, was) {
 
 function undo() {
   if (!undoStack.length) return;
+  unsettled = null;
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
   // open (parity/findings/TEXTUNDO.json).
@@ -171,6 +172,7 @@ function undo() {
 }
 function redo() {
   if (!redoStack.length) return;
+  unsettled = null;
   undoStack.push(JSON.stringify(model));
   model = JSON.parse(redoStack.pop());
   note('Redo');
@@ -588,6 +590,7 @@ toolbar.addEventListener('click', (e) => {
 });
 
 function select(next) {
+  if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
   if (!boxUp) leftRings = null;
   drawSelection();
@@ -775,9 +778,7 @@ function autoScroll(g) {
     else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
     if (!dir) { g.scrolling = false; return; }
     win.scrollBy(0, dir * SCROLL_STEP);
-    if (g.type === 'move') updateMove(g.lastEvent);
-    else if (g.type === 'resize') updateResize(g.lastEvent);
-    else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
+    updateMove(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
   // At once: a pointer that crosses the edge in one move still scrolls one step (CAP-LONGDRAG).
@@ -968,7 +969,8 @@ function onMove(e) {
   if (gesture.type === 'move') updateMove(e);
   else if (gesture.type === 'resize') updateResize(e);
   else if (gesture.type === 'gresize') updateGroupResize(e);
-  if (gesture.type === 'move' || gesture.type === 'resize' || gesture.type === 'gresize') autoScroll(gesture);
+  // Only a move scrolls the page: a resize held near the edge leaves it where it is (CAP-RESIZESCROLL.json).
+  if (gesture.type === 'move') autoScroll(gesture);
 }
 
 function onUp(e) {
@@ -988,7 +990,10 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  if (g.fits && !/[ns]/.test(g.dir)) fitTextRows(s, b, g);
+  if (g.fits && !/[ns]/.test(g.dir)) {
+    fitTextRows(s, b, g);
+    if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
+  }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
@@ -998,15 +1003,20 @@ const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does no
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
-const NARROWED_BY = 5.5;
 function fitTextRows(s, b, g) {
   const a = lay(b).area, narrowing = g.target[3] - g.target[1] < g.orig[3] - g.orig[1];
-  // Narrowing, the oracle takes the text's height a little before the final width: 5 to 6px wider
-  // fits 20 of 20 drops. Text that then runs over stretches the rows until the next gesture.
+  // Narrowing, the oracle takes the text's height at the width one pointer step before the end: 4.9px
+  // for a column over 12 steps, 19.6 for four (CAP-TEXTWIDTH4.json). Text that then runs over
+  // stretches the rows until the block is let go.
   const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
-  if (c) c.style.width = `${c.getBoundingClientRect().width + NARROWED_BY}px`;
-  const lost = a[2] - a[0] - Math.max(2, contentRows(b, measure(feEl(s.id))));
+  if (c) c.style.width = `${c.getBoundingClientRect().width + Math.abs(g.stepX || 0)}px`;
+  const m = measure(feEl(s.id)), need = contentRows(b, m), span = a[2] - a[0];
   if (c) c.style.width = '';
+  // Narrowing only adds rows. Widening takes rows off only if the need for them fell, and then by the
+  // height lost: a line of text keeps two rows, and 268.9 to 224.1 goes from 7 rows to 5, though 224.1
+  // needs 6 (CAP-TEXTWIDTH7.json). The next gesture takes back what it needs.
+  // An Instagram post follows its width, both ways (STANDINS.json).
+  const lost = b.type !== 'text' ? span - Math.max(2, need) : narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
   const before = lowest();
@@ -1015,6 +1025,28 @@ function fitTextRows(s, b, g) {
   // with other blocks lower down; alone, 12 go to 8).
   if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
   else { s.rows[bp] = g.rows0; growRows(s); }
+  renderSectionDom(s.id);
+}
+
+// After narrowing, those rows last until the block is let go: Escape, another block or the next drag.
+// Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
+// Time alone does nothing. No undo step of its own. Growing pushes as typing does.
+let unsettled = null;
+function settleTextRows() {
+  const u = unsettled;
+  unsettled = null;
+  const s = u && u.bp === bp ? S(u.sid) : null, b = s?.blocks.find((o) => o.id === u.bid);
+  if (!b) return;
+  const content = blockEl(b.id)?.querySelector('.sqs-block-content');
+  if (!content) return;
+  // Text that runs over stretches the rows, so the pitch is read with the text out, as a form's is.
+  content.style.display = 'none';
+  const free = measure(feEl(s.id));
+  content.style.display = '';
+  const a = lay(b).area, d = contentRows(b, free) - (a[2] - a[0]);
+  if (d <= 0) return;
+  moveWithText(s, b, a, d);
+  a[2] += d;
   renderSectionDom(s.id);
 }
 
@@ -1031,6 +1063,7 @@ function onCancel(e) {
 }
 
 function prepare(e, type, extra = {}) {
+  if (unsettled) settleTextRows();
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1182,7 +1215,8 @@ function startResize(e, dir) {
   }
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
-  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
+  if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
@@ -1244,6 +1278,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
+  if (x !== g.lastX) { g.stepX = x - (g.lastX ?? x); g.lastX = x; }
   const held = B(g.sid, g.bid), leastCols = (bp === 'mobile' ? LEAST_COLS_PHONE[held.type] : null) ?? LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
