@@ -1,0 +1,94 @@
+{
+  "item": "CAP-U10OFF-PAGE-LINK",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10OFF-PAGE-LINK",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Page Link"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true,
+        "btnByText": [
+          "View Layouts"
+        ],
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "hover": {
+      "labelTag": [
+        "Page Link"
+      ],
+      "btnByText": {
+        "View Layouts": {
+          "disabled": true,
+          "aria": null,
+          "opacity": 1,
+          "color": "rgb(183, 183, 183)",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        }
+      },
+      "stack": [
+        {
+          "id": "_1801",
+          "type": "modelsync",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/6/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
