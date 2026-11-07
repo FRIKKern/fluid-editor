@@ -3289,6 +3289,26 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     browser(S, 'press', 'Escape'); await pause(200);
   }
   add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
+  // A type with one other block (CAP-U10MIX-*.json): on or off, the tile count, and the read picks as read
+  // (CAP-U10MIXPICK-*.json; areas compared as a set, as ours puts blocks in page order); the rest of the tiles shown, not built.
+  const pair = (a, b) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, ${JSON.stringify(a)}); fe.addBlock(sid, ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
+  for (const [a, b, F, picks] of [['Image', 'Code', 'IMAGE-CODE', [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', []], ['Map', 'Button', 'MAP-BUTTON', []], ['Map', 'Code', 'MAP-CODE', []]]) {
+    const L = FIND(`CAP-U10MIX-${F}`).reads.open.tileNames.map((x) => Math.round(x[5] * 10) / 10), errs = [];
+    pair(a, b); await pause(250);
+    const tiles = await open();
+    const on = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
+    if (tiles.join() !== L.join() || on.join() !== L.map((_, n) => (picks.includes(n) ? n : -1)).join()) errs.push(`tiles ${tiles} ${on}`);
+    for (const n of picks) {
+      const r = FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`], g = pick(n);
+      const want = r.stack.map((x) => [x.desktop, x.phone].join(' ')).sort().join(), got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+      if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',') errs.push(`${n} ${got} ${g && g.rows}`);
+    }
+    add(`View Layouts, ${a} + ${b}: ${L.length} tiles, ${picks.length} read picks built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  pair('Instagram', 'Button'); await pause(250);
+  const ib = await btn();
+  add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
 }
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
