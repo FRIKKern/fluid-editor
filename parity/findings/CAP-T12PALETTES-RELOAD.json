@@ -1,0 +1,33 @@
+{
+  "item": "CAP-T12PALETTES-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "After CAP-T12PALETTES: the probe page after a reload",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [
+    "top Exit"
+  ]
+}

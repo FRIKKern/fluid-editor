@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 89 changes
-  - 87: short Text pulled from kept rows, reads only; difference 98 named ([#380](https://github.com/FRIKKern/fluid-editor/pull/380))
-  - H3: map blocks in the corpus; the type reader sees a Map by its component name; 385 sections ([#378](https://github.com/FRIKKern/fluid-editor/pull/378))
+- **Today** · 92 changes
+  - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
+  - U4: each Pin option keeps its own Offset (97) ([#382](https://github.com/FRIKKern/fluid-editor/pull/382))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

@@ -361,6 +361,16 @@ export const RECIPES = {
       ...TYPED('a short typed link, on the row', 'b.no'),
     ];
   })() },
+  // Difference 82: CAP-E7REOPEN3 "Clear, Undo" let a Button go. The same on Shape, Button and Text, moved first so Undo
+  // has a step that keeps the block, by the Undo button and by Cmd+Z.
+  'CAP-82UNDO': { page: 'Gestures Probe', question: '82: a block selected with only its toolbar, moved by ArrowRight, then the Undo button or Cmd+Z: does it stay selected? Shape, Button and Text.', steps: (() => {
+    const R = (name) => [['read', name, { controls: true, areas: 0 }]];
+    const ONE = (type) => [['add', 0, type], ['press', 'Escape'], ['pause', 300],
+      ['pick', 0, 'new'], ['pause', 400], ...R(`${type} selected`), ['press', 'ArrowRight'], ['pause', 400], ...R(`${type} moved`),
+      ['click', 'Undo'], ['pause', 500], ...R(`${type} Undo`), ['press', 'Escape'], ['pause', 300],
+      ['pick', 0, 'new'], ['pause', 400], ['press', 'ArrowRight'], ['pause', 400], ['press', 'Meta+z'], ['pause', 500], ...R(`${type} Cmd+Z`), ['press', 'Escape'], ['pause', 300]];
+    return [['enter'], ['blank'], ['pause', 800], ...ONE('Shape'), ...ONE('Button'), ...ONE('Text')];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
