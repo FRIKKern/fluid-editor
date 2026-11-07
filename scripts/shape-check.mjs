@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, mouse, screenshot, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { rectPath } from '../app/src/render.js';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/SHAPESTYLES.json', import.meta.url)));
@@ -111,7 +112,8 @@ dset('stroke', 'solid');
 let ink = inkOf();
 add('Solid starts at M, black', ink?.w === `${F.stroke.width.M}px` && ink.stroke === F.stroke.color.start && ink.dash === 'none', JSON.stringify(ink));
 add('A rectangle\'s stroke sits outside its box', near(ink.box, F.stroke.rect.drawn, 0.6), ink.box.join());
-add('Its corner loses half the stroke', ink.rx === '7px', ink.rx);
+const arcNow = () => q(`return JSON.stringify(block().querySelector('svg path').getAttribute('d'));`);
+add('Its corner loses half the stroke', /^M[\d.]+,-3 H[\d.]+ A7,7 /.test(arcNow()), arcNow());
 for (const k of ['S', 'L', 'M']) { dset('strokeSize', k); add(`Thickness ${k}: ${F.stroke.width[k]}px`, inkOf().w === `${F.stroke.width[k]}px`, inkOf().w); }
 dset('stroke', 'dashed');
 for (const k of ['S', 'L', 'M']) { dset('strokeSize', k); const got = inkOf(); add(`Dashed ${k}: ${F.stroke.dash[k]}`, got.dash === F.stroke.dash[k], got.dash); }
@@ -468,6 +470,66 @@ add('Reset on a flowing phone: the color stays, Color dotted, no Reset', seenFil
 view('desktop'); swatch('color', '#B564F7'); view('mobile');
 add('Reset on a flowing phone: then a desktop change reaches it, still dotted', seenFill() === RW.resetWhileFlowing.phoneFollows.fill && dotsNow().join() === 'Color', JSON.stringify([seenFill(), dotsNow()]));
 view('desktop');
+// Four corners and a stroke (CAP-T6CORNERS.json), and the Custom color view (CAP-T6CUSTOM.json).
+{
+  const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6CORNERS.json', import.meta.url))), U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6CUSTOM.json', import.meta.url)));
+  const [W, H] = [342, 236];
+  const W0 = { nostroke: 0, solidS: 2, solidM: 6, solidL: 15, dashS: 2, dashM: 6, dashL: 15 };
+  for (const [k, w] of Object.entries(W0)) add(`The path rule, ${k}`, rectPath(W, H, C.corners, w) === C.reads[k].d, rectPath(W, H, C.corners, w));
+  add('The path rule, radii that do not fit', rectPath(W, H, C.big.corners, 6) === C.big.stroked.d && rectPath(W, H, C.big.corners, 0) === C.big.off.d, rectPath(W, H, C.big.corners, 6));
+  q(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[1].blocks.find((x) => x.id === '${id}'); for (const k of ['shape', 'radius', 'corners', 'color', 'designMobile', 'design']) delete b[k]; b.stretch = true; fe.load(next); await sleep(300); return 'true';`);
+  openDesign();
+  const setCorners = (v) => q(`const u = panel.querySelector('[aria-label="Individual corner radii"]'); if (u.getAttribute('aria-checked') !== 'true') { u.click(); await sleep(150); } const labels = ['Top left', 'Top right', 'Bottom right', 'Bottom left']; const vals = ${JSON.stringify(v)}; for (let i = 0; i < 4; i++) { const f = panel.querySelector('[aria-label="' + labels[i] + ' corner radius"]'); f.value = vals[i]; f.dispatchEvent(new Event('change', { bubbles: true })); await sleep(120); } return 'true';`);
+  const drawnNow = () => q(`const s = block().querySelector('svg.sqs-shape'), p = s?.querySelector('path'), c = p && getComputedStyle(p); return JSON.stringify(p ? { W: s.clientWidth, H: s.clientHeight, d: p.getAttribute('d'), cap: c.strokeLinecap, join: c.strokeLinejoin, dash: c.strokeDasharray, w: c.strokeWidth, ve: c.vectorEffect } : null);`);
+  setCorners(C.corners);
+  const isDiv = q(`return JSON.stringify(!!block().querySelector('div.sqs-shape') && !block().querySelector('svg.sqs-shape'));`);
+  add('No stroke: ours a div, its corners in CSS', isDiv && q(`return JSON.stringify(getComputedStyle(block().querySelector('.sqs-shape')).borderRadius);`) === '5px 10px 20px 40px', String(isDiv));
+  for (const [v, size, w, dash] of [['solid', 'S', 2, 'none'], ['solid', 'M', 6, 'none'], ['solid', 'L', 15, 'none'], ['dashed', 'S', 2, F.stroke.dash.S], ['dashed', 'M', 6, F.stroke.dash.M], ['dashed', 'L', 15, F.stroke.dash.L]]) {
+    dset('stroke', v); dset('strokeSize', size);
+    const g = drawnNow();
+    add(`Four corners, ${v} ${size}: the path, caps and joins`, g && g.d === rectPath(g.W, g.H, C.corners, w) && g.cap === 'square' && g.join === 'miter' && g.dash === dash && g.w === `${w}px` && g.ve === 'non-scaling-stroke', JSON.stringify(g));
+  }
+  dset('stroke', 'solid'); dset('strokeSize', 'M');
+  viewport(S, 1300, 1000); await pause(500);
+  const g2 = drawnNow();
+  add('The path follows the box when the window changes', g2.d === rectPath(g2.W, g2.H, C.corners, 6), JSON.stringify(g2));
+  viewport(S, 1600, 1000); await pause(500);
+  setCorners(C.big.corners);
+  const g3 = drawnNow();
+  add('A corner of 0 has no arc, a big one shrinks', g3.d === rectPath(g3.W, g3.H, C.big.corners, 6) && /V-3 Z$/.test(g3.d), JSON.stringify(g3));
+  dset('stroke', '');
+  q(`panel.querySelector('[aria-label="Uniform corner radii"]').click(); await sleep(200); return 'true';`);
+  // The Custom color view.
+  act('color');
+  q(`pop.querySelector('[aria-label="Custom color"]').click(); await sleep(250); return 'true';`);
+  const tv = (sel) => q(`const e = ${sel}, c = getComputedStyle(e); return JSON.stringify({ bw: c.borderTopWidth, bc: c.borderTopColor, shadow: c.boxShadow, w: e.offsetWidth });`);
+  const shadow = U.thumbs[0].shadow;
+  for (const L of ['Color Map', 'Hue slider']) { const g = tv(`pop.querySelector('[aria-label="${L}"]')`); add(`${L} thumb as read`, g.bw === '3px' && g.bc === 'rgb(255, 255, 255)' && g.shadow === shadow && g.w === 16, JSON.stringify(g)); }
+  const ot = q(`const rule = [...document.styleSheets].flatMap((s) => [...s.cssRules]).find((x) => x.selectorText === '.sh-opacity::-webkit-slider-thumb'); return JSON.stringify({ bw: rule.style.borderTopWidth, shadow: rule.style.boxShadow, w: rule.style.width });`);
+  add('Opacity thumb as read', ot.bw === '3px' && ot.w === '16px' && ot.shadow.replace(/ 0px/g, ' 0') === shadow.replace(/ 0px/g, ' 0'), JSON.stringify(ot));
+  const cells = () => q(`const p = pop.getBoundingClientRect(); const r = (e) => { const b = e.getBoundingClientRect(); return [b.left - p.left, b.top - p.top, b.width, b.height]; }; return JSON.stringify({ select: r(pop.querySelector('[data-color-format]')), cells: [...pop.querySelectorAll('[data-color-field]')].map(r), bar: !!pop.querySelector('.sh-opacity'), reset: r(pop.querySelector('[data-color-reset]')), right: [...pop.querySelectorAll('[data-color-field]')].map((e) => getComputedStyle(e).borderRightWidth) });`);
+  const wantCells = (rows) => rows.filter((x) => x.el === 'DIV' && x.role !== 'combobox').map((x) => x.box);
+  const sel = (rows) => rows.find((x) => x.role === 'combobox').box;
+  const fmt = (v) => q(`const m = pop.querySelector('[data-color-format]'); m.value = '${v}'; m.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
+  const same = (g, rows) => near(g.select, sel(rows), 0.7) && g.cells.length === wantCells(rows).length && g.cells.every((c, i) => near(c, wantCells(rows)[i], 0.7));
+  let g4 = cells();
+  add('RGB row: the menu and four cells as read', same(g4, U.rgb), JSON.stringify(g4));
+  add('RGB row: a line between the cells', g4.right.join() === '1px,1px,1px,0px', g4.right.join());
+  fmt('hsl'); g4 = cells();
+  add('HSL row as read', same(g4, U.hsl), JSON.stringify(g4));
+  fmt('hex'); g4 = cells();
+  add('Hex row as read, no bar, no Alpha', same(g4, U.hex) && !g4.bar, JSON.stringify(g4));
+  fmt('rgb');
+  const fmtBox = () => q(`const s = pop.querySelector('[data-color-format]'), l = pop.querySelector('.sh-fmtlist'); if (!l) return JSON.stringify(null); const a = s.getBoundingClientRect(), b = l.getBoundingClientRect(); return JSON.stringify({ off: [b.left - a.left, b.top - a.bottom, b.width, b.height], rows: [...l.children].map((x) => x.textContent), cur: l.querySelector('.is-cur').textContent });`);
+  q(`pop.querySelector('[data-color-format]').dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true })); await sleep(120); return 'true';`);
+  const fb = fmtBox();
+  add('Format menu: three rows, 6 under it, RGB marked', fb && near(fb.off, [-3, 6, 79, 132], 1) && fb.rows.join() === 'Hex,RGB,HSL' && fb.cur === 'RGB', JSON.stringify(fb));
+  q(`pop.querySelector('[data-fmt-opt="hsl"]').dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true })); await sleep(250); return 'true';`);
+  add('Format menu: a row sets the format and closes', q(`return JSON.stringify(!pop.querySelector('.sh-fmtlist') && !!pop.querySelector('[data-color-field="Hue"]'));`));
+  fmt('rgb');
+  q(`pop.querySelector('[data-color-reset]').click(); await sleep(200); return 'true';`);
+  if (!popHidden()) act('color');
+}
 writeFileSync(new URL('../parity/shape-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nShape: ${pass}/${total}`);
 if (process.env.SHOT) screenshot(S, process.env.SHOT);

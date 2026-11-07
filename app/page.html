@@ -14,7 +14,7 @@
 <div id="header-slot"></div>
 <main id="page"></main>
 <script type="module">
-import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT, ACCORDION_SCRIPT, VIDEO_SCRIPT } from './src/render.js';
+import { renderPage, renderHeader, renderFooter, HEADER_SCRIPT, ACCORDION_SCRIPT, VIDEO_SCRIPT, SHAPE_SCRIPT } from './src/render.js';
 import { demoModel } from './src/demo.js';
 import { IMAGE_EFFECT_SCRIPT } from './src/image-effects.js';
 import { siteStylesHead } from './src/site-style-packs.js';
@@ -30,6 +30,7 @@ document.getElementById('page').insertAdjacentHTML('afterend', renderFooter(mode
 new Function(HEADER_SCRIPT)();
 new Function(ACCORDION_SCRIPT)();
 new Function(VIDEO_SCRIPT)();
+new Function(SHAPE_SCRIPT)();
 new Function(IMAGE_EFFECT_SCRIPT)();
 document.documentElement.dataset.rendered = 'true';
 </script>

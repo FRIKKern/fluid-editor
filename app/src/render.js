@@ -331,12 +331,14 @@ function blockInner(b, model) {
         const dg = designFor(b, bp), fill = shapeFill(b, bp) || 'var(--shape-theme-fill)', corner = cornerFor(b, bp), radius = corner.css || '0';
         const style = `--shape-fill:${fill};--shape-radius:${radius};--shape-ink:${b.ink || 'inherit'}${stretched ? '' : `;--shape-ratio:${kind.w / kind.h}`}`;
         const w = !dg.stroke ? 0 : dg.strokeSize === 'custom' ? dg.strokePx ?? 6 : STROKE_PX[dg.strokeSize || 'M'];
-        const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
+        const ink = w ? ` stroke="${dg.strokeColor || 'var(--shape-theme-stroke)'}" stroke-width="${w}" vector-effect="non-scaling-stroke"${rect ? ' stroke-linecap="square"' : ''}${dg.stroke === 'dashed' ? ` stroke-dasharray="5 ${w + 15}"` : ''}` : '';
         const svg = (attrs, inner) => `<svg class="sqs-shape${rect ? ' sqs-shape-rectangle' : ''}${stretched ? '' : ' is-square'}" preserveAspectRatio="none"${attrs} style="${style};background:none;overflow:visible">${inner}</svg>`;
-        // A rectangle's stroke sits outside its box and its corner loses half the stroke. With four
-        // corners ours strokes the top left's: a known difference.
+        // A rectangle's stroke sits outside its box. With a corner it is a path, starting at the top's
+        // middle, drawn at the box's size once that is known (CAP-T6CORNERS.json, watchShapeRects).
+        const radii = corner.corners || [corner.first, corner.first, corner.first, corner.first];
         return !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
-          : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" rx="${Math.max(0, corner.first - w / 2 || 0)}" fill="${fill}"${ink}/>`)
+          : w && radii.some((r) => r > 0) ? svg('', `<path data-rect="${radii.map((r) => r || 0).join(' ')}" data-w="${w}" fill="${fill}"${ink}/>`)
+          : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" fill="${fill}"${ink}/>`)
           : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
       };
       // A phone that draws differently has a container of its own, as a button does.
@@ -755,6 +757,36 @@ export function bindVideoPlayer(document, live = () => true) {
 }
 export const VIDEO_SCRIPT = `(${bindVideoPlayer})(document);`;
 
+// The path of a rectangle with corners, as read (CAP-T6CORNERS.json). W and H are the box in whole px, w the
+// stroke, radii top left, top right, bottom right, bottom left. Radii that don't fit shrink together as
+// CSS's do, by the box with its stroke, and then each loses half the stroke.
+export const rectPath = (W, H, radii, w) => {
+  const half = w / 2, L = -half, T = -half, R = W + half, B = H + half, n = (v) => +v.toFixed(3);
+  const [a, b, c, d] = radii, f = Math.min(1, (W + w) / (a + b || 1), (W + w) / (c + d || 1), (H + w) / (a + d || 1), (H + w) / (b + c || 1));
+  const [tl, tr, br, bl] = radii.map((r) => Math.max(0, r * f - half));
+  const arc = (r, x, y) => (r ? ` A${n(r)},${n(r)} 0 0 1 ${n(x)},${n(y)}` : '');
+  return `M${n(W / 2)},${n(T)} H${n(R - tr)}${arc(tr, R, T + tr)} V${n(B - br)}${arc(br, R - br, B)} H${n(L + bl)}${arc(bl, L, B - bl)} V${n(T + tl)}${arc(tl, L + tl, T)} Z`;
+};
+// Draws those paths now and whenever their box changes, on any page. Its own code goes in a script, so it takes rectPath.
+export function watchShapeRects(doc, path) {
+  const win = doc.defaultView, seen = new WeakSet();
+  const draw = (svg) => {
+    const p = svg.querySelector('path[data-rect]');
+    if (p && svg.clientWidth) p.setAttribute('d', path(svg.clientWidth, svg.clientHeight, p.dataset.rect.split(' ').map(Number), Number(p.dataset.w)));
+  };
+  const ro = new win.ResizeObserver((all) => all.forEach((e) => draw(e.target)));
+  const scan = () => {
+    for (const p of doc.querySelectorAll('path[data-rect]')) {
+      const svg = p.closest('svg');
+      draw(svg);
+      if (!seen.has(svg)) { seen.add(svg); ro.observe(svg); }
+    }
+  };
+  new win.MutationObserver(scan).observe(doc.documentElement, { childList: true, subtree: true });
+  scan();
+}
+export const SHAPE_SCRIPT = `(${watchShapeRects})(document, ${rectPath});`;
+
 export const ACCORDION_SCRIPT = `document.addEventListener('click', (e) => {
   const b = e.target.closest('.accordion-item__click-target');
   if (!b) return;
@@ -794,6 +826,7 @@ ${renderFooter(model)}
 <script>${HEADER_SCRIPT}
 ${ACCORDION_SCRIPT}
 ${VIDEO_SCRIPT}
+${SHAPE_SCRIPT}
 (() => { ${IMAGE_EFFECT_SCRIPT} })();</script>
 </body>
 </html>
