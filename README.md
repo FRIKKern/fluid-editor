@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 68 changes
+- **Today** · 69 changes
+  - U4, T7: the tip's 500 ms, a Pin slider keeps its unit, a Video's Blend Mode as a menu ([#358](https://github.com/FRIKKern/fluid-editor/pull/358))
   - U12: behaviour sample, 38 rows on 13 built tiles, ours predicted first ([#359](https://github.com/FRIKKern/fluid-editor/pull/359))
-  - U4: toolbar tip waits 500 ms, as the oracle's 517 ([#357](https://github.com/FRIKKern/fluid-editor/pull/357))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
