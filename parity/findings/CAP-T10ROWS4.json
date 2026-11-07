@@ -1,0 +1,1524 @@
+{
+  "item": "CAP-T10ROWS4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T10: which other block rises when one does, by where they overlap. Predictions in PRED-T7ROWS2.json",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      288
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Upper, one under start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one under 15",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one under 22",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one under 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      236,
+      123
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Upper, one overlapping lower start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one overlapping lower 15",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one overlapping lower 22",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Upper, one overlapping lower 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      236,
+      123
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Lower, one overlapping higher start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Lower, one overlapping higher 15",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>\n<p>row 21</p>\n<p>row 22</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Lower, one overlapping higher 22",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Lower, one overlapping higher 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Grown first start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Grown first 14",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Inside a taller start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Inside a taller 10",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>\n<p>row 16</p>\n<p>row 17</p>\n<p>row 18</p>\n<p>row 19</p>\n<p>row 20</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Inside a taller 20",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Inside a taller 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Over a Text start",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>\n<p>row 5</p>\n<p>row 6</p>\n<p>row 7</p>\n<p>row 8</p>\n<p>row 9</p>\n<p>row 10</p>\n<p>row 11</p>\n<p>row 12</p>\n<p>row 13</p>\n<p>row 14</p>\n<p>row 15</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Over a Text 15",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "setCode",
+      "<p>row 1</p>\n<p>row 2</p>\n<p>row 3</p>\n<p>row 4</p>"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Over a Text 4",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "placed": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/6",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one under start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "8/2/14/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one under 15": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1201.8
+        ],
+        "rows": 21,
+        "rowSizes": "30.1x21",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/15/6",
+          "1/2/7/10"
+        ],
+        [
+          "16/2/22/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one under 22": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1489.5
+        ],
+        "rows": 28,
+        "rowSizes": "30.1x28",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/22/6",
+          "1/2/7/10"
+        ],
+        [
+          "23/2/29/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one under 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          775.1
+        ],
+        "rows": 10,
+        "rowSizes": "38.5x3 30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ],
+        [
+          "5/2/11/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one overlapping lower start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/10/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one overlapping lower 15": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          914.1
+        ],
+        "rows": 14,
+        "rowSizes": "30.1x14",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/15/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/10/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one overlapping lower 22": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1201.8
+        ],
+        "rows": 21,
+        "rowSizes": "30.1x21",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/22/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/10/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Upper, one overlapping lower 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          734
+        ],
+        "rows": 9,
+        "rowSizes": "38.5x3 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/4/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/10/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lower, one overlapping higher start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/10/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lower, one overlapping higher 15": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1037.4
+        ],
+        "rows": 17,
+        "rowSizes": "30.1x17",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/18/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lower, one overlapping higher 22": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1325.1
+        ],
+        "rows": 24,
+        "rowSizes": "30.1x24",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/25/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Lower, one overlapping higher 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 6,
+        "rowSizes": "30.1x3 38.5x3",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "4/6/7/10",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Grown first start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/7/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Grown first 14": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          955.2
+        ],
+        "rows": 15,
+        "rowSizes": "30.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/14/6",
+          "1/2/7/10"
+        ],
+        [
+          "1/2/14/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Inside a taller start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -126,
+          1600,
+          955.2
+        ],
+        "rows": 15,
+        "rowSizes": "30.1x15",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 126,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/14/6",
+          "1/2/7/10"
+        ],
+        [
+          "3/2/16/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Inside a taller 10": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -126,
+          1600,
+          882.3
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x2 31.1x9 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 126,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/14/6",
+          "1/2/7/10"
+        ],
+        [
+          "3/2/12/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Inside a taller 20": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -126,
+          1600,
+          1284
+        ],
+        "rows": 23,
+        "rowSizes": "30.1x23",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 126,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/24/6",
+          "1/2/7/10"
+        ],
+        [
+          "3/2/22/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Inside a taller 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -126,
+          1600,
+          1309.3
+        ],
+        "rows": 23,
+        "rowSizes": "30.1x2 38.5x3 30.1x18",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 126,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/24/6",
+          "1/2/7/10"
+        ],
+        [
+          "3/2/6/6",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Over a Text start": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/6",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Over a Text 15": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          996.3
+        ],
+        "rows": 16,
+        "rowSizes": "30.1x16",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/15/6",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Over a Text 4": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          623.7
+        ],
+        "rows": 5,
+        "rowSizes": "30.1x2 55.4 30.1x2",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/4/6",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

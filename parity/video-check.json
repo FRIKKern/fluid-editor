@@ -1,6 +1,6 @@
 {
-  "pass": 154,
-  "total": 154,
+  "pass": 166,
+  "total": 166,
   "results": [
     {
       "what": "The empty block has an Add a Video box",
@@ -616,6 +616,54 @@
     },
     {
       "what": "Preview: the placeholder stays, rounded",
+      "ok": true
+    },
+    {
+      "what": "Pull, corner, 862, right 30, no focus first: 12px, 6% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, corner, 862, left 10: 8px, 6% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, corner, 871 on the edge, right 30: 8px, 6% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, corner, 830 on the text, right 30: 8px, 6% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, padding 1, 769, right 30: 8px, 6% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, padding 1, 776 on the edge, right 30: 8px, 18% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, padding 1, 745 on the text, right 30: 8px, 18% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, padding 2, 863, right 30: 8px, 18% 6%",
+      "ok": true
+    },
+    {
+      "what": "Pull, padding 2, 871 on the edge, right 30: 8px, 18% 18%",
+      "ok": true
+    },
+    {
+      "what": "No <> on Corner or Padding",
+      "ok": true
+    },
+    {
+      "what": "A pull on Corner is one undo step",
+      "ok": true
+    },
+    {
+      "what": "A pull on Padding is one undo step",
       "ok": true
     }
   ]
