@@ -1031,6 +1031,10 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-title { font-weight: 500; }
 .an-actions { display: flex; gap: 11px; margin-right: 2px; }
 .an-icon { width: 36px; height: 36px; padding: 0; border: 0; background: none; border-radius: 3px; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.an-ico.is-own::after { content: ''; position: absolute; left: 5px; bottom: 0; width: 34px; height: 2px; background: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px); }
+.an-gap { width: 5px; }
+.an-icon[data-anim="add"]:disabled { cursor: default; }
+.an-icon[data-anim="add"]:disabled svg { color: rgb(183, 183, 183); }
 .an-empty { position: absolute; left: 65px; top: 122px; display: flex; flex-direction: column; align-items: center; width: 147px; height: 44px; padding: 0; border: 0; background: none; font: inherit; color: #6f6f6f; cursor: pointer; white-space: nowrap; }
 .an-empty strong { color: #0e0e0e; font-weight: 500; line-height: 22px; }
 .an-empty span { font-size: 12px; line-height: 15px; margin-top: 3px; }
@@ -1142,6 +1146,8 @@ body.is-preview #reload-preview { display: inline-flex; }
 .st-color .bp-swatch { width: 36px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: #f6f6f6 radial-gradient(circle, #fff 9px, #e7e7e7 9.5px, transparent 10px); }
 .st-color-x { position: absolute; right: -12px; top: -10px; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 1px rgba(0, 0, 0, .3); font-size: 13px; line-height: 1; opacity: 0; cursor: pointer; }
 .st-color:hover .st-color-x, .st-color-x:focus { opacity: 1; }
+.st-color.is-open .bp-swatch { box-shadow: inset 0 0 0 2px #0e0e0e; }
+.st-color.is-open .st-color-x { opacity: 1; background: #0e0e0e; color: #fff; }
 .st-row-corner { position: relative; display: block; height: 44px; }
 .st-row-corner.is-four { height: 95px; }
 .st-row-corner .sp-label { position: absolute; left: 0; top: 11px; }
@@ -1284,6 +1290,10 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .sh-tile:hover { background: #f2f2f2; }
 .sh-tile.is-on { border-color: #0e0e0e; }
 #shape-pop.is-color { width: 300px; padding: 22px 11px 11px; }
+#shape-pop.is-color:has(.sh-tabs) { padding-top: 11px; }
+.sh-tabs { height: 36px; box-sizing: border-box; margin-bottom: 11px; border: 2px solid #f2f2f2; border-radius: 3px; }
+.sh-tabs button { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: #0e0e0e; cursor: pointer; }
+.sh-tabs + .sh-map { margin-top: -5px; }
 .sh-map { position: relative; height: 240px; margin: -11px 0 11px; background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent); cursor: crosshair; }
 .sh-map i, .sh-hue i { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border: 2px solid #fff; border-radius: 50%; box-sizing: border-box; box-shadow: 0 0 2px rgba(0, 0, 0, .5); }
 .sh-hue { position: relative; height: 22px; margin: 11px 0 6px; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); cursor: pointer; }

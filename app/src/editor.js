@@ -31,10 +31,10 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -150,6 +150,7 @@ function phoneFollowsMove(s, was) {
 
 function undo() {
   if (!undoStack.length) return;
+  if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
   // open (parity/findings/TEXTUNDO.json).
   const ed = editing;
@@ -272,7 +273,8 @@ function drawLabels(sid) {
     setArea(g, lay(b).area);
     const tag = doc.createElement('span');
     tag.className = 'fe-label-tag';
-    tag.textContent = b.label === 'form' ? 'Form' : LABELS[b.type] || 'Block';
+    // A stand-in is a Shape in the model and goes by the name the Add Block menu gave it (CAP-X13LABELS.json).
+    tag.textContent = b.label === 'form' ? 'Form' : b.type === 'shape' && ADD_TYPES.some(([name]) => name === b.label) ? b.label : LABELS[b.type] || 'Block';
     g.append(tag);
     fe.append(g);
   }
@@ -1547,6 +1549,7 @@ const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
 function renderBlockPanel() {
+  settleVideoColors();
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   if (shapeUi?.kind === 'anchor') queueMicrotask(() => { if (shapeUi?.kind === 'anchor') renderShapePop(); }); // an undo too
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
@@ -1585,9 +1588,9 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
-  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
+  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
   if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
   blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
@@ -1611,6 +1614,7 @@ function drawPhoneControls(b) {
   const tabs = blockPanel.querySelector('.sp-tabs');
   if (bp !== 'mobile') { closePhoneMenu(); return; }
   markPhoneLabels(blockPanel, b);
+  if (designTab === 'Animation') { markAnimLabels(blockPanel, b.animations?.[anim.i]?.phone); closePhoneMenu(); return; }
   if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
   else closePhoneMenu();
 }
@@ -1640,7 +1644,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -1648,7 +1652,8 @@ function syncAnimView(b) {
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
   if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
-function animRows() { return B(sel.sid, sel.bid).animations || []; }
+function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
+function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
 function animEdit(label, change) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.animations = [...(b.animations || [])];
@@ -1689,7 +1694,7 @@ function animAction(el) {
     const a = rows[i];
     anim = { ...ANIM_LIST, view: a.preset === 'custom' ? 'editor' : 'picker', i, trigger: a.trigger, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
     if (anim.view === 'picker') animPlay = 'tiles';
-  } else if (act === 'remove') { animEdit('Remove animation', (l) => { l.splice(i, 1); }); return; }
+  } else if (act === 'remove') { const bk = B(sel.sid, sel.bid); animEdit('Remove animation', (l) => { if (bp === 'mobile' && l[i].phone) bk.animPhoneGone = true; l.splice(i, 1); }); return; }
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
@@ -1697,7 +1702,7 @@ function animAction(el) {
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
-    animEdit('Start blank', (l) => { l[at] = a; });
+    animEdit('Start blank', (l) => { animPlace(l, at, a); });
     anim = { ...anim, view: 'editor', i: at, menu: false, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
   } else if (act === 'tab') anim.tab = el.dataset.v;
   else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
@@ -1711,8 +1716,22 @@ function animPick(id) {
   if (id === 'custom') return;
   const a = newAnimation(anim.trigger, id), at = anim.i ?? animRows().length;
   anim = { ...anim, i: at, menu: false };
-  animEdit(`Animation ${id}`, (l) => { l[at] = a; });
+  animEdit(`Animation ${id}`, (l) => { animPlace(l, at, a); });
   animPreview(a);
+}
+// A pick: a new row, or on this row. On a phone it stays the phone's alone, and desktop keeps its row.
+function animPlace(l, at, a) {
+  if (bp === 'mobile' && l[at]) l[at] = { ...l[at], phone: ownOf(a) };
+  else l[at] = l[at]?.phone ? { ...a, phone: l[at].phone } : a;
+}
+// One value, in the layout being edited.
+function animPut(l, i, key, v) {
+  if (bp !== 'mobile') { l[i] = { ...l[i] }; animWrite(l[i], key, v); return; }
+  const was = rowOn(l[i], 'mobile'), now = { ...was };
+  animWrite(now, key, v);
+  const own = { ...l[i].phone, preset: 'custom', [key]: v };
+  for (const k of ['bounce', 'custom']) if (now[k] !== was[k]) own[k] = now[k];
+  l[i] = { ...l[i], phone: own };
 }
 function animWrite(a, key, v) {
   a.preset = 'custom';
@@ -1723,7 +1742,7 @@ function animWrite(a, key, v) {
 }
 function animSet(key, v) {
   animPlay = 'square';
-  animEdit(`Animation ${key}`, (l) => { l[anim.i] = { ...l[anim.i] }; animWrite(l[anim.i], key, v); });
+  animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
   const input = e.target.closest('[data-afield]');
@@ -1767,8 +1786,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     } else if (key) {
       const v = scrubbed(start, dx, key);
       input.value = v;
-      b.animations[anim.i] = { ...b.animations[anim.i] };
-      animWrite(b.animations[anim.i], key, v);
+      animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
     } else {
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
@@ -2009,6 +2027,8 @@ function setDesign(k, v) {
     else d[k] = v;
     // Custom starts from the size it leaves (BLOCKDESIGN.json).
     const cur = designFor(b, bp);
+    // Add fill after a Reset on a video shows what Reset left: no fill, a black stroke (CAP-T7COLOR.json, CAP-T7COLOR4.json).
+    if (k === 'background' && v && b.type === 'video') { if (cur.bgColor === '') d.bgClear = 1; if (cur.strokeColor === '') d.strokeColor = 'rgb(0, 0, 0)'; }
     if (k === 'pad' && v === 'custom') { d.padY = cur.padY ?? PAD_PCT[cur.pad] ?? 6; d.padX = cur.padX ?? PAD_PCT[cur.pad] ?? 6; }
     if (k === 'strokeSize' && v === 'custom') d.strokePx = cur.strokePx ?? STROKE_PX[cur.strokeSize || (b.type === 'shape' ? 'M' : 'S')];
     if (Object.keys(d).length) b[bag] = d; else delete b[bag];
@@ -2511,7 +2531,7 @@ const shapePop = document.createElement('div');
 shapePop.id = 'shape-pop';
 shapePop.hidden = true;
 document.body.append(shapePop);
-function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); }
+function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); blockPanel.querySelector('.st-color.is-open')?.classList.remove('is-open'); }
 const MAP_ORDER = [1, 2, 3, 5, 4, 6]; // Original, Grayscale, Satellite, Dark, Light, Blue
 function setShape(change, label) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -2546,7 +2566,7 @@ function themeInk(b, which) {
   probe.remove();
   return c;
 }
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : b.type === 'video' && designFor(b, bp)[key] === '' ? 'rgb(0, 0, 0)' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
 // On a phone a color set means its own: one that flows down from desktop shows no Reset and no Opacity (CAP-T6RESET.json).
 // A value that flows down shows Reset and Opacity on the phone too, until Reset says to follow (CAP-L6ROWS.json).
 const phoneSet = (b, k, desk) => (bp !== 'mobile' ? !!desk : phoneOwn(b, k) || (!(b.designMobile && k in b.designMobile) && !!desk));
@@ -2556,8 +2576,20 @@ function writeShapeColor(b, key, css) {
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
   if (key === 'lightboxBg') { setFormView(b, bp, key, css); return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
-  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
+  if (css) d[key] = css; else if (bag === 'designMobile' || b.type === 'video') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
+  if (css && key === 'bgColor') delete d.bgClear;
+  if (!css && b.type === 'video' && bag !== 'designMobile') videoReset = b;
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
+}
+// Reset on a video's colour: the block keeps its paint and the swatch goes black, until the block is selected again, when
+// the colour is as on a new fill or stroke, and a block with no fill still has none (CAP-T7COLOR6.json, CAP-T7COLOR9.json, CAP-T7COLOR10.json). A phone's stays (CAP-T7COLOR8.json).
+let videoReset = null;
+function settleVideoColors() {
+  if (!videoReset || (sel && designOpen === sel.bid && sel.bid === videoReset.id)) return;
+  const d = videoReset.design;
+  videoReset = null;
+  if (!d) return;
+  for (const k of ['bgColor', 'strokeColor']) if (d[k] === '') delete d[k];
 }
 // The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
 const secColorOf = (u) => { const s = S(u.sid); if (u.section === 'divider') return s.dividerColor || 'rgb(0, 0, 0)'; return s.bgArt?.colors[Number(u.section.slice(4))] || '#000000'; };
@@ -2652,12 +2684,16 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? phoneSet(b, 'color', b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
+    const video = b.type === 'video' && (kind === 'bgColor' || kind === 'strokeColor'), unset = video && designFor(b, bp)[kind] === '';
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, unset, tabs: video && kind === 'bgColor', set: video ? !unset : kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? phoneSet(b, 'color', b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: video ? kind === 'bgColor' : !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
+    if (video) blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.closest('.st-color')?.classList.add('is-open'); // framed while they're open (CAP-T7COLOR.json)
     shapePop.hidden = false;
     const h = shapePop.offsetHeight;
     // 11 right of the panel, 311 left of it unless 11 stay free at the screen's edge (CAP-T6PLACE.json, CAP-L6ROWS.json). It opens with its bottom 5.5 under the swatch's, and then grows around its middle (CAP-T6RANGE.json, CAP-L6ROWS.json).
-    shapeUi.mid ??= (anchor?.bottom ?? P.top + h) + 5.5 - h / 2;
+    // A video's opens level with the swatch's bottom, and Reset holds its bottom, 39 lower out of the Custom view (CAP-T7COLOR.json, CAP-T7COLOR3.json, CAP-T7COLOR6.json).
+    if (shapeUi.holdBottom != null) { shapeUi.mid = shapeUi.holdBottom - h / 2; shapeUi.holdBottom = null; }
+    shapeUi.mid ??= (anchor?.bottom ?? P.top + h) + (video ? 0 : 5.5) - h / 2;
     shapePop.style.cssText = `left:${P.right + 311 > innerWidth - 11 ? P.left - 311 : P.right + 11}px;top:${Math.max(60, Math.min(shapeUi.mid - h / 2, innerHeight - h - 8))}px`;
   }
   shapePop.hidden = false;
@@ -2745,8 +2781,8 @@ shapePop.addEventListener('click', (e) => {
   const pick = e.target.closest('[data-shape-pick]');
   if (pick) { const id = pick.dataset.shapePick; closeShapePop(); setShape((b) => { if (id === 'rectangle') delete b.shape; else b.shape = id; }, `Shape ${id}`); return; }
   const key = shapeUi.kind;
-  if (e.target.closest('[data-color-custom]')) { const c = colorParts(shapeColorOf(B(sel.sid, sel.bid), key)), hex = toHex(c.rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
-  if (e.target.closest('[data-color-reset]')) { setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
+  if (e.target.closest('[data-color-custom]')) { const b = B(sel.sid, sel.bid), c = colorParts(shapeColorOf(b, key)), hex = toHex(c.rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: b.type === 'video' && designFor(b, bp)[key] === '' ? 'hex' : 'rgb' }; renderShapePop(); return; }
+  if (e.target.closest('[data-color-reset]')) { if (B(sel.sid, sel.bid).type === 'video') { shapeUi.holdBottom = shapePop.getBoundingClientRect().bottom + (shapeUi.custom ? 39 : 0); shapeUi.custom = null; } setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
 });
 // Anchor (CAP-L6ANCHOR.json): a place writes both, a field its own; a phone keeps what it sets, a default on desktop is no value at all.
 function setAnchor(values, label) {
@@ -6167,7 +6203,7 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
+  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
