@@ -1,33 +1,33 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 347,
+ "matched": 410,
  "counts": {
-  "unread": 51,
-  "namedNotOurs": 340,
-  "oursOnly": 1022,
-  "proseOnlyOracle": 75,
-  "proseOnlyOurs": 0,
-  "tabs": 48,
+  "unread": 39,
+  "namedNotOurs": 248,
+  "oursOnly": 561,
+  "proseOnlyOracle": 51,
+  "proseOnlyOurs": 16,
+  "tabs": 30,
   "toolbar": 0,
   "bars": 12,
-  "kinds": 2,
-  "oursOff": 29
+  "kinds": 4,
+  "oursOff": 85
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 107,
-  "headings": 50,
-  "outside": 22,
-  "states": 17,
+  "controls": 83,
+  "headings": 32,
+  "outside": 17,
+  "states": 11,
   "byKind": {
-   "button": 15,
-   "slider": 4,
+   "button": 14,
+   "slider": 1,
    "choice": 18,
-   "switch": 35,
-   "field": 14,
-   "menu": 15,
-   "area": 6
+   "switch": 26,
+   "field": 11,
+   "menu": 8,
+   "area": 5
   },
   "tiles": {
    "Text": {
@@ -484,23 +484,19 @@
     "oursOff": []
    },
    "Calendar": {
-    "standin": true,
     "dialog": "Calendar",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
     "control": [],
     "heading": [],
     "outside": [],
-    "state": [
-     "There are no collections."
-    ],
-    "help": 1,
-    "matched": 0,
+    "state": [],
+    "help": 0,
+    "matched": 1,
     "common": 0,
     "oursOff": []
    },
@@ -556,7 +552,6 @@
     "oursOff": []
    },
    "Chart": {
-    "standin": true,
     "dialog": "Chart",
     "oracleTabs": [
      "Data",
@@ -564,29 +559,27 @@
      "Import / Export"
     ],
     "oursTabs": [
+     "Data",
      "Design",
-     "Animation"
+     "Import / Export"
     ],
-    "control": [
-     "Chart Type (menu)",
-     "Flip X And Y Axes (switch)",
-     "Chart Data (area)",
-     "Chart Title (field)",
-     "Caption (field)",
-     "Show Legend (switch)",
-     "Color Palette (menu)",
-     "Update (button)"
-    ],
-    "heading": [
-     "Import/Export",
-     "Import or Export Chart Data"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [],
-    "help": 2,
-    "matched": 0,
+    "help": 0,
+    "matched": 10,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Chart Type",
+     "Flip X And Y Axes",
+     "Chart Data",
+     "Chart Title",
+     "Caption",
+     "Show Legend",
+     "Color Palette",
+     "Update"
+    ]
    },
    "Code": {
     "oracleTabs": [
@@ -697,78 +690,60 @@
     "oursOff": []
    },
    "Page Link": {
-    "standin": true,
     "dialog": "Content Link",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
     "control": [],
     "heading": [
-     "About",
      "Blocks Probe",
-     "Contact",
      "Gestures Probe",
-     "Home",
-     "How Fluid Engine works",
-     "Services"
+     "How Fluid Engine works"
     ],
     "outside": [],
-    "state": [
-     "Index",
-     "Pages"
-    ],
-    "help": 1,
-    "matched": 0,
+    "state": [],
+    "help": 0,
+    "matched": 6,
     "common": 0,
     "oursOff": []
    },
    "Tag Cloud": {
-    "standin": true,
     "dialog": "Tag Cloud",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
-    "control": [
-     "Display Type (menu)",
-     "Sort By (menu)",
-     "5 Tags (slider)"
-    ],
+    "control": [],
     "heading": [],
     "outside": [],
-    "state": [
-     "There are no collections."
-    ],
-    "help": 2,
-    "matched": 0,
+    "state": [],
+    "help": 0,
+    "matched": 4,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Display Type",
+     "Sort By"
+    ]
    },
    "RSS": {
-    "standin": true,
     "dialog": "RSS Block",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
     "control": [],
     "heading": [],
     "outside": [],
-    "state": [
-     "There are no collections."
-    ],
-    "help": 1,
-    "matched": 0,
+    "state": [],
+    "help": 0,
+    "matched": 1,
     "common": 0,
     "oursOff": []
    },
@@ -809,42 +784,31 @@
     "oursOff": []
    },
    "Instagram": {
-    "standin": true,
     "dialog": "Grid",
     "oracleTabs": [
      "Account",
      "Design"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Account",
+     "Design"
     ],
-    "control": [
-     "10 Items (slider)",
-     "Aspect Ratio (menu)",
-     "Crop Images (switch)",
-     "Lightbox (switch)",
-     "Open Links in New Window (switch)"
-    ],
-    "heading": [
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 14,
+    "common": 0,
+    "oursOff": [
+     "Connected Account",
+     "10 Items",
      "Slideshow",
      "Carousel",
      "Grid",
      "Stacked",
-     "Choose the thumbnails per row.",
-     "Padding around the gridded images."
-    ],
-    "outside": [
-     "Connected Account",
-     "Add an Account"
-    ],
-    "state": [
-     "There is no valid account connected yet. Select an existing connected account fr"
-    ],
-    "help": 1,
-    "matched": 0,
-    "common": 0,
-    "oursOff": []
+     "Lightbox"
+    ]
    },
    "Tock": {
     "standin": true,
@@ -868,61 +832,50 @@
     "oursOff": []
    },
    "SoundCloud": {
-    "standin": true,
     "dialog": "Edit SoundCloud Embed",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
     "control": [],
     "heading": [],
-    "outside": [
-     "Enter a SoundCloud URL here"
-    ],
+    "outside": [],
     "state": [],
-    "help": 1,
-    "matched": 0,
+    "help": 0,
+    "matched": 1,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Enter a SoundCloud URL here"
+    ]
    },
    "Flickr": {
-    "standin": true,
     "dialog": "Grid",
     "oracleTabs": [
      "Account",
      "Design"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Account",
+     "Design"
     ],
-    "control": [
-     "10 Items (slider)",
-     "Aspect Ratio (menu)",
-     "Crop Images (switch)",
-     "Show Title (switch)",
-     "Lightbox (switch)",
-     "Open Links in New Window (switch)"
-    ],
-    "heading": [
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 13,
+    "common": 0,
+    "oursOff": [
+     "Connected Account",
+     "10 Items",
      "Slideshow",
      "Carousel",
      "Grid",
      "Stacked",
-     "Choose the thumbnails per row.",
-     "Padding around the gridded images."
-    ],
-    "outside": [
-     "Connected Account"
-    ],
-    "state": [],
-    "help": 0,
-    "matched": 0,
-    "common": 0,
-    "oursOff": []
+     "Lightbox"
+    ]
    },
    "OpenTable": {
     "standin": true,
@@ -985,28 +938,24 @@
     "oursOff": []
    },
    "Bandsintown": {
-    "standin": true,
     "dialog": "Bandsintown",
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
-    "control": [
-     "Pablo City (field)",
-     "Timeframe to Show (menu)"
-    ],
+    "control": [],
     "heading": [],
-    "outside": [
-     "Band Name"
-    ],
+    "outside": [],
     "state": [],
-    "help": 2,
-    "matched": 0,
+    "help": 0,
+    "matched": 3,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Pablo City",
+     "Timeframe to Show"
+    ]
    }
   }
  },
@@ -1138,16 +1087,6 @@
    "kinds": []
   },
   {
-   "where": "Chart > Import / Export",
-   "name": "Import or Export Chart Data",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Import / Export",
-   "name": "Import or Export Chart Data",
-   "kinds": []
-  },
-  {
    "where": "Search Field > Design",
    "name": "Behavior",
    "kinds": []
@@ -1165,16 +1104,6 @@
   {
    "where": "Search Field phone > Design",
    "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
-   "name": "Index",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
-   "name": "Index",
    "kinds": []
   },
   {
@@ -1215,54 +1144,6 @@
   {
    "where": "Archive phone > Design",
    "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Account",
-   "name": "Connected Account",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Choose the thumbnails per row.",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "Connected Account",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Choose the thumbnails per row.",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Account",
-   "name": "Connected Account",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Choose the thumbnails per row.",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Account",
-   "name": "Connected Account",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Choose the thumbnails per row.",
    "kinds": []
   },
   {
@@ -2515,16 +2396,6 @@
    ]
   },
   {
-   "where": "Calendar > (one view)",
-   "name": "There are no collections.",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > (one view)",
-   "name": "There are no collections.",
-   "kinds": []
-  },
-  {
    "where": "Menu > Content",
    "name": "Menu text",
    "kinds": [
@@ -2575,128 +2446,6 @@
    "where": "Menu phone > Formatting Help",
    "name": "Menu Items",
    "kinds": []
-  },
-  {
-   "where": "Chart > Data",
-   "name": "Import/Export",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Data",
-   "name": "Chart Type",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Chart > Data",
-   "name": "Flip X And Y Axes",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart > Data",
-   "name": "Chart Data",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Chart Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Caption",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Show Legend",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart > Import / Export",
-   "name": "Chart Data",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Chart > Import / Export",
-   "name": "Update",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart phone > Data",
-   "name": "Import/Export",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Data",
-   "name": "Chart Type",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Chart phone > Data",
-   "name": "Flip X And Y Axes",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Data",
-   "name": "Chart Data",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Chart Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Caption",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Show Legend",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Import / Export",
-   "name": "Chart Data",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Chart phone > Import / Export",
-   "name": "Update",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Search Field > Content",
@@ -2766,22 +2515,7 @@
   },
   {
    "where": "Page Link > (one view)",
-   "name": "Pages",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
-   "name": "About",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
    "name": "Blocks Probe",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
-   "name": "Contact",
    "kinds": []
   },
   {
@@ -2791,27 +2525,7 @@
   },
   {
    "where": "Page Link > (one view)",
-   "name": "Home",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
    "name": "How Fluid Engine works",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > (one view)",
-   "name": "Services",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
-   "name": "Pages",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
-   "name": "About",
    "kinds": []
   },
   {
@@ -2821,89 +2535,12 @@
   },
   {
    "where": "Page Link phone > (one view)",
-   "name": "Contact",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
    "name": "Gestures Probe",
    "kinds": []
   },
   {
    "where": "Page Link phone > (one view)",
-   "name": "Home",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
    "name": "How Fluid Engine works",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > (one view)",
-   "name": "Services",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "There are no collections.",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Display Type",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Sort By",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "5 Tags",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "There are no collections.",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Display Type",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Sort By",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "5 Tags",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "RSS > (one view)",
-   "name": "There are no collections.",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > (one view)",
-   "name": "There are no collections.",
    "kinds": []
   },
   {
@@ -3029,136 +2666,6 @@
    ]
   },
   {
-   "where": "Instagram > Account",
-   "name": "10 Items",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Instagram > Account",
-   "name": "Add an Account",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Slideshow",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Carousel",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Grid",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Stacked",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Aspect Ratio",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Crop Images",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Padding around the gridded images.",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Lightbox",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Open Links in New Window",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "10 Items",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "Add an Account",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Slideshow",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Carousel",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Grid",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Stacked",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Aspect Ratio",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Crop Images",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Padding around the gridded images.",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Lightbox",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Open Links in New Window",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
    "where": "Tock > (one view)",
    "name": "Join Tock",
    "kinds": []
@@ -3180,154 +2687,6 @@
    "name": "ALREADY A CUSTOMER",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > (one view)",
-   "name": "Enter a SoundCloud URL here",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > (one view)",
-   "name": "Enter a SoundCloud URL here",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Account",
-   "name": "10 Items",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Slideshow",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Carousel",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Grid",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Stacked",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Aspect Ratio",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Crop Images",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Show Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Padding around the gridded images.",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Lightbox",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Open Links in New Window",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Account",
-   "name": "10 Items",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Slideshow",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Carousel",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Grid",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Stacked",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Aspect Ratio",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Crop Images",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Show Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Padding around the gridded images.",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Lightbox",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Open Links in New Window",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -3456,44 +2815,6 @@
    "name": "Add Padding",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown > (one view)",
-   "name": "Band Name",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > (one view)",
-   "name": "Pablo City",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > (one view)",
-   "name": "Timeframe to Show",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Band Name",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Pablo City",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Timeframe to Show",
-   "kinds": [
-    "menu"
    ]
   },
   {
@@ -5678,349 +4999,14 @@
    ]
   },
   {
-   "where": "Calendar > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Styling",
+   "where": "Calendar > (one view)",
+   "name": "Calendar",
    "kinds": []
   },
   {
-   "where": "Calendar > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Transforms",
+   "where": "Calendar phone > (one view)",
+   "name": "Calendar",
    "kinds": []
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Calendar > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Calendar > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Calendar phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Calendar phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Map > Design",
@@ -6382,337 +5368,6 @@
    ]
   },
   {
-   "where": "Chart > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Chart > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Chart phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Chart phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
    "where": "Code > Content",
    "name": "Expand",
    "kinds": [
@@ -6951,1039 +5606,34 @@
    ]
   },
   {
-   "where": "Page Link > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Styling",
+   "where": "Page Link > (one view)",
+   "name": "Content Link",
    "kinds": []
   },
   {
-   "where": "Page Link > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Transforms",
+   "where": "Page Link phone > (one view)",
+   "name": "Content Link",
    "kinds": []
   },
   {
-   "where": "Page Link > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Scale",
+   "where": "Tag Cloud > (one view)",
+   "name": "Tag Cloud",
    "kinds": []
   },
   {
-   "where": "Page Link > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Offset",
+   "where": "Tag Cloud phone > (one view)",
+   "name": "Tag Cloud",
    "kinds": []
   },
   {
-   "where": "Page Link > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Skew",
+   "where": "RSS > (one view)",
+   "name": "RSS Block",
    "kinds": []
   },
   {
-   "where": "Page Link > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Anchor",
+   "where": "RSS phone > (one view)",
+   "name": "RSS Block",
    "kinds": []
-  },
-  {
-   "where": "Page Link > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Page Link > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Page Link phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Page Link phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tag Cloud phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Tag Cloud phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "RSS > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "RSS phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "RSS phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Archive > Design",
@@ -8082,351 +5732,6 @@
    ]
   },
   {
-   "where": "Instagram > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Instagram > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Instagram phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Instagram phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
    "where": "Tock > Design",
    "name": "Shape style",
    "kinds": [
@@ -8772,694 +6077,24 @@
    ]
   },
   {
-   "where": "SoundCloud > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Styling",
+   "where": "SoundCloud > (one view)",
+   "name": "Edit SoundCloud Embed",
    "kinds": []
   },
   {
-   "where": "SoundCloud > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "SoundCloud phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "SoundCloud phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Styling",
+   "where": "SoundCloud phone > (one view)",
+   "name": "Edit SoundCloud Embed",
    "kinds": []
   },
   {
    "where": "Flickr > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Flickr > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Styling",
+   "name": "Show the title below the image",
    "kinds": []
   },
   {
    "where": "Flickr phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Transforms",
+   "name": "Show the title below the image",
    "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Flickr phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Flickr phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "OpenTable > Design",
@@ -9738,349 +6373,14 @@
    ]
   },
   {
-   "where": "Bandsintown > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Styling",
+   "where": "Bandsintown > (one view)",
+   "name": "Bandsintown",
    "kinds": []
   },
   {
-   "where": "Bandsintown > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Transforms",
+   "where": "Bandsintown phone > (one view)",
+   "name": "Bandsintown",
    "kinds": []
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Bandsintown phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Bandsintown phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
   },
   {
    "where": "Section panel > Design",
@@ -10299,14 +6599,6 @@
    "name": "about how we handle your customers’ personal information."
   },
   {
-   "where": "Calendar > (one view)",
-   "name": "Display events, blog posts, products, or gallery images as a calendar. Start by "
-  },
-  {
-   "where": "Calendar phone > (one view)",
-   "name": "Display events, blog posts, products, or gallery images as a calendar. Start by "
-  },
-  {
    "where": "Map > Content",
    "name": "Your use of Google Maps is subject to the Google Maps/Google Earth and the Googl"
   },
@@ -10387,22 +6679,6 @@
    "name": "Lunch ======== Optional menu description"
   },
   {
-   "where": "Chart > Data",
-   "name": "Add compelling data visualizations to your site by entering the data below or pa"
-  },
-  {
-   "where": "Chart > Import / Export",
-   "name": "Your data is provided here in CSV (comma separated value) format. You can copy t"
-  },
-  {
-   "where": "Chart phone > Data",
-   "name": "Add compelling data visualizations to your site by entering the data below or pa"
-  },
-  {
-   "where": "Chart phone > Import / Export",
-   "name": "Your data is provided here in CSV (comma separated value) format. You can copy t"
-  },
-  {
    "where": "Search Field > Content",
    "name": "Add a search field to your page that returns results from across your site, or l"
   },
@@ -10419,68 +6695,12 @@
    "name": "A dropdown under the search block will allow a quicker access to the search resu"
   },
   {
-   "where": "Page Link > (one view)",
-   "name": "Create a visual link to a page within your site that includes its associated tit"
-  },
-  {
-   "where": "Page Link phone > (one view)",
-   "name": "Create a visual link to a page within your site that includes its associated tit"
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Display tags or categories from one of your pages arranged in a fun cloud format"
-  },
-  {
-   "where": "Tag Cloud > (one view)",
-   "name": "Pick the number of tags to show in the cloud."
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Display tags or categories from one of your pages arranged in a fun cloud format"
-  },
-  {
-   "where": "Tag Cloud phone > (one view)",
-   "name": "Pick the number of tags to show in the cloud."
-  },
-  {
-   "where": "RSS > (one view)",
-   "name": "Create a link to your Blog Page's RSS feed to encourage visitors to subscribe us"
-  },
-  {
-   "where": "RSS phone > (one view)",
-   "name": "Create a link to your Blog Page's RSS feed to encourage visitors to subscribe us"
-  },
-  {
-   "where": "Instagram > Account",
-   "name": "Display your own Instagram feed on your site and choose between four different l"
-  },
-  {
-   "where": "Instagram > Account",
-   "name": "There is no valid account connected yet. Select an existing connected account fr"
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "Display your own Instagram feed on your site and choose between four different l"
-  },
-  {
-   "where": "Instagram phone > Account",
-   "name": "There is no valid account connected yet. Select an existing connected account fr"
-  },
-  {
    "where": "Tock > (one view)",
    "name": "The reservation platform built for hospitality. Restaurants, bars, wineries, and"
   },
   {
    "where": "Tock phone > (one view)",
    "name": "The reservation platform built for hospitality. Restaurants, bars, wineries, and"
-  },
-  {
-   "where": "SoundCloud > (one view)",
-   "name": "Paste the URL of a SoundCloud track, playlist, or profile to embed a player on t"
-  },
-  {
-   "where": "SoundCloud phone > (one view)",
-   "name": "Paste the URL of a SoundCloud track, playlist, or profile to embed a player on t"
   },
   {
    "where": "Zola > Content",
@@ -10491,27 +6711,92 @@
    "name": "Enter your Zola registry name to display items from your registry. Sign up for a"
   },
   {
-   "where": "Bandsintown > (one view)",
-   "name": "Display tour dates from your Bandsintown profile, and allow visitors to RSVP to "
-  },
-  {
-   "where": "Bandsintown > (one view)",
-   "name": "Enter your band's name as it appears within your Bandsintown account."
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Display tour dates from your Bandsintown profile, and allow visitors to RSVP to "
-  },
-  {
-   "where": "Bandsintown phone > (one view)",
-   "name": "Enter your band's name as it appears within your Bandsintown account."
-  },
-  {
    "where": "Section panel > Colors",
    "name": "Select a color theme for this section. To change a theme's colors, visit the ."
   }
  ],
- "proseOnlyOurs": [],
+ "proseOnlyOurs": [
+  {
+   "where": "Calendar > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Calendar phone > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Page Link > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Page Link phone > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Tag Cloud > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Tag Cloud phone > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "RSS > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "RSS phone > (one view)",
+   "name": "Start by selecting one of your pages below:",
+   "kinds": []
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Clicking on the images will pop the image up in a lightbox.",
+   "kinds": []
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Images with links will open in a new window.",
+   "kinds": []
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Clicking on the images will pop the image up in a lightbox.",
+   "kinds": []
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Images with links will open in a new window.",
+   "kinds": []
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Clicking on the images will pop the image up in a lightbox.",
+   "kinds": []
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Images with links will open in a new window.",
+   "kinds": []
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Clicking on the images will pop the image up in a lightbox.",
+   "kinds": []
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Images with links will open in a new window.",
+   "kinds": []
+  }
+ ],
  "tabs": [
   {
    "type": "Scrolling",
@@ -10720,27 +7005,6 @@
    ]
   },
   {
-   "type": "Calendar",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Calendar"
-  },
-  {
-   "type": "Calendar phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
    "type": "Menu",
    "oracle": [
     "Content",
@@ -10758,31 +7022,6 @@
     "Content",
     "Design",
     "Formatting Help"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Chart",
-   "oracle": [
-    "Data",
-    "Design",
-    "Import / Export"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Chart"
-  },
-  {
-   "type": "Chart phone",
-   "oracle": [
-    "Data",
-    "Design",
-    "Import / Export"
    ],
    "ours": [
     "Design",
@@ -10814,69 +7053,6 @@
    ]
   },
   {
-   "type": "Page Link",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Content Link"
-  },
-  {
-   "type": "Page Link phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Tag Cloud",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Tag Cloud"
-  },
-  {
-   "type": "Tag Cloud phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "RSS",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "RSS Block"
-  },
-  {
-   "type": "RSS phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
    "type": "Archive",
    "oracle": [
     "Content",
@@ -10901,29 +7077,6 @@
    ]
   },
   {
-   "type": "Instagram",
-   "oracle": [
-    "Account",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Grid"
-  },
-  {
-   "type": "Instagram phone",
-   "oracle": [
-    "Account",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
    "type": "Tock",
    "oracle": [
     "(one view)"
@@ -10937,50 +7090,6 @@
    "type": "Tock phone",
    "oracle": [
     "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "SoundCloud",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Edit SoundCloud Embed"
-  },
-  {
-   "type": "SoundCloud phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Flickr",
-   "oracle": [
-    "Account",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Grid"
-  },
-  {
-   "type": "Flickr phone",
-   "oracle": [
-    "Account",
-    "Design"
    ],
    "ours": [
     "Design",
@@ -11029,27 +7138,6 @@
     "Content",
     "Design",
     "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Bandsintown",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ],
-   "dialog": "Bandsintown"
-  },
-  {
-   "type": "Bandsintown phone",
-   "oracle": [
-    "(one view)"
    ],
    "ours": [
     "Design",
@@ -11148,6 +7236,26 @@
    "ours": [
     "button"
    ]
+  },
+  {
+   "where": "Chart > Data",
+   "name": "Chart Data",
+   "oracle": [
+    "field"
+   ],
+   "ours": [
+    "area"
+   ]
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Chart Data",
+   "oracle": [
+    "field"
+   ],
+   "ours": [
+    "area"
+   ]
   }
  ],
  "oursOff": [
@@ -11232,6 +7340,78 @@
    "name": "Add a new animation"
   },
   {
+   "where": "Chart > Data",
+   "name": "Chart Type"
+  },
+  {
+   "where": "Chart > Data",
+   "name": "Flip X And Y Axes"
+  },
+  {
+   "where": "Chart > Data",
+   "name": "Chart Data"
+  },
+  {
+   "where": "Chart > Design",
+   "name": "Chart Title"
+  },
+  {
+   "where": "Chart > Design",
+   "name": "Caption"
+  },
+  {
+   "where": "Chart > Design",
+   "name": "Show Legend"
+  },
+  {
+   "where": "Chart > Design",
+   "name": "Color Palette"
+  },
+  {
+   "where": "Chart > Import / Export",
+   "name": "Chart Data"
+  },
+  {
+   "where": "Chart > Import / Export",
+   "name": "Update"
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Chart Type"
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Flip X And Y Axes"
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Chart Data"
+  },
+  {
+   "where": "Chart phone > Design",
+   "name": "Chart Title"
+  },
+  {
+   "where": "Chart phone > Design",
+   "name": "Caption"
+  },
+  {
+   "where": "Chart phone > Design",
+   "name": "Show Legend"
+  },
+  {
+   "where": "Chart phone > Design",
+   "name": "Color Palette"
+  },
+  {
+   "where": "Chart phone > Import / Export",
+   "name": "Chart Data"
+  },
+  {
+   "where": "Chart phone > Import / Export",
+   "name": "Update"
+  },
+  {
    "where": "Code phone > Animation",
    "name": "Add a new animation"
   },
@@ -11256,8 +7436,144 @@
    "name": "Add a new animation"
   },
   {
+   "where": "Tag Cloud > (one view)",
+   "name": "Display Type"
+  },
+  {
+   "where": "Tag Cloud > (one view)",
+   "name": "Sort By"
+  },
+  {
+   "where": "Tag Cloud phone > (one view)",
+   "name": "Display Type"
+  },
+  {
+   "where": "Tag Cloud phone > (one view)",
+   "name": "Sort By"
+  },
+  {
    "where": "Archive phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Instagram > Account",
+   "name": "Connected Account"
+  },
+  {
+   "where": "Instagram > Account",
+   "name": "10 Items"
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Slideshow"
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Carousel"
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Grid"
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Stacked"
+  },
+  {
+   "where": "Instagram > Design",
+   "name": "Lightbox"
+  },
+  {
+   "where": "Instagram phone > Account",
+   "name": "Connected Account"
+  },
+  {
+   "where": "Instagram phone > Account",
+   "name": "10 Items"
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Slideshow"
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Carousel"
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Grid"
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Stacked"
+  },
+  {
+   "where": "Instagram phone > Design",
+   "name": "Lightbox"
+  },
+  {
+   "where": "SoundCloud > (one view)",
+   "name": "Enter a SoundCloud URL here"
+  },
+  {
+   "where": "SoundCloud phone > (one view)",
+   "name": "Enter a SoundCloud URL here"
+  },
+  {
+   "where": "Flickr > Account",
+   "name": "Connected Account"
+  },
+  {
+   "where": "Flickr > Account",
+   "name": "10 Items"
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Slideshow"
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Carousel"
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Grid"
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Stacked"
+  },
+  {
+   "where": "Flickr > Design",
+   "name": "Lightbox"
+  },
+  {
+   "where": "Flickr phone > Account",
+   "name": "Connected Account"
+  },
+  {
+   "where": "Flickr phone > Account",
+   "name": "10 Items"
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Slideshow"
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Carousel"
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Grid"
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Stacked"
+  },
+  {
+   "where": "Flickr phone > Design",
+   "name": "Lightbox"
   },
   {
    "where": "OpenTable phone > Animation",
@@ -11266,6 +7582,22 @@
   {
    "where": "Zola phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Bandsintown > (one view)",
+   "name": "Pablo City"
+  },
+  {
+   "where": "Bandsintown > (one view)",
+   "name": "Timeframe to Show"
+  },
+  {
+   "where": "Bandsintown phone > (one view)",
+   "name": "Pablo City"
+  },
+  {
+   "where": "Bandsintown phone > (one view)",
+   "name": "Timeframe to Show"
   }
  ]
 }
