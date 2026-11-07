@@ -5,12 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here. Entries with source CAP-COVERAGE.json come from the coverage walk: parity/coverage-check.json lists them, npm run coverage-check compares.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
-    "total": 151,
+    "total": 154,
     "yes": 115,
-    "no": 36,
+    "no": 39,
     "read": 108,
     "notPressed": 0,
-    "open": 43
+    "open": 46
   },
   "entries": [
     {
@@ -1620,6 +1620,15 @@
       "item": "U12",
       "what": "A pick in the font list, typing in Search all fonts, and what In Use holds with more than one font.",
       "source": "CAP-U12FONTLIST.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "An Assign Styles row: what a pick draws, whether the Form Block rows share a store with Forms > Fonts, and what a row other than Header Button shows at Style Custom. Their lists are read, on Site Title and Forms > Fonts' rows only.",
+      "source": "CAP-U12ASSIGN.json, CAP-U12ASSIGNPREDICT.json",
       "safeRead": "no",
       "why": "needs a pick in Site Styles, which reaches the whole site; read only",
       "lane": "none",
