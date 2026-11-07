@@ -1,0 +1,432 @@
+{
+  "item": "CAP-T11ZOOMKEYS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "88: Map Zoom, one key at a time: the field after each key, then Tab",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "1",
+      "1"
+    ],
+    [
+      "read",
+      "focused",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "End"
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "read",
+      "End, Backspace",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "2"
+    ],
+    [
+      "read",
+      "2",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "3"
+    ],
+    [
+      "read",
+      "3",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "read",
+      "Backspace",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "9"
+    ],
+    [
+      "read",
+      "9",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "5"
+    ],
+    [
+      "read",
+      "5",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "0"
+    ],
+    [
+      "read",
+      "0",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "read",
+      "after Tab",
+      {
+        "parts": [
+          "Zoom"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "zoomkeys"
+    ]
+  ],
+  "reads": {
+    "0": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "0",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "1",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "3": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "1.2",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "5": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "0.3",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "9": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "0",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "start": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "1",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "focused": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "1",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "End, Backspace": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "1",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Backspace": {
+      "focused": {
+        "tag": "input",
+        "label": "Zoom",
+        "value": "0.01",
+        "box": [
+          743.7,
+          517,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "after Tab": {
+      "parts": {
+        "Zoom": [
+          {
+            "tag": "label",
+            "type": null,
+            "label": "Zoom",
+            "value": null,
+            "checked": null,
+            "pressed": null,
+            "box": [
+              595,
+              528,
+              44.5,
+              22
+            ]
+          },
+          {
+            "tag": "input",
+            "type": "text",
+            "label": "Zoom",
+            "value": "0",
+            "checked": false,
+            "pressed": null,
+            "box": [
+              743.7,
+              517,
+              66,
+              44
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "decrement",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              821,
+              521,
+              36,
+              36
+            ]
+          },
+          {
+            "tag": "button",
+            "type": "submit",
+            "label": "increment",
+            "value": "",
+            "checked": null,
+            "pressed": null,
+            "box": [
+              852,
+              521,
+              36,
+              36
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

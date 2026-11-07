@@ -1,0 +1,39 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10 mixes: a section with one of the 20 types and one other block. Is View Layouts on, and which list (tile count and heights)? Predictions pushed and frozen before any read. One mix per capture on Blocks Probe, unsaved, list opened only, no picks.",
+ "basis": "parity/findings/CAP-VIEWLAYOUTS.json (i1, i1b1, p1, p1i1), CAP-U10PICK-*.json, CAP-U10FAMILYPREDICT.json",
+ "predictions": [
+  {
+   "case": "Map + Button",
+   "predict": "on; 7 tiles, i1b1's list with Map as the image: tile heights 118.8, 118.8, 146.3, 170.2, 156.4, 192.3, 173.6 (each within 1px)",
+   "why": "Map alone has Image alone's list exactly, places, rows and tile heights"
+  },
+  {
+   "case": "Video + Button",
+   "predict": "on; 7 tiles, i1b1's list with Video as the image; heights not predicted (a Video's height follows its width)",
+   "why": "Video alone has Image alone's columns and row starts"
+  },
+  {
+   "case": "Code + Image",
+   "predict": "on; 7 tiles, p1i1's list with Code as the paragraph",
+   "why": "Code's 5 tiles are p1's 6 less its second (places, rows past the block, style)"
+  },
+  {
+   "case": "Quote + Image",
+   "predict": "on; 7 tiles, as Code + Image",
+   "why": "Quote is in Code's family"
+  },
+  {
+   "case": "Map + Code",
+   "predict": "on; 7 tiles, p1i1's list with Map as the image and Code as the paragraph",
+   "why": "both of the above"
+  },
+  {
+   "case": "Instagram + Button",
+   "predict": "off",
+   "why": "weak: Instagram's family has no image or text partner read"
+  }
+ ],
+ "scored": "4 of 6 held (CAP-U10MIX-*.json), on on/off and tile count; no picks read, so no places. Held: Video + Button on, 7 tiles (136.4, 136.4, 162.8, 207.3, 215.2, 250, 256.6); Image + Code on, 7 tiles (118.8, 118.8, 145.7, 161.6, 155.8, 183.7, 165; p1i1's are 118.8, 118.8, 150, 166, 160.1, 188, 165); Image + Quote on, 7 tiles (118.8, 118.8, 169.3, 185.2, 179.4, 208, 186.1); Instagram + Button off. Missed: Map + Button on but 8 tiles (132.6, 164.5, 162.2, 164.5, 179.3, 171.4, 180.4, 204.4), not i1b1's 7; Map + Code on, 8 tiles, the same heights but its third (153.6). So a Map in a mix is not an image: a Map mix has an 8 tile list of its own."
+}
