@@ -465,7 +465,25 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
   // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
-  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs }));
+  // Difference 82: the Undo button lets a block selected with only its toolbar go, Cmd+Z keeps it (CAP-82UNDO.json), by real keys and presses.
+  { const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-82UNDO.json', import.meta.url))).reads;
+    evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [] }] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`);
+    const read = () => evalJs(S, `(() => { const tb = document.getElementById('block-toolbar'); return JSON.stringify({ selected: !!tb && !tb.hidden && tb.getBoundingClientRect().width > 0, areas: fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/')).sort() }); })()`);
+    const pick = async (type) => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), id = fe.model.sections[0].blocks.find((b) => b.id.startsWith('${type.toLowerCase()}-')).id, r = f.contentDocument.querySelector('.fe-block[data-block-id="' + id + '"]').getBoundingClientRect(); return JSON.stringify([q.left + r.left + r.width / 2, q.top + r.top + r.height / 2]); })()`); mouse(S, 'move', p[0], p[1]); await pause(40); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(40); mouse(S, 'up', p[0], p[1]); await pause(300); };
+    for (const type of ['Shape', 'Button', 'Text']) {
+      evalJs(S, `(() => { fe.addBlock('s', ${JSON.stringify(type)}, true); return 1; })()`); await pause(200);
+      browser(S, 'press', 'Escape'); await pause(200);
+      const got = {};
+      await pick(type); browser(S, 'press', 'ArrowRight'); await pause(300); browser(S, 'click', '#undo'); await pause(300); got.Undo = read();
+      browser(S, 'press', 'Escape'); await pause(200);
+      await pick(type); browser(S, 'press', 'ArrowRight'); await pause(300); browser(S, 'press', 'Meta+z'); await pause(300); got['Cmd+Z'] = read();
+      browser(S, 'press', 'Escape'); await pause(200);
+      for (const [how, ours] of Object.entries(got)) {
+        const r = U[`${type} ${how}`], selected = r.controls.some((c) => ['Edit', 'Remove', 'Duplicate'].includes(c.label)), areas = r.areas.map((a) => a[0]).sort();
+        groupCases.push({ name: `82 ${type} ${how}: ${selected ? 'kept' : 'let go'}`, diffs: [ours.selected !== selected && `selected: oracle ${selected}, ours ${ours.selected}`, ours.areas.join() !== areas.join() && `areas: oracle ${areas}, ours ${ours.areas}`].filter(Boolean) });
+      }
+    } }
   // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
   evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);

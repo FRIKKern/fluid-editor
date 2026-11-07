@@ -155,9 +155,13 @@ function phoneFollowsMove(s, was) {
 
 // A drag leaves the focus in Animation's field, and a focused field keeps the panel from redrawing.
 const leaveAnimField = () => { if (document.activeElement?.matches?.('#block-panel [data-afield]')) document.activeElement.blur(); };
-function undo() {
+function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
+  // The Undo button lets a block selected with only its toolbar go as well; Cmd+Z keeps it (CAP-E7REOPEN3.json "Clear, Undo",
+  // CAP-82UNDO.json). Not read: with a panel, menu or popover open, or a group: the block stays.
+  const bare = button && !ed && sel && !sel.more?.length && designOpen !== sel.bid && !vAlignOpen && !shapeUi
+    && [linkPop, pinPop, addMenu, layersPanel, contextMenu, layoutsPanel, $('button-style-menu'), $('arrange-menu')].every((el) => el.hidden);
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
@@ -170,7 +174,7 @@ function undo() {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed) select(null);
+  if (ed || bare) select(null);
 }
 function redo() {
   const ed = editing;
@@ -6592,7 +6596,7 @@ document.addEventListener('click', (e) => {
   finishTextEdit();
   if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
 }, true);
-$('undo').addEventListener('click', undo);
+$('undo').addEventListener('click', () => undo(true));
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
   if (persist()) {
