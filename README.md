@@ -25,13 +25,12 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 92 changes
+- **Today** · 1 change
+  - T15: Blend Mode mixes with the section (89) ([#385](https://github.com/FRIKKern/fluid-editor/pull/385))
+- **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
-  - U4: each Pin option keeps its own Offset (97) ([#382](https://github.com/FRIKKern/fluid-editor/pull/382))
-- **Yesterday** · 112 changes
+- **This week** · 272 changes, 3 milestones closed
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
-- **This week** · 160 changes, 3 milestones closed
-  - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
