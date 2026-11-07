@@ -1,0 +1,161 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Quote: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Quote",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Quote",
+     "kind": "area",
+     "name": "Quote",
+     "value": "Whatever it is, the way you tell your story online can make all the difference.",
+     "to": "Whatever it is, the way you tell your story online can make all tAbhe difference.",
+     "change": [
+      "BLOCKQUOTE w: Whatever it is, the way you  .. can make all > Whatever it is, the way you  .. n make all t"
+     ]
+    },
+    {
+     "row": "Source",
+     "kind": "area",
+     "name": "Source",
+     "value": "Quote Source",
+     "to": "Quote SourceAb",
+     "change": [
+      "FIGCAPTION.source w: — Quote Source > — Quote SourceAb"
+     ]
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Effects",
+     "kind": "menu",
+     "name": "Appear",
+     "value": "Appear",
+     "options": [
+      "Site Default",
+      "None",
+      "Fade In",
+      "Slide Up",
+      "Focus In",
+      "Reveal"
+     ],
+     "picked": "Site Default",
+     "change": []
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "pressed": "Add Block, Quote, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
+ "answer": "Quote: tabs Content, Design, Animation. 14 rows read, 2 changed the block when changed. Each row below has its default and what the change did."
+}
