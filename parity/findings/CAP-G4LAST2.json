@@ -1,0 +1,263 @@
+{
+  "item": "CAP-G4LAST2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4: a phone group whose box is on the left margin while the first-selected block is in column 2, moved right.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -235,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "e",
+      -235,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      -20,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "set up",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "group",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "middle",
+      340,
+      0
+    ],
+    [
+      "read",
+      "phone group, box on the margin",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "shot",
+      "end"
+    ]
+  ],
+  "reads": {
+    "set up": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/5"
+        ],
+        [
+          "1/2/7/8",
+          "7/1/13/4"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/5"
+        ],
+        [
+          "1/2/7/8",
+          "7/1/13/4"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "phone group, box on the margin": {
+      "walk": {
+        "part": "middle",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/1/13/5"
+          ],
+          [
+            14,
+            "1/2/13/6"
+          ],
+          [
+            56,
+            "1/3/13/7"
+          ],
+          [
+            105,
+            "1/4/13/8"
+          ],
+          [
+            153,
+            "1/5/13/9"
+          ],
+          [
+            201,
+            "1/6/13/10"
+          ],
+          [
+            255,
+            "1/7/13/11"
+          ]
+        ],
+        "xBack": [
+          [
+            254,
+            "1/6/13/10"
+          ],
+          [
+            200,
+            "1/5/13/9"
+          ],
+          [
+            152,
+            "1/4/13/8"
+          ],
+          [
+            104,
+            "1/3/13/7"
+          ],
+          [
+            55,
+            "1/2/13/6"
+          ],
+          [
+            13,
+            "1/1/13/5"
+          ]
+        ],
+        "xHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/5"
+        ],
+        [
+          "1/2/7/8",
+          "7/1/13/4"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
