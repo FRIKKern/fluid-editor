@@ -28,6 +28,12 @@ const FRESH = [['exit'], ['enter'], ['blank'], ...NEWTEXT];
 const ENTERS = (n) => Array.from({ length: n }, () => ['press', 'Enter']);
 const FAST = (n) => [['keysGap', 100, Array.from({ length: n }, () => 'Enter')]];
 const WALK = (name, keys) => keys.flatMap((k, n) => [['pressNamed', k], ['pause', 500], ['read', `${name} ${n + 1} ${k}`, ESCR]]);
+const WORD1 = ' longer line of words that runs on past the end of the block';
+const WORD2 = ' and then on and on over a second line and more words to fill it';
+const WORD3 = ' and then again on and on over a third line and more words to fill';
+const WORD4 = ' and then again on and on over a fourth line and more words to fill';
+const WORD5 = ' and then again on and on over a fifth line and more words to fill it';
+const THREE_LINES = [WORD1, WORD2, WORD3].flatMap((w) => [['keysFast', w], ['pause', 1300]]);
 const LEAVE = [['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300]];
 // Cmd+Z (z) and Cmd+Shift+Z (y), reading after each.
 const ZS = (name, keys) => keys.flatMap((k, n) => [['press', k === 'z' ? 'Meta+z' : 'Meta+Shift+z'], ['pause', 300], ['read', `${name} ${n + 1} ${k}`, ESCR]]);
@@ -137,6 +143,11 @@ export const RECIPES = {
     ['exit'], ['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['pause', 200], ['drag', 0, 'new', 'middle', 0, 120], ['pause', 400], ['press', 'Escape'], ['pause', 300], ['pick', 0, 0], ['click', 'Write'], ['keys', 'a'], ['pause', 1300], ...FAST(3), ['pause', 1300], ...FAST(4), ['pause', 1300], ['read', 'rows P typed', { areas: 0, has: ['Bold', 'Write'] }], ...['z', 'z', 'y', 'y'].flatMap((k, n) => [['press', k === 'z' ? 'Meta+z' : 'Meta+Shift+z'], ['pause', 300], ['read', `rows P ${n + 1} ${k}`, { areas: 0, has: ['Bold', 'Write'] }]]), ...LEAVE, ...['Undo', 'Undo', 'Redo'].flatMap((k, n) => [['pressNamed', k], ['pause', 500], ['read', `rows P left ${n + 1} ${k}`, { areas: 0 }]]),
     ...FRESH, ['keys', 'abc'], ['pause', 1300], ['keysFast', ' longer line of words that runs on past the end of the block'], ['pause', 1300], ['keysFast', ' and then on and on over a second line and a third line and more and more and more and more words'], ['pause', 1300], ['read', 'rows Q typed', ESCR], ...ZS('rows Q', ['z', 'z', 'y', 'y']), ...LEAVE,
     ...FRESH, ['keys', 'a'], ['pause', 1300], ...FAST(3), ['pause', 300], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ['press', 'End'], ...FAST(3), ['pause', 1300], ['read', 'rows R typed', ESCR], ...ZS('rows R', ['z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE,
+  ] },
+  'CAP-Y2KEYS6': { question: 'Y2: rows on going back over wrapped text, one line at a time, with and without spare rows. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'abc'], ['pause', 1300], ...THREE_LINES, ['read', 'rows S typed', ESCR], ...ZS('rows S', ['z', 'z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'abc'], ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['keysFast', WORD4], ['pause', 1300], ['keysFast', WORD5], ['pause', 1300], ['read', 'rows T typed', ESCR], ...ZS('rows T', ['z', 'z', 'z', 'z', 'z', 'z', 'y', 'y', 'y', 'y', 'y']), ...LEAVE,
   ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
