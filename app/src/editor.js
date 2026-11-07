@@ -4193,7 +4193,7 @@ function textUndo(ed) {
   const lost = height - textHeight(b);
   if (lost > 0 && !fromPage) {
     const was = to;
-    to = textFall(ed, now, was, lost);
+    to = textFall(ed, now, was, lost, textHeight(b));
     showTextStep(ed, to);
     noteTextRise(ed, to, was, textHeight(b));
   }
@@ -4317,7 +4317,7 @@ function commitTextSteps(ed, height) {
   const heights = steps.map((m, k) => (k ? ed.stepHeights?.get(m) : ed.height0));
   for (let k = steps.length - 1; k >= 0; k--) {
     const lost = (heights[k + 1] ?? height) - heights[k];
-    if (lost > 0) { const full = steps[k]; steps[k] = textFall(ed, steps[k + 1] ?? now, full, lost); noteTextRise(ed, steps[k], full, heights[k]); }
+    if (lost > 0) { const full = steps[k]; steps[k] = textFall(ed, steps[k + 1] ?? now, full, lost, heights[k]); noteTextRise(ed, steps[k], full, heights[k]); }
   }
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
@@ -4355,13 +4355,17 @@ const noteTextRise = (ed, short, full, height) => {
 // Going back over a step that made the text taller: the old text comes back, and the rows are the larger of what the
 // block has now and what the step had, less the height lost and a gap, rounded up, so the text can come back a row
 // short. One row at least. Spare rows are not given back (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14,
-// CAP-TEXTPUSH6.json v7 and v8, CAP-Y2KEYS3.json, CAP-Y2KEYS4.json).
-function textFall(ed, live, target, lost) {
+// CAP-TEXTPUSH6.json v7 and v8, CAP-Y2KEYS3.json, CAP-Y2KEYS4.json). Where only wrapped lines went, with the same
+// paragraphs, the text keeps the rows it needs (CAP-Y2KEYS6.json).
+const textBlocksIn = (html) => (html.match(/<\/(p|h[1-4]|pre|li)>/g) ?? []).length;
+function textFall(ed, live, target, lost, height) {
   const m = JSON.parse(live), s = m.sections.find((o) => o.id === ed.sid), b = s.blocks.find((o) => o.id === ed.bid);
   const t = JSON.parse(target).sections.find((o) => o.id === ed.sid)?.blocks.find((o) => o.id === ed.bid);
   if (!b || !t) return target;
   const a = b.layout[bp].area, rows = a[2] - a[0], then = t.layout[bp].area;
-  const next = Math.max(1, Math.max(rows, then[2] - then[0]) - Math.ceil((lost + ed.m.rg) / ed.m.pitch - 0.02));
+  const most = Math.max(rows, then[2] - then[0]);
+  let next = Math.max(1, most - Math.ceil((lost + ed.m.rg) / ed.m.pitch - 0.02));
+  if (textBlocksIn(b.html) === textBlocksIn(t.html)) next = Math.max(next, Math.min(most, Math.ceil((height + ed.m.rg) / ed.m.pitch - 0.02)));
   moveWithText(s, b, a, next - rows);
   a[2] = a[0] + next;
   b.html = t.html;
