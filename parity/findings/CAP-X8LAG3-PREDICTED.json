@@ -1,0 +1,111 @@
+{
+ "item": "CAP-X8LAG3-PREDICTED",
+ "from": "our code with refit 2, the last, of the stored-rows rule (this commit), run with these steps before any read of CAP-X8LAG3. Refit 1's rule, and a block ending on the short block's bottom line grows if it starts on or above the short block's top, and moves if it starts below. Refit 1 scored 14 of 18 fresh on CAP-X8LAG2.",
+ "question": "X8 lag, refit 2, new shapes with the Text's top at row 3 and its bottom line at 7 (Shapes placed first, the Text moved down last): n1 a group Shape 1..7, Text taller; n2 a group Shape 3..7, Text moved; n3 a group Shape 4..7, Text wider; n4 a group Shape across the line and a block outside the group 2..7, Text taller; n5 the same with the outside block 5..7, Text moved; n6 a group Shape 1..3 above the line, Text taller. Read for each: start, after the drop (with every grid number and the Text's content height), after the gesture, after Escape and letting go. Own count, the last round. Each cell lists the blocks' desktop areas from ours in DOM order.",
+ "reads": {
+  "n1 start": [
+   "3/2/7/12",
+   "1/14/7/20"
+  ],
+  "n1 dropped": [
+   "3/2/7/9",
+   "1/10/7/14"
+  ],
+  "n1 next": [
+   "3/2/9/9",
+   "1/10/8/14"
+  ],
+  "n1 next let go": [
+   "3/2/9/9",
+   "1/10/8/14"
+  ],
+  "n2 start": [
+   "3/2/7/12",
+   "3/14/7/20"
+  ],
+  "n2 dropped": [
+   "3/2/7/9",
+   "3/10/7/14"
+  ],
+  "n2 next": [
+   "4/2/9/9",
+   "3/10/8/14"
+  ],
+  "n2 next let go": [
+   "4/2/9/9",
+   "3/10/8/14"
+  ],
+  "n3 start": [
+   "3/2/7/12",
+   "4/14/7/20"
+  ],
+  "n3 dropped": [
+   "3/2/7/9",
+   "4/10/7/14"
+  ],
+  "n3 next": [
+   "3/2/8/10",
+   "5/10/8/14"
+  ],
+  "n3 next let go": [
+   "3/2/8/10",
+   "5/10/8/14"
+  ],
+  "n4 start": [
+   "3/2/7/12",
+   "3/14/9/20",
+   "2/20/7/26"
+  ],
+  "n4 dropped": [
+   "3/2/7/9",
+   "3/10/9/14",
+   "2/20/7/26"
+  ],
+  "n4 next": [
+   "3/2/9/9",
+   "3/10/10/14",
+   "2/20/8/26"
+  ],
+  "n4 next let go": [
+   "3/2/9/9",
+   "3/10/10/14",
+   "2/20/8/26"
+  ],
+  "n5 start": [
+   "3/2/7/12",
+   "3/14/9/20",
+   "5/20/7/26"
+  ],
+  "n5 dropped": [
+   "3/2/7/9",
+   "3/10/9/14",
+   "5/20/7/26"
+  ],
+  "n5 next": [
+   "4/2/9/9",
+   "3/10/10/14",
+   "6/20/8/26"
+  ],
+  "n5 next let go": [
+   "4/2/9/9",
+   "3/10/10/14",
+   "6/20/8/26"
+  ],
+  "n6 start": [
+   "3/2/7/12",
+   "1/14/3/20"
+  ],
+  "n6 dropped": [
+   "3/2/7/9",
+   "1/10/3/14"
+  ],
+  "n6 next": [
+   "3/2/9/9",
+   "1/10/3/14"
+  ],
+  "n6 next let go": [
+   "3/2/9/9",
+   "1/10/3/14"
+  ]
+ }
+}

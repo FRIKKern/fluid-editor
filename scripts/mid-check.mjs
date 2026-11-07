@@ -890,7 +890,35 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   // A written Text made narrower in a group keeps the rows it needed at the press (CAP-X8NEXT.json, c start to c dropped).
   { const N = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X8NEXT.json', import.meta.url))).reads, one = 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.';
     const want = N['c dropped'].areas.map((a) => a[0]), got = play(N['c start'].areas, { type: 'text', html: `<p>${[one, one, one].join(' ')}</p>` }, false, 'e', [[1, 2, 8, 14]], true);
-    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) }); }
+    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
+    // The next gesture after it moves rows in, section-wide (CAP-X8LAG*.json): each read whose next gesture is a drag
+    // of one block down, replayed from its start: the group made narrower from the east, then that block moved.
+    const L = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8LAG3'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    const MOVES = { l1: [[1], 0, 2], l3: [[1], 1, 1], l6: [[2], 1, 1], m2: [[1], 0, 2], m4: [[1], 0, 2], n2: [[1], 0, 1], n5: [[1], 0, 1] };
+    for (const [n, [members, k, rows]] of Object.entries(MOVES)) {
+      const start = L[`${n} start`].areas, box = L[`${n} dropped`].areas.filter((_, i) => i === 0 || members.includes(i)).map((a) => a[0].split('/').map(Number));
+      const c1 = Math.max(...box.map((a) => a[3])), want = L[`${n} next`].areas.map((a) => a[0]);
+      const got = evalJs(S, `(async () => {
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        fe.setBp('desktop');
+        fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 30, mobile: 40 }, blocks: ${JSON.stringify(start)}.map((a, i) => { const L = (v) => ({ area: v.split('/').map(Number), z: i + 1, justify: 'flex-start', align: 'flex-start' }); return { id: 'b' + i, ...(i === 0 ? { type: 'text', html: ${JSON.stringify(`<p>${[one, one, one].join(' ')}</p>`)} } : { type: 'shape', fill: '#ccc', radius: '0', label: 'b' + i }), layout: { desktop: L(a[0]), mobile: L(a[1]) } }; }) }] });
+        await sleep(150);
+        const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, block = (i) => d.querySelector('.fe-block[data-block-id="b' + i + '"]');
+        const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, at = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+        const down = (el, x, y, more = {}) => el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...more, clientX: x, clientY: y, buttons: 1 }));
+        const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+        const up = (x, y, more = {}) => d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, ...more, clientX: x, clientY: y, buttons: 0 }));
+        fe.select('s', 'b0'); await sleep(30);
+        for (const i of ${JSON.stringify(members)}) { const [x, y] = at(block(i)); down(block(i), x, y, { shiftKey: true }); up(x, y, { shiftKey: true }); await sleep(30); }
+        const m = fe.measure('s'), h = d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="e"]'), [x0, y0] = at(h);
+        down(h, x0, y0); move(x0 + 14, y0); await sleep(15); move(x0, y0); await sleep(15);
+        move(m.colEnd[${c1} - 2], y0); await sleep(15); up(m.colEnd[${c1} - 2], y0); await sleep(80);
+        fe.select(null); await sleep(30);
+        const [bx, by] = at(block(${k}));
+        down(block(${k}), bx, by); for (let s = 1; s <= 8; s++) { move(bx, by + s * ${rows} * m.pitch / 8); await sleep(15); } up(bx, by + ${rows} * m.pitch); await sleep(80);
+        return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
+      groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
+    } }
 }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
