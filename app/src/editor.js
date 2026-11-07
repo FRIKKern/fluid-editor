@@ -975,16 +975,12 @@ function onMove(e) {
   if (gesture.type === 'move') autoScroll(gesture);
 }
 
-// A drag that starts on the words of a selected Text opens its editor and doesn't move it. From its
-// empty part it moves, like any block (CAP-TEXTWIDTH7.json d1 to d6).
+// A drag that starts inside the text of a selected Text, new or written and right of the words too,
+// opens its editor and doesn't move it. From the empty part under the text it moves, like any block
+// (CAP-TEXTPRESS.json, CAP-TEXTWIDTH7.json d1 to d6).
 function onWords(blk, x, y) {
-  const walk = doc.createTreeWalker(blk.querySelector('.sqs-html-content') || blk, NodeFilter.SHOW_TEXT), range = doc.createRange();
-  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
-    if (!n.nodeValue.trim()) continue;
-    range.selectNodeContents(n);
-    for (const q of range.getClientRects()) if (x >= q.left && x <= q.right && y >= q.top && y <= q.bottom) return true;
-  }
-  return false;
+  const q = blk.querySelector('.sqs-html-content')?.getBoundingClientRect();
+  return !!q && x >= q.left && x <= q.right && y >= q.top && y <= q.bottom;
 }
 
 function onUp(e) {
