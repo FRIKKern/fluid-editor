@@ -1,0 +1,442 @@
+{
+  "item": "X6",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "X6: Summary's pulls on the phone. It draws 1958 tall on the phone, so at 1000 high its side handles are under the window, and the stored west pull that did nothing may not have reached a handle. Read in a window 2400 high, each from a new block, no Undo. Predicted before this read: south one row 57 rows, ceil((1958 + 11) / 35) + 1; east and west far in stop at the floor of 3 columns or more, not 8.",
+  "steps": [
+    [
+      "window",
+      1600,
+      2400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Summary"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "Summary start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -500,
+      0,
+      "Summary e far in"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Summary after e",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Summary"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      500,
+      0,
+      "Summary w far in"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Summary after w",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Summary"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      35,
+      "Summary s one"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Summary after s",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ]
+  ],
+  "reads": {
+    "Summary start": {
+      "block": {
+        "desktop": "1/2/12/20",
+        "mobile": "1/2/12/10",
+        "box": [
+          25.7,
+          243.1,
+          376.7,
+          1689
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794012332042_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 12 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,1678"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Summary e far in": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "Summary after e": {
+      "block": {
+        "desktop": "1/2/12/20",
+        "mobile": "1/2/50/10",
+        "box": [
+          25.7,
+          243.1,
+          376.7,
+          1704
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794012332042_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 50 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,1693"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/50/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Summary w far in": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "Summary after w": {
+      "block": {
+        "desktop": "1/2/12/20",
+        "mobile": "1/2/57/10",
+        "box": [
+          25.7,
+          243.1,
+          376.7,
+          1949
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794012374086_453",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 57 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,1938"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/57/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Summary s one": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "Summary after s": {
+      "block": {
+        "desktop": "1/2/12/20",
+        "mobile": "1/2/52/10",
+        "box": [
+          25.7,
+          243.1,
+          376.7,
+          1774
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794012418810_453",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 52 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,1763"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/52/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "On the phone Summary stays 8 columns wide on an east or a west pull far in; the pull takes rows instead: east 49, west 56, south one row 51. It draws 1689 tall at the start in this window and 1958 in a window 1000 high, so its height moves with its content from run to run, and these rows do too. Read in a window 2400 high, since at 1000 its side handles are under the window.",
+  "predicted": "South one row 57, from a height of 1958. East and west stopping at a floor of 3 columns or more, not 8.",
+  "result": "Both wrong. The height had moved to 1689, which gives 50, and it read 51. East and west stay at 8 columns.",
+  "correction": "An earlier capture under this name, at 1000 high, found no handle on top and pressed nothing.",
+  "pressed": "Add Block, the tile and each handle by the real mouse, the handle checked on top by its cursor and size, on Gestures Probe, unsaved."
+}

@@ -5494,5 +5494,6 @@
   "differs": [
     "Rows, not columns, on plain stand-ins with no content to take rows: Summary, Pricing Plan, Newsletter, Instagram, Bandsintown, a pull on Scheduling, Calendar, Menu, Page Link, RSS, Archive, SoundCloud, Flickr and OpenTable. Named in the check, not built."
   ],
-  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset. Meta+z after each west pull."
+  "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset. Meta+z after each west pull.",
+  "correction": "Start rows are the rule, steady to 111 s: Scheduling 5, Calendar 15, Archive 8, SoundCloud 5, Flickr 5, Pricing Plan 10 (CAP-68SCHED.json to CAP-68PRICE.json). The jumps when pulled come from the height the block draws (CAP-68PULL.json), so \"a block whose content comes late\" was wrong. Summary's west pull did not do nothing: at 1000 high its handle was under the window. In a tall window it stays 8 columns and takes rows (CAP-X6SUMMARYPHONE.json)."
 }
