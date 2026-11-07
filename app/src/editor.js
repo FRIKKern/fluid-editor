@@ -2173,6 +2173,7 @@ blockPanel.addEventListener('click', (e) => {
   if (!a || !sel) return;
   if (shapeUi?.kind === 'imagesel' && shapeUi.key === a.dataset.imageSel) { closeShapePop(); return; }
   shapeUi = { kind: 'imagesel', key: a.dataset.imageSel, bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  if (a.dataset.imageSel === 'vblend') a.blur(); // No ring while its list is open (CAP-VBLEND.json list); a pick brings it back.
   renderShapePop();
 });
 // Image Effect (IMAGEEFFECT.json): a tile, a seg, a switch and Shuffle are one undo step each and the
@@ -2748,10 +2749,11 @@ function renderShapePop() {
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
-    const blend = shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
-    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
+    const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
+    const on = video ? blockPanel.querySelector('[data-image-sel="vblend"]')?.dataset.cur || 'normal' : b.overlayBlend || 'normal';
+    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === on) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
-    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${video ? Math.min(220, innerHeight - shapeUi.rect.top - 8) : innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
   } else if (kind === 'ffmenu') {
     // An option's menu (followUp.menu): its right edge 4 left of the button, 40 below the button's top.
     shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
@@ -2845,6 +2847,7 @@ shapePop.addEventListener('click', (e) => {
   if (io) {
     const { key } = shapeUi, v = io.dataset.imageOpt;
     closeShapePop();
+    if (key === 'vblend') { setDesign('blend', v === 'Normal' ? null : blendValue(v)); blockPanel.querySelector('[data-image-sel="vblend"]')?.focus(); return; }
     setShape((b) => {
       if (key === 'blend') { if (v === 'Normal') delete b.overlayBlend; else b.overlayBlend = blendValue(v); }
       else if (v === 'Light Overlay') b.lightboxTheme = 'light'; else delete b.lightboxTheme;
@@ -6127,9 +6130,8 @@ pinPop.addEventListener('input', (e) => {
   const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
-  // A move keeps the unit the field had: 5vh, then ArrowRight, gives 6vh (CAP-U4PINUNIT.json).
   const offset = Number(e.target.value), unit = L.sticky.unit;
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) };
+  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${offset}${unit || 'px'}`);
   pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;

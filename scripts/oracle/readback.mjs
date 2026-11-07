@@ -66,13 +66,44 @@ export function compareFormColors(theme, read, stored = STYLES.formColors?.[them
 
 // Reads until two reads in a row agree, since a list read during a slow load can move with nothing changed on the site.
 // What it settles on still goes to the comparison, and a list that never settles is a difference.
-export async function settledRead(read, wait, tries = 6) {
-  let last = read();
-  for (let n = 1; n < tries; n++) {
+// want: the rows a full read holds. A shorter read must hold still for 8 reads in a row before it counts (under load a list
+// paused half drawn once read as 11 rows of 29). With no want, two reads alike will do.
+export async function settledRead(read, wait, tries = 6, want = 0) {
+  let last = read(), same = 0;
+  const limit = want ? Math.max(tries, 24) : tries;
+  for (let n = 1; n < limit; n++) {
     await wait();
     const next = read();
-    if (JSON.stringify(next) === JSON.stringify(last)) return { rows: next, settled: true };
+    if (JSON.stringify(next) === JSON.stringify(last)) { same++; if (!want || (next?.length ?? 0) >= want || same >= 8) return { rows: next, settled: true }; } else same = 0;
     last = next;
   }
   return { rows: last, settled: false };
 }
+
+// A set that fails keeps only these of its diffs: a Save that turned on is never dropped.
+export const SAFETY = /Save is not off|unsaved|still being edited/;
+// Each set in turn, each from a page brought back by restart(): before the first set, and after any set that failed. A set
+// that throws is listed as not read and the run goes on; its partial compares are dropped. If restart() fails `tries` times
+// in a row, the sets left are listed as not reached and the run ends. begin(sink) hands each set its own diff list.
+export async function runSets(sets, { restart, begin = () => {}, log = () => {}, tries = 3 }) {
+  const diffs = [], notRead = [];
+  let fresh = false;
+  for (let k = 0; k < sets.length; k++) {
+    const [name, fn] = sets[k];
+    if (!fresh) {
+      let ok = false;
+      for (let n = 0; n < tries && !ok; n++) { try { await restart(); ok = true; } catch (e) { log(`  bringing the page back: ${e.message}`); } }
+      if (!ok) { for (const [m] of sets.slice(k)) notRead.push(`${m}: not reached, the page could not be brought back`); break; }
+      fresh = true;
+    }
+    const sink = []; begin(sink);
+    try { await fn(); diffs.push(...sink); } catch (e) {
+      const kept = sink.filter((x) => SAFETY.test(x)); diffs.push(...kept);
+      notRead.push(`${name}: ${String(e.message).slice(0, 160)}${sink.length > kept.length ? ` (${sink.length - kept.length} partial compares dropped)` : ''}`);
+      log(`${name}: not read: ${e.message}`); fresh = false;
+    }
+  }
+  return { diffs, notRead };
+}
+// 0: all read and the same. 1: any difference. 2: the same where read, with sets not read.
+export const exitCode = ({ diffs, notRead }) => (diffs.length ? 1 : notRead.length ? 2 : 0);
