@@ -1,0 +1,89 @@
+{
+ "item": "U12",
+ "name": "CAP-U12OPTIONS",
+ "kind": "rules read from CAP-U12RADIO, RADIO2, RADIO3, SURVEY, CHECK and ACCENT2",
+ "date": "2026-11-07",
+ "question": "What the option rows and the accent colors draw on a page.",
+ "answer": [
+  "Field Accent is the focus ring on all 6 kinds read: on radio, checkbox and survey a 2 px mark edge, on text, select and textarea a 2 px edge where the rest edge is 1 px. Nothing changes at rest or when picked.",
+  "Field Accessory drew nothing in any state read: rest, picked, focus on 6 kinds, fill and stroke included.",
+  "Radio mark: size S 15, M 20, L 25. Line t, border t + 1, radius Pill 300, Square 0. Dot = (size - 2(t + 1)) / 2. Field Fill is the Field Background. Row height 22.7, 25.2, 30.2. Words start at size + gap (CAP-U12RADIO3, gap +9 moved them 9). Stack pitch 43.2.",
+  "Survey: the same for size, dot, radius, Fill, Inverted. Its row moves with size by 5.",
+  "Inverted on an icon: picked mark filled with the ink, dot or tick white.",
+  "Button, radio and checkbox: padding S 1 10, M 5 15, L 15 30. 1 px edge. Width = words + padding + 2. Option full width in Stack, pitch 42.1, 50.1, 70.1. Radius Pill = padding top + .924em, Square 0. Picked: ink fill, white words. Others clear, or white with Fill. Input hidden.",
+  "Fit: each option as wide as its label (words + 4), one row, 20 apart at the default columns, same top as the first. Group height drops to 65.6 (radio icon), 61.6 (checkbox icon), 92.6 (button)."
+ ],
+ "results": {
+  "radio": {
+   "S": {
+    "size": 15,
+    "dot": 5.5,
+    "row": 22.7
+   },
+   "M": {
+    "size": 20,
+    "dot": 8,
+    "row": 25.2
+   },
+   "L": {
+    "size": 25,
+    "dot": 10.5,
+    "row": 30.2
+   },
+   "thick2": {
+    "dot": 7
+   },
+   "pitch": 43.2,
+   "textLeft": 31,
+   "fit": {
+    "gap": 20,
+    "group": 65.6
+   }
+  },
+  "button": {
+   "S": {
+    "pad": "1px 10px",
+    "pitch": 42.1,
+    "radius": 14.3
+   },
+   "M": {
+    "pad": "5px 15px",
+    "pitch": 50.1,
+    "radius": 18.3
+   },
+   "L": {
+    "pad": "15px 30px",
+    "pitch": 70.1,
+    "radius": 28.3
+   },
+   "fitGroup": 92.6
+  },
+  "check": {
+   "pitch": 39.2,
+   "fitGroup": 61.6
+  },
+  "survey": {
+   "S": 76.3,
+   "M": 81.3,
+   "L": 86.3
+  }
+ },
+ "ours": "app/src/form-rows.js (markCss, buttonCss, layoutCss), app/src/form-colors.js and app/src/site.css (the ring). Checked in npm run marks-check, \"U12: what the option rows draw on a page\". Ours is read inside Site Styles too, with a wider form, so survey rows are compared by their change with size: a narrow form wraps \"Strongly Disagree\".",
+ "inferred": [
+  "Picked Button colors are read as ink and white on Light 1 only. Ours uses Field Border and Field Background. Not told apart from the ink.",
+  "Button focus ring: Field Accent was read on Icon only.",
+  "Fit: Space Between Columns as its value and Space Between Rows as rows + 10. Both read at the default only; a wrapped row was never read.",
+  "Website, currency and X fields take the ring on their box: read on a plain text field.",
+  "The hover edge is off while focused, on the default Accent. Other hover tiles with focus were not read."
+ ],
+ "notRead": [
+  "Space Between Rows and Columns by a press: fillRow, fillValue and the slider step all missed. Stack ignores the rows value in ours.",
+  "Inverted on a Button: the row is gone on Button, so that press failed. Packs 01 and 06 set both; what they draw is not read.",
+  "What a pack does to Radio and Survey: only Checkbox was read. In ours a pack now reaches Checkbox only. Before this PR, Radio took Checkbox's values by the shared class, which was not read either.",
+  "Checkbox Button on a sign up row.",
+  "Button: Rounded Rectangle and Custom radius, thickness, focus. Icon: Rounded Rectangle on Radio. Survey: thickness (the press changed nothing).",
+  "Field Accessory on hover and Button. Field Accent on other themes (one run on Light 1)."
+ ],
+ "pressed": "By coordinates: clickAt 1340,44 (the back button in Site Styles) and moves with moveAt. By order: pressEl on the color dots, pressCombo 0 for Selection Color. In the frame by script, no press: frameCheck and frameFocus. Exit failed in the tool each run, since Site Styles holds a second Exit step. Each run was left by Exit and the dialog with no save, and the page checked after reload. One capture started in the same edit after radio2 failed to exit; it was left the same way. Save never pressed.",
+ "note": "An earlier note here said Inverted changes nothing on a Button. That was a failed press: the row is gone on a Button."
+}

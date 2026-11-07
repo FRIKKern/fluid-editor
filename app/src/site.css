@@ -435,6 +435,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Hover & Focus, Accent, the default: the edge goes from 1 to 2 inward (CAP-FORMSUBS.json). */
 .fe-form input[type=text], .fe-form input[type=email], .fe-form input[type=date], .fe-form input[type=time], .fe-form .form-affix, .fe-form textarea, .fe-form select { transition: box-shadow .075s cubic-bezier(.33, 1, .68, 1); }
 .fe-form input[type=text]:hover, .fe-form input[type=email]:hover, .fe-form input[type=date]:hover, .fe-form input[type=time]:hover, .fe-form .form-affix:hover, .fe-form textarea:hover, .fe-form select:hover { box-shadow: inset 0 0 0 1px currentColor; }
+/* Focus: the field's edge is 2px in the Field Accent (CAP-U12ACCENT2.json, read with focus by script). */
+.fe-form input[type=text]:focus, .fe-form input[type=email]:focus, .fe-form input[type=date]:focus, .fe-form input[type=time]:focus, .fe-form textarea:focus, .fe-form select:focus, .fe-form .form-affix:focus-within { outline: none; border-color: var(--form-ring); box-shadow: inset 0 0 0 1px var(--form-ring); }
 .fe-form textarea { height: 100px; resize: vertical; }
 .fe-form select { height: 44.4px; padding: 10px 42px 10px 20px; appearance: none; -webkit-appearance: none; }
 .fe-form select.is-empty, .fe-form ::placeholder { color: color-mix(in srgb, currentColor 55%, transparent); }

@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 15 changes
-  - T6: corners with a stroke as a path, the Custom color view's thumbs and rows, and flip to done ([#305](https://github.com/FRIKKern/fluid-editor/pull/305))
-  - E4: one Escape keeps the keys in the text; Shift+Enter is a br ([#304](https://github.com/FRIKKern/fluid-editor/pull/304))
+- **Today** · 17 changes
+  - U12: check-start-chrome takes its own port and reads the stand-in's pid from the pid file ([#307](https://github.com/FRIKKern/fluid-editor/pull/307))
+  - U12: what the option rows and Field Accent draw on a page ([#306](https://github.com/FRIKKern/fluid-editor/pull/306))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
