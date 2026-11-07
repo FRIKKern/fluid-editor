@@ -168,6 +168,16 @@ export const RECIPES = {
     ...['Paragraph 1', 'Paragraph 3', 'Heading 4', 'Heading 1'].flatMap((style, n) => [...(n ? FRESH : NEWTEXT), ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', style], ['pause', 1300],
       ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['read', `rows ${style} typed`, ESCR], ...ZS(`rows ${style}`, ['z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE]),
   ] },
+  'CAP-Y2SCORE': { question: 'Y2: the last score of the rule as merged in #337, frozen: reads it has not seen. Heading 2 and Heading 3 wrapped lines, short words wrapping, Enter lines with a wrapped line, typing gaps under and over a second, the Undo and Redo buttons over wrapped text. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...['Heading 2', 'Heading 3'].flatMap((style, n) => [...(n ? FRESH : NEWTEXT), ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', style], ['pause', 1300],
+      ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['read', `rows S${n + 1} typed`, ESCR], ...ZS(`rows S${n + 1}`, ['z', 'z', 'z', 'y']), ...LEAVE]),
+    ...FRESH, ['keysFast', 'go on'], ['pause', 1300], ['keysFast', ' a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g'], ['pause', 1300], ['keysFast', ' h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n'], ['pause', 1300], ['keysFast', ' o p q r s t u v w x y z'], ['pause', 1300],
+    ['read', 'rows S3 typed', ESCR], ...ZS('rows S3', ['z', 'z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'abc'], ['pause', 1300], ...FAST(2), ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['read', 'rows S4 typed', ESCR], ...ZS('rows S4', ['z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'ab'], ['pause', 700], ['keys', 'cd'], ['pause', 1300], ['keys', 'ef'], ['pause', 1300], ['read', 'rows S5 typed', ESCR], ...ZS('rows S5', ['z', 'z', 'y']), ...LEAVE,
+    ...FRESH, ['keys', 'abc'], ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 300], ...LEAVE, ...WALK('rows S6', ['Undo', 'Undo', 'Redo']),
+  ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'mid line', H], ['keys', 'X'], ['pause', 200], ['read', 'mid line, X', H],
@@ -333,6 +343,22 @@ export const RECIPES = {
       ['exit'], ['enter'], ...BTN, ...KIND('Phone'), ['fill', 'Enter phone number', '12345678'], ['pause', 400], ...OPEN, ...ROW, ...R('phone, on the row'), ...LEAVE,
       ['exit'], ['enter'], ...BTN, ...SET('a.com/some/path'), ...OPEN, ...ROW, ...R('short with a path, on the row'), ...LEAVE,
       ['exit'], ['enter'], ...BTN, ...SET('a.com'), ...OPEN, ['press', 'Tab'], ['pause', 200], ['press', 'Enter'], ['pause', 600], ...R('typed, by keys to Edit'), ['click', 'Clear selected page'], ['pause', 500], ['clickAt', 1300, 700], ['pause', 500], ...R('typed, Clear, press away'), ...AGAIN, ...R('typed, Clear, press away, reopened'), ...LEAVE,
+    ];
+  })() },
+  'CAP-E7SCORE': { page: 'Gestures Probe', question: 'E7: the frozen score of the tip rule as merged in #354: long and short emails and numbers, long and short typed links, under the mouse. No press on the page: closed by Escape. Predicted first.', steps: (() => {
+    const OPEN = [['click', 'Open link editor popover'], ['pause', 600]];
+    const R = (name) => [['read', name, { controls: true, checks: true, focused: true, looks: [100, 284, 440, 420] }], ['read', `${name}, above`, { looks: [100, 190, 440, 284] }]];
+    const BTN = [['blank'], ['add', 0, 'Button'], ['press', 'Escape'], ['select', 0, 0], ['pause', 400]];
+    const LEAVE = [['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300]];
+    const KIND = (kind) => [...OPEN, ['click', 'URL'], ['pause', 300], ['click', kind], ['pause', 400]];
+    const ROW = [['moveAt', 260, 320], ['pause', 800]];
+    const TYPED = (name, link) => [['exit'], ['enter'], ...BTN, ...OPEN, ['keysFast', link], ['press', 'Enter'], ['pause', 500], ...OPEN, ...ROW, ...R(name), ...LEAVE];
+    return [
+      ['enter'], ...BTN, ...KIND('Email'), ['fill', 'To', 'a-second-quite-long-address-for-the-box@some-long-domain.com'], ['pause', 400], ['press', 'Escape'], ['pause', 400], ...OPEN, ...ROW, ...R('another long email, on the row'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Email'), ['fill', 'To', 'first.last.name@domain-name.no'], ['pause', 400], ['press', 'Escape'], ['pause', 400], ...OPEN, ...ROW, ...R('a middling email, on the row'), ...LEAVE,
+      ['exit'], ['enter'], ...BTN, ...KIND('Phone'), ['fill', 'Enter phone number', '12345678901234567890123456789012'], ['pause', 400], ...OPEN, ...ROW, ...R('a long number, on the row'), ...LEAVE,
+      ...TYPED('a long typed link, on the row', 'another-long-typed-address-that-will-not-fit-in-the-row.com'),
+      ...TYPED('a short typed link, on the row', 'b.no'),
     ];
   })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
