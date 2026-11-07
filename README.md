@@ -25,13 +25,13 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 90 changes
-  - Y1: the Undo button lets a selected block go, Cmd+Z keeps it (difference 82) ([#381](https://github.com/FRIKKern/fluid-editor/pull/381))
-  - 87: short Text pulled from kept rows, reads only; difference 98 named ([#380](https://github.com/FRIKKern/fluid-editor/pull/380))
-- **Yesterday** · 112 changes
+- **Today** · 3 changes
+  - T12: a Quote's padding sits on the block, around its content box (86) ([#379](https://github.com/FRIKKern/fluid-editor/pull/379))
+  - U10: a Flip X start; a layout's own divider turns the flips off ([#386](https://github.com/FRIKKern/fluid-editor/pull/386))
+- **Yesterday** · 92 changes
+  - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
+- **This week** · 272 changes, 3 milestones closed
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
-- **This week** · 160 changes, 3 milestones closed
-  - README: room for the timeline so housekeeping runs again; U12 stale limits ([#178](https://github.com/FRIKKern/fluid-editor/pull/178))
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)

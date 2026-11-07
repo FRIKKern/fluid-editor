@@ -1,0 +1,39 @@
+{
+  "item": "U4",
+  "question": "97, round 2: is the Offset kept per Pin option? Predicted before the read, after round 1.",
+  "rule": "Each option keeps its own offset with its unit. An option never set starts at 0px.",
+  "start": "a new Shape on a probe page, Pin (Top), Offset 5vh",
+  "predicted": [
+    {
+      "after": "Center",
+      "field": "0px",
+      "slider": "0"
+    },
+    {
+      "after": "Center 3vh",
+      "field": "3vh",
+      "slider": "3"
+    },
+    {
+      "after": "Bottom",
+      "field": "0px",
+      "slider": "0"
+    },
+    {
+      "after": "Center again",
+      "field": "3vh",
+      "slider": "3"
+    },
+    {
+      "after": "Top again",
+      "field": "5vh",
+      "slider": "5"
+    },
+    {
+      "after": "Bottom again",
+      "field": "0px",
+      "slider": "0"
+    }
+  ],
+  "scored": "Round 2 (CAP-U4PINTO2.json): 6 of 6 held. Each option keeps its own offset with its unit; one never set starts at 0px."
+}

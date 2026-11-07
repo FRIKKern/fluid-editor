@@ -651,7 +651,8 @@ function contentRows(b, m, normalizing = false, widthPull = false, exact = false
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
-    const h = c.getBoundingClientRect().height;
+    // A Quote's padding sits around its content box and still takes rows (CAP-75QUOTE.json).
+    const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
@@ -1750,14 +1751,18 @@ function renderBlockPanel() {
 // it and lets the block go; Escape and a press on its own block leave it open. It sits by the block's right edge, at a
 // height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
 const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
+// Edit gives the first control that takes input the focus, with its ring (CAP-T12PALETTES.json: Chart Type on Chart, read
+// once; the others inferred). A row that redraws the dialog keeps the focus on its own control.
+const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]:not([disabled]), .dl-row textarea:not([disabled])';
 function renderDialog(b) {
-  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]);
+  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;
   if (dialogEl.dataset.key !== key) {
-    const top = dialogEl.scrollTop;
+    const top = dialogEl.scrollTop, had = dialogEl.contains(document.activeElement) ? document.activeElement.dataset.dl : null;
     dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
     if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
     dialogEl.dataset.key = key;
     dialogEl.dataset.bid = b.id;
+    if (had) dialogEl.querySelector(`[data-dl="${had}"]`)?.focus({ preventScroll: true });
   }
   const el = blockEl(b.id), f = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   dialogEl.style.width = `${d.w}px`;
@@ -1765,6 +1770,7 @@ function renderDialog(b) {
   dialogEl.style.left = `${f.left - st.left + el.getBoundingClientRect().right + d.dx}px`;
   dialogEl.style.top = `${f.top - st.top + d.top}px`;
   dialogEl.hidden = false;
+  if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
 // read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
@@ -6240,6 +6246,15 @@ styleMenu.addEventListener('click', (e) => {
 });
 
 const pinPop = $('pin-popover');
+// Each option keeps its own Offset with its unit, and one never set starts at 0px (97, CAP-U4PINTO.json, CAP-U4PINTO2.json:
+// 5vh on Top, Center 0px, 3vh on Center, Bottom 0px, Center 3vh again, Top 5vh again). The others wait in kept.
+function pinTo(st, k) {
+  const kept = { ...(st?.kept || {}) };
+  if (st) kept[st.anchor] = { offset: st.offset, ...(st.unit ? { unit: st.unit } : {}) };
+  const got = kept[k] || { offset: 0 };
+  delete kept[k];
+  return { anchor: k, ...got, ...(Object.keys(kept).length ? { kept } : {}) };
+}
 function openPin(sid, bid) {
   const b = B(sid, bid);
   pinPop.dataset.sid = sid; pinPop.dataset.bid = bid;
@@ -6263,7 +6278,7 @@ pinPop.addEventListener('click', (e) => {
   const o = e.target.closest('[data-pin]');
   if (!o) return;
   const k = o.dataset.pin;
-  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = { anchor: k, offset: L.sticky?.offset || 0 }; }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
 // The field wants a number and a unit, exactly so: anything else stays as typed until the field is
 // left, then goes back. No limit on the number; the slider only shows what fits its range.
@@ -6276,7 +6291,8 @@ function applyPinField(f, revert) {
   const offset = parseFloat(m[1]), unit = m[2];
   if (offset === L.sticky.offset && unit === (L.sticky.unit || 'px')) return;
   const before = JSON.stringify(model);
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit === 'px' ? {} : { unit }) };
+  L.sticky = { ...L.sticky, offset, unit };
+  if (unit === 'px') delete L.sticky.unit;
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${f.value}`);
   pinPop.querySelector('[data-pin-range]').value = pinRangeValue(offset);
@@ -6289,7 +6305,7 @@ pinPop.addEventListener('input', (e) => {
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
   const offset = Number(e.target.value), unit = L.sticky.unit;
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
+  L.sticky = { ...L.sticky, offset }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${offset}${unit || 'px'}`);
   pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;
