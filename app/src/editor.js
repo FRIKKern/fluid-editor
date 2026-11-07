@@ -149,33 +149,32 @@ function phoneFollowsMove(s, was) {
 }
 
 function undo() {
-  if (!undoStack.length) return;
-  if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
-  // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
-  // open (parity/findings/TEXTUNDO.json).
+  // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
-  if (ed) {
-    editing = null;
-    doc.removeEventListener('selectionchange', onTextSelection);
-    renderTextBar();
-    feEl(ed.sid).style.gridAutoRows = '';
-    model = JSON.parse(ed.before);
-  }
+  if (ed) finishTextEdit();
+  if (!undoStack.length) { if (ed) select(null); return; }
+  if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   redoStack.push(JSON.stringify(model));
   model = JSON.parse(undoStack.pop());
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed?.soft) select(null); // Undo after one Escape lets the block go (CAP-ESC1.json)
-  else if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
+  if (ed) select(null);
 }
 function redo() {
-  if (!redoStack.length) return;
+  const ed = editing;
+  if (ed) finishTextEdit();
+  if (!redoStack.length) { if (ed) select(null); return; }
   undoStack.push(JSON.stringify(model));
+  const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
   model = JSON.parse(redoStack.pop());
   note('Redo');
   renderAll();
   syncLayouts();
+  if (ed) { select(null); return; }
+  // A block that comes back comes back selected (CAP-Y2KEYS.json).
+  const back = model.sections.flatMap((o) => o.blocks.filter((x) => !had.has(x.id)).map((x) => ({ sid: o.id, bid: x.id })));
+  if (back.length === 1) select(back[0]);
 }
 
 // ---------- rendering ----------
@@ -1355,7 +1354,6 @@ function onKey(e) {
     }
     if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
       e.preventDefault();
-      editing.caretThen = caretOf(editing);
       if (fmt.insertLineBreak(doc, editing.ce, win.getSelection())) { joinOrStep(editing); onTextInput(); }
       return;
     }
@@ -1482,7 +1480,7 @@ function onDblClick(e) {
 
 const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
-let previewed = false;
+const previewed = new Map(); // the text of each block when Preview last forgot its selection
 const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
@@ -1501,8 +1499,9 @@ function startTextEdit(sid, bid) {
   // Opened again, the selection is where it was left (CAP-E4REOPEN.json), unless the text changed since. A Preview
   // forgets it and the caret starts at the very start (CAP-E4REOPEN2.json).
   const range = doc.createRange();
-  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(previewed ? 0 : -1) ?? ce);
-  range.collapse(previewed);
+  const fromStart = previewed.get(b.id) === b.html; // A change since, an Undo say, puts it back at the end (CAP-E4REOPEN2.json)
+  range.selectNodeContents([...ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(fromStart ? 0 : -1) ?? ce);
+  range.collapse(fromStart);
   const s = win.getSelection();
   s.removeAllRanges();
   s.addRange(range);
@@ -1511,7 +1510,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], atMark: true, redo: [], caretAt: new Map(), kept: 0, prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], atMark: true, prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('beforeinput', onTextBeforeInput);
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
@@ -3917,7 +3916,6 @@ function applyFormat(act, value) {
   const sel = win.getSelection();
   const [kind, arg] = act.split(':');
   const was = ed.ce.innerHTML;
-  ed.caretThen = caretOf(ed);
   if (kind === 'style') fmt.setStyle(doc, ed.ce, sel, value);
   if (kind === 'strike' && sel.isCollapsed) { ed.strikeNext = ed.strikeNext ? null : { on: !fmt.caretInMark(ed.ce, sel, 'strike'), at: String(fmt.caretPlace(ed.ce, sel)) }; ed.ce.focus(); return; }
   if (kind === 'bold' || kind === 'italic') { ed.strikeNext = null; fmt.toggleMark(ed.ce, sel, kind); }
@@ -4059,7 +4057,6 @@ const TYPING_PAUSE = 1000;
 function joinOrStep(ed) {
   const now = performance.now(), split = ed.stepNext || (ed.lastInput && now - ed.lastInput >= TYPING_PAUSE);
   if (split) textStep(ed, ed.prevHtml, ed.prevArea);
-  if (split || !ed.lastInput) ed.caretAt.set(ed.marks.at(-1), ed.caretThen);
   ed.stepNext = false;
   ed.lastInput = now;
 }
@@ -4109,33 +4106,32 @@ function autoLink(ed, inputType, data) {
   r.surroundContents(a);
   if (inputType === 'insertText') { const c = doc.createRange(); c.setStart(a.nextSibling, end - stop + 1); c.collapse(true); s.removeAllRanges(); s.addRange(c); }
 }
-const caretOf = (ed) => {
-  const s = win.getSelection();
-  return ed.ce.contains(s.anchorNode) && ed.ce.contains(s.focusNode) ? { anchor: pathFrom(ed.ce, s.anchorNode), anchorOffset: s.anchorOffset, focus: pathFrom(ed.ce, s.focusNode), focusOffset: s.focusOffset } : null;
-};
+// The browser's own undo, from its Edit menu, walks the same steps.
 function onTextBeforeInput(e) {
-  const ed = editing;
-  if (!ed) return;
-  ed.caretThen = caretOf(ed);
-  // The browser's own undo, from its Edit menu, walks the same steps.
-  if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') { e.preventDefault(); if (e.inputType === 'historyUndo') textUndo(ed); else textRedo(ed); }
+  if (!editing || !e.inputType.startsWith('history')) return;
+  e.preventDefault();
+  if (e.inputType === 'historyUndo') textUndo(editing); else textRedo(editing);
 }
-// Put one of the edit's steps back on the page: its text, its rows, the blocks it pushed, and the caret as it was then.
+// One of the edit's steps back on the page: its text, its rows, the blocks it pushed. The caret goes to the end (CAP-Y2KEYS.json).
 function showTextStep(ed, snap) {
   const s = S(ed.sid), was = JSON.parse(snap).sections.find((o) => o.id === ed.sid), wasB = was.blocks.find((o) => o.id === ed.bid), b = B(ed.sid, ed.bid);
   ed.ce.innerHTML = wasB.html;
   for (const o of s.blocks) {
     const w = was.blocks.find((x) => x.id === o.id);
-    if (w && o !== b) { lay(o).area = [...w.layout[bp].area]; setArea(blockEl(o.id), lay(o).area); }
+    if (!w) continue;
+    o.layout = w.layout;
+    if (o !== b) setArea(blockEl(o.id), lay(o).area);
   }
-  s.rows[bp] = was.rows[bp];
+  Object.assign(s, was, { blocks: s.blocks });
   ed.area = [...wasB.layout[bp].area];
   setArea(blockEl(ed.bid), ed.area);
   const ind = feEl(ed.sid).querySelector('.fe-indicator');
   if (ind) setArea(ind, ed.area);
-  const sel0 = win.getSelection(), c = ed.caretAt.get(snap), a = c && nodeAtPath(ed.ce, c.anchor), f = a && nodeAtPath(ed.ce, c.focus);
-  if (f) sel0.setBaseAndExtent(a, c.anchorOffset, f, c.focusOffset);
-  else { const r = doc.createRange(); r.selectNodeContents([...ed.ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ed.ce); r.collapse(false); sel0.removeAllRanges(); sel0.addRange(r); }
+  const r = doc.createRange(), caret = win.getSelection();
+  r.selectNodeContents([...ed.ce.querySelectorAll('h1, h2, h3, h4, p, pre')].at(-1) ?? ed.ce);
+  r.collapse(false);
+  caret.removeAllRanges();
+  caret.addRange(r);
   ed.need = contentRows(b, ed.m);
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
@@ -4145,35 +4141,62 @@ function showTextStep(ed, snap) {
   ed.strikeNext = null;
   renderTextBar();
 }
+// Whether going to this step changes only this text, its rows and the blocks it pushed.
+function textOnly(ed, snap) {
+  const bare = (j) => {
+    const m = JSON.parse(j), s = m.sections.find((o) => o.id === ed.sid), b = s?.blocks.find((o) => o.id === ed.bid);
+    if (!b) return null;
+    b.html = '';
+    s.rows = 0;
+    for (const o of s.blocks) for (const k of Object.keys(o.layout)) o.layout[k].area = 0;
+    return JSON.stringify(m);
+  };
+  const a = bare(snap);
+  return a !== null && a === bare(textSnap(ed, ed.ce.innerHTML, ed.area));
+}
+// Cmd+Z in an edit is the page's undo: one step, and the same list carries on under the edit's own steps, through earlier
+// edits of this text. The edit stays open until a step changes something else (CAP-Y2EDIT.json, CAP-ESC2.json, CAP-Y2KEYS.json).
 function textUndo(ed) {
-  let to = ed.marks.at(-1);
+  let to = ed.marks.at(-1), fromPage = false;
   if (ed.atMark) {
     if (ed.marks.length > 1) { ed.marks.pop(); to = ed.marks.at(-1); }
-    else if (ed.kept) { // What one Escape already handed to the page: it comes back off the page's list (CAP-ESC2.json)
-      ed.kept--;
-      to = undoStack.pop();
-      ed.marks = [to];
-      ed.before = to;
-      updateUi();
-    } else return;
+    else {
+      to = undoStack.at(-1);
+      if (!to) return;
+      if (!textOnly(ed, to)) { finishTextEdit(); undo(); return; }
+      undoStack.pop();
+      fromPage = true;
+    }
   }
-  const now = textSnap(ed, ed.ce.innerHTML, ed.area);
-  ed.caretAt.set(now, caretOf(ed));
-  ed.redo.push(now);
+  const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b);
+  redoStack.push(now);
   showTextStep(ed, to);
+  // The text got shorter: the rows fall by the height it lost, spare rows or not (CAP-Y2KEYS.json, rows).
+  const lost = height - textHeight(b);
+  if (lost > 0) {
+    to = textFall(ed, now, lost, ed.ce.innerHTML);
+    showTextStep(ed, to);
+  }
+  ed.marks[ed.marks.length - 1] = to;
+  if (ed.marks.length === 1) { ed.before = to; ed.height0 = textHeight(b); ed.height1 = undefined; }
   ed.atMark = true;
+  updateUi();
 }
 function textRedo(ed) {
-  if (!ed.redo.length) return;
+  const to = redoStack.at(-1);
+  if (!to) return;
+  if (!textOnly(ed, to)) { finishTextEdit(); redo(); return; }
+  redoStack.pop();
   if (!ed.atMark) ed.marks.push(textSnap(ed, ed.ce.innerHTML, ed.area));
-  showTextStep(ed, ed.redo.pop());
+  showTextStep(ed, to);
   ed.atMark = false;
+  updateUi();
 }
 function onTextInput(e) {
   const ed = editing;
   const b = B(ed.sid, ed.bid);
-  ed.atMark = false;
-  ed.redo.length = 0;
+  // Anything typed or changed: the steps undone are gone (CAP-Y2KEYS.json). Undo lights up.
+  if (ed.atMark || redoStack.length) { ed.atMark = false; redoStack.length = 0; updateUi(); }
   if (e?.inputType) {
     joinOrStep(ed);
     if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
@@ -4266,7 +4289,11 @@ function commitTextSteps(ed, height) {
   const first = steps.length > 1 ? ed.height1 : height;
   if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
+  // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
+  const undone = [...redoStack];
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  redoStack.push(...undone.slice(redoStack.length));
+  updateUi();
   return now;
 }
 // The text stays open and holds the keys, with no bar and the block's toolbar back. What was typed is in the model now.
@@ -4278,10 +4305,10 @@ function softenTextEdit() {
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
   softening = true;
-  const steps = undoStack.length, now = commitTextSteps(ed, height);
+  const now = commitTextSteps(ed, height);
   softening = false;
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, kept: ed.kept + undoStack.length - steps, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
+  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
@@ -4292,20 +4319,23 @@ function softenTextEdit() {
 // lost, rounded up, which can leave the text a row short. Spare rows are not given back
 // (CAP-TEXTPUSH2.json q8, CAP-TEXTPUSH5.json t13 and t14, CAP-TEXTPUSH6.json v7 and v8).
 function undoTextFalls(ed, now, height) {
+  return textFall(ed, now, height - ed.height0, JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid)?.html) ?? ed.before;
+}
+function textFall(ed, now, lost, html) {
   const m = JSON.parse(now), s = m.sections.find((o) => o.id === ed.sid);
   const b = s.blocks.find((o) => o.id === ed.bid);
-  if (!b) return ed.before;
-  const a = b.layout[bp].area, fall = Math.min(a[2] - a[0] - 1, Math.ceil((height - ed.height0) / ed.m.pitch));
+  if (!b) return null;
+  const a = b.layout[bp].area, fall = Math.min(a[2] - a[0] - 1, Math.ceil(lost / ed.m.pitch));
   moveWithText(s, b, a, -fall);
   a[2] -= fall;
-  b.html = JSON.parse(ed.before).sections.find((o) => o.id === ed.sid).blocks.find((o) => o.id === ed.bid).html;
+  b.html = html;
   return JSON.stringify(m);
 }
 
 // ---------- panel ----------
 function updateUi() {
   if (!layersPanel.hidden && S(layersPanel.dataset.sid)) renderLayersPanel(); // it follows a Remove or an undo
-  $('undo').disabled = !undoStack.length;
+  $('undo').disabled = !undoStack.length && !(editing && (!editing.atMark || editing.marks.length > 1));
   $('redo').disabled = !redoStack.length;
   const dirty = JSON.stringify(model) !== savedJson;
   $('save').disabled = !dirty;
@@ -6242,7 +6272,7 @@ document.getElementById('reload-preview').addEventListener('click', () => { rend
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
 function setPreview(on) {
-  if (on) { selectionLeft.clear(); previewed = true; }
+  if (on) { selectionLeft.clear(); for (const o of model.sections.flatMap((x) => x.blocks)) previewed.set(o.id, o.html); }
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
@@ -6349,7 +6379,7 @@ function boot() {
     select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
-    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); return true; },
+    addBlock: (sid, name, onList) => { const before = JSON.stringify(model); addBlock(sid, name); renderSectionDom(sid); if (onList) commit(before, `Added ${name} to ${sid}`); return true; },
   };
 }
 
