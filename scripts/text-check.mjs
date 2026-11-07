@@ -5,7 +5,7 @@
 // Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab), under 2 min.
 // npm run text-check -- --full also replays every CAP-E4 file with real keys, about 7 min.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, waitFor } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
 import { takesText } from './oracle/takes-text.mjs';
@@ -166,6 +166,25 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   results.push({ name: `Link ${file}: ${names.length - wrong.length} of ${names.length} names`, ok: !wrong.length });
   if (wrong.length) console.log(`Link ${file} DIFF ${wrong.length}: ${wrong.slice(0, 12).join(' ')}`);
 }
+// Y2, difference 79: two new Texts on top of each other; the one that grows leaves the other's top and stretches its end, which
+// stays after Cmd+Z (CAP-79ONTOP.json), by real keys. Typed into the top one, then the one under it.
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-79ONTOP.json', import.meta.url))).reads;
+  const two = async () => {
+    goto(S, `${BASE}/index.html`); await pause(1200);
+    evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 1); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); for (let i = 0; i < 2; i++) fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
+    browser(S, 'press', 'Escape'); await pause(200);
+  };
+  const areas = () => evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument, W = f.defaultView; return JSON.stringify([...f.querySelectorAll('main#page .fluid-engine')[0].querySelectorAll(':scope > .fe-block')].map((b) => { const c = W.getComputedStyle(b); return [c.gridRowStart, c.gridColumnStart, c.gridRowEnd, c.gridColumnEnd].join('/'); })); })()`);
+  const check = (name) => { const want = O[name].areas.map((a) => a[0]), got = areas(); results.push({ name: `79 ${name}: ${want.join(' ')}`, ok: JSON.stringify(got) === JSON.stringify(want) }); if (JSON.stringify(got) !== JSON.stringify(want)) console.log(`79 ${name} DIFF ours ${got.join(' ')}`); };
+  for (const [name, which] of [['top', 'fe.model.sections[0].blocks.at(-1).id'], ['under', "f.querySelector('main#page .fe-block').dataset.blockId"]]) {
+    await two();
+    evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument, s = fe.model.sections[0], id = ${which}; fe.edit(s.id, id); f.querySelector('.fe-block[data-block-id="' + id + '"] .sqs-html-content').focus(); return 1; })()`); await pause(300);
+    cdp(S, { op: 'presses', keys: ['a'] }); await pause(1300);
+    cdp(S, { op: 'presses', keys: Array(8).fill('Enter'), gapMs: 100 }); await pause(1300); check(`${name} typed`);
+    browser(S, 'press', 'Meta+z'); await pause(400); check(`${name} z`);
+    browser(S, 'press', 'Meta+Shift+z'); await pause(400); check(`${name} y`);
+    browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(300); check(`${name} left`);
+  } }
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 const noRun = [];
 const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y', 'rows S1 2 z', 'rows S1 3 z', 'rows S2 3 z', 'rows S5 1 z', 'rows S5 2 z', 'rows S5 3 y']; // Named in Y2's evidence

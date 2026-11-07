@@ -4609,7 +4609,9 @@ function moveWithText(s, b, a, d) {
   const low = lowest(a[2]);
   const was = others.map((o) => [...o.layout[bp].area]);
   if (d > 0) {
-    for (const q of lows) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { q[0] += d; q[2] += d; }
+    // One in shared columns from the text's top or above to its old end exactly keeps its top and stretches (CAP-79ONTOP.json:
+    // read on two Texts in the same place only); one going past the old end moves (CAP-TEXTPUSH4.json s3, CAP-TEXTPUSH5.json t1).
+    for (const q of lows) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { if (q[0] > a[0] || q[2] > a[2]) q[0] += d; q[2] += d; }
   } else {
     const end = a[2], top = end + d, under = lows.filter((q) => q[0] >= top);
     let free = 0;

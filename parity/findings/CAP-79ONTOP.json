@@ -1,0 +1,692 @@
+{
+  "item": "CAP-79ONTOP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "79: two new Texts on top of each other at 1/2/3/10; one grows by Enter at exact gaps, then Cmd+Z and Cmd+Shift+Z: where is the other? Typed into the top one, then the one under it. Predicted first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "start",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "start, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "top typed",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "top typed, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "top z",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "top z, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "top y",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "top y, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "top left",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "top left, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "under, picked",
+      {
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "a"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysGap",
+      100,
+      [
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter",
+        "Enter"
+      ]
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "under typed",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "under typed, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "under z",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "under z, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "under y",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "under y, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "under left",
+      {
+        "html": [
+          0,
+          0
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "read",
+      "under left, other",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "start": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "start, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top typed, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/2/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top z, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top y, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top left, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under, picked": {
+      "has": {
+        "Bold": false,
+        "Write": true
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under typed, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under z, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under y, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under left": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">a</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\"><br class=\"ProseMirror-trailingBreak\"></p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/10/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "under left, other": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
