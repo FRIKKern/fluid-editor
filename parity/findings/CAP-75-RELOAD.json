@@ -1,0 +1,33 @@
+{
+  "item": "CAP-75-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "75: the probe page after the session's reads",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [
+    "top Exit"
+  ]
+}
