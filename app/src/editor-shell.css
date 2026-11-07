@@ -1031,6 +1031,10 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-title { font-weight: 500; }
 .an-actions { display: flex; gap: 11px; margin-right: 2px; }
 .an-icon { width: 36px; height: 36px; padding: 0; border: 0; background: none; border-radius: 3px; color: #0e0e0e; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.an-ico.is-own::after { content: ''; position: absolute; left: 5px; bottom: 0; width: 34px; height: 2px; background: repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 4px); }
+.an-gap { width: 5px; }
+.an-icon[data-anim="add"]:disabled { cursor: default; }
+.an-icon[data-anim="add"]:disabled svg { color: rgb(183, 183, 183); }
 .an-empty { position: absolute; left: 65px; top: 122px; display: flex; flex-direction: column; align-items: center; width: 147px; height: 44px; padding: 0; border: 0; background: none; font: inherit; color: #6f6f6f; cursor: pointer; white-space: nowrap; }
 .an-empty strong { color: #0e0e0e; font-weight: 500; line-height: 22px; }
 .an-empty span { font-size: 12px; line-height: 15px; margin-top: 3px; }
@@ -1083,7 +1087,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-p .an-pv-row .an-box { width: 182px; }
 .an-pv-row.is-pair { display: flex; gap: 6px; }
 .an-pv-row.is-pair .an-box { width: 88px; }
-.sc-box { position: relative; display: inline-flex; align-items: center; box-sizing: border-box; border-radius: 3px; background: #f2f2f2; }
+.sc-box { position: relative; display: inline-flex; align-items: center; box-sizing: border-box; border-radius: 6px; background: #f2f2f2; }
 .an-box input { width: 100%; height: 44px; padding: 0 11px; box-sizing: border-box; border: 0; background: none; font: inherit; color: #0e0e0e; outline: 0; }
 .an-axis { position: absolute; right: 16px; top: 13px; font-weight: 400; color: #9a9a9a; pointer-events: none; }
 .sc-hit { position: absolute; padding: 0; border: 0; background: none; cursor: ew-resize; }
@@ -1233,7 +1237,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .sh-thumb { display: block; fill: #666; }
 .sh-radii { display: flex; gap: 6px; align-items: center; border: 0; padding-top: 6px; }
 .sh-radii .bp-radius { flex: 1; }
-.sh-radii .bp-radii { display: flex; gap: 2px; padding: 4px; border-radius: 3px; background: #f2f2f2; }
+.sh-radii .bp-radii { display: flex; gap: 2px; padding: 4px; border-radius: 6px; background: #f2f2f2; }
 /* Corner's field on focus: a 2px ring and a black Reset (screenshots, CAP-L6CORNER.json). */
 .bp-radius input { outline: 0; }
 .bp-radius:focus-within { background: none; box-shadow: inset 0 0 0 2px #0e0e0e; }
@@ -1243,8 +1247,16 @@ body.is-preview #reload-preview { display: inline-flex; }
 .sh-head ~ .sh-radii .bp-radii { gap: 0; padding: 3px; }
 .sh-head ~ .sh-radii .sp-seg { width: 41px; height: 38px; }
 .sh-radii .sp-seg.is-on { background: #fff; }
-.sh-corners { display: flex; justify-content: flex-end; gap: 2px; border: 0; }
-.sh-corner { width: 44px; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; text-align: center; font: inherit; }
+.sh-radii .sp-seg { color: #666; }
+.sh-radii .sp-seg.is-on { color: #0e0e0e; }
+.sh-radii .sp-seg svg { width: 24px; height: 24px; stroke-width: 2; }
+.sh-corners { display: flex; justify-content: flex-end; gap: 2px; min-height: 51px; padding-top: 7px; border: 0; box-sizing: border-box; }
+.sh-corner { width: 44px; height: 44px; box-sizing: border-box; padding: 0; border: 0; border-radius: 6px; background: #f2f2f2; text-align: center; font: inherit; }
+/* Each cell shows which corner it is: 8 by 8, 3 in from it (CAP-T6CORNERS.json). */
+.sh-corner:nth-of-type(1) { background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' fill='none' stroke='%23b7b7b7' stroke-width='2'%3E%3Cpath d='M1 8V4a3 3 0 0 1 3-3h4'/%3E%3C/svg%3E") no-repeat 3px 3px / 8px; }
+.sh-corner:nth-of-type(2) { background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' fill='none' stroke='%23b7b7b7' stroke-width='2'%3E%3Cpath d='M0 1h4a3 3 0 0 1 3 3v4'/%3E%3C/svg%3E") no-repeat right 3px top 3px / 8px; }
+.sh-corner:nth-of-type(3) { background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' fill='none' stroke='%23b7b7b7' stroke-width='2'%3E%3Cpath d='M7 0v4a3 3 0 0 1-3 3H0'/%3E%3C/svg%3E") no-repeat right 3px bottom 3px / 8px; }
+.sh-corner:nth-of-type(4) { background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' fill='none' stroke='%23b7b7b7' stroke-width='2'%3E%3Cpath d='M8 7H4a3 3 0 0 1-3-3V0'/%3E%3C/svg%3E") no-repeat left 3px bottom 3px / 8px; }
 .sh-swatch-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
 .sh-swatch-btn i { width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
 .sh-range input[type="range"] { flex: 0 0 212px; }
@@ -1291,8 +1303,8 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .sh-tabs button { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: #0e0e0e; cursor: pointer; }
 .sh-tabs + .sh-map { margin-top: -5px; }
 .sh-map { position: relative; height: 240px; margin: -11px 0 11px; background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent); cursor: crosshair; }
-.sh-map i, .sh-hue i { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border: 2px solid #fff; border-radius: 50%; box-sizing: border-box; box-shadow: 0 0 2px rgba(0, 0, 0, .5); }
-.sh-hue { position: relative; height: 22px; margin: 11px 0 6px; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); cursor: pointer; }
+.sh-map i, .sh-hue i { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border: 3px solid #fff; border-radius: 100%; box-sizing: border-box; box-shadow: rgb(118, 118, 118) 0 0 0 1px, rgb(118, 118, 118) 0 0 0 1px inset; }
+.sh-hue { position: relative; height: 22px; margin: 11px 0 6px; border-radius: 3px; box-shadow: rgba(14, 14, 14, .16) 0 0 0 1px inset; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); cursor: pointer; }
 .sh-hue i { top: 11px; }
 .sh-swatches { display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 6px; }
 .sh-swatches:last-child { margin-bottom: 11px; }
@@ -1302,11 +1314,22 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .sh-swatch:has(input:checked) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0e0e0e; }
 .sh-plus { width: 34px; height: 34px; padding: 0; border: 0; background: none; font-size: 26px; font-weight: 300; line-height: 30px; cursor: pointer; }
 .sh-hue + .sh-opacity { margin-top: 6px; }
-.sh-opacity { display: block; width: 100%; height: 22px; margin: 16px 0 0; appearance: none; background: linear-gradient(to right, transparent, var(--c)), repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 10px 10px; }
-.sh-opacity::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 2px rgba(0, 0, 0, .5); background: transparent; }
+.sh-opacity { display: block; box-sizing: border-box; width: 100%; height: 22px; margin: 16px 0 0; padding: 0 3px; border-radius: 3px; box-shadow: rgba(14, 14, 14, .16) 0 0 0 1px inset; appearance: none; background: linear-gradient(to right, transparent, var(--c)), repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 10px 10px; }
+.sh-opacity::-webkit-slider-thumb { appearance: none; box-sizing: border-box; width: 16px; height: 16px; border: 3px solid #fff; border-radius: 100%; box-shadow: rgb(118, 118, 118) 0 0 0 1px, rgb(118, 118, 118) 0 0 0 1px inset; background: transparent; }
 .sh-fields { display: flex; gap: 6px; margin-top: 6px; }
-.sh-fields select { flex: 0 0 73px; height: 44px; border: 0; border-radius: 3px; background: #f2f2f2; font: inherit; }
-.sh-fields input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 3px; text-align: center; border: 0; background: #f2f2f2; font: inherit; }
+.sh-fields select { flex: none; width: 73px; height: 44px; padding: 0 0 0 11px; border: 0; border-radius: 3px; appearance: none; background: #f2f2f2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23666'%3E%3Cpath d='M4 6.5l4 4 4-4'/%3E%3C/svg%3E") no-repeat 46px 50% / 16px; font: 400 14px Poppins, sans-serif; color: #0e0e0e; cursor: pointer; }
+.sh-fields select.is-open { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23666'%3E%3Cpath d='M4 9.5l4-4 4 4'/%3E%3C/svg%3E"); }
+.sh-fmtlist { position: fixed; z-index: 1; width: 79px; padding: 0; border-radius: 6px; overflow: hidden; background: #fff; box-shadow: 0 1px 6px rgba(0, 0, 0, .18); }
+.sh-fmtlist button { display: block; width: 100%; height: 44px; padding: 0 0 0 11px; border: 0; background: none no-repeat 54px 50% / 16px; font: 400 14px Poppins, sans-serif; color: #0e0e0e; text-align: left; cursor: pointer; }
+.sh-fmtlist button.is-cur { background-color: #f2f2f2; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230e0e0e'%3E%3Cpath d='M4 8.5l2.8 2.8L12 5.5'/%3E%3C/svg%3E"); }
+.sh-fields select.sh-fmt-hex { width: 69.2px; background-position-x: 42.2px; }
+.sh-fields select.sh-fmt-hsl { width: 70.3px; background-position-x: 43.3px; }
+.sh-cells { display: flex; flex: 1; min-width: 0; }
+.sh-cells input { flex: 1 1 0; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 11px; text-align: left; border: 0; border-right: 1px solid #e7e7e7; background: #f2f2f2; font: 400 14px Poppins, sans-serif; color: #0e0e0e; }
+.sh-cells input:first-child { border-radius: 3px 0 0 3px; }
+.sh-cells input:last-child { border-right: 0; border-radius: 0 3px 3px 0; }
+.sh-cells input:only-child { border-radius: 3px; }
+.sh-cells [data-color-field="Alpha"] { flex: 0 0 62px; }
 .sh-reset { display: block; width: 100%; height: 28px; margin-top: 11px; padding: 0; border: 0; background: none; font: 500 14px/28px Poppins, sans-serif; cursor: pointer; }
 
 /* Social Links and Map panels (parity/findings/T11.json) */

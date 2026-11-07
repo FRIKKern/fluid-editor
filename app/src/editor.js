@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -31,10 +31,10 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -107,6 +107,7 @@ function commit(before, label, force = false) {
 
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
+let softening = false; // one Escape: the model follows, the page isn't touched
 function followPhoneRows(before) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
@@ -114,8 +115,9 @@ function followPhoneRows(before) {
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     const reflowed = phoneFollowsMove(s, was);
     const next = phoneOrder(s.blocks);
-    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed) renderSectionDom(s.id); continue; }
+    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
+    if (softening) continue; // The text stays open, in its place in the page; the close draws this
     // New phone rows need new CSS, or the phone shows the old stack and a press lands on the old place.
     if (reflowed) { renderSectionDom(s.id); continue; }
     const fe = sectionEl(s.id) && feEl(s.id);
@@ -164,7 +166,8 @@ function undo() {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
+  if (ed?.soft) select(null); // Undo after one Escape lets the block go (CAP-ESC1.json)
+  else if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
 }
 function redo() {
   if (!redoStack.length) return;
@@ -270,7 +273,8 @@ function drawLabels(sid) {
     setArea(g, lay(b).area);
     const tag = doc.createElement('span');
     tag.className = 'fe-label-tag';
-    tag.textContent = b.label === 'form' ? 'Form' : LABELS[b.type] || 'Block';
+    // A stand-in is a Shape in the model and goes by the name the Add Block menu gave it (CAP-X13LABELS.json).
+    tag.textContent = b.label === 'form' ? 'Form' : b.type === 'shape' && ADD_TYPES.some(([name]) => name === b.label) ? b.label : LABELS[b.type] || 'Block';
     g.append(tag);
     fe.append(g);
   }
@@ -475,8 +479,8 @@ function placeGroupToolbar() {
 function placeToolbar() {
   if (marquee) { toolbar.hidden = true; return; }
   toolbar.classList.toggle('is-group', !!sel?.more?.length);
-  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
-  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
+  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !(editing && !editing.soft) && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
+  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || (editing && !editing.soft) || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
@@ -891,13 +895,17 @@ function startMarquee(e, fe) {
   doc.addEventListener('pointercancel', up);
 }
 
+let pressedAfterEscape = false;
 function onDown(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (e.button !== 0) return;
   const handle = e.target.closest('.fe-handle');
   const blk = e.target.closest('.fe-block');
   if (editing) {
-    if (blk && blk.dataset.blockId === editing.bid) return;
+    const same = blk && blk.dataset.blockId === editing.bid;
+    if (same && !editing.soft) return;
+    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json).
+    pressedAfterEscape = same;
     finishTextEdit();
   }
   const gapBand = e.target.closest('.stack-gap-handle');
@@ -928,7 +936,8 @@ function onDown(e) {
     select(next.length ? { sid, bid: next[0], more: next.slice(1) } : null);
     return;
   }
-  const wasSelected = sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  const wasSelected = !pressedAfterEscape && sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  pressedAfterEscape = false;
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
@@ -1331,9 +1340,16 @@ const ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], Arrow
 function onKey(e) {
   const mod = e.metaKey || e.ctrlKey;
   if (editing) {
-    if (e.key === 'Escape') {
+    // One Escape takes the text bar and leaves the block selected, and keys still reach the text. The next Escape,
+    // or Tab then, lets the block go (CAP-ESC1.json).
+    if (e.key === 'Escape' || (e.key === 'Tab' && editing.soft)) {
       e.preventDefault();
-      finishTextEdit();
+      if (editing.soft) { finishTextEdit(); select(null); } else softenTextEdit();
+      return;
+    }
+    if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
+      e.preventDefault();
+      if (fmt.insertLineBreak(doc, editing.ce, win.getSelection())) { joinOrStep(editing); onTextInput(); }
       return;
     }
     // The oracle's text shortcuts: Cmd+Opt+6..3 Heading 1..4, Cmd+Opt+2..0 Paragraph 1..3,
@@ -1464,6 +1480,7 @@ const pathFrom = (root, node) => { const path = []; for (let n = node; n !== roo
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
 function startTextEdit(sid, bid) {
+  if (editing?.soft && editing.bid === bid) { editing.soft = false; blockEl(bid).classList.add('is-text-editing'); editing.ce.focus(); renderTextBar(); placeToolbar(); return; }
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
@@ -1571,9 +1588,9 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
-  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
+  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
   if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
   blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
@@ -1597,6 +1614,7 @@ function drawPhoneControls(b) {
   const tabs = blockPanel.querySelector('.sp-tabs');
   if (bp !== 'mobile') { closePhoneMenu(); return; }
   markPhoneLabels(blockPanel, b);
+  if (designTab === 'Animation') { markAnimLabels(blockPanel, b.animations?.[anim.i]?.phone); closePhoneMenu(); return; }
   if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
   else closePhoneMenu();
 }
@@ -1626,7 +1644,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -1634,7 +1652,8 @@ function syncAnimView(b) {
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
   if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
-function animRows() { return B(sel.sid, sel.bid).animations || []; }
+function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
+function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
 function animEdit(label, change) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.animations = [...(b.animations || [])];
@@ -1675,7 +1694,7 @@ function animAction(el) {
     const a = rows[i];
     anim = { ...ANIM_LIST, view: a.preset === 'custom' ? 'editor' : 'picker', i, trigger: a.trigger, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
     if (anim.view === 'picker') animPlay = 'tiles';
-  } else if (act === 'remove') { animEdit('Remove animation', (l) => { l.splice(i, 1); }); return; }
+  } else if (act === 'remove') { const bk = B(sel.sid, sel.bid); animEdit('Remove animation', (l) => { if (bp === 'mobile' && l[i].phone) bk.animPhoneGone = true; l.splice(i, 1); }); return; }
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
@@ -1683,7 +1702,7 @@ function animAction(el) {
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
-    animEdit('Start blank', (l) => { l[at] = a; });
+    animEdit('Start blank', (l) => { animPlace(l, at, a); });
     anim = { ...anim, view: 'editor', i: at, menu: false, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
   } else if (act === 'tab') anim.tab = el.dataset.v;
   else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
@@ -1697,8 +1716,22 @@ function animPick(id) {
   if (id === 'custom') return;
   const a = newAnimation(anim.trigger, id), at = anim.i ?? animRows().length;
   anim = { ...anim, i: at, menu: false };
-  animEdit(`Animation ${id}`, (l) => { l[at] = a; });
+  animEdit(`Animation ${id}`, (l) => { animPlace(l, at, a); });
   animPreview(a);
+}
+// A pick: a new row, or on this row. On a phone it stays the phone's alone, and desktop keeps its row.
+function animPlace(l, at, a) {
+  if (bp === 'mobile' && l[at]) l[at] = { ...l[at], phone: ownOf(a) };
+  else l[at] = l[at]?.phone ? { ...a, phone: l[at].phone } : a;
+}
+// One value, in the layout being edited.
+function animPut(l, i, key, v) {
+  if (bp !== 'mobile') { l[i] = { ...l[i] }; animWrite(l[i], key, v); return; }
+  const was = rowOn(l[i], 'mobile'), now = { ...was };
+  animWrite(now, key, v);
+  const own = { ...l[i].phone, preset: 'custom', [key]: v };
+  for (const k of ['bounce', 'custom']) if (now[k] !== was[k]) own[k] = now[k];
+  l[i] = { ...l[i], phone: own };
 }
 function animWrite(a, key, v) {
   a.preset = 'custom';
@@ -1709,7 +1742,7 @@ function animWrite(a, key, v) {
 }
 function animSet(key, v) {
   animPlay = 'square';
-  animEdit(`Animation ${key}`, (l) => { l[anim.i] = { ...l[anim.i] }; animWrite(l[anim.i], key, v); });
+  animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
   const input = e.target.closest('[data-afield]');
@@ -1753,8 +1786,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     } else if (key) {
       const v = scrubbed(start, dx, key);
       input.value = v;
-      b.animations[anim.i] = { ...b.animations[anim.i] };
-      animWrite(b.animations[anim.i], key, v);
+      animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
     } else {
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
@@ -2825,6 +2857,29 @@ shapePop.addEventListener('change', (e) => {
     write({ rgb: rgbFromHsl(hsl[0], hsl[1], hsl[2]), a: c.a });
   }
 });
+// The format menu's list, below it and over the popup's edge (CAP-T6CUSTOM.json). The select stays as its value.
+const closeFormatList = () => { shapePop.querySelector('.sh-fmtlist')?.remove(); shapePop.querySelector('[data-color-format].is-open')?.classList.remove('is-open'); };
+shapePop.addEventListener('mousedown', (e) => {
+  const opt = e.target.closest('[data-fmt-opt]');
+  if (opt) {
+    e.preventDefault();
+    const s = shapePop.querySelector('[data-color-format]');
+    s.value = opt.dataset.fmtOpt;
+    closeFormatList();
+    s.dispatchEvent(new Event('change', { bubbles: true }));
+    return;
+  }
+  const s = e.target.closest('[data-color-format]');
+  const was = !!shapePop.querySelector('.sh-fmtlist');
+  closeFormatList();
+  if (!s) return;
+  e.preventDefault();
+  if (was) return;
+  const r = s.getBoundingClientRect();
+  s.classList.add('is-open');
+  shapePop.insertAdjacentHTML('beforeend', `<div class="sh-fmtlist" role="listbox" style="left:${r.left - 3}px;top:${r.bottom + 6}px">${[...s.options].map((o) => `<button type="button" role="option" data-fmt-opt="${o.value}" aria-selected="${o.selected}"${o.selected ? ' class="is-cur"' : ''}>${o.textContent}</button>`).join('')}</div>`);
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && shapePop.querySelector('.sh-fmtlist')) { e.stopPropagation(); closeFormatList(); } }, true);
 shapePop.addEventListener('pointerdown', (e) => {
   if (shapeUi?.section && shapeUi.custom) {
     const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
@@ -3839,7 +3894,7 @@ function currentColorKey() {
   return (fmt.TEXT_COLORS.find(([, , c]) => c === rgb) || [])[1] || null;
 }
 function renderTextBar() {
-  if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
+  if (!editing || editing.soft || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
   textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
@@ -4049,6 +4104,7 @@ function onTextInput(e) {
   else if (e?.inputType) {
     joinOrStep(ed);
     if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
+    if (e.inputType.startsWith('delete')) fmt.dropEndBreak(ed.ce, win.getSelection());
     autoLink(ed, e.inputType, e.data);
     // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
     if (ed.strikeNext) {
@@ -4128,6 +4184,9 @@ function finishTextEdit() {
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
+  commitTextSteps(ed, height);
+}
+function commitTextSteps(ed, height) {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
@@ -4135,6 +4194,25 @@ function finishTextEdit() {
   if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  return now;
+}
+// The text stays open and holds the keys, with no bar and the block's toolbar back. What was typed is in the model now.
+function softenTextEdit() {
+  const ed = editing, b = B(ed.sid, ed.bid), height = textHeight(b);
+  closeLinkPopover();
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(S(ed.sid));
+  editing = null; // The phone order follows now: this is the edit's close
+  softening = true;
+  const now = commitTextSteps(ed, height);
+  softening = false;
+  editing = ed;
+  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
+  blockEl(ed.bid).classList.remove('is-text-editing');
+  renderTextBar();
+  placeToolbar();
+  placeBlockPanel();
 }
 
 // Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
@@ -5954,6 +6032,12 @@ function onHover(e) {
 // ---------- top bar ----------
 // The mouse on the bar has left every section; on the canvas's white sides it has not (SECTIONBAR.json, fade).
 document.querySelector('.bar').addEventListener('pointerenter', () => { if (hoverSid) { hoverSid = null; placeChrome(); } });
+// A press on the editor's own controls ends the keys' way into the text, Write and Undo aside.
+document.addEventListener('click', (e) => {
+  if (!editing?.soft || e.target.closest?.('#undo, [data-tb="write"]')) return;
+  finishTextEdit();
+  if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
+}, true);
 $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
@@ -6136,7 +6220,7 @@ function boot() {
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
-  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); } });
+  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !vAlignOpen && pinPop.hidden) { closeFloating(); closeSectionPanel(); } }); // An open toolbar menu is onKey's, and the block stays selected
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
@@ -6144,7 +6228,8 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
+  watchShapeRects(doc, rectPath);
+  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);

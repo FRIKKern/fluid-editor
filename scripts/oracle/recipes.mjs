@@ -20,7 +20,58 @@ const WORDS = ["image", "photo", "picture", "gallery", "video", "youtube", "vime
 const Z2 = ['Move Forward', 'Move Backward'];
 const UR = ['Undo', 'Redo'];
 const BARTIPS = ['Save', 'Desktop View', 'Mobile View', 'Toggle Site Styles editing', 'Toggle preview mode'];
+// One Escape from an edit, caret at abcd|ef, then a key: where does it go? Each read also says if the block moved or went.
+const ESCR = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'] };
+const ESCAPED = [...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['pause', 200], ['press', 'Escape'], ['pause', 300]];
+const AFTERESC = (name, steps) => [...ESCAPED, ...steps, ['pause', 300], ['read', name, ESCR], ['keys', 'X'], ['pause', 300], ['read', `${name}, X`, ESCR]];
 export const RECIPES = {
+  'CAP-ESC1': { question: 'E4: after one Escape from an edit: which keys still reach the text, and which the block?', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...ESCAPED, ['read', 'one Escape', { ...ESCR, controls: true }], ['shot', 'one Escape'], ['keys', 'X'], ['pause', 300], ['read', 'one Escape, X', { ...ESCR, controls: true }], ['shot', 'one Escape, X'],
+    ...['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'Backspace', 'Delete', 'Enter', 'Shift+Enter', 'Tab', 'Meta+a', 'Meta+b', 'Meta+i', 'Meta+u', 'Meta+k', 'Meta+z', 'Meta+Shift+z', 'Meta+x', 'Meta+c', 'Meta+d', 'Meta+Alt+6'].flatMap((k) => AFTERESC(k, k.includes('Shift') ? [['press', k], ['press', 'Shift']] : [['press', k]])),
+    ...AFTERESC('Shift+ArrowLeft', SELECTLEFT(2)),
+    ...AFTERESC('a second Escape', [['press', 'Escape']]),
+    ...AFTERESC('pressed again', [['pick', 0, 'new'], ['pause', 300]]),
+    ...AFTERESC('a second Escape, pressed again', [['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300]]),
+    ...AFTERESC('Undo button', [['pressNamed', 'Undo'], ['pause', 400]]),
+    ...ESCAPED, ['keys', 'X'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['read', 'X, Escape', ESCR], ['keys', 'Y'], ['pause', 300], ['read', 'X, Escape, Y', ESCR], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['read', 'X, Escape, Y, Escape twice', ESCR], ['keys', 'Z'], ['pause', 300], ['read', 'X, Escape, Y, Escape twice, Z', ESCR],
+    ['press', 'Escape'], ['add', 0, 'Text'], ['pause', 400], ['keys', 'N'], ['pause', 300], ['read', 'just added, N', ESCR], ['press', 'Escape'], ['pause', 300], ['read', 'just added, N, Escape', ESCR], ['pick', 0, 'new'], ['pause', 300], ['keys', 'M'], ['pause', 300], ['read', 'just added, N, Escape, pressed, M', ESCR],
+  ] },
+  'CAP-ESC2': { question: 'E4: after one Escape: a real press, Write, a drag, another block, the page, Duplicate, a menu, the phone, Preview; undo steps across it; shortcuts over a selection. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...AFTERESC('a real press on the block', [['select', 0, 'new'], ['pause', 300]]),
+    ...AFTERESC('Write', [['click', 'Write'], ['pause', 300]]),
+    ...AFTERESC('Write, Escape', [['click', 'Write'], ['pause', 300], ['press', 'Escape'], ['pause', 300]]),
+    ...AFTERESC('a drag', [['drag', 0, 'new', 'middle', 125, 0], ['pause', 300]]),
+    ...AFTERESC('a press on the page', [['clickAt', 1300, 700], ['pause', 300]]),
+    ...AFTERESC('Duplicate', [['pressNamed', 'Duplicate'], ['pause', 500]]),
+    ...AFTERESC('Pin', [['pressNamed', 'Pin'], ['pause', 400], ['press', 'Escape'], ['pause', 300]]),
+    ...AFTERESC('Layers', [['pressNamed', 'Open Layers Panel'], ['pause', 500]]),
+    ...AFTERESC('the phone and back', [['view', 'Mobile'], ['pause', 700], ['view', 'Desktop'], ['pause', 500]]),
+    ...AFTERESC('Preview and back', [['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200]]),
+    ...ESCAPED, ['press', 'Shift+ArrowLeft'], ['press', 'Shift+ArrowLeft'], ['press', 'Shift'], ['press', 'Meta+b'], ['pause', 300], ['read', 'two letters, Bold', ESCR],
+    ...ESCAPED, ...SELECTLEFT(2), ['press', 'Meta+u'], ['pause', 300], ['read', 'two letters, Underline', ESCR],
+    ...ESCAPED, ...SELECTLEFT(2), ['press', 'Meta+x'], ['pause', 300], ['read', 'two letters, cut', ESCR],
+    ...ESCAPED, ['press', 'Meta+Alt+2'], ['pause', 300], ['read', 'Paragraph 1', ESCR],
+    ...NEWTEXT, ['keys', 'ab'], ['press', 'Escape'], ['keys', 'cd'], ['pause', 1300], ['keys', 'ef'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['undoWalk', 'typed either side of Escape', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'ab'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['keys', 'cd'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['undoWalk', 'a pause before Escape', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abc'], ['pause', 1300], ['press', 'Escape'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', 'Cmd+Z after Escape', { ...ESCR }], ['press', 'Escape'], ['pause', 300], ['undoWalk', 'Cmd+Z after Escape, walked', 0, 'new', 6, true],
+    ...NEWTEXT, ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Monospace'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'monospace, end of a line', H], ['keys', 'X'], ['pause', 200], ['read', 'monospace, end of a line, X', H],
+    ...NEWTEXT, ['keys', 'ab'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Enter'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['read', 'Enter after Escape, Escape', ESCR], ['keys', 'X'], ['pause', 300], ['read', 'Enter after Escape, Escape, X', ESCR],
+  ] },
+  'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'mid line', H], ['keys', 'X'], ['pause', 200], ['read', 'mid line, X', H],
+    ...NEWTEXT, ['keys', 'abc'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'end of a line', H], ['keys', 'X'], ['pause', 200], ['read', 'end of a line, X', H], ['press', 'Backspace'], ['pause', 200], ['read', 'end of a line, X, Backspace', H], ['press', 'Backspace'], ['pause', 200], ['read', 'end of a line, X, Backspace twice', H],
+    ...NEWTEXT, ['keys', 'abc'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'start of a line', H], ['keys', 'X'], ['pause', 200], ['read', 'start of a line, X', H],
+    ...NEWTEXT, ['keys', 'abc'], ['press', 'Shift+Enter'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'twice at the end', H], ['keys', 'X'], ['pause', 200], ['read', 'twice at the end, X', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['click', 'Text Style'], ['click', 'Heading 2'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['keys', 'X'], ['pause', 200], ['read', 'heading, mid line, X', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['click', 'Bullet List'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['keys', 'X'], ['pause', 200], ['read', 'list, mid line, X', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['click', 'Quote'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['keys', 'X'], ['pause', 200], ['read', 'quote, mid line, X', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ['click', 'Text Style'], ['click', 'Monospace'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['keys', 'X'], ['pause', 200], ['read', 'monospace, mid line, X', H],
+    ...NEWTEXT, ['keys', 'abcdef'], ...SELECTLEFT(2), ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'over two letters', H], ['keys', 'X'], ['pause', 200], ['read', 'over two letters, X', H],
+    ...NEWTEXT, ['keys', 'ab'], ['pause', 1300], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 1300], ['keys', 'cd'], ['pause', 1300], ['press', 'Escape'], ['undoWalk', 'undo steps', 0, 'new', 6, true],
+  ] },
   'CAP-E4REOPEN3': { question: 'E4: after a Preview, where does the caret start in two lines and once more after that?', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'one'], ['press', 'Enter'], ['keys', 'two'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pressNamed', 'Toggle preview mode'], ['pause', 1500], ['pressNamed', 'Toggle preview mode'], ['pause', 1200], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'X'], ['pause', 300], ['read', 'two lines', H], ['press', 'Escape'], ['pause', 300], ['press', 'Escape'], ['pause', 300], ['pick', 0, 'new'], ['pause', 300], ['click', 'Write'], ['pause', 400], ['keys', 'Y'], ['pause', 300], ['read', 'two lines, opened once more', H],
