@@ -19,7 +19,9 @@ const norm = (s) => (s || '').toLowerCase().replace(/[^a-z ]+/g, ' ').replace(/\
 // Help sentences and values read as rows, on both sides. They're kept apart from names of controls.
 const isProse = (r) => !r.k.length && r.n.length >= 40;
 const SKIP = new Set(['', 'no name', 'show tooltip', 'learn more', 'an email', 'click and drag to reposition block editor form', 'x', 'y', 'px']);
-const names = (rows) => [...new Map((rows || []).filter((r) => !SKIP.has(norm(r.n))).map((r) => [norm(r.n), r])).values()];
+// A heading and what follows it are one row when what follows is its value (a menu showing its pick) or its way in (Navigate to X).
+const pair = (rows) => { const out = []; for (const r of rows || []) { const h = out[out.length - 1]; if (h && !h.k.length && h.n.length < 40 && r.k.includes('menu') && !r.aria) { h.k = r.k; h.v = r.n; if (r.off) h.off = true; continue; } if (/^Navigate to /.test(r.n)) { const n = r.n.replace(/^Navigate to /, ''), at = out.findLast((x) => x.n === n); if (at) { at.k = r.k; if (r.off) at.off = true; continue; } out.push({ ...r, n }); continue; } out.push({ ...r }); } return out; };
+const names = (rows) => [...new Map(pair(rows).filter((r) => !SKIP.has(norm(r.n))).map((r) => [norm(r.n), r])).values()];
 
 const js = (b) => evalJs(S, b);
 viewport(S, 1600, 1000);
@@ -84,6 +86,7 @@ const rowsOf = (where, oTabs, uTabs, list) => {
       if (uAll.some((u) => same(n, u))) {
         const u = names(flat(uTabs)).find((x) => norm(x.n) === n);
         if (u && r.k.length && u.k.length && !r.k.some((k) => u.k.includes(k))) list.kinds.push({ where: `${where} > ${tab}`, name: r.n, oracle: r.k, ours: u.k });
+        if (u?.off) list.oursOff.push({ where: `${where} > ${tab}`, name: r.n });
         continue;
       }
       if (isProse(r)) { list.proseOnlyOracle.push({ where: `${where} > ${tab}`, name: r.n }); continue; }
@@ -99,7 +102,7 @@ const rowsOf = (where, oTabs, uTabs, list) => {
   }
 };
 
-const list = { unread: [], namedNotOurs: [], oursOnly: [], proseOnlyOracle: [], proseOnlyOurs: [], tabs: [], toolbar: [], bars: [], kinds: [] };
+const list = { unread: [], namedNotOurs: [], oursOnly: [], proseOnlyOracle: [], proseOnlyOurs: [], tabs: [], toolbar: [], bars: [], kinds: [], oursOff: [] };
 let matched = 0;
 for (const [T, o] of Object.entries(ORACLE.types)) {
   const u = ours.types[T], oTabs = tabsOf(o), uTabs = tabsOf(u);
@@ -124,8 +127,32 @@ barDiff('Hovered section, phone', barsOf(ORACLE.chrome?.phoneHovered), barsOf(ou
 const side = new Set((ORACLE.chrome?.hoveredSection || []).map(norm));
 barDiff('Add Section menu', ORACLE.chrome?.addSectionMenu || [], ours.bars.addSectionMenu.filter((x) => !side.has(norm(x))));
 
+if (process.env.COVERAGE_DUMP) writeFileSync(process.env.COVERAGE_DUMP, JSON.stringify(ours));
+// The list by use: a row is a control, a heading (perhaps a control the reader can't name), a state, or something only an outside service or a site-wide list can answer.
+const OUTSIDE = /^(SET UP|ADD EXISTING SCHEDULE|Get started with Acuity|CREATE NEW PRODUCT|Set Up Payment Processor|Funds|General Fund|Fund Dropdown Label|Connected Account|Choose an account|Add an Account|Join Tock|ALREADY A CUSTOMER|OpenTable Restaurant ID|Registry Name|Band Name|Enter a SoundCloud|Squarespace|Other Storage Options|Podcast|Additional Terms|Privacy Policy|Additional Storage|Google reCAPTCHA|MANAGE SUBMISSIONS|Export Form Submissions|Color Theme Editor)/;
+const STATE = /^(There (are|is) no|No (collections|metadata|items)|Press \+ to get started|here$|Pages$|Index$)/;
+const classOf = (r) => (OUTSIDE.test(r.n) ? 'outside' : STATE.test(r.n) ? 'state' : isProse(r) ? 'help' : r.k.length ? 'control' : 'heading');
+const standin = new Set(list.oursOnly.filter((x) => norm(x.name) === 'shape style' && !/phone/.test(x.where)).map((x) => x.where.split(' > ')[0]));
+// Rows every type's panel has (block design, T15). On a stand-in they're not this block's own.
+const COMMON = /^(Background|Stroke|Stroke Color|Blend Mode|Blur|Transforms|Opacity|Rotate|Scale|Offset|Skew|Anchor|Position|Triggers|Add a new animation)\b/;
+const tiles = {};
+for (const [T, o] of Object.entries(ORACLE.types)) {
+  const oT = tabsOf(o), uT = tabsOf(ours.types[T]), uN = names(flat(uT)).map((r) => norm(r.n));
+  const t = tiles[T] = { standin: standin.has(T) || undefined, dialog: o.dialog || undefined, oracleTabs: Object.keys(oT), oursTabs: Object.keys(uT), control: [], heading: [], outside: [], state: [], help: 0, matched: 0, common: 0, oursOff: [] };
+  for (const r of names(flat(oT))) {
+    const c = classOf(r), has = uN.some((u) => same(norm(r.n), u));
+    if (c === 'help') { if (!has) t.help++; continue; }
+    // On a stand-in a name that matches is a Shape's row: it says nothing of this block's own.
+    if (has && !t.standin) { t.matched++; if (names(flat(uT)).find((x) => norm(x.n) === norm(r.n))?.off) t.oursOff.push(r.n); continue; }
+    if (t.standin && COMMON.test(r.n)) { t.common++; continue; }
+    t[c].push(c === 'control' ? `${r.n} (${r.k.join(', ')})` : r.n);
+  }
+}
+const byKind = {}; for (const t of Object.values(tiles)) for (const c of t.control) { const k = c.match(/\(([^,)]+)/)?.[1] || '?'; byKind[k] = (byKind[k] || 0) + 1; }
+const summary = { note: 'Desktop. On a stand-in every oracle row counts: ours shows a Shape\'s rows there.', controls: Object.values(tiles).reduce((a, t) => a + t.control.length, 0), headings: Object.values(tiles).reduce((a, t) => a + t.heading.length, 0), outside: Object.values(tiles).reduce((a, t) => a + t.outside.length, 0), states: Object.values(tiles).reduce((a, t) => a + t.state.length, 0), byKind, tiles };
+
 const counts = Object.fromEntries(Object.entries(list).map(([k, v]) => [k, v.length]));
-const result = { check: 'coverage', oracleCaptured: ORACLE.capturedAt, matched, counts, ...list };
+const result = { check: 'coverage', oracleCaptured: ORACLE.capturedAt, matched, counts, summary, ...list };
 if (STORE) { writeFileSync(LIST, `${JSON.stringify(result, null, 1)}\n`); console.log('stored', JSON.stringify(counts), 'matched', matched); process.exit(0); }
 if (!existsSync(LIST)) { console.log('coverage-check: nothing stored', JSON.stringify(counts)); process.exit(2); }
 const old = JSON.parse(readFileSync(LIST));

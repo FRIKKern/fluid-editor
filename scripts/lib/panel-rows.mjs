@@ -1,6 +1,6 @@
 // One way to read a panel's rows, for the oracle (scripts/oracle-coverage.mjs) and ours (scripts/coverage-check.mjs).
 // A row is a name and the kinds of control that go with it. Nothing here presses anything.
-// rowsJs(root) is a JS expression that gives JSON: [{ n: name, k: [kinds], v?: value, reset?: true }].
+// rowsJs(root) is a JS expression that gives JSON: [{ n: name, k: [kinds], v?: value, reset?: true, off?: true }]. off: the control is there but disabled or marked not built.
 export const rowsJs = (root) => `(() => { const root = ${root}; if (!root) return JSON.stringify(null);
   const vis = (e) => { const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2) return false; const c = getComputedStyle(e); return c.visibility !== 'hidden' && c.display !== 'none'; };
   const kindOf = (e) => { const t = e.tagName, r = e.getAttribute('role'), ty = e.type;
@@ -17,7 +17,8 @@ export const rowsJs = (root) => `(() => { const root = ${root}; if (!root) retur
     if (!vis(e) || e.getAttribute('role') === 'tablist') return;
     const k = e.querySelector('[role=tablist]') ? null : kindOf(e);
     if (k) {
-      const aria = clean(e.getAttribute('aria-label') || e.getAttribute('title'));
+      const title = e.getAttribute('title'), aria = clean(e.getAttribute('aria-label') || (title === 'Not built yet' ? '' : title));
+      const off = e.hasAttribute('data-unbuilt') || e.disabled === true;
       const lines = (e.innerText || '').split('\\n').map(clean).filter(Boolean);
       if (/^reset/i.test(aria)) { if (cur) cur.reset = true; return; }
       const name = aria || (k === 'button' || k === 'menu' || (k === 'switch' && e.tagName === 'DIV') ? lines[0] : '') || clean(e.getAttribute('placeholder'));
@@ -27,6 +28,7 @@ export const rowsJs = (root) => `(() => { const root = ${root}; if (!root) retur
         if (!cur) open('(no name)');
         if (!cur.k.includes(k)) cur.k.push(k);
       } else { open(name).k.push(k); }
+      if (off && cur) cur.off = true;
       if (k === 'button' && lines.length > 1) cur.v = lines.slice(lines[0] === name ? 1 : 0).join(' ').slice(0, 60);
       return;
     }
