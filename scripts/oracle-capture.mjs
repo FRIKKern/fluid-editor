@@ -7,7 +7,7 @@
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
-//   addFromMenu i type name {frameBy, menu} | handleDrag i k part dx dy name | beforeOf name selector
+//   addFromMenu i type name {frameBy, menu, above, at, look} | handleDrag i k part dx dy name | beforeOf name selector
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my | pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
@@ -232,7 +232,17 @@ const STEPS = {
   // own scroller until the tile is in it. A tile out of reach or covered is named, and not pressed.
   addFromMenu: async (i, type, name, o = {}) => {
     const had = new Set(blockIds(i));
-    await openAddBlock(i);
+    if (o.above !== undefined) {
+      // In place: the frame set so section i's top is o.above above it, the real mouse moved to o.at, no hover scroll. Add Block is pressed only if it's on top in the window.
+      evalJs(S, `(() => { ${FRAME} const s = d.querySelectorAll('main#page .page-section')[${i}]; W.scrollTo({ top: W.scrollY + s.getBoundingClientRect().top + ${o.above}, behavior: 'instant' }); return 'true'; })()`); await pause(500);
+      const [mx, my] = o.at || [800, 500]; mouse(S, 'move', mx - 40, my - 40); await pause(300); mouse(S, 'move', mx, my); await pause(1200);
+      const btn = evalJs(S, `(() => { ${FRAME} const fr = document.getElementById('sqs-site-frame').getBoundingClientRect(); const ss = [...d.querySelectorAll('main#page .page-section')].map((x) => { const q = x.getBoundingClientRect(); return [Math.round(q.top * 10) / 10, Math.round(q.height * 10) / 10]; }); const bs = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0 && /^add block$/i.test((x.getAttribute('aria-label') || x.textContent).trim())).map((x) => { const q = x.getBoundingClientRect(); const X = q.left + q.width / 2, Y = q.top + q.height / 2; const e = document.elementFromPoint(X, Y); const on = !!e && (e === x || x.contains(e)); return { at: [X, Y], top: q.top - fr.top, onTop: on, cover: on || !e ? null : (e.getAttribute('aria-label') || e.tagName.toLowerCase() + '.' + String(e.className).slice(0, 60)) }; }); return JSON.stringify({ frameY: Math.round(W.scrollY * 10) / 10, sections: ss, buttons: bs, frameHeight: fr.height }); })()`);
+      const use = btn.buttons.filter((x) => x.onTop && x.at[1] > 55 && x.at[1] < 55 + btn.frameHeight);
+      finding.reads[`${name}, hovered`] = btn;
+      if (o.look) return;
+      if (use.length !== 1) { finding.errors.push(`${name}: not pressed, ${use.length} Add Block on top in the window`); return; }
+      cdp(S, { op: 'drag', from: use[0].at, to: use[0].at, steps: 1, holdMs: 50, mods: [] }); await pause(1300);
+    } else await openAddBlock(i);
     const look = (extra = '') => evalJs(S, `(() => { ${FRAME} const t = [...d.querySelectorAll('div,span,button,li')].filter((x) => x.childElementCount === 0 && x.getBoundingClientRect().width > 0 && !x.closest('.fe-block') && !/label-tag/.test(x.className) && x.textContent.trim() === ${JSON.stringify(type)})[0]; if (!t) return JSON.stringify(null); let sc = t.parentElement; while (sc && sc !== d.body && !(['auto', 'scroll'].includes(W.getComputedStyle(sc).overflowY) && sc.scrollHeight > sc.clientHeight + 1)) sc = sc.parentElement; if (sc === d.body) sc = null; ${extra} const q = t.getBoundingClientRect(), s = sc && sc.getBoundingClientRect(), x = q.left + q.width / 2, y = q.top + q.height / 2, e = d.elementFromPoint(x, y), inView = q.top >= (s ? s.top : 0) && q.bottom <= (s ? s.bottom : W.innerHeight) && q.bottom <= W.innerHeight; const fr = f.getBoundingClientRect(); return JSON.stringify({ frameY: Math.round(W.scrollY), frameH: W.innerHeight, tile: [Math.round(q.top * 10) / 10, Math.round(q.bottom * 10) / 10], scroller: s ? { top: Math.round(s.top), h: Math.round(s.height), scrollTop: Math.round(sc.scrollTop), scrollH: sc.scrollHeight } : null, inView, onTop: !!e && (e === t || t.contains(e) || e.contains(t)), at: [fr.left + x, fr.top + y] }); })()`);
     const out = finding.reads[name] = { open: look() };
     if (!out.open) { finding.errors.push(`${name}: no tile ${type}`); await escape(); return; }
@@ -394,8 +404,9 @@ const STEPS = {
   // A whole real drag, in window pixels.
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(800); },
   holdAt: async (x, y) => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(300); heldAt = [x, y]; },
-  moveAt: async (x, y) => { mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
-  releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); await pause(600); },
+  // With a holdAt down the button stays down, otherwise a plain move.
+  moveAt: async (x, y) => { if (!heldAt) { mouse(S, 'move', x, y); return; } mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
+  releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); heldAt = null; await pause(600); },
   // How long a tip takes: a real move onto a named button, then from the page's own clock the first frame the tip shows and the first it is fully on. Reads only.
   tipDelay: async (label, name, tries = 4) => {
     const seen = [];
@@ -484,7 +495,6 @@ const STEPS = {
   // A real move onto a named element, nothing pressed.
   hoverNamed: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); const at = evalJs(S, `(() => { const q = document.getElementById('fx-target').getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); mouse(S, 'move', at[0], at[1]); await pause(600); },
   // Section i's Add Section buttons and outline, frame by frame, by the page's own clock, as the pointer comes on and goes off.
-  moveAt: (x, y) => { mouse(S, 'move', x, y); },
   frameTo: async (y) => { evalJs(S, `(() => { document.getElementById('sqs-site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true'; })()`); await pause(300); },
   outlineStart: () => { evalJs(S, `(() => { ${FRAME} const T = window.__ol = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const row = [...d.querySelectorAll('.sqs-section-outline')].map((l) => { const c = W.getComputedStyle(l); return [Math.round(l.getBoundingClientRect().top), c.borderTopColor.replace(/rgba?\\(|\\)/g, ''), l.classList.contains('show-section-outline') ? 1 : 0, c.display === 'none' ? 0 : 1]; }); const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`); },
   outlineStop: (name) => { const seen = evalJs(S, `(() => { const T = window.__ol; T.stop = true; return JSON.stringify(T.seen); })()`); finding.reads[name] = { columns: ['ms', 'each outline: top, border color, has the show class, displayed'], seen }; },

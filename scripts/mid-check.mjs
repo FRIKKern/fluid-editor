@@ -328,6 +328,11 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   groupCases.push({ name: 'a tap selects', diffs: [handles() !== 8 && `${handles()} handles`, area() !== '1/2/7/8' && area()].filter(Boolean) });
   touch(at(1, 1), 70, 70); await pause(150); const h1 = area(), s1 = handles(); touch(at(1, 1), 125, 75); await pause(150); const h2 = area();
   groupCases.push({ name: 'a touch on a handle resizes', diffs: [h1 !== '1/2/9/9' && `oracle 1/2/9/9, ours ${h1}`, h2 !== '1/2/11/11' && `oracle 1/2/11/11, ours ${h2}`, s1 !== 8 && 'not selected after'].filter(Boolean) });
+  // At 20 px a move a handle needs the hold a body needs (CAP-X11FAST.json).
+  for (const [fx, fy, dx, dy, hold, want, cancelled] of [[1, 0.5, 240, 0, 0, '1/2/7/8', true], [1, 0.5, 240, 0, 60, '1/2/7/8', true], [1, 0.5, 240, 0, 100, '1/2/7/12'], [1, 0.5, 240, 0, 300, '1/2/7/12'], [0.5, 1, 0, 240, 0, '1/2/7/8', true], [0.5, 1, 0, 240, 100, '1/2/13/8'], [1, 0.5, -240, 0, 0, '1/2/7/8', true], [1, 0.5, -120, 0, 100, '1/2/7/6']]) {
+    await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); touch(at(fx, fy), dx, dy, hold); await pause(150);
+    groupCases.push({ name: `touch on a handle ${dx},${dy} after ${hold} ms`, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
+  }
   await load(); { const p = at(1, 0); touch([p[0] + 300, p[1] + 60], 70, 70); await pause(150); }
   groupCases.push({ name: 'a touch on the empty grid', diffs: [area() !== '1/2/7/8' && area(), cancels() !== 1 && `${cancels()} cancels`, handles() !== 0 && 'selected'].filter(Boolean) });
   await load(); { const p = at(0.5, 0.5); cdp(S, { op: 'drag', from: p, to: [p[0] + 200, p[1]], steps: 12, holdMs: 150, pointerType: 'pen' }); await pause(150); }

@@ -9,7 +9,7 @@
     "yes": 92,
     "no": 11,
     "ask": 4,
-    "read": 94,
+    "read": 95,
     "notPressed": 0
   },
   "entries": [
@@ -1157,12 +1157,14 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T14",
       "what": "A new block on a page scrolled before Add Block is pressed, and in the phone view",
       "source": "CAP-T14FRAME2.json",
       "safeRead": "yes",
-      "how": "open the menu with no hover scroll, on a probe page"
+      "how": "open the menu with no hover scroll, on a probe page",
+      "finding": "CAP-T14PLACE.json, CAP-T14REACH.json, CAP-T14BACK.json",
+      "result": "The rule holds, 7 of 8; the eighth is where the frame goes past the last row, which fits the block's middle at the frame's middle, 4 of 4. The phone view has no Add Block."
     }
   ]
 }
