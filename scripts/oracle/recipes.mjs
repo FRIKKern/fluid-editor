@@ -157,6 +157,12 @@ export const RECIPES = {
     ...FRESH, ['keys', 'abc'], ['pause', 1300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300], ['read', 'rows X typed', ESCR], ...ZS('rows X', ['z', 'y', 'z', 'z']), ...LEAVE,
     ...FRESH, ['keys', 'abc'], ['pause', 1300], ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 300], ...LEAVE, ['pressNamed', 'Undo'], ['pause', 500], ['read', 'rows Y left 1', ESCR], ['pressNamed', 'Undo'], ['pause', 500], ['read', 'rows Y left 2', ESCR], ['pressNamed', 'Redo'], ['pause', 500], ['read', 'rows Y left 3', ESCR], ['pressNamed', 'Redo'], ['pause', 500], ['read', 'rows Y left 4', ESCR],
   ] },
+  'CAP-Y2KEYS8': { question: 'Y2: rows on going back over wrapped text as the first step of an edit: in the edit, reopened, by the buttons. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...NEWTEXT, ['keysFast', `abc${WORD1}${WORD2}`], ['pause', 1300], ['read', 'rows Z1 typed', ESCR], ...ZS('rows Z1', ['z', 'y']), ...LEAVE, ...WALK('rows Z1', ['Undo', 'Redo']),
+    ...FRESH, ['keysFast', `abc${WORD1}`], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ['press', 'Meta+ArrowDown'], ['keysFast', WORD2], ['pause', 1300], ['read', 'rows Z2 typed', ESCR], ...ZS('rows Z2', ['z', 'y']), ...LEAVE, ...WALK('rows Z2', ['Undo', 'Redo']),
+    ...FRESH, ['keysFast', `abc${WORD1}${WORD2}${WORD3}`], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ['press', 'Meta+ArrowDown'], ['keysFast', WORD4], ['pause', 1300], ...ZS('rows Z3', ['z']), ...LEAVE,
+  ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'mid line', H], ['keys', 'X'], ['pause', 200], ['read', 'mid line, X', H],
