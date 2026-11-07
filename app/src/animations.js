@@ -357,13 +357,19 @@ export function followPose(a, dx, dy, R, away = [1, 0]) {
     xp: end.xp * ax * push, xpx: end.xpx * ax * push, yp: end.yp * ay * push, ypx: end.ypx * ay * push,
   };
 }
-// How a block chases that pose: Smoothing sets the time, Bounce the spring. Fitted to steps read.
+// How a block chases that pose: a spring whose speed and damping come from Smoothing, scaled by
+// Bounce. Fitted to steps read at Smoothing .25 to 1 and Bounce 0 to .6 (CAP-T15FOLLOW.json).
+const FOLLOW_S = [[0.25, 43, 1.3], [0.5, 30, 1.2], [0.75, 13.5, 0.87], [1, 7, 0.8]]; // at Bounce .3: speed, damping
+const FOLLOW_B = [[0, 1.4, 2], [0.3, 1, 1], [0.6, 0.62, 0.38], [1, 0.3, 0.1]]; // their factors by Bounce
+const along = (pts, x, i) => {
+  if (x <= pts[0][0]) return pts[0][i];
+  for (let k = 1; k < pts.length; k++) if (x <= pts[k][0]) { const [a, b] = [pts[k - 1], pts[k]]; return a[i] + ((b[i] - a[i]) * (x - a[0])) / (b[0] - a[0]); }
+  return pts.at(-1)[i];
+};
 export function followSpring(a) {
-  const s = Math.max(0.02, parseFloat(a.smoothing) || 0), b = parseFloat(a.bounce) || 0;
-  const at = (pts) => { for (let i = 1; i < pts.length; i++) if (b <= pts[i][0]) { const k = (b - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]); return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k; } return pts.at(-1)[1]; };
-  return { w: at(FOLLOW_W) / s, z: at(FOLLOW_Z) };
+  const s = parseFloat(a.smoothing) || 0, b = parseFloat(a.bounce) || 0;
+  return { w: along(FOLLOW_S, s, 1) * along(FOLLOW_B, b, 1), z: along(FOLLOW_S, s, 2) * along(FOLLOW_B, b, 2) };
 }
-const FOLLOW_W = [[0, 18], [0.3, 15], [0.6, 9], [1, 6]], FOLLOW_Z = [[0, 2.2], [0.3, 1.2], [0.6, 0.45], [1, 0.1]];
 function chaser(el, a) {
   const s = stateOf(el), win = el.ownerDocument.defaultView, { w, z } = followSpring(a), vel = {};
   let to = REST_N, last = 0;
