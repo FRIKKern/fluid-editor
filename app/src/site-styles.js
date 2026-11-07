@@ -7,10 +7,11 @@
 // the site's current styles. A 44px disclosure swaps the panel for that pack's view, with a back
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
 // the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
-// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json), Forms' sub panels (CAP-FORMSUBS.json, form-panels.js). Faded and not built (data-unbuilt): the other rows of a view, Customize.
-import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize, fontName, fontFamilyCss } from './site-style-packs.js';
+// Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json), Forms' sub panels (CAP-FORMSUBS.json, form-panels.js). Reads with no pick: Font Packs' tabs, Image Blocks, Customize and a type's Font popover (CAP-U12FADED.json).
+import { PALETTES, FONT_PACKS, ALL_FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize, fontName, fontFamilyCss } from './site-style-packs.js';
 import { fontInRow } from './font-list.js';
 import { assignName, assignStylesHtml, assignRowHtml } from './assign-styles.js';
+import { imageBlocksHtml } from './image-block-styles.js';
 import { paletteHtml } from './site-palette.js';
 import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
 import { TIERS, TIER_NAMES, SHAPES, tierValues, sameTier, tierSample } from './button-tiers.js';
@@ -27,7 +28,7 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
 // the section color themes for Colors: { name, bg, ink, used }.
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
-export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], FontButtons: ['Fonts', 'Buttons'], FontMisc: ['Fonts', 'Miscellaneous'], AssignStyles: ['Fonts', 'Assign Styles'], AssignRow: ['AssignStyles', ''], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], FormEffects: ['Forms', 'Effects'], FormOptions: ['Forms', 'Field Options'], FormOption: ['FormOptions', ''], FormFonts: ['Forms', 'Fonts'], FormFont: ['FormFonts', ''], FormColors: ['Forms', 'Colors'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
+export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], FontButtons: ['Fonts', 'Buttons'], FontMisc: ['Fonts', 'Miscellaneous'], ImageBlocks: ['Miscellaneous', 'Image Blocks'], AssignStyles: ['Fonts', 'Assign Styles'], AssignRow: ['AssignStyles', ''], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], FormEffects: ['Forms', 'Effects'], FormOptions: ['Forms', 'Field Options'], FormOption: ['FormOptions', ''], FormFonts: ['Forms', 'Fonts'], FormFont: ['FormFonts', ''], FormColors: ['Forms', 'Colors'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
@@ -40,6 +41,12 @@ function packValue(font, k, n) {
 }
 const ANIM_ICONS = { None: '<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/>', Fade: '<path d="M4 5h16v11H4zM4 20h16"/>', Scale: '<path d="M4 9v11h11M4 20L20 4M12 4h8v8"/>', Slide: '<path d="M12 18V5M6 11l6-6 6 6M3 21h18"/>', Clip: '<path d="M4 4h16v16H4zM4 4l16 16"/>', Flex: '<path d="M8 19V5M4 9l4-4 4 4M16 5v14M12 15l4 4 4-4"/>' };
 // One button type (parity/findings/CAP-BUTTONROWS.json). The Font row opens with Fonts, not built here.
+// A button type's Font row opens this over its panel, 342 wide from the row's bottom (CAP-U12FADED.json). The rows share Fonts > Buttons' store, inferred: no pick is read.
+// Weight shows no value until one is stored, as read on Poppins.
+function tierFontPop(styles, k, opts, slide) {
+  const d = TYPE_DEFAULTS.button, v = (n) => styles?.type?.[k]?.[n] ?? d[n], select = opts.selectRow;
+  return `<div class="ss-tf-pop" role="dialog">${fontRow(styles, k, svg(CHEV), opts)}${select(`type.${k}.style`, 'Style', v('style'), ['Normal', 'Italic'])}${select(`type.${k}.weight`, 'Weight', String(styles?.type?.[k]?.weight ?? ''), ['100', '200', '300', '400', '500', '600', '700', '800', '900'])}${slide(`type.${k}.size`, 'Font size', v('size'), 0.1, 10, 0.1, 'rem', 51)}${slide(`type.${k}.ls`, 'Letter spacing', v('ls'), -0.1, 2, 0.01, 'em', 44)}${select(`type.${k}.tt`, 'Text transform', v('tt'), ['None', 'Uppercase', 'Lowercase', 'Capitalize'])}</div>`;
+}
 function tierHtml(styles, font, slide, opts) {
   const tier = opts.tier || 'primary', pack = resolveSiteStyles(styles).button, v = tierValues(styles, pack, tier), first = tierValues(styles, pack, 'primary');
   const name = TIER_NAMES[tier], set = (n) => `buttons.${tier}.${n}`, open = opts.select === 'tier-shape';
@@ -55,7 +62,7 @@ function tierHtml(styles, font, slide, opts) {
   const warn = lacks ? `<p class="ss-tier-warn ss-tier-warn-${tier}">This page doesn't have a ${tier} button.</p>` : '';
   const act = tier === 'primary' ? (differs ? '<button type="button" class="ss-reset ss-tier-act" data-ss-reset="apply">Apply to all button types</button>' : '') : (!sameTier(v, first) ? '<button type="button" class="ss-reset ss-tier-act" data-ss-reset="match">Match with primary button</button>' : '');
   return `<div class="ss-tabs ss-tier-tabs" role="tablist">${tabs}</div><div class="ss-preview ss-tier-preview"><span class="ss-btn" style="${tierSample(v)}">Button</span></div>
-    <div class="ss-sel-row ss-tier-font" data-unbuilt><span>Font</span><span class="ss-sel"><span>${font?.p || 'Poppins'}, ${font?.pw || 500}, 1rem</span>${svg(CHEV_DOWN)}</span></div>
+    <button type="button" class="ss-sel-row ss-tier-font" data-ss-tierfont aria-expanded="${!!opts.tierFont}"><span>Font</span><span class="ss-sel"><span>${fontName(fontInRow(styles, tier))}, ${styles?.type?.[tier]?.weight ?? (font?.pw || 500)}, ${styles?.type?.[tier]?.size ?? 1}rem</span>${svg(CHEV_DOWN)}</span></button>${opts.tierFont ? tierFontPop(styles, tier, opts, slide) : ''}
     <div class="ss-sel-row ss-tier-shape"><span>Shape</span><button type="button" class="ss-sel" data-ss-select="tier-shape" aria-label="Shape" aria-expanded="${open}"><span>${v.shape}</span>${svg(CHEV_DOWN)}</button>${pop}</div>
     ${slide(set('outline'), 'Outline', v.outline, 0, 10, 1, 'px')}
     <div class="ss-pad-row"><span>Padding</span><span class="ss-pad-set" role="radiogroup">${pad('S', 'Small', 'S')}${pad('M', 'Medium', 'M')}${pad('L', 'Large', 'L')}${pad('custom', 'Custom', '<b>...</b>')}</span></div>
@@ -65,9 +72,9 @@ function tierHtml(styles, font, slide, opts) {
 function subHtml(view, styles, font, opts) {
   const open = opts.select;
   // A list row: the open list lays the current option over the row, as on the oracle.
-  const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * options.indexOf(now)}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
-  const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"${typeBox(key, unit)}><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
-  if (view === 'ButtonTier') return tierHtml(styles, font, slide, opts);
+  const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * Math.max(0, options.indexOf(now))}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
+  const slide = (key, label, now, min, max, step, unit, box = 0) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"${box ? ` style="width:${box}px"` : typeBox(key, unit)}><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
+  if (view === 'ButtonTier') return tierHtml(styles, font, slide, { ...opts, selectRow: select });
   const parts = { svg, slide, select, CHEV, CHEV_DOWN, CHECK };
   if (view === 'FormEffects') return formEffectsHtml(styles);
   if (view === 'FormOptions') return formOptionsHtml(parts);
@@ -75,6 +82,7 @@ function subHtml(view, styles, font, opts) {
   if (view === 'FormFonts') return formFontsHtml(styles, parts);
   if (view === 'FormFont') return formFontHtml(styles, opts, parts);
   if (view === 'AssignStyles') return assignStylesHtml(styles, parts);
+  if (view === 'ImageBlocks') return imageBlocksHtml(styles, parts);
   if (view === 'AssignRow') return assignRowHtml(styles, opts, parts, fontRow);
   if (view === 'FormColors') return formColorsHtml(styles, opts, resolveSiteStyles(styles).vars || BASE_VARS, VARS, parts);
   if (view === 'FormSpacing') { const f = formValues(styles); return `<div class="ss-spacing">${[['label', 'Space Below Label'], ['desc', 'Space Below Description'], ['cap', 'Space Below Caption'], ['fields', 'Space Between Fields'], ['cols', 'Space Between Columns']].map(([k, l]) => slide(`forms.${k}`, l, f[k], 1, 40, 1, 'px')).join('')}</div>`; }
@@ -122,7 +130,7 @@ function subHtml(view, styles, font, opts) {
     ${rows}<button type="button" class="ss-theme-reset ss-theme-reset-rows" data-ss-theme-reset>Reset Color Theme</button>`;
   }
   const cur = styles || {};
-  if (view === 'FontPacks') return `<div class="ss-tabs"><button type="button" class="ss-tab is-on">Sans-serif</button><button type="button" class="ss-tab" data-unbuilt>Serif</button><button type="button" class="ss-tab" data-unbuilt>Mixed</button></div>${FONT_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-font${cur.font === f.id ? ' is-on' : ''}" data-ss-pick="font" data-v="${f.id}" aria-label="${f.id} font pack" aria-pressed="${cur.font === f.id}"><span class="ss-pv-h" style="font-family:'${f.h}',sans-serif;font-weight:${f.hw};text-transform:${f.tt}">Heading</span><span class="ss-pv-p" style="font-family:'${f.p}',sans-serif;font-weight:${f.pw}">This is your paragraph.</span><span class="ss-pv-n">${f.h === f.p ? f.h : `${f.h} · ${f.p}`}</span></button>`).join('')}`;
+  if (view === 'FontPacks') return `<div class="ss-tabs">${Object.keys(ALL_FONT_PACKS).map((t) => `<button type="button" class="ss-tab${t === (opts.packTab || 'Sans-serif') ? ' is-on' : ''}" data-ss-packtab="${t}">${t}</button>`).join('')}</div>${ALL_FONT_PACKS[opts.packTab || 'Sans-serif'].map((f) => `<button type="button" class="ss-pack ss-pack-font${cur.font === f.id ? ' is-on' : ''}" data-ss-pick="font" data-v="${f.id}" aria-label="${f.id} font pack" aria-pressed="${cur.font === f.id}"><span class="ss-pv-h" style="font-family:'${f.h}',sans-serif;font-weight:${f.hw};font-size:${f.hs}px;letter-spacing:${f.ls}em;text-transform:${f.tt}">Heading</span><span class="ss-pv-p" style="font-family:'${f.p}',sans-serif;font-weight:${f.pw};font-size:${f.ps}px">This is your paragraph.</span><span class="ss-pv-n">${f.names}</span></button>`).join('')}`;
   if (view === 'ButtonPacks') return BUTTON_PACKS.map((b) => `<button type="button" class="ss-pack${cur.button === b.id ? ' is-on' : ''}" data-ss-pick="button" data-v="${b.id}" aria-label="Button style pack ${b.id}" aria-pressed="${cur.button === b.id}">${buttonSample(b)}</button>`).join('');
   if (view === 'FormPacks') return FORM_PACKS.map((f) => `<button type="button" class="ss-pack ss-pack-form" data-ss-pick="form" data-v="${f.id}" aria-label="Form pack ${f.id}" aria-pressed="${styles?.form === f.id}" style="background:${hsl((resolveSiteStyles(styles).vars || BASE_VARS)[4])}">${formSample(f)}</button>`).join('');
   if (view === 'EditPalette') {
@@ -199,7 +207,7 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
   }
   if (view === 'Colors') {
     const tr = (r) => `<button type="button" class="ss-tr" data-ss-theme="${r.name}" style="background:${r.bg};color:${r.ink}"><span class="ss-tr-aa">Aa</span><span class="ss-tr-n">${r.name}</span></button>`;
-    return `<div class="ss-palette" data-unbuilt><span class="ss-strip ss-strip-palette">${colors.map((c) => `<span style="background:${c}"></span>`).join('')}</span></div>
+    return `<button type="button" class="ss-palette" data-ss-view="EditPalette" aria-label="Edit Palette"><span class="ss-strip ss-strip-palette">${colors.map((c) => `<span style="background:${c}"></span>`).join('')}</span></button>
     ${disRow('Edit Palette', '', 'EditPalette')}
     <div class="ss-sub"><span>Section color themes</span><button type="button" class="ss-help" aria-label="Colors help" data-ss-help>${svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>', 20)}</button>${opts?.help ? '<div class="ss-tip" role="tooltip">Your palette is used to create 10 unique color themes that can be applied to your sections.</div>' : ''}</div>
     <div class="ss-group">Color themes on this page</div>${rows.filter((r) => r.used).map(tr).join('')}
@@ -232,10 +240,11 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
     <div class="ss-forms-more">${disRow('Effects', '', 'FormEffects')}${disRow('Selection Options', '', 'FormOptions')}${disRow('Fonts', '', 'FormFonts')}${disRow('Colors', '', 'FormColors')}${disRow('Form Spacing', '', 'FormSpacing')}</div>
     ${reset('Reset Form Pack', 'data-ss-reset="form"', 'ss-reset-forms')}`;
   }
-  return `<div class="ss-miscs">${['Animations', 'Spacing', 'Image Blocks'].map((n) => `<button type="button" class="ss-mrow"${n === 'Image Blocks' ? ' data-unbuilt' : ` data-ss-view="${n}"`}>${n}${svg(CHEV)}</button>`).join('')}</div>`;
+  return `<div class="ss-miscs">${['Animations', 'Spacing', 'Image Blocks'].map((n) => `<button type="button" class="ss-mrow"data-ss-view="${n.replace(' ', '')}">${n}${svg(CHEV)}</button>`).join('')}</div>`;
 }
 
-const customize = '<button type="button" class="ss-customize" data-unbuilt>Customize</button>';
+// Read on each: it opens the view named on its card, with Save off (CAP-U12FADED.json).
+const customize = (view) => `<button type="button" class="ss-customize" data-ss-customize="${view}">Customize</button>`;
 const tile = (kind, id, label, on, body, extra = '') => `<button type="button" class="ss-tile" data-ss-pick="${kind}" data-v="${q(id)}" aria-label="${q(label)}" aria-pressed="${on}"${extra}>${body}</button>`;
 
 function themesPop(cur) {
@@ -244,18 +253,18 @@ function themesPop(cur) {
   return `<div class="ss-pop-head">Themes</div>${groups.map((g) => `<div class="ss-pop-group">${g}</div>${THEMES.filter((t) => t.group === g).map(one).join('')}`).join('')}`;
 }
 function fontsPop(cur) {
-  return `<div class="ss-pop-head">Recommended Font Packs</div><div class="ss-pop-grid">${FONT_PACKS.map((f) => tile('font', f.id, `${f.id} font pack`, cur.font === f.id, `<span class="ss-ft-h" style="font:${f.hw} ${f.tile[0]}px/26px '${f.h}',sans-serif;text-transform:${f.tt}">Heading</span><span class="ss-ft-p" style="font:${f.pw} ${f.tile[1]}px/12px '${f.p}',sans-serif">This is your paragraph.</span>`)).join('')}</div>${customize}`;
+  return `<div class="ss-pop-head">Recommended Font Packs</div><div class="ss-pop-grid">${FONT_PACKS.map((f) => tile('font', f.id, `${f.id} font pack`, cur.font === f.id, `<span class="ss-ft-h" style="font:${f.hw} ${f.tile[0]}px/26px '${f.h}',sans-serif;text-transform:${f.tt}">Heading</span><span class="ss-ft-p" style="font:${f.pw} ${f.tile[1]}px/12px '${f.p}',sans-serif">This is your paragraph.</span>`)).join('')}</div>${customize('Fonts')}`;
 }
 function colorsPop(cur) {
-  return `<div class="ss-pop-head">Recommended Color Palettes</div><div class="ss-pop-grid">${PALETTES.map((p) => tile('palette', p.id, `Palette with accent ${p.id}`, cur.palette === p.id, `<span class="ss-strip ss-pal">${swatches(p.vars).map((c) => `<span style="background:${c}"></span>`).join('')}</span>`)).join('')}</div>${customize}`;
+  return `<div class="ss-pop-head">Recommended Color Palettes</div><div class="ss-pop-grid">${PALETTES.map((p) => tile('palette', p.id, `Palette with accent ${p.id}`, cur.palette === p.id, `<span class="ss-strip ss-pal">${swatches(p.vars).map((c) => `<span style="background:${c}"></span>`).join('')}</span>`)).join('')}</div>${customize('Colors')}`;
 }
 const buttonSample = (b) => `<span class="ss-bt${b.tile.bg ? ' is-filled' : ''}" style="width:${b.tile.w}px;height:${b.tile.h}px;background:${b.tile.bg || 'transparent'};border:${b.tile.border}px solid #000;border-radius:${b.tile.radius}${!b.tile.bg && !b.tile.border ? ';border-bottom:2px solid #000' : ''}">Button</span>`;
 function buttonsPop(cur) {
-  return `<div class="ss-pop-head">Recommended Button Packs</div><div class="ss-pop-grid">${BUTTON_PACKS.map((b) => tile('button', b.id, `Button style pack ${b.id}`, cur.button === b.id, buttonSample(b))).join('')}</div>${customize}`;
+  return `<div class="ss-pop-head">Recommended Button Packs</div><div class="ss-pop-grid">${BUTTON_PACKS.map((b) => tile('button', b.id, `Button style pack ${b.id}`, cur.button === b.id, buttonSample(b))).join('')}</div>${customize('Buttons')}`;
 }
 const formSample = (f) => `<span class="ss-fm${f.field ? '' : ' is-line'}" style="width:${f.w}px;background:${f.field?.bg || 'transparent'};border:${f.field?.border || '0'};border-radius:${f.field?.radius || 0}">Text</span><span class="ss-fm-c" style="width:${f.chk.w}px;background:${f.chk.bg || 'transparent'};border:${f.chk.border || '0'};border-radius:${f.chk.radius};color:${f.chk.bg === 'rgba(255, 255, 255, 0)' || !f.chk.bg ? '#000' : '#fff'}">${f.option ? 'Option' : svg(CHECK, 16)}</span>`;
 function formsPop(accent, cur) {
-  return `<div class="ss-pop-head">Recommended Form Packs</div><div class="ss-pop-grid ss-pop-forms">${FORM_PACKS.map((f) => tile('form', f.id, `Form pack ${f.id}`, cur?.form === f.id, formSample(f), ` style="background:${accent}"`)).join('')}</div>${customize}`;
+  return `<div class="ss-pop-head">Recommended Form Packs</div><div class="ss-pop-grid ss-pop-forms">${FORM_PACKS.map((f) => tile('form', f.id, `Form pack ${f.id}`, cur?.form === f.id, formSample(f), ` style="background:${accent}"`)).join('')}</div>${customize('Forms')}`;
 }
 
 export function stylePopoverHtml(kind, styles) {

@@ -27,7 +27,7 @@ import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js'
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { formColor } from './form-colors.js';
 import { fontListHtml, fontRowsHtml, fontListTop, watchFontRows } from './font-list.js';
-import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
+import { ALL_FONT_PACKS, fontLink, siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
 import { rowValue } from './theme-rows.js';
@@ -5371,7 +5371,7 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0, ssPackTab = 'Sans-serif', ssTierFont = false;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let fontPop = null; // the open font list: { key, query, watch }
 let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
@@ -5399,10 +5399,13 @@ function renderSsPanel() {
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
   if (ssView === 'AssignRow') opts = { ...opts, assignRow: ssAssign };
+  if (ssView === 'FontPacks') { opts = { ...opts, packTab: ssPackTab }; loadPackFonts(ssPackTab); }
+  if (ssView === 'ButtonTier') opts = { ...opts, tierFont: ssTierFont };
   if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
+  placeTierFont();
   placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
@@ -5453,12 +5456,15 @@ siteStyles.addEventListener('click', (e) => {
   if (card) { openStylePopover(card.dataset.ssPop); return; }
   const tierBtn = e.target.closest('[data-ss-tier]');
   if (tierBtn) {
-    ssTier = tierBtn.dataset.ssTier;
+    ssTier = tierBtn.dataset.ssTier; ssTierFont = false;
     if (tierBtn.getAttribute('role') === 'tab') { ssSelect = null; renderSsPanel(); return; }
   }
+  const packTab = e.target.closest('[data-ss-packtab]');
+  if (packTab) { ssPackTab = packTab.dataset.ssPacktab; renderSsPanel(); siteStyles.scrollTop = 0; return; }
+  if (e.target.closest('[data-ss-tierfont]')) { ssTierFont = !ssTierFont; ssSelect = null; closeFontList(); renderSsPanel(); return; }
   if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
-  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); closeFontList(); pal.list = false; }
+  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; ssTierFont = false; closeDotPop(); closeFontList(); pal.list = false; }
   // Edit Color Theme's back goes to Site Styles' Colors, not to the section panel it was opened from (CAP-DIVSHAPES.json).
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) { ssView = 'Colors'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
@@ -5569,6 +5575,22 @@ function fontRowsNow() {
   host.scrollTop = top;
   fontPop.watch = watchFontRows(host);
 }
+// The tiles of a Font Packs tab draw in their own fonts: those load when the tab first opens, a name at a time, so the panel still works offline.
+const packFontsDone = new Set();
+function loadPackFonts(tab) {
+  if (packFontsDone.has(tab)) return;
+  packFontsDone.add(tab);
+  const seen = new Map(ALL_FONT_PACKS[tab].flatMap((f) => [[`${f.h}|${f.hw}`, [f.h, f.hw]], [`${f.p}|${f.pw}`, [f.p, f.pw]]]));
+  document.head.insertAdjacentHTML('beforeend', [...seen.values()].map(([n, w]) => fontLink(n, w)).join(''));
+}
+function placeTierFont() {
+  const pop = siteStyles.querySelector('.ss-tf-pop');
+  if (pop) pop.style.top = `${siteStyles.querySelector('.ss-tier-font').getBoundingClientRect().bottom}px`;
+}
+function closeTierFont() { if (!ssTierFont) return; ssTierFont = false; ssSelect = null; renderSsPanel(); }
+// Escape closes it, with any list open in it (read). A press elsewhere closing it is inferred.
+document.addEventListener('keydown', (e) => { if (ssTierFont && !fontPop && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeTierFont(); } }, true);
+document.addEventListener('pointerdown', (e) => { if (ssTierFont && !e.target.closest?.('.ss-tf-pop,[data-ss-tierfont],#ss-font-list')) closeTierFont(); }, true);
 function openFontList(btn) {
   fontPop = { key: btn.dataset.ssFontrow, query: '' };
   btn.setAttribute('aria-expanded', 'true');
@@ -5885,6 +5907,8 @@ function applyStylePick(t) {
   fitHeader();
 }
 stylePop.addEventListener('click', (e) => {
+  const customize = e.target.closest('[data-ss-customize]');
+  if (customize) { closeStylePopover(); ssView = customize.dataset.ssCustomize; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   const t = e.target.closest('button[data-ss-pick]');
   if (!t || t.hasAttribute('data-unbuilt')) return;
   const top = stylePop.scrollTop;
