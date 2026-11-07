@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 64 changes
+- **Today** · 65 changes
+  - L5: block menu and Layers on all 37 tiles, one menu per load ([#355](https://github.com/FRIKKern/fluid-editor/pull/355))
   - E7: a linked Button opens a box with Edit, Copy and Remove Link (item 58) ([#354](https://github.com/FRIKKern/fluid-editor/pull/354))
-  - X8: a Text or Quote keeps its rows in a narrowed group ([#353](https://github.com/FRIKKern/fluid-editor/pull/353))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
