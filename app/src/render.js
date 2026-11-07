@@ -369,6 +369,9 @@ function blockInner(b, model) {
         return !rect ? svg(` viewBox="0 0 ${kind.w} ${kind.h}"`, `<path d="${kind.d}" fill="${fill}"${ink}/>`)
           : w && radii.some((r) => r > 0) ? svg('', `<path data-rect="${radii.map((r) => r || 0).join(' ')}" data-w="${w}" fill="${fill}"${ink}/>`)
           : w ? svg('', `<rect style="width:calc(100% + ${w}px);height:calc(100% + ${w}px);x:calc(${w}px / -2);y:calc(${w}px / -2)" fill="${fill}"${ink}/>`)
+          // A plain rectangle is an svg holding a rect, as on the oracle (CAP-BLEND.json, difference 92). With a corner or a
+          // label it stays a div, its corners in CSS: the oracle's corner without a stroke was not read.
+          : !label && radii.every((r) => !r) ? svg('', `<rect width="100%" height="100%" fill="${fill}"/>`)
           : `<div class="sqs-shape${stretched ? '' : ' is-square'}" style="${style}">${label}</div>`;
       };
       // A phone that draws differently has a container of its own, as a button does.
@@ -403,7 +406,7 @@ function blockInner(b, model) {
       const inner = b.src ? `<div class="fluid-image-container has-picture" style="${r}${aspect}${clip}"><img src="${escapeHtml(b.src)}" alt="${alt}"${focal}>${effect}${overlay}</div>${clipDef}`
         : `<div class="fluid-image-container" style="${r}${aspect}${clip}" role="img" aria-label="${alt}">${overlay}</div>${clipDef}`;
       // A new block has no picture yet (MEDIAEMPTY.json): the editor shows a white box with a +.
-      if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><span class="fluid-image-add" aria-hidden="true"></span></div></div></div>`;
+      if (b.empty) return `<div class="sqs-block website-component-block sqs-block-website-component sqs-block-image image-block" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-empty-state-node"><input class="fluid-image-input" type="file" accept="image/*" tabindex="-1" aria-hidden="true"><span class="fluid-image-add" aria-hidden="true"><svg viewBox="0 0 22 22" width="22" height="22"><path d="M11 3v16M3 11h16" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div></div></div>`;
       const pic = b.href && !b.lightbox ? `<a class="sqs-block-image-link" href="${escapeHtml(b.href)}"${b.newTab ? ' target="_blank"' : ''}>${inner}</a>` : inner;
       // The measured chain (parity/findings/BLOCKTYPES.json): an image holds the alignment wrapper.
       return `<div class="sqs-block image-block sqs-block-image sqs-stretched${mode}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="fluid-image-component-root image-block-outer-wrapper design-layout-fluid image-position-center"><div class="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper">${pic}</div></div></div></div>`;
