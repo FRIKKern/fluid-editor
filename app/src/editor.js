@@ -1217,7 +1217,10 @@ function updateMove(e) {
   const dx = left - baseLeft;
   // A group steps by its box's edges, not the held block's (CAP-G4LAST2.json): bl is the box's left line, bw its width, sh the held block's offset in it.
   const bl = solo ? c0 : cLo, bw = solo ? w : cHi - cLo, sh = c0 - bl;
-  let nb = dx > 0 && bl > 1 ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
+  // A lone block on the right margin track goes left by its right edge, the mirror of the left margin (CAP-X2STEPS.json:
+  // 2, 4, 7, 8 and 10 wide step at -51, -135, -194, -253). A group and a phone are not read.
+  const fromRight = dx < 0 && solo && bp !== 'mobile' && bl + bw === m.colStart.length + 1;
+  let nb = (dx > 0 && bl > 1) || fromRight ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
   if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
