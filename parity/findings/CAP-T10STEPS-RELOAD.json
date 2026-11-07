@@ -1,0 +1,30 @@
+{
+  "item": "CAP-T10STEPS-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T7, T10: the probe page after the second round of reads",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false
+}

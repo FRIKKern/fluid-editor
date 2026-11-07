@@ -140,7 +140,8 @@ const LINK_DEF = /^ {0,3}\[([^\]\n]+)\]:[ \t]*(\S+)/;
 // The first link a selection or caret touches, its edges too: [text](url), [text][label], [text][] or [text]. A fence holds
 // none, an image or an escaped bracket isn't one, and a definition's own line holds none. href is the url, inline or from a
 // definition, or null when there is none (PRED-T10FIX.json).
-export function mdLinkIn(v, s, e) {
+// Every link in the text, in order. label: the definition a reference or bare bracket goes by.
+function* linksOf(v) {
   const lines = v.split('\n');
   let fence = false, from = 0;
   const defs = new Map();
@@ -151,15 +152,34 @@ export function mdLinkIn(v, s, e) {
   fence = false;
   for (const line of lines) {
     if (/^(```+|~~~+)/.test(line)) fence = !fence;
-    else if (!fence && !LINK_DEF.test(line) && from <= e && from + line.length >= s) {
+    else if (!fence && !LINK_DEF.test(line)) {
       for (const m of maskCode(line).matchAll(/(?<![!\\])\[(?:([^\]\n]*)\](?:\(([^)\n]*)\)|\[([^\]\n]*)\])|([^\]\n]*[^\]\s][^\]\n]*)\])/g)) {
-        const start = from + m.index, end = start + m[0].length, text = m[1] ?? m[4];
-        if (s <= end && e >= start) return { start, end, text, href: m[2] ?? defs.get((m[3] || text).toLowerCase()) ?? null };
+        const start = from + m.index, text = m[1] ?? m[4], label = m[2] == null ? m[3] || text : null;
+        yield { start, end: start + m[0].length, text, label, href: m[2] ?? defs.get(label?.toLowerCase()) ?? null };
       }
     }
     from += line.length + 1;
   }
+}
+export function mdLinkIn(v, s, e) {
+  for (const l of linksOf(v)) if (s <= l.end && e >= l.start) return l;
   return null;
+}
+// A definition's line in the text, the one a label reads from.
+function defLine(v, label) {
+  let from = 0, fence = false, at = null;
+  for (const line of v.split('\n')) {
+    if (/^(```+|~~~+)/.test(line)) fence = !fence;
+    else if (!fence) { const d = LINK_DEF.exec(line); if (d && d[1].toLowerCase() === label.toLowerCase()) at = { from, to: from + line.length, url: from + d[0].length - d[2].length, urlEnd: from + d[0].length }; }
+    from += line.length + 1;
+  }
+  return at;
+}
+// Add Link on a reference or bare bracket with no definition: the definition goes at the text's end, on the next line after
+// another definition, or else after a blank one (CAP-T10FIX3.json, CAP-T10FORM2.json).
+export function mdAddDefinition(v, link, href, s, e) {
+  const last = v.slice(v.lastIndexOf('\n') + 1);
+  return { value: `${v}${LINK_DEF.test(last) ? '\n' : '\n\n'}[${link.label}]: ${href}`, start: s, end: e };
 }
 // A selection becomes the link's words. With only a caret, the address is its own words.
 export function mdSetLink(v, s, e, href) {
@@ -167,10 +187,22 @@ export function mdSetLink(v, s, e, href) {
   return { value: v.slice(0, s) + link + v.slice(e), start: at, end: at };
 }
 export function mdChangeLink(v, link, href) {
+  // A reference's address is its definition's, so every reference to it changes (CAP-T10FIX7.json, CAP-T10FORM.json).
+  if (link.label != null) { const d = defLine(v, link.label); return { value: v.slice(0, d.url) + href + v.slice(d.urlEnd), start: link.end, end: link.end }; }
   const next = `[${link.text}](${href})`, at = link.start + next.length;
   return { value: v.slice(0, link.start) + next + v.slice(link.end), start: at, end: at };
 }
 export function mdRemoveLink(v, link) {
-  const at = link.start + link.text.length;
-  return { value: v.slice(0, link.start) + link.text + v.slice(link.end), start: at, end: at };
+  let at = link.start + link.text.length, value = v.slice(0, link.start) + link.text + v.slice(link.end);
+  // The definition goes too, with the blank line above it, unless another reference still uses it (CAP-T10FIX3.json, CAP-T10FORM.json).
+  if (link.label != null && ![...linksOf(value)].some((l) => l.label?.toLowerCase() === link.label.toLowerCase())) {
+    const d = defLine(value, link.label);
+    if (d) {
+      let a = d.from, b = d.to;
+      if (a >= 2 && value.slice(a - 2, a) === '\n\n') a -= 2; else if (a >= 1) a -= 1; else if (value[b] === '\n') b += 1;
+      if (a < at) at -= b - a;
+      value = value.slice(0, a) + value.slice(b);
+    }
+  }
+  return { value, start: at, end: at };
 }

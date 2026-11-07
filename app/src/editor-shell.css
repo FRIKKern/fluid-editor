@@ -1218,6 +1218,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 
 /* The code editor's Expand button and full-screen view (parity/findings/CODEMODAL.json). */
 .bp-code { position: relative; }
+.bp-code:focus { outline: none; }
 .bp-code-expand { position: absolute; right: 4px; bottom: 4px; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 0; background: none; color: #0e0e0e; cursor: pointer; }
 .bp-code-expand svg { width: 22px; height: 22px; }
 .bp-learn { color: inherit; text-decoration: none; }
