@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 58 changes
+- **Today** · 59 changes
+  - T15, S3, U4, X8, U3: panel stays under a transform, Size menu rows, bar stops, five labels ([#336](https://github.com/FRIKKern/fluid-editor/pull/336))
   - T12: the older dialogs close by a press on the empty section beside them ([#349](https://github.com/FRIKKern/fluid-editor/pull/349))
-  - T6: the last path strings in findings become numbers; PATHS_LEFT is empty ([#348](https://github.com/FRIKKern/fluid-editor/pull/348))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
