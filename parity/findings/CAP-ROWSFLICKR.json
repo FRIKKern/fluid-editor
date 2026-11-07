@@ -1,0 +1,183 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Flickr: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Flickr",
+ "tabs": {
+  "Account": {
+   "rows": [
+    {
+     "row": "Choose an account",
+     "kind": "menu",
+     "name": "Choose an account",
+     "value": "Choose an account",
+     "options": [
+      "Choose an account",
+      "Add an account"
+     ],
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "10 Items",
+     "kind": "slider",
+     "name": "10 Items",
+     "value": "10",
+     "min": "1",
+     "max": "20",
+     "to": "10",
+     "change": []
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "1:1 Square",
+     "kind": "menu",
+     "name": "1:1 Square",
+     "value": "1:1 Square",
+     "options": [
+      "1:1 Square",
+      "3:2 Standard",
+      "2:3 Standard (Vertical)",
+      "4:3 Four-Three",
+      "3:4 Three-Four (Vertical)",
+      "16:9 Widescreen",
+      "2.40 Anamorphic Widescreen"
+     ],
+     "to": "3:2 Standard",
+     "change": [
+      "area 1 / 2 / 10 / 10 > 1 / 2 / 8 / 10",
+      "section rows 9 > 7",
+      "DIV.fe-block b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,276.7",
+      "DIV b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,276.7",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,276.7",
+      "DIV.targeted b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,259.6",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,276.7",
+      "DIV.sqs-gallery-container\n cl: sqs-gallery-container\n sqs-gallery-block-sho > sqs-gallery-container\n sqs-gallery-block-gri",
+      "DIV.sqs-gallery-container\n b: 100.1,244.2,459.3,359.4 > 100.1,244.2,459.3,259.6",
+      "DIV.slide b: 100.1,244.2,119.8,119.8 > 100.1,244.2,119.8,86.5",
+      "DIV.margin-wrapper b: 100.1,244.2,99.8,99.8 > 100.1,244.2,99.8,66.5",
+      "A.\n b: 100.1,244.2,99.8,99.8 > 100.1,244.2,99.8,66.5",
+      "A.\n padding: 0px 0px 99.8125px > 0px 0px 66.5312px",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: 0px; width: 100p > opacity: 0.3049; left: 0px; top: -16.5px; wi"
+     ],
+     "back": "16:9 Widescreen"
+    },
+    {
+     "row": "1:1 Square",
+     "kind": "switch",
+     "name": "Crop Images",
+     "value": false,
+     "change": [
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0; left: 22px; top: 0px; width: 56p",
+      "IMG.thumb-image b: 100.1,241.4,100,100 > 122.1,263.4,56,56",
+      "IMG.thumb-image opacity: 1 > 0.479748",
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0; left: 22px; top: 0px; width: 56p",
+      "IMG.thumb-image b: 219.9,241.4,100,100 > 241.9,263.4,56,56",
+      "IMG.thumb-image opacity: 1 > 0.185457",
+      "A.\n cl: \n image-slide-anchor\n \n content-fill\n > \n image-slide-anchor\n \n content-fit\n",
+      "A.\n st: overflow: hidden; > ",
+      "IMG.thumb-image st: opacity: 1; left: 0px; top: -22px; width: 10 > opacity: 0.121963; left: 22px; top: 0px; wid",
+      "IMG.thumb-image b: 339.8,241.4,100,100 > 361.8,263.4,56,56"
+     ]
+    },
+    {
+     "row": "Crop Images",
+     "kind": "switch",
+     "name": "Show Title",
+     "value": false,
+     "change": [
+      "area 1 / 2 / 7 / 10 > 1 / 2 / 9 / 10",
+      "section rows 6 > 8",
+      "elements 77 > 89",
+      "DIV.fe-block b: 100.1,263.4,459.3,235.6 > 100.1,244.2,459.3,317.8",
+      "DIV b: 100.1,263.4,459.3,235.6 > 100.1,244.2,459.3,317.8",
+      "DIV.yui3-widget b: 100.1,263.4,459.3,235.6 > 100.1,244.2,459.3,317.8",
+      "DIV.targeted b: 100.1,263.4,459.3,228.4 > 100.1,244.2,459.3,316.6",
+      "DIV.sqs-blockStatus b: 100.1,263.4,459.3,235.6 > 100.1,244.2,459.3,317.8",
+      "DIV b: 101.1,264.4,457.3,0 > 101.1,245.2,457.3,0",
+      "DIV b: 174.1,268.6,380,131.3 > 174.1,249.5,380,131.3",
+      "DIV b: 197.1,291.6,300,19.8 > 197.1,272.5,300,19.8",
+      "DIV b: 197.1,322.4,300,54.5 > 197.1,303.3,300,54.5",
+      "DIV.sqs-gallery-container\n cl: sqs-gallery-container\n sqs-gallery-block-gri > sqs-gallery-container\n sqs-gallery-block-gri",
+      "DIV.sqs-gallery-container\n b: 100.1,263.4,459.3,228.4 > 100.1,244.2,459.3,316.6"
+     ]
+    },
+    {
+     "row": "4",
+     "kind": "slider",
+     "name": "4",
+     "value": "4",
+     "min": "1",
+     "max": "10",
+     "to": "4",
+     "change": []
+    },
+    {
+     "row": "20",
+     "kind": "slider",
+     "name": "20",
+     "value": "20",
+     "min": "0",
+     "max": "50",
+     "to": "20",
+     "change": []
+    },
+    {
+     "row": "Padding around the gridded images.",
+     "kind": "switch",
+     "name": "Lightbox",
+     "value": false,
+     "change": []
+    },
+    {
+     "row": "Lightbox",
+     "kind": "switch",
+     "name": "Open Links in New Window",
+     "value": false,
+     "change": [
+      "elements 89 > 101",
+      "A.\n cl: \n image-slide-anchor\n \n content-fit\n > \n image-slide-anchor\n \n js-gallery-lightbox-",
+      "new SPAN  View fullsize",
+      "new NOSCRIPT  <img src=\"assets.squ .. entesque Risus Ridiculus\" />",
+      "new IMG thumb-image loaded",
+      "DIV cl: slide > ",
+      "DIV w:  > Pellentesque Risus Ridiculus",
+      "DIV b: 219.9,244.2,119.8,105.5 > 100.1,307.4,99.8,22.4",
+      "DIV fontSize: 16px > 14px",
+      "DIV textAlign: start > center",
+      "DIV.slide cl: margin-wrapper > slide",
+      "DIV.slide b: 219.9,244.2,99.8,85.5 > 219.9,244.2,119.8,105.5",
+      "new DIV margin-wrapper",
+      "new A \n image-slide-anchor\n \n js-gallery-light"
+     ]
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Account",
+  "Design"
+ ],
+ "dialog": {
+  "title": "Grid",
+  "box": [
+   555,
+   237,
+   395,
+   498
+  ],
+  "buttons": [],
+  "escapeCloses": false,
+  "blockPressCloses": false
+ },
+ "answer": "Flickr: tabs Account, Design. 9 rows read, 4 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Flickr, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}

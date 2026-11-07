@@ -1,8 +1,7 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 732,
+  "pass": 753,
   "known": [
-    "group south by 4",
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
     "hold from the right margin track -60,12",
@@ -11,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 740,
+  "total": 760,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -214,10 +213,8 @@
     },
     {
       "name": "group south by 4",
-      "diffs": [
-        "heading: oracle 7, ours 6"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "group south by 5",
@@ -3295,63 +3292,15 @@
       "diffs": []
     },
     {
+      "name": "phone bar place: a group",
+      "diffs": []
+    },
+    {
       "name": "phone bar place: one block",
       "diffs": []
     },
     {
       "name": "phone bar place: one block, Accordion read",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 one",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 one, scrolled 130",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 one, scrolled 180",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 one, scrolled 300",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 group",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1600 group, scrolled 180",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1280 one",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1280 group",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1024 one",
-      "diffs": []
-    },
-    {
-      "name": "bar place: 1024 group",
-      "diffs": []
-    },
-    {
-      "name": "bar place: desktop group",
-      "diffs": []
-    },
-    {
-      "name": "bar place: desktop group, scrolled 180",
-      "diffs": []
-    },
-    {
-      "name": "bar place: desktop group, scrolled 300",
       "diffs": []
     },
     {
@@ -3411,18 +3360,6 @@
       "diffs": []
     },
     {
-      "name": "Size menu: W at Fill",
-      "diffs": []
-    },
-    {
-      "name": "Size menu: W at Fixed",
-      "diffs": []
-    },
-    {
-      "name": "Size menu: H at Fill",
-      "diffs": []
-    },
-    {
       "name": "phone section handle",
       "diffs": []
     },
@@ -3432,6 +3369,146 @@
     },
     {
       "name": "a click on the section handle",
+      "diffs": []
+    },
+    {
+      "name": "group table a",
+      "diffs": []
+    },
+    {
+      "name": "group table c",
+      "diffs": []
+    },
+    {
+      "name": "group table d",
+      "diffs": []
+    },
+    {
+      "name": "group table e",
+      "diffs": []
+    },
+    {
+      "name": "group table f",
+      "diffs": []
+    },
+    {
+      "name": "group table g",
+      "diffs": []
+    },
+    {
+      "name": "group table h",
+      "diffs": []
+    },
+    {
+      "name": "group table j",
+      "diffs": []
+    },
+    {
+      "name": "group table k",
+      "diffs": []
+    },
+    {
+      "name": "group table l",
+      "diffs": []
+    },
+    {
+      "name": "group table m",
+      "diffs": []
+    },
+    {
+      "name": "group table n",
+      "diffs": []
+    },
+    {
+      "name": "group table p",
+      "diffs": []
+    },
+    {
+      "name": "group table q",
+      "diffs": []
+    },
+    {
+      "name": "group table r",
+      "diffs": []
+    },
+    {
+      "name": "group table s",
+      "diffs": []
+    },
+    {
+      "name": "group table t",
+      "diffs": []
+    },
+    {
+      "name": "group table y",
+      "diffs": []
+    },
+    {
+      "name": "group table v",
+      "diffs": []
+    },
+    {
+      "name": "group table w",
+      "diffs": []
+    },
+    {
+      "name": "group table x",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b13",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b15",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b3",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b5",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b17",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule b9",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule i13 wider",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule i13 narrower",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule i15 wider",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule i5 wider",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule i5 narrower",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule u1",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule u2",
+      "diffs": []
+    },
+    {
+      "name": "group drop by the rule u3",
       "diffs": []
     }
   ]
