@@ -1,0 +1,128 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "OpenTable: each row's name, kind and default, and what a change does on the block.",
+ "tile": "OpenTable",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "OpenTable Restaurant ID",
+     "kind": "field",
+     "name": "OpenTable Restaurant ID",
+     "value": "",
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "Domain",
+     "kind": "menu",
+     "name": "US and Canada - opentable.com",
+     "value": "US and Canada - opentable.com",
+     "options": [
+      "US and Canada - opentable.com",
+      "Mexico - opentable.com.mx",
+      "United Kingdom - opentable.co.uk",
+      "Ireland - opentable.ie",
+      "Australia and New Zealand - opentable.com.au",
+      "Germany - opentable.de",
+      "Japan - opentable.jp"
+     ],
+     "picked": "Mexico - opentable.com.mx",
+     "change": []
+    },
+    {
+     "row": "Language",
+     "kind": "menu",
+     "name": "English",
+     "value": "English",
+     "gone": true
+    },
+    {
+     "row": "Title",
+     "kind": "switch",
+     "name": "Title",
+     "value": false,
+     "change": []
+    },
+    {
+     "row": "Icons",
+     "kind": "switch",
+     "name": "Icons",
+     "value": false,
+     "change": []
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "answer": "OpenTable: tabs Content, Design, Animation. 10 rows read, 0 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, OpenTable, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
