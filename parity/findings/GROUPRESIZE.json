@@ -292,7 +292,7 @@
    [
     6,
     3,
-    1
+    2
    ],
    [
     7,
@@ -356,6 +356,6 @@
    ]
   ],
   "rowsAre": "box rows, the first block's rows, the second block's start offset. The second block's bottom stays on the box",
-  "fit": "Explained by the rule in CAP-X8ROWS.json to CAP-X8ROWS3.json. The row 6, 3, 1 here looks misread: three walks read a second block offset of 2 at box 6."
+  "fit": "Explained by the rule in CAP-X8ROWS.json to CAP-X8ROWS3.json. One row corrected: box 6 read here as 6, 3, 1, and is now 6, 3, 2, on three walks of the same two shapes: a in CAP-X8ROWS.json, f and g in CAP-X8ROWS2.json. No script reads this table, so no check had it pinned."
  }
 }
