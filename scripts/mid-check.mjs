@@ -8,6 +8,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
+import { replayLinkBox } from './lib/link-box-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -448,7 +449,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     key('Enter'); await sleep(150); out.enter = { href: B().href, open: !P.hidden, list: list().hidden, focus: document.activeElement === inp(), box: onBox(), attr: a().hasAttribute('target') };
     P.querySelector('.lk-box').click(); await sleep(150); out.tick = { model: B().newTab, target: a().getAttribute('target'), open: !P.hidden };
     key('Escape'); await sleep(80); out.escape = P.hidden;
-    await open(); out.reopen = { checked: P.querySelector('.lk-box').checked, value: inp().value, covered: !onBox(), pages: showing() };
+    await open(); P.querySelector('[data-link-box="edit"]').click(); await sleep(60); out.reopen = { checked: P.querySelector('.lk-box').checked, value: inp().value, list: list().hidden, covered: !onBox() };
     [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'About/about').click(); await sleep(120); P.querySelector('.lk-box').click(); await sleep(120); out.untick = { model: B().newTab ?? false, target: a().hasAttribute('target') };
     inp().value = ''; inp().dispatchEvent(new Event('input', { bubbles: true })); await sleep(40); [...P.querySelectorAll('.lk-page')].find((x) => x.getAttribute('aria-label') === 'Home/home').click(); await sleep(120); out.page = { href: B().href, open: !P.hidden, value: inp().value, list: list().hidden };
     document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); await sleep(50); out.outside = P.hidden;
@@ -459,10 +460,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('typing narrows the list', r.typed.join() === 'About/about' && r.typedGroups.join() === 'Main Navigation', [r.typed, r.typedGroups]);
   lk('Enter sets the link and stays open', r.enter.href === '/about' && r.enter.open && r.enter.list && r.enter.focus && r.enter.box && !r.enter.attr, r.enter);
   lk('the box on a button', r.tick.model === true && r.tick.target === '_blank' && r.tick.open && r.escape, [r.tick, r.escape]);
-  lk('reopened: ticked, list over the box', r.reopen.checked && r.reopen.value === '/about' && r.reopen.covered && r.reopen.pages.join() === 'About/about', r.reopen);
+  lk('opened again, Edit: ticked, no list', r.reopen.checked && r.reopen.value === '/about' && r.reopen.list && !r.reopen.covered, r.reopen);
   lk('unticking', r.untick.model === false && !r.untick.target, r.untick);
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
+  // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs, known: read === 'Clear, Undo' }));
   // On text: the target waits for the close, target first, no rel; two paragraphs get a link each.
   evalJs(S, `(async () => { fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [${JSON.stringify(bl('t', 'text', { html: '<p>one</p><p>two</p>' }))}] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60);
   const t = evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, P = document.getElementById('link-popover'), fb = d.querySelector('.fe-block[data-block-id="t"]'); fe.edit('s', 't'); await sleep(250);
@@ -749,13 +752,26 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load(over); gb('middle and right, middle over left', 'middle and right, middle over left', bar('m', 'r'));
   await load(over); gb('all three, one overlap', 'all three, one overlap', bar('l', 'm', 'r'));
   await load(apart, true); gb('phone two', 'phone two', bar('l', 'm'));
-  // On a phone the bar stands beside the phone. Oracle: first button x 1041, y 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
+  // On a phone the bar stands beside the phone: first button 27 right of it, 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
   const barAt = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(); return JSON.stringify([Math.round((b.left - q.right) * 10) / 10, Math.round((b.top - q.top - r.top) * 10) / 10]); })()`);
   const at = (name, got, want) => groupCases.push({ name: `phone bar place: ${name}`, diffs: Math.abs(got[0] - want[0]) <= 1 && Math.abs(got[1] - want[1]) <= 1.5 ? [] : [`oracle ${want}, ours ${got}`] });
-  const sb = G['phone two'].controls.find((c) => c.label === 'Stack Blocks').box, AP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ACCPHONE.json', import.meta.url))).reads['phone, selected'], PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads['phone selected shape'], FR = { right: 1014, top: 55 };
-  // The group read has no block box: its top block is taken at 205.7, the same first row as CAP-ACCPHONE and what its shot shows.
-  await load(apart, true); bar('r', 'm'); at('a group', barAt('r'), [sb[0] - FR.right, sb[1] - 205.7]);
+  const AP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ACCPHONE.json', import.meta.url))).reads['phone, selected'], PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads['phone selected shape'], FR = { right: 1014, top: 55 };
   for (const [name, F] of [['one block', PH], ['one block, Accordion read', AP]]) { await load(apart, true); evalJs(S, `fe.select('s', 'r')`); await pause(120); const e = F.controls.find((c) => c.label === 'Edit').box; at(name, barAt('r'), [e[0] - FR.right, e[1] - (F.block.box[1] + FR.top)]); }
+  // At other widths and scrolled to the canvas top, a group on desktop too (CAP-PHONEBAR.json, CAP-GROUPBARTOP.json). x from the phone's right or the block's left, y in the window.
+  const PB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONEBAR.json', import.meta.url))).reads, GT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GROUPBARTOP.json', import.meta.url))).reads;
+  const tall = (id, d, m) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: d, z: 1, justify: 'center', align: 'center' }, mobile: { area: m, z: 1, justify: 'center', align: 'center' } } });
+  const placed = [['1600 one', PB, 1600, 1], ['1600 one, scrolled 130', PB, 1600, 1], ['1600 one, scrolled 180', PB, 1600, 1], ['1600 one, scrolled 300', PB, 1600, 1], ['1600 group', PB, 1600, 2], ['1600 group, scrolled 180', PB, 1600, 2], ['1280 one', PB, 1280, 1], ['1280 group', PB, 1280, 2], ['1024 one', PB, 1024, 1], ['1024 group', PB, 1024, 2], ['desktop group', GT, 1600, 2], ['desktop group, scrolled 180', GT, 1600, 2], ['desktop group, scrolled 300', GT, 1600, 2]];
+  for (const [name, F, width, members] of placed) {
+    const phone = !name.startsWith('desktop'), R = F[name], want = R.controls.find((c) => c.label === (members > 1 ? 'Stack Blocks' : 'Edit')).box, blockAt = R.block.box;
+    viewport(S, width, 1000); await pause(200);
+    evalJs(S, `(async () => { fe.setBp('${phone ? 'mobile' : 'desktop'}'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 80, mobile: 80 }, blocks: ${JSON.stringify([tall('l', [30, 2, 36, 8], [30, 2, 36, 10]), tall('m', [30, 10, 36, 16], [36, 2, 42, 10])])} }] }); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(100);
+    if (members > 1) bar('l', 'm'); else { evalJs(S, `fe.select('s', 'l')`); await pause(120); }
+    const got = evalJs(S, `(async () => { const f = document.getElementById('site-frame'), W = f.contentWindow, d = f.contentDocument, q = f.getBoundingClientRect(), el = d.querySelector('.fe-block[data-block-id="l"]'); W.scrollTo({ top: W.scrollY + el.getBoundingClientRect().top - ${blockAt[1]}, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 200)); const b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(), r = el.getBoundingClientRect(); return JSON.stringify([Math.round((${phone} ? b.left - q.right : b.left - q.left - r.left) * 10) / 10, Math.round(b.top * 10) / 10, Math.round(r.top * 10) / 10]); })()`);
+    const wantX = phone ? want[0] - (width + 428) / 2 : want[0] - blockAt[0];
+    groupCases.push({ name: `bar place: ${name}`, diffs: Math.abs(got[0] - wantX) <= 1 && Math.abs(got[1] - want[1]) <= 1.5 && Math.abs(got[2] - blockAt[1]) <= 1 ? [] : [`oracle ${wantX},${want[1]} under a block at ${blockAt[1]}; ours ${got}`] });
+    evalJs(S, `fe.select(null)`);
+  }
+  viewport(S, 1600, 1000); await pause(200);
   evalJs(S, `fe.select(null); fe.setBp('desktop')`);
 }
 // A Shape child (CAP-S3ALIGN.json, CAP-S3ALIGN2.json, CAP-S3HUGFIXED.json, CAP-S3HUGMENU.json): Align Vertically moves it with Stretch off, Hug is grey with Stretch on.
@@ -780,6 +796,18 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load('row', 'center', { w: 'Hug', h: '200px' }, {}); { const got = offset(), want = size('typed hug'); groupCases.push({ name: 'Shape child: typed hug is 300 wide', diffs: got[3] === want[3] ? [] : [`oracle ${want[3]}, ours ${got[3]}`] }); }
   await load('row', 'center', { w: 'Hug', h: '200px' }, { stretch: false }); { const got = offset(), want = size('stretch off'); groupCases.push({ name: 'Shape child: Hug with Stretch off', diffs: JSON.stringify(got) === JSON.stringify(want) ? [] : [`oracle ${want}, ours ${got}`] }); }
   await load('row', 'center', { w: '100px', h: '200px' }, { stretch: false }); { const got = hug('w'); groupCases.push({ name: 'Shape child: Hug offered with Stretch off', diffs: [got.off && 'grey', got.size?.w !== 'Hug' && `w ${got.size?.w}`].filter(Boolean) }); }
+  // The Size menu's rows: icon, text and tick to the oracle's boxes, the current row grey, the open toggle white (CAP-SIZEMENU.json, CAP-SIZEMENU2.json, CAP-SIZEMENUH.json).
+  const SM = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENU.json', import.meta.url))).reads, SH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENUH.json', import.meta.url))).reads;
+  const shape = (F) => { const rows = F.panelEls.filter((e) => e.tag === 'div'), out = []; rows.forEach((r) => { const inside = F.panelEls.filter((e) => e.box[1] >= r.box[1] && e.box[1] + e.box[3] <= r.box[1] + r.box[3]); out.push([r.label.replace(/ · .*/, ''), r.box[2], r.box[3], ...inside.filter((e) => e.tag === 'svg').map((e) => [e.box[0] - r.box[0], e.box[1] - r.box[1], e.box[2]]).flat(), inside.find((e) => e.tag === 'p').box[0] - r.box[0]]); }); return out; };
+  const menu = (axis) => evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); fe.select('s', 'k2'); await sleep(100); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(150); document.querySelector('#block-panel [data-stack="kidopen:${axis}"]').click(); await sleep(80); const P = document.querySelector('#block-panel'), rd = (e) => e.getBoundingClientRect(), rows = [...P.querySelectorAll('.st-size-menu button')]; const out = { rows: rows.map((b) => { const q = rd(b), svgs = [...b.querySelectorAll('svg')]; return [(b.querySelector('span') || b).textContent.replace(/ · .*/, ''), Math.round(q.width), Math.round(q.height), ...svgs.map((e) => [rd(e).left - q.left, rd(e).top - q.top, rd(e).width]).flat(), rd(b.querySelector('span') || b).left - q.left]; }), on: rows.filter((b) => getComputedStyle(b).backgroundColor === 'rgb(242, 242, 242)').map((b) => (b.querySelector('span') || b).textContent.replace(/ · .*/, '')), upright: rows.map((b) => { const e = b.querySelector('svg path'); return !!e && rd(e).height > rd(e).width; }), toggle: getComputedStyle(P.querySelector('.st-gap-toggle.is-open') || P.querySelector('.st-gap-toggle')).backgroundColor }; document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return JSON.stringify(out); })()`);
+  for (const [name, F, sz, axis, on] of [['W at Fill', SM['Shape W at Fill'], undefined, 'w', 'Fill'], ['W at Fixed', SM['Shape W at Fixed'], { w: '100px', h: 'Fill' }, 'w', 'Fixed'], ['H at Fill', SH['Shape H at Fill'], undefined, 'h', 'Fill']]) {
+    await load('row', 'center', sz, {}); const got = menu(axis), want = shape(F), near = (a, b) => a.length === b.length && a.every((v, k) => typeof v === 'string' ? v === b[k] : Math.abs(v - b[k]) <= 1);
+    const diffs = want.map((w, k) => !near(w, got.rows[k] || []) && `oracle ${w}, ours ${got.rows[k]}`).filter(Boolean);
+    if (got.on.join() !== on) diffs.push(`current row ${got.on}`);
+    if (got.toggle !== 'rgb(255, 255, 255)') diffs.push(`toggle ${got.toggle}`);
+    if (got.upright.some((u) => u !== (axis === 'h'))) diffs.push(`icons ${got.upright}`);
+    groupCases.push({ name: `Size menu: ${name}`, diffs });
+  }
   evalJs(S, `fe.select(null)`);
 }
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.
@@ -859,6 +887,38 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     const got = play(start, null, false, 'se', [ring], true);
     groupCases.push({ name: `group drop by the rule ${name}`, diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
   }
+  // A written Text made narrower in a group keeps the rows it needed at the press (CAP-X8NEXT.json, c start to c dropped).
+  { const N = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X8NEXT.json', import.meta.url))).reads, one = 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.';
+    const want = N['c dropped'].areas.map((a) => a[0]), got = play(N['c start'].areas, { type: 'text', html: `<p>${[one, one, one].join(' ')}</p>` }, false, 'e', [[1, 2, 8, 14]], true);
+    groupCases.push({ name: 'group drop keeps a written Text short', diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
+    // The next gesture after it moves rows in, section-wide (CAP-X8LAG*.json): each read whose next gesture is a drag
+    // of one block down, replayed from its start: the group made narrower from the east, then that block moved.
+    const L = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8LAG3'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    const MOVES = { l1: [[1], 0, 2], l3: [[1], 1, 1], l6: [[2], 1, 1], m2: [[1], 0, 2], m4: [[1], 0, 2], n2: [[1], 0, 1], n5: [[1], 0, 1] };
+    for (const [n, [members, k, rows]] of Object.entries(MOVES)) {
+      const start = L[`${n} start`].areas, box = L[`${n} dropped`].areas.filter((_, i) => i === 0 || members.includes(i)).map((a) => a[0].split('/').map(Number));
+      const c1 = Math.max(...box.map((a) => a[3])), want = L[`${n} next`].areas.map((a) => a[0]);
+      const got = evalJs(S, `(async () => {
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        fe.setBp('desktop');
+        fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 30, mobile: 40 }, blocks: ${JSON.stringify(start)}.map((a, i) => { const L = (v) => ({ area: v.split('/').map(Number), z: i + 1, justify: 'flex-start', align: 'flex-start' }); return { id: 'b' + i, ...(i === 0 ? { type: 'text', html: ${JSON.stringify(`<p>${[one, one, one].join(' ')}</p>`)} } : { type: 'shape', fill: '#ccc', radius: '0', label: 'b' + i }), layout: { desktop: L(a[0]), mobile: L(a[1]) } }; }) }] });
+        await sleep(150);
+        const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, block = (i) => d.querySelector('.fe-block[data-block-id="b' + i + '"]');
+        const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, at = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+        const down = (el, x, y, more = {}) => el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...more, clientX: x, clientY: y, buttons: 1 }));
+        const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+        const up = (x, y, more = {}) => d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, ...more, clientX: x, clientY: y, buttons: 0 }));
+        fe.select('s', 'b0'); await sleep(30);
+        for (const i of ${JSON.stringify(members)}) { const [x, y] = at(block(i)); down(block(i), x, y, { shiftKey: true }); up(x, y, { shiftKey: true }); await sleep(30); }
+        const m = fe.measure('s'), h = d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="e"]'), [x0, y0] = at(h);
+        down(h, x0, y0); move(x0 + 14, y0); await sleep(15); move(x0, y0); await sleep(15);
+        move(m.colEnd[${c1} - 2], y0); await sleep(15); up(m.colEnd[${c1} - 2], y0); await sleep(80);
+        fe.select(null); await sleep(30);
+        const [bx, by] = at(block(${k}));
+        down(block(${k}), bx, by); for (let s = 1; s <= 8; s++) { move(bx, by + s * ${rows} * m.pitch / 8); await sleep(15); } up(bx, by + ${rows} * m.pitch); await sleep(80);
+        return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
+      groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
+    } }
 }
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);

@@ -1,0 +1,349 @@
+{
+  "item": "CAP-SIZEMENUH",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "The H Size menu on a Shape child: its icons, upright or not",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressCombo",
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Shape H at Fill",
+      {
+        "panelEls": "[role=option], [role=option] *"
+      }
+    ],
+    [
+      "shot",
+      "h"
+    ],
+    [
+      "pressCombo",
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "Shape H at Fill": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 236px",
+          "lines": 3,
+          "box": [
+            1005,
+            520,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            531,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1023,
+            533,
+            8,
+            18
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fixed · 236px",
+          "lines": 0,
+          "box": [
+            1044,
+            531,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-u1oxo1",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            1005,
+            564,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1016,
+            575,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1023,
+            576,
+            8,
+            9.5
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1023,
+            586.5,
+            8,
+            9.5
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Hug",
+          "lines": 0,
+          "box": [
+            1044,
+            575,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            1005,
+            608,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1016,
+            619,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1023,
+            621,
+            8,
+            18
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fill",
+          "lines": 0,
+          "box": [
+            1044,
+            619,
+            104,
+            22
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "css-10beffl",
+          "label": "",
+          "lines": 1,
+          "box": [
+            1154,
+            619,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1159,
+            624.2,
+            12,
+            10.8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "The H menu has the same three icons upright: 8 wide, Fixed 18 tall, Hug two of 9.5, Fill 18.",
+  "ours": "Upright too, npm run mid-check.",
+  "differs": []
+}

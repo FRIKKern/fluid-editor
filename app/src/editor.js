@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, p
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -52,6 +52,8 @@ let bp = 'desktop';
 let sel = null; // { sid, bid }
 let editing = null; // text edit session
 let gesture = null; // move or resize session
+// A press with nothing selected, not yet let go and not past the drag's 10 px: Add Section stays (CAP-U9FADE4D.json).
+let pressFresh = false;
 const undoStack = [];
 const redoStack = [];
 const notes = [];
@@ -158,6 +160,7 @@ function undo() {
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
@@ -173,6 +176,7 @@ function redo() {
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
@@ -485,7 +489,8 @@ function placeGroupToolbar() {
   const phone = bp === 'mobile';
   const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect(), phone);
   toolbar.style.left = `${p.left - (phone ? 1 : 7)}px`; // CAP-GROUPBAR.json
-  toolbar.style.top = `${p.top - 7}px`;
+  // Its first button stops at the same y as one block's, on desktop and a phone (CAP-GROUPBARTOP.json, CAP-PHONEBAR.json).
+  toolbar.style.top = `${Math.max(p.top - 7, frame.getBoundingClientRect().top - stage.getBoundingClientRect().top + 22)}px`;
   toolbar.hidden = false;
 }
 function placeToolbar() {
@@ -502,6 +507,7 @@ function placeToolbar() {
   if (toolbar.dataset.key !== key) {
     const inStack = !!parentStack(sel.sid, sel.bid);
     toolbar.innerHTML = toolbarHtml(toolbarItems(b.type === 'shape' && b.label ? 'stand-in' : b.type, bp, z, !!b.fit, inStack), z, align);
+    markLinkBar();
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -540,10 +546,14 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
-  if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) { openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
+    // A press on it with the editor open only closes it (CAP-E7REOPEN2.json).
+    if (linkBarClosed) { linkBarClosed = false; btn.focus(); return; }
+    openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }, null, true); return;
+  }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
   // on screen, and opens the popover; one undo step.
   if (act === 'pin') {
@@ -629,13 +639,14 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 // The form on the page, not the copy a Lightbox holds to open.
 const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
-function contentRows(b, m, normalizing = false, widthPull = false) {
+function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
     const h = c.getBoundingClientRect().height;
+    if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
@@ -670,6 +681,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   if (!c) return 1;
   // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
   const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  if (exact) return (c.offsetHeight + edge + m.rg) / m.pitch;
   return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
@@ -844,6 +856,8 @@ function snapColumn(m, line, d, lo, hi) {
   return l;
 }
 const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.length + 1) === m.colStart.length + 1;
+// The east line of a box on the left margin track, pulled d to the right: its left edge's steps, the last waiting for the right edge.
+const marginEast = (m, c1, d, hi, top) => { const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1); return e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e; };
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
@@ -939,6 +953,7 @@ function onDown(e) {
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
+  pressFresh = !sel;
   if (!onKid) select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
@@ -959,6 +974,7 @@ function onMove(e) {
     // move starts the drag (parity/findings/HOLD.json).
     if (!gesture.armed) {
       gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
+      if (gesture.armed && pressFresh) { pressFresh = false; placeChrome(); }
       return;
     }
     if (gesture.resizeDir) startResize(e, gesture.resizeDir);
@@ -986,6 +1002,7 @@ function onUp(e) {
     // A click on a text block that was already selected opens its editor (E1, as on the oracle).
     const g = gesture;
     gesture = null;
+    if (pressFresh) { pressFresh = false; placeChrome(); }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -997,6 +1014,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.type === 'gresize') stored = storedRows(g);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1069,8 +1087,43 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
+// After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
+// (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
+// The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
+// short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
+// section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
+let stored = null;
+function storedRows(g) {
+  const m = measure(feEl(g.sid)), s = S(g.sid);
+  let d = 0, L = 0, t0 = 0, tid = null;
+  for (const id of g.kept.keys()) {
+    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
+  }
+  if (d <= 0) return null;
+  const areas = new Map();
+  for (const b of s.blocks) {
+    const a = [...lay(b).area];
+    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
+    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    areas.set(b.id, a);
+  }
+  return { sid: g.sid, bp, areas };
+}
+function showStored() {
+  const t = stored, shift = new Map();
+  stored = null;
+  const s = t.bp === bp ? S(t.sid) : null;
+  if (!s) return shift;
+  for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
+  growRows(s);
+  renderSectionDom(s.id);
+  return shift;
+}
+
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
+  const shift = stored ? showStored() : null;
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1086,6 +1139,8 @@ function prepare(e, type, extra = {}) {
   g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
+  // A block the stored rows moved is held where they put it (CAP-X8LAG.json, l3 and l6).
+  if (shift?.get(g.bid) && g.grabY != null) g.grabY -= shift.get(g.bid) * g.m.pitch;
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
@@ -1144,10 +1199,13 @@ function updateMove(e) {
   // A phone does go into it, one block or a group (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json, CAP-G4GROUPMARGIN.json).
   const cMax = Math.max(c0, c0 + (cLo === 1 && bp !== 'mobile' ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
-  let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
+  // A group steps by its box's edges, not the held block's (CAP-G4LAST2.json): bl is the box's left line, bw its width, sh the held block's offset in it.
+  const bl = solo ? c0 : cLo, bw = solo ? w : cHi - cLo, sh = c0 - bl;
+  let nb = dx > 0 && bl > 1 ? snapColumn(m, bl + bw, dx, cMin - sh + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
-  if ((solo || bp === 'mobile') && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
+  if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
+  const nc0 = nb + sh;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1214,6 +1272,8 @@ function startResize(e, dir) {
     const members = [sel.bid, ...sel.more];
     const g = prepare(e, 'gresize', { dir, members });
     g.more = sel.more.map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
+    // A Text or a Quote keeps the rows its content needs at the press, however narrow the group gets (CAP-X8TYPES.json, CAP-X8TYPES2.json).
+    g.kept = new Map(members.filter((id) => B(g.sid, id).type === 'text' || B(g.sid, id).standin === 'quote').map((id) => [id, contentRows(B(g.sid, id), g.m)]));
     g.box0 = boxOf([g.orig, ...g.more.map((o) => o.orig)]);
     g.box = g.box0;
     setArea(g.tind, g.box0);
@@ -1250,7 +1310,8 @@ function updateGroupResize(e) {
   let [r0, c0, r1, c1] = g.box0;
   // One block's handle rule, from the press (CAP-G4GROUPRESIZE.json).
   const dx = e.clientX - g.x0, dy = e.clientY - top - g.py0;
-  if (g.dir.includes('e')) c1 = snapColumn(m, c1, dx, c0 + 1, LAST_LINE[bp]);
+  // A box on the left margin track grows by its left edge's steps, as one block does (CAP-G4LAST.json margin group).
+  if (g.dir.includes('e')) { const hi = LAST_LINE[bp], top = bp === 'mobile' ? hi : hi - 1; c1 = c0 === 1 && dx > 0 && c1 < top ? Math.max(c0 + 1, marginEast(m, c1, dx, hi, top)) : snapColumn(m, c1, dx, c0 + 1, hi); }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, c1 - 1);
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
@@ -1261,7 +1322,7 @@ function updateGroupResize(e) {
     const el = blockEl(id);
     setArea(el, [rs0, cs, re, ce]);
     // A text block keeps the rows its content needs by moving its start up.
-    const need = contentRows(B(g.sid, id), m);
+    const need = g.kept.get(id) ?? contentRows(B(g.sid, id), m);
     const rs = re - rs0 < need ? Math.max(r0, re - need) : rs0;
     const t = [rs, cs, Math.max(re, rs + need), ce];
     setArea(el, t);
@@ -1312,8 +1373,7 @@ function updateResize(e) {
     // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
     const top = bp === 'mobile' ? hi : hi - 1;
     if (c0 === 1 && d > 0 && c1 < top) {
-      const e = Math.min(top, c1 + snapColumn(m, 1, d, 1, 1 + hi - c1) - 1);
-      c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
+      c1 = Math.max(lo, marginEast(m, c1, d, hi, top));
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
@@ -1373,6 +1433,7 @@ function endGesture() {
 }
 
 function cancelGesture() {
+  pressFresh = false;
   const g = gesture;
   if (!g) return;
   endGesture();
@@ -1894,9 +1955,12 @@ function placeBlockPanel() {
   if (animPlaying || animPosed) return; // an animation moves the block, not its panel
   const el = blockEl(sel.bid);
   if (!el) return;
-  const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
+  // The box before Offset, Rotate and Scale: they move the block, not its panel, open or opened again (CAP-PANELSTILL.json, CAP-PANELSTILL2.json).
+  const under = el.offsetParent.getBoundingClientRect(), left = under.left + el.offsetParent.clientLeft + el.offsetLeft, top = under.top + el.offsetParent.clientTop + el.offsetTop;
+  const box = { left, top, right: left + el.offsetWidth, bottom: top + el.offsetHeight };
+  const p = blockPanelPosition(box, frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
   // A child stays on its right and overlaps it at the window's edge (S3.json children panels).
-  if (parentStack(sel.sid, sel.bid)) p.left = Math.min(el.getBoundingClientRect().right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
+  if (parentStack(sel.sid, sel.bid)) p.left = Math.min(box.right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
   formMessage.sync();
@@ -2151,6 +2215,7 @@ blockPanel.addEventListener('click', (e) => {
   if (!a || !sel) return;
   if (shapeUi?.kind === 'imagesel' && shapeUi.key === a.dataset.imageSel) { closeShapePop(); return; }
   shapeUi = { kind: 'imagesel', key: a.dataset.imageSel, bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  if (a.dataset.imageSel === 'vblend') a.blur(); // No ring while its list is open (CAP-VBLEND.json list); a pick brings it back.
   renderShapePop();
 });
 // Image Effect (IMAGEEFFECT.json): a tile, a seg, a switch and Shuffle are one undo step each and the
@@ -2726,10 +2791,11 @@ function renderShapePop() {
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
-    const blend = shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
-    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
+    const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
+    const on = video ? blockPanel.querySelector('[data-image-sel="vblend"]')?.dataset.cur || 'normal' : b.overlayBlend || 'normal';
+    const cur = blend ? BLEND_MODES.find((m) => blendValue(m) === on) : b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay';
     shapePop.innerHTML = list.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" data-image-opt="${o}">${o}</button>`).join('');
-    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
+    shapePop.style.cssText = `left:${shapeUi.rect.left - 9}px;top:${shapeUi.rect.top}px;max-height:${video ? Math.min(220, innerHeight - shapeUi.rect.top - 8) : innerHeight - shapeUi.rect.top - 8}px;overflow:auto`;
   } else if (kind === 'ffmenu') {
     // An option's menu (followUp.menu): its right edge 4 left of the button, 40 below the button's top.
     shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
@@ -2823,6 +2889,7 @@ shapePop.addEventListener('click', (e) => {
   if (io) {
     const { key } = shapeUi, v = io.dataset.imageOpt;
     closeShapePop();
+    if (key === 'vblend') { setDesign('blend', v === 'Normal' ? null : blendValue(v)); blockPanel.querySelector('[data-image-sel="vblend"]')?.focus(); return; }
     setShape((b) => {
       if (key === 'blend') { if (v === 'Normal') delete b.overlayBlend; else b.overlayBlend = blendValue(v); }
       else if (v === 'Light Overlay') b.lightboxTheme = 'light'; else delete b.lightboxTheme;
@@ -3657,6 +3724,7 @@ const formMessage = messageBox({ panel: blockPanel, bar: $('msg-bar'), stage, li
 function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
+  markLinkBar();
   // The box, an Email and a Phone reach a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json, LINKMENU.json).
   const t = linkTarget;
   linkTarget = null;
@@ -3666,7 +3734,13 @@ function closeLinkPopover() {
   if (!t) {
     // What is typed counts without Enter too (LINKMENU.json).
     const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
-    if (v && sel?.bid === linkPop.dataset.bid && v !== B(sel.sid, sel.bid)?.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
+    const was = sel?.bid === linkPop.dataset.bid ? B(sel.sid, sel.bid) : null;
+    if (v && was && v !== was.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
+    // Clear takes the link at the close, by Escape or a press away, and the box is on when it opens again (CAP-E7REOPEN2.json, CAP-E7REOPEN3.json).
+    else if (!v && linkPop.dataset.cleared) {
+      const x = B(linkSid, linkPop.dataset.bid);
+      if (x?.href) { const before = JSON.stringify(model); delete x.href; x.newTab = true; renderSectionDom(linkSid); commit(before, 'Link removed'); }
+    }
     return;
   }
   if (linkPop.dataset.kind !== 'url') t.apply(linkFormHref());
@@ -3707,26 +3781,58 @@ function onLinkAction(act, el) {
 // What Enter or a page applies to: the selected button (default) or a saved text range.
 let linkTarget = null;
 let linkPlace = null;
+let linkFromBar = false;
+let linkSid = null;
+let linkBarClosed = false;
 function placeLinkPop() {
   const p = linkPlace(stage.getBoundingClientRect(), linkPop.offsetHeight);
   linkPop.style.left = `${p.left}px`; linkPop.style.top = `${p.top}px`;
 }
 // The field holds the focus on URL, the pill on Email and Phone (LINKMENU.json).
 function drawLinkPop(kind, href, newTab) {
+  delete linkPop.dataset.cleared;
   linkPop.dataset.kind = kind;
   linkPop.innerHTML = linkPopoverHtml(href, siteLinkGroups(), newTab, kind);
   placeLinkPop();
   if (kind === 'url') { showLinkList(true); linkPop.querySelector('.lk-input').focus(); }
   else linkPop.querySelector('.lk-pill').focus();
 }
-function openLinkPopover(b, place, target = null) {
+// The box: a page opens with Edit in focus and its tip showing until the mouse moves, anything else with the row in focus
+// and, on a typed link cut short, a tip only under the mouse (CAP-E7REOPEN2.json to CAP-E7REOPEN4.json).
+function drawLinkBox(b) {
+  delete linkPop.dataset.cleared;
+  linkPop.dataset.kind = 'box';
+  linkPop.classList.add('is-box');
+  linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
+  placeLinkPop();
+  const name = linkPop.querySelector('.lk-box-name');
+  if (!linkPop.querySelector('.lk-tip[data-page]') && name.scrollWidth <= name.clientWidth) linkPop.querySelector('.lk-tip')?.remove();
+  if (linkPop.querySelector('.lk-tip[data-page]')) {
+    linkPop.querySelector('[data-link-box="edit"]').focus();
+    linkPop.classList.add('tip-held');
+    document.addEventListener('pointermove', () => linkPop.classList.remove('tip-held'), { once: true });
+  } else linkPop.querySelector('.lk-box-row').focus();
+}
+// Closing by a key hands the focus back to the toolbar's button, the block still selected (CAP-E7REOPEN2.json).
+// The toolbar's button stays lit while its editor is open, with no tip (CAP-E7REOPEN2.json).
+function markLinkBar() { toolbar.querySelector('[data-tb="link"]')?.classList.toggle('tb-open', !linkPop.hidden && linkFromBar); }
+function closeLinkToBar() {
+  const back = linkFromBar;
+  closeLinkPopover();
+  if (back) document.querySelector('#block-toolbar [data-tb="link"]')?.focus();
+}
+function openLinkPopover(b, place, target = null, fromBar = false) {
   closeLinkPopover();
   linkTarget = target;
   linkPlace = place;
+  linkFromBar = fromBar;
+  linkSid = sel?.sid;
   linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
-  linkPop.classList.remove('is-summary');
+  linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
+  if (fromBar) { markLinkBar(); setTbTip(null); }
+  if (fromBar && b.type === 'button' && b.href) { drawLinkBox(b); return; }
   const href = target ? target.href : b.href;
   drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
 }
@@ -3784,30 +3890,45 @@ function switchLinkKind(kind) {
   liveLink((b) => { delete b.href; if (kind === 'url' && hadLink) b.newTab = true; else delete b.newTab; });
 }
 linkPop.addEventListener('input', (e) => {
-  if (e.target.matches('.lk-input')) showLinkList(true);
+  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; showLinkList(true); }
   const f = e.target.closest('[data-f]');
   if (!f) return;
   if (f.dataset.f === 'phone') f.value = phoneDigits(f.value);
   else { const x = f.parentElement.querySelector('.lk-clear'); if (x) x.hidden = !f.value; }
   writeLinkForm();
 });
+// Tab goes round the box: Edit, Copy, Remove Link, the row (CAP-E7REOPEN2.json). Its keys stay out of the page's.
+function onLinkBoxKey(e) {
+  if (e.key === 'Tab') {
+    const all = [...linkPop.querySelectorAll('button')], at = all.indexOf(document.activeElement);
+    if (e.shiftKey ? at === 0 : at === all.length - 1) { e.preventDefault(); all[e.shiftKey ? all.length - 1 : 0].focus(); }
+  }
+  if (e.key !== 'Escape' && !e.metaKey && !e.ctrlKey) e.stopPropagation();
+}
 linkPop.addEventListener('keydown', (e) => {
+  if (linkPop.classList.contains('is-box')) onLinkBoxKey(e);
   if (e.key === 'Enter' && e.target.matches('.lk-input')) {
     e.preventDefault();
-    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); } else applyLink(e.target.value);
+    if (linkTarget?.markdown) { e.target.value = linkValue(e.target.value); closeLinkPopover(); }
+    else {
+      applyLink(e.target.value);
+      // An address that is no page closes the editor on a button (CAP-E7REOPEN2.json); a page leaves it open (LINKBOX.json).
+      const v = e.target.value;
+      if (!linkTarget && v && !siteLinkGroups().some((g) => g.pages.some((p) => p.href === v))) closeLinkToBar();
+    }
   }
   // Enter stays in the form on Email, closes on a number, and an empty Phone goes back to URL.
   if (e.key === 'Enter' && e.target.matches('input[data-f]')) {
     e.preventDefault();
-    if (e.target.dataset.f === 'phone') { if (e.target.value) closeLinkPopover(); else switchLinkKind('url'); }
+    if (e.target.dataset.f === 'phone') { if (e.target.value) closeLinkToBar(); else switchLinkKind('url'); }
   }
   // With the list showing, Escape takes the list; the next one closes the editor (LINKMENU.json).
   if (e.key === 'Escape') {
     e.stopPropagation();
     // On a Markdown block Escape drops what is in the field, closes the panel and lets the block go (CAP-T10MD4.json).
     if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
-    if (linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
-    else closeLinkPopover();
+    if (!linkPop.dataset.cleared && linkPop.querySelector('.lk-pages:not([hidden])')) showLinkList(false);
+    else closeLinkToBar();
   }
 });
 linkPop.addEventListener('mousedown', (e) => {
@@ -3815,6 +3936,18 @@ linkPop.addEventListener('mousedown', (e) => {
   if (e.target.matches('.lk-input')) showLinkList(true);
 });
 linkPop.addEventListener('click', (e) => {
+  const boxAct = e.target.closest('[data-link-box]');
+  if (boxAct) {
+    const act = boxAct.dataset.linkBox;
+    if (act === 'edit') {
+      const b = B(sel.sid, sel.bid);
+      linkPop.classList.remove('is-box', 'tip-held');
+      drawLinkPop(linkKind(b.href), b.href, !!b.newTab);
+      showLinkList(false);
+    } else onLinkAction(act, boxAct);
+    return;
+  }
+  if (e.target.closest('.lk-box-row')) return;
   const mdAct = e.target.closest('[data-md-link]');
   if (mdAct) {
     const t = linkTarget, act = mdAct.dataset.mdLink;
@@ -3852,7 +3985,7 @@ linkPop.addEventListener('click', (e) => {
   const clear = e.target.closest('.lk-clear');
   if (!clear) return;
   const f = clear.parentElement.querySelector('[data-f]');
-  if (!f) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); return; }
+  if (!f) { const i = linkPop.querySelector('.lk-input'); i.value = ''; showLinkList(true); i.focus(); if (!linkTarget) linkPop.dataset.cleared = '1'; return; }
   f.value = '';
   if (f.dataset.f !== 'phone') clear.hidden = true;
   writeLinkForm();
@@ -3863,7 +3996,11 @@ linkPop.addEventListener('change', (e) => {
   setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
 });
 // A click anywhere else closes the editor (read for the panel's tabs).
-const closeLinkOutside = (e) => { if (!linkPop.contains(e.target)) closeLinkPopover(); };
+const closeLinkOutside = (e) => {
+  if (linkPop.contains(e.target)) return;
+  linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
+  closeLinkPopover();
+};
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
 const RANGE_LIMITS = { strokePx: 50, padY: 20, padX: 20, padT: 20, padR: 20, padB: 20, padL: 20, blurPx: 100 };
@@ -5092,14 +5229,33 @@ function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
 // (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). Those two fade
 // there too, moving to another section and in a gesture, and Add Section on selecting a block: each as a copy left behind
-// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
+// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy moves with the page. A fade broken off runs back over
+// 0.2 s times the way it has come: from 0.5, 100 ms (CAP-U9FADE4B.json, CAP-U9FADE4C.json).
 let chromeOut = 0;
+let copies = [];
+const litNow = (o) => { const c = getComputedStyle(o); return o.classList.contains('sc-outline') ? Number(c.borderTopColor.match(/rgba\(.*, ([\d.]+)\)/)?.[1] ?? 1) : Number(c.opacity); };
 function leaveCopy(o, cls, frames) {
   const gone = o.cloneNode(true);
+  const entry = { gone, sid: chrome.dataset.key?.split('|')[0], part: o.dataset.scPart, y: win.scrollY };
   gone.classList.add(cls);
   for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
+  const lit = litNow(o);
   chrome.after(gone);
-  gone.animate(frames, { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+  copies.push(entry);
+  gone.animate(frames, { duration: 200 * lit, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => { gone.remove(); copies = copies.filter((c) => c !== entry); };
+}
+function followCopies() { for (const c of copies) c.gone.style.translate = `0 ${c.y - win.scrollY}px`; }
+const isOutline = (o) => o.classList.contains('sc-outline');
+const litFrame = (o) => (isOutline(o) ? { borderColor: getComputedStyle(o).borderTopColor, offset: 0 } : { opacity: getComputedStyle(o).opacity, offset: 0 });
+function runUp(o, frame, lit) { o.style.animation = 'none'; o.animate([frame], { duration: 200 * (1 - lit), easing: 'ease-in-out' }); }
+// Back on a section whose pair is still falling: it runs back from there (CAP-U9FADE4.json).
+function runCopiesBack(sid) {
+  for (const c of copies.filter((x) => x.sid === sid)) {
+    const o = chrome.querySelector(`[data-sc-part="${c.part}"]`);
+    if (!o) continue;
+    runUp(o, litFrame(c.gone), litNow(c.gone));
+    c.gone.remove(); copies = copies.filter((x) => x !== c);
+  }
 }
 function addSectionAway() {
   if (chrome.hidden) return;
@@ -5115,29 +5271,32 @@ function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
+  // Still rising: it falls from there, over 0.2 s times the way it has come (CAP-U9FADE4C.json).
+  for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const lit = litNow(o); if (lit > 0 && lit < 1) o.animate([litFrame(o), isOutline(o) ? { borderColor: 'transparent' } : { opacity: 0 }], { duration: 200 * lit, easing: 'ease-in-out' }); }
   chrome.classList.remove('is-outline-in', 'is-add-in'); chrome.classList.add('is-out');
   chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
+  followCopies();
   const sid = chromeSid();
   const el = sid && doc && sectionEl(sid);
   if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { hideChrome(!el); return; }
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
-  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
+  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee && !(pressFresh && (!gesture || gesture.type === 'pending'));
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
   if (newSection) outlineAway();
-  if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
+  if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const own = o.getAnimations().filter((a) => !(a instanceof CSSTransition || a instanceof CSSAnimation)); if (own.length) { const lit = litNow(o), frame = litFrame(o); own.forEach((a) => a.cancel()); runUp(o, frame, lit); } } }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
   if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); runCopiesBack(sid); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -6013,11 +6172,11 @@ pinPop.addEventListener('input', (e) => {
   const L = lay(B(pinPop.dataset.sid, pinPop.dataset.bid));
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
-  const offset = Number(e.target.value);
-  L.sticky = { anchor: L.sticky.anchor, offset };
+  const offset = Number(e.target.value), unit = L.sticky.unit;
+  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
-  commit(before, `Pin offset ${offset}px`);
-  pinPop.querySelector('[data-pin-offset]').value = `${offset}px`;
+  commit(before, `Pin offset ${offset}${unit || 'px'}`);
+  pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;
 });
 pinPop.addEventListener('focusout', (e) => { if (e.target.matches('[data-pin-offset]')) applyPinField(e.target, true); });
 // Keys typed here stay here: an arrow on the slider must not nudge the block.
@@ -6091,7 +6250,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; closeLayouts(); }
+function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; if (linkPop.dataset.cleared) closeLinkPopover(); linkPop.hidden = true; markLinkBar(); closeLayouts(); }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
@@ -6351,6 +6510,11 @@ function onHover(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (gesture && gesture.type !== 'pending') return;
   setHover(e.target.closest?.('.fluid-engine.is-editing > .fe-block')?.dataset.blockId || null);
+  onHoverSection(e);
+}
+// A scroll with the pointer still sends no pointermove, but a new section under it takes the chrome (CAP-U9FADE4.json): the browser's pointerover says so.
+function onHoverSection(e) {
+  if (document.body.classList.contains('is-preview') || (gesture && gesture.type !== 'pending')) return;
   const secEl = e.target.closest?.('section.page-section[data-section-id]');
   const sid = secEl && model.sections.some((x) => x.id === secEl.dataset.sectionId) ? secEl.dataset.sectionId : null;
   if (sid && sid !== hoverSid) { hoverSid = sid; placeChrome(); }
@@ -6411,13 +6575,13 @@ function showBarTip(btn) {
   barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
-// appear between 100 and 400 ms after the hover on the oracle; ours at 200.
+// appear about 517 ms after the pointer gets on the button, by the page's own clock, at full opacity with no fade (CAP-U4TIPS.json).
 let tbTipBtn = null, tbTipTimer = 0;
 function setTbTip(btn) {
   clearTimeout(tbTipTimer);
   barTip.hidden = true;
   tbTipBtn = btn;
-  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 200);
+  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 500);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
 // An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
@@ -6544,6 +6708,7 @@ function boot() {
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
+  frame.contentDocument.addEventListener('pointerover', onHoverSection);
   frame.contentDocument.documentElement.addEventListener('pointerleave', () => setHover(null));
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);
@@ -6593,6 +6758,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      stored = null;
       leftRings = null;
       renderAll();
       return true;

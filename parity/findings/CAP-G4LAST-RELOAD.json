@@ -1,0 +1,32 @@
+{
+  "item": "CAP-G4LAST-RELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4: is Gestures Probe as it was after CAP-G4LAST and CAP-G4LAST2, on a fresh load?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "read",
+      "after reload",
+      {
+        "sections": true
+      }
+    ]
+  ],
+  "reads": {
+    "after reload": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [
+    "top Exit"
+  ],
+  "answer": "As it was: no sections, Save clean, and Exit asked nothing."
+}

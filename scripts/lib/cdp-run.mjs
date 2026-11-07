@@ -179,6 +179,10 @@ try {
     const pressed = cmd.type === 'down' || cmd.type === 'up';
     await mouseEvent({ move: 'mouseMoved', down: 'mousePressed', up: 'mouseReleased' }[cmd.type], p, { button: pressed ? 'left' : cmd.buttons ? 'left' : 'none', buttons: cmd.type === 'down' || (cmd.type === 'move' && cmd.buttons) ? 1 : 0, clickCount: pressed ? 1 : 0, mods: cmd.mods });
   }
+  if (cmd.op === 'wheel') {
+    const p = await toPage(cmd.x, cmd.y);
+    await send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: p.x, y: p.y, deltaX: 0, deltaY: cmd.dy });
+  }
   if (cmd.op === 'touch') {
     // No Emulation.setTouchEmulationEnabled: turning it on throws the oracle out of edit mode.
     const a = await toPage(...cmd.from), b = await toPage(...cmd.to);

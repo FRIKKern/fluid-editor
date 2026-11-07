@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 57 changes
-  - T6: the last path strings in findings become numbers; PATHS_LEFT is empty ([#348](https://github.com/FRIKKern/fluid-editor/pull/348))
-  - T15: Loop, On Appear and On Scroll on the page in preview mode; T6: the corners finding holds numbers ([#345](https://github.com/FRIKKern/fluid-editor/pull/345))
+- **Today** · 74 changes
+  - Y2, E7: frozen last scores, 20 of 26 and 5 of 5, misses named (items 56, 57, 58) ([#364](https://github.com/FRIKKern/fluid-editor/pull/364))
+  - U10: View Layouts for a block alone, 33 types, 5 picked in full; fade cases hold under load ([#363](https://github.com/FRIKKern/fluid-editor/pull/363))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

@@ -239,6 +239,14 @@ function linkHeadHtml(kind) {
   return `<div class="lk-head"><button type="button" class="lk-pill" aria-expanded="false">${LINK_ICONS[kind]}<span>${name}</span>${CHEVRON}</button>`
     + `<div class="lk-menu" hidden>${rows}<div class="lk-sep" role="separator"></div><button type="button" class="lk-learn">${LINK_ICONS.info}<span>Learn more</span></button></div></div>`;
 }
+// The box a linked Button opens from its toolbar (CAP-E7REOPEN2.json): the link as the panel's row shows it, then Edit, Copy and
+// Remove Link. A page has a tip with its full address; a typed link has one only if the row cuts it short (drawLinkBox), an email or number none.
+export function linkBoxHtml(href, groups, origin) {
+  const sum = linkSummary(href, groups);
+  return `<button type="button" class="lk-box-row${sum.sub ? '' : ' is-one'}" aria-label="${esc(`${sum.title}${sum.sub}`)}"><span class="lk-box-icon">${sum.icon === 'page' ? PAGE_ROW_ICON : LINK_ICONS[sum.icon]}</span><span class="lk-box-name">${esc(sum.title)}</span>${sum.sub ? `<span class="lk-box-sub">${esc(sum.sub)}</span>` : ''}</button>`
+    + (sum.icon === 'page' || sum.icon === 'url' ? `<div class="lk-tip" role="tooltip"${sum.icon === 'page' ? ' data-page' : ''}>${esc(sum.icon === 'page' ? origin + href : href)}</div>` : '')
+    + '<div class="lk-box-acts"><button type="button" data-link-box="edit">Edit</button><button type="button" data-link-box="copy">Copy</button><button type="button" data-link-box="remove">Remove Link</button></div>';
+}
 function urlBodyHtml(href, groups, newTab) {
   const pages = groups.filter((g) => g.pages.length).map((g) => `<div class="lk-set"><div class="lk-group">${esc(g.name)}</div>${g.pages.map((pg) => `<button type="button" class="lk-page" data-href="${esc(pg.href)}" aria-label="${esc(`${pg.label}${pg.href}`)}">${PAGE_ROW_ICON}<span>${esc(pg.label)}</span><span class="lk-path">${esc(pg.href)}</span></button>`).join('')}</div>`).join('');
   return `<div class="lk-row"><input class="lk-input" type="text" placeholder="Enter link, search, or add files" value="${esc(href || '')}"><button type="button" class="lk-clear" aria-label="Clear selected page">×</button></div>`
@@ -283,14 +291,26 @@ function blendRow(cur, open) {
   return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
 }
 
+// A Video's is a name and a menu, not one button (CAP-VBLEND.json): the same list, over it and 9 to its left.
+function videoBlendRow(cur) {
+  const name = BLEND_MODES.find((m) => blendValue(m) === cur) || 'Normal';
+  return `<div class="sp-row bp-image-sel bp-vblend"><span class="sp-label">Blend Mode</span><button type="button" role="combobox" class="an-sel" data-image-sel="vblend" data-cur="${cur}" aria-haspopup="listbox"><span>${name}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button></div>`;
+}
+
 // Stroke (parity/findings/STROKE.json): No, Solid and Dashed Stroke; with a stroke, Stroke Color
 // (not built), Thickness S/M/L, Corner and Padding S/M/L.
 // The Stack's Layout group (parity/findings/S3.json panel): Direction, Position, Gap and Padding.
 const POS_Y = [['flex-start', 'Top'], ['center', 'Center'], ['flex-end', 'Bottom']];
 const POS_X = [['flex-start', 'Left'], ['center', 'Center'], ['flex-end', 'Right']];
 // A child's Size (S3.json children): W and H, each a field with Fixed, Hug and Fill under it.
+// The Size menu's rows (CAP-SIZEMENU.json, CAP-SIZEMENU2.json, CAP-SIZEMENUH.json): an icon, upright for H, and a tick on the current one. Our own drawing, measured to the oracle's box.
+const SIZE_ICON = { Fixed: 'M2 11h18M2 7v8M20 7v8', Hug: 'M0 11h9M6 7.5l3.5 3.5L6 14.5M22 11h-9M16 7.5L12.5 11l3.5 3.5', Fill: 'M1 11h20M4.5 7.5L1 11l3.5 3.5M17.5 7.5L21 11l-3.5 3.5' };
+const sizeRow = (axis, name, text, current, off) => `<button type="button"${off || current ? ` class="${off ? 'is-off' : 'is-on'}"` : ''}${off ? ' disabled' : ''} data-stack="kid:${axis}:${name === 'Fixed' ? text.slice(8) : name}"><svg class="st-size-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#b7b7b7" stroke-width="1.5" aria-hidden="true"><path d="${SIZE_ICON[name]}"${axis === 'h' ? ' transform="rotate(90 11 11)"' : ''}/></svg><span>${esc(text)}</span>${current ? '<svg class="st-size-tick" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#0e0e0e" stroke-width="2" aria-hidden="true"><path d="M5.5 11.5l3.5 3.5 7.5-8.5"/></svg>' : ''}</button>`;
 function kidSizeHtml(k) {
-  const one = (axis, v) => `<span class="st-size-f"><b aria-hidden="true">${axis.toUpperCase()}</b><input type="text" aria-label="${axis.toUpperCase()}" data-stack-field="k${axis}" value="${esc(v)}"><button type="button" class="st-gap-toggle" aria-label="${axis.toUpperCase()} options" data-stack="kidopen:${axis}">${pi('<path d="M8 10l4 4 4-4"/>')}</button>${k.open === axis ? `<span class="st-gap-menu st-size-menu"><button type="button" data-stack="kid:${axis}:${k.fixed[axis]}">Fixed · ${k.fixed[axis]}</button><button type="button"${k.noHug ? ' class="is-off" disabled' : ''} data-stack="kid:${axis}:Hug">Hug</button><button type="button" data-stack="kid:${axis}:Fill">Fill</button></span>` : ''}</span>`;
+  const one = (axis, v) => {
+    const open = k.open === axis, now = v === 'Fill' || v === 'Hug' ? v : 'Fixed';
+    return `<span class="st-size-f"><b aria-hidden="true">${axis.toUpperCase()}</b><input type="text" aria-label="${axis.toUpperCase()}" data-stack-field="k${axis}" value="${esc(v)}"><button type="button" class="st-gap-toggle${open ? ' is-open' : ''}" aria-label="${axis.toUpperCase()} options" data-stack="kidopen:${axis}">${pi(open ? '<path d="M8 14l4-4 4 4"/>' : '<path d="M8 10l4 4 4-4"/>')}</button>${open ? `<span class="st-gap-menu st-size-menu">${sizeRow(axis, 'Fixed', `Fixed · ${k.fixed[axis]}`, now === 'Fixed')}${sizeRow(axis, 'Hug', 'Hug', now === 'Hug', k.noHug)}${sizeRow(axis, 'Fill', 'Fill', now === 'Fill')}</span>` : ''}</span>`;
+  };
   return `<div class="st-head">Layout</div><div class="st-size"><span class="sp-label">Size</span><span class="st-size-col">${one('w', k.w)}${one('h', k.h)}</span></div>`;
 }
 function stackLayoutHtml(st) {
@@ -530,7 +550,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
     else if (content?.kind === 'map') body = mapDesignHtml(content, pairs.join(''));
     else if (content?.kind === 'video') body = '<div class="bp-thead"><span>Appearance</span></div>' + videoAppearanceRows(d)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
-      + '<div class="bp-thead"><span>Effects</span></div>' + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d);
+      + '<div class="bp-thead bp-vfx"><span>Effects</span></div>' + videoBlendRow(d.blend || 'normal') + blurRows(d);
     // Code, embed and Line blocks (CODEEMBED.json, T11.json) and a form as a Lightbox button have the transforms alone.
     else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line' || (content?.kind === 'form' && content.lightbox)) body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPESTYLES.json):

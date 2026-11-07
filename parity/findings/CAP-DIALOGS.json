@@ -149,7 +149,7 @@
   ],
   "closes": "Escape closes it"
  },
- "closes": "All nine read: no button in the dialog outside its body, no Cancel, no X. Escape leaves it open. A press on its own block leaves it open. Left by a reload. Exit in the top bar took over 5 s in an earlier read. Not tried: a press on an empty part of the page.",
+ "closes": "A press on an empty part of the section beside the dialog closes it, on all nine: one press at 1300, 578 on a 1600 by 1000 window, where the frame's fluid-engine grid was on top and no block, link, button or field. The dialog goes, the block stays and is no longer selected. Save was on before, from the new block, and still on after. Inside the dialog there is no button, no Cancel and no X. Escape leaves it open, and so does a press on its own block.",
  "accountBound": {
   "Instagram": {
    "rows": [
@@ -170,7 +170,7 @@
     "Band Name",
     "Timeframe to Show"
    ],
-   "why": "the name looks up an outside service. Timeframe reads Upcoming or Date Range and was not pressed: the walk stops at a field that can reach outside."
+   "why": "Band Name looks up an outside service. Timeframe to Show (Upcoming, Date Range) is named and was not pressed: the walk stops at a field that can reach outside."
   },
   "SoundCloud": {
    "rows": [
@@ -198,6 +198,22 @@
   "Chart Type options beyond a press to Line Chart: Pie Chart named, not pressed",
   "a dialog when a collection or account exists"
  ],
- "answer": "Nine dialogs, 300 to 572 wide. Chart has three tabs, Instagram and Flickr two, the others none. None has a way out inside it.",
- "pressed": "Add Block, Edit, each dialog tab, the rows in each CAP-ROWS file, Escape, and a press on the block by its id. Nothing typed in a field that can reach outside. On a probe page, unsaved. Left by a reload."
+ "answer": "Nine dialogs, 300 to 572 wide. Chart has three tabs, Instagram and Flickr two, the others none. None has a way out inside it; a press on the empty section beside it closes each.",
+ "pressed": "Add Block, Edit, each dialog tab, the rows in each CAP-ROWS file, Escape, and a press on the block by its id. Nothing typed in a field that can reach outside. On a probe page, unsaved. Left by a reload. Then one press, not by name, on the empty section beside each dialog.",
+ "closePress": {
+  "where": "1300, 578: the section grid beside the dialog, seen on a screenshot first",
+  "named": false,
+  "tiles": [
+   "Calendar",
+   "Chart",
+   "Page Link",
+   "Tag Cloud",
+   "RSS",
+   "SoundCloud",
+   "Bandsintown",
+   "Instagram",
+   "Flickr"
+  ],
+  "save": "on before and after on all nine; on because a new block was added. Probe pages read 0 sections after Exit Without Saving."
+ }
 }

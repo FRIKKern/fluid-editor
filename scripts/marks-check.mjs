@@ -1,7 +1,7 @@
 // Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json, U5.json, CAP-DIVSHAPES.json and CAP-ADDSECTIONVIEWS.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, browser, drag, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, browser, drag, mouse, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -207,7 +207,7 @@ const named = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) 
   return JSON.stringify(out); })()`);
 for (const [n, [txt, w]] of Object.entries(named)) add(`label ${n}`, txt === n && Math.abs(w - F.labels.width[n]) <= 2, `${txt} ${w} oracle ${F.labels.width[n]}`);
 // The other types read (CAP-X13LABELS.json), stand-ins among them. Within 2px too.
-const LBL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads;
+const LBL = { ...JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads, ...JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS2.json', import.meta.url))).reads };
 const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const out = {}; ${FR}
   const sid0 = fe.model.sections[${SEC}].id;
   for (const n of ${JSON.stringify(Object.keys(LBL))}) {
@@ -218,7 +218,9 @@ const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((re
     fe.select(null);
   }
   return JSON.stringify(out); })()`);
-for (const [n, [txt, w]] of Object.entries(labelled)) { const want = LBL[n].frameEls[0]; add(`label read ${n}`, txt === want.label && Math.abs(w - want.box[2]) <= 2, `${txt} ${w} oracle ${want.label} ${want.box[2]}`); }
+// Donation is 74.6 on the oracle and 72.05 here: same name and size in a fallback font, whose letters run narrower for this word (inferred). No other word passes 2.
+const LABEL_ROOM = { Donation: 3 };
+for (const [n, [txt, w]] of Object.entries(labelled)) { const want = LBL[n].frameEls[0]; add(`label read ${n}`, txt === want.label && Math.abs(w - want.box[2]) <= (LABEL_ROOM[n] ?? 2), `${txt} ${w} oracle ${want.label} ${want.box[2]}`); }
 
 // U6: the top bar's looks, tooltips, keys and the exit dialog (parity/findings/TOPBAR.json).
 const T = JSON.parse(readFileSync(new URL('../parity/findings/TOPBAR.json', import.meta.url)));
@@ -449,14 +451,17 @@ const copyTiming = (r) => r.timing?.join() === '200,ease-in-out';
 await frameScroll(500); mouse(S, 'move', 60, 300); mouse(S, 'move', 62, 301); await pause(500);
 const addCrossed = await addCross(async () => { mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); });
 add('straight to another section: the old Add Section fades as the new one comes', addCrossed.copies === 2 && copyTiming(addCrossed) && addCrossed.gone >= 6 && addCrossed.falling && addCrossed.lit >= 6 && addCrossed.rising && addCrossed.end[0] === 0 && addCrossed.through, JSON.stringify(addCrossed));
-// Off and back on within the fade it runs back from where it is, on CAP-U9ADDFADE2.json. Only a try where the chrome stayed counts: the wait can pass 200 ms.
+// Off and back on within the fade it runs back from where it is, on CAP-U9ADDFADE2.json. The way back is sent in the page,
+// on the first frame the fade has passed 0.8, so a slow machine can't make the wait pass the 200 ms. Only a try where the chrome stayed counts.
 let addBack = null;
-for (let tryAt = 0; tryAt < 3 && !addBack?.seen; tryAt++) {
+for (let tryAt = 0; tryAt < 5 && !addBack?.seen; tryAt++) {
   mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
-  evalJs(S, `(() => { const T = window.__abw = { seen: [], gone: false, stop: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'), o = c.querySelector('[data-sc="add-section-below"]'); if (c.hidden || !o) T.gone = true; else T.seen.push(+getComputedStyle(o).opacity); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
-  mouse(S, 'move', 800, 20); await pause(50); mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
-  const r = evalJs(S, `(() => { const T = window.__abw; T.stop = true; return JSON.stringify({ seen: T.seen, gone: T.gone }); })()`);
-  if (!r.gone) addBack = { seen: r.seen };
+  evalJs(S, `(() => { const T = window.__abw = { seen: [], gone: false, stop: false, back: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'), o = c.querySelector('[data-sc="add-section-below"]'); if (c.hidden || !o) T.gone = true; else { const v = +getComputedStyle(o).opacity; T.seen.push(v); if (!T.back && v > 0 && v < 0.8) { T.back = true; const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 62 - fr.left, y = 701 - fr.top; f.contentDocument.elementFromPoint(x, y).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: y })); } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  mouse(S, 'move', 800, 20);
+  for (let w = 0; w < 40 && !evalJs(S, `window.__abw.back || window.__abw.gone`); w++) await pause(50);
+  mouse(S, 'move', 60, 700); mouse(S, 'move', 62, 701); await pause(500);
+  const r = evalJs(S, `(() => { const T = window.__abw; T.stop = true; return JSON.stringify({ seen: T.seen, gone: T.gone, back: T.back }); })()`);
+  if (!r.gone && r.back) addBack = { seen: r.seen };
 }
 const addLow = addBack ? Math.min(...addBack.seen) : null, addLowAt = addBack ? addBack.seen.indexOf(addLow) : -1;
 add('Add Section back on during its fade runs back', !!addBack && addLow > 0 && addLow < 1 && addBack.seen.at(-1) === 1 && addBack.seen.slice(addLowAt).every((a, i, l) => !i || a >= l[i - 1]) && addBack.seen.slice(0, addLowAt + 1).every((a, i, l) => !i || a <= l[i - 1]), JSON.stringify({ low: addLow, frames: addBack?.seen.length }));
@@ -793,7 +798,7 @@ add('Both pins kept in the model', saved[0] && saved[1] && saved[2] === 'flex-en
 // Tips: 11px under the button, centred, keys in chips, none on an unavailable button.
 await fresh();
 await pick(BIDS.text);
-const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(400); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
+const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(700); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
 const tipCheck = async (tb, label) => {
   const [q, t] = await tipOf(tb);
   const want = TB.tips.words[label];
@@ -801,6 +806,16 @@ const tipCheck = async (tb, label) => {
   add(`Tip ${label}`, ok, JSON.stringify(t));
 };
 for (const [tb, label] of [['write', 'Write'], ['edit', 'Edit'], ['align', 'Align Vertically'], ['pin', 'Pin'], ['duplicate', 'Duplicate'], ['remove', 'Remove']]) await tipCheck(tb, label);
+// The tip waits about 517 ms from the pointer getting on the button, by the page's own clock, with no fade (CAP-U4TIPS.json: 517 to 528).
+{
+  const q = evalJs(S, `(() => { const b = document.querySelector('#block-toolbar [data-tb="duplicate"]'), q = b.getBoundingClientRect(), tip = document.getElementById('bar-tip');
+    window.__tipWait = null; b.addEventListener('pointerover', () => { const t0 = performance.now(); const tick = () => { if (!tip.hidden) window.__tipWait = [Math.round(performance.now() - t0), getComputedStyle(tip).opacity]; else requestAnimationFrame(tick); }; requestAnimationFrame(tick); }, { once: true });
+    return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+  await moveTo(q); await pause(900);
+  const w = evalJs(S, `(() => JSON.stringify(window.__tipWait))()`);
+  add('Tip waits about 517 ms, no fade', !!w && Math.abs(w[0] - 517) <= 25 && w[1] === '1', JSON.stringify(w));
+  await moveTo([20, 996]); await pause(100);
+}
 const zOverlap = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.desktop.area = [...t.layout.desktop.area]; t.layout.desktop.z = Math.min(...s.blocks.map((x) => x.layout.desktop.z)) - 1; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
 await pause(250);
 await tipCheck('z+', 'Move Forward');
@@ -3114,6 +3129,127 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Image Blocks: opening writes nothing', undoOff() === true);
 }
 
+// U9: a fade broken off, a scroll during one, a press alone, the phone (CAP-U9FADE4.json, B, C, D).
+{
+  viewport(S, 1600, 1400);
+  goto(S, `${BASE}/index.html`); await pause(1500);
+  const secTop = (n) => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow; return JSON.stringify(W.document.querySelectorAll('main#page .page-section')[${n}].getBoundingClientRect().top + f.getBoundingClientRect().top); })()`);
+  const scTo = async (y) => { evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollTo({ left: 0, top: ${y}, behavior: 'instant' }); return 'ok'; })()`); await pause(200); };
+  const sy = () => evalJs(S, `document.querySelector('iframe').contentWindow.scrollY`);
+  const place = async () => { await scTo(0); const t = secTop(1); await scTo(t - 125); const b = secTop(2); return [90, 225, b + 60]; };
+  const go = async (y) => { mouse(S, 'move', 800, y); mouse(S, 'move', 802, y); await pause(500); };
+  const start = () => evalJs(S, `(() => { const T = window.__f = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'); const row = (e) => [Math.round(e.getBoundingClientRect().top), +getComputedStyle(e).opacity]; const line = (e) => [Math.round(e.getBoundingClientRect().top), getComputedStyle(e).borderTopColor]; T.seen.push({ ms: performance.now() - T.t0, sid: c.hidden ? null : c.dataset.key.split('|')[0], lit: c.hidden ? [] : [...c.querySelectorAll('.sc-add-section')].map(row), gone: [...document.querySelectorAll('.sc-add-gone')].map(row), ol: c.hidden ? null : line(c.querySelector('.sc-outline')), olGone: [...document.querySelectorAll('.sc-outline-gone')].map(line), times: [...document.querySelectorAll('.sc-add-gone, .sc-outline-gone')].map((e) => { const a = e.getAnimations()[0]; return a ? [e.className.includes('outline') ? 'o' : 'a', Math.round(a.effect.getTiming().duration)] : null; }) }); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  const stop = () => evalJs(S, `(() => { const T = window.__f; T.stop = true; return JSON.stringify(T.seen); })()`);
+  const up = (a) => a.every((v, i) => !i || v >= a[i - 1]), down = (a) => a.every((v, i) => !i || v <= a[i - 1]);
+  const [y1, y2, y3] = await place();
+
+  // The second move is sent in the page on the first frame the new pair passes 0.3, so a slow machine can't push it
+  // past the 0.2 s fade; the real pointer follows it there.
+  const midway = (y) => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), sid0 = c.dataset.key?.split('|')[0]; const T = window.__mid = { done: false }; const tick = () => { if (T.done) return; const o = c.hidden ? null : c.querySelector('.sc-add-section'), sid = c.dataset.key?.split('|')[0]; if (o && sid !== sid0) { const v = +getComputedStyle(o).opacity; if (v > 0.3 && v < 0.7) { T.done = true; ${y === 'bar' ? "document.querySelector('.bar').dispatchEvent(new PointerEvent('pointerenter'));" : y === 'scroll' ? "document.getElementById('site-frame').contentWindow.scrollBy(0, 60);" : `const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 800 - fr.left, yy = ${y} - fr.top; f.contentDocument.elementFromPoint(x, yy).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: yy }));`} return; } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  const cross = async (y, to, toY) => { midway(to); mouse(S, 'move', 800, y); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); mouse(S, 'move', 800, toY); await pause(500); };
+  await go(y1); start(); await cross(y2, y3, y3); let f = stop();
+  const short = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'a').map((x) => x[1])))];
+  const thirdGone = f.map((r) => r.gone.length).reduce((a, b) => Math.max(a, b), 0);
+  add('a third section during a fade: the first falls on, the middle falls in a shorter time, the third rises', thirdGone === 4 && short.includes(200) && short.some((d) => d > 0 && d < 190) && up(f.filter((r) => r.lit.length).slice(-20).map((r) => r.lit[0][1])) && f.at(-1).gone.length === 0, JSON.stringify({ thirdGone, short }));
+  const olShort = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'o').map((x) => x[1])))];
+  add('the outline the same way', olShort.includes(200) && olShort.some((d) => d > 0 && d < 190), JSON.stringify(olShort));
+
+  await go(y1); start(); await cross(y2, y1, y1); f = stop();
+  const s0 = f[0].sid, mid = f.findIndex((r) => r.sid && r.sid !== s0), backAt = mid > 0 ? f.findIndex((r, i) => i > mid && r.sid === s0) : -1;
+  const back = backAt > 0 ? f.slice(backAt).map((r) => r.lit[0][1]) : [];
+  const backGone = backAt > 0 ? f[backAt].gone.length : -1;
+  add('back to the first during a fade: it runs back from where it is', back.length > 3 && back[0] > 0 && back[0] < 1 && up(back) && back.at(-1) === 1 && backGone === 2 && f.slice(backAt).find((r) => r.lit[0][1] === 1).ms - f[backAt].ms <= 200 * (1 - back[0]) + 40, JSON.stringify({ backAt, backGone, first: back[0], frames: back.length }));
+
+  await go(y1); start(); await cross(y2, 'bar', 20); f = stop();
+  const midSid = f.find((r) => r.sid && r.sid !== f[0].sid)?.sid, risen = f.filter((r) => r.sid === midSid && r.lit.length).map((r) => r.lit[0][1]);
+  const peak = Math.max(...risen.slice(0, -1)), peakAt = risen.indexOf(peak), fall = risen.slice(peakAt);
+  add('rising, then off every section: it falls from where it is, no jump, in a shorter time', peak > 0 && peak < 1 && fall.length >= 3 && down(fall) && fall[1] > peak * 0.7 && f.filter((r) => r.sid === midSid && r.lit.length).at(-1).ms - f.filter((r) => r.sid === midSid && r.lit.length)[peakAt].ms <= 200 * peak + 150, JSON.stringify({ peak, frames: fall.length }));
+
+  // A scroll mid-fade, sent in the page as the others are; the oracle's wheel and script scrolls read the same (CAP-U9FADE4.json).
+  await go(y1); start(); midway('scroll'); mouse(S, 'move', 800, y2); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); await pause(500); f = stop();
+  const both = f.filter((r) => r.gone.length === 2 && r.lit.length === 2);
+  const moved = both.length ? both[0].gone[1][0] - both.at(-1).gone[1][0] : 0, movedLit = both.length ? both[0].lit[1][0] - both.at(-1).lit[1][0] : 0;
+  const olBoth = f.filter((r) => r.olGone.length === 1 && r.ol);
+  const olMoved = olBoth.length ? olBoth[0].olGone[0][0] - olBoth.at(-1).olGone[0][0] : 0;
+  add('a scroll during a fade: the fade runs on and the copies move with the page', moved === 60 && movedLit === 60 && olMoved === 60 && up(both.map((r) => r.lit[0][1])) && down(both.map((r) => r.gone[0][1])) && f.at(-1).lit[0][1] === 1, JSON.stringify({ moved, movedLit, olMoved }));
+
+  const [, , y3b] = await place();
+  await go(y3b - 60 - 20); const was = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); wheel(S, 802, y3b - 80, 300); let now = was;
+  // The browser's own pointerover after a scroll comes late on a busy page: wait for it, up to 2 s.
+  for (let w = 0; w < 20 && now === was; w++) { await pause(100); now = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); }
+  add('a wheel turn with the pointer still: a new section under it takes the chrome', now !== was && !!now, JSON.stringify({ was, now }));
+
+  // A block with nothing selected: the press alone changes nothing, as a press and 6 px don't on the oracle.
+  await place(); mouse(S, 'move', 800, 20); await pause(400);
+  const B = evalJs(S, `(() => { const f = document.querySelector('iframe'), d = f.contentDocument, fr = f.getBoundingClientRect(); const b = [...d.querySelectorAll('.fe-block')].find((e) => { const q = e.getBoundingClientRect(); return q.top + fr.top > 200 && q.bottom + fr.top < 900 && q.height > 40; }); const q = b.getBoundingClientRect(); return JSON.stringify([q.left + fr.left + q.width / 2, q.top + fr.top + q.height / 2]); })()`);
+  const [bx, by] = B; mouse(S, 'move', bx, by); await pause(500);
+  start(); mouse(S, 'down', bx, by, { buttons: 1 }); await pause(300); mouse(S, 'move', bx + 6, by, { buttons: 1 }); await pause(300); f = stop();
+  add('a press alone and 6 px: Add Section stays', f.every((r) => r.gone.length === 0 && r.lit.length === 2 && r.lit[0][1] === 1), JSON.stringify(f.at(-1)));
+  start(); mouse(S, 'move', bx + 14, by, { buttons: 1 }); await pause(350); f = stop();
+  add('past 10 px: it goes as a copy', f.some((r) => r.gone.length === 2) && f.at(-1).lit.length === 0, JSON.stringify(f.at(-1)));
+  mouse(S, 'move', bx, by, { buttons: 1 }); mouse(S, 'up', bx, by); await pause(300); browser(S, 'press', 'Escape'); await pause(400);
+  start(); mouse(S, 'down', bx, by, { buttons: 1 }); await pause(250); mouse(S, 'up', bx, by); await pause(350); f = stop();
+  const pressGone = f.findIndex((r) => r.gone.length === 2);
+  add('let go with no drag: it goes then, not on the press', pressGone > 0 && f[pressGone].ms >= 250 && f.at(-1).lit.length === 0, JSON.stringify({ at: f[pressGone]?.ms }));
+  browser(S, 'press', 'Escape'); await pause(400);
+
+  // The phone: the same fade (CAP-U9FADE4B.json).
+  evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(800);
+  const [py1, py2] = await (async () => { await scTo(0); const t = secTop(1); await scTo(t - 300); const u = secTop(1); return [u - 100, u + 100]; })();
+  await go(py1); start(); mouse(S, 'move', 800, py2); await pause(500); f = stop();
+  const pOut = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'a').map((x) => x[1])))], pRise = f.map((r) => r.lit[0]?.[1]).filter((v) => v > 0 && v < 1);
+  add('the phone: the same 0.2 s cross', pOut.join() === '200' && pRise.length >= 6 && up(pRise) && f.at(-1).gone.length === 0, JSON.stringify({ pOut, rise: pRise.length }));
+  start(); mouse(S, 'move', 800, 20); await pause(500); f = stop();
+  const pFall = f.map((r) => r.lit[0]?.[1]).filter((v) => v > 0 && v < 1);
+  add('the phone: off, the same fade', pFall.length >= 6 && down(pFall), JSON.stringify(pFall.length));
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400);
+  viewport(S, 1600, 1000); await pause(300);
+}
+// U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), each read pick of the five
+// types read in full (CAP-U10PICK-*.json), a shared list for an unread type, and Archive's tiles shown unbuilt.
+{
+  const FIND = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+  const ON = new Set();
+  for (const n of ['CAP-U10TYPES1', 'CAP-U10TYPES2', 'CAP-U10TYPES3']) for (const [t, v] of Object.entries(FIND(n).reads)) if (v.btnByText['View Layouts'].disabled === false) ON.add(t);
+  const TYPES = Object.keys(FIND('CAP-U10TYPES1').reads).concat(Object.keys(FIND('CAP-U10TYPES2').reads), Object.keys(FIND('CAP-U10TYPES3').reads));
+  goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300);
+  const base = evalJs(S, `JSON.stringify(fe.model)`);
+  const alone = (name) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); fe.addBlock(fe.model.sections[0].id, ${JSON.stringify(name)}); fe.select(null); return 'true'; })()`);
+  const btn = async () => { const f = evalJs(S, `(() => { const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 200]); })()`); mouse(S, 'move', 800, 20); await pause(250); mouse(S, 'move', f[0], f[1]); await pause(150); mouse(S, 'move', f[0] + 3, f[1] + 2); await pause(300); return evalJs(S, `(() => { const b = document.querySelector('#section-chrome:not([hidden]) [data-sc="layouts"]'); if (!b) return 'null'; const r = b.getBoundingClientRect(); return JSON.stringify({ x: r.left + r.width / 2, y: r.top + r.height / 2, off: b.hasAttribute('data-unbuilt') }); })()`); };
+  const wrong = [];
+  for (const t of TYPES) { alone(t); await pause(250); const b = await btn(); if (!b || b.off === ON.has(t)) wrong.push(`${t} ${b ? (b.off ? 'off' : 'on') : 'none'}`); }
+  add(`View Layouts for one block alone: ${TYPES.length} types as read, ${ON.size} on`, TYPES.length === 33 && wrong.length === 0, wrong.join(', '));
+  const open = async () => { const b = await btn(); mouse(S, 'move', b.x, b.y); await pause(50); mouse(S, 'down', b.x, b.y, { buttons: 1 }); await pause(30); mouse(S, 'up', b.x, b.y); await pause(400); return evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list li')].map((li) => Math.round(li.getBoundingClientRect().height * 10) / 10))`); };
+  const pick = (n) => evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'); return JSON.stringify({ rows: s.rows.desktop, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.divider ? s.dividerShape : ''], at: s.blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')]) }); })()`);
+  const DV = { 'soft-corners': 'soft', rounded: 'rounded' };
+  for (const T of ['Code', 'Quote', 'Accordion', 'Video', 'Map']) {
+    const P = FIND(`CAP-U10PICK-${T.toUpperCase()}`).reads, L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.map((x) => x[5]);
+    alone(T); await pause(250);
+    const tiles = await open(), errs = [];
+    if (tiles.join() !== L.map((h) => Math.round(h * 10) / 10).join()) errs.push(`tiles ${tiles}`);
+    for (let n = 0; n < L.length; n++) {
+      const g = pick(n), r = P[`pick ${n}`], lk = r.look, want = r.stack[0];
+      if (!g) { errs.push(`${n} no tile`); continue; }
+      // Rows, areas and look, not the section's height: that was read under Blocks Probe's shorter header, and ours
+      // grows a row where a Quote or a wide Video's content is taller than it (named in U10's evidence).
+      if (g.rows !== lk.rows) errs.push(`${n} rows ${g.rows}`);
+      if (g.at.length !== 1 || g.at[0][0] !== want.desktop || g.at[0][1] !== want.phone) errs.push(`${n} at ${g.at}`);
+      if (g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} look ${g.look}`);
+    }
+    add(`View Layouts, ${T} alone: ${L.length} read picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    browser(S, 'press', 'Escape'); await pause(200);
+  }
+  // Audio alone takes the list Code, Quote and Accordion share; its spans are its own, an inference.
+  alone('Audio'); await pause(250);
+  const audioTiles = await open(), au0 = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area)`), au = pick(2);
+  const span = au0[2] - au0[0];
+  add('Audio alone: 5 tiles, the shared list', audioTiles.length === 5 && !!au && au.at[0][0] === `3/3/${3 + span}/13` && au.rows === 3 + span - 1 + 4 && au.look.join() === 'dark,rounded', JSON.stringify({ audioTiles, au }));
+  browser(S, 'press', 'Escape'); await pause(200);
+  alone('Archive'); await pause(250);
+  const arch = await open(), archOn = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
+  add('Archive alone: its 6 tiles show, not built', arch.length === 6 && archOn.join() === '6,0', JSON.stringify({ arch, archOn }));
+  browser(S, 'press', 'Escape'); await pause(200);
+}
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);

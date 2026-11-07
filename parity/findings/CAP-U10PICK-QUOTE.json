@@ -1,0 +1,679 @@
+{
+  "item": "CAP-U10PICK-QUOTE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10PICK-QUOTE",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 0",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 1",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 2",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 3",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 4",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Quote"
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            457,
+            ""
+          ],
+          [
+            "2",
+            616.2,
+            ""
+          ],
+          [
+            "3",
+            773.6,
+            ""
+          ],
+          [
+            "4",
+            924.3,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 13,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 873
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            457,
+            ""
+          ],
+          [
+            "2",
+            616.2,
+            ""
+          ],
+          [
+            "3",
+            769.5,
+            ""
+          ],
+          [
+            "4",
+            904.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "5/7/10/21",
+          "phone": "2/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 1": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 11,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 886.9
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            165,
+            ""
+          ],
+          [
+            "1",
+            318,
+            ""
+          ],
+          [
+            "2",
+            477.2,
+            ""
+          ],
+          [
+            "3",
+            630.5,
+            ""
+          ],
+          [
+            "4",
+            765.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "8/15/12/25",
+          "phone": "2/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 10,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 845.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.888,
+        "edge": "curve",
+        "h": 845.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            6,
+            ""
+          ],
+          [
+            "1",
+            159,
+            ""
+          ],
+          [
+            "2",
+            318.2,
+            ""
+          ],
+          [
+            "3",
+            471.5,
+            ""
+          ],
+          [
+            "4",
+            606.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "3/3/7/13",
+          "phone": "2/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 3": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 10,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 749.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            0,
+            ""
+          ],
+          [
+            "1",
+            153,
+            ""
+          ],
+          [
+            "2",
+            312.2,
+            ""
+          ],
+          [
+            "3",
+            465.5,
+            ""
+          ],
+          [
+            "4",
+            600.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "4/9/8/19",
+          "phone": "1/2/6/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4": {
+      "sections": [
+        {
+          "id": "a60a15",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 9,
+          "blocks": [
+            "52_438"
+          ],
+          "h": 708.7
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            0,
+            ""
+          ],
+          [
+            "1",
+            153,
+            ""
+          ],
+          [
+            "2",
+            312.2,
+            ""
+          ],
+          [
+            "3",
+            465.5,
+            ""
+          ],
+          [
+            "4",
+            600.3,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "3/10/8/18",
+          "phone": "1/2/6/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

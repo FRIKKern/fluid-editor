@@ -2,8 +2,9 @@
 import { readFileSync } from 'node:fs';
 import { FONT_GROUPS, OTHER_FONTS } from '../app/src/font-names.js';
 import { ASSIGN_GROUPS } from '../app/src/assign-names.js';
-import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
+import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, runSets, exitCode, STYLES, FINDING } from './oracle/readback.mjs';
 import { VIEWS, DEEP, LISTS } from './oracle/style-views.mjs';
+import { FOOTER, FOOTER_PATHS, compareFooter } from './oracle/footer.mjs';
 import { siteStylesHtml } from '../app/src/site-styles.js';
 import { THEMES as OUR_THEMES } from '../app/src/site-style-packs.js';
 import { SHAPES } from '../app/src/button-tiers.js';
@@ -108,6 +109,41 @@ const tileNames = (rows) => rows.filter((r) => r[0]).map((r) => r[0]);
 for (const t of ['Primary', 'Secondary', 'Tertiary']) is(`our ${t} button Shape list offers the oracle's tiles`, eq(tileNames(lists[`Buttons > ${t} Button`].shape), SHAPES.map(([n]) => n)));
 is('our Field Shape list offers the oracle\'s tiles', eq(tileNames(lists.Forms.shape), FORM_SHAPES.map(([n]) => n)));
 is('our Themes popover holds the oracle\'s tiles and groups', eq(lists.Themes.tiles.map((x) => x[0]), OUR_THEMES.map((t) => `Site theme ${t.id}`)) && eq(lists.Themes.heads.slice(1), [...new Set(OUR_THEMES.map((t) => t.group))]));
+// The footer: the stored base passes on every page, and each kind of change fails.
+const fb = FOOTER.reads, f0 = fb[FOOTER_PATHS[0]];
+is('a footer base for each page', FOOTER_PATHS.every((p) => fb[p]?.blocks?.length > 0 && fb[p].social.length > 0));
+is('the stored footer passes', FOOTER_PATHS.every((p) => compareFooter(p, fb[p]).length === 0));
+is('a footer read of nothing fails', compareFooter(FOOTER_PATHS[0], null).length > 0);
+is('a page with no footer base fails', compareFooter('/nowhere', f0).length > 0);
+is('changed footer text fails', compareFooter(FOOTER_PATHS[0], { ...f0, text: `${f0.text} x` }).length > 0);
+is('a footer block gone fails', compareFooter(FOOTER_PATHS[0], { ...f0, blocks: f0.blocks.slice(1) }).length > 0);
+is('a moved footer block fails', compareFooter(FOOTER_PATHS[0], { ...f0, blocks: f0.blocks.map((b, i) => (i ? b : [b[0], '1 / 1 / 2 / 2', b[2]])) }).length > 0);
+is('a social row more fails', compareFooter(FOOTER_PATHS[0], { ...f0, social: [...f0.social, 'x'] }).length > 0);
+is('a footer section more fails', compareFooter(FOOTER_PATHS[0], { ...f0, sections: f0.sections + 1 }).length > 0);
+is('no link target or email in the footer base', !/https?:|@/.test(JSON.stringify(FOOTER)));
+// Under load: a set that fails is listed and the run goes on, with the page brought back first; its partial compares go,
+// a Save that turned on stays. A page that can't be brought back ends the run with the rest listed.
+{
+  let sinkNow = null, restarts = 0;
+  const ran = [];
+  const sets = [['one', async () => { ran.push('one'); sinkNow.push('one differs'); }],
+    ['two', async () => { ran.push('two'); sinkNow.push('half read'); sinkNow.push('two: Save is not off: x'); throw new Error('press: none'); }],
+    ['three', async () => { ran.push('three'); }]];
+  const r = await runSets(sets, { restart: async () => { restarts++; }, begin: (x) => { sinkNow = x; } });
+  is('a failed set does not stop the run', ran.join() === 'one,two,three');
+  is('the failed set is listed as not read', r.notRead.length === 1 && r.notRead[0].startsWith('two: press: none'));
+  is('the page is brought back before the first set and after a failed one', restarts === 2);
+  is('a failed set keeps its Save diff and drops its partial compare', r.diffs.includes('two: Save is not off: x') && !r.diffs.includes('half read') && r.diffs.includes('one differs'));
+  const stuck = await runSets(sets, { restart: async () => { throw new Error('no page'); }, begin: (x) => { sinkNow = x; } });
+  is('a page never brought back lists every set as not reached', stuck.notRead.length === 3 && stuck.notRead.every((x) => /not reached/.test(x)));
+  is('exit 0 when all read and the same', exitCode({ diffs: [], notRead: [] }) === 0);
+  is('exit 1 on any difference, read or not', exitCode({ diffs: ['x'], notRead: ['y'] }) === 1);
+  is('exit 2 when the same where read', exitCode({ diffs: [], notRead: ['y'] }) === 2);
+  const full = [1, 2, 3], half = [1];
+  is('a short list that grows is read in full', (await settledRead(reads(half, half, full, full), noWait, 6, 3)).rows.length === 3);
+  is('a short list that holds still 8 reads counts', (await settledRead(() => half, noWait, 6, 3)).rows.length === 1);
+  is('a list that never holds still is not settled', !(await settledRead(() => [Math.random()], noWait, 6, 3)).settled);
+}
 if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process.exit(1); }
 // Fonts > Buttons and Miscellaneous hold the same lists as Paragraphs, Buttons three times over; a form font holds Style and Size.
 const para = lists['Fonts > Paragraphs'].combos.map((c) => c[1].map(([n]) => n));

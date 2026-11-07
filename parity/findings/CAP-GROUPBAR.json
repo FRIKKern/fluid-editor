@@ -2531,7 +2531,7 @@
   "errors": [],
   "leftDirty": true,
   "answer": "Forward and Backward show only when a member overlaps a block outside the group. Nothing overlapping, or overlaps only inside the group: 4 buttons, Stack Blocks, Align Group, Duplicate, Remove, at x 102.1, 147.1, 192.1, 232.1, y 236.2. Left and right with the middle (not in the group) over left: 6 buttons, Forward on, Backward off. Middle and right, middle over left: 6, Forward off, Backward on. A phone with two apart: Stack Blocks, Align Group, Remove at x 1041, 1086, 1131, y 206.7, beside the phone over the section panel; no Duplicate.",
-  "ours": "Ours showed 6 with Forward and Backward grey whenever nothing overlapped, and on a phone 5 above the group. Now the same buttons in all 7 reads and the same x on a phone, npm run mid-check. The phone's y: this read has no block box, so the top block is taken at 205.7 from CAP-ACCPHONE.json and the shot; ours is within 1.5.",
+  "ours": "Ours showed 6 with Forward and Backward grey whenever nothing overlapped, and on a phone 5 above the group. Now the same buttons in all 7 reads and the same x on a phone, npm run mid-check. The phone's y and x at other widths: CAP-PHONEBAR.json, which has the block box.",
   "differs": "None in what was read. Not read: a group with a pinned block counts as overlapping in ours (from the single block's rule, TOOLBARS zButtons); a phone group that overlaps: the same rule is assumed.",
   "pressed": "Probe page, unsaved: real selects and shift clicks on shapes, buttons named by label, nothing else."
 }

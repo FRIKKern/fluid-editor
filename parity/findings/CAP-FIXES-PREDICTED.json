@@ -91,5 +91,56 @@
   "score5": {
     "CAP-GROUPBAR": "Right: 4 buttons apart; 6 with a third over a member, Forward on or off by z; none with overlaps only inside the group, the one I was least sure of. Not predicted: a phone has no Duplicate, and its bar stands beside the phone.",
     "CAP-S3HUGFIXED": "Right: greyed at Fixed, pressing does nothing; offered with Stretch off. Wrong: typed hug isn't refused, it gives 300 wide. Wrong: Stretch off isn't how 300 was reached, it gives 20 by 20; typing is."
+  },
+  "predicted6": {
+    "CAP-PANELSTILL": {
+      "Offset, Rotate, Scale on a Shape with its panel open": "The panel doesn't move for any of them: 18 right of the block's untransformed box, 3 below its top.",
+      "the same block, panel closed and opened again": "The same place, from the untransformed box. Least sure of this: it may open beside the transformed rect."
+    },
+    "CAP-PHONEBAR": {
+      "one block at 1280 and 1024": "First button 27 right of the phone, 7 under the block's top.",
+      "group at 1280 and 1024": "First button 27 right of the phone, about 1 under the top block's top, no Duplicate.",
+      "scrolled so the block's top nears the canvas top": "The bar follows the block and stops 23 under the canvas top, as on desktop. Least sure of this.",
+      "scrolled with the block off the canvas": "The bar stays at the stop or goes; no guess between them."
+    },
+    "CAP-SIZEMENU": {
+      "size menu rows": "An icon on the left of each row, and a tick on the right of the current one. A greyed Hug has a grey icon.",
+      "Text child": "Hug is on and ticked, not grey."
+    },
+    "CAP-X13LABELS2": {
+      "Product, Pricing Plan, Donation, Scheduling, Summary": "The name as the Add Block menu spells it, in capitals, 16 high, as the other 32."
+    },
+    "CAP-GROUPBARTOP": {
+      "a desktop group scrolled past the canvas top": "First button at y 81, as a phone group is (CAP-PHONEBAR.json).",
+      "the Gap menu on a stack": "Rows as the Size menu, a tick on the current one; icons not sure.",
+      "the open Size menu's toggle": "A white box with an up chevron, read from the shot only so far."
+    },
+    "CAP-SIZEMENUH": {
+      "the H menu's icons": "The same three icons turned upright: 8 wide, 18 to 22 tall."
+    }
+  },
+  "score6": {
+    "CAP-PANELSTILL": "Right both, the open panel and, the one I was least sure of, the panel opened again.",
+    "CAP-PHONEBAR": "Right: 27 and 7, 27 and 1, no Duplicate, follows and stops. Wrong by a small amount: I said 23 under the canvas top; one block's bar is, a group's first button stops at the same y, so its 44 bar is 22.",
+    "CAP-SIZEMENU": "Right: icon, tick, grey Hug's icon, Text's Hug on. Not predicted: every row's icon is grey, the current row is grey.",
+    "CAP-X13LABELS2": "Right.",
+    "CAP-GROUPBARTOP": "Right on y 81. Gap menu: not read, nothing for the tool to press.",
+    "CAP-SIZEMENUH": "Right."
+  },
+  "predicted7": {
+    "CAP-G4LAST": {
+      "one block, w handle, pressed in the middle, 6 in, 6 out": "The same from all three, ours: out 35 to 1/3/7/8; back 34, then -51 to 1/1/7/8 (the margin); home -50.",
+      "one block, n handle, middle, 6 down, 6 up": "The same from all three, ours: 27 to 2/2/7/8, back 26; nothing above row 1.",
+      "group, w and n handles": "One block's rule, ours: w 35, 94; back 93, 34, -51 to the margin; home -50. n 27, 68; back 67, 26.",
+      "group from the desktop left margin, se and e": "As from column 2, ours: x 35, 94, back 93, 34, -35, -94, home -93, -34; y 27, 68, back 67, 26, -27, -68, home -67, -26. Less sure: one block from the margin takes the left edge's steps (CAP-G4MARGIN.json).",
+      "phone group, box on the left margin, first-selected block in column 2, moved right 340": "The box's left edge steps as in CAP-G4GROUPMARGIN.json: 14, 56, 105, 153, 201, then a last step that waits for the right edge. Ours steps by the first-selected block: 30, 79, 127, 176, 224, 256. Likeliest to differ."
+    }
+  },
+  "score7": {
+    "CAP-G4LAST one block w": "Right.",
+    "CAP-G4LAST one block n": "Right.",
+    "CAP-G4LAST group w and n": "Right.",
+    "CAP-G4LAST margin group se and e": "Wrong on x: I said as from column 2. The one I was less sure of, the left edge's steps from the margin, was right (51). Right on y.",
+    "CAP-G4LAST2 phone group": "Right: 14, 56, 105, 153, 201, then a last step that waits (255)."
   }
 }
