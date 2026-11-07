@@ -1,5 +1,5 @@
 // X6: pulls on each type against the oracle's reads: the steps of parity/findings/CAP-X6PULLS.json, CAP-X6AGAIN.json,
-// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json, CAP-X6PHONEFLOORS.json and CAP-68PULL.json run on our editor, each area compared. One block in a new
+// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json, CAP-X6PHONEFLOORS.json, CAP-68PULL.json and CAP-X6SUMMARYPHONE.json run on our editor, each area compared. One block in a new
 // section below another, a real press at the block's corner or side, as the oracle's was, so a one-row block's overlapping handles
 // decide the same. Rows are compared from the block's start, as the oracle's section sometimes had others above. Writes parity/x6-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run x6-check.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
