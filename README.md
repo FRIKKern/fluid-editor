@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 80 changes
+- **Today** · 81 changes
+  - U10: mixes holding one of the 20 types, six read, four picks built ([#373](https://github.com/FRIKKern/fluid-editor/pull/373))
   - U5: Add Block search by the oracle's 175 strings ([#370](https://github.com/FRIKKern/fluid-editor/pull/370))
-  - T12: Chart's dialog rows, live ([#371](https://github.com/FRIKKern/fluid-editor/pull/371))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
