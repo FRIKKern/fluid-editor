@@ -1,0 +1,1520 @@
+{
+  "item": "U4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "75: Align Vertically on Code. A new block made taller, then Bottom and Center pressed by name. Predicted before this read, from CAP-ACCBAR.json: the same three-button menu, default Top, and the content moves down by the room left, less for Center. If the block fills its box, no move to see.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "bar",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      0,
+      160
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "taller",
+      {
+        "controls": true,
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Vertically"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Bottom"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "bottom",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Align Center"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "center",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "bar": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/7/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794024787144_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 220.1,112.8",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,231.6",
+          "se 10x10 at 220.1,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            235.6
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-code",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            235.6
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-code-container",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            235.6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            100.1,
+            244.2,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            101.1,
+            245.2,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "taller": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/11/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794024787144_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 220.1,195",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,395.9",
+          "se 10x10 at 220.1,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-code",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-code-container",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            100.1,
+            244.2,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            101.1,
+            245.2,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "menu": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Top",
+          "box": [
+            113.1,
+            289.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Center",
+          "box": [
+            153.1,
+            289.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Bottom",
+          "box": [
+            193.1,
+            289.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "bottom": {
+      "block": {
+        "desktop": "1/2/11/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794024787144_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 220.1,195",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,395.9",
+          "se 10x10 at 220.1,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-code",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-end"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            621.8,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-code-container",
+          "box": [
+            100.1,
+            621.8,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            621.8,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            100.1,
+            244.2,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            101.1,
+            245.2,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "center": {
+      "block": {
+        "desktop": "1/2/11/6",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          224.1,
+          399.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794024787144_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 11 / 6",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,195",
+          "col 10x10 at 220.1,195",
+          "ne 10x10 at 220.1,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 107.1,-6",
+          "row 10x10 at 107.1,395.9",
+          "se 10x10 at 220.1,395.9",
+          "sw 10x10 at -6,395.9"
+        ]
+      },
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-code",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            100.1,
+            433,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-code-container",
+          "box": [
+            100.1,
+            433,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            100.1,
+            433,
+            224.1,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "box": [
+            100.1,
+            244.2,
+            224.1,
+            399.9
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "zIndex": "1000",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            100.1,
+            244.2,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            101.1,
+            245.2,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Code has it. The same menu and the same three values. On a block 399.9 tall: the content moves from 244.2 to 621.8, then 433.",
+  "predicted": "The same three-button menu, default Top, the content moves down by the room left, half for Center.",
+  "result": "Right.",
+  "ours": "No Align Vertically on Code (toolbarItems), though ours has real code content to move.",
+  "differs": [
+    "75: the oracle's bar has Align Vertically on 30 tiles where ours has none (CAP-COVERAGE.json, parity/coverage-check.json toolbar)."
+  ],
+  "pressed": "Add Block and the tile, the south-east handle by the real mouse, Align Vertically, Align Bottom and Align Center by name, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
+}

@@ -138,6 +138,16 @@ add('Uniform takes the top left', radius() === '40px 40px 40px 40px' && R(`P.que
 await act(`P.querySelector('[data-image-mode="fit"]').click()`, 280);
 add('Fit keeps the radius', radius() === '40px 40px 40px 40px', radius());
 
+// Corner on a phone: its label's dot and the button, as measured on a new Image (CAP-T6FIELDS.json).
+const TF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T6FIELDS.json', import.meta.url))).dottedMeasured.corner;
+await act(`document.getElementById('bp-mobile').click()`, 500);
+await act(`if (P.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); P.querySelector('[data-btab="Design"]')?.click()`, 280);
+await setField(`P.querySelector('input[aria-label="Corner"]')`, '12');
+const dot = R(`(() => { const e = [...P.querySelectorAll('.sp-label')].find((x) => x.textContent.trim() === 'Corner'), c = getComputedStyle(e); return [c.textDecorationLine, c.textDecorationStyle, c.textDecorationThickness, c.textUnderlineOffset, c.textDecorationColor]; })()`);
+add('Corner on a phone: the dot, as measured', dot.join() === `underline,dotted,${TF.thickness},${TF.offset},${TF.color}`, dot.join());
+await act(`document.getElementById('bp-desktop').click()`, 500);
+await act(`if (P.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); P.querySelector('[data-btab="Design"]')?.click()`, 280);
+
 // Shape and Stretch.
 await act(`P.querySelector('[data-image-mode="shape"]').click()`, 280);
 rowsMatch('Shape', F.rows.shape);

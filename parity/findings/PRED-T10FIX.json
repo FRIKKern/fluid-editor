@@ -1,0 +1,389 @@
+{
+  "item": "T10",
+  "question": "The ten named misses (Z7, Z8, Z17, W10, R1 to R5, R8) and the fold undo bugs: one fresh round, on inputs not read, the rules written before any read and before any build.",
+  "rules": {
+    "link": "A link is [text](url), [text][label], [text][] or [text] with a non-blank text. Code spans close only on a run of the same number of ticks and hold no links. A line starting [label]: is a definition and holds none. A backslash or ! before the [ makes it no link. The first link touched decides: with a url, inline or from a definition (labels ignore case), Link shows it; with none, Link is lit and opens the Add Link form.",
+    "form": "With no url the form wraps the selection as on plain text. With a url, Edit writes [text](new), and Remove Link leaves the text; a definition line is left alone.",
+    "lazy": "An empty item, or a number other than 1, under a quote's paragraph line is that paragraph's text: Enter takes the spaces before the caret and starts the quote's next line.",
+    "setext": "A setext underline with text above it is a heading, not a paragraph.",
+    "newline": "A selection starting at a line's end leaves out the spaces and line breaks up to its next text, for Bold, Italic and for what dims.",
+    "undo": "Meta+Z takes back typing done before a field's first fold, and keeps the fold. Meta+Z after a toolbar press over a fold keeps the fold."
+  },
+  "edit": {
+    "Q1 an empty number under a quote": {
+      "text": "> q\n1. ",
+      "sel": [
+        7,
+        7
+      ],
+      "press": "Enter",
+      "value": "> q\n1.\n> "
+    },
+    "Q2 an empty dash under a quote": {
+      "text": "> q\n- ",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "> q\n-\n> "
+    },
+    "Q3 an empty bullet under a tight quote": {
+      "text": ">q\n* ",
+      "sel": [
+        5,
+        5
+      ],
+      "press": "Enter",
+      "value": ">q\n*\n>"
+    },
+    "Q4 an empty bullet under a heading in a quote": {
+      "text": "> # h\n* ",
+      "sel": [
+        8,
+        8
+      ],
+      "press": "Enter",
+      "value": "> # h\n"
+    },
+    "Q5 an empty bullet below a quote and a blank": {
+      "text": "> q\n\n* ",
+      "sel": [
+        7,
+        7
+      ],
+      "press": "Enter",
+      "value": "> q\n\n"
+    },
+    "Q6 a number 2 under a quote": {
+      "text": "> q\n2. ",
+      "sel": [
+        7,
+        7
+      ],
+      "press": "Enter",
+      "value": "> q\n2.\n> "
+    },
+    "S1 an empty bullet under a dashed setext": {
+      "text": "h\n---\n* ",
+      "sel": [
+        8,
+        8
+      ],
+      "press": "Enter",
+      "value": "h\n---\n"
+    },
+    "S2 an empty number under a short setext": {
+      "text": "h\n==\n1. ",
+      "sel": [
+        8,
+        8
+      ],
+      "press": "Enter",
+      "value": "h\n==\n"
+    },
+    "S3 an empty bullet under equals with no text above": {
+      "text": "===\n* ",
+      "sel": [
+        6,
+        6
+      ],
+      "press": "Enter",
+      "value": "===\n* \n"
+    },
+    "T1 Bold from a plain end and a letter": {
+      "text": "ab\ncd",
+      "sel": [
+        2,
+        4
+      ],
+      "press": "Bold",
+      "value": "ab\n**c**d"
+    },
+    "T2 Bold across, from a letter": {
+      "text": "ab\ncd",
+      "sel": [
+        1,
+        4
+      ],
+      "press": "Bold",
+      "value": "a**b\nc**d"
+    },
+    "T3 Bold from spaces at a line's end": {
+      "text": "ab  \ncd",
+      "sel": [
+        2,
+        6
+      ],
+      "press": "Bold",
+      "value": "ab  \n**c**d"
+    },
+    "T4 Bold over a blank line and a letter": {
+      "text": "ab\n\ncd",
+      "sel": [
+        2,
+        5
+      ],
+      "press": "Bold",
+      "value": "ab\n\n**c**d"
+    },
+    "T5 Italic on a newline alone": {
+      "text": "ab\ncd",
+      "sel": [
+        2,
+        3
+      ],
+      "press": "Italic",
+      "value": "ab**\ncd"
+    },
+    "T6 Bold from a heading's end into a bullet's mark": {
+      "text": "# h\n* a",
+      "sel": [
+        3,
+        6
+      ],
+      "press": "Bold",
+      "value": "# h\n* ****a"
+    }
+  },
+  "look": {
+    "D1 from a plain end through two marked lines": {
+      "text": "one\n# h\n* a",
+      "sel": [
+        3,
+        10
+      ],
+      "dim": true
+    },
+    "D2 from a plain end into a bullet": {
+      "text": "one\n* a",
+      "sel": [
+        3,
+        6
+      ],
+      "dim": false
+    },
+    "D3 from a plain end through a quote": {
+      "text": "one\n> q\ntwo",
+      "sel": [
+        3,
+        9
+      ],
+      "dim": true
+    },
+    "D4 from a letter into a heading": {
+      "text": "one\n# h",
+      "sel": [
+        2,
+        6
+      ],
+      "dim": true
+    },
+    "L1 a reference, the caret in": {
+      "text": "[x][y]",
+      "sel": [
+        2,
+        2
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L2 an empty reference, the caret in": {
+      "text": "[x][]",
+      "sel": [
+        1,
+        1
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L3 a bare bracket, the caret in": {
+      "text": "[x]",
+      "sel": [
+        1,
+        1
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L4 a reference and its definition, the caret in": {
+      "text": "[x][y]\n\n[y]: /z",
+      "sel": [
+        1,
+        1
+      ],
+      "link": true,
+      "shows": "/z"
+    },
+    "L5 an empty reference, its definition in capitals": {
+      "text": "[y][]\n\n[Y]: /z",
+      "sel": [
+        0,
+        5
+      ],
+      "link": true,
+      "shows": "/z"
+    },
+    "L6 a bare bracket with a definition": {
+      "text": "[y]\n\n[y]: /z",
+      "sel": [
+        1,
+        1
+      ],
+      "link": true,
+      "shows": "/z"
+    },
+    "L7 a bare bracket then a link, all": {
+      "text": "[x] [u](/v)",
+      "sel": [
+        0,
+        11
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L8 a link then a bare bracket, all": {
+      "text": "[u](/v) [x]",
+      "sel": [
+        0,
+        11
+      ],
+      "link": true,
+      "shows": "/v"
+    },
+    "L9 a link in two ticks then a word": {
+      "text": "``[u](/v)`` x",
+      "sel": [
+        4,
+        4
+      ],
+      "link": false,
+      "shows": null
+    },
+    "L10 a link in three ticks": {
+      "text": "```[u](/v)``` x",
+      "sel": [
+        5,
+        5
+      ],
+      "link": false,
+      "shows": null
+    },
+    "L11 two ticks closed by one": {
+      "text": "``[u](/v)`",
+      "sel": [
+        4,
+        4
+      ],
+      "link": true,
+      "shows": "/v"
+    },
+    "L12 empty brackets": {
+      "text": "[] x",
+      "sel": [
+        0,
+        2
+      ],
+      "link": false,
+      "shows": null
+    },
+    "L13 an escaped bracket": {
+      "text": "\\[x\\]",
+      "sel": [
+        2,
+        2
+      ],
+      "link": false,
+      "shows": null
+    },
+    "L14 an image's bare bracket": {
+      "text": "![x]",
+      "sel": [
+        2,
+        2
+      ],
+      "link": false,
+      "shows": null
+    },
+    "L15 an open parenthesis": {
+      "text": "[x](/v",
+      "sel": [
+        1,
+        1
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L16 a bare bracket under a definition": {
+      "text": "[y]: /z\n\n[x]",
+      "sel": [
+        10,
+        10
+      ],
+      "link": true,
+      "shows": null
+    },
+    "L17 a caret past a reference": {
+      "text": "[x][y] z",
+      "sel": [
+        8,
+        8
+      ],
+      "link": false,
+      "shows": null
+    }
+  },
+  "form": {
+    "F1 Add Link on a whole reference": {
+      "text": "[x][y]",
+      "sel": [
+        0,
+        6
+      ],
+      "do": "add",
+      "value": "[[x][y]](/about)"
+    },
+    "F2 Add Link with the caret in a bare bracket": {
+      "text": "[x]",
+      "sel": [
+        1,
+        1
+      ],
+      "do": "add",
+      "value": "[[/about](/about)x]"
+    },
+    "F3 Edit a reference with a definition": {
+      "text": "[x][y]\n\n[y]: /z",
+      "sel": [
+        1,
+        1
+      ],
+      "do": "edit",
+      "value": "[x](/about)\n\n[y]: /z"
+    },
+    "F4 Remove Link on a reference with a definition": {
+      "text": "[x][y]\n\n[y]: /z",
+      "sel": [
+        1,
+        1
+      ],
+      "do": "remove",
+      "value": "x\n\n[y]: /z"
+    }
+  },
+  "undo": {
+    "U1 typing, a fold, Meta+Z": {
+      "text": "# a\nb\n# d",
+      "type": "Q at the end",
+      "expect": "the typed letters go, the fold stays"
+    },
+    "U2 Bold on a word above a fold, Meta+Z": {
+      "text": "w\n# a\nb\n# d",
+      "expect": "the word back, the fold stays"
+    }
+  },
+  "unread": {
+    "import {a}": "import is a keyword, {a} plain, from a keyword, the string a string",
+    "css": "a { color: red } in CSS: read what is green; no prediction"
+  }
+}

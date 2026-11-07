@@ -1,0 +1,721 @@
+{
+  "item": "CAP-T10FIX",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T10: fresh round, edits: PRED-T10FIX.json",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      "> q\n1. "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 an empty number under a quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "> q\n- "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 an empty dash under a quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      ">q\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q3 an empty bullet under a tight quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "> # h\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q4 an empty bullet under a heading in a quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "> q\n\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q5 an empty bullet below a quote and a blank",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "> q\n2. "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q6 a number 2 under a quote",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "h\n---\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S1 an empty bullet under a dashed setext",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "h\n==\n1. "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S2 an empty number under a short setext",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "===\n* "
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S3 an empty bullet under equals with no text above",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "ab\ncd"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight",
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T1 Bold from a plain end and a letter",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "ab\ncd"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight",
+        "Shift+ArrowRight",
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T2 Bold across, from a letter",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "ab  \ncd"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight",
+        "Shift+ArrowRight",
+        "Shift+ArrowRight",
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T3 Bold from spaces at a line's end",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "ab\n\ncd"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight",
+        "Shift+ArrowRight",
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T4 Bold over a blank line and a letter",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "ab\ncd"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T5 Italic on a newline alone",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "setCode",
+      "# h\n* a"
+    ],
+    [
+      "press",
+      "Meta+ArrowUp"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "ArrowRight",
+        "ArrowRight"
+      ]
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowRight",
+        "Shift+ArrowRight",
+        "Shift+ArrowRight"
+      ]
+    ],
+    [
+      "pause",
+      250
+    ],
+    [
+      "pressNamed",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "T6 Bold from a heading's end into a bullet's mark",
+      {
+        "codeText": true
+      }
+    ]
+  ],
+  "reads": {
+    "Q1 an empty number under a quote": {
+      "codeText": "> q\n1.\n> ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 an empty dash under a quote": {
+      "codeText": "> q\n-\n> ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q3 an empty bullet under a tight quote": {
+      "codeText": ">q\n*\n>",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q4 an empty bullet under a heading in a quote": {
+      "codeText": "> # h\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q5 an empty bullet below a quote and a blank": {
+      "codeText": "> q\n\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q6 a number 2 under a quote": {
+      "codeText": "> q\n2.\n> ",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "S1 an empty bullet under a dashed setext": {
+      "codeText": "h\n---\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "S2 an empty number under a short setext": {
+      "codeText": "h\n==\n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "S3 an empty bullet under equals with no text above": {
+      "codeText": "===\n* \n",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T1 Bold from a plain end and a letter": {
+      "codeText": "ab\n**c**d",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T2 Bold across, from a letter": {
+      "codeText": "a**b\nc**d",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T3 Bold from spaces at a line's end": {
+      "codeText": "ab  \n**c**d",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T4 Bold over a blank line and a letter": {
+      "codeText": "ab\n\n**c**d",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T5 Italic on a newline alone": {
+      "codeText": "ab**\ncd",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T6 Bold from a heading's end into a bullet's mark": {
+      "codeText": "# h\n* ****a",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

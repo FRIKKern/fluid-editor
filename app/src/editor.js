@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, p
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -32,7 +32,7 @@ import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
-import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
+import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
@@ -148,11 +148,15 @@ function phoneFollowsMove(s, was) {
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
+// A drag leaves the focus in Animation's field, and a focused field keeps the panel from redrawing.
+const leaveAnimField = () => { if (document.activeElement?.matches?.('#block-panel [data-afield]')) document.activeElement.blur(); };
 function undo() {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
+  unsettled = null;
+  leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
@@ -166,6 +170,8 @@ function redo() {
   const ed = editing;
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
+  unsettled = null;
+  leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
   model = JSON.parse(redoStack.pop());
@@ -445,7 +451,10 @@ function groupZ(sid, ids) {
   const outside = S(sid).blocks.filter((o) => !ids.includes(o.id)).map((o) => lay(o).z);
   // A block between the members counts both ways (CAP-GROUPFORWARD.json).
   const between = outside.some((z) => z > Math.min(...inside) && z < Math.max(...inside));
-  return { above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
+  // Forward and Backward show when a member overlaps a block outside the group; overlaps inside it don't count (CAP-GROUPBAR.json).
+  const pinned = S(sid).blocks.some((o) => o.layout[bp]?.sticky), others = S(sid).blocks.filter((o) => !ids.includes(o.id) && o.layout[bp]), members = S(sid).blocks.filter((o) => ids.includes(o.id));
+  const shows = others.length > 0 && (pinned || members.some((m) => others.some((o) => overlaps(lay(m).area, o.layout[bp].area))));
+  return { shows, above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
 }
 // The next block outside the group crosses it, and the z values stay the same set: 1, 2, 3 with
 // the group on 1 and 2 becomes group 2, 3 and the other block 1.
@@ -469,10 +478,11 @@ function placeGroupToolbar() {
   const g = doc.querySelector('.fe-indicator.is-group');
   if (!g) { toolbar.hidden = true; return; }
   const z = groupZ(sel.sid, [sel.bid, ...sel.more]);
-  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}|${z.above}|${z.below}`;
-  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen, z); toolbar.dataset.key = key; }
-  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect());
-  toolbar.style.left = `${p.left - 7}px`;
+  const key = `group|${sel.bid}|${sel.more.join(',')}|${groupAlignOpen}|${z.shows}|${z.above}|${z.below}|${bp}`;
+  if (toolbar.dataset.key !== key) { toolbar.innerHTML = groupToolbarHtml(groupAlignOpen, z, bp === 'mobile'); toolbar.dataset.key = key; }
+  const phone = bp === 'mobile';
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect(), phone);
+  toolbar.style.left = `${p.left - (phone ? 1 : 7)}px`; // CAP-GROUPBAR.json
   toolbar.style.top = `${p.top - 7}px`;
   toolbar.hidden = false;
 }
@@ -498,7 +508,7 @@ function placeToolbar() {
     const sb = toolbar.querySelector('[data-tb="primary"]');
     if (sb && b.buttonStyle) { const n = b.buttonStyle[0].toUpperCase() + b.buttonStyle.slice(1); sb.setAttribute('aria-label', n); sb.querySelector('.tb-text').textContent = n; }
   }
-  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect());
+  const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), el.getBoundingClientRect(), bp === 'mobile');
   toolbar.style.left = `${p.left}px`;
   toolbar.style.top = `${p.top}px`;
   toolbar.hidden = false;
@@ -588,6 +598,7 @@ toolbar.addEventListener('click', (e) => {
 });
 
 function select(next) {
+  if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
   if (!boxUp) leftRings = null;
   drawSelection();
@@ -775,9 +786,7 @@ function autoScroll(g) {
     else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
     if (!dir) { g.scrolling = false; return; }
     win.scrollBy(0, dir * SCROLL_STEP);
-    if (g.type === 'move') updateMove(g.lastEvent);
-    else if (g.type === 'resize') updateResize(g.lastEvent);
-    else if (g.type === 'gresize') updateGroupResize(g.lastEvent);
+    updateMove(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
   // At once: a pointer that crosses the edge in one move still scrolls one step (CAP-LONGDRAG).
@@ -968,7 +977,8 @@ function onMove(e) {
   if (gesture.type === 'move') updateMove(e);
   else if (gesture.type === 'resize') updateResize(e);
   else if (gesture.type === 'gresize') updateGroupResize(e);
-  if (gesture.type === 'move' || gesture.type === 'resize' || gesture.type === 'gresize') autoScroll(gesture);
+  // Only a move scrolls the page: a resize held near the edge leaves it where it is (CAP-RESIZESCROLL.json).
+  if (gesture.type === 'move') autoScroll(gesture);
 }
 
 function onUp(e) {
@@ -988,7 +998,10 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  if (g.fits && !/[ns]/.test(g.dir)) fitTextRows(s, b, g);
+  if (g.fits && !/[ns]/.test(g.dir)) {
+    fitTextRows(s, b, g);
+    if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
+  }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
@@ -998,15 +1011,20 @@ const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does no
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
-const NARROWED_BY = 5.5;
 function fitTextRows(s, b, g) {
   const a = lay(b).area, narrowing = g.target[3] - g.target[1] < g.orig[3] - g.orig[1];
-  // Narrowing, the oracle takes the text's height a little before the final width: 5 to 6px wider
-  // fits 20 of 20 drops. Text that then runs over stretches the rows until the next gesture.
+  // Narrowing, the oracle takes the text's height at the width one pointer step before the end: 4.9px
+  // for a column over 12 steps, 19.6 for four (CAP-TEXTWIDTH4.json). Text that then runs over
+  // stretches the rows until the block is let go.
   const c = narrowing ? blockEl(b.id)?.querySelector('.sqs-block-content') : null;
-  if (c) c.style.width = `${c.getBoundingClientRect().width + NARROWED_BY}px`;
-  const lost = a[2] - a[0] - Math.max(2, contentRows(b, measure(feEl(s.id))));
+  if (c) c.style.width = `${c.getBoundingClientRect().width + Math.abs(g.stepX || 0)}px`;
+  const m = measure(feEl(s.id)), need = contentRows(b, m), span = a[2] - a[0];
   if (c) c.style.width = '';
+  // Narrowing only adds rows. Widening takes rows off only if the need for them fell, and then by the
+  // height lost: a line of text keeps two rows, and 268.9 to 224.1 goes from 7 rows to 5, though 224.1
+  // needs 6 (CAP-TEXTWIDTH7.json). The next gesture takes back what it needs.
+  // An Instagram post follows its width, both ways (STANDINS.json).
+  const lost = b.type !== 'text' ? span - Math.max(2, need) : narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
   const before = lowest();
@@ -1015,6 +1033,28 @@ function fitTextRows(s, b, g) {
   // with other blocks lower down; alone, 12 go to 8).
   if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
   else { s.rows[bp] = g.rows0; growRows(s); }
+  renderSectionDom(s.id);
+}
+
+// After narrowing, those rows last until the block is let go: Escape, another block or the next drag.
+// Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
+// Time alone does nothing. No undo step of its own. Growing pushes as typing does.
+let unsettled = null;
+function settleTextRows() {
+  const u = unsettled;
+  unsettled = null;
+  const s = u && u.bp === bp ? S(u.sid) : null, b = s?.blocks.find((o) => o.id === u.bid);
+  if (!b) return;
+  const content = blockEl(b.id)?.querySelector('.sqs-block-content');
+  if (!content) return;
+  // Text that runs over stretches the rows, so the pitch is read with the text out, as a form's is.
+  content.style.display = 'none';
+  const free = measure(feEl(s.id));
+  content.style.display = '';
+  const a = lay(b).area, d = contentRows(b, free) - (a[2] - a[0]);
+  if (d <= 0) return;
+  moveWithText(s, b, a, d);
+  a[2] += d;
   renderSectionDom(s.id);
 }
 
@@ -1031,6 +1071,7 @@ function onCancel(e) {
 }
 
 function prepare(e, type, extra = {}) {
+  if (unsettled) settleTextRows();
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1182,7 +1223,8 @@ function startResize(e, dir) {
   }
   prepare(e, 'resize', { dir });
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
-  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && span === Math.max(2, contentRows(held, gesture.m));
+  gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
+  if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
 }
 
@@ -1244,6 +1286,7 @@ function updateResize(e) {
   let [r0, c0, r1, c1] = g.orig;
   const x = e.clientX;
   const y = e.clientY;
+  if (x !== g.lastX) { g.stepX = x - (g.lastX ?? x); g.lastX = x; }
   const held = B(g.sid, g.bid), leastCols = (bp === 'mobile' ? LEAST_COLS_PHONE[held.type] : null) ?? LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
@@ -1591,7 +1634,7 @@ function renderBlockPanel() {
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
-  const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
+  const kid = kidBox ? { ...kidSize(b, bp), open: kidSizeOpen, noHug: b.type === 'shape' && b.stretch !== false, fixed: { w: `${Math.round(kidBox.width)}px`, h: `${Math.round(kidBox.height)}px` } } : null;
   const buttonView = b.type !== 'button' ? null : bp === 'mobile' && b.btnMobile ? b.btnMobile : { fit: b.fit, align: b.halign };
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
@@ -1773,6 +1816,8 @@ blockPanel.addEventListener('keydown', (e) => {
 });
 // Reset shows only while its field has focus (CAP-L6RESET.json), so the press must leave the focus there.
 blockPanel.addEventListener('mousedown', (e) => { if (e.target.closest('.sc-reset')) e.preventDefault(); });
+const CORNER_RANGE = [0, 1000];
+const caretAtEnd = (i) => { if (!i) return; i.focus(); i.setSelectionRange(i.value.length, i.value.length); };
 // A drag on a field's edge moves its value, one undo step when let go. A click does nothing.
 blockPanel.addEventListener('pointerdown', (e) => {
   const hit = e.target.closest('.sc-hit');
@@ -1782,6 +1827,13 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const key = input.dataset.afield, dk = input.dataset.design, corner = input.dataset.shape === 'radius';
   if (corner && input.value === 'Mixed') return;
   let moved = false;
+  // The ring, <>, Reset and the bar show while it moves (CAP-T6FIELDS.json).
+  const shown = (v, range, off) => {
+    box.classList.add('is-scrub');
+    box.querySelector('.sc-reset')?.classList.toggle('is-on', off);
+    const bar = box.querySelector('.sc-bar i');
+    if (bar && range) bar.style.transform = `translateX(${barAt(v, range)}%)`;
+  };
   const move = (ev) => {
     const dx = ev.clientX - x0;
     if (!moved && !dx) return;
@@ -1791,27 +1843,33 @@ blockPanel.addEventListener('pointerdown', (e) => {
       input.value = `${v}px`;
       writeCorner(b, cur ? cur.map(() => v) : null, v);
       renderSectionDom(sel.sid);
+      shown(v, CORNER_RANGE, v !== 0);
     } else if (key) {
-      const v = scrubbed(start, dx, key);
+      const v = scrubbed(start, dx, key), pose = /:(\d)/.exec(key);
       input.value = v;
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
+      shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
-      input.value = v;
+      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start.replace(/,/g, '')) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
+      shown(v, designRange(dk), v !== DESIGN_DEFAULTS[dk]);
     }
   };
+  // Let go: the focus goes to the input, the caret at its end, and the bar goes.
   const up = () => {
     removeEventListener('pointermove', move);
     removeEventListener('pointerup', up);
     if (!moved) return;
-    if (corner) { commit(before, 'Corner'); renderBlockPanel(); return; }
-    if (dk) { input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+    box.classList.remove('is-scrub');
+    if (corner) { commit(before, 'Corner'); renderBlockPanel(); caretAtEnd(blockPanel.querySelector('[data-shape="radius"]')); return; }
+    if (dk) { input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
     animPlay = 'square';
     renderBlockPanel();
+    caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
   addEventListener('pointermove', move);
   addEventListener('pointerup', up);
@@ -2842,6 +2900,7 @@ shapePop.addEventListener('pointerdown', (e) => {
     if (bag === 'design' && b.design[k] === DESIGN_DEFAULTS[k]) { delete b.design[k]; if (!Object.keys(b.design).length) delete b.design; }
     commit(before, `Anchor ${k}`);
     renderBlockPanel();
+    caretAtEnd(input.isConnected ? input : shapePop.querySelector(`input[data-anchor="${k}"]`));
   };
   addEventListener('pointermove', move);
   addEventListener('pointerup', up);
@@ -3137,17 +3196,19 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkIn(fullOf(f), s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  // A link with no url, a bracket with no definition, lights Link but opens the form (CAP-T10SCORE2.json, CAP-T10FIX5.json).
+  const urlIn = (t) => { const at = mdLinkIn(t, s, e); return at?.href == null ? null : at; };
+  const f = mdRootField(root), link = urlIn(fullOf(f)), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e);
+      const q = mdRootField(root), at = urlIn(fullOf(q));
       if (!v && !at) return;
       flushMdStep();
       writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = urlIn(fullOf(q)); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
@@ -3840,7 +3901,8 @@ function onDesignChange(e) {
   const bag = designBag(bp);
   designChange(b, [k], () => {
     const d = { ...(b[bag] || {}) };
-    const val = parseFloat(input.value);
+    // A number typed after the shown unit joins it, as on Animation's fields: 0px then 5 is 5px.
+    const val = parseFloat(input.value.replace(/,/g, '').replace(/^(-?[\d.]*)(?:%|px|°|s)(?=[\d.])/, '$1'));
     if (k in RANGE_LIMITS) { if (!Number.isFinite(val)) return; d[k] = Math.max(0, Math.min(RANGE_LIMITS[k], val)); }
     // A value set on the phone stays the phone's, even at the default (PERLAYOUT.json).
     else if (bag === 'designMobile') {
@@ -3860,7 +3922,7 @@ function onDesignChange(e) {
   const typing = document.activeElement === input; // Enter keeps the focus, and with it Reset (CAP-L6RESET.json)
   commit(before, `${k} set on ${b.id}`);
   renderBlockPanel();
-  if (typing) blockPanel.querySelector(`input[data-design="${k}"]`)?.focus();
+  if (typing) caretAtEnd(blockPanel.querySelector(`input[data-design="${k}"]`));
 }
 panel.addEventListener('change', onDesignChange, true);
 // The ? by Video Storage: a tip over a dark overlay; Escape or a press on the overlay closes it, and the block doesn't change (CAP-T7TIP.json, CAP-T7TIP2.json). The words are ours.
@@ -4458,7 +4520,7 @@ function landingRow(s) {
   return 1;
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
-const NEW_ALIGN = { Line: 'center' };
+const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);

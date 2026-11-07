@@ -1,0 +1,1452 @@
+{
+ "item": "U12",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-07",
+ "engine": "chrome",
+ "question": "On a new Shape's color popup, does pressing Custom change anything? Read before trying it on a Forms > Colors row.",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "clickIf",
+   "Edit"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "clickIf",
+   "Design"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "before",
+   {
+    "style": [
+     0,
+     0
+    ],
+    "dump": ".sqs-block-shape",
+    "dumpMax": 8,
+    "controls": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Color"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "read",
+   "popup",
+   {
+    "style": [
+     0,
+     0
+    ],
+    "elsIn": [
+     1100,
+     60,
+     1600,
+     1000
+    ],
+    "controls": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Custom color"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "read",
+   "custom open",
+   {
+    "style": [
+     0,
+     0
+    ],
+    "dump": ".sqs-block-shape",
+    "dumpMax": 8,
+    "elsIn": [
+     1100,
+     60,
+     1600,
+     1000
+    ],
+    "controls": true
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "closed",
+   {
+    "style": [
+     0,
+     0
+    ],
+    "dump": ".sqs-block-shape",
+    "dumpMax": 8,
+    "controls": true
+   }
+  ]
+ ],
+ "reads": {
+  "before": {
+   "style": {
+    "transform": "none",
+    "origin": "170.844px 117.781px",
+    "opacity": "1",
+    "radius": "0px",
+    "border": "0px none rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fill": "rgb(255, 255, 255)",
+    "stroke": "none 1px",
+    "rx": null,
+    "tagName": "rect",
+    "inner": [
+     341.7,
+     235.6
+    ],
+    "vars": "mix-blend-mode: normal;"
+   },
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      461,
+      301,
+      320,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Design",
+     "box": [
+      483,
+      301,
+      46,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Animation",
+     "box": [
+      545,
+      301,
+      67.5,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      461,
+      405,
+      320,
+      103
+     ]
+    },
+    {
+     "role": "input:text",
+     "label": "",
+     "value": "0px",
+     "box": [
+      588,
+      514,
+      160,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      547,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      11,
+      44
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Uniform corner radii",
+     "box": [
+      486,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Individual corner radii",
+     "box": [
+      527,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "input:checkbox",
+     "label": "Stretch",
+     "value": true,
+     "box": [
+      745,
+      590.5,
+      12,
+      12
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Color",
+     "box": [
+      472,
+      680,
+      298,
+      49
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Blend ModeNormal",
+     "box": [
+      472,
+      728,
+      298,
+      46
+     ]
+    }
+   ],
+   "dump": null,
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "popup": {
+   "style": {
+    "transform": "none",
+    "origin": "170.844px 117.781px",
+    "opacity": "1",
+    "radius": "0px",
+    "border": "0px none rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fill": "rgb(255, 255, 255)",
+    "stroke": "none 1px",
+    "rx": null,
+    "tagName": "rect",
+    "inner": [
+     341.7,
+     235.6
+    ],
+    "vars": "mix-blend-mode: normal;"
+   },
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      461,
+      301,
+      320,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Design",
+     "box": [
+      483,
+      301,
+      46,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Animation",
+     "box": [
+      545,
+      301,
+      67.5,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      461,
+      405,
+      320,
+      103
+     ]
+    },
+    {
+     "role": "input:text",
+     "label": "",
+     "value": "0px",
+     "box": [
+      588,
+      514,
+      160,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      547,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      11,
+      44
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Uniform corner radii",
+     "box": [
+      486,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Individual corner radii",
+     "box": [
+      527,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "input:checkbox",
+     "label": "Stretch",
+     "value": true,
+     "box": [
+      745,
+      590.5,
+      12,
+      12
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Color",
+     "box": [
+      472,
+      680,
+      298,
+      49
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Blend ModeNormal",
+     "box": [
+      472,
+      728,
+      298,
+      46
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Custom color",
+     "box": [
+      1041,
+      644,
+      34,
+      34
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Opacity slider",
+     "min": "0",
+     "max": "1",
+     "now": "1",
+     "box": [
+      1062,
+      698,
+      16,
+      16
+     ]
+    }
+   ],
+   "elsIn": [
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "okEnE2LaEA8_U5PB section-toolb",
+     1400,
+     204.6,
+     178,
+     210,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "js-section-toolbar BQ6HdBsu1UQ",
+     1400,
+     204.6,
+     178,
+     210,
+     "rgb(231, 231, 231)",
+     "1px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Open Section Settings",
+     "",
+     "toolbar-button-settings",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     211.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "pointer",
+     ""
+    ],
+    [
+     "span",
+     "",
+     "",
+     "",
+     "",
+     "fs-unmask",
+     1448,
+     222.6,
+     87,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Edit Section"
+    ],
+    [
+     "button",
+     "",
+     "",
+     "",
+     "toolbar-layout-switcher",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     261.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "not-allowed",
+     ""
+    ],
+    [
+     "div",
+     "toolbar",
+     "",
+     "",
+     "section-toolbar",
+     "za67_MCHi9MYyrtW css-sncxrr",
+     1407,
+     311.6,
+     164,
+     46,
+     "rgb(231, 231, 231)",
+     "1px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Remove Section",
+     "",
+     "toolbar-button-delete",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     363.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "pointer",
+     ""
+    ],
+    [
+     "span",
+     "",
+     "",
+     "",
+     "",
+     "fs-unmask",
+     1448,
+     374.6,
+     54,
+     22,
+     "rgb(195, 45, 56)",
+     "0px",
+     "pointer",
+     "Remove"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "custom open": {
+   "style": {
+    "transform": "none",
+    "origin": "170.844px 117.781px",
+    "opacity": "1",
+    "radius": "0px",
+    "border": "0px none rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fill": "rgb(255, 255, 255)",
+    "stroke": "none 1px",
+    "rx": null,
+    "tagName": "rect",
+    "inner": [
+     341.7,
+     235.6
+    ],
+    "vars": "mix-blend-mode: normal;"
+   },
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      461,
+      301,
+      320,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Design",
+     "box": [
+      483,
+      301,
+      46,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Animation",
+     "box": [
+      545,
+      301,
+      67.5,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      461,
+      405,
+      320,
+      103
+     ]
+    },
+    {
+     "role": "input:text",
+     "label": "",
+     "value": "0px",
+     "box": [
+      588,
+      514,
+      160,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      547,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      11,
+      44
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Uniform corner radii",
+     "box": [
+      486,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Individual corner radii",
+     "box": [
+      527,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "input:checkbox",
+     "label": "Stretch",
+     "value": true,
+     "box": [
+      745,
+      590.5,
+      12,
+      12
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Color",
+     "box": [
+      472,
+      680,
+      298,
+      49
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Blend ModeNormal",
+     "box": [
+      472,
+      728,
+      298,
+      46
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Color Map",
+     "box": [
+      795,
+      448,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Hue slider",
+     "min": "0",
+     "max": "359",
+     "now": "0",
+     "box": [
+      806,
+      757,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Opacity slider",
+     "min": "0",
+     "max": "1",
+     "now": "1",
+     "box": [
+      1062,
+      785,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Red",
+     "value": "255",
+     "box": [
+      893,
+      821,
+      22.7,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Green",
+     "value": "255",
+     "box": [
+      938.6,
+      821,
+      22.7,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Blue",
+     "value": "255",
+     "box": [
+      984.3,
+      821,
+      22.7,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Alpha",
+     "value": "100%",
+     "box": [
+      1030,
+      821,
+      62,
+      22
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Reset to theme",
+     "box": [
+      803,
+      865,
+      278,
+      28
+     ]
+    }
+   ],
+   "dump": null,
+   "elsIn": [
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "okEnE2LaEA8_U5PB section-toolb",
+     1400,
+     204.6,
+     178,
+     210,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "js-section-toolbar BQ6HdBsu1UQ",
+     1400,
+     204.6,
+     178,
+     210,
+     "rgb(231, 231, 231)",
+     "1px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Open Section Settings",
+     "",
+     "toolbar-button-settings",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     211.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "pointer",
+     ""
+    ],
+    [
+     "span",
+     "",
+     "",
+     "",
+     "",
+     "fs-unmask",
+     1448,
+     222.6,
+     87,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Edit Section"
+    ],
+    [
+     "button",
+     "",
+     "",
+     "",
+     "toolbar-layout-switcher",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     261.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "not-allowed",
+     ""
+    ],
+    [
+     "div",
+     "toolbar",
+     "",
+     "",
+     "section-toolbar",
+     "za67_MCHi9MYyrtW css-sncxrr",
+     1407,
+     311.6,
+     164,
+     46,
+     "rgb(231, 231, 231)",
+     "1px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Remove Section",
+     "",
+     "toolbar-button-delete",
+     "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+     1407,
+     363.6,
+     164,
+     44,
+     "rgb(231, 231, 231)",
+     "1px",
+     "pointer",
+     ""
+    ],
+    [
+     "span",
+     "",
+     "",
+     "",
+     "",
+     "fs-unmask",
+     1448,
+     374.6,
+     54,
+     22,
+     "rgb(195, 45, 56)",
+     "0px",
+     "pointer",
+     "Remove"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "closed": {
+   "style": {
+    "transform": "none",
+    "origin": "170.844px 117.781px",
+    "opacity": "1",
+    "radius": "0px",
+    "border": "0px none rgb(0, 0, 0)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fill": "rgb(255, 255, 255)",
+    "stroke": "none 1px",
+    "rx": null,
+    "tagName": "rect",
+    "inner": [
+     341.7,
+     235.6
+    ],
+    "vars": "mix-blend-mode: normal;"
+   },
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Click and drag to reposition block editor form",
+     "box": [
+      461,
+      301,
+      320,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Design",
+     "box": [
+      483,
+      301,
+      46,
+      55
+     ]
+    },
+    {
+     "role": "tab",
+     "label": "Animation",
+     "box": [
+      545,
+      301,
+      67.5,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      461,
+      405,
+      320,
+      103
+     ]
+    },
+    {
+     "role": "input:text",
+     "label": "",
+     "value": "0px",
+     "box": [
+      588,
+      514,
+      160,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      547,
+      182,
+      11
+     ]
+    },
+    {
+     "role": "button",
+     "label": "",
+     "box": [
+      577,
+      514,
+      11,
+      44
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Uniform corner radii",
+     "box": [
+      486,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Individual corner radii",
+     "box": [
+      527,
+      517,
+      41,
+      38
+     ]
+    },
+    {
+     "role": "input:checkbox",
+     "label": "Stretch",
+     "value": true,
+     "box": [
+      745,
+      590.5,
+      12,
+      12
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Color",
+     "box": [
+      472,
+      680,
+      298,
+      49
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Blend ModeNormal",
+     "box": [
+      472,
+      728,
+      298,
+      46
+     ]
+    }
+   ],
+   "dump": null,
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true,
+ "answer": "Fill and controls were the same before and after. But Save was already on from the new Shape, so this could not show a write. CAP-U12CUSTOM shows that it does write."
+}

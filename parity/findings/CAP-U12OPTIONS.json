@@ -74,16 +74,17 @@
   "Button focus ring: Field Accent was read on Icon only.",
   "Fit: Space Between Columns as its value and Space Between Rows as rows + 10. Both read at the default only; a wrapped row was never read.",
   "Website, currency and X fields take the ring on their box: read on a plain text field.",
-  "The hover edge is off while focused, on the default Accent. Other hover tiles with focus were not read."
+  "The hover edge is off while focused, on the default Accent. Other hover tiles with focus were not read.",
+  "A pack reaches Radio as it reaches Checkbox, and does not reach Survey. A guess, kept from when Radio shared Checkbox's class."
  ],
  "notRead": [
   "Space Between Rows and Columns by a press: fillRow, fillValue and the slider step all missed. Stack ignores the rows value in ours.",
   "Inverted on a Button: the row is gone on Button, so that press failed. Packs 01 and 06 set both; what they draw is not read.",
-  "What a pack does to Radio and Survey: only Checkbox was read. In ours a pack now reaches Checkbox only. Before this PR, Radio took Checkbox's values by the shared class, which was not read either.",
   "Checkbox Button on a sign up row.",
   "Button: Rounded Rectangle and Custom radius, thickness, focus. Icon: Rounded Rectangle on Radio. Survey: thickness (the press changed nothing).",
-  "Field Accessory on hover and Button. Field Accent on other themes (one run on Light 1)."
+  "Field Accessory on hover and Button. Field Accent on other themes (one run on Light 1).",
+  "What a pack does to Radio and Survey: only Checkbox was read, and a pack cannot be picked now that Site Styles is read only."
  ],
- "pressed": "By coordinates: clickAt 1340,44 (the back button in Site Styles) and moves with moveAt. By order: pressEl on the color dots, pressCombo 0 for Selection Color. In the frame by script, no press: frameCheck and frameFocus. Exit failed in the tool each run, since Site Styles holds a second Exit step. Each run was left by Exit and the dialog with no save, and the page checked after reload. One capture started in the same edit after radio2 failed to exit; it was left the same way. Save never pressed.",
+ "pressed": "By coordinates: clickAt 1340,44 (the back button in Site Styles) and moves with moveAt. By order: pressEl on the color dots, pressCombo 0 for Selection Color. In the frame by script, no press: frameCheck and frameFocus. Exit failed in the tool each run, since Site Styles holds a second Exit step. Each run was left by Exit and the dialog with no save, and the page checked after reload. One capture started in the same edit after radio2 failed to exit; it was left the same way. Save never pressed. All these picks were inside Site Styles, unsaved. The rule since then: Site Styles is read only, pick nothing. Read-back after them, read only: exit 0, no row differs.",
  "note": "An earlier note here said Inverted changes nothing on a Button. That was a failed press: the row is gone on a Button."
 }

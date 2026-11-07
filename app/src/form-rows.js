@@ -46,7 +46,8 @@ export const OPTION_SHAPES = ['Square', 'Rounded Rectangle', 'Pill'];
 export const OPTION_RADIUS = 5;
 const OPTION_SIZE = { S: 15, M: 20, L: 25 };
 const OPTION_PAD = { S: [1, 10], M: [5, 15], L: [15, 30] };
-export const formOption = (styles, kind) => ({ ...OPTION, ...(kind === 'check' && styles?.form ? PACKS[styles.form].check : null), ...styles?.forms?.[kind] });
+// A pack was read on Checkbox only. That it reaches Radio too is a guess, kept from when the two shared a class (CAP-U12OPTIONS.json). Survey never took it.
+export const formOption = (styles, kind) => ({ ...OPTION, ...(kind !== 'survey' && styles?.form ? PACKS[styles.form].check : null), ...styles?.forms?.[kind] });
 const optionRadius = (o) => (o.shape === 'Custom' ? (o.multi ? o.radii.map((r) => `${r}px`).join(' ') : `${o.radii[0]}px`) : { Square: '0', 'Rounded Rectangle': '25%', Pill: '300px' }[o.shape]);
 function optionCss(styles) {
   let vars = '';
@@ -109,10 +110,24 @@ export const formFontRem = (styles, row) => styles?.forms?.fontRem?.[row] ?? 1;
 const FONT_VALUE = { 'Paragraph 1': 'large-text', 'Paragraph 2': 'normal-text', 'Paragraph 3': 'small-text', 'Heading 1': 'heading-1', 'Heading 2': 'heading-2', 'Heading 3': 'heading-3', 'Heading 4': 'heading-4', Miscellaneous: 'normal-text' };
 const fontSize = (name, rem) => {
   if (name === 'Custom') return `${rem}rem`;
-  const n = `var(--${FONT_VALUE[name]}-size-value)`;
+  const n = name === 'Miscellaneous' ? 'var(--meta-size-value, var(--normal-text-size-value))' : `var(--${FONT_VALUE[name]}-size-value)`;
   return `min(calc((${n} - 1) * 1.2vw + 1rem), max(calc((${n} - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(${n} * 1rem)))`;
 };
 const FONT_PART = { Title: 'legend, label.title', Description: '.description', Caption: '.caption-row', Input: 'input[type=text], input[type=email], textarea', Placeholder: 'input::placeholder, textarea::placeholder', 'Select Dropdown': 'select', Option: '.form-checkbox .option, .form-signup' };
+// A form font's Style row: a list that stores (the list is read, CAP-STYLEROWS.json). What a pick draws is a guess, not read since Site Styles is read only: Heading and
+// Miscellaneous take that style's own rows, Paragraph is what a form has already, and Custom draws nothing.
+export const FORM_FONT_STYLES = ['Paragraph', 'Heading', 'Miscellaneous', 'Custom'];
+export const formFontStyle = (styles, row) => styles?.forms?.fontStyle?.[row] || formFont(styles, row).split(' ')[0];
+function fontStyleCss(styles, headFamily) {
+  let css = '';
+  for (const [row, name] of Object.entries(styles?.forms?.fontStyle || {})) {
+    const part = FONT_PART[row], t = name === 'Heading' ? styles?.type?.h : name === 'Miscellaneous' ? styles?.type?.misc : null;
+    if (!part || (name !== 'Heading' && !t)) continue;
+    const rule = [name === 'Heading' && headFamily ? `font-family: ${headFamily}, sans-serif;` : '', t?.weight ? `font-weight: ${t.weight};` : '', t?.style ? `font-style: ${t.style.toLowerCase()};` : '', t?.ls != null ? `letter-spacing: ${t.ls}${name === 'Heading' ? 'rem' : 'em'};` : '', t?.tt ? `text-transform: ${t.tt.toLowerCase()};` : ''].join(' ').trim();
+    if (rule) css += `${part.split(', ').map((p) => `.fe-form ${p}`).join(', ')} { ${rule} }\n`;
+  }
+  return css;
+}
 function fontCss(styles, v) {
   let css = '';
   for (const [row, name] of Object.entries(styles?.forms?.fonts || {})) {
@@ -126,7 +141,7 @@ function fontCss(styles, v) {
   return css;
 }
 
-export function formCss(styles) {
+export function formCss(styles, headFamily) {
   if (!styles?.form && !styles?.forms) return '';
   const v = formValues(styles), [t, r, b, l] = formPadding(v), field = '.fe-form input[type=text], .fe-form input[type=email], .fe-form textarea, .fe-form select';
   const [fill, edge] = FADE[v.hover];
@@ -138,5 +153,5 @@ export function formCss(styles) {
 .fe-form .form-item { margin-bottom: ${v.fields}px; }
 .fe-form .name-parts { gap: ${v.cols}px; }
 body { --form-submit-button-style: ${v.submit.toLowerCase()}; --form-field-hover-focus: ${v.hover.toLowerCase()}; }
-${hoverCss(v, field)}${optionCss(styles)}${fontCss(styles, v)}`;
+${hoverCss(v, field)}${optionCss(styles)}${fontCss(styles, v)}${fontStyleCss(styles, headFamily)}`;
 }

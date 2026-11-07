@@ -21,7 +21,7 @@
   "Such a value lights the phone button. Reset all overrides takes the phone back to desktop, Push to desktop gives desktop the phones values, trigger too; then the button is off.",
   "A pick on the phone changes the phone row only (Lift 0.35s on the phone, Grow 0.5s on desktop). A changed trigger too: On Press on the phone, On Hover on desktop, and that row goes after the other rows on the phone.",
   "Preview on a phone plays the phones values (Rotate 45, Opacity 40) and on desktop desktops.",
-  "After removing the row that held the only own value, the button stays on (read once)."
+  "After removing the row that held the only own value, the button stays on: read three times, and only Reset all overrides turned it off."
  ],
  "inferred": [
   "After a pick, Ease, Duration and the other Timing labels are dotted: End was read, Timing was not.",
@@ -1009,7 +1009,7 @@
   ]
  },
  "rowMark": {
-  "note": "From screenshots: 9 squares of 2 by 2, 2 apart, black, on the bottom of the 44 tall icon, 5 in from its left. Only rows with phone values have it. Desktop never.",
+  "note": "Measured: a ::before on the icon, left 5, bottom 0, 34 wide, 0 tall, border-bottom 2px dotted rgb(0, 0, 0). Only rows with phone values have it. Desktop never.",
   "box": [
    27,
    158,
@@ -1027,10 +1027,36 @@
   "fPhoneTwo": [
    false,
    true
+  ],
+  "measured": [
+   "dotted",
+   "rgb(0, 0, 0)",
+   "0px"
   ]
  },
  "delay": {
   "note": "A row with a delay shows a pause icon and the delay left of the clock and time: On Hover, 0.9s, 0.5s. Read on a phone; desktop inferred, the same list.",
   "jList": "On Hover0.9s0.5s"
+ },
+ "removedOwn": {
+  "note": "The row with the only own value, removed on a phone, read twice more on a new Shape.",
+  "twoRows": {
+   "own": "Opacity 37 on the first of two rows",
+   "afterRemove": {
+    "phoneButtonOff": false
+   },
+   "thenLastRowRemoved": {
+    "phoneButtonOff": false
+   }
+  },
+  "oneRow": {
+   "own": "Opacity 37 on its one row",
+   "afterRemove": {
+    "phoneButtonOff": false
+   },
+   "afterResetAllOverrides": {
+    "phoneButtonOff": true
+   }
+  }
  }
 }

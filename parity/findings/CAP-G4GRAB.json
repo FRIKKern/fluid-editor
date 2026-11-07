@@ -1,0 +1,474 @@
+{
+  "item": "G4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4: does the press point on a handle matter? A corner and a side, pressed on the middle and 6 px either way, walked 1px at a time. Predicted before this read: the first step at 35 from any press, so the step counts from where the press was. Ours counts from the line itself, so its step moves with the press: 40 from 6 in, 28 from 6 out.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      40,
+      30,
+      [
+        0,
+        0
+      ]
+    ],
+    [
+      "read",
+      "se middle",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      40,
+      30,
+      [
+        -6,
+        -6
+      ]
+    ],
+    [
+      "read",
+      "se 6 in",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "se",
+      40,
+      30,
+      [
+        6,
+        6
+      ]
+    ],
+    [
+      "read",
+      "se 6 out",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "e",
+      40,
+      0,
+      [
+        -6,
+        0
+      ]
+    ],
+    [
+      "read",
+      "e 6 in",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "e",
+      40,
+      0,
+      [
+        6,
+        0
+      ]
+    ],
+    [
+      "read",
+      "e 6 out",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "se middle": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 2 / 7 / 9"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -35,
+            "1 / 2 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -34,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1 / 2 / 8 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -27,
+            "1 / 2 / 6 / 8"
+          ]
+        ],
+        "yHome": [
+          [
+            -26,
+            "1 / 2 / 7 / 8"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se 6 in": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 2 / 7 / 9"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -35,
+            "1 / 2 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -34,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1 / 2 / 8 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -27,
+            "1 / 2 / 6 / 8"
+          ]
+        ],
+        "yHome": [
+          [
+            -26,
+            "1 / 2 / 7 / 8"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se 6 out": {
+      "walk": {
+        "part": "se",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 2 / 7 / 9"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -35,
+            "1 / 2 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -34,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1 / 2 / 8 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -27,
+            "1 / 2 / 6 / 8"
+          ]
+        ],
+        "yHome": [
+          [
+            -26,
+            "1 / 2 / 7 / 8"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e 6 in": {
+      "walk": {
+        "part": "e",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 2 / 7 / 9"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -35,
+            "1 / 2 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -34,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e 6 out": {
+      "walk": {
+        "part": "e",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 2 / 7 / 9"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -35,
+            "1 / 2 / 7 / 7"
+          ]
+        ],
+        "xHome": [
+          [
+            -34,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "The press point on a handle doesn't matter. Corner and east, pressed on the middle and 6 px either way: 35 and -35 each time, y 27 and -27. The step counts from where the press was.",
+  "predicted": "The first step at 35 from any press.",
+  "result": "Right, 5 of 5.",
+  "ours": "Counts from the line, so the step moves with the press. Middle x 34, -36; y 26. 6 px in: x 40, -30. 6 px out: x 28; y 20. The hit area is 34 px, so up to 17 px off.",
+  "differs": [
+    "74: ours counts a handle's step from the line, the oracle from the press (updateResize: d = x - m.colEnd[...]). snap-check presses each handle in its middle, so it can't see it."
+  ],
+  "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
+}

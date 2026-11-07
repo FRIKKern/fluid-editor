@@ -103,6 +103,13 @@ const pieces = (r) => (r.panelCss || []).filter((e) => (e.cls || '').includes('s
   compare('Quote over it', F5.reads['quote over a fold'], md);
 }
 await start(); await press(ROW, 1); await key('Q'); await pause(150); compare('Key below it', F5.reads['key below a fold'], md); await key('Meta+z'); await pause(200); compare('Meta+z below it', F5.reads['key undo below a fold'], md);
+// A toolbar press over a fold, then Meta+z: the text back, the fold still shut (CAP-T10FOLD5.json, CAP-T10FIX3.json).
+await start(); await press(ROW); await key('Meta+a'); await pause(100);
+await press('#block-panel .bp-md-bar [aria-label="Quote"]'); await pause(200);
+const overFold = evalJs(S, `(() => { const f = document.querySelector('${FIELD}'); return JSON.stringify(f.value); })()`);
+await key('Meta+z'); await pause(250);
+const backFold = evalJs(S, `(() => { const f = document.querySelector('${FIELD}'); return JSON.stringify({ v: f.value, text: fe.model.sections[1].blocks.at(-1).text, marked: document.querySelectorAll('#block-panel .bp-code .c-fold, #block-panel .bp-code [data-fold-open]').length }); })()`);
+add('Toolbar over a fold, Meta+z: the fold stays', backFold.v.split('\n').length === 2 && !backFold.v.includes('>') && overFold.includes('>') && backFold.text === T, JSON.stringify([overFold, backFold]));
 // A deleted fold comes back as open text with Meta+z, nothing lost.
 await start(); await press(ROW); await key('Meta+a'); await key('Backspace'); await pause(150); await key('Meta+z'); await pause(200);
 add('Meta+z brings back hidden lines', evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).text))()`) === T, evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).text))()`));

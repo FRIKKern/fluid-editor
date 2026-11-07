@@ -2748,6 +2748,67 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const t = await ring('input[type=email]');
   add('Field Accent: text field edge on focus', t[3] === want && t[4].includes(want) && t[4].includes('1px') && t[2] === 'none', JSON.stringify([t, want]));
   add('Field Accent: nothing at rest', JSON.stringify(rest()) === JSON.stringify(rest0), JSON.stringify(rest()));
+  // A pack on Radio and Survey was not read. Ours keeps what it did before Radio had its own rows: this holds that guess, it isn't a reading.
+  await start();
+  await hit('[data-ss-back]', 80); await hit('[data-ss-back]', 80);
+  await hit('[data-ss-pop="Forms"]', 250); await hit('#ss-popover [data-ss-pick="form"][data-v="form-pack-04"]', 200);
+  const packed = (k) => read(k).radius;
+  add('A pack, a guess: Checkbox and Radio Square, Survey not', packed('check') === '0px' && packed('radio') === '0px' && packed('survey') !== '0px', JSON.stringify([packed('check'), packed('radio'), packed('survey')]));
+}
+
+// U12: Fonts > Buttons, Miscellaneous and a form font's Style, against parity/findings/CAP-U12FONTVIEWS.json. What a value draws is a guess, not a reading.
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FONTVIEWS.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const tops = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(`#site-styles ${sel}`)})].map((e) => e.getBoundingClientRect().top));`);
+  const boxes = (sel) => js(`return JSON.stringify([...document.querySelectorAll(${JSON.stringify(`#site-styles ${sel}`)})].map((e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }));`);
+  const close = (got, want, tol = 1) => got.length >= want.length && want.every((v, n) => Math.abs(got[n] - v) <= tol);
+  const nearBox = (got, want) => want.every((b, n) => got[n] && b.every((v, i) => Math.abs(got[n][i] - v) <= 1));
+  // A value's box in ours is 70 wide as in Headings, and its words sit at the right; the oracle's fits the value. So its right edge and top.
+  const nearValue = (got, want) => want.every((b, n) => got[n] && Math.abs(got[n][0] + got[n][2] - b[0] - b[2]) <= 1 && Math.abs(got[n][1] - b[1]) <= 1);
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); await hit('#site-styles-toggle', 300); await hit('#site-styles [data-ss-view="Fonts"]', 200); };
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView;`;
+  await start();
+  await hit('[data-ss-view="FontButtons"]', 200);
+  add('Fonts > Buttons: title and back', js(`return JSON.stringify([document.querySelector('#site-styles .ss-title').textContent, document.querySelector('#site-styles .ss-back span').textContent].join());`) === 'Buttons,Fonts');
+  add('Fonts > Buttons: three heads in order', js(`return JSON.stringify([...document.querySelectorAll('.ss-fb-h')].map((e) => e.textContent).join());`) === 'Primary Button Font,Secondary Button Font,Tertiary Button Font');
+  add('Fonts > Buttons: heads land', close(tops('.ss-fb-h'), R.buttons.heads, 1.5), JSON.stringify(tops('.ss-fb-h')));
+  add('Fonts > Buttons: list rows land', close(tops('.ss-sel-row'), R.buttons.lists), JSON.stringify(tops('.ss-sel-row')));
+  add('Fonts > Buttons: values land', nearValue(boxes('.ss-slide input[type=text]'), R.buttons.inputs), JSON.stringify(boxes('.ss-slide input[type=text]')));
+  add('Fonts > Buttons: sliders land', close(tops('.ss-slide input[type=range]'), R.buttons.ranges), JSON.stringify(tops('.ss-slide input[type=range]')));
+  add('Fonts > Buttons: values read', js(`return JSON.stringify([...document.querySelectorAll('.ss-slide input[type=text]')].map((e) => e.value).join());`) === '0.02em,1rem,0.02em,1rem,0.02em,1rem');
+  add('Fonts > Buttons: slider ranges', js(`const e = document.querySelectorAll('.ss-slide input[type=range]'); return JSON.stringify([e[0].min, e[0].max, e[1].min, e[1].max].map(Number));`).join() === [...R.buttons.lsRange, ...R.buttons.sizeRange].join());
+  add('Fonts > Buttons: font row stays unbuilt', js(`return JSON.stringify([...document.querySelectorAll('.ss-font')].every((e) => e.hasAttribute('data-unbuilt')));`) === true);
+  const button = (k) => js(`${FD} const b = d.querySelector('.sqs-button-element--${k}.sqs-block-button-element'); if (!b) return JSON.stringify(null); const c = W.getComputedStyle(b); return JSON.stringify([c.fontWeight, c.textTransform]);`);
+  const undoCount = () => js(`return JSON.stringify(document.querySelector('[data-tb="undo"], #undo')?.disabled ?? null);`);
+  await hit('[data-ss-select="type.primary.weight"]', 120); await hit('[data-ss-set="type.primary.weight"][data-v="700"]', 200);
+  add('Fonts > Buttons: Primary Weight stored', js(`return JSON.stringify(fe.model.siteStyles.type.primary.weight);`) === 700);
+  add('Fonts > Buttons: Secondary keeps its own', js(`return JSON.stringify(fe.model.siteStyles.type.secondary ?? null);`) === null && js(`const e = [...document.querySelectorAll('.ss-sel[data-ss-select="type.secondary.weight"] span')][0]; return JSON.stringify(e.textContent);`) === '500');
+  add('Fonts > Buttons: a guess, Primary\'s row reaches the rule', js(`${FD} return JSON.stringify([...d.querySelectorAll('style')].some((s) => s.textContent.includes('.sqs-button-element--primary.sqs-block-button-element { font-weight: 700;')));`) === true);
+  await hit('[data-ss-back]', 120);
+  add('Fonts: Buttons goes back to Fonts', js(`return JSON.stringify(document.querySelector('#site-styles .ss-title').textContent);`) === 'Fonts');
+  await hit('[data-ss-view="FontMisc"]', 200);
+  add('Fonts > Miscellaneous: lead lands', nearBox(boxes('.ss-lead-misc'), [R.misc.lead]), JSON.stringify(boxes('.ss-lead-misc')));
+  add('Fonts > Miscellaneous: list rows land', close(tops('.ss-sel-row'), R.misc.lists), JSON.stringify(tops('.ss-sel-row')));
+  add('Fonts > Miscellaneous: values land', nearValue(boxes('.ss-slide input[type=text]'), R.misc.inputs), JSON.stringify(boxes('.ss-slide input[type=text]')));
+  add('Fonts > Miscellaneous: sliders land', close(tops('.ss-slide input[type=range]'), R.misc.ranges), JSON.stringify(tops('.ss-slide input[type=range]')));
+  add('Fonts > Miscellaneous: values read', js(`return JSON.stringify([...document.querySelectorAll('.ss-slide input[type=text]')].map((e) => e.value).join());`) === '1em,0.01em,1rem');
+  js(`const e = document.querySelector('.ss-slide input[type=range][aria-label="Miscellaneous"]'); e.value = '1.5'; e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); return 'true';`); await pause(200);
+  add('Fonts > Miscellaneous: a guess, its size reaches a variable', js(`${FD} return JSON.stringify(W.getComputedStyle(d.documentElement).getPropertyValue('--meta-size-value').trim());`) === '1.5');
+  // A form font's Style list.
+  await start();
+  js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].blocks.push({ id: 'marks-fonts', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'email', label: 'Email' }] }); m.siteStyles = { ...(m.siteStyles || {}), type: { h: { weight: 800 } } }; fe.load(m); return 'true';`); await pause(400);
+  await hit('[data-ss-back]', 120); await hit('[data-ss-view="Forms"]', 200); await hit('[data-ss-view="FormFonts"]', 150); await hit('[data-ss-ffont="Title"]', 200);
+  await hit('[data-ss-select="forms.fontStyle.Title"]', 150);
+  add('Form font Style: the list lands', nearBox(boxes('.ss-options'), [R.style.list]), JSON.stringify(boxes('.ss-options')));
+  add('Form font Style: the options', js(`return JSON.stringify([...document.querySelectorAll('.ss-options [role=option]')].map((e) => e.textContent).join());`) === R.style.options.join());
+  const title = () => js(`${FD} const c = W.getComputedStyle(d.querySelector('.fe-form legend, .fe-form label.title')); return JSON.stringify(c.fontWeight);`);
+  const w0 = title();
+  await hit('[data-ss-set="forms.fontStyle.Title"][data-v="Heading"]', 200);
+  add('Form font Style: stored, the row shows it', js(`return JSON.stringify([fe.model.siteStyles.forms.fontStyle.Title, document.querySelector('[data-ss-select="forms.fontStyle.Title"] span').textContent].join());`) === 'Heading,Heading');
+  add('Form font Style: Size stays', js(`return JSON.stringify(document.querySelector('[data-ss-select="form-fsize"] span').textContent);`) === 'Paragraph 2');
+  add('Form font Style: a guess, Heading takes Headings\' weight', title() === '800' && w0 !== '800', JSON.stringify([w0, title()]));
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);
