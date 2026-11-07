@@ -1,0 +1,13 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10 part 1: which block types turn View Layouts on, each alone in a new section, then a few mixes. Predictions, pushed before any read.",
+ "predictions": [
+  {"case": "Text alone (a new Text is a paragraph)", "predict": "on: p1 is a read mix with 6 layouts"},
+  {"case": "Image alone", "predict": "on: i1, 10 layouts"},
+  {"case": "Button alone", "predict": "off: no read mix holds a button alone"},
+  {"case": "Shape alone", "predict": "off, as read"},
+  {"case": "every other type alone: Video, Form, Accordion, Scrolling, Line, Code, Embed, Markdown, Quote, Social Links, Map, Newsletter, Audio, Summary, Calendar, Menu, Chart, Search Field, Page Link, Tag Cloud, RSS, Archive, Instagram, Tock, SoundCloud, Flickr, OpenTable, Zola, Bandsintown", "predict": "off"},
+  {"case": "a mix of a read mix plus one other type (heading, paragraph and a Video)", "predict": "off"}
+ ]
+}
