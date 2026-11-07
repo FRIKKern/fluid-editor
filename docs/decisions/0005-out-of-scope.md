@@ -43,6 +43,7 @@ Out of scope now:
 - **Email Notification (T9).** It holds the owner's address and writes outside the page, so a probe never presses it. Ours shows it faded.
 - **Send confirmation email, SMS Marketing Opt-in and View plans (T9).** The first two write outside the page, and View plans reaches a paid plan, so a probe reads the rows and never presses them. Ours shows them faded.
 - **Edit with AI and Reshoot on an image (T4).** They need an AI service, and the dialog's OK accepts AI Terms on the owner's account, so a probe never presses it and nothing past the dialog is read. Ours shows both rows faded.
+- **Edit Site Header and AI Terms in Add Section (U9).** The lead's ruling. The header reaches the whole site, has no safe read, and is not the grid. AI Terms are never accepted. Ours draws no Edit Site Header button, and keeps Add a Section's "AI Terms apply" as words with no link.
 
 ## Considered
 
