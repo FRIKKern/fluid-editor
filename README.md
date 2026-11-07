@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 3 changes
+- **Today** · 4 changes
+  - X6, U5: phone stand-in heights and pulls (68, 71), Summary's columns, U5 done ([#384](https://github.com/FRIKKern/fluid-editor/pull/384))
   - T12: a Quote's padding sits on the block, around its content box (86) ([#379](https://github.com/FRIKKern/fluid-editor/pull/379))
-  - U10: a Flip X start; a layout's own divider turns the flips off ([#386](https://github.com/FRIKKern/fluid-editor/pull/386))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
