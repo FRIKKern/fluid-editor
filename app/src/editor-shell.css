@@ -317,6 +317,17 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 .ss-tr-list > .ss-group:first-child { margin-top: 22px; }
 .ss-dotpop { position: fixed; right: 11px; z-index: 56; width: 320px; box-sizing: border-box; background: #fff; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.12) 0 16px 64px 0, rgba(0, 0, 0, 0.08) 0 0 1px 0; font: 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
 .ss-dotpop[hidden] { display: none; }
+/* A button type's Font row and its popover, Image Blocks (CAP-U12FADED.json). */
+button.ss-tier-font { padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 14px; line-height: 22px; text-align: left; cursor: pointer; }
+.ss-tf-pop { position: fixed; right: 0; width: 342px; height: 383px; padding: 11px 0 0 22px; box-sizing: border-box; z-index: 4; border-radius: 3px; background: #fff; box-shadow: 0 8px 32px rgba(0, 0, 0, .12); }
+.ss-tf-pop .ss-font { position: relative; width: 342px; height: 74px; padding-top: 3px; box-shadow: none; font-size: 22px; line-height: 22px; }
+.ss-tf-pop .ss-font::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: 0; height: 1px; background: #e7e7e7; }
+.ss-tf-pop .ss-font svg { width: 22px; height: 22px; margin-right: -2px; }
+.ss-tf-pop .ss-sel-row, .ss-tf-pop .ss-slide, .ss-tf-pop .ss-options { width: 298px; }
+.ss-tf-pop .ss-slide input[type="range"] { flex-basis: 298px; width: 298px; }
+button.ss-palette { display: block; border: 0; text-align: left; cursor: pointer; }
+.ss-ib-h { margin: 28px 0 10px; font-size: 14px; line-height: 22px; font-weight: 500; color: #0e0e0e; }
+.ss-ib-h:first-child { margin-top: -6px; }
 /* Assign Styles (CAP-U12ASSIGN.json). */
 .ss-as-lead { margin: -16px 0 27px; height: 88px; font-size: 14px; line-height: 22px; color: rgb(118, 118, 118); }
 .ss-as-h { margin: 50px 0 -1px; height: 16px; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .75px; text-transform: uppercase; color: rgb(102, 102, 102); }

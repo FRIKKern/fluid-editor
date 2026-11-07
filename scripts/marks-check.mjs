@@ -3044,6 +3044,78 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Escape closes it', !open());
 }
 
+// U12: the rows opened with no pick, against parity/findings/CAP-U12FADED.json. What each value or pack draws is inferred.
+{
+  const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FADED.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const box = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify(r.width ? [r.left, r.top, r.width, r.height] : null);`);
+  const same = (a, b, tol = 1) => !!a && b.every((v, i) => Math.abs(a[i] - v) <= tol);
+  const title = () => js(`return JSON.stringify(document.querySelector('#site-styles .ss-title').textContent);`);
+  const undoOff = () => js(`return JSON.stringify(document.getElementById('undo').disabled);`);
+  viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200);
+  await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Fonts"]', 200); await hit('[data-ss-view="FontPacks"]', 250);
+  for (const [tab, read] of Object.entries(F.tabs)) {
+    await hit(`[data-ss-packtab="${tab}"]`, 200);
+    const tiles = js(`return JSON.stringify([...document.querySelectorAll('.ss-pack-font')].map((t) => t.getAttribute('aria-label').replace(/ font pack$/, '')));`);
+    add(`Font Packs ${tab}: the ${read.count} tiles read, in order`, tiles.join() === read.names.join(), `${tiles.length}`);
+    const fonts = js(`return JSON.stringify([...document.querySelectorAll('.ss-pack-font')].map((t) => { const h = getComputedStyle(t.querySelector('.ss-pv-h')), p = getComputedStyle(t.querySelector('.ss-pv-p')); return [h.fontFamily.split(',')[0].replace(/"/g, ''), +h.fontWeight, parseFloat(h.fontSize), p.fontFamily.split(',')[0].replace(/"/g, ''), +p.fontWeight, parseFloat(p.fontSize)]; }));`);
+    add(`Font Packs ${tab}: each tile's fonts and sizes`, JSON.stringify(fonts) === JSON.stringify(read.fonts), JSON.stringify(fonts.find((x, n) => JSON.stringify(x) !== JSON.stringify(read.fonts[n]))));
+    add(`Font Packs ${tab}: its tab is on`, js(`return JSON.stringify(document.querySelector('.ss-tab.is-on').textContent);`) === tab);
+  }
+  await hit('[data-ss-packtab="Sans-serif"]', 200);
+  add('A tile\'s words land', same(box('.ss-pack-font .ss-pv-h')?.slice(0, 2), F.tile.heading, 1.5) && same(box('.ss-pack-font .ss-pv-p')?.slice(0, 2), F.tile.paragraph, 1.5) && Math.abs(box('.ss-pack-font .ss-pv-n')[1] - F.tile.namesTop) <= 1.5, JSON.stringify([box('.ss-pack-font .ss-pv-h'), box('.ss-pack-font .ss-pv-p'), box('.ss-pack-font .ss-pv-n')]));
+  add('Opening the tabs writes nothing', undoOff() === true);
+  // Customize, on each card's popover.
+  for (const n of ['Fonts', 'Colors', 'Buttons', 'Forms']) {
+    goto(S, `${BASE}/index.html`); await pause(700); await hit('#site-styles-toggle', 250);
+    await hit(`[data-ss-pop="${n}"]`, 200); await hit('[data-ss-customize]', 200);
+    add(`Customize on ${n} opens ${n}, and the popover goes`, title() === n && js(`return JSON.stringify(document.getElementById('ss-popover').hidden);`) === true, title());
+  }
+  // The Colors strip.
+  goto(S, `${BASE}/index.html`); await pause(700); await hit('#site-styles-toggle', 250); await hit('[data-ss-view="Colors"]', 200);
+  add('The Colors strip is named Edit Palette', js(`return JSON.stringify(document.querySelector('.ss-palette').getAttribute('aria-label'));`) === 'Edit Palette');
+  await hit('.ss-palette', 200); add('The Colors strip opens it', title() === F.stripOpens[0], title());
+  // A button type's Font row.
+  goto(S, `${BASE}/index.html`); await pause(700); await hit('#site-styles-toggle', 250); await hit('[data-ss-view="Buttons"]', 200); await hit('[data-ss-tier="primary"]', 200);
+  add('Font row: its summary', js(`return JSON.stringify(document.querySelector('.ss-tier-font .ss-sel').textContent.trim());`) === 'Poppins, 500, 1rem');
+  await hit('[data-ss-tierfont]', 200);
+  const P = F.fontPop;
+  add('Font popover: its box', same(box('.ss-tf-pop'), P.box), JSON.stringify(box('.ss-tf-pop')));
+  add('Font popover: the family row', same(box('.ss-tf-pop .ss-font'), P.familyRow), JSON.stringify(box('.ss-tf-pop .ss-font')));
+  const rows = js(`return JSON.stringify([...document.querySelectorAll('.ss-tf-pop .ss-sel-row')].map((e) => { const r = e.getBoundingClientRect(); return [e.textContent.replace(/\\s+/g, ' ').trim(), r.left, r.top, r.width]; }));`);
+  add('Font popover: its lists land', P.combos.every((c, n) => Math.abs(rows[n][2] - c[2]) <= 1 && rows[n][1] === c[1]), JSON.stringify(rows));
+  add('Font popover: Weight shows no value', rows[1][0] === 'Weight');
+  const boxes = js(`return JSON.stringify([...document.querySelectorAll('.ss-tf-pop .ss-slide input[type=text]')].map((e) => [e.value, e.getBoundingClientRect().left, e.getBoundingClientRect().width]));`);
+  add('Font popover: its boxes read', boxes[0][0] === '1rem' && boxes[0][1] === 1527 && boxes[0][2] === 51 && boxes[1][0] === '0.02em' && boxes[1][1] === 1534 && boxes[1][2] === 44, JSON.stringify(boxes));
+  add('Font popover: opening writes nothing', undoOff() === true);
+  await hit('[data-ss-select="type.primary.weight"]', 150);
+  const opts = js(`return JSON.stringify([...document.querySelectorAll('.ss-tf-pop .ss-options [role=option]')].map((e) => [e.textContent.trim(), e.getBoundingClientRect().top]));`);
+  add('Font popover: Weight\'s list', opts.map((o) => o[0]).join() === P.weightOptions.join() && opts.every((o, n) => Math.abs(o[1] + 11 - (P.weightOptionTop + n * P.weightOptionPitch)) <= 1.5), JSON.stringify(opts.slice(0, 2)));
+  browser(S, 'press', 'Escape'); await pause(150);
+  add('Escape closes the list and the popover', !box('.ss-tf-pop') && !box('.ss-options'));
+  await hit('[data-ss-tierfont]', 150); await hit('.ss-tf-pop .ss-font', 200);
+  add('The family row opens the font list', js(`return JSON.stringify(document.getElementById('ss-font-list').hidden);`) === false);
+  browser(S, 'press', 'Escape'); await pause(150); browser(S, 'press', 'Escape'); await pause(150);
+  // Inferred: a popover row shares Fonts > Buttons' store.
+  await hit('[data-ss-tierfont]', 150); await hit('[data-ss-select="type.primary.weight"]', 120); await hit('.ss-tf-pop [role=option][data-v="700"]', 200);
+  add('Inferred: a Weight pick stores with Fonts > Buttons', js(`return JSON.stringify(fe.model.siteStyles.type.primary.weight);`) === '700' || js(`return JSON.stringify(fe.model.siteStyles.type.primary.weight);`) === 700);
+  add('The summary follows', js(`return JSON.stringify(document.querySelector('.ss-tier-font .ss-sel').textContent.trim());`) === 'Poppins, 700, 1rem');
+  js(`fe.undo(); return 'true';`); await pause(120);
+  // Image Blocks.
+  goto(S, `${BASE}/index.html`); await pause(700); await hit('#site-styles-toggle', 250); await hit('[data-ss-view="Miscellaneous"]', 200); await hit('[data-ss-view="ImageBlocks"]', 250);
+  add('Image Blocks: title and back', title() === 'Image Blocks' && js(`return JSON.stringify(document.querySelector('#site-styles .ss-back span').textContent);`) === 'Miscellaneous');
+  const tp = js(`const p = document.getElementById('site-styles'), t = p.scrollTop; return JSON.stringify([...p.querySelectorAll('.ss-ib-h, .ss-sel-row > span:first-child, .ss-slide > span')].map((e) => [e.textContent, e.getBoundingClientRect().top + t]));`);
+  const I = F.imageBlocks.rows.filter((x) => x[0] === 'H2' || (x[0] === 'P' && !['Left', 'Center'].includes(x[1])));
+  add('Image Blocks: every head and row, in order', tp.map((x) => x[0]).join() === I.map((x) => x[1]).join(), `${tp.length} ${I.length}`);
+  add('Image Blocks: every top', I.every((x, n) => tp[n] && Math.abs(tp[n][1] - x[3]) <= 2), JSON.stringify(I.map((x, n) => tp[n] ? +(tp[n][1] - x[3]).toFixed(1) : null).filter((x) => x === null || Math.abs(x) > 2).slice(0, 6)));
+  const rg = js(`return JSON.stringify([...document.querySelectorAll('#site-styles input[type=range]')].map((e) => [e.getAttribute('aria-label'), e.value, e.min, e.max, e.step]));`);
+  add('Image Blocks: every slider\'s value and range', JSON.stringify(rg) === JSON.stringify(F.imageBlocks.ranges.map((x) => x.slice(0, 5))), JSON.stringify(rg.find((x, n) => JSON.stringify(x) !== JSON.stringify(F.imageBlocks.ranges[n].slice(0, 5)))));
+  add('Image Blocks: a box is 44', js(`return JSON.stringify(document.querySelector('#site-styles .ss-slide input[type=text]').getBoundingClientRect().width);`) === F.imageBlocks.textBox);
+  add('Image Blocks: Stack reads 7% past its slider', js(`const b = [...document.querySelectorAll('#site-styles .ss-slide input[type=text]')]; return JSON.stringify(b[b.length - 3].value);`) === '7%');
+  add('Image Blocks: opening writes nothing', undoOff() === true);
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);

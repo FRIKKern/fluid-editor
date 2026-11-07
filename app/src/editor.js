@@ -27,13 +27,13 @@ import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js'
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { formColor } from './form-colors.js';
 import { fontListHtml, fontRowsHtml, fontListTop, watchFontRows } from './font-list.js';
-import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
+import { ALL_FONT_PACKS, fontLink, siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
@@ -498,11 +498,11 @@ function placeToolbar() {
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
-  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
+  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center', hNamed: b.type === 'image' };
   const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${b.video?.src ? 1 : ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
     const inStack = !!parentStack(sel.sid, sel.bid);
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src, inStack), z, align);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type === 'shape' && b.label ? 'stand-in' : b.type, bp, z, !!b.fit, inStack), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -544,7 +544,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
-  if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) { openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
   // on screen, and opens the popover; one undo step.
   if (act === 'pin') {
@@ -1647,6 +1647,8 @@ function renderBlockPanel() {
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
+  if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
@@ -1702,7 +1704,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' && !document.body.classList.contains('is-preview') ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -4567,7 +4569,7 @@ function frameToLanded(bid) {
   if (c) win.scrollBy({ top: c.top + c.height / 2 - win.innerHeight / 2, behavior: 'instant' });
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
-const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
+const NEW_ALIGN = { Line: 'center', Shape: 'center', Image: 'center' }; // CAP-S3ALIGN.json start, CAP-75IMAGE3.json
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
@@ -5375,7 +5377,7 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0, ssPackTab = 'Sans-serif', ssTierFont = false;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
 let fontPop = null; // the open font list: { key, query, watch }
 let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
@@ -5403,10 +5405,13 @@ function renderSsPanel() {
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
   if (ssView === 'AssignRow') opts = { ...opts, assignRow: ssAssign };
+  if (ssView === 'FontPacks') { opts = { ...opts, packTab: ssPackTab }; loadPackFonts(ssPackTab); }
+  if (ssView === 'ButtonTier') opts = { ...opts, tierFont: ssTierFont };
   if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
+  placeTierFont();
   placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
@@ -5457,12 +5462,15 @@ siteStyles.addEventListener('click', (e) => {
   if (card) { openStylePopover(card.dataset.ssPop); return; }
   const tierBtn = e.target.closest('[data-ss-tier]');
   if (tierBtn) {
-    ssTier = tierBtn.dataset.ssTier;
+    ssTier = tierBtn.dataset.ssTier; ssTierFont = false;
     if (tierBtn.getAttribute('role') === 'tab') { ssSelect = null; renderSsPanel(); return; }
   }
+  const packTab = e.target.closest('[data-ss-packtab]');
+  if (packTab) { ssPackTab = packTab.dataset.ssPacktab; renderSsPanel(); siteStyles.scrollTop = 0; return; }
+  if (e.target.closest('[data-ss-tierfont]')) { ssTierFont = !ssTierFont; ssSelect = null; closeFontList(); renderSsPanel(); return; }
   if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
-  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); closeFontList(); pal.list = false; }
+  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; ssTierFont = false; closeDotPop(); closeFontList(); pal.list = false; }
   // Edit Color Theme's back goes to Site Styles' Colors, not to the section panel it was opened from (CAP-DIVSHAPES.json).
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) { ssView = 'Colors'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
@@ -5573,6 +5581,22 @@ function fontRowsNow() {
   host.scrollTop = top;
   fontPop.watch = watchFontRows(host);
 }
+// The tiles of a Font Packs tab draw in their own fonts: those load when the tab first opens, a name at a time, so the panel still works offline.
+const packFontsDone = new Set();
+function loadPackFonts(tab) {
+  if (packFontsDone.has(tab)) return;
+  packFontsDone.add(tab);
+  const seen = new Map(ALL_FONT_PACKS[tab].flatMap((f) => [[`${f.h}|${f.hw}`, [f.h, f.hw]], [`${f.p}|${f.pw}`, [f.p, f.pw]]]));
+  document.head.insertAdjacentHTML('beforeend', [...seen.values()].map(([n, w]) => fontLink(n, w)).join(''));
+}
+function placeTierFont() {
+  const pop = siteStyles.querySelector('.ss-tf-pop');
+  if (pop) pop.style.top = `${siteStyles.querySelector('.ss-tier-font').getBoundingClientRect().bottom}px`;
+}
+function closeTierFont() { if (!ssTierFont) return; ssTierFont = false; ssSelect = null; renderSsPanel(); }
+// Escape closes it, with any list open in it (read). A press elsewhere closing it is inferred.
+document.addEventListener('keydown', (e) => { if (ssTierFont && !fontPop && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeTierFont(); } }, true);
+document.addEventListener('pointerdown', (e) => { if (ssTierFont && !e.target.closest?.('.ss-tf-pop,[data-ss-tierfont],#ss-font-list')) closeTierFont(); }, true);
 function openFontList(btn) {
   fontPop = { key: btn.dataset.ssFontrow, query: '' };
   btn.setAttribute('aria-expanded', 'true');
@@ -5889,6 +5913,8 @@ function applyStylePick(t) {
   fitHeader();
 }
 stylePop.addEventListener('click', (e) => {
+  const customize = e.target.closest('[data-ss-customize]');
+  if (customize) { closeStylePopover(); ssView = customize.dataset.ssCustomize; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   const t = e.target.closest('button[data-ss-pick]');
   if (!t || t.hasAttribute('data-unbuilt')) return;
   const top = stylePop.scrollTop;
@@ -6469,12 +6495,13 @@ function setBp(next) {
 // Preview (oracle "Toggle preview mode"): the page without editor chrome; Escape or the
 // button again leaves it. Our developer tools sit behind the menu next to it.
 // Reload page preview (TOPBAR.json): ours draws the canvas again from the model.
-document.getElementById('reload-preview').addEventListener('click', () => { renderAll(); });
+document.getElementById('reload-preview').addEventListener('click', () => { renderAll(); if (document.body.classList.contains('is-preview')) startPageMotion(doc, rowsOfBlock); });
 // Ctrl+Shift+D shows our developer menu, which stays out of the bar otherwise.
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
+const rowsOfBlock = (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; };
 function setPreview(on) {
-  if (on) { selectionLeft.clear(); for (const o of model.sections.flatMap((x) => x.blocks)) previewed.set(o.id, o.html); }
+  if (on) { selectionLeft.clear(); for (const o of model.sections.flatMap((x) => x.blocks)) previewed.set(o.id, o.html); } else stopPageMotion();
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
@@ -6482,7 +6509,7 @@ function setPreview(on) {
   if (!on) { doc?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); doc?.querySelectorAll('.native-video-player video').forEach((v) => v.pause()); } // no controls while editing
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
-  if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
+  if (on) { closeFloating(); closeSectionPanel(); designOpen = null; animStopPreview(); if (editing) finishTextEdit(); select(null); syncAnimView(null); startPageMotion(doc, rowsOfBlock); }
 }
 $('preview').addEventListener('click', () => setPreview(!document.body.classList.contains('is-preview')));
 $('dev-toggle').addEventListener('click', () => { $('dev-pop').hidden = !$('dev-pop').hidden; });
@@ -6534,7 +6561,7 @@ function boot() {
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
   watchShapeRects(doc, rectPath);
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
+  bindTriggers(doc, rowsOfBlock);
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);

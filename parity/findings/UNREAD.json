@@ -5,12 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here. Entries with source CAP-COVERAGE.json come from the coverage walk: parity/coverage-check.json lists them, npm run coverage-check compares.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
-    "total": 154,
+    "total": 157,
     "yes": 115,
-    "no": 39,
+    "no": 42,
     "read": 114,
     "notPressed": 0,
-    "open": 40
+    "open": 43
   },
   "entries": [
     {
@@ -1641,6 +1641,33 @@
       "item": "U12",
       "what": "An Assign Styles row: what a pick draws, whether the Form Block rows share a store with Forms > Fonts, and what a row other than Header Button shows at Style Custom. Their lists are read, on Site Title and Forms > Fonts' rows only.",
       "source": "CAP-U12ASSIGN.json, CAP-U12ASSIGNPREDICT.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "Font Packs' Serif and Mixed tabs, and every Sans-serif tile: what a pack draws, and its button transform. Tiles and fonts are read.",
+      "source": "CAP-U12FADED.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "Image Blocks: what a value draws. The rows and values are read. Ours has no such layouts, so they store only.",
+      "source": "CAP-U12FADED.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "A button type's Font popover: what a row draws, whether it shares Fonts > Buttons' store, and what a press outside does.",
+      "source": "CAP-U12FADED.json",
       "safeRead": "no",
       "why": "needs a pick in Site Styles, which reaches the whole site; read only",
       "lane": "none",
