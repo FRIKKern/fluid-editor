@@ -4141,6 +4141,21 @@ function showTextStep(ed, snap) {
   ed.strikeNext = null;
   renderTextBar();
 }
+const hasText = (ed, snap) => JSON.parse(snap).sections.find((o) => o.id === ed.sid)?.blocks.some((o) => o.id === ed.bid);
+// A step that changes something else, another block's text say: the page is drawn again with the text still open.
+function textOnOtherStep(ed, to) {
+  editing = null;
+  doc.removeEventListener('selectionchange', onTextSelection);
+  feEl(ed.sid).style.gridAutoRows = '';
+  model = JSON.parse(to);
+  selectionLeft.delete(ed.bid);
+  previewed.delete(ed.bid);
+  renderAll();
+  syncLayouts();
+  startTextEdit(ed.sid, ed.bid);
+  if (ed.soft) { editing.soft = true; blockEl(ed.bid).classList.remove('is-text-editing'); renderTextBar(); placeToolbar(); placeBlockPanel(); }
+  updateUi();
+}
 // Whether going to this step changes only this text, its rows and the blocks it pushed.
 function textOnly(ed, snap) {
   const bare = (j) => {
@@ -4154,18 +4169,18 @@ function textOnly(ed, snap) {
   const a = bare(snap);
   return a !== null && a === bare(textSnap(ed, ed.ce.innerHTML, ed.area));
 }
-// Cmd+Z in an edit is the page's undo: one step, and the same list carries on under the edit's own steps, through earlier
-// edits of this text. The edit stays open until a step changes something else (CAP-Y2EDIT.json, CAP-ESC2.json, CAP-Y2KEYS.json).
+// Cmd+Z in an edit is the page's undo: one step, and the same list carries on under the edit's own steps. The edit stays
+// open until a step takes the block itself away (CAP-Y2EDIT.json, CAP-ESC2.json, CAP-Y2KEYS.json, CAP-Y2KEYS2.json).
 function textUndo(ed) {
-  let to = ed.marks.at(-1), fromPage = false;
+  let to = ed.marks.at(-1);
   if (ed.atMark) {
     if (ed.marks.length > 1) { ed.marks.pop(); to = ed.marks.at(-1); }
     else {
       to = undoStack.at(-1);
       if (!to) return;
-      if (!textOnly(ed, to)) { finishTextEdit(); undo(); return; }
+      if (!hasText(ed, to)) { finishTextEdit(); undo(); return; }
       undoStack.pop();
-      fromPage = true;
+      if (!textOnly(ed, to)) { redoStack.push(textSnap(ed, ed.ce.innerHTML, ed.area)); textOnOtherStep(ed, to); return; }
     }
   }
   const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b);
@@ -4185,8 +4200,14 @@ function textUndo(ed) {
 function textRedo(ed) {
   const to = redoStack.at(-1);
   if (!to) return;
-  if (!textOnly(ed, to)) { finishTextEdit(); redo(); return; }
+  if (!hasText(ed, to)) { finishTextEdit(); redo(); return; }
   redoStack.pop();
+  if (!textOnly(ed, to)) {
+    undoStack.push(...ed.marks);
+    if (!ed.atMark) undoStack.push(textSnap(ed, ed.ce.innerHTML, ed.area));
+    textOnOtherStep(ed, to);
+    return;
+  }
   if (!ed.atMark) ed.marks.push(textSnap(ed, ed.ce.innerHTML, ed.area));
   showTextStep(ed, to);
   ed.atMark = false;

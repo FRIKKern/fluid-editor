@@ -127,8 +127,9 @@ for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); t
   const ce = () => d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content'); const start = ce().textContent;
   fe.edit(s.id, b.id); d.execCommand('insertText', false, 'one'); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
   fe.edit(s.id, b.id); d.execCommand('insertText', false, 'two'); await sleep(30); document.getElementById('undo').click(); await sleep(120);
-  return JSON.stringify({ back: ce().textContent === start, open: ce().contentEditable === 'true' }); })()`);
-  const ok = got.back && got.open; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
+  return JSON.stringify({ kept: ce().textContent.includes('one'), gone: !ce().textContent.includes('two'), open: ce().contentEditable === 'true', bar: !document.getElementById('text-bar').hidden, sel: !!document.querySelector('#block-toolbar:not([hidden])') }); })()`);
+  // The last typing goes, an earlier edit stays, and the edit closes and lets go (CAP-Y2EDIT.json).
+  const ok = got.kept && got.gone && !got.open && !got.bar && !got.sel; results.push({ name: 'Undo button during an edit', ok }); if (!ok) console.log('Undo button during an edit DIFF', JSON.stringify(got)); }
 { const words = [...TU.links.linked, ...TU.links.notLinked, ...TU.links.wrapped]; const got = edit(`const r = d.createRange(); r.selectNodeContents(ce.querySelector('p')); r.collapse(false); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); type(' '); for (const w of ${JSON.stringify(words)}) { type(w); type(' '); }`).links;
   for (const w of words) { const inner = TU.links.wrapped.includes(w) ? w.slice(1, -1) : w; const hit = got.find((a) => a[0] === inner); const want = inner !== w || TU.links.linked.includes(w); const ok = !!hit === want && (!hit || hit[1] === (w.includes('@') ? 'mailto:' : 'http:')); results.push({ name: `Link ${w}`, ok }); if (!ok) console.log(`Link ${w} DIFF oracle ${want}, ours ${JSON.stringify(hit)}`); } }
 

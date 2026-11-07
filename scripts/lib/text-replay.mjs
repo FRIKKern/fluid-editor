@@ -12,7 +12,7 @@ export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(
 const WAITS = { click: 1200, clickIf: 1200, fill: 1200, press: 500, keys: 300, keysList: 300, keysGap: 300, keysFast: 1500 };
 const COST = { click: 200, clickIf: 200, fill: 200, press: 100, keys: 100, keysList: 100, keysGap: 100, keysFast: 100 };
 const MENUS = ['Text Color', 'Text Style', 'Text Alignment', 'Write', 'Custom'];
-const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysGap' ? a[1].filter((x) => x.length === 1).length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Shift\+Enter|Backspace|Meta\+[bi])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) || a[0] === 'Undo' ? 0 : 1) : 0);
+const changesIn = ([op, ...a]) => (op === 'keys' || op === 'keysFast' ? a[0].length : op === 'keysGap' ? a[1].filter((x) => !/^(Arrow|Home|End)/.test(x)).length : op === 'keysList' ? a[0].filter((x) => x !== 'Meta+a').length : op === 'press' ? (/^(Enter|Shift\+Enter|Backspace|Meta\+[bi])$/.test(a[0]) ? 1 : 0) : op === 'click' || op === 'clickIf' ? (MENUS.includes(a[0]) || a[0] === 'Undo' ? 0 : 1) : 0);
 // A second splits an undo step (app/src/editor.js). gapsOf gives, per step that changes something, the gap
 // it had from the last change on the oracle. The replay aims clearly at that side of a second.
 const SPLIT = 1000, MARGIN = 100, INSIDE = 300, OUTSIDE = 1300;
@@ -51,7 +51,7 @@ const STAMP = (ce) => `(() => { window.__stamps = []; const ce = ${ce}; const st
   return 1; })()`;
 
 export async function replay(S, finding, add) {
-  let id = null, segment = null;
+  let id = null, newId = null, segment = null;
   const sid = () => evalJs(S, `JSON.stringify(fe.model.sections[1].id)`);
   const fresh = async () => {
     goto(S, `${BASE}/index.html`); await pause(1200);
@@ -81,7 +81,7 @@ export async function replay(S, finding, add) {
     // Where undo is walked, a change waits for its aimed gap from the last one, and nothing else waits.
     if (paced && segment !== null && gaps.has(k - segment)) { const left = lastChange + aimFor(gaps.get(k - segment)) - 100 - Date.now(); if (left > 0) await pause(left); }
     if (op === 'enter') { await fresh(); paced = untilNextEnter(k).some(takesSteps); segment = null; wait = (ms) => pause(Math.min(ms, paced ? 60 : 120)); }
-    else if (op === 'add') { const s = sid(); id = evalJs(S, `(() => { const had = new Set(fe.model.sections[1].blocks.map((b) => b.id)); fe.addBlock(${JSON.stringify(s)}, 'Text', true); return JSON.stringify(fe.model.sections[1].blocks.find((b) => !had.has(b.id)).id); })()`); await pause(100); }
+    else if (op === 'add') { const s = sid(); id = evalJs(S, `(() => { const had = new Set(fe.model.sections[1].blocks.map((b) => b.id)); fe.addBlock(${JSON.stringify(s)}, 'Text', true); return JSON.stringify(fe.model.sections[1].blocks.find((b) => !had.has(b.id)).id); })()`); newId = id; await pause(100); }
     else if (op === 'click' && a[0] === 'Write') { const s = sid(); evalJs(S, `(() => { fe.edit(${JSON.stringify(s)}, ${JSON.stringify(id)}); const ce = ${ceOf.replace('__ID__', id)}; ce.focus(); return 1; })()`); if (paced) { segment = k + 1; gaps = gapsOf(finding.steps.slice(segment, untilEnd(k))); evalJs(S, STAMP(ceOf.replace('__ID__', id))); } await pause(150); }
     else if (op === 'clickIf' && !evalJs(S, `!!document.querySelector('#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]')`)) continue;
     else if (op === 'click' && a[0] === 'Undo') { browser(S, 'click', '#undo'); await wait(1200); }
@@ -96,7 +96,7 @@ export async function replay(S, finding, add) {
     else if (op === 'pasteHere') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
     // A paste at the middle of the first text, as oracle-capture.mjs does it.
     else if (op === 'pasteMid') { evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const d = ce.ownerDocument, W = d.defaultView; ce.focus(); const t = d.createTreeWalker(ce, 4).nextNode(); const r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(a[2])}); dt.setData('text/plain', ${JSON.stringify(a[2].replace(/<[^>]+>/g, ' '))}); ce.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await wait(300); }
-    else if (op === 'pick') { const s = sid(); if (typeof a[1] === 'number') id = evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${a[1]}].id)`); evalJs(S, `(() => { fe.select(${JSON.stringify(s)}, ${JSON.stringify(id)}); return 1; })()`); await pause(60); }
+    else if (op === 'pick') { const s = sid(); id = typeof a[1] === 'number' ? evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${a[1]}].id)`) : newId; evalJs(S, `(() => { fe.select(${JSON.stringify(s)}, ${JSON.stringify(id)}); return 1; })()`); await pause(60); }
     // A real press on the block's middle.
     else if (op === 'select') { const [x, y] = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const b = ce.closest('.fe-block'); b.scrollIntoView({ block: 'center' }); const f = document.getElementById('site-frame').getBoundingClientRect(); const q = b.getBoundingClientRect(); return JSON.stringify([f.left + q.left + q.width / 2, f.top + q.top + q.height / 2]); })()`); mouse(S, 'move', x, y); mouse(S, 'down', x, y, { buttons: 1 }); mouse(S, 'up', x, y); await pause(150); }
     else if (op === 'view') { browser(S, 'click', a[0] === 'Mobile' ? '#bp-mobile' : '#bp-desktop'); await pause(300); }
@@ -125,10 +125,12 @@ export async function replay(S, finding, add) {
       // areas: each block's place on the desktop grid, as oracle-capture.mjs reads them.
       const areasWant = finding.reads[a[0]]?.areas?.map((x) => x[0]).sort(), areasGot = areasWant && evalJs(S, `(() => { const fe = document.getElementById('site-frame').contentDocument.querySelectorAll('main#page .fluid-engine')[1]; const W = fe.ownerDocument.defaultView; return JSON.stringify([...fe.querySelectorAll(':scope > .fe-block')].map((b) => { const c = W.getComputedStyle(b); return [c.gridRowStart, c.gridColumnStart, c.gridRowEnd, c.gridColumnEnd].join('/'); }).sort()); })()`);
       const areasSame = !areasWant || !a[0].includes('rows') || JSON.stringify(areasWant) === JSON.stringify(areasGot);
+      const btnWant = finding.reads[a[0]]?.btnState, btnGot = btnWant && evalJs(S, `JSON.stringify({ Undo: document.getElementById('undo').disabled, Redo: document.getElementById('redo').disabled })`);
+      const btnSame = !btnWant || ['Undo', 'Redo'].every((k) => btnWant[k]?.disabled === btnGot[k]);
       // has: is the text bar's Bold showing, is the toolbar's Write?
       const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
       const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
-      add(a[0], textNorm(got) === textNorm(want) && hasSame && areasSame, `oracle ${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
+      add(a[0], textNorm(got) === textNorm(want) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
     else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k);
     if (paced && changesIn([op, ...a])) lastChange = Date.now();
