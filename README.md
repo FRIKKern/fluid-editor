@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 52 changes
-  - U12: the faded rows by opening only: Font Packs' tabs, Customize, the strip, Image Blocks, a type's Font popover ([#343](https://github.com/FRIKKern/fluid-editor/pull/343))
-  - T12: 0005 names stand-in rows that need an account, a lookup or a collection ([#342](https://github.com/FRIKKern/fluid-editor/pull/342))
+- **Today** · 55 changes
+  - X8: a group with a written Text, an Image and a Quote, 94 of 100, one named miss ([#347](https://github.com/FRIKKern/fluid-editor/pull/347))
+  - T12: coverage list stored after the row reads: 68 rows move from unread to named ([#346](https://github.com/FRIKKern/fluid-editor/pull/346))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

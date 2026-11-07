@@ -497,11 +497,11 @@ function placeToolbar() {
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
   const z = zInfo(sel.sid, b);
-  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center' };
+  const align = { current: lay(b).justify || 'flex-start', open: vAlignOpen === sel.bid, menu: barMenu, stackDir: stackAxes(b, bp).direction, hAlign: b.halign || 'center', hNamed: b.type === 'image' };
   const key = `${sel.bid}|${bp}|${JSON.stringify(z)}|${b.buttonStyle || ""}|${b.fit || ''}|${b.video?.src ? 1 : ''}|${JSON.stringify(align)}`;
   if (toolbar.dataset.key !== key) {
     const inStack = !!parentStack(sel.sid, sel.bid);
-    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type, bp, z, !!b.fit || !!b.video?.src, inStack), z, align);
+    toolbar.innerHTML = toolbarHtml(toolbarItems(b.type === 'shape' && b.label ? 'stand-in' : b.type, bp, z, !!b.fit, inStack), z, align);
     toolbar.dataset.key = key;
     // The menu sits 4px under the bar, centred on the button.
     const vm = toolbar.querySelector('.tb-vmenu');
@@ -543,7 +543,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
-  if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
+  if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) { openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
   // on screen, and opens the popover; one undo step.
   if (act === 'pin') {
@@ -1646,6 +1646,8 @@ function renderBlockPanel() {
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
   blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
+  if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
   if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
@@ -4563,7 +4565,7 @@ function frameToLanded(bid) {
   if (c) win.scrollBy({ top: c.top + c.height / 2 - win.innerHeight / 2, behavior: 'instant' });
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
-const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
+const NEW_ALIGN = { Line: 'center', Shape: 'center', Image: 'center' }; // CAP-S3ALIGN.json start, CAP-75IMAGE3.json
 function addBlock(sid, name) {
   const [, w, h, make] = ADD_TYPES.find((t) => t[0] === name);
   const s = S(sid);
