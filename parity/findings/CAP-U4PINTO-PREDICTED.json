@@ -1,0 +1,29 @@
+{
+  "item": "U4",
+  "question": "97: after an Offset that is not in px, does picking another Pin option keep the unit? Predicted before the read.",
+  "start": "a new Shape on a probe page, Pin, Offset typed 5vh (as CAP-U4PINUNIT.json)",
+  "predicted": [
+    {
+      "after": "Pin to Center on Scroll",
+      "field": "5vh",
+      "slider": "5"
+    },
+    {
+      "after": "Pin to Bottom on Scroll",
+      "field": "5vh",
+      "slider": "5"
+    },
+    {
+      "after": "Pin to Top on Scroll",
+      "field": "5vh",
+      "slider": "5"
+    },
+    {
+      "after": "Remove Pin, then Pin to Top on Scroll",
+      "field": "0px",
+      "slider": "0"
+    }
+  ],
+  "why": "A slider move keeps the unit on the oracle (CAP-U4PINUNIT.json); a new option changes only the anchor. Remove Pin drops the offset, so a new pin starts at 0px.",
+  "ours": "Ours keeps the number and drops the unit to px on a new option (97)."
+}
