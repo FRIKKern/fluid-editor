@@ -3143,33 +3143,40 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const up = (a) => a.every((v, i) => !i || v >= a[i - 1]), down = (a) => a.every((v, i) => !i || v <= a[i - 1]);
   const [y1, y2, y3] = await place();
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(70); mouse(S, 'move', 800, y3); await pause(500); let f = stop();
+  // The second move is sent in the page on the first frame the new pair passes 0.3, so a slow machine can't push it
+  // past the 0.2 s fade; the real pointer follows it there.
+  const midway = (y) => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), sid0 = c.dataset.key?.split('|')[0]; const T = window.__mid = { done: false }; const tick = () => { if (T.done) return; const o = c.hidden ? null : c.querySelector('.sc-add-section'), sid = c.dataset.key?.split('|')[0]; if (o && sid !== sid0) { const v = +getComputedStyle(o).opacity; if (v > 0.3 && v < 0.7) { T.done = true; ${y === 'bar' ? "document.querySelector('.bar').dispatchEvent(new PointerEvent('pointerenter'));" : y === 'scroll' ? "document.getElementById('site-frame').contentWindow.scrollBy(0, 60);" : `const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 800 - fr.left, yy = ${y} - fr.top; f.contentDocument.elementFromPoint(x, yy).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: yy }));`} return; } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  const cross = async (y, to, toY) => { midway(to); mouse(S, 'move', 800, y); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); mouse(S, 'move', 800, toY); await pause(500); };
+  await go(y1); start(); await cross(y2, y3, y3); let f = stop();
   const short = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'a').map((x) => x[1])))];
   const thirdGone = f.map((r) => r.gone.length).reduce((a, b) => Math.max(a, b), 0);
   add('a third section during a fade: the first falls on, the middle falls in a shorter time, the third rises', thirdGone === 4 && short.includes(200) && short.some((d) => d > 0 && d < 190) && up(f.filter((r) => r.lit.length).slice(-20).map((r) => r.lit[0][1])) && f.at(-1).gone.length === 0, JSON.stringify({ thirdGone, short }));
   const olShort = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'o').map((x) => x[1])))];
   add('the outline the same way', olShort.includes(200) && olShort.some((d) => d > 0 && d < 190), JSON.stringify(olShort));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(40); mouse(S, 'move', 800, y1); await pause(500); f = stop();
+  await go(y1); start(); await cross(y2, y1, y1); f = stop();
   const s0 = f[0].sid, mid = f.findIndex((r) => r.sid && r.sid !== s0), backAt = mid > 0 ? f.findIndex((r, i) => i > mid && r.sid === s0) : -1;
   const back = backAt > 0 ? f.slice(backAt).map((r) => r.lit[0][1]) : [];
   const backGone = backAt > 0 ? f[backAt].gone.length : -1;
   add('back to the first during a fade: it runs back from where it is', back.length > 3 && back[0] > 0 && back[0] < 1 && up(back) && back.at(-1) === 1 && backGone === 2 && f.slice(backAt).find((r) => r.lit[0][1] === 1).ms - f[backAt].ms <= 200 * (1 - back[0]) + 40, JSON.stringify({ backAt, backGone, first: back[0], frames: back.length }));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); await pause(50); mouse(S, 'move', 800, 20); await pause(500); f = stop();
+  await go(y1); start(); await cross(y2, 'bar', 20); f = stop();
   const midSid = f.find((r) => r.sid && r.sid !== f[0].sid)?.sid, risen = f.filter((r) => r.sid === midSid && r.lit.length).map((r) => r.lit[0][1]);
   const peak = Math.max(...risen.slice(0, -1)), peakAt = risen.indexOf(peak), fall = risen.slice(peakAt);
   add('rising, then off every section: it falls from where it is, no jump, in a shorter time', peak > 0 && peak < 1 && fall.length >= 3 && down(fall) && fall[1] > peak * 0.7 && f.filter((r) => r.sid === midSid && r.lit.length).at(-1).ms - f.filter((r) => r.sid === midSid && r.lit.length)[peakAt].ms <= 200 * peak + 150, JSON.stringify({ peak, frames: fall.length }));
 
-  await go(y1); start(); mouse(S, 'move', 800, y2); wheel(S, 800, y2, 60); await pause(500); f = stop();
+  // A scroll mid-fade, sent in the page as the others are; the oracle's wheel and script scrolls read the same (CAP-U9FADE4.json).
+  await go(y1); start(); midway('scroll'); mouse(S, 'move', 800, y2); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); await pause(500); f = stop();
   const both = f.filter((r) => r.gone.length === 2 && r.lit.length === 2);
   const moved = both.length ? both[0].gone[1][0] - both.at(-1).gone[1][0] : 0, movedLit = both.length ? both[0].lit[1][0] - both.at(-1).lit[1][0] : 0;
   const olBoth = f.filter((r) => r.olGone.length === 1 && r.ol);
   const olMoved = olBoth.length ? olBoth[0].olGone[0][0] - olBoth.at(-1).olGone[0][0] : 0;
-  add('a wheel turn during a fade: the fade runs on and the copies move with the page', moved === 60 && movedLit === 60 && olMoved === 60 && up(both.map((r) => r.lit[0][1])) && down(both.map((r) => r.gone[0][1])) && f.at(-1).lit[0][1] === 1, JSON.stringify({ moved, movedLit, olMoved }));
+  add('a scroll during a fade: the fade runs on and the copies move with the page', moved === 60 && movedLit === 60 && olMoved === 60 && up(both.map((r) => r.lit[0][1])) && down(both.map((r) => r.gone[0][1])) && f.at(-1).lit[0][1] === 1, JSON.stringify({ moved, movedLit, olMoved }));
 
   const [, , y3b] = await place();
-  await go(y3b - 60 - 20); const was = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); wheel(S, 802, y3b - 80, 300); await pause(500); const now = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`);
+  await go(y3b - 60 - 20); const was = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); wheel(S, 802, y3b - 80, 300); let now = was;
+  // The browser's own pointerover after a scroll comes late on a busy page: wait for it, up to 2 s.
+  for (let w = 0; w < 20 && now === was; w++) { await pause(100); now = evalJs(S, `document.getElementById('section-chrome').dataset.key.split('|')[0]`); }
   add('a wheel turn with the pointer still: a new section under it takes the chrome', now !== was && !!now, JSON.stringify({ was, now }));
 
   // A block with nothing selected: the press alone changes nothing, as a press and 6 px don't on the oracle.
