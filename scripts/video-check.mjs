@@ -54,7 +54,7 @@ const order = q(`const at = (s) => { const e = panel.querySelector(s); return e 
 add('Content rows in the oracle\'s order', order.every((v, i) => v >= 0 && (i === 0 || v >= order[i - 1])), order.join());
 await closed();
 add('Toolbar with a video', toolbar().filter((x) => F.toolbar.map((n) => n.split(' ')[0].toLowerCase()).includes(x)).join() === 'edit,align,pin,duplicate,remove', toolbar().join());
-add('Toolbar without one has no Align', !emptyBar.includes('align'), emptyBar.join());
+add('Toolbar without one has Align too (CAP-75VIDEO.json)', emptyBar.includes('align'), emptyBar.join());
 await openPanel();
 
 // Aspect ratio at the oracle's block: 929.5 wide at 6/6/20/22.

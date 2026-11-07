@@ -427,6 +427,64 @@ await typeIn(TF, '3.5'); tk = thick(); add('Ours: 3.5 stays, slider 4', tk.v ===
 q(`fe.undo(); await sleep(260); return 'true';`);
 add('Thickness: one undo step', thick().v === '1px', thick().v);
 
+// Difference 75: Align Vertically on every tile but Button, Shape and Map (CAP-COVERAGE.json), its menu and what it moves (CAP-75QUOTE, CODE, FORM, VIDEO), a new Image's two more buttons (CAP-75IMAGE, 2, 3).
+{
+  const read75 = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/CAP-75${n}.json`, import.meta.url))).reads;
+  // The bar and any menu under it, each as [label, x from Edit, y from Edit].
+  const barOf = (r) => { const edit = r.controls.find((c) => c.label === 'Edit' && c.box[2] === 36); return r.controls.filter((c) => c.role === 'button' && c.box[2] === 36 && c.box[1] >= edit.box[1] && c.box[1] <= edit.box[1] + 47).map((c) => [c.label, +(c.box[0] - edit.box[0]).toFixed(1), +(c.box[1] - edit.box[1]).toFixed(1)]); };
+  const ourBar = () => q(`const bar = [...document.querySelectorAll('#block-toolbar button[aria-label]')].filter((e) => e.getBoundingClientRect().width > 0), edit = bar.find((e) => e.getAttribute('aria-label') === 'Edit').getBoundingClientRect(); return JSON.stringify(bar.map((e) => { const c = e.getBoundingClientRect(); return [e.getAttribute('aria-label'), +(c.left - edit.left).toFixed(1), +(c.top - edit.top).toFixed(1)]; }));`);
+  const sameBar = (what, r) => { const got = ourBar(), want = barOf(r); add(what, got.length === want.length && want.every((w) => got.some((g) => g[0] === w[0] && near(g[1], w[1], 1) && near(g[2], w[2], 1))), `${JSON.stringify(got)} wants ${JSON.stringify(want)}`); };
+  const tb = (act) => q(`const e = document.querySelector('#block-toolbar [data-tb="${act}"]'); e?.click(); await sleep(240); return JSON.stringify(!!e);`); // No throw: a missing button fails the cases after it.
+  const pick = async (name, area) => { const { sid, id } = await fresh(name); q(`const next = JSON.parse(JSON.stringify(fe.model)); ${area ? `next.sections[1].blocks.at(-1).layout.desktop.area = ${JSON.stringify(area)};` : ''} fe.load(next); await sleep(250); fe.select('${sid}', '${id}'); await sleep(250); return 'true';`); return id; };
+  // Oracle: the gap over the content at Top, under it at Bottom, and how far it moves (Video: the block's content is shorter than the block and doesn't move).
+  for (const [type, nm, area, gap, moves] of [['Quote', 'QUOTE', [1, 2, 11, 8], 36.5, true], ['Code', 'CODE', [1, 2, 11, 6], 0, true], ['Form', 'FORM', [1, 2, 21, 11], 0, true], ['Video', 'VIDEO', [1, 2, 13, 10], 0, false]]) {
+    const R = read75(nm), id = await pick(type, area);
+    const gaps = () => q(`const B = block('${id}').getBoundingClientRect(), c = block('${id}').querySelector('.sqs-block-content > :first-child').getBoundingClientRect(); return JSON.stringify([c.top - B.top, B.bottom - c.bottom]);`);
+    tb('align');
+    sameBar(`75, ${type}: the bar and its menu`, R.menu);
+    const top = gaps();
+    add(`75, ${type}: Top, ${gap} over it`, near(top[0], gap, 2), JSON.stringify(top));
+    tb('valign:flex-end');
+    const low = gaps();
+    add(`75, ${type}: ${moves ? `Bottom, ${gap} under it` : 'Bottom, no move'}`, moves ? near(low[1], gap, 2) : near(low[0], top[0], 0.5), JSON.stringify(low));
+    add(`75, ${type}: a pick keeps the menu open`, q(`return JSON.stringify(!!document.querySelector('#block-toolbar [data-tb="valign:center"]'));`), 'closed');
+    tb('valign:center');
+    const mid = gaps();
+    add(`75, ${type}: ${moves ? 'Center, even' : 'Center, no move'}`, moves ? near(mid[0], mid[1], 1) : near(mid[0], top[0], 0.5), JSON.stringify(mid));
+  }
+  // A new Image with no picture: the placeholder doesn't move, what it does to a picture isn't read (no uploads).
+  const I1 = read75('IMAGE'), I2 = read75('IMAGE2'), I3 = read75('IMAGE3');
+  const img = await pick('Image');
+  sameBar('75, Image: the bar', I1.new);
+  add('75, Image: Align Vertically starts at center', q(`return JSON.stringify(getComputedStyle(block('${img}').querySelector('.sqs-block')).justifyContent === 'center');`), 'other');
+  tb('halign');
+  sameBar('75, Image: Align Center opens its menu', I2['h menu']);
+  tb('halign');
+  sameBar('75, Image: pressed again, it closes', I2['h menu pressed again']);
+  tb('align');
+  sameBar('75, Image: Align Vertically opens its menu', I2['v menu']);
+  tb('align'); tb('halign'); tb('halign:left');
+  sameBar('75, Image: Align Left names the button, menu stays', I3.left);
+  q(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks.at(-1).layout.desktop.area = [1, 8, 7, 14]; fe.load(next); await sleep(250); fe.select(next.sections[1].id, '${img}'); await sleep(250); return 'true';`);
+  tb('link');
+  const lk = q(`const p = document.querySelector('#block-toolbar [data-tb="link"]')?.getBoundingClientRect(), i = document.querySelector('#link-popover .lk-row')?.getBoundingClientRect(); return JSON.stringify(p && i ? [i.left + i.width / 2 - (p.left + p.width / 2), i.top - p.top, i.width, i.height] : null);`);
+  const lf = I1['link popover'].controls.find((c) => c.role === 'combobox').box, lb = I1['link popover'].controls.find((c) => c.label === 'Open link editor popover').box;
+  const lwant = [lf[0] + lf[2] / 2 - (lb[0] + lb[2] / 2), lf[1] - lb[1], lf[2], lf[3]];
+  add('75, Image: the link popover and its field', !!lk && lk.every((v, n) => near(v, lwant[n], 2)), `${JSON.stringify(lk)} wants ${JSON.stringify(lwant)}`);
+  const hrefNow = q(`const i = document.querySelector('#link-popover .lk-input'); if (!i) return 'null'; i.focus(); i.value = '/services'; i.dispatchEvent(new Event('input', { bubbles: true })); i.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); await sleep(250); return JSON.stringify(fe.model.sections[1].blocks.at(-1).href ?? null);`);
+  add('75, Image: a link is kept on the block', hrefNow === '/services', JSON.stringify(hrefNow));
+  // A Button, a Shape and a Map have none.
+  for (const t of ['Button', 'Map']) { await pick(t); add(`75, ${t}: no Align Vertically`, q(`return JSON.stringify(!document.querySelector('#block-toolbar [data-tb="align"]'));`), 'there'); }
+  // Difference 77: a phone's Design has no More actions.
+  const vid = await pick('Video');
+  q(`document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(250); panel.querySelector('[data-btab="Design"]').click(); await sleep(200); return 'true';`);
+  add('77: More actions on desktop', q(`return JSON.stringify(!!panel.querySelector('.bp-more'));`), 'none');
+  q(`fe.setBp('mobile'); await sleep(350); fe.select(fe.model.sections[1].id, '${vid}'); await sleep(250); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(250); panel.querySelector('[data-btab="Design"]').click(); await sleep(200); return 'true';`);
+  add('77: none on a phone, its Design still there', q(`return JSON.stringify(!panel.hidden && !panel.querySelector('.bp-more') && panel.querySelector('[data-btab="Design"]').classList.length > 0);`), 'there');
+  add('75, Video phone: Align Vertically', q(`return JSON.stringify(!!document.querySelector('#block-toolbar [data-tb="align"]'));`), 'none');
+  q(`fe.setBp('desktop'); await sleep(200); return 'true';`);
+}
+
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nT11: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

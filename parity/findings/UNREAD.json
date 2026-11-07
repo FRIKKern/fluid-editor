@@ -5,12 +5,12 @@
   "how": "From every item's evidence and every finding's notRead, notMeasured, inferred and unexplained lines on main at c71aebf. An entry is left out if it is under decision 0005, or a builder holds its item: T4, T9, T15, T12 (blocks); P5, U10, U12 (chrome); R2, X8, X2, phone order, H3 (gestures). Found by text search plus reading, so a fact nobody wrote down as unread is not here. Entries with source CAP-COVERAGE.json come from the coverage walk: parity/coverage-check.json lists them, npm run coverage-check compares.",
   "safeRead": "yes: can be read on a probe page, unsaved. no: why says what stops it.",
   "counts": {
-    "total": 154,
+    "total": 157,
     "yes": 115,
-    "no": 39,
-    "read": 108,
+    "no": 42,
+    "read": 114,
     "notPressed": 0,
-    "open": 46
+    "open": 43
   },
   "entries": [
     {
@@ -1394,13 +1394,15 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
       "what": "Chart: what each of its own rows does: Chart Type, Flip X And Y Axes, Chart Data, Chart Title, Caption, Show Legend, Color Palette, Update, Import/Export, Import or Export Chart Data. Ours has none of them.",
       "safeRead": "yes",
       "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
-      "phone": "the same rows on the phone"
+      "phone": "the same rows on the phone",
+      "finding": "CAP-ROWSCHART.json",
+      "result": "Three tabs. Chart Type Bar, Line, Pie. Flip X And Y Axes. Data grid. Chart Title and Caption fields grow it, Show Legend, Color Palette of 14. Import / Export has CSV in a text area."
     },
     {
       "lane": "recorder",
@@ -1425,13 +1427,15 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
       "what": "Tag Cloud: what each of its own rows does: Display Type, Sort By, 5 Tags. Ours has none of them.",
       "safeRead": "yes",
       "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
-      "phone": "the same rows on the phone"
+      "phone": "the same rows on the phone",
+      "finding": "CAP-ROWSTAGCLOUD.json",
+      "result": "Display Type Tags or Categories, Sort By Alphabetical, Weight, Activity: no change with no collection. Tags slider 5 to 100 changes the block."
     },
     {
       "lane": "recorder",
@@ -1474,13 +1478,15 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
       "what": "Instagram: what each of its own rows does: 10 Items, Aspect Ratio, Crop Images, Lightbox, Open Links in New Window, Slideshow, Carousel, Grid, Stacked, Choose the thumbnails per row., Padding around the gridded images.. Ours has none of them.",
       "safeRead": "yes",
       "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
-      "phone": "the same rows on the phone"
+      "phone": "the same rows on the phone",
+      "finding": "CAP-ROWSINSTAGRAM.json",
+      "result": "Account: Items slider 1 to 20, no change with no account; account menu not pressed. Design: Aspect Ratio changes rows, Crop Images, thumbnails 1 to 10, padding 0 to 50, Lightbox, Open Links in New Window. Layout pictures not read."
     },
     {
       "lane": "recorder",
@@ -1520,13 +1526,15 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
       "what": "Flickr: what each of its own rows does: 10 Items, Aspect Ratio, Crop Images, Show Title, Lightbox, Open Links in New Window, Slideshow, Carousel, Grid, Stacked, Choose the thumbnails per row., Padding around the gridded images.. Ours has none of them.",
       "safeRead": "yes",
       "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
-      "phone": "the same rows on the phone"
+      "phone": "the same rows on the phone",
+      "finding": "CAP-ROWSFLICKR.json",
+      "result": "Same as Instagram plus Show Title. Layout pictures not read."
     },
     {
       "lane": "recorder",
@@ -1581,13 +1589,15 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "T12",
       "source": "CAP-COVERAGE.json",
       "what": "Bandsintown: what each of its own rows does: Pablo City, Timeframe to Show. Ours has none of them.",
       "safeRead": "yes",
       "how": "a new block on a probe page, unsaved. Press or change only the row itself, and leave by Exit. Some names are a value the row shows.",
-      "phone": "the same rows on the phone"
+      "phone": "the same rows on the phone",
+      "finding": "CAP-ROWSBANDSINTOWN.json",
+      "result": "Read only: the walk stops at Band Name, an outside lookup. Timeframe reads Upcoming or Date Range, not pressed."
     },
     {
       "lane": "recorder",
@@ -1600,12 +1610,14 @@
     },
     {
       "lane": "recorder",
-      "state": "open",
+      "state": "read",
       "item": "P5",
       "source": "CAP-COVERAGE.json",
       "what": "Section panel, Design: Copy Link, a button by the anchor's field. Ours has the field, not this button.",
       "safeRead": "yes",
-      "how": "on a probe page, unsaved, a name in the field first. Synthetic clipboard only."
+      "how": "on a probe page, unsaved, a name in the field first. Synthetic clipboard only.",
+      "finding": "CAP-SECTIONNAMES.json",
+      "result": "A button with cursor not-allowed, even with a name typed. Not pressed: it may touch the clipboard, so what it copies is not read."
     },
     {
       "item": "U12",
@@ -1629,6 +1641,33 @@
       "item": "U12",
       "what": "An Assign Styles row: what a pick draws, whether the Form Block rows share a store with Forms > Fonts, and what a row other than Header Button shows at Style Custom. Their lists are read, on Site Title and Forms > Fonts' rows only.",
       "source": "CAP-U12ASSIGN.json, CAP-U12ASSIGNPREDICT.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "Font Packs' Serif and Mixed tabs, and every Sans-serif tile: what a pack draws, and its button transform. Tiles and fonts are read.",
+      "source": "CAP-U12FADED.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "Image Blocks: what a value draws. The rows and values are read. Ours has no such layouts, so they store only.",
+      "source": "CAP-U12FADED.json",
+      "safeRead": "no",
+      "why": "needs a pick in Site Styles, which reaches the whole site; read only",
+      "lane": "none",
+      "state": "open"
+    },
+    {
+      "item": "U12",
+      "what": "A button type's Font popover: what a row draws, whether it shares Fonts > Buttons' store, and what a press outside does.",
+      "source": "CAP-U12FADED.json",
       "safeRead": "no",
       "why": "needs a pick in Site Styles, which reaches the whole site; read only",
       "lane": "none",
