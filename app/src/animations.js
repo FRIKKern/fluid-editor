@@ -298,16 +298,26 @@ function watched(el, a) {
   const box = a.when === 'Section' ? el.closest('section') || el : el;
   let top = 0;
   for (let e = box; e; e = e.offsetParent) top += e.offsetTop;
-  return { top, h: box.offsetHeight, self: box === el };
+  return { top, h: box.offsetHeight, w: box.offsetWidth, self: box === el };
 }
-// The scroll at which On Appear plays. Start's Offset Y moves the edge; its scale and rotate do
-// not, but a scale of 0 leaves no box: Top and Middle act at the middle, and Bottom never plays.
-export function appearAt({ top, h, self }, a, view) {
-  const n = numbers(a.start);
-  let share = SHARE[a.edge] ?? 0;
-  if (self && n.sy === 0) { if (a.edge === 'Bottom') return Infinity; share = 0.5; }
-  return top + (self ? n.ypx + (n.yp * h) / 100 : 0) + h * share - view * (1 - pct(a.screen));
+// Where On Appear plays: from the first scroll where its edge (Start's Offset Y moves it; scale
+// and rotate do not) has passed its line, while the box, moved by all of Start, is in the frame.
+// So a line below the frame waits for the box to come in, a box of no height shows only at its
+// middle, and a Bottom that passes after that middle has gone never plays (CAP-T15FRESH2.json).
+const rad = (v) => (v * Math.PI) / 180;
+function startMatrix(n) {
+  const mul = ([a, b, c, d], [e, f, g, h]) => [a * e + c * f, b * e + d * f, a * g + c * h, b * g + d * h];
+  return [[Math.cos(rad(n.r)), Math.sin(rad(n.r)), -Math.sin(rad(n.r)), Math.cos(rad(n.r))], [n.sx, 0, 0, n.sy], [1, 0, Math.tan(rad(n.kx)), 1], [1, Math.tan(rad(n.ky)), 0, 1]].reduce(mul);
 }
+export function appearSpan({ top, h, w = 0, self }, a, view) {
+  const n = numbers(a.start), dy = self ? n.ypx + (n.yp * h) / 100 : 0;
+  const line = top + dy + h * (SHARE[a.edge] ?? 0) - view * (1 - pct(a.screen));
+  const [, b, , d] = self ? startMatrix(n) : [1, 0, 0, 1];
+  const mid = top + dy + h / 2, half = (Math.abs(b) * w) / 2 + (Math.abs(d) * h) / 2;
+  const from = Math.max(line, mid - half - view), to = mid + half;
+  return from <= to ? [from, to] : null;
+}
+export const appearAt = (box, a, view) => appearSpan(box, a, view)?.[0] ?? Infinity;
 // The scroll where On Scroll starts and ends.
 export function scrollSpan({ top, h }, a, view) {
   if (a.action === 'Passes') {
@@ -366,9 +376,9 @@ export function followPose(a, dx, dy, R, away = [1, 0]) {
   };
 }
 // How a block chases that pose: a spring. Its speed w and damping z are smooth in Smoothing (s)
-// and Bounce (b), fitted to the steps read at 13 pairs (CAP-T15FOLLOW.json, CAP-T15FRESH.json).
-// Smoothing .25 with Bounce 0 fits no spring (rms .05): that corner stays a miss.
-const FOLLOW_W = [2.0943, -1.5149, -0.0504, 0.6614], FOLLOW_Z = [0.2321, -0.2493, -0.6381, -2.247];
+// and Bounce (b), fitted to the steps read at 18 pairs (CAP-T15FOLLOW.json). Smoothing .25 with
+// Bounce 0 fits no spring (rms .05), nor does a Bounce of .9 that still rings: those stay misses.
+const FOLLOW_W = [1.9847, -1.5973, 0.3227, 1.0236], FOLLOW_Z = [0.1117, -0.2166, 0.3305, -3.5463];
 export function followSpring(a) {
   const s = Math.min(1, Math.max(0.05, parseFloat(a.smoothing) || 0)), b = parseFloat(a.bounce) || 0, ls = Math.log(s);
   const [a0, a1, a2, a3] = FOLLOW_W, [b0, b1, b2, b3] = FOLLOW_Z;
@@ -442,7 +452,8 @@ export function startPageMotion(doc, rowsOf) {
     const y = win.scrollY, view = win.innerHeight;
     for (const r of scroll) { const s = stateOf(r.el); s.pose = between(r.from, r.to, scrollProgress(r.a, y, scrollSpan(watched(r.el, r.a), r.a, view))); write(r.el, s); }
     for (const r of appear) {
-      if (r.done || y < appearAt(watched(r.el, r.a), r.a, view)) continue;
+      const span = appearSpan(watched(r.el, r.a), r.a, view);
+      if (r.done || !span || y < span[0] || y > span[1]) continue;
       r.done = true;
       morph(r.el, REST_N, r.a, seconds(r.a), () => clear(r.el));
     }

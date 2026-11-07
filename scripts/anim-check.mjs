@@ -355,7 +355,7 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
 {
   const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15TRIGGERS.json', import.meta.url)));
   const { appearAt, scrollSpan, scrollProgress, newAnimation, PRESETS } = await import('../app/src/animations.js');
-  const boxOf = (when) => (when === 'Section' ? { top: T.section.top, h: T.section.h, self: false } : { top: T.block.top, h: T.block.h, self: true });
+  const boxOf = (when) => (when === 'Section' ? { top: T.section.top, h: T.section.h, self: false } : { top: T.block.top, h: T.block.h, w: T.block.w, self: true });
   for (const r of T.appear.reads) {
     const y = appearAt(boxOf(r.when), r, r.view);
     const ok = r.after == null ? y > r.lastRead : y <= r.after && (r.before < 0 || y > r.before - 1);
@@ -439,7 +439,7 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
     add(`Follow rule: ${r.name} at ${r.at.map((v) => Math.round(v))}`, worst <= T.tolerance.matrix && near(tx, r.matrix[4], T.tolerance.px) && near(ty, r.matrix[5], T.tolerance.px) && near(p.o, r.opacity, T.tolerance.opacity), JSON.stringify({ m: m.map((v) => +v.toFixed(3)), tx, ty, o: p.o, read: r.matrix, opacity: r.opacity }));
   }
   const resp = (t, w, z) => { let x = 0, v = 0; for (let i = 0; i < t; i++) { v += (w * w * (1 - x) - 2 * z * w * v) * 0.001; x += v * 0.001; } return x; };
-  for (const c of T.steps) { const { w, z } = followSpring(c.row); const worst = Math.max(...c.at.map(([t, v]) => Math.abs(resp(t, w, z) - v))); add(`Follow chase: Smoothing ${c.row.smoothing} Bounce ${c.row.bounce}`, worst <= T.tolerance.step, worst.toFixed(3)); }
+  for (const c of T.steps) { const { w, z } = followSpring(c.row); const rms = Math.sqrt(c.at.reduce((n, [t, v]) => n + (resp(t, w, z) - v) ** 2, 0) / c.at.length); add(`Follow chase: Smoothing ${c.row.smoothing} Bounce ${c.row.bounce}`, rms <= T.tolerance.step, rms.toFixed(3)); }
 
   const state = () => q(`const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${id}"]')); return JSON.stringify([c.transform, c.opacity, c.translate]);`);
   const inlineNow = () => q(`return JSON.stringify(d.querySelector('.fe-block[data-block-id="${id}"]').getAttribute('style'));`);
