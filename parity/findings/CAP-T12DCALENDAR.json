@@ -1,0 +1,368 @@
+{
+  "item": "CAP-T12DCALENDAR",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T12: Calendar's dialog: box, title and rows, read only",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Calendar"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "first",
+      {
+        "controls": true,
+        "looks": [
+          540,
+          225,
+          1140,
+          560
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "read",
+      "low",
+      {
+        "looks": [
+          540,
+          560,
+          1140,
+          900
+        ]
+      }
+    ],
+    [
+      "read",
+      "frame",
+      {
+        "looks": [
+          545,
+          230,
+          1135,
+          712
+        ]
+      }
+    ],
+    [
+      "shot",
+      "first"
+    ]
+  ],
+  "reads": {
+    "first": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            949.1,
+            329,
+            65,
+            16
+          ]
+        }
+      ],
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Calendar",
+          "box": [
+            824,
+            248,
+            269,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            949.1,
+            329,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            824,
+            414,
+            269,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        }
+      ],
+      "block": {
+        "desktop": "1/2/19/14",
+        "mobile": "1/2/16/10",
+        "box": [
+          100.1,
+          216.2,
+          694.4,
+          728.7
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794055308131_1800",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 19 / 14",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,359.3",
+          "col 10x10 at 690.4,359.3",
+          "ne 10x10 at 690.4,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 342.2,-6",
+          "row 10x10 at 342.2,724.7",
+          "se 10x10 at 690.4,724.7",
+          "sw 10x10 at -6,724.7"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "low": {
+      "looks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "frame": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            791,
+            237,
+            335,
+            465
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Calendar",
+          "box": [
+            824,
+            248,
+            269,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            949.1,
+            329,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            824,
+            414,
+            269,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

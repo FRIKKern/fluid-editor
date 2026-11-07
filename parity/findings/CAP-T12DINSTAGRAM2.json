@@ -1,0 +1,507 @@
+{
+  "item": "CAP-T12DINSTAGRAM2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T12: Instagram's dialog box, its tab line, its round switches and layout tiles, read only",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "frame",
+      {
+        "looks": [
+          553,
+          235,
+          952,
+          737
+        ],
+        "checks": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "checks",
+      {
+        "checks": true,
+        "looks": [
+          575,
+          545,
+          640,
+          900
+        ]
+      }
+    ],
+    [
+      "read",
+      "tiles",
+      {
+        "looks": [
+          585,
+          330,
+          920,
+          450
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "frame": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            555,
+            237,
+            395,
+            498
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Grid",
+          "box": [
+            588,
+            248,
+            329,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Account",
+          "box": [
+            555,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            752.5,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            588,
+            384,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            425,
+            329,
+            0
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(252, 231, 19)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Instagram search results are no longer supported. To use the Instagram block, re",
+          "box": [
+            610,
+            425,
+            285,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Connected Account",
+          "box": [
+            588,
+            450,
+            114.6,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            469,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Choose an account",
+          "box": [
+            599,
+            480,
+            307,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            469,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "10 Items",
+          "box": [
+            588,
+            535,
+            329,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            567.8,
+            329,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            601.8,
+            329,
+            88
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(252, 231, 19)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "strong",
+          "role": "",
+          "text": "Add an Account",
+          "box": [
+            636.2,
+            659.8,
+            91.8,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "checks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "checks": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "4",
+          "box": [
+            588,
+            623,
+            33,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "20",
+          "box": [
+            588,
+            689.8,
+            33,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "checks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tiles": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Slideshow",
+          "box": [
+            588,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Carousel",
+          "box": [
+            670.3,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            752.5,
+            337,
+            82.3,
+            110
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0.043)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Grid",
+          "box": [
+            752.5,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Stacked",
+          "box": [
+            834.8,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

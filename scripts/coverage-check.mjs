@@ -26,7 +26,8 @@ const names = (rows) => [...new Map(pair(rows).filter((r) => !SKIP.has(norm(r.n)
 const js = (b) => evalJs(S, b);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
-const PANEL = `document.getElementById('block-panel')`;
+// T12's older dialogs show in #block-dialog in place of the panel (dialogs.js).
+const PANEL = `([document.getElementById('block-panel'), document.getElementById('block-dialog')].find((p) => p && !p.hidden) || document.getElementById('block-panel'))`;
 const readOurs = (type, phone) => js(`(async () => { const w = (r) => new Promise((x) => setTimeout(x, r)); fe.setBp('desktop');
   fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'middle', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 24 }, blocks: [] }] }); await w(100);
   fe.addBlock('s', ${JSON.stringify(type)}); await w(120); const b = fe.model.sections[0].blocks[0]; if (!b) return JSON.stringify({ error: 'no tile' });
@@ -36,7 +37,7 @@ const readOurs = (type, phone) => js(`(async () => { const w = (r) => new Promis
   const toolbar = [...document.querySelectorAll('#block-toolbar button, #block-toolbar [role=button], #block-toolbar a')].filter(vis).map((e) => (e.getAttribute('aria-label') || e.title || e.textContent || '').replace(/\\s+/g, ' ').trim());
   const edit = document.querySelector('#block-toolbar [data-tb="edit"]');
   if (!vis(edit)) return JSON.stringify({ toolbar, noEdit: true });
-  const panel = ${PANEL}; if (panel.hidden) edit.click(); await w(250);
+  let panel = ${PANEL}; if (panel.hidden) edit.click(); await w(250); panel = ${PANEL};
   if (panel.hidden) return JSON.stringify({ toolbar, noPanel: true });
   const tabs = [...panel.querySelectorAll('[role=tab]')].filter(vis);
   const out = { toolbar, tabs: {} };
