@@ -4,6 +4,7 @@ import { FONT_GROUPS, OTHER_FONTS } from '../app/src/font-names.js';
 import { ASSIGN_GROUPS } from '../app/src/assign-names.js';
 import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, STYLES, FINDING } from './oracle/readback.mjs';
 import { VIEWS, DEEP, LISTS } from './oracle/style-views.mjs';
+import { FOOTER, FOOTER_PATHS, compareFooter } from './oracle/footer.mjs';
 import { siteStylesHtml } from '../app/src/site-styles.js';
 import { THEMES as OUR_THEMES } from '../app/src/site-style-packs.js';
 import { SHAPES } from '../app/src/button-tiers.js';
@@ -108,6 +109,18 @@ const tileNames = (rows) => rows.filter((r) => r[0]).map((r) => r[0]);
 for (const t of ['Primary', 'Secondary', 'Tertiary']) is(`our ${t} button Shape list offers the oracle's tiles`, eq(tileNames(lists[`Buttons > ${t} Button`].shape), SHAPES.map(([n]) => n)));
 is('our Field Shape list offers the oracle\'s tiles', eq(tileNames(lists.Forms.shape), FORM_SHAPES.map(([n]) => n)));
 is('our Themes popover holds the oracle\'s tiles and groups', eq(lists.Themes.tiles.map((x) => x[0]), OUR_THEMES.map((t) => `Site theme ${t.id}`)) && eq(lists.Themes.heads.slice(1), [...new Set(OUR_THEMES.map((t) => t.group))]));
+// The footer: the stored base passes on every page, and each kind of change fails.
+const fb = FOOTER.reads, f0 = fb[FOOTER_PATHS[0]];
+is('a footer base for each page', FOOTER_PATHS.every((p) => fb[p]?.blocks?.length > 0 && fb[p].social.length > 0));
+is('the stored footer passes', FOOTER_PATHS.every((p) => compareFooter(p, fb[p]).length === 0));
+is('a footer read of nothing fails', compareFooter(FOOTER_PATHS[0], null).length > 0);
+is('a page with no footer base fails', compareFooter('/nowhere', f0).length > 0);
+is('changed footer text fails', compareFooter(FOOTER_PATHS[0], { ...f0, text: `${f0.text} x` }).length > 0);
+is('a footer block gone fails', compareFooter(FOOTER_PATHS[0], { ...f0, blocks: f0.blocks.slice(1) }).length > 0);
+is('a moved footer block fails', compareFooter(FOOTER_PATHS[0], { ...f0, blocks: f0.blocks.map((b, i) => (i ? b : [b[0], '1 / 1 / 2 / 2', b[2]])) }).length > 0);
+is('a social row more fails', compareFooter(FOOTER_PATHS[0], { ...f0, social: [...f0.social, 'x'] }).length > 0);
+is('a footer section more fails', compareFooter(FOOTER_PATHS[0], { ...f0, sections: f0.sections + 1 }).length > 0);
+is('no link target or email in the footer base', !/https?:|@/.test(JSON.stringify(FOOTER)));
 if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process.exit(1); }
 // Fonts > Buttons and Miscellaneous hold the same lists as Paragraphs, Buttons three times over; a form font holds Style and Size.
 const para = lists['Fonts > Paragraphs'].combos.map((c) => c[1].map(([n]) => n));
