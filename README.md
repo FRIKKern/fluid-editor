@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 39 changes
-  - T14: past the last row, the new block's middle at the frame's middle ([#329](https://github.com/FRIKKern/fluid-editor/pull/329))
-  - U9: the outline's run-back case reads its real gap, retries, and says NOT RUN ([#328](https://github.com/FRIKKern/fluid-editor/pull/328))
+- **Today** · 43 changes
+  - U12: the font list under a Font row ([#334](https://github.com/FRIKKern/fluid-editor/pull/334))
+  - T12: row walker refuses UNREAD's no rows and fields that reach outside; a tab with a wide note is read only ([#333](https://github.com/FRIKKern/fluid-editor/pull/333))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

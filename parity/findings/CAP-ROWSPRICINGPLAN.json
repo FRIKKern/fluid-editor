@@ -1,0 +1,211 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Pricing Plan: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Pricing Plan",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Use pricing plans to sell your digital products. To use this block, create at le",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Learn more",
+     "kind": "button",
+     "name": "GET STARTED",
+     "notPressed": "a plain button"
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "left",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "center",
+     "value": false,
+     "home": "left",
+     "change": [
+      "DIV.productDetails cl: productDetails left > productDetails center",
+      "DIV.productDetails textAlign: start > center",
+      "DIV.product-title textAlign: start > center",
+      "DIV.product-price textAlign: start > center",
+      "DIV textAlign: start > center",
+      "DIV textAlign: start > center",
+      "P textAlign: start > center",
+      "DIV textAlign: start > center",
+      "BUTTON.join-button b: 100.1,510.9,175.4,66.6 > 242,510.9,175.4,66.6",
+      "DIV b: 156.1,531.7,63.4,25 > 298,531.7,63.4,25",
+      "DIV textAlign: start > center",
+      "HR textAlign: start > center",
+      "DIV textAlign: start > center",
+      "DIV textAlign: start > center"
+     ]
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "right",
+     "value": false,
+     "home": "left",
+     "change": [
+      "DIV.productDetails cl: productDetails left > productDetails right",
+      "DIV.productDetails textAlign: start > right",
+      "DIV.product-title textAlign: start > right",
+      "DIV.product-price textAlign: start > right",
+      "DIV textAlign: start > right",
+      "DIV textAlign: start > right",
+      "P textAlign: start > right",
+      "DIV textAlign: start > right",
+      "BUTTON.join-button b: 100.1,510.9,175.4,66.6 > 384,510.9,175.4,66.6",
+      "DIV b: 156.1,531.7,63.4,25 > 440,531.7,63.4,25",
+      "DIV textAlign: start > right",
+      "HR textAlign: start > right",
+      "DIV textAlign: start > right",
+      "DIV textAlign: start > right"
+     ]
+    },
+    {
+     "row": "Title",
+     "kind": "switch",
+     "name": "Title",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 12 / 10 > 1 / 2 / 10 / 10",
+      "section rows 11 > 9",
+      "DIV.fe-block b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,384.1",
+      "DIV b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,384.1",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,384.1",
+      "DIV b: 100.1,244.2,459.3,430.1 > 100.1,244.2,459.3,384.1",
+      "DIV b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,351.1",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,384.1",
+      "DIV.product-block b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,351.1",
+      "DIV.productDetails b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,351.1",
+      "DIV.product-title cl: product-title > product-title hide",
+      "DIV.product-title b: 100.1,277.2,459.3,35 > 0,0,0,0",
+      "DIV.product-title display: flow-root > none",
+      "DIV.product-price b: 100.1,323.2,459.3,68.7 > 100.1,277.2,459.3,68.7"
+     ]
+    },
+    {
+     "row": "Description",
+     "kind": "switch",
+     "name": "Description",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 12 / 10 > 1 / 2 / 9 / 10",
+      "section rows 11 > 8",
+      "DIV.fe-block b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.1",
+      "DIV b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.1",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.1",
+      "DIV b: 100.1,244.2,459.3,430.1 > 100.1,244.2,459.3,333.1",
+      "DIV b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.1",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.1",
+      "DIV.product-block b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.1",
+      "DIV.productDetails b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.1",
+      "P.hide cl:  > hide",
+      "P.hide b: 100.1,413.9,459.3,75 > 0,0,0,0",
+      "P.hide display: block > none",
+      "DIV b: 100.1,510.9,459.3,66.6 > 100.1,413.9,459.3,66.6"
+     ]
+    },
+    {
+     "row": "Price",
+     "kind": "switch",
+     "name": "Price",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 12 / 10 > 1 / 2 / 9 / 10",
+      "section rows 11 > 8",
+      "DIV.fe-block b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,339.4",
+      "DIV b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,339.4",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,339.4",
+      "DIV b: 100.1,244.2,459.3,430.1 > 100.1,244.2,459.3,339.4",
+      "DIV b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,306.4",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,339.4",
+      "DIV.product-block b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,306.4",
+      "DIV.productDetails b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,306.4",
+      "DIV.product-price cl: product-price > product-price hide",
+      "DIV.product-price b: 100.1,323.2,459.3,68.7 > 0,0,0,0",
+      "DIV.product-price display: block > none",
+      "DIV b: 100.1,323.2,459.3,31.7 > 0,0,0,0"
+     ]
+    },
+    {
+     "row": "Benefits",
+     "kind": "switch",
+     "name": "Benefits",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 12 / 10 > 1 / 2 / 9 / 10",
+      "section rows 11 > 8",
+      "DIV.fe-block b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.3",
+      "DIV b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.3",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.3",
+      "DIV b: 100.1,244.2,459.3,430.1 > 100.1,244.2,459.3,333.3",
+      "DIV b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.3",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,333.3",
+      "DIV.product-block b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.3",
+      "DIV.productDetails b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,300.3",
+      "DIV.hide cl:  > hide",
+      "DIV.hide b: 100.1,599.5,459.3,74.8 > 0,0,0,0",
+      "DIV.hide display: block > none",
+      "HR b: 100.1,599.5,459.3,2 > 0,0,0,0"
+     ]
+    },
+    {
+     "row": "Button",
+     "kind": "switch",
+     "name": "Button",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 12 / 10 > 1 / 2 / 9 / 10",
+      "section rows 11 > 8",
+      "DIV.fe-block b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,341.5",
+      "DIV b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,341.5",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,341.5",
+      "DIV b: 100.1,244.2,459.3,430.1 > 100.1,244.2,459.3,341.5",
+      "DIV b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,308.5",
+      "DIV.sqs-blockStatus b: 100.1,244.2,459.3,441 > 100.1,244.2,459.3,341.5",
+      "DIV.product-block b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,308.5",
+      "DIV.productDetails b: 100.1,277.2,459.3,397.1 > 100.1,277.2,459.3,308.5",
+      "DIV.hide cl:  > hide",
+      "DIV.hide b: 100.1,510.9,459.3,66.6 > 0,0,0,0",
+      "DIV.hide display: block > none",
+      "BUTTON.join-button b: 100.1,510.9,175.4,66.6 > 0,0,0,0"
+     ]
+    },
+    {
+     "row": "Button Text",
+     "kind": "field",
+     "name": "Button Text",
+     "value": "Sign Up",
+     "to": "Sign UpAb",
+     "change": [
+      "BUTTON.join-button b: 100.1,510.9,175.4,66.6 > 100.1,510.9,198.1,66.6",
+      "DIV w: Sign Up > Sign UpAb",
+      "DIV b: 156.1,531.7,63.4,25 > 156.1,531.7,86.1,25"
+     ]
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design"
+ ],
+ "answer": "Pricing Plan: tabs Content, Design. 9 rows read, 8 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Pricing Plan, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}
