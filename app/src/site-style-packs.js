@@ -2,6 +2,7 @@
 // the values each pack gave the site's page, and how its tile draws. Colors are the palette's ten
 // hsl values in the order of VARS. Fonts load from Google Fonts by name, as Poppins does (O2).
 import { assignCss } from './assign-styles.js';
+import { FONT_PACK_TABS } from './font-pack-list.js';
 import { brightness } from './color-math.js';
 import { themeRowsCss } from './theme-rows.js';
 import { tierCss } from './button-tiers.js';
@@ -27,6 +28,10 @@ export const FONT_PACKS = [
   {"id":"asap","h":"Manrope","hw":500,"tt":"none","ls":-0.02,"p":"Nunito Sans","pw":400,"btt":"uppercase","tile":[28,10.3988]},
   {"id":"young serif","h":"Young Serif","hw":400,"tt":"none","ls":-0.02,"p":"Bitter","pw":400,"btt":"none","tile":[26.563,10.0653]},
 ];
+// Every pack in the tabs. A button's transform follows the heading's where it isn't read (inferred, as no pick is).
+const packOf = ([id, h, hw, hs, tt, ls, p, pw, ps, names]) => ({ id, h, hw, hs, tt, ls, p, pw, ps, names, btt: tt === 'uppercase' ? 'uppercase' : 'none' });
+export const ALL_FONT_PACKS = Object.fromEntries(Object.entries(FONT_PACK_TABS).map(([tab, rows]) => [tab, rows.map(packOf)]));
+const fontPack = (id) => byId(FONT_PACKS, id) || Object.values(ALL_FONT_PACKS).flat().find((f) => f.id === id);
 export const BUTTON_PACKS = [
   {"id":"button-pack-17","radius":"300px","border":0,"pad":"24px 35.2px","tile":{"bg":"rgb(0, 0, 0)","border":0,"radius":"300px","w":94,"h":42}},
   {"id":"button-pack-18","radius":"300px","border":2,"pad":"24px 35.2px","tile":{"bg":"","border":2,"radius":"300px","w":98,"h":46}},
@@ -85,7 +90,7 @@ export function resolveSiteStyles(styles) {
   return {
     vars,
     picked: !!packed,
-    font: (styles.font && byId(FONT_PACKS, styles.font)) || t || null,
+    font: (styles.font && fontPack(styles.font)) || t || null,
     button: (styles.button && byId(BUTTON_PACKS, styles.button)) || t || null,
   };
 }
