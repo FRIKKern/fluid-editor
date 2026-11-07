@@ -6533,13 +6533,13 @@ function showBarTip(btn) {
   barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
-// appear between 100 and 400 ms after the hover on the oracle; ours at 200.
+// appear about 517 ms after the pointer gets on the button, by the page's own clock, at full opacity with no fade (CAP-U4TIPS.json).
 let tbTipBtn = null, tbTipTimer = 0;
 function setTbTip(btn) {
   clearTimeout(tbTipTimer);
   barTip.hidden = true;
   tbTipBtn = btn;
-  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 500); // CAP-U4TIPS.json: 517 ms, all 8 within 528.
+  if (btn && !btn.classList.contains('is-off')) tbTipTimer = setTimeout(() => showBarTip(btn), 500);
 }
 // No tip on the button whose menu is open (parity/findings/S3.json).
 // An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).

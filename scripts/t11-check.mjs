@@ -523,18 +523,11 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   add('Text, Blend Mode: still one button', q(`const e = panel.querySelector('.bp-blend'); return JSON.stringify(!!e && e.getAttribute('role') === 'button' && !panel.querySelector('[data-image-sel="vblend"]'));`), 'not');
 }
 
-// U4: the tip's delay (CAP-U4TIPS.json: 517 ms, all within 528) and a Pin slider keeping the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
+// U4: a Pin slider keeping the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json). The tip's delay is in marks-check.
 {
   const { id } = await fresh('Quote');
   q(`fe.select(null); await sleep(150); fe.select(fe.model.sections[1].id, '${id}'); await sleep(250); return 'true';`); // Without the panel, so the bar shows.
   add('U4: the bar shows', q(`return JSON.stringify(panel.hidden && !document.getElementById('block-toolbar').hidden);`), 'no');
-  const spot = q(`const r = document.querySelector('#block-toolbar [data-tb="duplicate"]').getBoundingClientRect(); return JSON.stringify([r.left + 18, r.top + 18]);`);
-  mouse(S, 'move', spot[0] - 300, spot[1] + 300); await pause(300);
-  q(`window.__tip = null; const b = document.querySelector('#block-toolbar [data-tb="duplicate"]'), t = document.getElementById('bar-tip'); b.addEventListener('pointerover', () => { const t0 = performance.now(); const go = () => { if (!t.hidden) window.__tip = performance.now() - t0; else requestAnimationFrame(go); }; go(); }, { once: true }); return 'true';`);
-  mouse(S, 'move', spot[0], spot[1]); await pause(1000);
-  const delay = q(`return JSON.stringify(window.__tip);`);
-  add(`U4: the tip shows at about 500 ms (${typeof delay === 'number' ? Math.round(delay) : delay})`, typeof delay === 'number' && delay >= 480 && delay <= 650, String(delay));
-  mouse(S, 'move', spot[0] - 300, spot[1] + 300); await pause(200);
   const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4PINUNIT.json', import.meta.url))).reads;
   q(`document.querySelector('#block-toolbar [data-tb="pin"]').click(); await sleep(250); const f = document.querySelector('[data-pin-offset]'); f.focus(); f.value = '5vh'; f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); f.blur(); await sleep(200); return 'true';`);
   const pinNow = () => q(`const c = W.getComputedStyle(block('${id}')); return JSON.stringify({ field: document.querySelector('[data-pin-offset]').value, range: document.querySelector('[data-pin-range]').value, top: fe.model.sections[1].blocks.at(-1).layout.desktop.sticky });`);
