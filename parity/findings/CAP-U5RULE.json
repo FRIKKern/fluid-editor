@@ -425,9 +425,7 @@
   "errors": [],
   "leftDirty": true,
   "answer": "Search matches any part of a hidden string, in any case, with the ends trimmed: mage, ext and gram all hit. No typo tolerance: imge and imagee give nothing. No plurals by rule: images, photos and buttons give nothing. Words must sit in the same order and next to each other: tag cloud hits, cloud tag doesn't. A tile's name isn't always among its strings: page link gives No Results, though the tile is Page Link.",
-  "ours": "Ours matches any part too, on the name plus at most one word: page link hits in ours.",
-  "differs": [
-    "page link: oracle No Results, ours Page Link."
-  ],
+  "ours": "All 49 give the oracle's tiles now: npm run check (check-search.mjs).",
+  "differs": [],
   "pressed": "Named presses with an on-top check. Typing by real keys in the search and link fields. Unnamed: real clicks on blocks and a drag, the box Edit by Enter since it opens focused. No Save, no upload, no Reset, no tile or row pressed, Copy and Remove Link not pressed."
 }
