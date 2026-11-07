@@ -351,8 +351,8 @@ export function foldUndo(f, redo) {
   if (!st) return false;
   const step = (redo ? st.redo : st.undo).pop();
   if (!step) return true;
-  shift(st, step.at, step.at + step.text.length, step.removed);
-  (redo ? st.undo : st.redo).push({ at: step.at, removed: step.text, text: step.removed, time: 0 });
+  if (step.whole) { st.full = step.whole.text; st.folds = step.whole.folds; } else shift(st, step.at, step.at + step.text.length, step.removed);
+  (redo ? st.undo : st.redo).push({ at: step.at, removed: step.text, text: step.removed, time: 0, whole: step.after, after: step.whole });
   show(f, st, step.at + step.removed.length);
   return true;
 }
@@ -367,8 +367,10 @@ export function foldReplace(f, r) {
   if (before.length === after.length) {
     const end = (starts, s, n) => (n + 1 < starts.length ? starts[n + 1] - 1 : s.length);
     const move = (x) => { const n = lineAt(before, x); return end(after, now, n) - (end(before, was, n) - x); };
+    const held = st.folds;
     st.folds = st.folds.map((q) => ({ from: move(q.from), to: move(q.to) }));
-    st.undo.push({ at: a, removed: was.slice(a, b), text: now.slice(a, c), time: 0 });
+    // Taken back whole, so the fold it went over stays shut (CAP-T10FOLD5.json, CAP-T10FIX3.json).
+    st.undo.push({ at: a, removed: was.slice(a, b), text: now.slice(a, c), time: 0, whole: { text: was, folds: held }, after: { text: now, folds: st.folds } });
     st.redo = [];
     st.full = now;
   } else edit(st, a, b, now.slice(a, c));

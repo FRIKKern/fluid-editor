@@ -3074,17 +3074,19 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkIn(fullOf(f), s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  // A link with no url, a bracket with no definition, lights Link but opens the form (CAP-T10SCORE2.json, CAP-T10FIX5.json).
+  const urlIn = (t) => { const at = mdLinkIn(t, s, e); return at?.href == null ? null : at; };
+  const f = mdRootField(root), link = urlIn(fullOf(f)), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e);
+      const q = mdRootField(root), at = urlIn(fullOf(q));
       if (!v && !at) return;
       flushMdStep();
       writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = urlIn(fullOf(q)); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
