@@ -1,0 +1,418 @@
+{
+  "item": "G4",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4: group resize against its nearest-line rule. A group of two Shapes, its handles walked 1px at a time. Predicted before this read, from ours: each side line changes when the pointer is nearer the next line, so half a pitch from the box's edge, not a pitch plus a gap as a lone block.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      700,
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "spread",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "group",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "se",
+      120,
+      90
+    ],
+    [
+      "read",
+      "se",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "e",
+      120,
+      0
+    ],
+    [
+      "read",
+      "e",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "s",
+      0,
+      90
+    ],
+    [
+      "read",
+      "s",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "end"
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "spread": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "se": {
+      "walk": {
+        "part": "se",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/2/12/20"
+          ],
+          [
+            35,
+            "1/2/12/21"
+          ],
+          [
+            94,
+            "1/2/12/22"
+          ]
+        ],
+        "xBack": [
+          [
+            93,
+            "1/2/12/21"
+          ],
+          [
+            34,
+            "1/2/12/20"
+          ],
+          [
+            -35,
+            "1/2/12/19"
+          ],
+          [
+            -94,
+            "1/2/12/18"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1/2/12/19"
+          ],
+          [
+            -34,
+            "1/2/12/20"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1/2/13/20"
+          ],
+          [
+            68,
+            "1/2/14/20"
+          ]
+        ],
+        "yBack": [
+          [
+            67,
+            "1/2/13/20"
+          ],
+          [
+            26,
+            "1/2/12/20"
+          ],
+          [
+            -27,
+            "1/2/11/20"
+          ],
+          [
+            -68,
+            "1/2/10/20"
+          ]
+        ],
+        "yHome": [
+          [
+            -67,
+            "1/2/11/20"
+          ],
+          [
+            -26,
+            "1/2/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "e": {
+      "walk": {
+        "part": "e",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/2/12/20"
+          ],
+          [
+            35,
+            "1/2/12/21"
+          ],
+          [
+            94,
+            "1/2/12/22"
+          ]
+        ],
+        "xBack": [
+          [
+            93,
+            "1/2/12/21"
+          ],
+          [
+            34,
+            "1/2/12/20"
+          ],
+          [
+            -35,
+            "1/2/12/19"
+          ],
+          [
+            -94,
+            "1/2/12/18"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1/2/12/19"
+          ],
+          [
+            -34,
+            "1/2/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "s": {
+      "walk": {
+        "part": "s",
+        "from": "",
+        "yOut": [
+          [
+            1,
+            "1/2/12/20"
+          ],
+          [
+            27,
+            "1/2/13/20"
+          ],
+          [
+            68,
+            "1/2/14/20"
+          ]
+        ],
+        "yBack": [
+          [
+            67,
+            "1/2/13/20"
+          ],
+          [
+            26,
+            "1/2/12/20"
+          ],
+          [
+            -27,
+            "1/2/11/20"
+          ],
+          [
+            -68,
+            "1/2/10/20"
+          ]
+        ],
+        "yHome": [
+          [
+            -67,
+            "1/2/11/20"
+          ],
+          [
+            -26,
+            "1/2/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "A group's handles follow the held-drag rule, not nearest line. Half a pitch plus half a gap, the same both ways: east and corner x 35, 94; back 93, 34, -35, -94; home -93, -34. South and corner y 27, 68; back 67, 26, -27, -68; home -67, -26.",
+  "predicted": "Each side line changes when the pointer is nearer the next line, half a pitch from the edge.",
+  "result": "Wrong: it's the same rule as one block.",
+  "ours": "Nearest line: x 28, 87; back 86, 27, -32, -91; y 19, 60; back 59, 18, -23, -64.",
+  "differs": [
+    "73: ours steps a group's size 7 to 8 px early, by nearest line (updateGroupResize). The oracle uses the rule of one block's handle."
+  ],
+  "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
+}
