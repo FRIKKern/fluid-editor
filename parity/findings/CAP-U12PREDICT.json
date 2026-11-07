@@ -8,5 +8,25 @@
   "Radio's rows reach its mark as Checkbox's reach its box: size, 2px border at thickness 1, radius. Survey's reach its circle.",
   "Field Style Button: a box round the label with padding L 15 30 and the Field Shape's radius, the input hidden. Fit: options on one row when they fit, with Space Between Rows. Inverted: when picked, the mark or box fills with the ink and the text takes the background."
  ],
- "how": "A Form with added fields on Blocks Probe, unsaved. Site Styles picks unsaved, left by Exit Without Saving. Checked and focus states set by script in the frame, no press."
+ "how": "A Form with added fields on Blocks Probe, unsaved. Site Styles picks unsaved, left by Exit Without Saving. Checked and focus states set by script in the frame, no press.",
+ "counted": {
+  "held": [
+   "Field Accent draws the focus ring.",
+   "Radio rows reach its mark as Checkbox's do: size, 2 px border at thickness 1, radius.",
+   "Survey's reach its circle (thickness not read).",
+   "Button: padding L 15 30, input hidden, a box round the label.",
+   "Fit: on one row when they fit.",
+   "Inverted on an icon: fills with the ink, the mark takes the background."
+  ],
+  "missed": [
+   "Field Accent draws an option's mark when picked: no.",
+   "Field Accessory draws the tick or dot on a filled, or icons: nothing read drew.",
+   "Button radius is the Field Shape's: on Button, Pill is padding + .924em, not the option's 300."
+  ],
+  "notRead": [
+   "Fit with Space Between Rows: no wrapped row read.",
+   "Inverted on a Button: the row is gone.",
+   "Text taking the background when picked was read on a Button without Inverted, so it is not Inverted's doing there."
+  ]
+ }
 }

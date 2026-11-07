@@ -18,7 +18,8 @@ const TABLE = { 'Lightest 1': LIGHTEST, 'Lightest 2': LIGHTEST, 'Light 1': LIGHT
 export const formColor = (styles, theme, row) => styles?.forms?.colors?.[theme]?.[row] || ROLE[TABLE[theme][FORM_COLOR_ROWS.indexOf(row)]];
 
 const slug = (row) => row.toLowerCase().replace(/ /g, '-').replace(/-color$/, '');
-// Rows that reach a block we draw. The others hold their color in a variable, as on the oracle's page.
+// Rows that reach a block we draw. Field Accent is the focus ring on every field (CAP-U12ACCENT2.json). The others hold their color in a
+// variable, as on the oracle's page: Field Accessory drew nothing in any state read (at rest, picked, focused on six kinds of field).
 const PARTS = {
   Title: ['legend, label.title', 'color'],
   Description: ['.description', 'color'],
@@ -35,7 +36,7 @@ export function formColorCss(styles) {
     const sel = sections(THEME_KEYS[theme]), on = (part) => sel.flatMap((s) => (part || '').split(', ').map((p) => `${s} .fe-form ${p}`.trim())).join(', ');
     const own = styles?.forms?.colors?.[theme] || {};
     const vars = Object.entries(own).map(([row, role]) => `--tweak-form-block-${slug(row)}-color: hsla(var(--${role}-hsl), 1);`).join(' ');
-    css += `${on('')} { --ff-bg: var(--${formColor(styles, theme, 'Field Background')}-hsl); --ff-edge: var(--${formColor(styles, theme, 'Field Border')}-hsl); ${vars} }\n`;
+    css += `${on('')} { --ff-bg: var(--${formColor(styles, theme, 'Field Background')}-hsl); --ff-edge: var(--${formColor(styles, theme, 'Field Border')}-hsl); ${vars}${own['Field Accent'] ? ` --form-ring: hsla(var(--${own['Field Accent']}-hsl), 1);` : ''} }\n`;
     for (const [row, role] of Object.entries(own)) if (PARTS[row]) css += `${on(PARTS[row][0])} { ${PARTS[row][1]}: hsla(var(--${role}-hsl), 1); }\n`;
   }
   return css;

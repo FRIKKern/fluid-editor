@@ -2611,6 +2611,132 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Scrolling: closed at frame 680', shut() === true);
 }
 
+// U12: what the option rows draw on a page, against parity/findings/CAP-U12OPTIONS.json. Read inside Site Styles, as ours is here.
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12OPTIONS.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, cs = (e, p) => W.getComputedStyle(e, p), q = (s) => d.querySelector('.fe-form ' + s), qs = (s) => [...d.querySelectorAll('.fe-form ' + s)], rect = (e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; };`;
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].theme = 'light'; m.sections[0].blocks.push({ id: 'marks-opts', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'email', label: 'Email' }, { kind: 'radio', label: 'Radio', options: ['Option 1', 'Option 2'], loose: true }, { kind: 'checkbox', label: 'Checkbox', options: ['Option 1', 'Option 2'], loose: true }, { kind: 'survey', label: 'Survey', options: ['Question 1'] }] }); fe.load(m); return 'true';`); await pause(400); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); await hit('[data-ss-view="FormOptions"]', 200); };
+  const kind = async (k) => { if (js(`return JSON.stringify(!document.querySelector('[data-ss-fkind]'));`)) await hit('[data-ss-back]', 100); await hit(`[data-ss-fkind="${k}"]`, 120); };
+  const pick = (k, v) => hit(`[data-ss-set="forms.${k}"][data-v="${v}"]`, 120);
+  const GROUP = { radio: '.form-radio', check: '.form-checkbox:not(.form-radio)', survey: '.likert-options' };
+  // One kind's first two options, the first one picked as the oracle's read had it.
+  const read = (k) => js(`${FD} const G = ${JSON.stringify(GROUP[k])}, inp = qs(G + ' input'), opts = qs(G + ' .option'); inp[0].checked = true; inp[0].dispatchEvent(new Event('change', { bubbles: true })); const i = cs(inp[0]), i2 = cs(inp[1]), dot = cs(inp[0], '::before'), sp = q(G + ' label > span'), s = cs(sp), s2 = cs(qs(G + ' label > span')[1]), range = d.createRange(); range.selectNodeContents(sp); const text = range.getBoundingClientRect().width; return JSON.stringify({ size: parseFloat(i.width), b: parseFloat(i.borderTopWidth), line: parseFloat(i.outlineWidth), radius: i.borderTopLeftRadius, bg: i.backgroundColor, rest: i2.backgroundColor, dotW: parseFloat(dot.width), dotColor: dot.color, grad: dot.backgroundImage, opt: rect(opts[0]), opt2: rect(opts[1]), inp: rect(inp[0]), span: rect(sp), text, pad: s.padding, sb: s.backgroundColor, sc: s.color, sr: s.borderTopLeftRadius, se: s.borderTopWidth + ' ' + s.borderTopColor, s2b: s2.backgroundColor, s2c: s2.color, op: i.opacity, group: G === '.likert-options' ? 0 : rect(q(G))[3] });`);
+  const shape = async (n) => { await hit('[data-ss-select="form-oshape"]', 80); await hit(`[data-ss-oshape="${n}"]`, 100); await hit('[data-ss-select="form-oshape"]', 80); };
+  const near = (a, b, tol = 0.6) => Math.abs(a - b) <= tol;
+  const INK = 'rgb(0, 0, 0)', WHITE = 'rgb(255, 255, 255)', CLEAR = 'rgba(255, 255, 255, 0)';
+  const dotOf = (o) => o.dotW - 4;
+
+  await start();
+  // Radio and Survey take their own rows, not Checkbox's.
+  await kind('radio');
+  let o = read('radio');
+  add('Radio: default mark', o.size === R.radio.M.size && o.b === 2 && o.line === 1 && o.radius === '300px' && dotOf(o) === R.radio.M.dot, JSON.stringify(o));
+  add('Radio: default row height', near(o.opt[3], R.radio.M.row), o.opt[3]);
+  add('Radio: default stack pitch', near(o.opt2[1] - o.opt[1], R.radio.pitch), o.opt2[1] - o.opt[1]);
+  add('Radio: words start after mark and gap', near(o.span[0] - o.inp[0], R.radio.textLeft, 0.1), o.span[0] - o.inp[0]);
+  for (const n of ['S', 'L']) {
+    await pick('radio.size', n); o = read('radio');
+    add(`Radio: size ${n} mark and dot`, o.size === R.radio[n].size && dotOf(o) === R.radio[n].dot, JSON.stringify([o.size, o.dotW]));
+    add(`Radio: size ${n} row height`, near(o.opt[3], R.radio[n].row), o.opt[3]);
+  }
+  await pick('radio.size', 'M');
+  await hit('[data-ss-othick="1"]', 100); o = read('radio');
+  add('Radio: thickness 2 draws 2, border 3, dot 7', o.line === 2 && o.b === 3 && dotOf(o) === R.radio.thick2.dot, JSON.stringify([o.line, o.b, o.dotW]));
+  const c0 = read('check');
+  add('Radio: thickness leaves Checkbox alone', c0.b === 2 && c0.line === 1, JSON.stringify([c0.b, c0.line]));
+  await hit('[data-ss-othick="-1"]', 100);
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio: Field Fill is the Field Background', o.bg === WHITE && o.rest === WHITE, JSON.stringify([o.bg, o.rest]));
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio: Fill off is clear', o.bg === CLEAR, o.bg);
+  await shape('Square'); o = read('radio');
+  add('Radio: Square has no radius', o.radius === '0px', o.radius);
+  await shape('Pill');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('radio');
+  add('Radio: Inverted fills the picked mark, dot in the fill', o.bg === INK && o.rest === CLEAR && o.dotColor === WHITE, JSON.stringify([o.bg, o.rest, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120); o = read('radio');
+  add('Radio: Normal takes it back', o.bg === CLEAR, o.bg);
+  await pick('radio.layout', 'Fit'); o = read('radio');
+  add('Radio: Fit, one row at the same top', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Radio: Fit, group height', near(o.group, R.radio.fit.group), o.group);
+  await pick('radio.layout', 'Stack');
+  // Button.
+  await pick('radio.type', 'Button');
+  for (const n of ['S', 'M', 'L']) {
+    await pick('radio.pad', n); o = read('radio');
+    add(`Radio Button: padding ${n}`, o.pad === R.button[n].pad, o.pad);
+    add(`Radio Button: pitch ${n}`, near(o.opt2[1] - o.opt[1], R.button[n].pitch), o.opt2[1] - o.opt[1]);
+    add(`Radio Button: pill radius ${n}`, near(parseFloat(o.sr), R.button[n].radius), o.sr);
+    const h = parseFloat(o.pad.split(' ')[1]);
+    add(`Radio Button: width is words, padding, edge ${n}`, near(o.span[2], o.text + 2 * h + 2, 0.1), JSON.stringify([o.span[2], o.text]));
+    add(`Radio Button: row 4 wider than the box's own ${n}`, o.opt[2] > o.span[2], JSON.stringify([o.opt[2], o.span[2]]));
+  }
+  add('Radio Button: input out of sight', o.op === '0', o.op);
+  add('Radio Button: picked is ink with white words, the other clear', o.sb === INK && o.sc === WHITE && o.s2b === CLEAR && o.s2c === INK, JSON.stringify([o.sb, o.sc, o.s2b, o.s2c]));
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio Button: Field Fill fills the other', o.s2b === WHITE && o.sb === INK, JSON.stringify([o.s2b, o.sb]));
+  await hit('[data-ss-ofill]');
+  await pick('radio.layout', 'Fit'); o = read('radio');
+  add('Radio Button: Fit, as wide as the words plus 4', near(o.opt[2], o.span[2] + 4, 0.1), JSON.stringify([o.opt[2], o.span[2]]));
+  add('Radio Button: Fit, one row 20 apart', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Radio Button: Fit, group height', near(o.group, R.button.fitGroup), o.group);
+  await pick('radio.layout', 'Stack');
+  await shape('Square'); o = read('radio');
+  add('Radio Button: Square has no radius', o.sr === '0px', o.sr);
+  await pick('radio.type', 'Icon'); await shape('Pill');
+  // Checkbox: the same Button and Fit.
+  await kind('check');
+  o = read('check');
+  add('Checkbox: default stack pitch', near(o.opt2[1] - o.opt[1], R.check.pitch), o.opt2[1] - o.opt[1]);
+  await pick('check.type', 'Button');
+  await pick('check.pad', 'L'); o = read('check');
+  add('Checkbox Button: padding and pitch', o.pad === R.button.L.pad && near(o.opt2[1] - o.opt[1], R.button.L.pitch), JSON.stringify([o.pad, o.opt2[1] - o.opt[1]]));
+  add('Checkbox Button: picked is ink with white words', o.sb === INK && o.sc === WHITE && o.op === '0', JSON.stringify([o.sb, o.sc, o.op]));
+  await pick('check.type', 'Icon');
+  await pick('check.layout', 'Fit'); o = read('check');
+  add('Checkbox: Fit, one row 20 apart', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Checkbox: Fit, group height', near(o.group, R.check.fitGroup), o.group);
+  await pick('check.layout', 'Stack');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('check');
+  add('Checkbox: Inverted fills the picked box', o.bg === INK && o.rest === CLEAR && o.dotColor === WHITE, JSON.stringify([o.bg, o.rest, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120);
+  // Survey.
+  await kind('survey');
+  const row0 = read('survey').opt[3];
+  for (const n of ['S', 'L']) {
+    await pick('survey.size', n); o = read('survey');
+    add(`Survey: size ${n} mark, dot, row`, o.size === R.radio[n].size && dotOf(o) === R.radio[n].dot && near(o.opt[3] - row0, R.survey[n] - R.survey.M), JSON.stringify([o.size, o.dotW, o.opt[3]]));
+  }
+  await pick('survey.size', 'M');
+  await hit('[data-ss-ofill]'); o = read('survey');
+  add('Survey: Field Fill is the Field Background', o.bg === WHITE, o.bg);
+  await hit('[data-ss-ofill]');
+  await shape('Square'); o = read('survey');
+  add('Survey: Square has no radius', o.radius === '0px', o.radius);
+  await shape('Pill');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('survey');
+  add('Survey: Inverted fills the picked mark', o.bg === INK && o.dotColor === WHITE, JSON.stringify([o.bg, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120);
+
+  // Field Accent: the focus ring on each kind, 2 px. Nothing at rest.
+  const ring = async (sel) => { js(`${FD} q(${JSON.stringify(sel)}).focus({ preventScroll: true }); return 'true';`); await pause(300); const v = js(`${FD} const c = cs(q(${JSON.stringify(sel)})); return JSON.stringify([c.outlineWidth, c.outlineColor, c.outlineStyle, c.borderTopColor, c.boxShadow]);`); js(`${FD} q(${JSON.stringify(sel)}).blur(); return 'true';`); await pause(100); return v; };
+  const rest = () => js(`${FD} const c = cs(q('input[type=email]')); return JSON.stringify([c.borderTopColor, c.borderTopWidth]);`);
+  const rest0 = rest();
+  await hit('[data-ss-back]', 80); await hit('[data-ss-back]', 80);
+  await hit('[data-ss-view="FormColors"]', 150);
+  await hit('[data-ss-select="form-color-Field Accent"]', 120); await hit('.ss-fc-pop [data-ss-fcolor="darkAccent"]', 150);
+  const want = js(`${FD} const t = d.createElement('i'); t.style.color = 'hsla(' + W.getComputedStyle(d.documentElement).getPropertyValue('--darkAccent-hsl') + ', 1)'; d.body.append(t); const v = W.getComputedStyle(t).color; t.remove(); return JSON.stringify(v);`);
+  for (const [n, sel] of [['Radio', '.form-radio input'], ['Checkbox', '.form-checkbox:not(.form-radio) input'], ['Survey', '.likert-options input']]) {
+    const g = await ring(sel);
+    add(`Field Accent: ${n} focus ring`, g[0] === '2px' && g[1] === want && g[2] === 'solid', JSON.stringify([g, want]));
+  }
+  const t = await ring('input[type=email]');
+  add('Field Accent: text field edge on focus', t[3] === want && t[4].includes(want) && t[4].includes('1px') && t[2] === 'none', JSON.stringify([t, want]));
+  add('Field Accent: nothing at rest', JSON.stringify(rest()) === JSON.stringify(rest0), JSON.stringify(rest()));
+}
+
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
 if (pass !== total) process.exit(1);
