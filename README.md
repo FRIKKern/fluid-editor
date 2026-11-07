@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 40 changes
+- **Today** · 41 changes
+  - T12: row walker presses by name only, reloads when a panel has no named way out ([#332](https://github.com/FRIKKern/fluid-editor/pull/332))
   - T12: row by row, Product, Pricing Plan, Donation, Summary, Archive, OpenTable, Zola ([#331](https://github.com/FRIKKern/fluid-editor/pull/331))
-  - T14: past the last row, the new block's middle at the frame's middle ([#329](https://github.com/FRIKKern/fluid-editor/pull/329))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
