@@ -2450,7 +2450,12 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await para(); await change(`(m) => { m.sections[0].divider = true; m.sections[0].dividerFlip = true; }`);
   await openLayouts(300);
   const flipOf = () => js(`const s = fe.model.sections[0]; return JSON.stringify([s.dividerShape || 'wavy', !!s.dividerFlip]);`);
-  await pickTile(3); const f3 = flipOf(); await pickTile(4); const f4 = flipOf();
+  await pickTile(3); const f3 = flipOf();
+  // Tiles with their own divider draw its edge, the outline following it, dark when picked (CAP-U10TILES.json screenshots).
+  const edges = js(`return JSON.stringify([...document.querySelectorAll('.lo-tile')].filter((t) => t.querySelector('.lo-edge path')).map((t) => t.dataset.layout).join());`);
+  const edgeInk = js(`const p = document.querySelector('[data-layout="3"] .lo-edge path'); return JSON.stringify(p ? getComputedStyle(p).stroke : null);`);
+  add('Layouts tiles: 2 and 3 draw their soft and rounded divider edges, 3 outlined dark when picked', edges === '2,3' && edgeInk === 'rgb(14, 14, 14)', JSON.stringify([edges, edgeInk]));
+  await pickTile(4); const f4 = flipOf();
   add('Layouts: a Flip X start, off on layout 3\'s rounded divider, back on layout 4', f3.join() === 'rounded,false' && f4.join() === 'wavy,true', JSON.stringify([f3, f4]));
   browser(S, 'press', 'Escape'); await pause(200);
 }
