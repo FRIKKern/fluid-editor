@@ -52,6 +52,8 @@ let bp = 'desktop';
 let sel = null; // { sid, bid }
 let editing = null; // text edit session
 let gesture = null; // move or resize session
+// A press with nothing selected, not yet let go and not past the drag's 10 px: Add Section stays (CAP-U9FADE4D.json).
+let pressFresh = false;
 const undoStack = [];
 const redoStack = [];
 const notes = [];
@@ -942,6 +944,7 @@ function onDown(e) {
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
+  pressFresh = !sel;
   if (!onKid) select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
   const r = blk.getBoundingClientRect();
   gesture = {
@@ -962,6 +965,7 @@ function onMove(e) {
     // move starts the drag (parity/findings/HOLD.json).
     if (!gesture.armed) {
       gesture.armed = Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10;
+      if (gesture.armed && pressFresh) { pressFresh = false; placeChrome(); }
       return;
     }
     if (gesture.resizeDir) startResize(e, gesture.resizeDir);
@@ -989,6 +993,7 @@ function onUp(e) {
     // A click on a text block that was already selected opens its editor (E1, as on the oracle).
     const g = gesture;
     gesture = null;
+    if (pressFresh) { pressFresh = false; placeChrome(); }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1220,6 +1225,8 @@ function startResize(e, dir) {
     const members = [sel.bid, ...sel.more];
     const g = prepare(e, 'gresize', { dir, members });
     g.more = sel.more.map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
+    // A Text or a Quote keeps the rows its content needs at the press, however narrow the group gets (CAP-X8TYPES.json, CAP-X8TYPES2.json).
+    g.kept = new Map(members.filter((id) => B(g.sid, id).type === 'text' || B(g.sid, id).standin === 'quote').map((id) => [id, contentRows(B(g.sid, id), g.m)]));
     g.box0 = boxOf([g.orig, ...g.more.map((o) => o.orig)]);
     g.box = g.box0;
     setArea(g.tind, g.box0);
@@ -1268,7 +1275,7 @@ function updateGroupResize(e) {
     const el = blockEl(id);
     setArea(el, [rs0, cs, re, ce]);
     // A text block keeps the rows its content needs by moving its start up.
-    const need = contentRows(B(g.sid, id), m);
+    const need = g.kept.get(id) ?? contentRows(B(g.sid, id), m);
     const rs = re - rs0 < need ? Math.max(r0, re - need) : rs0;
     const t = [rs, cs, Math.max(re, rs + need), ce];
     setArea(el, t);
@@ -1379,6 +1386,7 @@ function endGesture() {
 }
 
 function cancelGesture() {
+  pressFresh = false;
   const g = gesture;
   if (!g) return;
   endGesture();
@@ -5101,14 +5109,33 @@ function chromeSid() { return editSid || sel?.sid || hoverSid; }
 // The chrome fades out over 0.15s when the mouse leaves, and the outline over 0.2s; a gesture takes it away at once
 // (SECTIONBAR.json, fade; CAP-U9FADE.json). Add Section takes 0.2s too, on its opacity (CAP-U9ADDFADE.json). Those two fade
 // there too, moving to another section and in a gesture, and Add Section on selecting a block: each as a copy left behind
-// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy doesn't follow a scroll during its 0.2 s, ours only.
+// (CAP-U9CLOSE.json, CAP-U9ADDFADE2.json, CAP-U9ADDFADE3.json). A copy moves with the page. A fade broken off runs back over
+// 0.2 s times the way it has come: from 0.5, 100 ms (CAP-U9FADE4B.json, CAP-U9FADE4C.json).
 let chromeOut = 0;
+let copies = [];
+const litNow = (o) => { const c = getComputedStyle(o); return o.classList.contains('sc-outline') ? Number(c.borderTopColor.match(/rgba\(.*, ([\d.]+)\)/)?.[1] ?? 1) : Number(c.opacity); };
 function leaveCopy(o, cls, frames) {
   const gone = o.cloneNode(true);
+  const entry = { gone, sid: chrome.dataset.key?.split('|')[0], part: o.dataset.scPart, y: win.scrollY };
   gone.classList.add(cls);
   for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
+  const lit = litNow(o);
   chrome.after(gone);
-  gone.animate(frames, { duration: 200, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => gone.remove();
+  copies.push(entry);
+  gone.animate(frames, { duration: 200 * lit, easing: 'ease-in-out', fill: 'forwards' }).onfinish = () => { gone.remove(); copies = copies.filter((c) => c !== entry); };
+}
+function followCopies() { for (const c of copies) c.gone.style.translate = `0 ${c.y - win.scrollY}px`; }
+const isOutline = (o) => o.classList.contains('sc-outline');
+const litFrame = (o) => (isOutline(o) ? { borderColor: getComputedStyle(o).borderTopColor, offset: 0 } : { opacity: getComputedStyle(o).opacity, offset: 0 });
+function runUp(o, frame, lit) { o.style.animation = 'none'; o.animate([frame], { duration: 200 * (1 - lit), easing: 'ease-in-out' }); }
+// Back on a section whose pair is still falling: it runs back from there (CAP-U9FADE4.json).
+function runCopiesBack(sid) {
+  for (const c of copies.filter((x) => x.sid === sid)) {
+    const o = chrome.querySelector(`[data-sc-part="${c.part}"]`);
+    if (!o) continue;
+    runUp(o, litFrame(c.gone), litNow(c.gone));
+    c.gone.remove(); copies = copies.filter((x) => x !== c);
+  }
 }
 function addSectionAway() {
   if (chrome.hidden) return;
@@ -5124,29 +5151,32 @@ function hideChrome(fade) {
   if (chrome.hidden || (fade && chromeOut)) return;
   clearTimeout(chromeOut); chromeOut = 0;
   if (!fade) { outlineAway(); chrome.classList.remove('is-out'); chrome.hidden = true; return; }
+  // Still rising: it falls from there, over 0.2 s times the way it has come (CAP-U9FADE4C.json).
+  for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const lit = litNow(o); if (lit > 0 && lit < 1) o.animate([litFrame(o), isOutline(o) ? { borderColor: 'transparent' } : { opacity: 0 }], { duration: 200 * lit, easing: 'ease-in-out' }); }
   chrome.classList.remove('is-outline-in', 'is-add-in'); chrome.classList.add('is-out');
   chromeOut = setTimeout(() => { chromeOut = 0; chrome.classList.remove('is-out'); chrome.hidden = true; }, 200);
 }
 function placeChrome() {
+  followCopies();
   const sid = chromeSid();
   const el = sid && doc && sectionEl(sid);
   if (!el || gesture?.type === 'move' || gesture?.type === 'resize') { hideChrome(!el); return; }
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
-  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee;
+  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee && !(pressFresh && (!gesture || gesture.type === 'pending'));
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
   if (newSection) outlineAway();
-  if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); }
+  if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const own = o.getAnimations().filter((a) => !(a instanceof CSSTransition || a instanceof CSSAnimation)); if (own.length) { const lit = litNow(o), frame = litFrame(o); own.forEach((a) => a.cancel()); runUp(o, frame, lit); } } }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
   if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); runCopiesBack(sid); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -6360,6 +6390,11 @@ function onHover(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (gesture && gesture.type !== 'pending') return;
   setHover(e.target.closest?.('.fluid-engine.is-editing > .fe-block')?.dataset.blockId || null);
+  onHoverSection(e);
+}
+// A scroll with the pointer still sends no pointermove, but a new section under it takes the chrome (CAP-U9FADE4.json): the browser's pointerover says so.
+function onHoverSection(e) {
+  if (document.body.classList.contains('is-preview') || (gesture && gesture.type !== 'pending')) return;
   const secEl = e.target.closest?.('section.page-section[data-section-id]');
   const sid = secEl && model.sections.some((x) => x.id === secEl.dataset.sectionId) ? secEl.dataset.sectionId : null;
   if (sid && sid !== hoverSid) { hoverSid = sid; placeChrome(); }
@@ -6553,6 +6588,7 @@ function boot() {
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);
   window.addEventListener('resize', () => { placeToolbar(); placeChrome(); });
   frame.contentDocument.addEventListener('pointermove', onHover);
+  frame.contentDocument.addEventListener('pointerover', onHoverSection);
   frame.contentDocument.documentElement.addEventListener('pointerleave', () => setHover(null));
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);

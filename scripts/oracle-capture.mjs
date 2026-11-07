@@ -11,7 +11,7 @@
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my [grab dx,dy]| pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
-//   hold i k part dx dy [mods] | holdRaw i k part dx dy | shiftClick i k [part] | move dx dy | release [home] | drag i k part dx dy {pointerType}
+//   hold i k part dx dy [mods] | holdRaw i k part dx dy | pressOnly i k [part] (no move) | shiftClick i k [part] | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
 //   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, elsIn: [left, top, right, bottom], look: i, tiles: true, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], checks: true, sel: selector, layers: i, controls: true, thin: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
@@ -21,7 +21,7 @@
 // Every step that acts stops the run if the frame is on another page, before it presses.
 // clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { browser, evalJs, mouse, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
+import { browser, evalJs, mouse, wheel, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
@@ -356,6 +356,8 @@ const STEPS = {
     await inFrame(async () => { mouse(S, 'move', x, y, { mods }); mouse(S, 'down', x, y, { mods }); mouse(S, 'move', x + 14, y, { buttons: 1, mods }); await pause(150); for (let n = 1; n <= 6; n++) { mouse(S, 'move', x + (dx * n) / 6, y + (dy * n) / 6, { buttons: 1, mods }); await pause(40); } });
     held.dx = dx; held.dy = dy; await pause(300);
   },
+  // The press alone, no move, so a fade can be read between it and the first move (U9). Stops before pressing if the block isn't on top at that point. Then move and release as usual.
+  pressOnly: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); const top = evalJs(S, `(() => { ${FRAME} const e = d.elementFromPoint(${x}, ${y}); return JSON.stringify(!!(e && e.closest('#fx-b'))); })()`); if (!top) throw new Error('block not on top'); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y, { buttons: 1 }); }); held = { x, y, dx: 0, dy: 0, mods: [] }; },
   move: async (dx, dy) => { await inFrame(() => mouse(S, 'move', held.x + dx, held.y + dy, { buttons: 1, mods: held.mods })); held.dx = dx; held.dy = dy; await pause(300); },
   release: async (where) => { await inFrame(async () => { if (where === 'home') { mouse(S, 'move', held.x, held.y, { buttons: 1, mods: held.mods }); await pause(200); } mouse(S, 'up', where === 'home' ? held.x : held.x + held.dx, where === 'home' ? held.y : held.y + held.dy, { mods: held.mods }); }); held = null; await pause(700); },
   // In window pixels, for the editor's own panels. typeAt replaces what a field holds, then presses Enter. holdAt, moveAt, releaseAt keep the button down between reads.
@@ -431,6 +433,8 @@ const STEPS = {
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(800); },
   holdAt: async (x, y) => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); await pause(300); heldAt = [x, y]; },
   // With a holdAt down the button stays down, otherwise a plain move.
+  // A real wheel turn at a point of the top window, for a scroll during a fade (U9). frameTo is a script scroll.
+  wheelAt: (x, y, dy) => wheel(S, x, y, dy),
   moveAt: async (x, y) => { if (!heldAt) { mouse(S, 'move', x, y); return; } mouse(S, 'move', x, y, { buttons: 1 }); await pause(400); heldAt = [x, y]; },
   releaseAt: async () => { mouse(S, 'up', heldAt[0], heldAt[1]); heldAt = null; await pause(600); },
   // How long a tip takes: a real move onto a named button, then from the page's own clock the first frame the tip shows and the first it is fully on. Reads only.
