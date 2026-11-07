@@ -163,6 +163,11 @@ export const RECIPES = {
     ...FRESH, ['keysFast', `abc${WORD1}`], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ['press', 'Meta+ArrowDown'], ['keysFast', WORD2], ['pause', 1300], ['read', 'rows Z2 typed', ESCR], ...ZS('rows Z2', ['z', 'y']), ...LEAVE, ...WALK('rows Z2', ['Undo', 'Redo']),
     ...FRESH, ['keysFast', `abc${WORD1}${WORD2}${WORD3}`], ...LEAVE, ['pick', 0, 'new'], ['click', 'Write'], ['pause', 300], ['press', 'Meta+ArrowDown'], ['keysFast', WORD4], ['pause', 1300], ...ZS('rows Z3', ['z']), ...LEAVE,
   ] },
+  'CAP-Y2KEYS9': { question: 'Y2: the fall on going back at other sizes of text: Paragraph 1 and Paragraph 3 wrapped lines, Heading wrapped lines. Predicted first.', page: 'Gestures Probe', steps: [
+    ['enter'], ['blank'],
+    ...['Paragraph 1', 'Paragraph 3', 'Heading 4', 'Heading 1'].flatMap((style, n) => [...(n ? FRESH : NEWTEXT), ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', style], ['pause', 1300],
+      ['keysFast', WORD1], ['pause', 1300], ['keysFast', WORD2], ['pause', 1300], ['keysFast', WORD3], ['pause', 1300], ['read', `rows ${style} typed`, ESCR], ...ZS(`rows ${style}`, ['z', 'z', 'z', 'y', 'y', 'y']), ...LEAVE]),
+  ] },
   'CAP-E4BREAK': { question: 'E4: Shift+Enter: mid line, at the end of a line, at the start, twice, in a heading, a list, a quote and monospace, over a selection.', page: 'Gestures Probe', steps: [
     ['enter'], ['blank'],
     ...NEWTEXT, ['keys', 'abcdef'], ['press', 'ArrowLeft'], ['press', 'ArrowLeft'], ['press', 'Shift+Enter'], ['press', 'Shift'], ['pause', 200], ['read', 'mid line', H], ['keys', 'X'], ['pause', 200], ['read', 'mid line, X', H],
