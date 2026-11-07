@@ -10,8 +10,11 @@ const fits = (n, l, r) => (n === 2 ? l >= 2 && r >= 2 : l % 2 === 1 && r % 2 ===
 // The marks of a line (> * # and the like) stay out of a selection, and so does a last line it only just reaches
 // (CAP-T10WRAP.json, CAP-T10EDITS3.json). Over several lines only the ends are moved.
 const LINE_LEAD = /^(?:\s*(?:[*+-] +|\d+[.)] +|> ?|#{1,6} +))+/;
+// A selection starting at a line's end begins at its next text (PRED-T10FIX.json, CAP-T10FIX.json).
+const pastLineEnd = (v, s, e) => { const m = /^[ \t]*\n\s*/.exec(v.slice(s, e)); return m && m[0].length < e - s ? s + m[0].length : s; };
 function pastMarks(v, s, e) {
   if (e > s && v[e - 1] === '\n') e--;
+  s = pastLineEnd(v, s, e);
   const past = (at) => { const from = lineStart(v, at), m = LINE_LEAD.exec(v.slice(from, lineEnd(v, at))); return m && at < from + m[0].length ? from + m[0].length : at; };
   const a = past(s), b = past(e);
   return [a, Math.max(a, b)];
@@ -52,6 +55,7 @@ export const mdHeading = (v, s, e, level) => eachLine(v, s, e, (l) => `${level ?
 const BLOCK_MARK = /^(?:#{1,6} |\s*[*+-] |\s*\d+\. |\s*> ?)/;
 function holdsBlockMark(v, s, e) {
   if (e > s && v[e - 1] === '\n') e--;
+  s = pastLineEnd(v, s, e);
   if (lineStart(v, s) === lineStart(v, e)) return false;
   for (let from = lineStart(v, s); from < e || from === s; from = lineEnd(v, from) + 1) {
     if (s < lineEnd(v, from) && BLOCK_MARK.test(v.slice(from, lineEnd(v, from)))) return true;
@@ -81,9 +85,19 @@ export function mdEnter(v, s, e) {
   if (!m) return null;
   // An empty item, or a number other than 1, can't start a list straight under a paragraph: it is the paragraph's text.
   const above = from ? v.slice(lineStart(v, from - 1), from - 1) : '';
-  const inText = /\S/.test(above) && !/^(?:#{1,6} |\s*[*+-] |\s*\d+\. |>|-{3,}$|\*{3,}$|_{3,}$|```|~~~)/.test(above);
+  const twoUp = from > 1 && lineStart(v, from - 1) ? v.slice(lineStart(v, lineStart(v, from - 1) - 1), lineStart(v, from - 1) - 1) : '';
+  const isText = (t) => /\S/.test(t) && !/^\s*(?:#{1,6} |[*+-] |\d+\. |>|-{3,}$|\*{3,}$|_{3,}$|```|~~~)/.test(t);
+  const setext = /^ {0,3}(?:=+|-+)\s*$/.test(above) && isText(twoUp); // a heading, not a paragraph (CAP-T10FIX.json)
+  const inText = isText(above) && !setext;
   const rest = head.slice(m[0].length) + v.slice(s, lineEnd(v, s));
-  if (!m[3] && inText && (!rest || (m[2] && m[2] !== '1'))) return null;
+  const cantStart = !m[3] && (!rest || (m[2] && m[2] !== '1'));
+  if (cantStart && inText) return null;
+  // Under a quote's paragraph line it is that paragraph's text: the spaces before the caret go, and the quote goes on (CAP-T10SCORE.json, CAP-T10FIX.json).
+  const inQuote = /^ {0,3}> ?(.*)$/.exec(above);
+  if (cantStart && inQuote && isText(inQuote[1])) {
+    const cut = from + head.trimEnd().length, mark = quoteMark(v, lineStart(v, from - 1));
+    return { value: `${v.slice(0, cut)}\n${mark}${v.slice(s)}`, start: cut + 1 + mark.length, end: cut + 1 + mark.length };
+  }
   const done = (value, at) => ({ value, start: at, end: at });
   if (!rest) {
     const to = lineEnd(v, s), before = from ? v.slice(lineStart(v, from - 1), from - 1) : null;
@@ -107,17 +121,40 @@ export function mdBackspace(v, s, e) {
   return { value: v.slice(0, from) + v.slice(s), start: from, end: from };
 }
 
-// A link the caret is inside, or null.
-// The first link a selection or caret touches, its edges too. A fence holds no links, and an image isn't one.
+// Code spans close only on a run of the same number of ticks, and hold no links (CAP-T10SCORE2.json, CAP-T10FIX2.json).
+function maskCode(line) {
+  let out = line, at = 0;
+  for (;;) {
+    const open = /`+/g; open.lastIndex = at;
+    const m = open.exec(out);
+    if (!m) return out;
+    const close = new RegExp(`(?<!\`)\`{${m[0].length}}(?!\`)`, 'g'); close.lastIndex = m.index + m[0].length;
+    const c = close.exec(out);
+    if (!c) { at = m.index + m[0].length; continue; }
+    const end = c.index + m[0].length;
+    out = out.slice(0, m.index) + ' '.repeat(end - m.index) + out.slice(end);
+    at = end;
+  }
+}
+const LINK_DEF = /^ {0,3}\[([^\]\n]+)\]:[ \t]*(\S+)/;
+// The first link a selection or caret touches, its edges too: [text](url), [text][label], [text][] or [text]. A fence holds
+// none, an image or an escaped bracket isn't one, and a definition's own line holds none. href is the url, inline or from a
+// definition, or null when there is none (PRED-T10FIX.json).
 export function mdLinkIn(v, s, e) {
+  const lines = v.split('\n');
   let fence = false, from = 0;
-  for (const line of v.split('\n')) {
+  const defs = new Map();
+  for (const line of lines) {
     if (/^(```+|~~~+)/.test(line)) fence = !fence;
-    else if (!fence && from <= e && from + line.length >= s) {
-      const text = line.replace(/`[^`]*`/g, (c) => ' '.repeat(c.length)); // inline code holds no links
-      for (const m of text.matchAll(/(?<!!)\[([^\]\n]*)\](?:\(([^)\n]*)\)|\[[^\]\n]*\])/g)) {
-        const start = from + m.index, end = start + m[0].length;
-        if (s <= end && e >= start) return { start, end, text: m[1], href: m[2] ?? '' };
+    else if (!fence) { const d = LINK_DEF.exec(line); if (d) defs.set(d[1].toLowerCase(), d[2]); }
+  }
+  fence = false;
+  for (const line of lines) {
+    if (/^(```+|~~~+)/.test(line)) fence = !fence;
+    else if (!fence && !LINK_DEF.test(line) && from <= e && from + line.length >= s) {
+      for (const m of maskCode(line).matchAll(/(?<![!\\])\[(?:([^\]\n]*)\](?:\(([^)\n]*)\)|\[([^\]\n]*)\])|([^\]\n]*[^\]\s][^\]\n]*)\])/g)) {
+        const start = from + m.index, end = start + m[0].length, text = m[1] ?? m[4];
+        if (s <= end && e >= start) return { start, end, text, href: m[2] ?? defs.get((m[3] || text).toLowerCase()) ?? null };
       }
     }
     from += line.length + 1;

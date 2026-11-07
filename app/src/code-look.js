@@ -111,6 +111,7 @@ function markCss(p, from, to) {
 const JS_KW = new Set('as async await break case catch class const continue debugger default delete do else export extends finally for from function get if import in instanceof let new null of return set static super switch this throw try typeof var void while with yield'.split(' '));
 function markJs(p, from, to) {
   const s = p.text;
+  let importing = false;
   let i = from, prev = '', declaring = null, depth = 0, paramsAt = -1;
   const classBodies = [];
   let classNext = false;
@@ -148,16 +149,20 @@ function markJs(p, from, to) {
       if (m) { p.add(i, i + m[0].length, 'c-str2'); i += m[0].length; prev = 'x'; continue; }
     }
     if (/\d/.test(c)) { const m = /^(?:0x[\da-f]+|[\d.]+(?:e[+-]?\d+)?)n?/i.exec(s.slice(i, to)); p.add(i, i + m[0].length, 'c-num'); i += m[0].length; prev = '0'; continue; }
+    if (importing && c === '*') { p.add(i, i + 1, 'c-kw'); i++; continue; }
+    if (c === ';') importing = false;
     if (/[\w$]/.test(c)) {
       const w = /^[\w$]+/.exec(s.slice(i, to))[0], end = i + w.length, after = s.slice(end, to).match(/^\s*(.)/)?.[1];
       if (prev !== '.' && (w === 'true' || w === 'false')) p.add(i, end, 'c-atom');
       else if (prev !== '.' && JS_KW.has(w)) {
         p.add(i, end, 'c-kw');
+        if (w === 'import') importing = after !== '(';
+        if (w === 'from') importing = false;
         if (w === 'const' || w === 'let' || w === 'var') declaring = depth;
         if (w === 'function') declaring = 'function';
         if (w === 'class') classNext = true;
       } else if (classNext) { p.add(i, end, 'c-cls'); classNext = false; }
-      else if (prev === 'import') p.add(i, end, 'c-def');
+      else if (importing && !/^\s*as\b/.test(s.slice(end, to))) p.add(i, end, 'c-def'); // {a, b as c}: a and c (CAP-T10FIX4.json)
       else if (declaring === 'function') { p.add(i, end, 'c-def'); declaring = null; paramsAt = depth; }
       else if (paramsAt >= 0 && paramsAt === depth - 1 && prev !== '.' && prev !== '=') p.add(i, end, 'c-def');
       else if (declaring === depth && (prev === 'const' || prev === 'let' || prev === 'var' || prev === ',')) p.add(i, end, 'c-def');

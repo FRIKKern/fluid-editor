@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 17 changes
-  - U12: check-start-chrome takes its own port and reads the stand-in's pid from the pid file ([#307](https://github.com/FRIKKern/fluid-editor/pull/307))
-  - U12: what the option rows and Field Accent draw on a page ([#306](https://github.com/FRIKKern/fluid-editor/pull/306))
+- **Today** · 21 changes
+  - R2, A2, G7: rows settle after a width drop; only a move scrolls the page ([#312](https://github.com/FRIKKern/fluid-editor/pull/312))
+  - U12: a pack reaches Radio again as a named guess; #306's picks named ([#311](https://github.com/FRIKKern/fluid-editor/pull/311))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed

@@ -5,7 +5,7 @@
 // X2: where a held block sits and the center line on phones (HOLD.json).
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor, mouse, cdp } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 
@@ -654,11 +654,13 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(`<p>Start of a l${para}ong text here</p>`)}, layout: { desktop: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 150)); fe.select('s', 't'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60);
   const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.find((x) => x.id === 't').layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
   const handle = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
-  const step = async (dx) => { const p = handle(); mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); for (const f of [1 / 3, 2 / 3, 1]) { mouse(S, 'move', p[0] + dx * f, p[1], { buttons: 1 }); await pause(30); } mouse(S, 'up', p[0] + dx, p[1]); await pause(60); evalJs(S, `fe.select('s', 't')`); await pause(40); };
-  const known = { 'wider 5': 'the oracle keeps 5 rows for a text of 134.4 and takes the row off one drop later, 2 of 2 runs; no width offset explains it' };
+  const step = async (dx) => { const p = handle(); mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); for (let n = 1; n <= 12; n++) { mouse(S, 'move', p[0] + (dx * n) / 12, p[1], { buttons: 1 }); await pause(12); } mouse(S, 'up', p[0] + dx, p[1]); await pause(60); evalJs(S, `fe.select('s', 't')`); await pause(40); };
+  const known = { 'wider 5': 'held, the oracle keeps 5 rows for a text of 134.4, 2 of 2 runs, and lets the row go on Escape (CAP-TEXTWIDTH4.json); no width offset explains it while held' };
   const test = (name) => { const r = read(), w = F.reads[name]; const diffs = [r.a !== w.areas[0][0] && `area: oracle ${w.areas[0][0]}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean); groupCases.push({ name: `R2 ${name}`, diffs, ...(known[name] ? { known: known[name] } : {}) }); };
   for (let i = 1; i <= 16; i++) { await step(58.78); test(`wider ${i}`); }
   for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
+  // Let go, the rows follow the text at its real width (CAP-TEXTWIDTH4.json o narrower 20): Escape takes 11 stretched rows to 12.
+  { const w = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH4.json', import.meta.url))).reads['o narrower 20 let go']; browser(S, 'press', 'Escape'); await pause(150); const r = read(); groupCases.push({ name: 'R2 narrower 20 let go', diffs: [r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`, r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`].filter(Boolean) }); }
   viewport(S, 1600, 1000); await pause(120);
 }
 // X2: which handle drags leave a block selected (HANDLEUP.json), with the real mouse, a pen and touch.
