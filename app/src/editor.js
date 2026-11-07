@@ -1082,21 +1082,22 @@ function onCancel(e) {
 
 // After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
 // (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
-// The short block grows d, a block across L grows d, any other block that ends on or below L moves d, and
-// blocks above L stay, in the whole section. A press, a select, typing and undo don't do it. Candidate, refit 1.
+// The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
+// short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
+// section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
 let stored = null;
 function storedRows(g) {
   const m = measure(feEl(g.sid)), s = S(g.sid);
-  let d = 0, L = 0, tid = null;
+  let d = 0, L = 0, t0 = 0, tid = null;
   for (const id of g.kept.keys()) {
     const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
-    if (over > d) { d = over; L = a[2]; tid = id; }
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
   }
   if (d <= 0) return null;
   const areas = new Map();
   for (const b of s.blocks) {
     const a = [...lay(b).area];
-    if (b.id === tid || (a[0] < L && a[2] > L)) a[2] += d;
+    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
     else if (a[2] >= L) { a[0] += d; a[2] += d; }
     areas.set(b.id, a);
   }
