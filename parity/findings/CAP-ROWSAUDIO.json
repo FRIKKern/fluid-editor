@@ -1,0 +1,216 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Audio: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Audio",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "",
+     "kind": "choice",
+     "name": "Upload File",
+     "value": true,
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "",
+     "kind": "choice",
+     "name": "Add File Link",
+     "value": false,
+     "home": "Upload File",
+     "change": []
+    },
+    {
+     "row": "",
+     "kind": "button",
+     "name": "UPLOAD FILE",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Title",
+     "kind": "field",
+     "name": "Title",
+     "value": "",
+     "to": "Ab",
+     "change": [
+      "DIV.title w: No File > Ab"
+     ]
+    },
+    {
+     "row": "Artist",
+     "kind": "field",
+     "name": "Artist",
+     "value": "",
+     "to": "Ab",
+     "change": [
+      "DIV.labels b: 160.1,276.3,251.7,48.2 > 160.1,267.2,251.7,66.4",
+      "DIV.title-wrapper b: 175.1,291.3,221.7,18.2 > 175.1,282.2,221.7,18.2",
+      "DIV.title b: 175.1,291.3,221.7,18.2 > 175.1,282.2,221.7,18.2",
+      "DIV.artistName w:  > Ab",
+      "DIV.artistName b: 175.1,309.5,221.7,0 > 175.1,300.4,221.7,18.2"
+     ]
+    },
+    {
+     "row": "Download Link",
+     "kind": "switch",
+     "name": "Download Link",
+     "value": false,
+     "change": [
+      "elements 30 > 31",
+      "DIV.player cl: player > player download",
+      "DIV.labels b: 160.1,267.2,251.7,66.4 > 160.1,267.2,186.1,66.4",
+      "DIV.title-wrapper b: 175.1,282.2,221.7,18.2 > 175.1,282.2,156.1,18.2",
+      "DIV.title b: 175.1,282.2,221.7,18.2 > 175.1,282.2,156.1,18.2",
+      "DIV.artistName b: 175.1,300.4,221.7,18.2 > 175.1,300.4,156.1,18.2",
+      "DIV b: 411.8,244.2,30,112.3 > 346.2,244.2,95.6,112.3",
+      "DIV.time b: 426.8,300.4,0,0 > 426.8,292.6,0,0",
+      "new A download Download",
+      "STYLE.transform-vars cl:  > transform-vars",
+      "STYLE.transform-vars w:  > .fe-block-yui_3_17_2_1_17940 .. in-x) var(--",
+      "new STYLE",
+      "new DIV",
+      "new SPAN  Audio"
+     ]
+    },
+    {
+     "row": "Podcast",
+     "kind": "nav",
+     "name": "Navigate to Podcast",
+     "notPressed": "refused by name"
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Style",
+     "kind": "choice",
+     "name": "Classic",
+     "value": false,
+     "home": "Minimal",
+     "change": [
+      "elements 30 > 28",
+      "DIV.sqs-widget cl: sqs-widget dark stopped > sqs-widget classic stopped",
+      "DIV.sqs-widget b: 100.1,244.2,341.7,112.3 > 100.1,244.2,341.7,32",
+      "DIV.sqs-widget color: rgba(255, 255, 255, 0.95) > rgb(107, 107, 107)",
+      "DIV.sqs-widget fontSize: 16px > 11px",
+      "DIV.sqs-widget fontFamily: Poppins > \"Helvetica Neue\", Helvetica, Arial, sans-ser",
+      "DIV.sqs-widget fontWeight: 400 > 500",
+      "DIV.sqs-widget backgroundColor: rgb(24, 24, 24) > rgb(17, 17, 17)",
+      "DIV b: 100.1,244.2,341.7,112.3 > 101.1,245.2,339.7,20",
+      "DIV color: rgba(255, 255, 255, 0.95) > rgb(107, 107, 107)",
+      "DIV fontSize: 16px > 11px",
+      "DIV fontFamily: Poppins > \"Helvetica Neue\", Helvetica, Arial, sans-ser",
+      "DIV fontWeight: 400 > 500",
+      "DIV padding: 0px > 10px 119px 10px 36px"
+     ]
+    },
+    {
+     "row": "Style",
+     "kind": "choice",
+     "name": "Minimal",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Color",
+     "kind": "choice",
+     "name": "Dark",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Color",
+     "kind": "choice",
+     "name": "Light",
+     "value": false,
+     "home": "Dark",
+     "change": [
+      "DIV.sqs-widget cl: sqs-widget dark stopped > sqs-widget light stopped",
+      "DIV.sqs-widget color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.sqs-widget backgroundColor: rgb(24, 24, 24) > rgba(0, 0, 0, 0.05)",
+      "DIV color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.player color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.action color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.play color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.play-button color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.pause color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.pause-button color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "DIV.track color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "SPAN.played color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)",
+      "SPAN.played backgroundColor: rgba(255, 255, 255, 0.05) > rgba(0, 0, 0, 0.03)",
+      "SPAN.icon color: rgba(255, 255, 255, 0.95) > rgba(0, 0, 0, 0.95)"
+     ]
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "pressed": "Add Block, Audio, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
+ "answer": "Audio: tabs Content, Design, Animation. 15 rows read, 5 changed the block when changed. Each row below has its default and what the change did."
+}
