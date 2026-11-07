@@ -1,0 +1,352 @@
+{
+  "item": "CAP-SIZEMENU2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "The Size menu on a Text child: which row has the tick, and is Hug on",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1000,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressRow",
+      "Text"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Text panel",
+      {
+        "has": [
+          "Design",
+          "Content"
+        ]
+      }
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Text W",
+      {
+        "panelEls": "[role=option], [role=option] *"
+      }
+    ],
+    [
+      "shot",
+      "textW"
+    ]
+  ],
+  "reads": {
+    "Text panel": {
+      "has": {
+        "Design": true,
+        "Content": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text W": {
+      "panelEls": [
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fixed · 375px",
+          "lines": 3,
+          "box": [
+            610,
+            472,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            621,
+            483,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            623,
+            490,
+            18,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fixed · 375px",
+          "lines": 0,
+          "box": [
+            649,
+            483,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Hug",
+          "lines": 3,
+          "box": [
+            610,
+            516,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            621,
+            527,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "label": "",
+          "lines": 2,
+          "box": [
+            621,
+            534,
+            22,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            621,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            632.5,
+            534,
+            10.5,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Hug",
+          "lines": 0,
+          "box": [
+            649,
+            527,
+            132,
+            22
+          ]
+        },
+        {
+          "tag": "div",
+          "cls": "TrYC8RFkTJsB88nZ css-qpyj7e",
+          "label": "Fill",
+          "lines": 3,
+          "box": [
+            610,
+            560,
+            182,
+            44
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "",
+          "label": "",
+          "lines": 1,
+          "box": [
+            621,
+            571,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            622,
+            578,
+            20,
+            8
+          ]
+        },
+        {
+          "tag": "p",
+          "cls": "css-1h5u42v",
+          "label": "Fill",
+          "lines": 0,
+          "box": [
+            649,
+            571,
+            104,
+            22
+          ]
+        },
+        {
+          "tag": "svg",
+          "cls": "css-10beffl",
+          "label": "",
+          "lines": 1,
+          "box": [
+            759,
+            571,
+            22,
+            22
+          ]
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "label": "",
+          "lines": 0,
+          "box": [
+            764,
+            576.2,
+            12,
+            10.8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": "exit failed: exitWithoutSaving: top Exit: press: covered (ran: nothing). Still in edit mode, nothing saved.",
+  "exitSteps": [],
+  "answer": "A Text child at Fill: tick on Fill, Hug on, not grey. The capture ended with the menu open, so its own exit failed; the next capture started by reloading, and nothing was saved.",
+  "ours": "The same rows; a Text child's Hug isn't grey (kidSizeHtml).",
+  "differs": []
+}

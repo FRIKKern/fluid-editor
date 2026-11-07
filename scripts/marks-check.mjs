@@ -207,7 +207,7 @@ const named = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) 
   return JSON.stringify(out); })()`);
 for (const [n, [txt, w]] of Object.entries(named)) add(`label ${n}`, txt === n && Math.abs(w - F.labels.width[n]) <= 2, `${txt} ${w} oracle ${F.labels.width[n]}`);
 // The other types read (CAP-X13LABELS.json), stand-ins among them. Within 2px too.
-const LBL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads;
+const LBL = { ...JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads, ...JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS2.json', import.meta.url))).reads };
 const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const out = {}; ${FR}
   const sid0 = fe.model.sections[${SEC}].id;
   for (const n of ${JSON.stringify(Object.keys(LBL))}) {

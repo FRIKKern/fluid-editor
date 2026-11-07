@@ -485,7 +485,8 @@ function placeGroupToolbar() {
   const phone = bp === 'mobile';
   const p = toolbarPosition(frame.getBoundingClientRect(), stage.getBoundingClientRect(), g.getBoundingClientRect(), phone);
   toolbar.style.left = `${p.left - (phone ? 1 : 7)}px`; // CAP-GROUPBAR.json
-  toolbar.style.top = `${p.top - 7}px`;
+  // Its first button stops at the same y as one block's, on desktop and a phone (CAP-GROUPBARTOP.json, CAP-PHONEBAR.json).
+  toolbar.style.top = `${Math.max(p.top - 7, frame.getBoundingClientRect().top - stage.getBoundingClientRect().top + 22)}px`;
   toolbar.hidden = false;
 }
 function placeToolbar() {
@@ -540,7 +541,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
-  if (act === 'edit') { designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack')) { openLinkPopover(b, (st) => { const r = btn.getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }); return; }
@@ -1881,9 +1882,12 @@ function placeBlockPanel() {
   if (animPlaying || animPosed) return; // an animation moves the block, not its panel
   const el = blockEl(sel.bid);
   if (!el) return;
-  const p = blockPanelPosition(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
+  // The box before Offset, Rotate and Scale: they move the block, not its panel, open or opened again (CAP-PANELSTILL.json, CAP-PANELSTILL2.json).
+  const under = el.offsetParent.getBoundingClientRect(), left = under.left + el.offsetParent.clientLeft + el.offsetLeft, top = under.top + el.offsetParent.clientTop + el.offsetTop;
+  const box = { left, top, right: left + el.offsetWidth, bottom: top + el.offsetHeight };
+  const p = blockPanelPosition(box, frame.getBoundingClientRect(), stage.getBoundingClientRect(), blockPanel.offsetWidth || 320);
   // A child stays on its right and overlaps it at the window's edge (S3.json children panels).
-  if (parentStack(sel.sid, sel.bid)) p.left = Math.min(el.getBoundingClientRect().right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
+  if (parentStack(sel.sid, sel.bid)) p.left = Math.min(box.right + frame.getBoundingClientRect().left - stage.getBoundingClientRect().left + 18, stage.getBoundingClientRect().width - 340);
   blockPanel.style.left = `${p.left}px`;
   blockPanel.style.top = `${p.top}px`;
   formMessage.sync();

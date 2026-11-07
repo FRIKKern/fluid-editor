@@ -1,0 +1,412 @@
+{
+  "item": "CAP-X13LABELS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "X13, U3: the small type label a hovered block shows on the five types CAP-X13LABELS.json did not read",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Product"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Product",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "Product"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Pricing Plan"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Pricing Plan",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "PricingPlan"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Donation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Donation",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "Donation"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Scheduling"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Scheduling",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "Scheduling"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Summary"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Summary",
+      {
+        "frameEls": ".sqs-block-label-tag",
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "Summary"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "Product": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Product",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            68.6,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/11/8",
+          "1/2/11/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Pricing Plan": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Pricing Plan",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            93.9,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/12/10",
+          "1/2/11/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Donation": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Donation",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            233.2,
+            74.6,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/16/8",
+          "1/2/16/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Scheduling": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Scheduling",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            233.2,
+            87.3,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/18/10",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Summary": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Summary",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            277.2,
+            72.2,
+            16
+          ]
+        }
+      ],
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "The five read as the others: Product, Pricing Plan, Donation, Scheduling, Summary, spelled as in the Add Block menu, 16 high. Widths in reads.",
+  "ours": "Same name, widths within 2 px: npm run marks-check.",
+  "differs": [],
+  "pressed": "Probe page, unsaved: each block removed by its own Remove."
+}
