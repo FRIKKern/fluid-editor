@@ -2698,7 +2698,21 @@ blockPanel.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); addSocialLink(f); }
   if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); socView = null; socErr = ''; renderBlockPanel(); }
 });
+// Map Zoom takes each key at once (88, CAP-T11ZOOMKEYS.json, 7 of 7 predicted): the text is cut to a whole ladder step,
+// with no clamp, and the field shows that step again with the caret at the end; no number keeps the old step.
+const zoomShown = () => { const z = mapOf(B(sel.sid, sel.bid)).zoom; return String(MAP_ZOOMS[z] ?? z); };
+function commitZoomText(text) {
+  const v = parseFloat(text);
+  if (Number.isFinite(v) && Math.trunc(v) !== mapOf(B(sel.sid, sel.bid)).zoom) setMap((b) => { b.mapZoom = Math.trunc(v); }, 'Map zoom');
+  const f = blockPanel.querySelector('[data-map-zoomfield]');
+  if (!f) return;
+  f.value = zoomShown();
+  if (document.activeElement !== f) f.focus();
+  f.setSelectionRange(f.value.length, f.value.length);
+}
 blockPanel.addEventListener('input', (e) => {
+  const zf = e.target.closest('[data-map-zoomfield]');
+  if (zf && sel) { commitZoomText(zf.value); return; }
   const t = e.target.closest('[data-soc-thick]');
   if (t) { const v = blockPanel.querySelector('[data-soc-thickfield]'); if (v) v.value = `${t.value}px`; blockEl(sel.bid)?.querySelector('.sqs-svg-icon--outer')?.style.setProperty('--si-thick', `${t.value}px`); }
 });
@@ -2724,7 +2738,7 @@ blockPanel.addEventListener('change', (e) => {
   const m = e.target.closest('[data-map-set]');
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
-  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.trunc(v); }, 'Map zoom'); else renderBlockPanel(); return; }
+  if (zf) { if (zf.value !== zoomShown()) commitZoomText(zf.value); return; }
   const c = e.target.closest('input[data-content^="map"], input[data-content="formName"], input[data-content="button"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
