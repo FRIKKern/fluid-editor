@@ -1,0 +1,274 @@
+{
+  "item": "CAP-T10STEPS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T10: what the toolbar's Undo takes back of letters typed in a Markdown block, by the gap between them: A, 150 ms, B, 400, C, 700, D, 1000, E, 1500, F, 2500, G, 600",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "setCode",
+      ""
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "setCode",
+      "t"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keys",
+      "A"
+    ],
+    [
+      "pause",
+      150
+    ],
+    [
+      "keys",
+      "B"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "keys",
+      "C"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "keys",
+      "D"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "keys",
+      "E"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "keys",
+      "F"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "keys",
+      "G"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "markdown typed",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 1",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 2",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 3",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 4",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 5",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 6",
+      {
+        "codeText": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "markdown Undo 7",
+      {
+        "codeText": true
+      }
+    ]
+  ],
+  "reads": {
+    "markdown typed": {
+      "codeText": "tABCDEFG",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 1": {
+      "codeText": "tABCDEF",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 2": {
+      "codeText": "tABCDE",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 3": {
+      "codeText": "tABCD",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 4": {
+      "codeText": "tABC",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 5": {
+      "codeText": "tAB",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 6": {
+      "codeText": "tA",
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "markdown Undo 7": {
+      "codeText": "t",
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true
+}

@@ -17,7 +17,7 @@ import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-ki
 import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
-import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
+import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -25,6 +25,7 @@ import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
+import { formColor } from './form-colors.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -941,6 +942,7 @@ function onDown(e) {
   const r = blk.getBoundingClientRect();
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
+    onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -950,6 +952,7 @@ function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
+    if (gesture.onWords) return;
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -966,6 +969,14 @@ function onMove(e) {
   else if (gesture.type === 'gresize') updateGroupResize(e);
   // Only a move scrolls the page: a resize held near the edge leaves it where it is (CAP-RESIZESCROLL.json).
   if (gesture.type === 'move') autoScroll(gesture);
+}
+
+// A drag that starts inside the text of a selected Text, new or written and right of the words too,
+// opens its editor and doesn't move it. From the empty part under the text it moves, like any block
+// (CAP-TEXTPRESS.json, CAP-TEXTWIDTH7.json d1 to d6).
+function onWords(blk, x, y) {
+  const q = blk.querySelector('.sqs-html-content')?.getBoundingClientRect();
+  return !!q && x >= q.left && x <= q.right && y >= q.top && y <= q.bottom;
 }
 
 function onUp(e) {
@@ -1371,6 +1382,8 @@ const ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], Arrow
 
 function onKey(e) {
   const mod = e.metaKey || e.ctrlKey;
+  // A press on a code editor's column leaves the focus on the editor: a key does nothing there, and Meta+Z is the page's (CAP-T10UNDO.json, CAP-T10UNDO2.json).
+  if (e.target.matches?.('.bp-code') && !(mod && e.key.toLowerCase() === 'z') && e.key !== 'Escape') return;
   if (editing) {
     // One Escape takes the text bar and leaves the block selected, and keys still reach the text. The next Escape,
     // or Tab then, lets the block go (CAP-ESC1.json).
@@ -2989,7 +3002,7 @@ blockPanel.addEventListener('change', (e) => {
 }, true);
 // Code and embed (parity/findings/CODEEMBED.json, CODEMODAL.json). The canvas follows the typing; a
 // text is one undo step when the field is left.
-let codeBefore = null;
+let codeBefore = null, codeIdle = 0;
 // Rows follow the height of what is in the block, in whole pixels (CAP-T10ROWS.json, CAP-T10DOWN.json,
 // CAP-T10PULL.json, CAP-T10EMBED.json, CAP-T10VIEW.json, CAP-T10FRESH.json). An embed's height is that of
 // what is in it, margins included, and an empty one's is its 95 tall placeholder.
@@ -3186,7 +3199,9 @@ function openMdLink(root, btn, s, e) {
       const q = mdRootField(root), at = urlIn(fullOf(q));
       if (!v && !at) return;
       flushMdStep();
-      writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
+      // A caret in a reference or bare bracket with no definition, or all of it selected, gets a definition (CAP-T10FIX3.json).
+      const t = fullOf(q), ref = !at && mdLinkIn(t, s, e);
+      writeMd(q, at ? (v ? mdChangeLink(t, at, v) : mdRemoveLink(t, at)) : ref?.label != null && (s === e || (s === ref.start && e === ref.end)) ? mdAddDefinition(t, ref, v, s, e) : mdSetLink(t, s, e, v));
       flushMdStep();
     },
     remove: () => { const q = mdRootField(root), at = urlIn(fullOf(q)); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
@@ -3281,12 +3296,12 @@ for (const root of [blockPanel, codeModal]) {
   root.addEventListener('click', (e) => {
     const t = e.target.closest('[data-fold], [data-fold-open]');
     if (!t) return;
-    const f = t.closest('.bp-code').querySelector('textarea');
+    const box = t.closest('.bp-code'), f = box.querySelector('textarea'), onText = t.classList.contains('bp-code-ph');
     if (t.dataset.fold) { const [from, to] = t.dataset.fold.split(',').map(Number); toggleFold(f, from, to); } else {
-      const onText = t.classList.contains('bp-code-ph');
       openFold(f, Number(t.dataset.foldOpen), onText);
       if (onText) f.focus();
     }
+    if (!onText) { box.tabIndex = -1; box.focus(); }
     paintCode(f);
     if (f.dataset.content === 'markdown') paintMdBar(f);
   });
@@ -3323,6 +3338,9 @@ blockPanel.addEventListener('input', (e) => {
   else if (f.value) { b.html = f.value; delete b.embedInvalid; } else delete b.html;
   renderSectionDom(sel.sid);
   fitRows(b, was);
+  // A pause in the typing ends a step of the page's undo (CAP-T10STEPS.json, CAP-T10STEPS2.json; 400 ms lies inside what those show).
+  clearTimeout(codeIdle);
+  if (f.dataset.content !== 'embedHtml') codeIdle = setTimeout(() => { if (codeBefore == null) return; codeCommit = true; commit(codeBefore, f.dataset.content === 'code' ? 'Code changed' : 'Markdown changed'); codeCommit = false; codeBefore = null; }, 400);
   mdLines(f);
   if (f.dataset.content === 'markdown') paintMdBar(f);
   placeBlockPanel();
@@ -3871,6 +3889,29 @@ blockPanel.addEventListener('pointerdown', (e) => {
   };
   addEventListener('pointermove', move); addEventListener('pointerup', up);
 });
+// The four Corner fields take the same pull from anywhere on them, and a press with no pull goes on into the field (CAP-T7CORNERS.json, CAP-T7CORNERS2.json).
+blockPanel.addEventListener('pointerdown', (e) => {
+  const input = e.target.closest?.('.st-corners input[data-stack-field]');
+  if (!input || !sel || e.button) return;
+  const b = B(sel.sid, sel.bid), bag = designBag(bp), n = Number(input.dataset.stackField[1]), had = b[bag]?.corners, x0 = e.clientX, start = parseFloat(input.value) || 0;
+  const valueAt = (x) => Math.min(1000, Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  let pulled = false;
+  const paint = (v) => { const now = [...designFor(b, bp).corners]; now[n] = v; b[bag] = { ...(b[bag] || {}), corners: now }; renderSectionDom(sel.sid); input.value = String(v); input.setSelectionRange(0, 0); };
+  const move = (m) => { if (!pulled && Math.abs(m.clientX - x0) < 3) return; if (!pulled) { pulled = true; input.setPointerCapture(e.pointerId); } m.preventDefault(); paint(valueAt(m.clientX)); };
+  const up = (m) => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    if (!pulled) return;
+    const v = valueAt(m.clientX), k = input.dataset.stackField;
+    b[bag] = { ...(b[bag] || {}) };
+    if (had === undefined) delete b[bag].corners; else b[bag].corners = had;
+    renderSectionDom(sel.sid);
+    if (v === start) { input.value = String(start); return; }
+    input.value = String(v);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    blockPanel.querySelector(`.st-corners input[data-stack-field="${k}"]`)?.focus();
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
+});
 function onDesignChange(e) {
   const input = e.target.closest('input[data-design]');
   if (!input || !sel) return;
@@ -4352,16 +4393,25 @@ const ADD_TYPES = [
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
-// A new block lands by how far its section's top sits above the frame; past the section's last row it
-// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
-// on predictions). Read on desktop only, so the phone view stays on row 1.
+// A new block lands by how far its section's top sits above the frame; past the section's last row it lands on
+// row 1, and the frame goes so the block's middle is at its middle, or as near as the page allows (CAP-T14FRAME.json,
+// CAP-T14FRAME2.json, CAP-T14PLACE.json, CAP-T14BACK.json: inferred, on predictions). Read on desktop only, so the
+// phone view stays on row 1.
+let landedPast = false;
 function landingRow(s) {
   const el = sectionEl(s.id), fe = feEl(s.id);
   if (bp !== 'desktop' || !el || !fe) return 1;
   const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
   if (row <= s.rows.desktop) return row;
-  win.scrollBy({ top: -above, behavior: 'instant' });
+  landedPast = true;
   return 1;
+}
+// After the new block is drawn.
+function frameToLanded(bid) {
+  if (!landedPast) return;
+  landedPast = false;
+  const c = blockEl(bid)?.getBoundingClientRect();
+  if (c) win.scrollBy({ top: c.top + c.height / 2 - win.innerHeight / 2, behavior: 'instant' });
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
@@ -4724,6 +4774,7 @@ panel.addEventListener('click', (e) => {
   if (btn.dataset.act === 'stack') stackBlocks();
   if (btn.dataset.act === 'add') addBlock(sel.sid, btn.dataset.v);
   renderSectionDom(sel.sid);
+  frameToLanded(sel.bid);
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
@@ -5161,6 +5212,7 @@ addMenu.addEventListener('click', (e) => {
   addBlock(sid, b.dataset.add);
   addMenu.hidden = true;
   renderSectionDom(sid);
+  frameToLanded(sel.bid);
   commit(before, `Added ${b.dataset.add} to ${sid}`);
 });
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
@@ -5172,7 +5224,7 @@ const siteStyles = $('site-styles');
 let ssView = null;
 let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
-let dot = null; // the open color popover: { row, custom, format, list }
+let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
 function themeRows() {
   themeColors = themeColors || readThemeColors();
   const used = new Set(model.sections.map((s) => s.theme || 'light'));
@@ -5196,12 +5248,10 @@ function renderSsPanel() {
   }
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
-  if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1' }; }
+  if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
   siteStyles.scrollTop = top;
-  const colorPop = siteStyles.querySelector('.ss-fc-pop');
-  if (colorPop) colorPop.style.top = `${colorPop.parentElement.getBoundingClientRect().top - 36}px`;
   placeThemeChips();
   const tip = siteStyles.querySelector('.ss-tip');
   if (tip) tip.style.top = `${siteStyles.querySelector('.ss-help').getBoundingClientRect().top - 16}px`;
@@ -5276,6 +5326,12 @@ siteStyles.addEventListener('click', (e) => {
   if (from) { setPalette(fromColor(palette().accent, Number(from.dataset.palFrom)), from.getAttribute('aria-label')); return; }
   if (colorFormatPress(e, pal)) { renderSsPanel(); return; }
   const sel0 = e.target.closest('[data-ss-select]');
+  if (sel0?.dataset.ssFcTheme) {
+    const name = sel0.getAttribute('aria-label'), same = dot?.form && dot.row === name;
+    closeDotPop();
+    if (!same) { openDotPop(name, sel0, sel0.dataset.ssFcTheme); sel0.setAttribute('aria-expanded', 'true'); }
+    return;
+  }
   if (sel0) { ssSelect = ssSelect === sel0.dataset.ssSelect ? null : sel0.dataset.ssSelect; renderSsPanel(); return; }
   const set0 = e.target.closest('button[data-ss-set]');
   if (set0) { ssSelect = null; setSsValue(set0.dataset.ssSet, set0.dataset.v); return; }
@@ -5346,10 +5402,21 @@ siteStyles.addEventListener('pointerdown', (e) => {
 });
 // A row's color popover (U12): five palette circles, Custom color, the opacity track. Centered on its row.
 const dotPop = $('ss-dot-pop');
-function closeDotPop() { dot = null; dotPop.hidden = true; dotPop.innerHTML = ''; }
-function rowNow(i) { const st = model.siteStyles; return rowValue(st, resolveSiteStyles(st).picked, ssTheme, i); }
+function closeDotPop() {
+  if (dot?.form) siteStyles.querySelector(`[data-ss-select="form-color-${dot.row}"]`)?.setAttribute('aria-expanded', 'false');
+  dot = null; dotPop.hidden = true; dotPop.innerHTML = '';
+}
+function rowNow(i) {
+  const st = model.siteStyles;
+  return dot?.form ? formColor(st, dot.form, i) : rowValue(st, resolveSiteStyles(st).picked, ssTheme, i);
+}
 function setRow(i, value) {
   const st = model.siteStyles || {};
+  if (dot?.form) {
+    const colors = st.forms?.colors || {};
+    model.siteStyles = { ...st, forms: { ...(st.forms || {}), colors: { ...colors, [dot.form]: { ...(colors[dot.form] || {}), [i]: value } } } };
+    return;
+  }
   model.siteStyles = { ...st, themeRows: { ...(st.themeRows || {}), [ssTheme]: { ...(st.themeRows?.[ssTheme] || {}), [i]: value } } };
 }
 function renderDotPop() {
@@ -5361,9 +5428,9 @@ function renderDotPop() {
   dotPop.style.top = `${dotPopTop(dot.center, dot.custom, innerHeight)}px`;
   dotPop.hidden = false;
 }
-function openDotPop(i, rowEl) {
+function openDotPop(i, rowEl, form = null) {
   const r = rowEl.getBoundingClientRect();
-  dot = { row: i, custom: false, format: 'RGB', list: false, center: r.top + r.height / 2 };
+  dot = { row: i, form, custom: false, format: 'RGB', list: false, center: r.top + r.height / 2 };
   renderDotPop();
 }
 function changeRow(label, change) {
@@ -5398,7 +5465,7 @@ dotPop.addEventListener('change', (e) => {
   const rgb = typedColor(e.target);
   if (rgb) changeRow('row color', () => setRow(dot.row, { rgb, a: v.a ?? 1 }));
 });
-document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row]')) closeDotPop(); }, true);
+document.addEventListener('pointerdown', (e) => { if (dot && !dotPop.contains(e.target) && !e.target.closest?.('[data-ss-row],[data-ss-fc-theme]')) closeDotPop(); }, true);
 document.addEventListener('keydown', (e) => { if (dot && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeDotPop(); } }, true);
 document.addEventListener('keydown', (e) => { if ((ssSelect === 'tier-shape' || ssSelect?.startsWith('form-')) && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); ssSelect = null; renderSsPanel(); } }, true);
 siteStyles.addEventListener('input', (e) => {
@@ -5434,16 +5501,10 @@ function formOptionPress(e) {
   }
   return false;
 }
-// Colors: the theme picker changes only which theme the rows show; a dot sets one row of that theme.
+// Colors: the theme picker changes only which theme the rows show. A row opens the color popover (openDotPop).
 function formColorPress(e) {
   const pick = e.target.closest('[data-ss-ftheme]');
   if (pick) { ssFormTheme = pick.dataset.ssFtheme; ssSelect = null; renderSsPanel(); return true; }
-  const dot = e.target.closest('[data-ss-fcolor]');
-  if (dot) {
-    const theme = dot.dataset.theme, row = dot.dataset.row;
-    setSiteStyleKeys(`Forms ${row} color`, (st) => { const colors = st.forms?.colors || {}; st.forms = { ...(st.forms || {}), colors: { ...colors, [theme]: { ...(colors[theme] || {}), [row]: dot.dataset.ssFcolor } } }; return st; });
-    return true;
-  }
   return false;
 }
 function formPress(e) {
@@ -6325,7 +6386,7 @@ function boot() {
     select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
-    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); return true; },
+    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); frameToLanded(sel.bid); return true; },
   };
 }
 

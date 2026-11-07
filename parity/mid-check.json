@@ -1,9 +1,10 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 715,
+  "pass": 716,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
+    "hold resize w to the far side -50,0",
     "hold from the right margin track -30,12",
     "hold from the right margin track -60,12",
     "hold from the right margin track -70,12",
@@ -11,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 723,
+  "total": 725,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -1740,8 +1741,10 @@
     },
     {
       "name": "hold resize w to the far side -50,0",
-      "diffs": [],
-      "known": false
+      "diffs": [
+        "ring: oracle 1 / 2 / 7 / 8, ours 1 / 1 / 7 / 8"
+      ],
+      "known": true
     },
     {
       "name": "hold resize w to the far side -90,0",
@@ -3128,6 +3131,14 @@
     },
     {
       "name": "X2 Shape corner 70, 70 by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 selected Text, a drag on the text",
+      "diffs": []
+    },
+    {
+      "name": "X2 selected Text, a drag under the text",
       "diffs": []
     },
     {

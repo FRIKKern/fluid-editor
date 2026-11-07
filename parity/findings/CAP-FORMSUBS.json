@@ -598,9 +598,7 @@
    }
   }
  },
- "notBuilt": [
-  "A color's Custom color and the opacity slider. Their controls are read (CAP-U12COLORPOP.json, CAP-U12CUSTOM.json). What moving them does is not: a press on Custom already writes, so it is skipped."
- ],
+ "notBuilt": [],
  "notRead": [
   "Focus alone: a click kept the look only while the pointer stayed, and whether the field really had focus was not checked.",
   "The submit animations: a submit would reach form storage, so it was not pressed. The tile is kept, nothing animates.",
@@ -616,6 +614,7 @@
   "Accent and Opacity add 1 px on hover at every thickness: only read at 1.",
   "A color's popup stays open after a dot press and closes on Escape, the row, or another row: not read.",
   "Pack values for Radio and Survey: read on the Checkbox only, so a pack leaves them at the defaults.",
-  "The color table was read with no site theme picked; after a site theme pick ours keeps the same table."
+  "The color table was read with no site theme picked; after a site theme pick ours keeps the same table.",
+  "A color row's Custom color and opacity use the Edit Color Theme row popover, whose boxes match CAP-U12COLORPOP.json and CAP-U12CUSTOM.json. Behaviour here is inferred from the Shape's, because the press writes on the oracle (CAP-T6CUSTOM.json): the map, hue, boxes and track, one undo step each, a circle keeping the opacity, and what opacity draws on a page."
  ]
 }

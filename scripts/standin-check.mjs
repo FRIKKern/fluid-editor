@@ -103,6 +103,33 @@ for (const name of ['CAP-T14FRAME', 'CAP-T14FRAME2']) {
     add(`${read}: ${landed}`, got.area === landed && got.rows === r.section.rows && topOk, `${got.area}, rows ${got.rows}, top ${got.top} wants ${landed}, rows ${r.section.rows}, was ${got.was}`);
   }
 }
+// Past the last row, below the first section: the new block's middle at the frame's middle, as near as the page allows (CAP-T14BACK.json, CAP-T14PLACE.json).
+const readOf = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+const BACK = readOf('CAP-T14BACK'), PLACE = readOf('CAP-T14PLACE'), REACH = readOf('CAP-T14REACH');
+const blankPage = (n) => evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); while (next.sections.length < ${n}) next.sections.push({ ...JSON.parse(JSON.stringify(next.sections.at(-1))), id: 'more' + next.sections.length }); next.sections = next.sections.slice(0, ${n}); for (const s of next.sections) { s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; } fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 300)); const W = document.getElementById('site-frame').contentWindow; W.scrollTo({ top: 0, behavior: 'instant' }); return JSON.stringify([...W.document.querySelectorAll('section[data-section-id]')].map((e) => e.getBoundingClientRect().height)); })()`);
+const landFrom = (i, type, y) => evalJs(S, `(async () => { const W = document.getElementById('site-frame').contentWindow, id = fe.model.sections[${i}].id; W.scrollTo({ top: ${y}, behavior: 'instant' }); await new Promise((res) => setTimeout(res, 60)); const was = W.scrollY; fe.addBlock(id, ${JSON.stringify(type)}); await new Promise((res) => setTimeout(res, 150)); return JSON.stringify({ was, now: W.scrollY, area: fe.model.sections[${i}].blocks[0].layout.desktop.area.join('/') }); })()`);
+for (const [name, r, i, type, n] of [['Text s1 above 400', BACK, 1, 'Text', 4], ['Shape s1 above 400', BACK, 1, 'Shape', 4], ['Line s1 above 400', BACK, 1, 'Line', 4], ['Text s2 above 400', BACK, 2, 'Text', 5], ['s0 above 329', PLACE, 0, 'Text', 3], ['s0 above 500', PLACE, 0, 'Text', 3], ['s1 above 400', PLACE, 1, 'Text', 4]]) {
+  const heights = blankPage(n), read = r[name], got = landFrom(i, type, read.atPress.frameY);
+  add(`Past the last row, ${name}: from ${read.atPress.frameY} to ${read.afterFrameY}`, got.was === read.atPress.frameY && Math.abs(got.now - read.afterFrameY) <= 1 && got.area.startsWith('1/2/'), `${JSON.stringify(got)} sections ${heights}`);
+}
+// Add Block rides 26 below the frame's top, and can be pressed there (CAP-T14REACH.json: a real mouse over the section).
+blankPage(3);
+for (const [name, r] of Object.entries(REACH)) {
+  evalJs(S, `(async () => { const W = document.getElementById('site-frame').contentWindow; W.scrollTo({ top: ${r.frameY}, behavior: 'instant' }); return 'true'; })()`);
+  await pause(120);
+  const over = name.includes('-300') ? 400 : 200; // as the read's mouse, over the section read
+  mouse(S, 'move', 800, over); await pause(60); mouse(S, 'move', 801, over + 1); await pause(200);
+  const want = r.buttons.find((b) => b.onTop), got = evalJs(S, `(() => { const e = [...document.querySelectorAll('[data-sc="add-block"]')].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; const c = e.getBoundingClientRect(), x = c.left + c.width / 2, y = c.top + c.height / 2; return JSON.stringify({ x, y, on: !!document.elementFromPoint(x, y)?.closest('[data-sc="add-block"]') }); })()`);
+  add(`Add Block, ${name}: its middle ${Math.round(want.at[1])}, on top`, !!got && Math.abs(got.y - want.at[1]) <= 1 && Math.abs(got.x - want.at[0]) <= 1 && got.on, JSON.stringify(got));
+}
+// The phone view has no Add Block, wherever the mouse is (CAP-T14PLACE.json).
+evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 300)); document.getElementById('site-frame').contentWindow.scrollTo({ top: 0, behavior: 'instant' }); return 'true'; })()`);
+for (const y of [200, 500, 700]) {
+  mouse(S, 'move', 800, y); await pause(60); mouse(S, 'move', 801, y + 1); await pause(200);
+  const got = evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('[data-sc="add-block"]')].filter((x) => x.getBoundingClientRect().width > 0).length))()`);
+  add(`Phone, the mouse at ${y}: no Add Block`, got === PLACE[`phone mouse at ${y}, hovered`].buttons.length, String(got));
+}
+evalJs(S, `(async () => { fe.setBp('desktop'); await new Promise((res) => setTimeout(res, 200)); return 'true'; })()`);
 // The same by real presses: the frame moved, Add Block, then the tile. Frame by 100 on section 0 lands on row 3.
 evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[0]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((res) => setTimeout(res, 250)); document.getElementById('site-frame').contentWindow.scrollTo({ top: 100, behavior: 'instant' }); return 'true'; })()`);
 await pause(200);
@@ -113,6 +140,15 @@ const opened = await realPress('[data-sc="add-block"]'), pressed = opened && awa
 await pause(300);
 const real = evalJs(S, `(() => JSON.stringify(fe.model.sections[0].blocks[0]?.layout.desktop.area.join('/') ?? null))()`);
 add('Real presses, frame by 100: row 3', pressed && real === '3/2/5/10', `${opened} ${pressed} ${real}`);
+// And past the last row, by real presses.
+blankPage(4);
+evalJs(S, `(async () => { document.getElementById('site-frame').contentWindow.scrollTo({ top: ${BACK['Text s1 above 400'].atPress.frameY}, behavior: 'instant' }); return 'true'; })()`);
+await pause(200);
+mouse(S, 'move', 800, 200); await pause(60); mouse(S, 'move', 801, 201); await pause(300);
+await realPress('[data-sc="add-block"]'); await realPress('button[data-add="Text"]'); await pause(300);
+const pressedPast = evalJs(S, `(() => JSON.stringify({ y: document.getElementById('site-frame').contentWindow.scrollY, area: fe.model.sections[1].blocks[0]?.layout.desktop.area.join('/') }))()`);
+add('Past the last row, by real presses: to 384', Math.abs(pressedPast.y - BACK['Text s1 above 400'].afterFrameY) <= 1 && pressedPast.area?.startsWith('1/2/'), JSON.stringify(pressedPast));
+evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); fe.setBp('desktop'); fe.load(next); return 'true'; })()`);
 if (process.env.T14_SHOT) screenshot(S, process.env.T14_SHOT);
 viewport(S, 1600, 1400);
 

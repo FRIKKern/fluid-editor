@@ -243,8 +243,21 @@ function edit(st, a, b, text) {
   if (was && !removed && !was.removed && text.length === 1 && text !== '\n' && a === was.at + was.text.length && now - was.time < 800) { was.text += text; was.time = now; return; }
   st.undo.push({ at: a, removed, text, time: now });
 }
+// A fold rewrites the field's value, which ends the field's own undo, so what was typed before the first fold is kept here.
+// Meta+Z in the field still takes it back, and a fold stays (CAP-T10UNDO.json).
+const early = new WeakMap();
+function noteEarly(f) {
+  const h = early.get(f) ?? { full: f.defaultValue, folds: [], undo: [], redo: [] }, old = h.full, now = f.value;
+  early.set(f, h);
+  if (old === now) return h;
+  let a = 0, b = old.length, c = now.length;
+  while (a < b && a < c && old[a] === now[a]) a++;
+  while (b > a && c > a && old[b - 1] === now[c - 1]) { b--; c--; }
+  edit(h, a, b, now.slice(a, c));
+  return h;
+}
 export function toggleFold(f, from, to) {
-  const [s, e, dir] = realSel(f), st = states.get(f) ?? { full: f.value, folds: [], undo: [], redo: [] };
+  const [s, e, dir] = realSel(f), st = states.get(f) ?? { full: f.value, folds: [], undo: noteEarly(f).undo, redo: [] };
   states.set(f, st);
   st.folds.push({ from, to });
   show(f, st, s, e, dir);
@@ -328,7 +341,8 @@ export function noteSelection(f) { const st = states.get(f); if (st) st.before =
 // The field changed by itself: carry that change over to the real text.
 export function syncFolds(f) {
   const st = states.get(f);
-  if (!st || f.value === st.vis) return;
+  if (!st) { noteEarly(f); return; }
+  if (f.value === st.vis) return;
   const old = st.vis, now = f.value, [s, e] = st.before ?? [0, 0];
   st.before = null;
   let a, b;
