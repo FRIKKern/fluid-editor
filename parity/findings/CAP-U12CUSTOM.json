@@ -1,0 +1,2583 @@
+{
+ "item": "U12",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-07",
+ "engine": "chrome",
+ "question": "What does pressing Custom on a Forms > Colors row open, and does it write?",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "pressNamed",
+   "Toggle Site Styles editing"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressNamed",
+   "Open Forms style disclosure"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "scrollTo",
+   "Colors"
+  ],
+  [
+   "click",
+   "Colors"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "read",
+   "view",
+   {
+    "controls": true,
+    "elsIn": [
+     1282,
+     200,
+     1600,
+     400
+    ]
+   }
+  ],
+  [
+   "shot",
+   "view"
+  ],
+  [
+   "click",
+   "Field Background"
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "read",
+   "popover",
+   {
+    "controls": true
+   }
+  ],
+  [
+   "pressNamed",
+   "Custom color"
+  ],
+  [
+   "pause",
+   1000
+  ],
+  [
+   "read",
+   "custom open",
+   {
+    "controls": true,
+    "elsIn": [
+     1200,
+     200,
+     1600,
+     800
+    ]
+   }
+  ],
+  [
+   "shot",
+   "custom"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "read",
+   "custom closed",
+   {
+    "controls": true,
+    "elsIn": [
+     1282,
+     200,
+     1600,
+     400
+    ]
+   }
+  ],
+  [
+   "shot",
+   "closed"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ]
+ ],
+ "reads": {
+  "view": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Forms",
+     "box": [
+      1280,
+      22,
+      101.3,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Close",
+     "box": [
+      1542,
+      26,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "AaLightest 1",
+     "box": [
+      1302,
+      149,
+      276,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background",
+     "box": [
+      1291,
+      248,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border",
+     "box": [
+      1291,
+      292,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent",
+     "box": [
+      1291,
+      336,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory",
+     "box": [
+      1291,
+      380,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background",
+     "box": [
+      1291,
+      424,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background on Background",
+     "box": [
+      1291,
+      468,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border on Background",
+     "box": [
+      1291,
+      512,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent on Background",
+     "box": [
+      1291,
+      556,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory on Background",
+     "box": [
+      1291,
+      600,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background on Background",
+     "box": [
+      1291,
+      644,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Background",
+     "box": [
+      1291,
+      743,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Stroke Color",
+     "box": [
+      1291,
+      787,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Title",
+     "box": [
+      1291,
+      886,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      27,
+      24.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      93.6,
+      24.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      161.4,
+      17.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      205.4,
+      25.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1164,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1210,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Subscribe",
+     "box": [
+      996,
+      954.5,
+      93.3,
+      36
+     ]
+    }
+   ],
+   "elsIn": [
+    [
+     "h3",
+     "",
+     "",
+     "",
+     "",
+     "Gpm8ruR3IUkWgsWy",
+     1302,
+     215,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     "Form Fields"
+    ],
+    [
+     "button",
+     "",
+     "Field Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     248,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     248,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     259,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Background"
+    ],
+    [
+     "button",
+     "",
+     "Field Border",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     292,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     292,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     303,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Border"
+    ],
+    [
+     "button",
+     "",
+     "Field Accent",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     336,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     336,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     347,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accent"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "popover": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Forms",
+     "box": [
+      1280,
+      22,
+      101.3,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Close",
+     "box": [
+      1542,
+      26,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "AaLightest 1",
+     "box": [
+      1302,
+      149,
+      276,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent",
+     "box": [
+      1291,
+      336,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory",
+     "box": [
+      1291,
+      380,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background",
+     "box": [
+      1291,
+      424,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background on Background",
+     "box": [
+      1291,
+      468,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border on Background",
+     "box": [
+      1291,
+      512,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent on Background",
+     "box": [
+      1291,
+      556,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory on Background",
+     "box": [
+      1291,
+      600,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background on Background",
+     "box": [
+      1291,
+      644,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Background",
+     "box": [
+      1291,
+      743,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Stroke Color",
+     "box": [
+      1291,
+      787,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Title",
+     "box": [
+      1291,
+      886,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      27,
+      24.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      93.6,
+      24.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      161.4,
+      17.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      205.4,
+      25.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1164,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1210,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Subscribe",
+     "box": [
+      996,
+      954.5,
+      93.3,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Custom color",
+     "box": [
+      1533,
+      240,
+      34,
+      34
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Opacity slider",
+     "min": "0",
+     "max": "1",
+     "now": "1",
+     "box": [
+      1554,
+      294,
+      16,
+      16
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "clean"
+  },
+  "custom open": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Forms",
+     "box": [
+      1280,
+      22,
+      101.3,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Close",
+     "box": [
+      1542,
+      26,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background on Background",
+     "box": [
+      1291,
+      468,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border on Background",
+     "box": [
+      1291,
+      512,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent on Background",
+     "box": [
+      1291,
+      556,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory on Background",
+     "box": [
+      1291,
+      600,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background on Background",
+     "box": [
+      1291,
+      644,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Background",
+     "box": [
+      1291,
+      743,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Stroke Color",
+     "box": [
+      1291,
+      787,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Title",
+     "box": [
+      1291,
+      886,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      27,
+      24.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      93.6,
+      24.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      161.4,
+      17.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      205.4,
+      25.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1164,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1210,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Subscribe",
+     "box": [
+      996,
+      954.5,
+      93.3,
+      36
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Color Map",
+     "box": [
+      1463.3,
+      63,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Hue slider",
+     "min": "0",
+     "max": "359",
+     "now": "42.54545454545458",
+     "box": [
+      1319.5,
+      372,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "slider",
+     "label": "Opacity slider",
+     "min": "0",
+     "max": "1",
+     "now": "1",
+     "box": [
+      1554,
+      400,
+      16,
+      16
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Red",
+     "value": "255",
+     "box": [
+      1375,
+      436,
+      26,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Green",
+     "value": "207",
+     "box": [
+      1424,
+      436,
+      26,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Blue",
+     "value": "90",
+     "box": [
+      1473,
+      436,
+      26,
+      22
+     ]
+    },
+    {
+     "role": "spinbutton",
+     "label": "Alpha",
+     "value": "100%",
+     "box": [
+      1522,
+      436,
+      62,
+      22
+     ]
+    }
+   ],
+   "elsIn": [
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-roynbj",
+     1302,
+     215,
+     276,
+     473,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "h3",
+     "",
+     "",
+     "",
+     "",
+     "Gpm8ruR3IUkWgsWy",
+     1302,
+     215,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     "Form Fields"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     248,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     248,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     248,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     259,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Background"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     292,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Border",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     292,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     292,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     303,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Border"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     336,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Accent",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     336,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     336,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     347,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accent"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     380,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Accessory",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     380,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     380,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     391,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     391,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     391,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accessory"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     424,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Button Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     424,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     424,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     435,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     435,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     435,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Button Background"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     468,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Background on Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     468,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     468,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     479,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     479,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     479,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Background on "
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     512,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Border on Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     512,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     512,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     523,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     523,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     523,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Border on Back"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     556,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Accent on Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     556,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     556,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     567,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     567,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     567,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accent on Back"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     600,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Field Accessory on Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     600,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     600,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     611,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     611,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     611,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accessory on B"
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1axxlay",
+     1280,
+     644,
+     320,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     ""
+    ],
+    [
+     "button",
+     "",
+     "Button Background on Background",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     644,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     644,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     655,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "custom closed": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Forms",
+     "box": [
+      1280,
+      22,
+      101.3,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Close",
+     "box": [
+      1542,
+      26,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "AaLightest 1",
+     "box": [
+      1302,
+      149,
+      276,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background",
+     "box": [
+      1291,
+      248,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border",
+     "box": [
+      1291,
+      292,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent",
+     "box": [
+      1291,
+      336,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory",
+     "box": [
+      1291,
+      380,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background",
+     "box": [
+      1291,
+      424,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Background on Background",
+     "box": [
+      1291,
+      468,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Border on Background",
+     "box": [
+      1291,
+      512,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accent on Background",
+     "box": [
+      1291,
+      556,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Field Accessory on Background",
+     "box": [
+      1291,
+      600,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Button Background on Background",
+     "box": [
+      1291,
+      644,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Background",
+     "box": [
+      1291,
+      743,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Stroke Color",
+     "box": [
+      1291,
+      787,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Title",
+     "box": [
+      1291,
+      886,
+      298,
+      44
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      27,
+      24.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      93.6,
+      24.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      161.4,
+      17.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      205.4,
+      25.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1164,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1210,
+      27.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Subscribe",
+     "box": [
+      996,
+      954.5,
+      93.3,
+      36
+     ]
+    }
+   ],
+   "elsIn": [
+    [
+     "h3",
+     "",
+     "",
+     "",
+     "",
+     "Gpm8ruR3IUkWgsWy",
+     1302,
+     215,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "auto",
+     "Form Fields"
+    ],
+    [
+     "button",
+     "",
+     "Field Background",
+     "",
+     "",
+     "css-hgj1p1",
+     1291,
+     248,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     248,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     259,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     259,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Background"
+    ],
+    [
+     "button",
+     "",
+     "Field Border",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     292,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     292,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     303,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     303,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Border"
+    ],
+    [
+     "button",
+     "",
+     "Field Accent",
+     "",
+     "",
+     "css-1hz0762",
+     1291,
+     336,
+     298,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-8uspn",
+     1302,
+     336,
+     276,
+     44,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-1rxyiww",
+     1302,
+     347,
+     276,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "div",
+     "",
+     "",
+     "",
+     "",
+     "css-2dh45j",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(62, 62, 62)",
+     "0px",
+     "pointer",
+     ""
+    ],
+    [
+     "p",
+     "",
+     "",
+     "",
+     "",
+     "css-1toxf8x",
+     1302,
+     347,
+     243,
+     22,
+     "rgb(14, 14, 14)",
+     "0px",
+     "pointer",
+     "Field Accent"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it. Still in edit mode, nothing saved.",
+ "answer": "It writes: this is a pick. Save goes on and Undo goes on from the press alone, with no slider, map or bar moved, and stays on after Escape. The row's swatch looks the same. It opens a Color Map, Hue slider (0 to 359, now 42.5), Opacity slider (now 1), Red 255, Green 207, Blue 90, Alpha 100%, the row's own color. Skipped from now on: Site Styles is read only.",
+ "pressed": "One press of Custom color by name, on Field Background, theme Lightest 1, on Blocks Probe. Tried because a Shape read showed no change, but Save was already on there so it could not show a write. The tool's Exit failed (first Exit drops the edit, Site Styles stays open with Save off). State then: Save off, Undo off, no dialog. Nothing pressed to reverse it. Full read-back after: exit 0, no row differs. Save never pressed."
+}
