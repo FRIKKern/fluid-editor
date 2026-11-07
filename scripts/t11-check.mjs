@@ -379,6 +379,20 @@ add('Ours: decrement from 99 lands on 7', fieldV(ZF) === '7', fieldV(ZF));
 await typeIn(ZF, '-1');
 await click(`panel.querySelector('[aria-label="increment"]')`, 120);
 add('Ours: increment from -1 lands on 0', fieldV(ZF) === '0', fieldV(ZF));
+// 88, one key at a time (CAP-T11ZOOMKEYS.json): each key commits, the field shows the step again; then the sample's
+// End, eight Backspaces, 5 and 0 (SAMPLE-ROWS.json), which end at 0.01.
+{
+  const KR = read26('CAP-T11ZOOMKEYS');
+  await typeIn(ZF, '12');
+  const keys = [['End, Backspace', ['End', 'Backspace']], ['2', ['2']], ['3', ['3']], ['Backspace', ['Backspace']], ['9', ['9']], ['5', ['5']], ['0', ['0']]];
+  let ok = 0; const miss = [];
+  for (const [name, ks] of keys) { for (const k of ks) { browser(S, 'press', k); await pause(120); } const v = fieldV(ZF); if (v === KR[name].focused.value) ok++; else miss.push(`${name}: ${v}, oracle ${KR[name].focused.value}`); }
+  add(`88: Zoom key by key, ${keys.length} reads`, ok === keys.length, `${ok} of ${keys.length}; ${miss.join('; ')}`);
+  await typeIn(ZF, '12');
+  browser(S, 'press', 'End'); for (let n = 0; n < 8; n++) browser(S, 'press', 'Backspace'); for (const k of '50') browser(S, 'press', k); await pause(200); browser(S, 'press', 'Tab'); await pause(200);
+  let got = [null, null]; try { got = [fieldV(ZF), map().ctx.location.mapZoom]; } catch { /* the field or map is gone */ }
+  add('88: the sample\'s 50 key by key gives 0.01, zoom 1', got[0] === '0.01' && got[1] === 1, got.join(' '));
+}
 
 const socPull = async (cols) => {
   const p = q(`fe.select(fe.model.sections[1].id, '${id}'); await sleep(150); const o = fr.getBoundingClientRect(), r = fr.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(), m = fe.measure(fe.model.sections[1].id); return JSON.stringify({ x: o.left + r.x + r.width / 2, y: o.top + r.y + r.height / 2, col: m.colStart[2] - m.colStart[1] });`);
