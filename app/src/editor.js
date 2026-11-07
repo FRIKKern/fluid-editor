@@ -3767,7 +3767,7 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
-  if (fromBar) { markLinkBar(); barTip.hidden = true; }
+  if (fromBar) { markLinkBar(); setTbTip(null); }
   if (fromBar && b.type === 'button' && b.href) { drawLinkBox(b); return; }
   const href = target ? target.href : b.href;
   drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
