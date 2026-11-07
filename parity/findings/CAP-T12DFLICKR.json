@@ -1,0 +1,1020 @@
+{
+  "item": "CAP-T12DFLICKR",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T12: Flickr's dialog, each tab's rows: boxes, labels and looks, read only",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Flickr"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "account",
+      {
+        "controls": true,
+        "looks": [
+          540,
+          225,
+          1140,
+          560
+        ]
+      }
+    ],
+    [
+      "read",
+      "account low",
+      {
+        "looks": [
+          540,
+          560,
+          1140,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "account"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "design",
+      {
+        "controls": true,
+        "looks": [
+          540,
+          225,
+          1140,
+          560
+        ],
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "read",
+      "design low",
+      {
+        "looks": [
+          540,
+          560,
+          1140,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "design"
+    ]
+  ],
+  "reads": {
+    "account": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "slider",
+          "label": "",
+          "min": "1",
+          "max": "20",
+          "now": "10",
+          "box": [
+            723,
+            436.8,
+            44,
+            44
+          ]
+        }
+      ],
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Grid",
+          "box": [
+            588,
+            248,
+            329,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Account",
+          "box": [
+            555,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            752.5,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Connected Account",
+          "box": [
+            588,
+            340,
+            114.6,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            359,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Choose an account",
+          "box": [
+            599,
+            370,
+            307,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            359,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "10 Items",
+          "box": [
+            588,
+            425,
+            329,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            457.8,
+            329,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "account low": {
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            746,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            753,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "slider",
+          "label": "",
+          "min": "1",
+          "max": "10",
+          "now": "4",
+          "box": [
+            705,
+            678.8,
+            44,
+            44
+          ]
+        }
+      ],
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Grid",
+          "box": [
+            588,
+            248,
+            329,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Account",
+          "box": [
+            555,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            752.5,
+            270,
+            197.5,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Slideshow",
+          "box": [
+            588,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Carousel",
+          "box": [
+            670.3,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            752.5,
+            337,
+            82.3,
+            110
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0.043)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Grid",
+          "box": [
+            752.5,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Stacked",
+          "box": [
+            834.8,
+            393,
+            82.3,
+            44
+          ],
+          "font": "Clarkson 12px 400 18px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Aspect Ratio",
+          "box": [
+            588,
+            472,
+            73,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            491,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "1:1 Square",
+          "box": [
+            599,
+            502,
+            307,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            588,
+            491,
+            329,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        }
+      ],
+      "block": {
+        "desktop": "1/2/10/10",
+        "mobile": "1/2/6/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          359.4
+        ],
+        "cls": "fe-block",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794054939598_1800",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 10 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,174.7",
+          "col 10x10 at 455.3,174.7",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,355.4",
+          "se 10x10 at 455.3,355.4",
+          "sw 10x10 at -6,355.4"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "design low": {
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            746,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            753,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Crop images to the aspect ratio.",
+          "box": [
+            621,
+            579,
+            296,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Show Title",
+          "box": [
+            621,
+            623,
+            296,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Show the title below the image",
+          "box": [
+            621,
+            645,
+            296,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "4",
+          "box": [
+            588,
+            689,
+            33,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            621,
+            699.8,
+            296,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Choose the thumbnails per row.",
+          "box": [
+            588,
+            711.8,
+            329,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "20",
+          "box": [
+            588,
+            755.8,
+            33,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            621,
+            766.7,
+            296,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Padding around the gridded images.",
+          "box": [
+            588,
+            778.7,
+            329,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Lightbox",
+          "box": [
+            621,
+            822.7,
+            296,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Clicking on the images will pop the image up in a lightbox.",
+          "box": [
+            621,
+            844.7,
+            296,
+            44
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
