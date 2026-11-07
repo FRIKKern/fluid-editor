@@ -19,6 +19,7 @@ import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { dialogOf, dialogHtml } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -546,6 +547,7 @@ toolbar.addEventListener('click', (e) => {
   const b = B(sid, bid);
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
+  if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
   if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
@@ -1664,6 +1666,8 @@ let imageView = null; // the image Shape picker's tab, or null
 let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
+const dialogEl = $('block-dialog');
+let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
 function renderBlockPanel() {
@@ -1671,6 +1675,8 @@ function renderBlockPanel() {
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   if (shapeUi?.kind === 'anchor') queueMicrotask(() => { if (shapeUi?.kind === 'anchor') renderShapePop(); }); // an undo too
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
+  if (b && dialogOf(b)) { blockPanel.hidden = true; renderDialog(b); return; }
+  if (!dialogEl.hidden) { dialogEl.hidden = true; dialogEl.dataset.key = ''; }
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
   if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
@@ -1725,6 +1731,63 @@ function renderBlockPanel() {
   if (blockPanel.dataset.bid !== b.id) { blockPanel.dataset.bid = b.id; blockPanel.scrollTop = 0; } // another block starts at the top
   if (shapeUi) renderShapePop(); // undo can change what an open popup shows
   drawPhoneControls(b);
+}
+// T12's older dialogs (dialogs.js, CAP-DIALOGS.json): no way out inside them. A press on the section beside one closes
+// it and lets the block go; Escape and a press on its own block leave it open. It sits by the block's right edge, at a
+// height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
+const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
+function renderDialog(b) {
+  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]);
+  if (dialogEl.dataset.key !== key) {
+    const top = dialogEl.scrollTop;
+    dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
+    if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
+    dialogEl.dataset.key = key;
+    dialogEl.dataset.bid = b.id;
+  }
+  const el = blockEl(b.id), f = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
+  dialogEl.style.width = `${d.w}px`;
+  dialogEl.style.height = `${d.h}px`;
+  dialogEl.style.left = `${f.left - st.left + el.getBoundingClientRect().right + d.dx}px`;
+  dialogEl.style.top = `${f.top - st.top + d.top}px`;
+  dialogEl.hidden = false;
+}
+// A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
+// read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
+const DIALOG_DEFAULTS = { galAspect: '1:1 Square', galCrop: true, galTitle: false, galNewWindow: false, tagCount: 5 };
+function setDialogValue(k, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const content = () => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height;
+  const was = content();
+  if (v === DIALOG_DEFAULTS[k]) delete b[k]; else b[k] = v;
+  renderSectionDom(sel.sid);
+  if (b.standin && content() !== was) setFormRows(b, S(sel.sid), contentRows(b, formPitch(b))); // the pitch with the content out, as it stretches the rows
+  commit(before, `${dialogOf(b).title} changed`);
+}
+dialogEl.addEventListener('click', (e) => {
+  const tab = e.target.closest('[data-dl-tab]');
+  if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
+  const box = e.target.closest('button[data-dl]');
+  if (box && !box.disabled) setDialogValue(box.dataset.dl, box.getAttribute('aria-checked') !== 'true');
+});
+dialogEl.addEventListener('input', (e) => {
+  const r = e.target.closest('input[type="range"][data-dl]');
+  if (r) r.parentElement.querySelector('.dl-count').textContent = `${r.value} ${r.getAttribute('aria-label')}`;
+});
+dialogEl.addEventListener('change', (e) => {
+  const c = e.target.closest('[data-dl]');
+  if (!c || !sel) return;
+  setDialogValue(c.dataset.dl, c.type === 'range' ? Number(c.value) : c.value);
+  if (c.type === 'range') c.blur();
+});
+const dialogOpen = () => !dialogEl.hidden && sel && designOpen === sel.bid;
+function holdDialogEscape(e) { if (e.key === 'Escape' && dialogOpen()) { e.preventDefault(); e.stopImmediatePropagation(); } }
+window.addEventListener('keydown', holdDialogEscape, true);
+function dialogPress(e) {
+  if (!dialogOpen()) return;
+  if (e.target.closest?.('.fe-block')?.dataset.blockId === sel.bid) { e.preventDefault(); e.stopImmediatePropagation(); return; }
+  designOpen = null; // the press goes on: on the section it lets the block go, on another block it takes that one (not read)
+  renderBlockPanel();
 }
 // A phone's dotted labels and its button right of the Animation tab, on any block with that tab.
 const phoneMenu = $('phone-menu');
@@ -6716,6 +6779,8 @@ function boot() {
   frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !vAlignOpen && pinPop.hidden) { closeFloating(); closeSectionPanel(); } }); // An open toolbar menu is onKey's, and the block stays selected
   doc = frame.contentDocument;
   win = frame.contentWindow;
+  doc.addEventListener('pointerdown', dialogPress, true);
+  win.addEventListener('keydown', holdDialogEscape, true);
   doc.addEventListener('pointerdown', closeLinkOutside, true);
   bindLightbox(doc);
   bindPhonePrefix(doc);
