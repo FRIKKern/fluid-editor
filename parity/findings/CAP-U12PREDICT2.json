@@ -9,5 +9,17 @@
   "A Forms > Colors row's popover opens with 5 dots, a Custom tile and an opacity bar, and opening and closing it changes no row, variable or Save.",
   "If Custom holds on Forms > Colors: a map, a hue bar and hex row as in CAP-T6CUSTOM, at the row's color, and the opacity bar reads 100."
  ],
- "how": "Blocks Probe. No pick in Site Styles. The Shape read is on a new unsaved block, not in Site Styles. Custom on a Forms > Colors row is pressed only if the Shape read shows no write, with Save and the row read before and after; if anything changes it stops there and is told."
+ "how": "Blocks Probe. No pick in Site Styles. The Shape read is on a new unsaved block, not in Site Styles. Custom on a Forms > Colors row is pressed only if the Shape read shows no write, with Save and the row read before and after; if anything changes it stops there and is told.",
+ "counted": {
+  "held": [
+   "Fonts > Buttons' second and third rows open the same list: 49 names, the same as the first (moreFamilies in CAP-STYLEROWS).",
+   "Custom on a Shape changes no fill.",
+   "A row's popover: dots, a Custom button, an opacity bar, and opening it writes nothing.",
+   "Custom's map, hue bar and values at the row's color, opacity 1."
+  ],
+  "missed": [
+   "Custom holds on Forms > Colors: no, the press itself writes. That the Shape read would let me try it was wrong: Save was already on there."
+  ],
+  "count": "4 held, 1 missed. The miss was a pick, told to the lead at once."
+ }
 }
