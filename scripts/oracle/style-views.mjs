@@ -19,7 +19,10 @@ export const DEEP_BACK = { 'Forms > Fonts': 'Fonts', 'Forms > Selection Options'
 export const LISTS = {
   'Fonts > Headings': { combos: true, family: 'all' },
   'Fonts > Paragraphs': { combos: true, family: 'top' },
+  'Fonts > Buttons': { combos: true, family: 'top' },
+  'Fonts > Miscellaneous': { combos: true, family: 'top' },
   'Fonts > Assign Styles > Site Title': { combos: true },
+  ...Object.fromEntries(['Title', 'Description', 'Caption', 'Input', 'Placeholder', 'Select Dropdown', 'Option', 'Survey Title'].map((f) => [`Forms > Fonts > ${f}`, { combos: true }])),
   'Buttons > Primary Button': { shape: 'Shape' },
   'Buttons > Secondary Button': { shape: 'Shape' },
   'Buttons > Tertiary Button': { shape: 'Shape' },

@@ -3,13 +3,13 @@
 // the closed lists against CAP-STYLEROWS.json. Read only: it presses only the names it allows, needs Save off at every read,
 // and leaves by Exit. Never Reset, a pick or a slider. Run it after a probe:
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs
-// --store replaces CAP-STYLEROWS.json's views, lists and families with what it reads. Only for a site known to be as it should be.
+// --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads. Only for a site known to be as it should be.
 // Exit 0: the same. Exit 1: differences, listed. Exit 2: it could not read, so it says nothing about the site.
 import { writeFileSync } from 'node:fs';
 import { browser, evalJs, goto, mouse, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
-import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, STYLES, STYLE_FILE } from './oracle/readback.mjs';
+import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
 
 const S = process.env.ORACLE_SURFACE;
@@ -40,7 +40,10 @@ const rows = () => js(`const pan = [...document.querySelectorAll('button')].filt
 const topBar = () => js(`const b = [...document.querySelectorAll('button')].filter((x) => x.getBoundingClientRect().width > 0), has = (t) => b.find((x) => x.textContent.trim() === t), s = has('Save'); return JSON.stringify({ edit: !!has('Edit'), exit: !!has('Exit'), save: !s ? 'none' : s.disabled || s.getAttribute('aria-disabled') === 'true' ? 'off' : 'on' });`);
 const closed = () => { const t = topBar(); return t.edit && !t.exit && t.save === 'none'; };
 const saveOff = () => topBar().save === 'off';
+// A press on a row low down, or a list opened there, can leave the panel scrolled, with the back button out of view.
+const panelToTop = () => js(`for (const x of document.querySelectorAll('body *')) { if (x.scrollTop > 0 && x.getBoundingClientRect().left >= 1250) x.scrollTop = 0; } return 'true';`);
 const goBack = async (want) => {
+  panelToTop(); await pause(150);
   const words = js(`const b = ${FIND.back}; return JSON.stringify(b ? b.textContent.trim() : null);`);
   if (words !== want) throw new Error(`back button reads ${JSON.stringify(words)}, wanted ${want}`);
   await press(want, FIND.back, 1000);
@@ -113,7 +116,7 @@ async function readLists(view) {
   return out;
 }
 
-const diffs = [], read = {}, listsRead = {};
+const diffs = [], read = {}, listsRead = {}, formColors = {};
 let families = [];
 try {
   viewport(S, 1600, 1000); goto(S, PAGES); await pause(9000);
@@ -164,9 +167,23 @@ try {
     }
     await goBack('Site Styles');
   }
+  // Forms > Colors holds the theme Colors last opened: Colors, a theme, back out, Forms > Colors, for each theme.
+  for (const t of THEMES) {
+    await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
+    await press(`AA ${t}`, FIND.theme(`AA ${t}`), 1100);
+    await goBack('Colors'); await goBack('Site Styles');
+    await press('Open Forms style disclosure', FIND.named('Open Forms style disclosure'), 1300);
+    await press('Forms > Colors', FIND.row('Colors'), 1200);
+    const { rows: two, settled } = await settledRead(() => evalJs(S, READ_VIEW), () => pause(400));
+    if (!settled) diffs.push(`Forms > Colors on ${t}: kept moving over 6 reads`);
+    if (!saveOff()) diffs.push(`Forms > Colors on ${t}: Save is not off: ${JSON.stringify(topBar())}`);
+    formColors[t] = two;
+    if (!process.argv.includes('--store')) { const found = compareFormColors(t, two); diffs.push(...found); console.log(`Forms > Colors, ${t.padEnd(11)} ${two.length} rows, ${found.length} differ`); }
+    await goBack('Forms'); await goBack('Site Styles');
+  }
   families = listsRead['Fonts > Headings'].families;
   delete listsRead['Fonts > Headings'].families;
-  if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families }, null, 1)}\n`);
+  if (process.argv.includes('--store')) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
   else {
     for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }
     const found = compareFamilies(families); diffs.push(...found); console.log(`${families.length} font names, ${found.length} differ`);
@@ -182,4 +199,4 @@ try {
 }
 goto(S, PAGES);
 if (diffs.length) { console.log(`DIFFERENT: ${diffs.length}`); for (const x of diffs.slice(0, 40)) console.log(`  ${x}`); process.exit(1); }
-console.log(`The same: palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists and ${families.length} font names, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
+console.log(`The same: palette, ${NAMES.length} rows on each of ${THEMES.length} themes, ${Object.keys(read).length} views of Fonts, Buttons, Forms and Miscellaneous, ${Object.keys(listsRead).length} sets of closed lists, ${families.length} font names and Forms > Colors on ${Object.keys(formColors).length} themes, on ${PAGE_PATH}, Save off at every read, no question on Exit.`);
