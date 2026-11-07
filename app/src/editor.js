@@ -282,6 +282,8 @@ function drawHover() {
   for (const el of doc.querySelectorAll('.fe-indicator.is-hover')) el.remove();
   for (const el of doc.querySelectorAll('.fe-label.is-on')) el.classList.remove('is-on');
   if (!hoverBid || gesture?.type && gesture.type !== 'pending') return;
+  // The pointer on a block the box touches: its label, on the ring it has (CAP-X13SEL2.json).
+  if (boxUp && boxTouched.ids.includes(hoverBid)) { feEl(boxTouched.sid).querySelector(`:scope > .fe-label[data-for="${hoverBid}"]`)?.classList.add('is-on'); return; }
   if (sel && [sel.bid, ...(sel.more || [])].includes(hoverBid)) return;
   const el = blockEl(hoverBid);
   if (!el) return;
@@ -331,11 +333,27 @@ function drawSelection() {
   drawHover();
   placeToolbar();
 }
+// Thin rings on blocks that aren't the selection: those a box touches, those a group leaves.
+function drawRings({ sid, ids }) {
+  for (const id of ids) {
+    const b = B(sid, id), el = blockEl(id);
+    if (!b || !el) continue;
+    el.dataset.isSelected = 'true';
+    const ind = doc.createElement('div');
+    ind.className = 'fe-indicator is-member';
+    setArea(ind, lay(b).area);
+    ind.dataset.z = lay(b).z;
+    ind.style.zIndex = String(10000 + lay(b).z);
+    feEl(sid).append(ind);
+  }
+}
 function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator, .stack-gap-handle')) el.remove();
   // A held block stays selected (traces T0004 to T0006 mid); only its layers go away.
   if (gesture?.type === 'move' || gesture?.type === 'resize' || gesture?.type === 'gresize') return;
   for (const el of doc.querySelectorAll('[data-is-selected="true"]')) el.dataset.isSelected = 'false';
+  if (leftRings) drawRings(leftRings);
+  if (boxUp && !marquee) drawRings(boxTouched);
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
@@ -566,6 +584,7 @@ toolbar.addEventListener('click', (e) => {
 
 function select(next) {
   sel = next;
+  if (!boxUp) leftRings = null;
   drawSelection();
   updateUi();
 }
@@ -830,32 +849,41 @@ function nearest(from, to, f) {
 // rgb(0, 114, 240) box. The blocks of that section it touches join the selection while held, with
 // thin outlines only; on release they replace it. A box that touched nothing leaves it alone. A press
 // with no drag is a click and clears it. No auto-scroll, and Escape does nothing while held.
-let marquee = false;
+let marquee = false; // a box up with nothing selected before it: what it touches is the selection
+let boxUp = false, boxTouched = { sid: null, ids: [] };
+let leftRings = null; // after a group and a box that touched nothing: rings, and nothing selected
 function startMarquee(e, fe) {
   // No text selection while the box is drawn: the oracle shows none.
   e.preventDefault();
   const sid = fe.closest('section').dataset.sectionId;
   const x0 = e.clientX, y0 = e.clientY;
   const prior = sel;
-  const base = prior?.sid === sid ? [prior.bid, ...(prior.more || [])] : [];
+  const priorIds = prior ? [prior.bid, ...(prior.more || [])] : [];
   let box = null, touched = [];
   const pick = (ids) => (ids.length ? { sid, bid: ids[0], more: ids.slice(1) } : prior);
   const move = (ev) => {
     const x1 = ev.clientX, y1 = ev.clientY;
     if (!box && Math.hypot(x1 - x0, y1 - y0) < 30) return;
-    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); marquee = true; }
+    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); boxUp = true; marquee = !prior; }
     const L = Math.min(x0, x1), T = Math.min(y0, y1), R = Math.max(x0, x1), Bm = Math.max(y0, y1);
     Object.assign(box.style, { left: `${L}px`, top: `${T}px`, width: `${R - L}px`, height: `${Bm - T}px` });
     touched = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => { const q = b.getBoundingClientRect(); return q.width && q.left <= R && q.right >= L && q.top <= Bm && q.bottom >= T; }).map((b) => b.dataset.blockId);
-    select(pick(touched.length ? [...new Set([...base, ...touched])] : []));
+    // A selection keeps its toolbar and handles under the box, the touched blocks get rings (CAP-X13SEL2.json).
+    boxTouched = { sid, ids: touched.filter((id) => !priorIds.includes(id)) };
+    if (prior) drawSelection(); else select(pick(touched));
   };
   const up = () => {
     doc.removeEventListener('pointermove', move);
     doc.removeEventListener('pointerup', up);
     doc.removeEventListener('pointercancel', up);
     marquee = false;
+    boxUp = false;
     box?.remove();
-    select(box ? pick(touched) : null);
+    if (!box) { select(null); return; }
+    // A group takes in what the box touched, one block gives way to it (CAP-X13SEL3.json, CAP-X13SEL5.json).
+    if (touched.length) select(pick(prior?.more?.length && prior.sid === sid ? [...new Set([...priorIds, ...touched])] : touched));
+    else if (prior?.more?.length) { select(null); leftRings = { sid: prior.sid, ids: priorIds }; drawSelection(); }
+    else select(prior);
   };
   doc.addEventListener('pointermove', move);
   doc.addEventListener('pointerup', up);
@@ -1356,7 +1384,7 @@ function onKey(e) {
     return;
   }
   if (e.key === 'Escape') {
-    if (marquee) return;
+    if (boxUp || leftRings && !sel) return;
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
@@ -6114,6 +6142,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      leftRings = null;
       renderAll();
       return true;
     },

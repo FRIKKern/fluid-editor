@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 660,
+  "pass": 689,
   "known": [
     "group south by 4",
     "hold phone, full width -24,12",
@@ -12,7 +12,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 669,
+  "total": 698,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3139,6 +3139,122 @@
     },
     {
       "name": "X8 backward once",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: touching nothing, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: on another, the pointer on it",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: past another",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: off another",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: off another, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: on itself, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: on itself, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: on another, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: nothing selected, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: nothing selected, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: one, on itself and another",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, touching nothing, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, on a member, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, touching nothing, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: its rings stay on Escape",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a click on empty ends the rings",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a click on a block after the rings",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: an empty box after the rings, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: an empty box after the rings",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a box on a block after the rings, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a box on a block after the rings",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, on a member, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, under 30px, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, under 30px, released",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group, on another, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a group takes in another",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a box in the next section, held",
+      "diffs": []
+    },
+    {
+      "name": "box with a selection: a box in the next section, released",
       "diffs": []
     },
     {
