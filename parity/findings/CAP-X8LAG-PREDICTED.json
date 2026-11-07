@@ -1,0 +1,143 @@
+{
+ "item": "CAP-X8LAG-PREDICTED",
+ "from": "our code with the stored-rows candidate (this commit): after a group resize leaves a Text or Quote short of the rows its content needs, the group stores it at its need with the box that many rows taller, the others scaled to that box by the X8 size rule, and the next layout gesture shows it. Run with these steps before any read of CAP-X8LAG. Seen on CAP-X8NEXT and CAP-X8NEXT2: 64 of 64.",
+ "question": "X8: the other blocks after a short Text or Quote's next gesture. New shapes, each narrowed as a group: l1 a short Shape at the top, the Text moved; l2 a tall Shape, the Text taller; l3 a lower Shape, the Shape moved; l4 two Shapes, the Text wider; l5 a Shape under the Text, the group again; l6 a block outside the group moved; q1 a Quote narrowed past its need, moved; q2 the same, the group again. Read for each: start, after the drop (with every grid number the blocks hold), after the gesture, and after Escape and letting go. Own count, first round. Each cell lists the blocks' desktop areas from ours in DOM order.",
+ "reads": {
+  "l1 start": [
+   "1/2/5/12",
+   "2/14/5/20"
+  ],
+  "l1 dropped": [
+   "1/2/5/9",
+   "2/10/5/14"
+  ],
+  "l1 next": [
+   "3/2/8/9",
+   "2/10/6/14"
+  ],
+  "l1 next let go": [
+   "3/2/8/9",
+   "2/10/6/14"
+  ],
+  "l2 start": [
+   "1/2/5/12",
+   "2/14/12/20"
+  ],
+  "l2 dropped": [
+   "1/2/5/9",
+   "2/10/12/14"
+  ],
+  "l2 next": [
+   "1/2/7/9",
+   "2/10/13/14"
+  ],
+  "l2 next let go": [
+   "1/2/7/9",
+   "2/10/13/14"
+  ],
+  "l3 start": [
+   "1/2/5/12",
+   "5/14/11/20"
+  ],
+  "l3 dropped": [
+   "1/2/5/9",
+   "5/10/11/14"
+  ],
+  "l3 next": [
+   "1/2/6/9",
+   "6/10/13/14"
+  ],
+  "l3 next let go": [
+   "1/2/6/9",
+   "6/10/13/14"
+  ],
+  "l4 start": [
+   "1/2/5/12",
+   "2/14/5/20",
+   "6/14/10/20"
+  ],
+  "l4 dropped": [
+   "1/2/5/9",
+   "2/10/5/14",
+   "6/10/10/14"
+  ],
+  "l4 next": [
+   "1/2/6/10",
+   "2/10/5/14",
+   "7/10/11/14"
+  ],
+  "l4 next let go": [
+   "1/2/6/10",
+   "2/10/5/14",
+   "7/10/11/14"
+  ],
+  "l5 start": [
+   "1/2/5/12",
+   "6/2/12/8"
+  ],
+  "l5 dropped": [
+   "1/2/5/6",
+   "6/2/12/4"
+  ],
+  "l5 next": [
+   "1/2/10/12",
+   "8/2/17/7"
+  ],
+  "l5 next let go": [
+   "1/2/10/12",
+   "8/2/17/7"
+  ],
+  "l6 start": [
+   "1/2/5/12",
+   "10/2/16/8",
+   "2/14/8/20"
+  ],
+  "l6 dropped": [
+   "1/2/5/9",
+   "10/2/16/8",
+   "2/10/8/14"
+  ],
+  "l6 next": [
+   "1/2/6/9",
+   "11/2/17/8",
+   "2/10/9/14"
+  ],
+  "l6 next let go": [
+   "1/2/6/9",
+   "11/2/17/8",
+   "2/10/9/14"
+  ],
+  "q1 start": [
+   "1/2/7/10",
+   "2/14/8/20"
+  ],
+  "q1 dropped": [
+   "1/2/7/7",
+   "2/9/8/12"
+  ],
+  "q1 next": [
+   "3/2/10/7",
+   "2/9/9/12"
+  ],
+  "q1 next let go": [
+   "3/2/10/7",
+   "2/9/9/12"
+  ],
+  "q2 start": [
+   "1/2/7/10",
+   "2/14/8/20"
+  ],
+  "q2 dropped": [
+   "1/2/7/7",
+   "2/9/8/12"
+  ],
+  "q2 next": [
+   "1/2/8/11",
+   "2/15/9/20"
+  ],
+  "q2 next let go": [
+   "1/2/8/11",
+   "2/15/9/20"
+  ]
+ }
+}

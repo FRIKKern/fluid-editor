@@ -160,6 +160,7 @@ function undo() {
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
@@ -175,6 +176,7 @@ function redo() {
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
+  stored = null;
   leaveAnimField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
@@ -1003,6 +1005,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
+  if (g.type === 'gresize') stored = storedRows(g);
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1075,8 +1078,38 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
+// After a group resize the oracle draws a short Text or Quote at the rows it kept, but stores it at the rows
+// its content needs, with the group's box that many rows taller, the other blocks scaled to it. The next
+// layout gesture shows what is stored; a press, a select, typing and undo don't (CAP-X8NEXT.json).
+// Candidate rule, scored in CAP-X8LAG.json.
+let stored = null;
+function storedRows(g) {
+  const m = measure(feEl(g.sid)), ids = [g.bid, ...g.more.map((o) => o.id)], origs = [g.orig, ...g.more.map((o) => o.orig)];
+  let d = 0;
+  for (const id of g.kept.keys()) { const a = lay(B(g.sid, id)).area; d = Math.max(d, contentRows(B(g.sid, id), m) - (a[2] - a[0])); }
+  if (d <= 0) return null;
+  const [br0, , br1] = g.box0, [r0, , r1] = g.box, up = g.dir.includes('n');
+  const R0 = up ? Math.max(1, r0 - d) : r0, R1 = up ? r1 : r1 + d, areas = new Map();
+  ids.forEach((id, k) => {
+    const b = B(g.sid, id), a = lay(b).area, [rs0, re] = scaleSpan(origs[k][0], origs[k][2], br0, br1, R0, R1, up);
+    const need = contentRows(b, m), rs = re - rs0 < need ? Math.max(R0, re - need) : rs0;
+    areas.set(id, [rs, a[1], Math.max(re, rs + need), a[3]]);
+  });
+  return { sid: g.sid, bp, areas };
+}
+function showStored() {
+  const t = stored;
+  stored = null;
+  const s = t.bp === bp ? S(t.sid) : null;
+  if (!s) return;
+  for (const b of s.blocks) if (t.areas.has(b.id)) lay(b).area = t.areas.get(b.id);
+  growRows(s);
+  renderSectionDom(s.id);
+}
+
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
+  if (stored) showStored();
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -6633,6 +6666,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      stored = null;
       leftRings = null;
       renderAll();
       return true;
