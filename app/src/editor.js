@@ -1873,7 +1873,7 @@ function animPreview(a) {
   const el = blockEl(sel.bid);
   if (!el || !a) return;
   animPlaying = true;
-  playPreview(el, a, () => { animPlaying = false; if (sel && designOpen === sel.bid) syncAnimView(B(sel.sid, sel.bid)); });
+  playPreview(el, a, () => { animPlaying = false; if (sel && designOpen === sel.bid) syncAnimView(B(sel.sid, sel.bid)); }, anim.view === 'editor' && anim.tab === 'End');
 }
 function openAnimOptions(mode, target, extra = {}) {
   shapeUi = { kind: 'animopts', bid: sel.bid, custom: null, mode, rect: target.getBoundingClientRect(), ...extra };

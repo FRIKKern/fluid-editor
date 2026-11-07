@@ -355,7 +355,7 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
 {
   const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15TRIGGERS.json', import.meta.url)));
   const { appearAt, scrollSpan, scrollProgress, newAnimation, PRESETS } = await import('../app/src/animations.js');
-  const boxOf = (when) => (when === 'Section' ? { top: T.section.top, h: T.section.h, self: false } : { top: T.block.top, h: T.block.h, self: true });
+  const boxOf = (when) => (when === 'Section' ? { top: T.section.top, h: T.section.h, self: false } : { top: T.block.top, h: T.block.h, w: T.block.w, self: true });
   for (const r of T.appear.reads) {
     const y = appearAt(boxOf(r.when), r, r.view);
     const ok = r.after == null ? y > r.lastRead : y <= r.after && (r.before < 0 || y > r.before - 1);
@@ -423,6 +423,59 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   await previewBtn(300);
   add('On Scroll: out of preview it leaves no style', state()[0] === 'none' && !inlineNow(), inlineNow());
   viewport(S, 1600, 1000); await pause(400);
+}
+
+// Follow on the page, its Preview, and Preview with the End tab open (CAP-T15FOLLOW.json).
+{
+  const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15FOLLOW.json', import.meta.url)));
+  const { followPose, followSpring, newAnimation } = await import('../app/src/animations.js');
+  const rad = (v) => (v * Math.PI) / 180;
+  const mul = ([a, b, c, d], [e, f, g, h]) => [a * e + c * f, b * e + d * f, a * g + c * h, b * g + d * h];
+  const matrix = (p) => [[Math.cos(rad(p.r)), Math.sin(rad(p.r)), -Math.sin(rad(p.r)), Math.cos(rad(p.r))], [p.sx, 0, 0, p.sy], [1, 0, Math.tan(rad(p.kx)), 1], [1, Math.tan(rad(p.ky)), 0, 1]].reduce(mul);
+  for (const r of T.reads) {
+    const p = followPose(r.row, r.at[0], r.at[1], r.R, r.away) || followPose(r.row, 0, 0, 1e9) && { o: 1, r: 0, sx: 1, sy: 1, kx: 0, ky: 0, xp: 0, xpx: 0, yp: 0, ypx: 0 };
+    const m = matrix(p), tx = (p.xp * r.w) / 100 + p.xpx, ty = (p.yp * r.h) / 100 + p.ypx;
+    const worst = Math.max(...m.map((v, i) => Math.abs(v - r.matrix[i])));
+    add(`Follow rule: ${r.name} at ${r.at.map((v) => Math.round(v))}`, worst <= T.tolerance.matrix && near(tx, r.matrix[4], T.tolerance.px) && near(ty, r.matrix[5], T.tolerance.px) && near(p.o, r.opacity, T.tolerance.opacity), JSON.stringify({ m: m.map((v) => +v.toFixed(3)), tx, ty, o: p.o, read: r.matrix, opacity: r.opacity }));
+  }
+  const resp = (t, w, z) => { let x = 0, v = 0; for (let i = 0; i < t; i++) { v += (w * w * (1 - x) - 2 * z * w * v) * 0.001; x += v * 0.001; } return x; };
+  for (const c of T.steps) { const { w, z } = followSpring(c.row); const rms = Math.sqrt(c.at.reduce((n, [t, v]) => n + (resp(t, w, z) - v) ** 2, 0) / c.at.length); add(`Follow chase: Smoothing ${c.row.smoothing} Bounce ${c.row.bounce}`, rms <= T.tolerance.step, rms.toFixed(3)); }
+
+  const state = () => q(`const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${id}"]')); return JSON.stringify([c.transform, c.opacity, c.translate]);`);
+  const inlineNow = () => q(`return JSON.stringify(d.querySelector('.fe-block[data-block-id="${id}"]').getAttribute('style'));`);
+  const centre = () => q(`W.scrollTo(0, 0); const e = d.querySelector('.fe-block[data-block-id="${id}"]'); e.scrollIntoView({ block: 'center', behavior: 'instant' }); await sleep(150); const r = e.getBoundingClientRect(), f = fr.getBoundingClientRect(); return JSON.stringify({ x: f.left + r.left + r.width / 2, y: f.top + r.top + r.height / 2, w: r.width, h: r.height });`);
+  const tr = (s, i) => parseFloat(String(s).split(' ')[i]) || 0;
+  // Follow: pulled as far as the rule says, and back past the radius.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('Follow'); await clickRadio('follow-1', 500);
+  q(`document.getElementById('preview').click(); await sleep(400); return 'true';`);
+  const c1 = centre(), R1 = Math.hypot(c1.w, c1.h);
+  mouse(S, 'move', 5, 5); await pause(300);
+  mouse(S, 'move', c1.x + 60, c1.y + 30); await pause(1500);
+  const s1 = state();
+  add('Follow on the page: goes where the rule says', near(tr(s1[2], 0), (150 * 60) / R1, 3) && near(tr(s1[2], 1), (150 * 30) / R1, 3), JSON.stringify([s1, R1]));
+  mouse(S, 'move', c1.x + R1 + 60, c1.y); await pause(1500);
+  add('Follow on the page: past the radius it snaps back', near(tr(state()[2], 0), 0, 0.5), state()[2]);
+  q(`document.getElementById('preview').click(); await sleep(300); return 'true';`);
+  add('Follow on the page: out of preview no style is left', !inlineNow(), inlineNow());
+  // Follow's Preview: the button works, the block goes round and out, the square stays, it ends at rest.
+  await fresh();
+  await clickSel(act('add')); await pickTrigger('Follow'); await clickRadio('follow-1', 500);
+  await clickSel(act('gear')); await clickTab('Timing'); // Timing holds no pose (ANIMFLOW.json), so the run shows alone
+  add("Follow's Preview: on", q(`const b = panel.querySelector('[data-anim="play"]'); return JSON.stringify(!!b && !b.disabled && !b.hasAttribute('data-unbuilt'));`));
+  const path = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const out = [], sqs = []; panel.querySelector('[data-anim="play"]').click(); const t0 = performance.now(); while (performance.now() - t0 < 2100) { const c = W.getComputedStyle(e).translate.split(' '); out.push([Math.round(performance.now() - t0), parseFloat(c[0]) || 0, parseFloat(c[1]) || 0]); if (sq) sqs.push(getComputedStyle(sq).transform); await sleep(40); } return JSON.stringify({ out, sqs: [...new Set(sqs)] });`);
+  const rr = path.out.map((p) => Math.hypot(p[1], p[2])), far = Math.max(...rr), farAt = path.out[rr.indexOf(far)][0], angles = new Set(path.out.filter((p) => Math.hypot(p[1], p[2]) > 3).map((p) => Math.round(Math.atan2(p[2], p[1]) / 1.57)));
+  add("Follow's Preview: goes out, late in its run", far > T.preview.farPx[0] && far < T.preview.farPx[1] && farAt > 1000, `${far} at ${farAt}`);
+  add("Follow's Preview: goes all the way round", angles.size >= 4, [...angles].join());
+  add("Follow's Preview: ends at rest", path.out.at(-1)[1] === 0 && path.out.at(-1)[2] === 0, JSON.stringify(path.out.at(-1)));
+  add("Follow's Preview: the square stays still", path.sqs.length <= 1, path.sqs.join(' | '));
+  // Preview with the End tab open stays at the End (one read, On Hover).
+  await fresh();
+  await clickSel(act('add')); await clickRadio('hover-1', 900);
+  await clickSel(act('gear')); await clickTab('End');
+  const stay = q(`const e = d.querySelector('.fe-block[data-block-id="${id}"]'), sq = panel.querySelector('.an-stage .an-sq'); const held = W.getComputedStyle(e).transform; panel.querySelector('[data-anim="play"]').click(); await sleep(40); const first = W.getComputedStyle(e).transform; await sleep(1300); return JSON.stringify({ held, first, then: W.getComputedStyle(e).transform, square: sq ? getComputedStyle(sq).transform : null });`);
+  add('Preview on End: starts from rest', scale(stay.first) < 1.06, stay.first);
+  add('Preview on End: stays at the End', near(scale(stay.then), 1.1, 0.005), stay.then);
 }
 
 // A phone: no list actions, no row actions, a wider row.
