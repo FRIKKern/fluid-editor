@@ -956,10 +956,11 @@ function onDown(e) {
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
   pressFresh = !sel;
-  if (!onKid) select(keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid });
+  // The block is selected on let go, or when a drag starts, not on the press (CAP-U9FADE4D.json, CAP-SELECTLETGO.json).
+  const pick = onKid ? null : keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid };
   const r = blk.getBoundingClientRect();
   gesture = {
-    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
+    type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
@@ -1004,6 +1005,7 @@ function onUp(e) {
     // A click on a text block that was already selected opens its editor (E1, as on the oracle).
     const g = gesture;
     gesture = null;
+    if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
@@ -1024,6 +1026,7 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
+  if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1166,7 +1169,14 @@ function prepare(e, type, extra = {}) {
 }
 
 function beginMove(e) {
-  if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
+  // A block not yet selected stays unselected while it is dragged, and is selected on the drop (CAP-SELECTLETGO.json, a 12 to 14 px, c 70 px).
+  // That the block selected before is let go at the drag's start is inferred: it was not read.
+  // A block already in the selection stays selected, a group too (trace T0022).
+  const p = gesture.pick, fresh = p && !(sel?.sid === p.sid && [sel.bid, ...(sel.more || [])].includes(p.bid));
+  if (fresh) select(null);
+  else if (p) select(p);
+  else if (sel?.bid !== gesture.bid && !sel?.more?.length) select({ sid: gesture.sid, bid: gesture.bid });
+  if (!fresh) gesture.pick = null;
   const g = prepare(e, 'move');
   g.more = (sel?.more || []).map((id) => ({ id, orig: [...lay(B(g.sid, id)).area] }));
   // A group's ring is around all its blocks from the start.
@@ -1863,7 +1873,7 @@ function animPreview(a) {
   const el = blockEl(sel.bid);
   if (!el || !a) return;
   animPlaying = true;
-  playPreview(el, a, () => { animPlaying = false; if (sel && designOpen === sel.bid) syncAnimView(B(sel.sid, sel.bid)); });
+  playPreview(el, a, () => { animPlaying = false; if (sel && designOpen === sel.bid) syncAnimView(B(sel.sid, sel.bid)); }, anim.view === 'editor' && anim.tab === 'End');
 }
 function openAnimOptions(mode, target, extra = {}) {
   shapeUi = { kind: 'animopts', bid: sel.bid, custom: null, mode, rect: target.getBoundingClientRect(), ...extra };
@@ -2698,7 +2708,21 @@ blockPanel.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); addSocialLink(f); }
   if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); socView = null; socErr = ''; renderBlockPanel(); }
 });
+// Map Zoom takes each key at once (88, CAP-T11ZOOMKEYS.json, 7 of 7 predicted): the text is cut to a whole ladder step,
+// with no clamp, and the field shows that step again with the caret at the end; no number keeps the old step.
+const zoomShown = () => { const z = mapOf(B(sel.sid, sel.bid)).zoom; return String(MAP_ZOOMS[z] ?? z); };
+function commitZoomText(text) {
+  const v = parseFloat(text);
+  if (Number.isFinite(v) && Math.trunc(v) !== mapOf(B(sel.sid, sel.bid)).zoom) setMap((b) => { b.mapZoom = Math.trunc(v); }, 'Map zoom');
+  const f = blockPanel.querySelector('[data-map-zoomfield]');
+  if (!f) return;
+  f.value = zoomShown();
+  if (document.activeElement !== f) f.focus();
+  f.setSelectionRange(f.value.length, f.value.length);
+}
 blockPanel.addEventListener('input', (e) => {
+  const zf = e.target.closest('[data-map-zoomfield]');
+  if (zf && sel) { commitZoomText(zf.value); return; }
   const t = e.target.closest('[data-soc-thick]');
   if (t) { const v = blockPanel.querySelector('[data-soc-thickfield]'); if (v) v.value = `${t.value}px`; blockEl(sel.bid)?.querySelector('.sqs-svg-icon--outer')?.style.setProperty('--si-thick', `${t.value}px`); }
 });
@@ -2724,7 +2748,7 @@ blockPanel.addEventListener('change', (e) => {
   const m = e.target.closest('[data-map-set]');
   if (m) { const k = m.dataset.mapSet, on = m.checked; setMap((b) => { b[k] = on; }, `${k} ${on}`); return; }
   const zf = e.target.closest('[data-map-zoomfield]');
-  if (zf) { const v = parseFloat(zf.value); if (Number.isFinite(v)) setMap((b) => { b.mapZoom = Math.trunc(v); }, 'Map zoom'); else renderBlockPanel(); return; }
+  if (zf) { if (zf.value !== zoomShown()) commitZoomText(zf.value); return; }
   const c = e.target.closest('input[data-content^="map"], input[data-content="formName"], input[data-content="button"]');
   if (c) { const k = c.dataset.content, v = c.value; c.blur(); setMap((b) => { if (v) b[k] = v; else delete b[k]; }, `${k} changed`); }
 });
@@ -5359,7 +5383,9 @@ function placeChrome() {
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
-  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee && !(pressFresh && (!gesture || gesture.type === 'pending'));
+  // A press past 10 px counts as the block selected, though it is selected only on let go (CAP-U9FADE4.json, CAP-SELECTLETGO.json).
+  const armed = gesture?.type === 'pending' && gesture.armed && gesture.pick?.sid === sid && !gesture.pick.more?.length;
+  const blockSelected = !editSid && !marquee && ((sel?.sid === sid && !sel.more?.length && !(pressFresh && (!gesture || gesture.type === 'pending'))) || armed);
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;

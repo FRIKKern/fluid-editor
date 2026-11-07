@@ -102,7 +102,7 @@ export function animEditorHtml(a, tab) {
   const tabs = TABS[a.trigger];
   const key = poseKey(tab);
   const foot = a.trigger === 'scroll' ? '<button type="button" class="an-footbtn is-off" disabled>Scroll to preview</button>'
-    : `<button type="button" class="an-footbtn" data-anim="play"${a.trigger === 'follow' ? ' data-unbuilt disabled' : ''}>Preview</button>`;
+    : '<button type="button" class="an-footbtn" data-anim="play">Preview</button>';
   return `<div class="an-view an-editor">${BACK}<div class="an-head">${triggerName(a.trigger)}</div>
     <div class="an-stage"><span class="an-sq"></span></div>
     <div class="an-tabs an-t${tabs.length}" role="tablist">${tabs.map((t) => `<button type="button" role="tab" class="an-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-anim="tab" data-v="${t}">${t}</button>`).join('')}</div>
