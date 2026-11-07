@@ -795,7 +795,7 @@ add('Both pins kept in the model', saved[0] && saved[1] && saved[2] === 'flex-en
 // Tips: 11px under the button, centred, keys in chips, none on an unavailable button.
 await fresh();
 await pick(BIDS.text);
-const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(400); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
+const tipOf = async (tb) => { const q = evalJs(S, `(() => { const q = document.querySelector('#block-toolbar [data-tb="${tb}"]').getBoundingClientRect(); return JSON.stringify([q.left, q.top, q.width, q.height]); })()`); moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2]); await moveTo([q[0] + q[2] / 2, q[1] + q[3] / 2 + 1]); await pause(700); const t = evalJs(S, `(() => { const e = document.getElementById('bar-tip'); if (e.hidden) return 'null'; const q = e.getBoundingClientRect(); return JSON.stringify({ text: e.innerText.replace(/\\s+/g, ' ').trim(), box: [q.left, q.top, q.width, q.height] }); })()`); await moveTo([20, 996]); await pause(100); return [q, t]; };
 const tipCheck = async (tb, label) => {
   const [q, t] = await tipOf(tb);
   const want = TB.tips.words[label];
