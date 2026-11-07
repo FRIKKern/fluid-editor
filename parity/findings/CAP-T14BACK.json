@@ -1,0 +1,741 @@
+{
+  "item": "T14",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-06",
+  "engine": "chrome",
+  "question": "T14: where the frame goes when the row is past the last, past section 0. In CAP-T14PLACE.json section 1's Text brought the frame to 384, not the section's top. Guess: the new block's middle at the frame's middle, 472.5. Predicted before the first read of this, from that one 384: Text at the same place 384 again; Shape, 6 rows, 466; Line, 1 row, 364; Text in section 2 of 4, 1007.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Shape",
+      "Shape s1 above 400",
+      {
+        "above": 400,
+        "at": [
+          800,
+          200
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Shape s1 above 400, area",
+      {
+        "areas": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Line",
+      "Line s1 above 400",
+      {
+        "above": 400,
+        "at": [
+          800,
+          200
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Line s1 above 400, area",
+      {
+        "areas": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "addFromMenu",
+      2,
+      "Text",
+      "Text s2 above 400",
+      {
+        "above": 400,
+        "at": [
+          800,
+          200
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Text s2 above 400, area",
+      {
+        "areas": 2,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "addFromMenu",
+      1,
+      "Text",
+      "Text s1 above 400",
+      {
+        "above": 400,
+        "at": [
+          800,
+          200
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Text s1 above 400, area",
+      {
+        "areas": 1,
+        "sections": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "Shape s1 above 400, hovered": {
+      "frameY": 1068,
+      "sections": [
+        [
+          -1068,
+          667.6
+        ],
+        [
+          -400.4,
+          623.7
+        ],
+        [
+          223.3,
+          623.7
+        ]
+      ],
+      "buttons": [
+        {
+          "at": [
+            147.8125,
+            -312
+          ],
+          "top": -385,
+          "onTop": false,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            99
+          ],
+          "top": 26,
+          "onTop": true,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            312
+          ],
+          "top": 239,
+          "onTop": false,
+          "cover": "iframe."
+        }
+      ],
+      "frameHeight": 945
+    },
+    "Shape s1 above 400": {
+      "open": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "atPress": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          368,
+          384
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          431
+        ]
+      },
+      "afterFrameY": 466
+    },
+    "Shape s1 above 400, area": {
+      "sections": [
+        {
+          "id": "71ba30",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "df2384",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "46_420"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "da0080",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Line s1 above 400, hovered": {
+      "frameY": 1068,
+      "sections": [
+        [
+          -1068,
+          667.6
+        ],
+        [
+          -400.4,
+          623.7
+        ],
+        [
+          223.3,
+          623.7
+        ]
+      ],
+      "buttons": [
+        {
+          "at": [
+            147.8125,
+            -312
+          ],
+          "top": -385,
+          "onTop": false,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            99
+          ],
+          "top": 26,
+          "onTop": true,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            312
+          ],
+          "top": 239,
+          "onTop": false,
+          "cover": "iframe."
+        }
+      ],
+      "frameHeight": 945
+    },
+    "Line s1 above 400": {
+      "open": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          418,
+          434
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          481
+        ]
+      },
+      "atPress": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          418,
+          434
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          481
+        ]
+      },
+      "afterFrameY": 363
+    },
+    "Line s1 above 400, area": {
+      "sections": [
+        {
+          "id": "23bbec",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "89b947",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "95_420"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "55d072",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "areas": [
+        [
+          "1/2/2/6",
+          "1/2/2/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s2 above 400, hovered": {
+      "frameY": 1691,
+      "sections": [
+        [
+          -1691,
+          667.6
+        ],
+        [
+          -1023.4,
+          623.7
+        ],
+        [
+          -399.7,
+          623.7
+        ],
+        [
+          224,
+          623.7
+        ]
+      ],
+      "buttons": [
+        {
+          "at": [
+            147.8125,
+            -935
+          ],
+          "top": -1008,
+          "onTop": false,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            -311
+          ],
+          "top": -384,
+          "onTop": false,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            99
+          ],
+          "top": 26,
+          "onTop": true,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            313
+          ],
+          "top": 240,
+          "onTop": false,
+          "cover": "iframe."
+        }
+      ],
+      "frameHeight": 945
+    },
+    "Text s2 above 400": {
+      "open": {
+        "frameY": 1691,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 1691,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 1007
+    },
+    "Text s2 above 400, area": {
+      "sections": [
+        {
+          "id": "574ead",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "71cbcc",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        },
+        {
+          "id": "9ccc02",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "10_423"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "142e29",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Text s1 above 400, hovered": {
+      "frameY": 1068,
+      "sections": [
+        [
+          -1068,
+          667.6
+        ],
+        [
+          -400.4,
+          623.7
+        ],
+        [
+          223.3,
+          623.7
+        ]
+      ],
+      "buttons": [
+        {
+          "at": [
+            147.8125,
+            -312
+          ],
+          "top": -385,
+          "onTop": false,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            99
+          ],
+          "top": 26,
+          "onTop": true,
+          "cover": null
+        },
+        {
+          "at": [
+            147.8125,
+            312
+          ],
+          "top": 239,
+          "onTop": false,
+          "cover": "iframe."
+        }
+      ],
+      "frameHeight": 945
+    },
+    "Text s1 above 400": {
+      "open": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "atPress": {
+        "frameY": 1068,
+        "frameH": 945,
+        "tile": [
+          218,
+          234
+        ],
+        "scroller": {
+          "top": 87,
+          "h": 500,
+          "scrollTop": 0,
+          "scrollH": 1413
+        },
+        "inView": true,
+        "onTop": true,
+        "at": [
+          116,
+          281
+        ]
+      },
+      "afterFrameY": 384
+    },
+    "Text s1 above 400, area": {
+      "sections": [
+        {
+          "id": "233bb7",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        },
+        {
+          "id": "94b633",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "24_420"
+          ],
+          "h": 623.7
+        },
+        {
+          "id": "a8d228",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 623.7
+        }
+      ],
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "answer": "Past the last row, the frame moves so the new block's middle is at the frame's middle, or as near as the page allows. From 1068 in section 1: Text to 384, Shape to 466, Line to 363. From 1691 in section 2 of 4: Text to 1007. In section 0 the same thing stops at the page's top, 0. Inferred from reads, not from any code. All on row 1. The numbers were the same on the two earlier runs of this recipe.",
+  "predicted": "Text 384, Shape 466, Line 364, Text in section 2 of 4 1007.",
+  "result": "4 of 4 within 1 px: 384, 466, 363, 1007.",
+  "ours": "Code read, not run: landingRow scrolls to the section's top.",
+  "differs": [
+    "70: where the frame goes past the last row."
+  ],
+  "pressed": "Add Block and each tile by the real mouse, on top and in the window, on Gestures Probe, unsaved."
+}

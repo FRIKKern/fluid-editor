@@ -1,0 +1,1659 @@
+{
+  "item": "CAP-T7COLOR7",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "T7: a Video colours: Reset-then-a-Stroke-press",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Add fill"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Reset to theme"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "reset then stroke",
+      {
+        "controls": true,
+        "panelCss": "[aria-label=\"Color\"], [aria-label=\"Color\"] *, [aria-label=\"Remove color\"], [aria-label=\"Add fill\"], [aria-label=\"Alpha\"], [aria-label=\"Hex\"]",
+        "has": [
+          "Reset to theme",
+          "Opacity slider",
+          "Custom color",
+          "Alpha"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1a"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "reselected",
+      {
+        "controls": true,
+        "panelCss": "[aria-label=\"Color\"], [aria-label=\"Color\"] *, [aria-label=\"Remove color\"], [aria-label=\"Add fill\"], [aria-label=\"Alpha\"], [aria-label=\"Hex\"]",
+        "has": [
+          "Reset to theme",
+          "Opacity slider",
+          "Custom color",
+          "Alpha"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1b"
+    ],
+    [
+      "pressNamed",
+      "Dashed Stroke"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "dashed",
+      {
+        "controls": true,
+        "panelCss": "[aria-label=\"Color\"], [aria-label=\"Color\"] *, [aria-label=\"Remove color\"], [aria-label=\"Add fill\"], [aria-label=\"Alpha\"], [aria-label=\"Hex\"]",
+        "has": [
+          "Reset to theme",
+          "Opacity slider",
+          "Custom color",
+          "Alpha"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1c"
+    ]
+  ],
+  "reads": {
+    "reset then stroke": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            666,
+            462,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            728,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            771,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            822,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            865,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            705,
+            564,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            597,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            666,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            699,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            737,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            784,
+            182,
+            11
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-13mfxjp",
+          "text": "",
+          "box": [
+            864,
+            405,
+            22,
+            22
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "11px",
+          "pad": "0px",
+          "opacity": "0",
+          "label": "Remove color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-qwby8r",
+          "text": "",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-3hb3lf",
+          "text": "",
+          "box": [
+            840,
+            623,
+            28,
+            28
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "has": {
+        "Reset to theme": false,
+        "Opacity slider": false,
+        "Custom color": false,
+        "Alpha": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "reselected": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            666,
+            462,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            728,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            771,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            822,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            865,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            705,
+            564,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            597,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            666,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            699,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            737,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            784,
+            182,
+            11
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-13mfxjp",
+          "text": "",
+          "box": [
+            864,
+            405,
+            22,
+            22
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "11px",
+          "pad": "0px",
+          "opacity": "0",
+          "label": "Remove color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-qwby8r",
+          "text": "",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-3hb3lf",
+          "text": "",
+          "box": [
+            840,
+            623,
+            28,
+            28
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "has": {
+        "Reset to theme": false,
+        "Opacity slider": false,
+        "Custom color": false,
+        "Alpha": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "dashed": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            600,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            668.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            730.8,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            840,
+            415,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Show individual padding controls",
+          "box": [
+            666,
+            462,
+            28,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            728,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            771,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6%",
+          "box": [
+            822,
+            462,
+            43,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            495,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            865,
+            462,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            462,
+            34,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "No Stroke",
+          "box": [
+            697,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Solid Stroke",
+          "box": [
+            756.7,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Dashed Stroke",
+          "box": [
+            816.3,
+            516,
+            56.7,
+            38
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "6px",
+          "box": [
+            705,
+            564,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            597,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            564,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            666,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            699,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            666,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            669,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            737,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            784,
+            182,
+            11
+          ]
+        }
+      ],
+      "panelCss": [
+        {
+          "cls": "css-13mfxjp",
+          "text": "",
+          "box": [
+            864,
+            405,
+            22,
+            22
+          ],
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Proxima Nova\", \"Open Sans\", \"",
+          "size": "12px",
+          "line": "11px",
+          "pad": "0px",
+          "opacity": "0",
+          "label": "Remove color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-qwby8r",
+          "text": "",
+          "box": [
+            832,
+            615,
+            44,
+            44
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "Color",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        },
+        {
+          "cls": "css-3hb3lf",
+          "text": "",
+          "box": [
+            840,
+            623,
+            28,
+            28
+          ],
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "weight": "400",
+          "style": "normal",
+          "deco": "none",
+          "font": "Clarkson, \"Helvetica Neue\", Helvetica, A",
+          "size": "14px",
+          "line": "16px",
+          "pad": "0px",
+          "opacity": "1",
+          "label": "",
+          "off": false,
+          "on": "",
+          "cursor": "pointer",
+          "outline": ""
+        }
+      ],
+      "has": {
+        "Reset to theme": false,
+        "Opacity slider": false,
+        "Custom color": false,
+        "Alpha": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true
+}

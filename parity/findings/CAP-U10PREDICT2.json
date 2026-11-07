@@ -1,0 +1,14 @@
+{
+ "item": "U10",
+ "name": "CAP-U10PREDICT2",
+ "kind": "predictions, pushed before reading",
+ "question": "Where does View Layouts' panel top go while the page scrolls under it? The first prediction, that it stays where it opened, missed.",
+ "seen": "CAP-U10WALK, one walk at 40 px steps by script, no pause before each read, on 667.6 tall with the section's top at 55 at frame 0. Frame 0: 248. 40: 208. 80: 128. Then at the end, coming up: 120: 75, 80: 115, 40: 155, 0: 195. The labels between 120 and 760 repeat, so the walk down past 80 was overwritten by the walk up. Older read on 873 tall: frames 100, 200, 300, 400, 600 give 248, 248, 153, 0, 0, and 195 back at 0.",
+ "predictions": [
+  "Settled reads (400 ms after the frame moved) sit on one of two lines: A = section bottom - 475, B = section top + 140. Held at 0 at the top of the window.",
+  "Going down from opening: it stays at its opening place until A is below that, then follows A, then at some frame leaves A for B. On 667.6 tall that switch is between frames 40 and 80, so 80 reads 115 or 168, not 128: the 128 was a read in the middle of a move.",
+  "Coming up after B took over it stays on B, and does not go back to A: back at frame 0 it reads 195, at any height (140 was the same on 667.6 and 873).",
+  "A read right after the frame moved can differ from the read 400 ms later."
+ ],
+ "bracket": "On B or A within 2 px, for at least 90 percent of settled reads. Anything off both lines counts as a miss."
+}

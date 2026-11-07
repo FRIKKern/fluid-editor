@@ -2,11 +2,17 @@
 // CAP-L6MENU.json, CAP-L6RESETALL.json, CAP-L6PUSH.json, CAP-L6GOTO.json). A phone place is not an override.
 import { DESIGN_DEFAULTS, FOLLOW_DESKTOP } from './render.js';
 import { setFormView } from './form-fields.js';
+import { rowOn } from './animations.js';
 
 const BAGS = ['designMobile', 'btnMobile', 'formMobile', 'socialMobile'];
 const filled = (o) => !!o && Object.keys(o).length > 0;
-export const hasOverrides = (b) => BAGS.some((k) => filled(b[k]));
-export function resetOverrides(b) { for (const k of BAGS) delete b[k]; }
+// A row's own phone values count, and still do once that row is removed on the phone (CAP-L6ANIMPHONE.json, read once).
+export const hasOverrides = (b) => BAGS.some((k) => filled(b[k])) || !!b.animPhoneGone || !!b.animations?.some((a) => a.phone);
+export function resetOverrides(b) {
+  for (const k of BAGS) delete b[k];
+  delete b.animPhoneGone;
+  if (b.animations?.some((a) => a.phone)) b.animations = b.animations.map((a) => rowOn(a, 'desktop'));
+}
 
 // Desktop takes the phone's values and the phone follows again. Places don't move.
 export function pushOverrides(b) {
@@ -27,6 +33,7 @@ export function pushOverrides(b) {
   }
   for (const [k, v] of Object.entries(b.formMobile || {})) setFormView(b, 'desktop', k, v);
   for (const [k, v] of Object.entries(b.socialMobile || {})) { if (v) b[k] = v; else delete b[k]; }
+  if (b.animations) b.animations = b.animations.map((a) => rowOn(a, 'mobile'));
   resetOverrides(b);
 }
 
@@ -48,6 +55,17 @@ export function markPhoneLabels(panel, b) {
   const set = phoneLabels(b);
   if (!set.size) return;
   for (const e of panel.querySelectorAll('.sp-label, .bp-trow > span, .bp-bs-title, .bp-ff-cap')) if (set.has(e.textContent.trim())) e.classList.add('is-phone-set');
+}
+
+// In a row's editor, the labels of the values the phone set. Read for Opacity, Rotate and Delay, and for
+// all of End after a pick (CAP-L6ANIMPHONE.json).
+export function markAnimLabels(panel, own) {
+  if (!own) return;
+  const keys = new Set(Object.keys(own).map((k) => k.replace(/[XY]$/, '')));
+  for (const f of panel.querySelectorAll('.an-f')) {
+    const hit = [...f.querySelectorAll('[data-field], [data-key], [data-afield]')].some((e) => keys.has((e.dataset.field || e.dataset.key || e.dataset.afield).replace(/[XY]$/, '')));
+    if (hit) f.querySelector('.an-l')?.classList.add('is-phone-set');
+  }
 }
 
 // Ours draws its own monitor and arrow.

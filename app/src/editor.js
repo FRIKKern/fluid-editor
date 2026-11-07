@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -31,10 +31,10 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
+import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
 const KEY = 'fluid-editor:model:v2';
@@ -107,6 +107,7 @@ function commit(before, label, force = false) {
 
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
+let softening = false; // one Escape: the model follows, the page isn't touched
 function followPhoneRows(before) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
@@ -114,8 +115,9 @@ function followPhoneRows(before) {
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     const reflowed = phoneFollowsMove(s, was);
     const next = phoneOrder(s.blocks);
-    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed) renderSectionDom(s.id); continue; }
+    if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
+    if (softening) continue; // The text stays open, in its place in the page; the close draws this
     // New phone rows need new CSS, or the phone shows the old stack and a press lands on the old place.
     if (reflowed) { renderSectionDom(s.id); continue; }
     const fe = sectionEl(s.id) && feEl(s.id);
@@ -149,6 +151,7 @@ function phoneFollowsMove(s, was) {
 function undo() {
   if (!undoStack.length) return;
   unsettled = null;
+  if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   // The Undo button during an edit: what was typed goes, the step before it goes, and the edit stays
   // open (parity/findings/TEXTUNDO.json).
   const ed = editing;
@@ -164,7 +167,8 @@ function undo() {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
+  if (ed?.soft) select(null); // Undo after one Escape lets the block go (CAP-ESC1.json)
+  else if (ed && B(ed.sid, ed.bid)?.type === 'text') startTextEdit(ed.sid, ed.bid);
 }
 function redo() {
   if (!redoStack.length) return;
@@ -271,7 +275,8 @@ function drawLabels(sid) {
     setArea(g, lay(b).area);
     const tag = doc.createElement('span');
     tag.className = 'fe-label-tag';
-    tag.textContent = b.label === 'form' ? 'Form' : LABELS[b.type] || 'Block';
+    // A stand-in is a Shape in the model and goes by the name the Add Block menu gave it (CAP-X13LABELS.json).
+    tag.textContent = b.label === 'form' ? 'Form' : b.type === 'shape' && ADD_TYPES.some(([name]) => name === b.label) ? b.label : LABELS[b.type] || 'Block';
     g.append(tag);
     fe.append(g);
   }
@@ -284,6 +289,8 @@ function drawHover() {
   for (const el of doc.querySelectorAll('.fe-indicator.is-hover')) el.remove();
   for (const el of doc.querySelectorAll('.fe-label.is-on')) el.classList.remove('is-on');
   if (!hoverBid || gesture?.type && gesture.type !== 'pending') return;
+  // The pointer on a block the box touches: its label, on the ring it has (CAP-X13SEL2.json).
+  if (boxUp && boxTouched.ids.includes(hoverBid)) { feEl(boxTouched.sid).querySelector(`:scope > .fe-label[data-for="${hoverBid}"]`)?.classList.add('is-on'); return; }
   if (sel && [sel.bid, ...(sel.more || [])].includes(hoverBid)) return;
   const el = blockEl(hoverBid);
   if (!el) return;
@@ -333,11 +340,27 @@ function drawSelection() {
   drawHover();
   placeToolbar();
 }
+// Thin rings on blocks that aren't the selection: those a box touches, those a group leaves.
+function drawRings({ sid, ids }) {
+  for (const id of ids) {
+    const b = B(sid, id), el = blockEl(id);
+    if (!b || !el) continue;
+    el.dataset.isSelected = 'true';
+    const ind = doc.createElement('div');
+    ind.className = 'fe-indicator is-member';
+    setArea(ind, lay(b).area);
+    ind.dataset.z = lay(b).z;
+    ind.style.zIndex = String(10000 + lay(b).z);
+    feEl(sid).append(ind);
+  }
+}
 function drawSelectionLayers() {
   for (const el of doc.querySelectorAll('.fe-indicator, .stack-gap-handle')) el.remove();
   // A held block stays selected (traces T0004 to T0006 mid); only its layers go away.
   if (gesture?.type === 'move' || gesture?.type === 'resize' || gesture?.type === 'gresize') return;
   for (const el of doc.querySelectorAll('[data-is-selected="true"]')) el.dataset.isSelected = 'false';
+  if (leftRings) drawRings(leftRings);
+  if (boxUp && !marquee) drawRings(boxTouched);
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
@@ -458,8 +481,8 @@ function placeGroupToolbar() {
 function placeToolbar() {
   if (marquee) { toolbar.hidden = true; return; }
   toolbar.classList.toggle('is-group', !!sel?.more?.length);
-  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !editing && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
-  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || editing || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
+  if (sel?.more?.length && !gesture?.type?.match(/move|resize/) && !(editing && !editing.soft) && doc && !document.body.classList.contains('is-preview')) { placeGroupToolbar(); return; }
+  if (!sel || sel.more?.length || gesture?.type === 'move' || gesture?.type === 'resize' || (editing && !editing.soft) || !doc || designOpen === sel.bid) { toolbar.hidden = true; return; }
   const b = B(sel.sid, sel.bid);
   const el = blockEl(sel.bid);
   if (!b || !el) { toolbar.hidden = true; return; }
@@ -569,6 +592,7 @@ toolbar.addEventListener('click', (e) => {
 function select(next) {
   if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
+  if (!boxUp) leftRings = null;
   drawSelection();
   updateUi();
 }
@@ -831,45 +855,58 @@ function nearest(from, to, f) {
 // rgb(0, 114, 240) box. The blocks of that section it touches join the selection while held, with
 // thin outlines only; on release they replace it. A box that touched nothing leaves it alone. A press
 // with no drag is a click and clears it. No auto-scroll, and Escape does nothing while held.
-let marquee = false;
+let marquee = false; // a box up with nothing selected before it: what it touches is the selection
+let boxUp = false, boxTouched = { sid: null, ids: [] };
+let leftRings = null; // after a group and a box that touched nothing: rings, and nothing selected
 function startMarquee(e, fe) {
   // No text selection while the box is drawn: the oracle shows none.
   e.preventDefault();
   const sid = fe.closest('section').dataset.sectionId;
   const x0 = e.clientX, y0 = e.clientY;
   const prior = sel;
-  const base = prior?.sid === sid ? [prior.bid, ...(prior.more || [])] : [];
+  const priorIds = prior ? [prior.bid, ...(prior.more || [])] : [];
   let box = null, touched = [];
   const pick = (ids) => (ids.length ? { sid, bid: ids[0], more: ids.slice(1) } : prior);
   const move = (ev) => {
     const x1 = ev.clientX, y1 = ev.clientY;
     if (!box && Math.hypot(x1 - x0, y1 - y0) < 30) return;
-    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); marquee = true; }
+    if (!box) { box = doc.createElement('div'); box.className = 'fe-marquee'; doc.body.append(box); boxUp = true; marquee = !prior; }
     const L = Math.min(x0, x1), T = Math.min(y0, y1), R = Math.max(x0, x1), Bm = Math.max(y0, y1);
     Object.assign(box.style, { left: `${L}px`, top: `${T}px`, width: `${R - L}px`, height: `${Bm - T}px` });
     touched = [...fe.querySelectorAll(':scope > .fe-block')].filter((b) => { const q = b.getBoundingClientRect(); return q.width && q.left <= R && q.right >= L && q.top <= Bm && q.bottom >= T; }).map((b) => b.dataset.blockId);
-    select(pick(touched.length ? [...new Set([...base, ...touched])] : []));
+    // A selection keeps its toolbar and handles under the box, the touched blocks get rings (CAP-X13SEL2.json).
+    boxTouched = { sid, ids: touched.filter((id) => !priorIds.includes(id)) };
+    if (prior) drawSelection(); else select(pick(touched));
   };
   const up = () => {
     doc.removeEventListener('pointermove', move);
     doc.removeEventListener('pointerup', up);
     doc.removeEventListener('pointercancel', up);
     marquee = false;
+    boxUp = false;
     box?.remove();
-    select(box ? pick(touched) : null);
+    if (!box) { select(null); return; }
+    // A group takes in what the box touched, one block gives way to it (CAP-X13SEL3.json, CAP-X13SEL5.json).
+    if (touched.length) select(pick(prior?.more?.length && prior.sid === sid ? [...new Set([...priorIds, ...touched])] : touched));
+    else if (prior?.more?.length) { select(null); leftRings = { sid: prior.sid, ids: priorIds }; drawSelection(); }
+    else select(prior);
   };
   doc.addEventListener('pointermove', move);
   doc.addEventListener('pointerup', up);
   doc.addEventListener('pointercancel', up);
 }
 
+let pressedAfterEscape = false;
 function onDown(e) {
   if (document.body.classList.contains('is-preview')) return;
   if (e.button !== 0) return;
   const handle = e.target.closest('.fe-handle');
   const blk = e.target.closest('.fe-block');
   if (editing) {
-    if (blk && blk.dataset.blockId === editing.bid) return;
+    const same = blk && blk.dataset.blockId === editing.bid;
+    if (same && !editing.soft) return;
+    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json).
+    pressedAfterEscape = same;
     finishTextEdit();
   }
   const gapBand = e.target.closest('.stack-gap-handle');
@@ -878,6 +915,9 @@ function onDown(e) {
   if (handle && sel) {
     e.preventDefault();
     // Like a drag, a group too: the move past 10px changes nothing, the next one starts it (HOLD.json).
+    // Starting the resize takes the handle out of the page, and a touch's later events stay on it,
+    // out of reach of the page's listener. Unprevented, the browser pans and the release is lost.
+    if (e.pointerType === 'touch') handle.addEventListener('touchmove', onTouchMove, { passive: false });
     gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
@@ -897,7 +937,8 @@ function onDown(e) {
     select(next.length ? { sid, bid: next[0], more: next.slice(1) } : null);
     return;
   }
-  const wasSelected = sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  const wasSelected = !pressedAfterEscape && sel && sel.sid === sid && sel.bid === bid && !sel.more?.length;
+  pressedAfterEscape = false;
   const keep = sel && sel.sid === sid && [sel.bid, ...(sel.more || [])].includes(bid) && sel.more?.length;
   // A click on the selected child keeps it; a drag from there moves the whole stack (S3.json children).
   const onKid = sel && sel.sid === sid && parentStack(sid, sel.bid)?.id === bid && e.target.closest(`[data-kid="${sel.bid}"]`);
@@ -913,6 +954,7 @@ function onDown(e) {
 function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
+    gesture.moves = (gesture.moves || 0) + 1;
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -1010,10 +1052,10 @@ function settleTextRows() {
 
 // A touch drags like a mouse unless the browser pans first (TOUCHHOLD.json): it takes the pointer
 // when a first move goes past its pan distance after a short press. A drag that has started, or a
-// press held this long, keeps the pointer. Measured between 60 and 100 ms.
+// press held this long, keeps the pointer. Measured between 60 and 100 ms. The same on a handle (CAP-X11FAST.json).
 const TOUCH_HOLD = 100;
 function onTouchMove(e) {
-  if (gesture && (gesture.type !== 'pending' || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
+  if (gesture && (gesture.type !== 'pending' || gesture.moves > 1 || e.timeStamp - gesture.t0 >= TOUCH_HOLD)) e.preventDefault();
 }
 
 function onCancel(e) {
@@ -1223,8 +1265,9 @@ function updateGroupResize(e) {
   if (r1 - 1 > g.shownRows) showGrid(g.sid, r1 - 1);
 }
 
-// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, on desktop;
+// Where a side pull stops, the same from each side, by type or by a stand-in's name (CAP-X6FLOORS.json, CAP-X6PHONEFLOORS.json;
 // a button whatever its text, BUTTONDESIGN.json; CAP-T5PHONE.json, CAP-T11SOCIAL.json). Text, Shape and Line stop at 1.
+const LEAST_COLS_PHONE = { scrolling: 3 }; // CAP-X6PHONEFLOORS.json, the only one that differs on a phone
 const LEAST_COLS = { markdown: 2, social: 2, button: 3, accordion: 3, Product: 3, Donation: 3, Quote: 3, 'Page Link': 3, 'Tag Cloud': 3, RSS: 3, Tock: 3, SoundCloud: 3, Flickr: 3, OpenTable: 3, Zola: 3, Bandsintown: 3, video: 4, form: 4, scrolling: 4, Audio: 4, map: 4, code: 4, embed: 4, Instagram: 4, 'Pricing Plan': 6, Calendar: 6, Menu: 6, 'Search Field': 6, Archive: 6, Newsletter: 7, Scheduling: 8, Summary: 8, Chart: 8 };
 
 function updateResize(e) {
@@ -1236,7 +1279,7 @@ function updateResize(e) {
   const x = e.clientX;
   const y = e.clientY;
   if (x !== g.lastX) { g.stepX = x - (g.lastX ?? x); g.lastX = x; }
-  const held = B(g.sid, g.bid), leastCols = LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
+  const held = B(g.sid, g.bid), leastCols = (bp === 'mobile' ? LEAST_COLS_PHONE[held.type] : null) ?? LEAST_COLS[held.label] ?? LEAST_COLS[held.type] ?? 1;
   const q = fe.getBoundingClientRect();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(v, hi));
   // While held the block's own box follows the pointer and only the ring snaps (HOLD.json). It stops at
@@ -1332,9 +1375,16 @@ const ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], Arrow
 function onKey(e) {
   const mod = e.metaKey || e.ctrlKey;
   if (editing) {
-    if (e.key === 'Escape') {
+    // One Escape takes the text bar and leaves the block selected, and keys still reach the text. The next Escape,
+    // or Tab then, lets the block go (CAP-ESC1.json).
+    if (e.key === 'Escape' || (e.key === 'Tab' && editing.soft)) {
       e.preventDefault();
-      finishTextEdit();
+      if (editing.soft) { finishTextEdit(); select(null); } else softenTextEdit();
+      return;
+    }
+    if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
+      e.preventDefault();
+      if (fmt.insertLineBreak(doc, editing.ce, win.getSelection())) { joinOrStep(editing); onTextInput(); }
       return;
     }
     // The oracle's text shortcuts: Cmd+Opt+6..3 Heading 1..4, Cmd+Opt+2..0 Paragraph 1..3,
@@ -1386,7 +1436,7 @@ function onKey(e) {
     return;
   }
   if (e.key === 'Escape') {
-    if (marquee) return;
+    if (boxUp || leftRings && !sel) return;
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
@@ -1465,6 +1515,7 @@ const pathFrom = (root, node) => { const path = []; for (let n = node; n !== roo
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
 function startTextEdit(sid, bid) {
+  if (editing?.soft && editing.bid === bid) { editing.soft = false; blockEl(bid).classList.add('is-text-editing'); editing.ce.focus(); renderTextBar(); placeToolbar(); return; }
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
   select({ sid, bid: b.id });
@@ -1533,6 +1584,7 @@ const blockPanel = $('block-panel');
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
 function renderBlockPanel() {
+  settleVideoColors();
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   if (shapeUi?.kind === 'anchor') queueMicrotask(() => { if (shapeUi?.kind === 'anchor') renderShapePop(); }); // an undo too
   const b = sel && designOpen === sel.bid && !sel.more?.length ? B(sel.sid, sel.bid) : null;
@@ -1571,9 +1623,9 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(b.animations || [], bp === 'mobile') : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
-  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, b.animations?.[anim.i], anim.menu) : animEditorHtml(b.animations[anim.i], anim.tab);
+  if (designTab === 'Animation' && anim.view !== 'list') blockPanel.innerHTML = anim.view === 'picker' ? animPickerHtml(anim.trigger, animRowsOf(b)[anim.i], anim.menu) : animEditorHtml(animRowsOf(b)[anim.i], anim.tab);
   if (fxView) paintEffectTiles(blockPanel, b.src);
   if (b.type === 'markdown') paintMdBar(blockPanel.querySelector('textarea[data-content="markdown"]'));
   blockPanel.style.width = (b.type === 'code' || b.type === 'markdown') && designTab === 'Content' ? `${CODE_PANEL_WIDTH}px` : '';
@@ -1597,6 +1649,7 @@ function drawPhoneControls(b) {
   const tabs = blockPanel.querySelector('.sp-tabs');
   if (bp !== 'mobile') { closePhoneMenu(); return; }
   markPhoneLabels(blockPanel, b);
+  if (designTab === 'Animation') { markAnimLabels(blockPanel, b.animations?.[anim.i]?.phone); closePhoneMenu(); return; }
   if (tabs?.querySelector('[data-btab="Animation"]')) tabs.insertAdjacentHTML('beforeend', phoneButtonHtml(hasOverrides(b)));
   else closePhoneMenu();
 }
@@ -1626,7 +1679,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? b.animations?.[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -1634,7 +1687,8 @@ function syncAnimView(b) {
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
   if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
-function animRows() { return B(sel.sid, sel.bid).animations || []; }
+function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
+function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
 function animEdit(label, change) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   b.animations = [...(b.animations || [])];
@@ -1675,7 +1729,7 @@ function animAction(el) {
     const a = rows[i];
     anim = { ...ANIM_LIST, view: a.preset === 'custom' ? 'editor' : 'picker', i, trigger: a.trigger, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
     if (anim.view === 'picker') animPlay = 'tiles';
-  } else if (act === 'remove') { animEdit('Remove animation', (l) => { l.splice(i, 1); }); return; }
+  } else if (act === 'remove') { const bk = B(sel.sid, sel.bid); animEdit('Remove animation', (l) => { if (bp === 'mobile' && l[i].phone) bk.animPhoneGone = true; l.splice(i, 1); }); return; }
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
@@ -1683,7 +1737,7 @@ function animAction(el) {
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
-    animEdit('Start blank', (l) => { l[at] = a; });
+    animEdit('Start blank', (l) => { animPlace(l, at, a); });
     anim = { ...anim, view: 'editor', i: at, menu: false, tab: TABS[a.trigger].includes(anim.tab) ? anim.tab : TABS[a.trigger][0] };
   } else if (act === 'tab') anim.tab = el.dataset.v;
   else if (act === 'sel') { openAnimOptions('sel', el, { key: el.dataset.key }); return; }
@@ -1697,8 +1751,22 @@ function animPick(id) {
   if (id === 'custom') return;
   const a = newAnimation(anim.trigger, id), at = anim.i ?? animRows().length;
   anim = { ...anim, i: at, menu: false };
-  animEdit(`Animation ${id}`, (l) => { l[at] = a; });
+  animEdit(`Animation ${id}`, (l) => { animPlace(l, at, a); });
   animPreview(a);
+}
+// A pick: a new row, or on this row. On a phone it stays the phone's alone, and desktop keeps its row.
+function animPlace(l, at, a) {
+  if (bp === 'mobile' && l[at]) l[at] = { ...l[at], phone: ownOf(a) };
+  else l[at] = l[at]?.phone ? { ...a, phone: l[at].phone } : a;
+}
+// One value, in the layout being edited.
+function animPut(l, i, key, v) {
+  if (bp !== 'mobile') { l[i] = { ...l[i] }; animWrite(l[i], key, v); return; }
+  const was = rowOn(l[i], 'mobile'), now = { ...was };
+  animWrite(now, key, v);
+  const own = { ...l[i].phone, preset: 'custom', [key]: v };
+  for (const k of ['bounce', 'custom']) if (now[k] !== was[k]) own[k] = now[k];
+  l[i] = { ...l[i], phone: own };
 }
 function animWrite(a, key, v) {
   a.preset = 'custom';
@@ -1709,7 +1777,7 @@ function animWrite(a, key, v) {
 }
 function animSet(key, v) {
   animPlay = 'square';
-  animEdit(`Animation ${key}`, (l) => { l[anim.i] = { ...l[anim.i] }; animWrite(l[anim.i], key, v); });
+  animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
   const input = e.target.closest('[data-afield]');
@@ -1753,8 +1821,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     } else if (key) {
       const v = scrubbed(start, dx, key);
       input.value = v;
-      b.animations[anim.i] = { ...b.animations[anim.i] };
-      animWrite(b.animations[anim.i], key, v);
+      animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
     } else {
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
@@ -1995,6 +2062,8 @@ function setDesign(k, v) {
     else d[k] = v;
     // Custom starts from the size it leaves (BLOCKDESIGN.json).
     const cur = designFor(b, bp);
+    // Add fill after a Reset on a video shows what Reset left: no fill, a black stroke (CAP-T7COLOR.json, CAP-T7COLOR4.json).
+    if (k === 'background' && v && b.type === 'video') { if (cur.bgColor === '') d.bgClear = 1; if (cur.strokeColor === '') d.strokeColor = 'rgb(0, 0, 0)'; }
     if (k === 'pad' && v === 'custom') { d.padY = cur.padY ?? PAD_PCT[cur.pad] ?? 6; d.padX = cur.padX ?? PAD_PCT[cur.pad] ?? 6; }
     if (k === 'strokeSize' && v === 'custom') d.strokePx = cur.strokePx ?? STROKE_PX[cur.strokeSize || (b.type === 'shape' ? 'M' : 'S')];
     if (Object.keys(d).length) b[bag] = d; else delete b[bag];
@@ -2497,7 +2566,7 @@ const shapePop = document.createElement('div');
 shapePop.id = 'shape-pop';
 shapePop.hidden = true;
 document.body.append(shapePop);
-function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); }
+function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); blockPanel.querySelector('.st-color.is-open')?.classList.remove('is-open'); }
 const MAP_ORDER = [1, 2, 3, 5, 4, 6]; // Original, Grayscale, Satellite, Dark, Light, Blue
 function setShape(change, label) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -2532,7 +2601,7 @@ function themeInk(b, which) {
   probe.remove();
   return c;
 }
-const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
+const shapeColorOf = (b, key) => (key === 'overlay' ? b.overlayColor || 'rgba(0, 0, 0, 0.5)' : key === 'color' ? shapeFill(b, bp) || themeInk(b, 'fill') : key === 'lightboxBg' ? formView(b, bp).lightboxBg : b.type === 'video' && designFor(b, bp)[key] === '' ? 'rgb(0, 0, 0)' : key === 'bgColor' ? designFor(b, bp).bgColor || 'rgb(255, 255, 255)' : designFor(b, bp).strokeColor || (b.type === 'video' ? 'rgb(255, 255, 255)' : b.type === 'shape' ? themeInk(b, 'stroke') : 'rgb(0, 0, 0)'));
 // On a phone a color set means its own: one that flows down from desktop shows no Reset and no Opacity (CAP-T6RESET.json).
 // A value that flows down shows Reset and Opacity on the phone too, until Reset says to follow (CAP-L6ROWS.json).
 const phoneSet = (b, k, desk) => (bp !== 'mobile' ? !!desk : phoneOwn(b, k) || (!(b.designMobile && k in b.designMobile) && !!desk));
@@ -2542,8 +2611,20 @@ function writeShapeColor(b, key, css) {
   if (key === 'overlay') { if (css) b.overlayColor = css; else delete b.overlayColor; return; }
   if (key === 'lightboxBg') { setFormView(b, bp, key, css); return; }
   const bag = designBag(bp), d = { ...(b[bag] || {}) };
-  if (css) d[key] = css; else if (bag === 'designMobile') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
+  if (css) d[key] = css; else if (bag === 'designMobile' || b.type === 'video') d[key] = b.type === 'shape' ? FOLLOW_DESKTOP : ''; else delete d[key];
+  if (css && key === 'bgColor') delete d.bgClear;
+  if (!css && b.type === 'video' && bag !== 'designMobile') videoReset = b;
   if (Object.keys(d).length) b[bag] = d; else delete b[bag];
+}
+// Reset on a video's colour: the block keeps its paint and the swatch goes black, until the block is selected again, when
+// the colour is as on a new fill or stroke, and a block with no fill still has none (CAP-T7COLOR6.json, CAP-T7COLOR9.json, CAP-T7COLOR10.json). A phone's stays (CAP-T7COLOR8.json).
+let videoReset = null;
+function settleVideoColors() {
+  if (!videoReset || (sel && designOpen === sel.bid && sel.bid === videoReset.id)) return;
+  const d = videoReset.design;
+  videoReset = null;
+  if (!d) return;
+  for (const k of ['bgColor', 'strokeColor']) if (d[k] === '') delete d[k];
 }
 // The section panel's color rows: the divider stroke, or an Art color. Null writes the default back.
 const secColorOf = (u) => { const s = S(u.sid); if (u.section === 'divider') return s.dividerColor || 'rgb(0, 0, 0)'; return s.bgArt?.colors[Number(u.section.slice(4))] || '#000000'; };
@@ -2638,12 +2719,16 @@ function renderShapePop() {
     const c = colorParts(shapeColorOf(b, kind));
     const custom = shapeUi.custom && (shapeUi.custom.hex === toHex(c.rgb) ? shapeUi.custom : { ...shapeUi.custom, ...hexToHsv(toHex(c.rgb)), hex: toHex(c.rgb) });
     if (custom) shapeUi.custom = custom;
-    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, set: kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? phoneSet(b, 'color', b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
+    const video = b.type === 'video' && (kind === 'bgColor' || kind === 'strokeColor'), unset = video && designFor(b, bp)[kind] === '';
+    shapePop.innerHTML = shapeColorHtml({ swatches: fmt.TEXT_COLORS.map(([, , rgb]) => toHex(colorParts(rgb).rgb).toUpperCase()), rgb: c.rgb, a: c.a, hsl: hslOf(c.rgb), custom, unset, tabs: video && kind === 'bgColor', set: video ? !unset : kind === 'overlay' ? !!b.overlayColor : kind === 'color' ? phoneSet(b, 'color', b.color) : kind === 'lightboxBg' ? !!b.lightboxBg : kind === 'bgColor' ? !!designFor(b, bp).bgColor : b.type === 'shape' ? strokeColorSet(b) : true, opacity: video ? kind === 'bgColor' : !(kind === 'strokeColor' && b.type === 'shape') || strokeColorSet(b) });
     const anchor = blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.getBoundingClientRect();
+    if (video) blockPanel.querySelector(`[data-shape-act="${kind}"]`)?.closest('.st-color')?.classList.add('is-open'); // framed while they're open (CAP-T7COLOR.json)
     shapePop.hidden = false;
     const h = shapePop.offsetHeight;
     // 11 right of the panel, 311 left of it unless 11 stay free at the screen's edge (CAP-T6PLACE.json, CAP-L6ROWS.json). It opens with its bottom 5.5 under the swatch's, and then grows around its middle (CAP-T6RANGE.json, CAP-L6ROWS.json).
-    shapeUi.mid ??= (anchor?.bottom ?? P.top + h) + 5.5 - h / 2;
+    // A video's opens level with the swatch's bottom, and Reset holds its bottom, 39 lower out of the Custom view (CAP-T7COLOR.json, CAP-T7COLOR3.json, CAP-T7COLOR6.json).
+    if (shapeUi.holdBottom != null) { shapeUi.mid = shapeUi.holdBottom - h / 2; shapeUi.holdBottom = null; }
+    shapeUi.mid ??= (anchor?.bottom ?? P.top + h) + (video ? 0 : 5.5) - h / 2;
     shapePop.style.cssText = `left:${P.right + 311 > innerWidth - 11 ? P.left - 311 : P.right + 11}px;top:${Math.max(60, Math.min(shapeUi.mid - h / 2, innerHeight - h - 8))}px`;
   }
   shapePop.hidden = false;
@@ -2731,8 +2816,8 @@ shapePop.addEventListener('click', (e) => {
   const pick = e.target.closest('[data-shape-pick]');
   if (pick) { const id = pick.dataset.shapePick; closeShapePop(); setShape((b) => { if (id === 'rectangle') delete b.shape; else b.shape = id; }, `Shape ${id}`); return; }
   const key = shapeUi.kind;
-  if (e.target.closest('[data-color-custom]')) { const c = colorParts(shapeColorOf(B(sel.sid, sel.bid), key)), hex = toHex(c.rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: 'rgb' }; renderShapePop(); return; }
-  if (e.target.closest('[data-color-reset]')) { setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
+  if (e.target.closest('[data-color-custom]')) { const b = B(sel.sid, sel.bid), c = colorParts(shapeColorOf(b, key)), hex = toHex(c.rgb); shapeUi.custom = { ...hexToHsv(hex), hex, format: b.type === 'video' && designFor(b, bp)[key] === '' ? 'hex' : 'rgb' }; renderShapePop(); return; }
+  if (e.target.closest('[data-color-reset]')) { if (B(sel.sid, sel.bid).type === 'video') { shapeUi.holdBottom = shapePop.getBoundingClientRect().bottom + (shapeUi.custom ? 39 : 0); shapeUi.custom = null; } setShape((b) => writeShapeColor(b, key, null), `${key} reset`); renderShapePop(); }
 });
 // Anchor (CAP-L6ANCHOR.json): a place writes both, a field its own; a phone keeps what it sets, a default on desktop is no value at all.
 function setAnchor(values, label) {
@@ -2807,6 +2892,29 @@ shapePop.addEventListener('change', (e) => {
     write({ rgb: rgbFromHsl(hsl[0], hsl[1], hsl[2]), a: c.a });
   }
 });
+// The format menu's list, below it and over the popup's edge (CAP-T6CUSTOM.json). The select stays as its value.
+const closeFormatList = () => { shapePop.querySelector('.sh-fmtlist')?.remove(); shapePop.querySelector('[data-color-format].is-open')?.classList.remove('is-open'); };
+shapePop.addEventListener('mousedown', (e) => {
+  const opt = e.target.closest('[data-fmt-opt]');
+  if (opt) {
+    e.preventDefault();
+    const s = shapePop.querySelector('[data-color-format]');
+    s.value = opt.dataset.fmtOpt;
+    closeFormatList();
+    s.dispatchEvent(new Event('change', { bubbles: true }));
+    return;
+  }
+  const s = e.target.closest('[data-color-format]');
+  const was = !!shapePop.querySelector('.sh-fmtlist');
+  closeFormatList();
+  if (!s) return;
+  e.preventDefault();
+  if (was) return;
+  const r = s.getBoundingClientRect();
+  s.classList.add('is-open');
+  shapePop.insertAdjacentHTML('beforeend', `<div class="sh-fmtlist" role="listbox" style="left:${r.left - 3}px;top:${r.bottom + 6}px">${[...s.options].map((o) => `<button type="button" role="option" data-fmt-opt="${o.value}" aria-selected="${o.selected}"${o.selected ? ' class="is-cur"' : ''}>${o.textContent}</button>`).join('')}</div>`);
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && shapePop.querySelector('.sh-fmtlist')) { e.stopPropagation(); closeFormatList(); } }, true);
 shapePop.addEventListener('pointerdown', (e) => {
   if (shapeUi?.section && shapeUi.custom) {
     const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
@@ -2912,14 +3020,28 @@ function fitRows(b, was) {
   const fe = feEl(sel.sid), found = measure(fe), m = { ...found, pitch: rowFloor(fe) + found.rg }, L = lay(b), rows = L.area[2] - L.area[0], need = Math.max(1, codeRowsFor(h, m));
   const next = h > was ? Math.max(rows, need) : need >= rows ? rows : Math.max(1, rows - codeRowsFor(was - h, m));
   if (next === rows) return;
-  const bottom = L.area[2];
+  const s = S(sel.sid), lowest = () => Math.max(...s.blocks.map((o) => o.layout?.[bp]?.area?.[2] ?? 1)), wasLowest = lowest();
+  fitOthers(s, b, L.area, next - rows);
   L.area = [L.area[0], L.area[1], L.area[0] + next, L.area[3]];
-  const s = S(sel.sid);
-  // A video takes what is below it along, up or down (CAP-T7ORDER.json). The section's rows move by the same
-  // number, keeping any spare below (CAP-T7THICK.json), but never past a block's end, or the rows past it collapse.
-  if (b.type === 'video') for (const o of s.blocks) { const A = o !== b && o.layout?.[bp]?.area; if (A && A[0] >= bottom) { A[0] += next - rows; A[2] += next - rows; } }
-  s.rows[bp] = Math.max(s.rows[bp] + next - rows, ...s.blocks.map((o) => (o.layout?.[bp]?.area?.[2] ?? 1) - 1));
+  // The section's rows move by how far the lowest end moved, keeping any spare (CAP-T10ROWS3.json to CAP-T10ROWS6.json).
+  s.rows[bp] = Math.max(s.rows[bp] + lowest() - wasLowest, lowest() - 1);
   renderSectionDom(sel.sid);
+}
+// What a block's rise or fall by n does to the others, by where they stand against its old end (CAP-T10ROWS4.json to
+// CAP-T10ROWS6.json). At or below that end, in any column: moved by n. Across it, sharing columns: moved by n if it starts
+// lower than the block, stopping at the block's new end on a fall; else its end moves, on a rise only. Inside it: stays.
+function fitOthers(s, b, area, n) {
+  const [top, left, end, right] = area, newEnd = end + n;
+  for (const o of s.blocks) {
+    const A = o !== b && o.layout?.[bp]?.area;
+    if (!A) continue;
+    const shares = A[1] < right && A[3] > left;
+    if (A[0] >= end || (shares && A[0] > top && A[2] >= end)) {
+      const to = n > 0 ? A[0] + n : Math.max(A[0] + n, Math.min(A[0], newEnd));
+      A[2] += to - A[0];
+      A[0] = to;
+    } else if (shares && A[2] >= end && n > 0) A[2] += n;
+  }
 }
 // The Markdown block's toolbar and keys, in the panel and in the Code Editor view (markdown-edit.js).
 const mdLines = (f) => { const box = f.closest('.bp-code'); if (box.classList.contains('is-look')) paintCode(f); else box.querySelector('.bp-code-lines').innerHTML = Array.from({ length: f.value.split('\n').length }, (_, n) => n + 1).join('<br>'); };
@@ -3042,17 +3164,19 @@ function closeMdList(root) {
 // Link (CAP-T10MD4.json, CAP-T10MD5.json, CAP-T10MD7.json): the popover under the button, 6px below it. A caret in a
 // link shows that link with Edit, Copy and Remove Link. A page fills the field, and Enter or a press away writes it.
 function openMdLink(root, btn, s, e) {
-  const f = mdRootField(root), link = mdLinkIn(fullOf(f), s, e), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
+  // A link with no url, a bracket with no definition, lights Link but opens the form (CAP-T10SCORE2.json, CAP-T10FIX5.json).
+  const urlIn = (t) => { const at = mdLinkIn(t, s, e); return at?.href == null ? null : at; };
+  const f = mdRootField(root), link = urlIn(fullOf(f)), b = B(sel.sid, sel.bid), r = btn.getBoundingClientRect();
   flushMdStep();
   const target = { markdown: true, summary: !!link, href: link?.href || '', newTab: false, setNewTab() {},
     apply: (v) => {
-      const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e);
+      const q = mdRootField(root), at = urlIn(fullOf(q));
       if (!v && !at) return;
       flushMdStep();
       writeMd(q, at ? (v ? mdChangeLink(fullOf(q), at, v) : mdRemoveLink(fullOf(q), at)) : mdSetLink(fullOf(q), s, e, v));
       flushMdStep();
     },
-    remove: () => { const q = mdRootField(root), at = mdLinkIn(fullOf(q), s, e); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
+    remove: () => { const q = mdRootField(root), at = urlIn(fullOf(q)); if (at) { flushMdStep(); writeMd(q, mdRemoveLink(fullOf(q), at)); flushMdStep(); } },
     done: () => { const q = mdRootField(root); if (q) { if (document.activeElement === document.body) q.focus(); paintMdBar(q); } },
   };
   openLinkPopover(b, (st) => ({ left: r.left + r.width / 2 - 164 - st.left, top: r.bottom + 6 - st.top }), target);
@@ -3709,16 +3833,18 @@ blockPanel.addEventListener('input', (e) => {
   const t = r.parentElement.querySelector('input[type="text"]');
   if (t) t.value = t.value.replace(/^[\d.]+/, r.value);
 });
-// The <> on a Thickness field: a pull moves the value 0.4 a pixel, down to 0, with the block following; letting go
-// is the same as typing it, so one undo step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
+// The <> on a Thickness field, and the same pull with nothing to show for it at the right of Corner's and Padding's
+// (CAP-T7SCRUB3.json): 0.4 a pixel, down to 0, with the block following; letting go is the same as typing it, so one undo
+// step and the same rows (CAP-T7THICK3.json, CAP-T7THICK4.json).
 const SCRUB_PER_PX = 0.4;
 blockPanel.addEventListener('pointerdown', (e) => {
   const grip = e.target.closest('[data-scrub]');
   if (!grip || !sel) return;
   e.preventDefault();
-  const input = grip.parentElement.querySelector('input[data-design]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
-  const start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k], Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
-  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}px`; };
+  grip.setPointerCapture(e.pointerId); // or a pull off the panel, over a video's frame, never hears the rest
+  const input = grip.parentElement.querySelector('input[data-design], input[data-stack-field]'), b = B(sel.sid, sel.bid), bag = designBag(bp), k = grip.dataset.scrub;
+  const unit = input.value.endsWith('%') ? '%' : 'px', start = parseFloat(input.value) || 0, x0 = e.clientX, had = b[bag]?.[k], valueAt = (x) => Math.min(RANGE_LIMITS[k] ?? 1000, Math.max(0, start + Math.round((x - x0) * SCRUB_PER_PX)));
+  const show = (v) => { b[bag] = { ...(b[bag] || {}), [k]: v }; renderSectionDom(sel.sid); input.value = `${v}${unit}`; };
   const move = (m) => show(valueAt(m.clientX));
   const up = (m) => {
     removeEventListener('pointermove', move); removeEventListener('pointerup', up);
@@ -3726,7 +3852,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     b[bag] = { ...(b[bag] || {}) };
     if (had === undefined) delete b[bag][k]; else b[bag][k] = had;
     renderSectionDom(sel.sid);
-    if (v === start) { input.value = `${start}px`; return; }
+    if (v === start) { input.value = `${start}${unit}`; return; }
     input.value = String(v);
     input.dispatchEvent(new Event('change', { bubbles: true }));
   };
@@ -3803,7 +3929,7 @@ function currentColorKey() {
   return (fmt.TEXT_COLORS.find(([, , c]) => c === rgb) || [])[1] || null;
 }
 function renderTextBar() {
-  if (!editing || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
+  if (!editing || editing.soft || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
   textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
@@ -4013,6 +4139,7 @@ function onTextInput(e) {
   else if (e?.inputType) {
     joinOrStep(ed);
     if (e.inputType === 'insertParagraph') fmt.enterInHeading(doc, ed.ce, win.getSelection());
+    if (e.inputType.startsWith('delete')) fmt.dropEndBreak(ed.ce, win.getSelection());
     autoLink(ed, e.inputType, e.data);
     // Enter carries a pending Strike to the next line, anything else ends it (CAP-E4FRESH.json).
     if (ed.strikeNext) {
@@ -4092,6 +4219,9 @@ function finishTextEdit() {
   growRows(S(ed.sid));
   feEl(ed.sid).style.gridAutoRows = '';
   renderSectionDom(ed.sid);
+  commitTextSteps(ed, height);
+}
+function commitTextSteps(ed, height) {
   const now = JSON.stringify(model);
   // A step can look like where the edit ended (Bold, then Clear Formatting): it's still a step (CAP-E4SCORE.json).
   const steps = ed.marks.at(-1) === now ? ed.marks.slice(0, -1) : ed.marks;
@@ -4099,6 +4229,25 @@ function finishTextEdit() {
   if (first > ed.height0) steps[0] = undoTextFalls(ed, steps[1] ?? now, first);
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  return now;
+}
+// The text stays open and holds the keys, with no bar and the block's toolbar back. What was typed is in the model now.
+function softenTextEdit() {
+  const ed = editing, b = B(ed.sid, ed.bid), height = textHeight(b);
+  closeLinkPopover();
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(S(ed.sid));
+  editing = null; // The phone order follows now: this is the edit's close
+  softening = true;
+  const now = commitTextSteps(ed, height);
+  softening = false;
+  editing = ed;
+  Object.assign(ed, { soft: true, before: now, marks: [now], lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height, height1: undefined });
+  blockEl(ed.bid).classList.remove('is-text-editing');
+  renderTextBar();
+  placeToolbar();
+  placeBlockPanel();
 }
 
 // Undoing an edit whose text got taller: the old text comes back and the rows fall by the height it
@@ -4840,7 +4989,7 @@ function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid =
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
 const layoutsPanel = $('layouts-panel');
 let layoutsPlace = null;
-let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
+let layoutsSid = null, layoutsMix = null, layoutsPicked = null, layoutsLast = null, layoutsOrder = [], layoutsBase = null, layoutsLook = null, layoutsPress = false;
 // Roles stay with the blocks as they were on opening: a pick puts them in phone order.
 const openedMix = () => sectionMix({ blocks: [...S(layoutsSid).blocks].sort((a, b) => layoutsOrder.indexOf(a.id) - layoutsOrder.indexOf(b.id)) });
 // A tile's colors: the section's own, as on opening, or those of the theme a layout turns it to.
@@ -4861,23 +5010,29 @@ function renderLayouts() {
   };
   layoutsPanel.innerHTML = layoutsPanelHtml(layoutsMix, layoutsPicked, look);
 }
-// Undo and Redo leave the panel open: the section changes and the mark follows it. A section that shows no layout starts over.
+// Undo and Redo leave the panel open, even with every block gone: it then lists nothing (CAP-U10UNDOPAST.json).
+// The mark goes unless the section shows the last pick (CAP-U10WALK2.json). A section that shows no layout starts over.
 function syncLayouts() {
   if (!layoutsSid) return;
   const s = S(layoutsSid);
-  if (!s || !s.blocks.length) { closeLayouts(); return; }
+  if (!s) { closeLayouts(); return; }
+  if (!s.blocks.length) { layoutsMix = { list: [], by: {} }; layoutsPicked = null; renderLayouts(); return; }
   const mix = openedMix();
   if (!mix) { closeLayouts(); return; }
   const top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsMix = mix;
-  layoutsPicked = layoutShown(s, mix, layoutsPicked);
-  if (layoutsPicked == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
+  const shown = layoutShown(s, mix, layoutsLast);
+  layoutsPicked = shown === layoutsLast ? shown : null;
+  if (shown == null) { layoutsBase = sectionLook(s); readLayoutsLook(); }
   renderLayouts();
   layoutsPanel.querySelector('.lo-list').scrollTop = top;
 }
 function openLayouts(sid) {
   closeFloating();
-  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix(); layoutsPicked = null;
+  layoutsSid = sid; layoutsOrder = S(sid).blocks.map((b) => b.id); layoutsBase = sectionLook(S(sid)); layoutsMix = openedMix();
+  // Opening on a layout marks it, but not one that turns the theme: a pick would turn it again (CAP-U10READ4.json, CAP-U10READ6.json).
+  const shown = layoutShown(S(sid), layoutsMix, null);
+  layoutsPicked = layoutsLast = shown != null && !layoutsMix.list[shown].style?.theme ? shown : null;
   layoutsPanel.hidden = false;
   // The same place as Edit Section's panel (CAP-VIEWLAYOUTS.json, panelTop).
   const fr = frame.getBoundingClientRect(), q = sectionEl(sid).getBoundingClientRect();
@@ -4889,13 +5044,27 @@ function openLayouts(sid) {
   renderLayouts();
 }
 function closeLayouts() { layoutsSid = null; layoutsPanel.hidden = true; }
+// While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
+// (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
+// 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
+function placeLayouts() {
+  const el = layoutsSid && sectionEl(layoutsSid);
+  if (!el) return;
+  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
+  if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
+  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
+  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
+  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  layoutsPlace.secTop = secTop;
+  layoutsPanel.style.top = `${layoutsPlace.top}px`;
+}
 layoutsPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-layout]');
   const mix = t && S(layoutsSid) && openedMix();
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
-  layoutsPicked = Number(t.dataset.layout);
-  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPanel.style.top = `${layoutsPickTop(layoutsPlace)}px`; }
+  layoutsPicked = layoutsLast = Number(t.dataset.layout);
+  if (!layoutsPlace.moved) { layoutsPlace.moved = true; layoutsPlace.top = layoutsPickTop(layoutsPlace); layoutsPanel.style.top = `${layoutsPlace.top}px`; }
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
@@ -5898,6 +6067,12 @@ function onHover(e) {
 // ---------- top bar ----------
 // The mouse on the bar has left every section; on the canvas's white sides it has not (SECTIONBAR.json, fade).
 document.querySelector('.bar').addEventListener('pointerenter', () => { if (hoverSid) { hoverSid = null; placeChrome(); } });
+// A press on the editor's own controls ends the keys' way into the text, Write and Undo aside.
+document.addEventListener('click', (e) => {
+  if (!editing?.soft || e.target.closest?.('#undo, [data-tb="write"]')) return;
+  finishTextEdit();
+  if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
+}, true);
 $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
@@ -6070,7 +6245,7 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);
@@ -6080,7 +6255,7 @@ function boot() {
   frame.contentDocument.addEventListener('pointerdown', () => { closeFloating(); closeSectionPanel(); }, true);
   frame.contentDocument.addEventListener('contextmenu', onContextMenu);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); if (designOpen) { designOpen = null; updateUi(); } } });
-  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeFloating(); closeSectionPanel(); } });
+  frame.contentDocument.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !vAlignOpen && pinPop.hidden) { closeFloating(); closeSectionPanel(); } }); // An open toolbar menu is onKey's, and the block stays selected
   doc = frame.contentDocument;
   win = frame.contentWindow;
   doc.addEventListener('pointerdown', closeLinkOutside, true);
@@ -6088,7 +6263,8 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations; } return null; });
+  watchShapeRects(doc, rectPath);
+  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
@@ -6124,6 +6300,7 @@ function boot() {
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
+      leftRings = null;
       renderAll();
       return true;
     },

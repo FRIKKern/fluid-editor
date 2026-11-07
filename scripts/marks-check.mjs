@@ -206,6 +206,19 @@ const named = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) 
   }
   return JSON.stringify(out); })()`);
 for (const [n, [txt, w]] of Object.entries(named)) add(`label ${n}`, txt === n && Math.abs(w - F.labels.width[n]) <= 2, `${txt} ${w} oracle ${F.labels.width[n]}`);
+// The other types read (CAP-X13LABELS.json), stand-ins among them. Within 2px too.
+const LBL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X13LABELS.json', import.meta.url))).reads;
+const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const out = {}; ${FR}
+  const sid0 = fe.model.sections[${SEC}].id;
+  for (const n of ${JSON.stringify(Object.keys(LBL))}) {
+    const before = new Set(fe.model.sections[${SEC}].blocks.map((b) => b.id));
+    fe.addBlock(sid0, n); await sleep(60);
+    const id = fe.model.sections[${SEC}].blocks.find((b) => !before.has(b.id)).id;
+    const g = d.querySelector('.fe-label[data-for="' + id + '"]'); out[n] = [g.firstElementChild.textContent, g.getBoundingClientRect().width];
+    fe.select(null);
+  }
+  return JSON.stringify(out); })()`);
+for (const [n, [txt, w]] of Object.entries(labelled)) { const want = LBL[n].frameEls[0]; add(`label read ${n}`, txt === want.label && Math.abs(w - want.box[2]) <= 2, `${txt} ${w} oracle ${want.label} ${want.box[2]}`); }
 
 // U6: the top bar's looks, tooltips, keys and the exit dialog (parity/findings/TOPBAR.json).
 const T = JSON.parse(readFileSync(new URL('../parity/findings/TOPBAR.json', import.meta.url)));
@@ -2492,6 +2505,249 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`Bright 1, Large, Divider: layout ${n + 1}'s height`, within(now().h, h), JSON.stringify(now()));
   }
   add('Bright 1, Large, Divider: back at the start', now().th === 'bright-inverse' && now().ht === 'large' && now().dv, JSON.stringify(now()));
+}
+
+// U10: the Paragraph mix, against the CAP-U10 reads: theme and divider starts, undo past opening, the mark, the top while scrolling.
+{
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const read = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+  const turn = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url))).priorState.themeTurn;
+  const setup = async ({ look = {}, more = 0, rows = 8, block = 'text', second = false } = {}) => {
+    viewport(S, 1600, 1000);
+    goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1300);
+    js(`const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)), o = m.sections[0]; o.blocks = ${JSON.stringify(block)} === 'text' ? [{ ...t, html: '<p>Paragraph words for a probe</p>', id: 'paaaaaaaaaaaaaaaaaaaaaaa' }] : []; o.rows = { desktop: ${rows}, mobile: ${rows} }; Object.assign(o, ${JSON.stringify(look)}); m.sections = [o, ...Array.from({ length: ${more} }, (_, i) => ({ ...JSON.parse(JSON.stringify(o)), id: 'sec' + i + 'aaaaaaaaaaaaaaaaaaaaa', blocks: ${second} && !i ? [{ ...t, html: '<p>Paragraph words for a probe</p>', id: 'qaaaaaaaaaaaaaaaaaaaaaaa' }] : [] }))]; fe.load(m); return 'true';`);
+    await pause(450);
+  };
+  const real = async (x, y) => { mouse(S, 'move', x, y); await pause(60); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(260); };
+  const center = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const press = async (sel) => { const c = center(sel); await real(c[0], c[1]); await pause(150); };
+  const open = async () => { const f = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 200]);`); mouse(S, 'move', f[0], f[1]); await pause(200); await press('#section-chrome [data-sc="layouts"]'); };
+  const pick = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'center' }); return 'true';`); await pause(60); await press(`[data-layout="${n}"]`); };
+  const esc = async () => { browser(S, 'press', 'Escape'); await pause(150); };
+  const key = async (k) => { browser(S, 'press', k); await pause(250); };
+  const shut = () => js(`return JSON.stringify(document.getElementById('layouts-panel').hidden);`);
+  const mark = () => String(js(`return JSON.stringify([...document.querySelectorAll('.lo-tile.is-on')].map((e) => e.dataset.layout).join());`));
+  const now = () => js(`const m = fe.model.sections[0]; return JSON.stringify({ th: m.theme || '', dv: !!m.divider, shape: m.dividerShape || '', stroke: m.dividerStroke || 'solid', rows: m.rows.desktop });`);
+  const top = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
+  const frameTo = async (y) => { js(`document.getElementById('site-frame').contentWindow.scrollTo({ top: ${y}, behavior: 'instant' }); return 'true';`); await pause(120); };
+
+  // The theme table holds on this mix (CAP-U10THEME1.json, CAP-U10THEME2.json).
+  for (const from of ['bright-inverse', 'dark-bold']) {
+    await setup({ look: { theme: from } }); await open();
+    await pick(1);
+    add(`Paragraph mix, ${from}: a theme layout turns it`, now().th === turn[from], JSON.stringify(now()));
+    await pick(3);
+    add(`Paragraph mix, ${from}: a theme and divider layout turns it from the start, Rounded`, now().th === turn[from] && now().shape === 'rounded', JSON.stringify(now()));
+    await pick(0);
+    add(`Paragraph mix, ${from}: a plain layout puts it all back`, now().th === from && !now().dv, JSON.stringify(now()));
+  }
+  // A start with another shape (CAP-U10DIVIDER.json), and a layout's divider has no stroke (CAP-U10UNDO.json).
+  await setup({ look: { divider: true, dividerShape: 'slanted' } }); await open();
+  await pick(4);
+  add('Slanted start: a plain layout keeps it, with its stroke', now().shape === 'slanted' && now().stroke === 'solid', JSON.stringify(now()));
+  await pick(2);
+  add('Slanted start: layout 3 sets Soft, with no stroke', now().shape === 'soft' && now().stroke === 'none', JSON.stringify(now()));
+  await pick(3);
+  add('Slanted start: layout 4 sets Rounded, with no stroke', now().shape === 'rounded' && now().stroke === 'none', JSON.stringify(now()));
+  await pick(0);
+  add('Slanted start: a plain layout puts the shape and the stroke back', now().shape === 'slanted' && now().stroke === 'solid', JSON.stringify(now()));
+
+  // The mark on reopening: a layout that turns the theme gets none (CAP-U10READ4.json, CAP-U10READ6.json).
+  await setup(); await open();
+  add('Mark: none on opening a section that shows no layout', mark() === '', mark());
+  for (const [n, want] of [[0, '0'], [1, ''], [2, '2'], [3, ''], [4, '4'], [5, '']]) {
+    await setup(); await open(); await pick(n); await esc(); await open();
+    add(`Mark: reopening after layout ${n + 1}: ${want === '' ? 'none' : 'marked'}`, mark() === want, mark());
+  }
+  // The mark goes with Undo, and only the last pick brings it back (CAP-U10WALK2.json, CAP-U10UNDO.json).
+  await setup(); await open(); await pick(0); await pick(1);
+  await press('#undo');
+  add('Mark: Undo back to an earlier pick marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
+  await key('Meta+z');
+  add('Mark: Undo by keyboard past opening, the panel stays', shut() === false && mark() === '' && now().rows === 8, JSON.stringify([shut(), mark(), now()]));
+  await key('Meta+Shift+z');
+  add('Mark: Redo to a pick that isn\'t the last marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
+  await esc(); await open();
+  add('Mark: but reopening there marks it', mark() === '0', mark());
+  await setup(); await open(); await pick(0); await key('Meta+z');
+  add('Mark: goes with Undo by keyboard', mark() === '', mark());
+  await key('Meta+Shift+z');
+  add('Mark: comes back with Redo to the last pick', mark() === '0', mark());
+
+  // Undo past opening: the look it comes to is the new start (CAP-U10UNDOPAST.json).
+  await setup(); await open(); await pick(1); await esc(); await open();
+  await press('#undo');
+  add('Undo past opening: the panel stays, no mark, the section back', shut() === false && mark() === '' && now().th === '', JSON.stringify([shut(), mark(), now()]));
+  await pick(1);
+  add('Undo past opening: a pick then turns from the section as it is', now().th === turn[''], JSON.stringify(now()));
+
+  // Every block gone: the panel stays with nothing in it (CAP-U10UNDOPAST.json, read by Undo; a block made here has no Undo step, so this goes by Redo).
+  await setup({ block: 'none' });
+  js(`fe.addBlock(fe.model.sections[0].id, 'Image'); return 'true';`); await pause(300);
+  await key('Backspace');
+  await press('#undo'); await esc();
+  await open();
+  const had = js(`return JSON.stringify(document.querySelectorAll('.lo-tile').length);`);
+  await press('#redo');
+  add('No blocks left: the panel stays, with no tiles', had > 0 && js(`return JSON.stringify(fe.model.sections[0].blocks.length);`) === 0 && shut() === false && js(`return JSON.stringify(document.querySelectorAll('.lo-tile').length);`) === 0, JSON.stringify([had, shut()]));
+  await esc();
+  add('No blocks left: Escape closes it', shut() === true);
+
+  // The top while the page scrolls (CAP-U10WALK2.json). These reads ran ahead of the rule by up to one step, with no rule yet: not compared.
+  const AHEAD = ['w 06', 'x 00', 'x 01', 'x 06', 'x 09'], W = read('CAP-U10WALK2');
+  for (const [tag, rows] of [['w', 8], ['x', 9]]) {
+    await setup({ rows, more: 1 }); await open();
+    const open0 = top(), want0 = W[`${tag} open`].tiles.box[1];
+    add(`Scrolling, ${rows} rows: opens as read`, Math.abs(open0 - want0) <= 1.5, JSON.stringify([open0, want0]));
+    const off = [];
+    for (const [k, v] of Object.entries(W)) {
+      if (!k.startsWith(`${tag} `) || !k.endsWith(' still')) continue;
+      await frameTo(Number(k.split(' ')[2].slice(1)));
+      const ours = top(), oracle = v.tiles.box[1];
+      if (!AHEAD.includes(k.slice(0, 4)) && Math.abs(ours - oracle) > 1.5) off.push([k, ours, oracle]);
+    }
+    add(`Scrolling, ${rows} rows: down with the section's bottom, up with its top + 140`, off.length === 0, JSON.stringify(off));
+  }
+  // On a section with no header, the way up: top + 1.4 on 2 walks of 3 (CAP-U10SECOND2.json).
+  await setup({ more: 2, second: true });
+  await frameTo(600);
+  const below = js(`const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + q.top + 200]);`);
+  mouse(S, 'move', below[0], below[1]); await pause(200); await press('#section-chrome [data-sc="layouts"]');
+  const secTop = () => js(`const f = document.getElementById('site-frame'); return JSON.stringify(f.getBoundingClientRect().top + f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect().top);`);
+  await frameTo(1040); await frameTo(800); await frameTo(600);
+  add('Scrolling, second section: up with its top + 1', shut() === false && Math.abs(top() - secTop() - 1.4) <= 2, JSON.stringify([top(), secTop()]));
+  // It closes where Edit Section's does (CAP-U10READ5.json).
+  await setup({ more: 3 }); await open();
+  await frameTo(640);
+  add('Scrolling: still open at frame 640', shut() === false);
+  await frameTo(680);
+  add('Scrolling: closed at frame 680', shut() === true);
+}
+
+// U12: what the option rows draw on a page, against parity/findings/CAP-U12OPTIONS.json. Read inside Site Styles, as ours is here.
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12OPTIONS.json', import.meta.url))).results;
+  const js = (body) => evalJs(S, `(() => { ${body} })()`);
+  const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
+  const FD = `const d = document.getElementById('site-frame').contentDocument, W = d.defaultView, cs = (e, p) => W.getComputedStyle(e, p), q = (s) => d.querySelector('.fe-form ' + s), qs = (s) => [...d.querySelectorAll('.fe-form ' + s)], rect = (e) => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; };`;
+  const start = async () => { viewport(S, 1600, 1000); goto(S, `${BASE}/index.html`); await pause(800); js(`localStorage.clear(); return 'true';`); goto(S, `${BASE}/index.html`); await pause(1200); js(`const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[0].blocks[0]; m.sections[0].theme = 'light'; m.sections[0].blocks.push({ id: 'marks-opts', type: 'form', layout: JSON.parse(JSON.stringify(b.layout)), fields: [{ kind: 'email', label: 'Email' }, { kind: 'radio', label: 'Radio', options: ['Option 1', 'Option 2'], loose: true }, { kind: 'checkbox', label: 'Checkbox', options: ['Option 1', 'Option 2'], loose: true }, { kind: 'survey', label: 'Survey', options: ['Question 1'] }] }); fe.load(m); return 'true';`); await pause(400); await hit('#site-styles-toggle', 300); await hit('[data-ss-view="Forms"]', 200); await hit('[data-ss-view="FormOptions"]', 200); };
+  const kind = async (k) => { if (js(`return JSON.stringify(!document.querySelector('[data-ss-fkind]'));`)) await hit('[data-ss-back]', 100); await hit(`[data-ss-fkind="${k}"]`, 120); };
+  const pick = (k, v) => hit(`[data-ss-set="forms.${k}"][data-v="${v}"]`, 120);
+  const GROUP = { radio: '.form-radio', check: '.form-checkbox:not(.form-radio)', survey: '.likert-options' };
+  // One kind's first two options, the first one picked as the oracle's read had it.
+  const read = (k) => js(`${FD} const G = ${JSON.stringify(GROUP[k])}, inp = qs(G + ' input'), opts = qs(G + ' .option'); inp[0].checked = true; inp[0].dispatchEvent(new Event('change', { bubbles: true })); const i = cs(inp[0]), i2 = cs(inp[1]), dot = cs(inp[0], '::before'), sp = q(G + ' label > span'), s = cs(sp), s2 = cs(qs(G + ' label > span')[1]), range = d.createRange(); range.selectNodeContents(sp); const text = range.getBoundingClientRect().width; return JSON.stringify({ size: parseFloat(i.width), b: parseFloat(i.borderTopWidth), line: parseFloat(i.outlineWidth), radius: i.borderTopLeftRadius, bg: i.backgroundColor, rest: i2.backgroundColor, dotW: parseFloat(dot.width), dotColor: dot.color, grad: dot.backgroundImage, opt: rect(opts[0]), opt2: rect(opts[1]), inp: rect(inp[0]), span: rect(sp), text, pad: s.padding, sb: s.backgroundColor, sc: s.color, sr: s.borderTopLeftRadius, se: s.borderTopWidth + ' ' + s.borderTopColor, s2b: s2.backgroundColor, s2c: s2.color, op: i.opacity, group: G === '.likert-options' ? 0 : rect(q(G))[3] });`);
+  const shape = async (n) => { await hit('[data-ss-select="form-oshape"]', 80); await hit(`[data-ss-oshape="${n}"]`, 100); await hit('[data-ss-select="form-oshape"]', 80); };
+  const near = (a, b, tol = 0.6) => Math.abs(a - b) <= tol;
+  const INK = 'rgb(0, 0, 0)', WHITE = 'rgb(255, 255, 255)', CLEAR = 'rgba(255, 255, 255, 0)';
+  const dotOf = (o) => o.dotW - 4;
+
+  await start();
+  // Radio and Survey take their own rows, not Checkbox's.
+  await kind('radio');
+  let o = read('radio');
+  add('Radio: default mark', o.size === R.radio.M.size && o.b === 2 && o.line === 1 && o.radius === '300px' && dotOf(o) === R.radio.M.dot, JSON.stringify(o));
+  add('Radio: default row height', near(o.opt[3], R.radio.M.row), o.opt[3]);
+  add('Radio: default stack pitch', near(o.opt2[1] - o.opt[1], R.radio.pitch), o.opt2[1] - o.opt[1]);
+  add('Radio: words start after mark and gap', near(o.span[0] - o.inp[0], R.radio.textLeft, 0.1), o.span[0] - o.inp[0]);
+  for (const n of ['S', 'L']) {
+    await pick('radio.size', n); o = read('radio');
+    add(`Radio: size ${n} mark and dot`, o.size === R.radio[n].size && dotOf(o) === R.radio[n].dot, JSON.stringify([o.size, o.dotW]));
+    add(`Radio: size ${n} row height`, near(o.opt[3], R.radio[n].row), o.opt[3]);
+  }
+  await pick('radio.size', 'M');
+  await hit('[data-ss-othick="1"]', 100); o = read('radio');
+  add('Radio: thickness 2 draws 2, border 3, dot 7', o.line === 2 && o.b === 3 && dotOf(o) === R.radio.thick2.dot, JSON.stringify([o.line, o.b, o.dotW]));
+  const c0 = read('check');
+  add('Radio: thickness leaves Checkbox alone', c0.b === 2 && c0.line === 1, JSON.stringify([c0.b, c0.line]));
+  await hit('[data-ss-othick="-1"]', 100);
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio: Field Fill is the Field Background', o.bg === WHITE && o.rest === WHITE, JSON.stringify([o.bg, o.rest]));
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio: Fill off is clear', o.bg === CLEAR, o.bg);
+  await shape('Square'); o = read('radio');
+  add('Radio: Square has no radius', o.radius === '0px', o.radius);
+  await shape('Pill');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('radio');
+  add('Radio: Inverted fills the picked mark, dot in the fill', o.bg === INK && o.rest === CLEAR && o.dotColor === WHITE, JSON.stringify([o.bg, o.rest, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120); o = read('radio');
+  add('Radio: Normal takes it back', o.bg === CLEAR, o.bg);
+  await pick('radio.layout', 'Fit'); o = read('radio');
+  add('Radio: Fit, one row at the same top', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Radio: Fit, group height', near(o.group, R.radio.fit.group), o.group);
+  await pick('radio.layout', 'Stack');
+  // Button.
+  await pick('radio.type', 'Button');
+  for (const n of ['S', 'M', 'L']) {
+    await pick('radio.pad', n); o = read('radio');
+    add(`Radio Button: padding ${n}`, o.pad === R.button[n].pad, o.pad);
+    add(`Radio Button: pitch ${n}`, near(o.opt2[1] - o.opt[1], R.button[n].pitch), o.opt2[1] - o.opt[1]);
+    add(`Radio Button: pill radius ${n}`, near(parseFloat(o.sr), R.button[n].radius), o.sr);
+    const h = parseFloat(o.pad.split(' ')[1]);
+    add(`Radio Button: width is words, padding, edge ${n}`, near(o.span[2], o.text + 2 * h + 2, 0.1), JSON.stringify([o.span[2], o.text]));
+    add(`Radio Button: row 4 wider than the box's own ${n}`, o.opt[2] > o.span[2], JSON.stringify([o.opt[2], o.span[2]]));
+  }
+  add('Radio Button: input out of sight', o.op === '0', o.op);
+  add('Radio Button: picked is ink with white words, the other clear', o.sb === INK && o.sc === WHITE && o.s2b === CLEAR && o.s2c === INK, JSON.stringify([o.sb, o.sc, o.s2b, o.s2c]));
+  await hit('[data-ss-ofill]'); o = read('radio');
+  add('Radio Button: Field Fill fills the other', o.s2b === WHITE && o.sb === INK, JSON.stringify([o.s2b, o.sb]));
+  await hit('[data-ss-ofill]');
+  await pick('radio.layout', 'Fit'); o = read('radio');
+  add('Radio Button: Fit, as wide as the words plus 4', near(o.opt[2], o.span[2] + 4, 0.1), JSON.stringify([o.opt[2], o.span[2]]));
+  add('Radio Button: Fit, one row 20 apart', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Radio Button: Fit, group height', near(o.group, R.button.fitGroup), o.group);
+  await pick('radio.layout', 'Stack');
+  await shape('Square'); o = read('radio');
+  add('Radio Button: Square has no radius', o.sr === '0px', o.sr);
+  await pick('radio.type', 'Icon'); await shape('Pill');
+  // Checkbox: the same Button and Fit.
+  await kind('check');
+  o = read('check');
+  add('Checkbox: default stack pitch', near(o.opt2[1] - o.opt[1], R.check.pitch), o.opt2[1] - o.opt[1]);
+  await pick('check.type', 'Button');
+  await pick('check.pad', 'L'); o = read('check');
+  add('Checkbox Button: padding and pitch', o.pad === R.button.L.pad && near(o.opt2[1] - o.opt[1], R.button.L.pitch), JSON.stringify([o.pad, o.opt2[1] - o.opt[1]]));
+  add('Checkbox Button: picked is ink with white words', o.sb === INK && o.sc === WHITE && o.op === '0', JSON.stringify([o.sb, o.sc, o.op]));
+  await pick('check.type', 'Icon');
+  await pick('check.layout', 'Fit'); o = read('check');
+  add('Checkbox: Fit, one row 20 apart', near(o.opt2[1], o.opt[1], 0.1) && near(o.opt2[0] - o.opt[0] - o.opt[2], R.radio.fit.gap), JSON.stringify([o.opt, o.opt2]));
+  add('Checkbox: Fit, group height', near(o.group, R.check.fitGroup), o.group);
+  await pick('check.layout', 'Stack');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('check');
+  add('Checkbox: Inverted fills the picked box', o.bg === INK && o.rest === CLEAR && o.dotColor === WHITE, JSON.stringify([o.bg, o.rest, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120);
+  // Survey.
+  await kind('survey');
+  const row0 = read('survey').opt[3];
+  for (const n of ['S', 'L']) {
+    await pick('survey.size', n); o = read('survey');
+    add(`Survey: size ${n} mark, dot, row`, o.size === R.radio[n].size && dotOf(o) === R.radio[n].dot && near(o.opt[3] - row0, R.survey[n] - R.survey.M), JSON.stringify([o.size, o.dotW, o.opt[3]]));
+  }
+  await pick('survey.size', 'M');
+  await hit('[data-ss-ofill]'); o = read('survey');
+  add('Survey: Field Fill is the Field Background', o.bg === WHITE, o.bg);
+  await hit('[data-ss-ofill]');
+  await shape('Square'); o = read('survey');
+  add('Survey: Square has no radius', o.radius === '0px', o.radius);
+  await shape('Pill');
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Inverted"]', 120); o = read('survey');
+  add('Survey: Inverted fills the picked mark', o.bg === INK && o.dotColor === WHITE, JSON.stringify([o.bg, o.dotColor]));
+  await hit('[data-ss-select="form-ocolor"]', 100); await hit('.ss-fo-options button[data-v="Normal"]', 120);
+
+  // Field Accent: the focus ring on each kind, 2 px. Nothing at rest.
+  const ring = async (sel) => { js(`${FD} q(${JSON.stringify(sel)}).focus({ preventScroll: true }); return 'true';`); await pause(300); const v = js(`${FD} const c = cs(q(${JSON.stringify(sel)})); return JSON.stringify([c.outlineWidth, c.outlineColor, c.outlineStyle, c.borderTopColor, c.boxShadow]);`); js(`${FD} q(${JSON.stringify(sel)}).blur(); return 'true';`); await pause(100); return v; };
+  const rest = () => js(`${FD} const c = cs(q('input[type=email]')); return JSON.stringify([c.borderTopColor, c.borderTopWidth]);`);
+  const rest0 = rest();
+  await hit('[data-ss-back]', 80); await hit('[data-ss-back]', 80);
+  await hit('[data-ss-view="FormColors"]', 150);
+  await hit('[data-ss-select="form-color-Field Accent"]', 120); await hit('.ss-fc-pop [data-ss-fcolor="darkAccent"]', 150);
+  const want = js(`${FD} const t = d.createElement('i'); t.style.color = 'hsla(' + W.getComputedStyle(d.documentElement).getPropertyValue('--darkAccent-hsl') + ', 1)'; d.body.append(t); const v = W.getComputedStyle(t).color; t.remove(); return JSON.stringify(v);`);
+  for (const [n, sel] of [['Radio', '.form-radio input'], ['Checkbox', '.form-checkbox:not(.form-radio) input'], ['Survey', '.likert-options input']]) {
+    const g = await ring(sel);
+    add(`Field Accent: ${n} focus ring`, g[0] === '2px' && g[1] === want && g[2] === 'solid', JSON.stringify([g, want]));
+  }
+  const t = await ring('input[type=email]');
+  add('Field Accent: text field edge on focus', t[3] === want && t[4].includes(want) && t[4].includes('1px') && t[2] === 'none', JSON.stringify([t, want]));
+  add('Field Accent: nothing at rest', JSON.stringify(rest()) === JSON.stringify(rest0), JSON.stringify(rest()));
 }
 
 console.log(`Marks: ${pass} of ${total} checks match`);

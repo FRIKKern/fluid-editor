@@ -783,34 +783,60 @@ for (const [n, re] of LINKS) {
 }
 add('Link: all the reads walked', linkReads >= 8, linkReads);
 
-// The last score, no refit (PRED-T10READS4.json, CAP-T10SCORE.json, CAP-T10SCORE2.json): the count is in
-// T10, each miss named. A miss that starts matching means a new fresh round, not a higher count.
+// The last score of the old rules was 29 of 39, with ten named misses (PRED-T10READS4.json, in T10). Those reads,
+// seen by the rules PRED-T10FIX.json wrote afterwards.
 const LAST = read('PRED-T10READS4'), LAST1 = read('CAP-T10SCORE').reads, LAST2 = read('CAP-T10SCORE2').reads;
-const MISSES = ['Z7', 'Z8', 'Z17', 'W10', 'R1', 'R2', 'R3', 'R4', 'R5', 'R8'];
-let lastHits = 0, lastAll = 0;
-const scored = (name, same, detail) => { const id = name.split(' ')[0]; lastAll++; if (same) lastHits++; add(`Score ${id}${MISSES.includes(id) ? ', named miss' : ''}`, same !== MISSES.includes(id), detail); };
+const closeLink = async () => { await key('Escape'); await pause(180); if (evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`)) await openPanel(evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`)); };
+const shownBy = async () => { await pressAt(mdBtn('Link')); const v = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`); return v; };
+const hrefOf = (r) => { const row = r.controls.map((x) => x.label), at = row.indexOf('Edit'); return at > 0 ? row[at - 1] : null; };
+const flags = (o) => JSON.stringify([o.Bold, o.Italic, o.Link]);
 for (const [name, c] of Object.entries(LAST.edit)) {
   await setMd(c.text); setSel(...c.sel); await pause(60);
   if (c.press === 'Enter') await key('Enter'); else await pressAt(mdBtn(c.press));
   const v = mdVal();
-  scored(name, v === LAST1[name].codeText, `${JSON.stringify(v)} wants ${JSON.stringify(LAST1[name].codeText)}`);
+  add(`Seen ${name.split(' ')[0]}`, v === LAST1[name].codeText, `${JSON.stringify(v)} wants ${JSON.stringify(LAST1[name].codeText)}`);
 }
 for (const [name, c] of Object.entries(LAST.look)) {
   await setMd(c.text); setSel(...c.sel); await pause(60);
-  const got = barNow().on, want = barWants(LAST2[name]).on, flags = (o) => JSON.stringify([o.Bold, o.Italic, o.Link]);
+  const got = barNow().on, want = barWants(LAST2[name]).on, pressed = LAST2[`${name} press`]; // W's Link press wasn't read
   let same = flags(got) === flags(want), detail = `${flags(got)} wants ${flags(want)}`;
-  const pressed = LAST2[`${name} press`]; // W's Link press wasn't read: see CAP-T10SCORE2's answer
-  if (pressed) {
-    const row = pressed.controls.map((x) => x.label), at = row.indexOf('Edit'), href = at > 0 ? row[at - 1] : null;
-    await pressAt(mdBtn('Link'));
-    const shows = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`);
-    same = same && shows === href; detail += `, shows ${shows} wants ${href}`;
-    await key('Escape'); await pause(180);
-    if (evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`)) await openPanel(evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`));
-  }
-  scored(name, same, detail);
+  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && shows === href; detail += `, shows ${shows} wants ${href}`; await closeLink(); }
+  add(`Seen ${name.split(' ')[0]}`, same, detail);
 }
-add('Score: 29 of 39', lastHits === 29 && lastAll === 39, `${lastHits} of ${lastAll}`);
+// The fresh round, predictions pushed first, 54 of 60 (PRED-T10FIX.json, CAP-T10FIX to CAP-T10FIX7). The six it missed stay
+// named: a miss that starts matching means a new read, not a higher count.
+const FIX = read('PRED-T10FIX'), FIX1 = read('CAP-T10FIX').reads, FIX2 = read('CAP-T10FIX2').reads, FIXP = { ...read('CAP-T10FIX5').reads, ...read('CAP-T10FIX6').reads }, FIX3 = read('CAP-T10FIX3').reads, FIX7 = read('CAP-T10FIX7').reads;
+for (const [name, c] of Object.entries(FIX.edit)) {
+  await setMd(c.text); setSel(...c.sel); await pause(60);
+  if (c.press === 'Enter') await key('Enter'); else await pressAt(mdBtn(c.press));
+  const v = mdVal();
+  add(`Fresh ${name.split(' ')[0]}`, v === FIX1[name].codeText, `${JSON.stringify(v)} wants ${JSON.stringify(FIX1[name].codeText)}`);
+}
+for (const [name, c] of Object.entries(FIX.look)) {
+  await setMd(c.text); setSel(...c.sel); await pause(60);
+  const got = barNow().on, want = barWants(FIX2[name]).on, pressed = FIXP[`${name} press`];
+  let same = flags(got) === flags(want), detail = `${flags(got)} wants ${flags(want)}`;
+  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && shows === href; detail += `, shows ${shows} wants ${href}`; await closeLink(); }
+  add(`Fresh ${name.split(' ')[0]}`, same, detail);
+}
+// Named misses, the Link form on a reference: the oracle writes the definition, ours as predicted (CAP-T10FIX3.json, CAP-T10FIX7.json).
+const formAs = { add: async () => { await pressAt(mdBtn('Link')); typeLink('/about'); await key('Enter'); await pause(200); }, edit: async () => { await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="edit"]'); typeLink('/n'); await key('Enter'); await pause(200); }, remove: async () => { await pressAt(mdBtn('Link')); await pressAt('#link-popover [data-md-link="remove"]'); await pause(200); } };
+function typeLink(v) { evalJs(S, `(() => { const i = document.querySelector('#link-popover .lk-input'); i.focus(); i.value = ${JSON.stringify(v)}; i.dispatchEvent(new Event('input', { bubbles: true })); return 'true'; })()`); }
+for (const [name, c] of Object.entries(FIX.form)) {
+  await setMd(c.text); setSel(...c.sel); await pause(60);
+  await formAs[c.do]();
+  const v = mdVal(), wants = name.startsWith('F3') ? FIX7[name].codeText : FIX3[name].codeText, as = c.do === 'edit' ? '[x](/n)\n\n[y]: /z' : c.value;
+  add(`Named miss ${name.split(' ')[0]}`, v === as && v !== wants, `${JSON.stringify(v)} as predicted ${JSON.stringify(as)}, oracle ${JSON.stringify(wants)}`);
+  await pause(120);
+}
+// The unread pair (CAP-T10FIX4.json): import's names, and a CSS rule's marks, its braces beside the caret.
+const colourAt = (html, word) => { const m = new RegExp(`<span class="(c-[a-z0-9]+)[^"]*">${word}</span>`).exec(html); return m?.[1] ?? null; };
+const lookHtml = (t, lang) => evalJs(S, `(async () => { const { codeLines } = await import('/src/code-look.js'); return JSON.stringify(codeLines(${JSON.stringify(t)}, '${lang}', ${t.length}).join('|')); })()`);
+const imp = lookHtml('import {a, b as c} from "d";\nimport * as e from "f";', 'javascript');
+add('import: a and c are named, b is plain', colourAt(imp, 'a') === 'c-def' && colourAt(imp, 'c') === 'c-def' && colourAt(imp, 'b') === null && colourAt(imp, 'as') === 'c-kw', imp);
+add('import: * as e', colourAt(imp, '\\*') === 'c-kw' && colourAt(imp, 'e') === 'c-def', imp);
+const cssLook = lookHtml('a { color: red }', 'css');
+add('A CSS rule: the braces marked beside the caret', (cssLook.match(/c-match/g) || []).length === 2, cssLook);
 
 }
 // A press while dim does nothing; the dim colour and the lit one.

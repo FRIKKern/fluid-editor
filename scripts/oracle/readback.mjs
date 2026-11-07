@@ -58,6 +58,12 @@ export function compareFamilies(names, stored = STYLES.families) {
   return out;
 }
 
+// Forms > Colors as read on one theme, against the stored read.
+export function compareFormColors(theme, read, stored = STYLES.formColors?.[theme]) {
+  if (!stored) return [`Forms > Colors on ${theme}: nothing stored`];
+  return JSON.stringify(read) === JSON.stringify(stored) ? [] : [`Forms > Colors on ${theme}: ${JSON.stringify(read).slice(0, 400)}, stored ${JSON.stringify(stored).slice(0, 400)}`];
+}
+
 // Reads until two reads in a row agree, since a list read during a slow load can move with nothing changed on the site.
 // What it settles on still goes to the comparison, and a list that never settles is a difference.
 export async function settledRead(read, wait, tries = 6) {

@@ -992,9 +992,9 @@
   "errors": [],
   "leftDirty": true,
   "answer": "One column at a time. Chart holds at 1/2/9/10, Scheduling at 1/2/18/10, Code at 1/2/7/6: they are at their floor as added, so a pull in does nothing at any size. Summary starts 18 wide and steps down, taking rows: 1/2/15/19, 1/2/15/18, 1/3/15/18, 1/3/15/13. Search Field steps to 1/2/9/8 and stops. So a floor stops a pull there; it does not refuse the pull whole.",
-  "ours": "Goes on past these, as in CAP-X6FLOORS.json.",
+  "ours": "All match, npm run x6-check, except Summary's rows: a plain stand-in here, no content to take them. Its columns match.",
   "differs": [
-    "As CAP-X6FLOORS.json."
+    "Summary takes rows as it narrows; ours stays. Named in x6-check."
   ],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place."
 }

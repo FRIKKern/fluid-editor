@@ -4915,9 +4915,9 @@
     }
   },
   "answer": "Each type has a width floor, in columns, the same from both sides: Text 1, Shape 1, Line 1, Markdown 2, Social Links 2, Button 3, Accordion 3, Product 3, Donation 3, Quote 3, Page Link 3, Tag Cloud 3, RSS 3, Tock 3, SoundCloud 3, Flickr 3, OpenTable 3, Zola 3, Bandsintown 3, Video 4, Form 4, Scrolling 4, Audio 4, Map 4, Code 4, Embed 4, Instagram 4, Pricing Plan 6, Calendar 6, Menu 6, Search Field 6, Archive 6, Newsletter 7, Scheduling 8, Summary 8, Chart 8. Some take rows as they narrow: Accordion 11, Quote 9, Summary 33, Newsletter 10, Pricing 12, Bandsintown 33. Instagram shrinks, to 7 rows from the west and 5 from the east. All in floors. Image is left out: a press over a new Image can reach its menu. The phone isn't read.",
-  "ours": "Most go down to 1 column or close. The same on 6 of 36: Text, Button, Shape, Scrolling, Line, Social Links. Measured on 5210.",
+  "ours": "All 36 floors match in columns from both sides, npm run x6-check. Rows match except on plain stand-ins with no content, named there: Summary, Pricing Plan, Newsletter, Instagram, Bandsintown.",
   "differs": [
-    "30 of 36 types: ours pulls narrower than the oracle's floor. The numbers are in floors."
+    "Rows at the floor on Summary, Pricing Plan, Newsletter, Instagram and Bandsintown. Named in x6-check."
   ],
   "pressed": "Real mouse clicks and pulls on blocks made in the session. Add Block tiles and panel rows by name. No Save, no upload, no Reset, no tile or row pressed by place.",
   "correction": "The start rows of OpenTable, Zola and Bandsintown in floors came from the tool's scroll (CAP-T14MENU.json). Their floors stand."

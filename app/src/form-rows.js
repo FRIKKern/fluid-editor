@@ -34,7 +34,8 @@ function hoverCss(v, field) {
   const on = field.split(', ').map((s) => `${s}:hover`).join(', '), edge = `hsla(var(--ff-edge), ${FADE[v.hover][1]})`;
   if (v.hover === 'Scale') return `${field} { transition: transform .15s ${CURVE}; }\n${on} { box-shadow: none; transform: scale(1.025); }\n`;
   if (v.hover === 'Outline') return `${field} { transition: background-color .15s ${CURVE}; }\n${on} { box-shadow: none;${v.fill ? '' : ' background: hsla(var(--ff-bg), .4);'} }\n`;
-  return `${field} { transition: box-shadow .075s ${CURVE}; }\n${on} { box-shadow: ${v.border ? `inset 0 0 0 1px ${edge}` : 'none'}; }\n`;
+  // Off while focused: focus has its own ring (site.css).
+  return `${field} { transition: box-shadow .075s ${CURVE}; }\n${on.split(', ').map((x) => `${x}:not(:focus)`).join(', ')} { box-shadow: ${v.border ? `inset 0 0 0 1px ${edge}` : 'none'}; }\n`;
 }
 
 // Selection Options: one set of rows for each kind of choice.
@@ -54,10 +55,48 @@ function optionCss(styles) {
     const [pt, pr, pb, pl] = o.pad === 'custom' ? [o.t, o.r, o.b, o.l] : [OPTION_PAD[o.pad][0], OPTION_PAD[o.pad][1], OPTION_PAD[o.pad][0], OPTION_PAD[o.pad][1]];
     vars += ` ${n}-style: ${o.type.toLowerCase()}; ${n}-color: ${o.color.toLowerCase()}; ${n}-layout: ${o.layout.toLowerCase()}; ${n}-border-thickness: ${o.thick}px; ${n}-size: ${size}px; ${n}-space-between-icon-and-text: ${o.gap}px; ${n}-row-gap: ${o.rows}px; ${n}-column-gap: ${o.cols}px; ${n}-padding-top: ${pt}px; ${n}-padding-right: ${pr}px; ${n}-padding-bottom: ${pb}px; ${n}-padding-left: ${pl}px;`;
   }
-  const o = formOption(styles, 'check'), size = o.size === 'custom' ? o.custom : OPTION_SIZE[o.size];
   return `body {${vars} }
-.fe-form .form-checkbox input, .fe-form .form-signup input { width: ${size}px; height: ${size}px; border-width: ${o.thick + 1}px; border-radius: ${optionRadius(o)}; background: hsla(var(--ff-bg), ${o.fill ? 1 : 0}); }
-.fe-form .form-checkbox label, .fe-form .form-signup label { gap: ${o.gap}px; }
+${markCss(formOption(styles, 'check'), '.fe-form .form-checkbox input, .fe-form .form-signup input', '.fe-form .form-checkbox label, .fe-form .form-signup label')}${markCss(formOption(styles, 'radio'), '.fe-form .form-radio input', '.fe-form .form-radio label', true)}${markCss(formOption(styles, 'survey'), '.fe-form .likert-options input', null, true)}${buttonCss(formOption(styles, 'check'), '.fe-form .form-checkbox:not(.form-radio)')}${buttonCss(formOption(styles, 'radio'), '.fe-form .form-radio')}${layoutCss(formOption(styles, 'check'), '.fe-form .form-checkbox:not(.form-radio)')}${layoutCss(formOption(styles, 'radio'), '.fe-form .form-radio')}`;
+}
+// What a kind's rows draw on a page (CAP-U12OPTIONS.json). A mark's edge is the
+// thickness, set one in by a border one wider. A dot is half of what's left inside that border. Inverted fills a picked mark with the ink.
+const sizeOf = (o) => (o.size === 'custom' ? o.custom : OPTION_SIZE[o.size]);
+function markCss(o, input, label, dot = false) {
+  const size = sizeOf(o), rule = input.split(', ');
+  const on = (x) => rule.map((r) => `${r}${x}`).join(', ');
+  const d = (size - 2 * (o.thick + 1)) / 2;
+  let css = `${input} { width: ${size}px; height: ${size}px; border-width: ${o.thick + 1}px; outline-width: ${o.thick}px; outline-offset: -${o.thick}px; border-radius: ${optionRadius(o)}; background: hsla(var(--ff-bg), ${o.fill ? 1 : 0}); }\n`;
+  if (label) css += `${label} { gap: ${o.gap}px; }\n`;
+  if (dot) {
+    css += `${on('::before')} { width: ${d + 4}px; height: ${d + 4}px; background: radial-gradient(circle at center, currentColor ${d / 2 - 0.4}px, transparent ${d / 2 + 0.4}px); }\n`;
+    // The row grows with a mark over 20 and shrinks by half as much under it (CAP-U12OPTIONS.json, sizes S and L).
+    if (label && size !== 20) css += `.fe-form .form-radio .option { min-height: ${25.7 + (size > 20 ? size - 20 : (size - 20) / 2)}px; }\n`;
+  }
+  if (o.color === 'Inverted') css += `${on(':checked')} { background: currentColor; }\n${on(':checked::before')} { color: hsl(var(--ff-bg)); }\n`;
+  return css;
+}
+// Field Style Button: the input is out of sight, the words are the box. Picked, it fills with the edge color and the words take the fill's.
+// That color is read black on white on Light 1 only; that it's Field Border and Field Background is inferred.
+// Selection Color's row is gone on a Button, so whether Inverted still draws there was not read (CAP-U12OPTIONS.json).
+function buttonCss(o, group) {
+  if (o.type !== 'Button') return '';
+  const [pt, pr, pb, pl] = o.pad === 'custom' ? [o.t, o.r, o.b, o.l] : [OPTION_PAD[o.pad][0], OPTION_PAD[o.pad][1], OPTION_PAD[o.pad][0], OPTION_PAD[o.pad][1]];
+  const radius = o.shape === 'Pill' ? `calc(${pt}px + .924em)` : optionRadius(o);
+  return `${group} label { position: relative; gap: 0; padding-right: 4px; }
+${group} input { position: absolute; opacity: 0; pointer-events: none; }
+${group} label > span { box-sizing: content-box; padding: ${pt}px ${pr}px ${pb}px ${pl}px; border: ${o.thick}px solid currentColor; border-radius: ${radius}; background: hsla(var(--ff-bg), ${o.fill ? 1 : 0}); }
+${group} input:checked + span { background: hsl(var(--ff-edge)); border-color: hsl(var(--ff-edge)); color: hsl(var(--ff-bg)); }
+${group} input:focus + span { outline: 2px solid var(--form-ring); outline-offset: -2px; }
+${group} .option { min-height: 0; }
+`;
+}
+// Layout Fit: as wide as the words, on one row while they fit, the row's top where the first option's was (CAP-U12OPTIONS.json).
+// Space Between Columns read at its default 20 only. Space Between Rows has no wrapped read: rows + 10 is taken from the stack's 18 at the default 8.
+function layoutCss(o, group) {
+  if (o.layout !== 'Fit') return '';
+  return `${group} { display: flex; flex-wrap: wrap; column-gap: ${o.cols}px; row-gap: ${o.rows + 10}px; padding-top: 6px; }
+${group} .description { flex: 0 0 100%; margin-bottom: 4px; }
+${group} .option, ${group} legend + .option, ${group} .description + .option { flex: none; margin-top: 0; }
 `;
 }
 

@@ -1,0 +1,1098 @@
+{
+ "item": "U10",
+ "name": "CAP-U10DIVIDER",
+ "question": "A start with a divider shape other than the first.",
+ "answer": "Slanted and Jagged: layouts 0, 1, 4, 5 keep it, layout 2 sets soft-corners, layout 3 rounded, a plain layout puts it back. Wavy is the first shape, so pressing it changes nothing: that's why the older Wavy press read as unclear.",
+ "ours": "Same, built before this read.",
+ "differs": "Nothing on the shape. The stroke: see CAP-U10UNDO.",
+ "pressed": "Tiles and the View Layouts button by data-test with an on-top check (pressLayout, pressEl). Undo and Redo by name. Moves by coordinates, never a press. Selecting a block by its middle. Paste over the text the tool selected. Nothing saved: Exit Without Saving.",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-06",
+ "engine": "chrome",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteHere",
+   0,
+   "new",
+   "<p>Paragraph words for a probe</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "click",
+   "Divider"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "read",
+   "Wavy, the first shape",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "click",
+   "Edit Settings"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Edit Settings",
+   {
+    "controls": true
+   }
+  ],
+  [
+   "click",
+   "Wavy Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "read",
+   "press on Wavy Shape",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "scrollTo",
+   "Divider"
+  ],
+  [
+   "click",
+   "Edit Settings"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "click",
+   "Slanted Shape"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted start",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 4",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   5
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 5",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 2",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 3",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Slanted layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "read",
+   "Slanted after",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "scrollTo",
+   "Divider"
+  ],
+  [
+   "click",
+   "Edit Settings"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "click",
+   "Jagged Shape"
+  ],
+  [
+   "pause",
+   700
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged start",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   300
+  ],
+  [
+   "frameTo",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   300
+  ],
+  [
+   "pause",
+   800
+  ],
+  [
+   "pressEl",
+   "[data-test=\"toolbar-layout-switcher\"]"
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   1
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 1",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   4
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 4",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   5
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 5",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   2
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 2",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   3
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 3",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "pressLayout",
+   0
+  ],
+  [
+   "moveAt",
+   800,
+   28
+  ],
+  [
+   "pause",
+   500
+  ],
+  [
+   "read",
+   "Jagged layout 0 again",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "read",
+   "Jagged after",
+   {
+    "look": 0
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "pause",
+   500
+  ]
+ ],
+ "reads": {
+  "Wavy, the first shape": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.876 L-1.006, 0.938 c0.251,-0.0793",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Edit Settings": {
+   "controls": [
+    {
+     "role": "button",
+     "label": "Save",
+     "box": [
+      11,
+      8.5,
+      55.6,
+      38
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Exit",
+     "box": [
+      77.6,
+      8.5,
+      45.8,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Undo",
+     "box": [
+      145.4,
+      1.5,
+      36,
+      52
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Redo",
+     "box": [
+      189.4,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Desktop View",
+     "box": [
+      1390,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "radio",
+     "label": "Mobile View",
+     "box": [
+      1436,
+      11.5,
+      46,
+      32
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle Site Styles editing",
+     "box": [
+      1495,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Toggle preview mode",
+     "box": [
+      1542,
+      9.5,
+      36,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "BackShape",
+     "box": [
+      1258,
+      36,
+      320,
+      55
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Back",
+     "box": [
+      1269,
+      40.5,
+      54.2,
+      46
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Shuffle Settings",
+     "box": [
+      1280,
+      276,
+      276,
+      36
+     ]
+    },
+    {
+     "role": "button",
+     "label": "Flip X Axis",
+     "box": [
+      1509,
+      406,
+      58,
+      58
+     ]
+    },
+    {
+     "role": "input:text",
+     "label": "Alignment",
+     "value": "0px",
+     "box": [
+      1521,
+      468,
+      29,
+      22
+     ]
+    },
+    {
+     "role": "input:range",
+     "label": "Alignment",
+     "value": "0",
+     "min": "-1000",
+     "max": "1000",
+     "step": "1",
+     "box": [
+      1280,
+      489.5,
+      276,
+      44
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "press on Wavy Shape": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.876 L-1.006, 0.938 c0.251,-0.0793",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted start": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.876 L-1.006, 1 l0,0 l1.004,-0.124",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 0 again": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.888 L-1.006, 1 l0,0 l1.004,-0.112",
+    "h": 845.8,
+    "rows": 10,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.902 L-1.006, 1 l0,0 l1.004,-0.098",
+    "h": 969,
+    "rows": 13,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.869 L-1.006, 1 l0,0 l1.004,-0.131",
+    "h": 722.5,
+    "rows": 7,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 5": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.861 L-1.006, 1 l0,0 l1.004,-0.139",
+    "h": 681.4,
+    "rows": 6,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 2": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
+    "h": 804.7,
+    "rows": 9,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted layout 3": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Slanted after": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.888 L-1.006, 1 l0,0 l1.004,-0.112",
+    "h": 845.8,
+    "rows": 10,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged start": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.888 L-1.006, 0.888 l0,0 l0.753,0.",
+    "h": 845.8,
+    "rows": 10,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"slanted\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 0 again": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.888 L-1.006, 0.888 l0,0 l0.753,0.",
+    "h": 845.8,
+    "rows": 10,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"jagged\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 1": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.902 L-1.006, 0.902 l0,0 l0.753,0.",
+    "h": 969,
+    "rows": 13,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"jagged\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 4": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.869 L-1.006, 0.869 l0,0 l0.753,0.",
+    "h": 722.5,
+    "rows": 7,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"jagged\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 5": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.861 L-1.006, 0.861 l0,0 l0.753,0.",
+    "h": 681.4,
+    "rows": 6,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"jagged\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 2": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M0, 0.882 l0,0 c0,0.0885 0.015,0.118 0.06,0.",
+    "h": 804.7,
+    "rows": 9,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged layout 3": {
+   "look": {
+    "th": "dark",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1, 0.876 L-1, 0.876 l0,0 c0,0 0.25,0.124 0",
+    "h": 763.6,
+    "rows": 8,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "Jagged after": {
+   "look": {
+    "th": "",
+    "ht": "medium",
+    "dv": true,
+    "d": "M-1.006, 0.888 L-1.006, 0.888 l0,0 l0.753,0.",
+    "h": 845.8,
+    "rows": 10,
+    "blocks": 1,
+    "ctx": "{\"enabled\":true,\"type\":\"jagged\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+   },
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true
+}
