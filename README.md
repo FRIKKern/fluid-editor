@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 75 changes
+- **Today** · 76 changes
+  - S3: the stack's Gap menu read and built; G4: a desktop group's held block inside the box read ([#367](https://github.com/FRIKKern/fluid-editor/pull/367))
   - T12: the nine older block dialogs, their in-scope rows and the press-beside close ([#366](https://github.com/FRIKKern/fluid-editor/pull/366))
-  - Y2, E7: frozen last scores, 20 of 26 and 5 of 5, misses named (items 56, 57, 58) ([#364](https://github.com/FRIKKern/fluid-editor/pull/364))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
