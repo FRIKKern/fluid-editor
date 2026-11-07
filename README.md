@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 21 changes
-  - R2, A2, G7: rows settle after a width drop; only a move scrolls the page ([#312](https://github.com/FRIKKern/fluid-editor/pull/312))
-  - U12: a pack reaches Radio again as a named guess; #306's picks named ([#311](https://github.com/FRIKKern/fluid-editor/pull/311))
+- **Today** · 24 changes
+  - U4: Align Vertically pressed on Quote and Code, none on Map ([#315](https://github.com/FRIKKern/fluid-editor/pull/315))
+  - T12: coverage walk, every tile's panel and the bars, stored so a check can compare ([#314](https://github.com/FRIKKern/fluid-editor/pull/314))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
