@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -2857,6 +2857,29 @@ shapePop.addEventListener('change', (e) => {
     write({ rgb: rgbFromHsl(hsl[0], hsl[1], hsl[2]), a: c.a });
   }
 });
+// The format menu's list, below it and over the popup's edge (CAP-T6CUSTOM.json). The select stays as its value.
+const closeFormatList = () => { shapePop.querySelector('.sh-fmtlist')?.remove(); shapePop.querySelector('[data-color-format].is-open')?.classList.remove('is-open'); };
+shapePop.addEventListener('mousedown', (e) => {
+  const opt = e.target.closest('[data-fmt-opt]');
+  if (opt) {
+    e.preventDefault();
+    const s = shapePop.querySelector('[data-color-format]');
+    s.value = opt.dataset.fmtOpt;
+    closeFormatList();
+    s.dispatchEvent(new Event('change', { bubbles: true }));
+    return;
+  }
+  const s = e.target.closest('[data-color-format]');
+  const was = !!shapePop.querySelector('.sh-fmtlist');
+  closeFormatList();
+  if (!s) return;
+  e.preventDefault();
+  if (was) return;
+  const r = s.getBoundingClientRect();
+  s.classList.add('is-open');
+  shapePop.insertAdjacentHTML('beforeend', `<div class="sh-fmtlist" role="listbox" style="left:${r.left - 3}px;top:${r.bottom + 6}px">${[...s.options].map((o) => `<button type="button" role="option" data-fmt-opt="${o.value}" aria-selected="${o.selected}"${o.selected ? ' class="is-cur"' : ''}>${o.textContent}</button>`).join('')}</div>`);
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && shapePop.querySelector('.sh-fmtlist')) { e.stopPropagation(); closeFormatList(); } }, true);
 shapePop.addEventListener('pointerdown', (e) => {
   if (shapeUi?.section && shapeUi.custom) {
     const map = e.target.closest('.sh-map'), hue = e.target.closest('.sh-hue'), area = map || hue;
@@ -6203,6 +6226,7 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
+  watchShapeRects(doc, rectPath);
   bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);

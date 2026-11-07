@@ -1,0 +1,522 @@
+{
+ "item": "T6",
+ "kind": "capture",
+ "oracle": "trial site, Blocks Probe, a new Shape, unsaved",
+ "capturedAt": "2026-11-07",
+ "question": "The Custom color view: the thumbs, the bars and the format row",
+ "how": "Boxes are relative to the 300 wide popup. Read on white, at full opacity.",
+ "thumbs": [
+  {
+   "el": "DIV",
+   "role": "slider",
+   "label": "Color Map",
+   "text": "",
+   "value": "",
+   "box": [
+    3.0,
+    3.0,
+    16.0,
+    16.0
+   ],
+   "bg": "rgb(255, 255, 255)",
+   "radius": "100%",
+   "shadow": "rgb(118, 118, 118) 0px 0px 0px 1px, rgb(118, 118, 118) 0px 0px 0px 1px inset",
+   "right": "3px rgb(255, 255, 255)"
+  },
+  {
+   "el": "DIV",
+   "role": "slider",
+   "label": "Hue slider",
+   "text": "",
+   "value": "",
+   "box": [
+    14.0,
+    312.0,
+    16.0,
+    16.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "100%",
+   "shadow": "rgb(118, 118, 118) 0px 0px 0px 1px, rgb(118, 118, 118) 0px 0px 0px 1px inset",
+   "right": "3px rgb(255, 255, 255)"
+  },
+  {
+   "el": "DIV",
+   "role": "slider",
+   "label": "Opacity slider",
+   "text": "",
+   "value": "",
+   "box": [
+    270.0,
+    340.0,
+    16.0,
+    16.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "100%",
+   "shadow": "rgb(118, 118, 118) 0px 0px 0px 1px, rgb(118, 118, 118) 0px 0px 0px 1px inset",
+   "right": "3px rgb(255, 255, 255)"
+  }
+ ],
+ "bars": {
+  "note": "Hue and Opacity bars are 278 by 22, radius 3, with an inset line of rgba(14, 14, 14, .16). Their thumbs run with the centre from 11 in to 11 from the end.",
+  "hueTop": 309,
+  "opacityTop": 337
+ },
+ "map": [
+  11,
+  11,
+  278,
+  240
+ ],
+ "rgb": [
+  {
+   "el": "DIV",
+   "role": "combobox",
+   "label": "Color format",
+   "text": "",
+   "value": "",
+   "box": [
+    11.0,
+    365.0,
+    73.0,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "P",
+   "role": "",
+   "label": "",
+   "text": "RGB",
+   "value": "",
+   "box": [
+    22.0,
+    376.0,
+    29.0,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    90.0,
+    365.0,
+    45.7,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px 0px 0px 3px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Red",
+   "text": "",
+   "value": "255",
+   "box": [
+    101.0,
+    376.0,
+    22.7,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    135.6,
+    365.0,
+    45.7,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Green",
+   "text": "",
+   "value": "255",
+   "box": [
+    146.6,
+    376.0,
+    22.7,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    181.3,
+    365.0,
+    45.7,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Blue",
+   "text": "",
+   "value": "255",
+   "box": [
+    192.3,
+    376.0,
+    22.7,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    227.0,
+    365.0,
+    62.0,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px 3px 3px 0px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Alpha",
+   "text": "",
+   "value": "100%",
+   "box": [
+    238.0,
+    376.0,
+    62.0,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  }
+ ],
+ "hsl": [
+  {
+   "el": "DIV",
+   "role": "combobox",
+   "label": "Color format",
+   "text": "",
+   "value": "",
+   "box": [
+    11.0,
+    365.0,
+    70.3,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "P",
+   "role": "",
+   "label": "",
+   "text": "HSL",
+   "value": "",
+   "box": [
+    22.0,
+    376.0,
+    26.3,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    87.3,
+    365.0,
+    46.6,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px 0px 0px 3px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Hue",
+   "text": "",
+   "value": "0",
+   "box": [
+    98.3,
+    376.0,
+    23.6,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    133.8,
+    365.0,
+    46.6,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Saturation",
+   "text": "",
+   "value": "0",
+   "box": [
+    144.8,
+    376.0,
+    23.6,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    180.4,
+    365.0,
+    46.6,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "1px rgb(231, 231, 231)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Lightness",
+   "text": "",
+   "value": "100",
+   "box": [
+    191.4,
+    376.0,
+    23.6,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    227.0,
+    365.0,
+    62.0,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "0px 3px 3px 0px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Alpha",
+   "text": "",
+   "value": "100%",
+   "box": [
+    238.0,
+    376.0,
+    62.0,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  }
+ ],
+ "hex": [
+  {
+   "el": "DIV",
+   "role": "combobox",
+   "label": "Color format",
+   "text": "",
+   "value": "",
+   "box": [
+    11.0,
+    337.0,
+    69.2,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "P",
+   "role": "",
+   "label": "",
+   "text": "Hex",
+   "value": "",
+   "box": [
+    22.0,
+    348.0,
+    25.2,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  },
+  {
+   "el": "DIV",
+   "role": "",
+   "label": "",
+   "text": "",
+   "value": "",
+   "box": [
+    86.2,
+    337.0,
+    202.8,
+    44.0
+   ],
+   "bg": "rgb(242, 242, 242)",
+   "radius": "3px",
+   "shadow": "none",
+   "right": "0px rgb(62, 62, 62)"
+  },
+  {
+   "el": "INPUT",
+   "role": "spinbutton",
+   "label": "Hex",
+   "text": "",
+   "value": "#FFFFFF",
+   "box": [
+    97.2,
+    348.0,
+    180.8,
+    22.0
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "shadow": "none",
+   "right": "0px rgb(14, 14, 14)"
+  }
+ ],
+ "hexView": "Hex has no Opacity bar and no Alpha cell, so its row is at 337 and the popup is 28 shorter. Read at full opacity only.",
+ "formatList": {
+  "read": [
+   [
+    "Hex",
+    800,
+    540,
+    78.953125,
+    44,
+    "rgba(0, 0, 0, 0)",
+    "12px"
+   ],
+   [
+    "RGB",
+    800,
+    584,
+    78.953125,
+    44,
+    "rgb(242, 242, 242)",
+    "12px"
+   ],
+   [
+    "HSL",
+    800,
+    628,
+    78.953125,
+    44,
+    "rgba(0, 0, 0, 0)",
+    "12px"
+   ]
+  ],
+  "note": "The menu opens a list 6 under it and 3 left of it, 79 wide, three rows 44 tall, over the popup edge; the current row is grey with a check, the chevron turns up. Built. Escape and a press elsewhere closing it are inferred."
+ },
+ "cornerCells": {
+  "note": "In Individual the four cells sit 7 under the field, radius 6, each with a mark of its corner, 8 by 8, 2 thick, rgb(183, 183, 183), 3 in from that corner, from a screenshot. The two radio icons are 16 with a stroke of 2, #666 off and #0e0e0e on."
+ }
+}
