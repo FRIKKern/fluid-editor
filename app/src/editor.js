@@ -6137,7 +6137,7 @@ addSectionPanel.addEventListener('click', (e) => {
 });
 addSectionPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAddSection(); } });
 
-function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; $('link-popover').hidden = true; closeLayouts(); }
+function closeFloating() { if (vAlignOpen) { vAlignOpen = null; placeToolbar(); } $('button-style-menu').hidden = true; $('pin-popover').hidden = true; addMenu.hidden = true; layersPanel.hidden = true; contextMenu.hidden = true; $('arrange-menu').hidden = true; if (linkPop.dataset.cleared) closeLinkPopover(); linkPop.hidden = true; markLinkBar(); closeLayouts(); }
 addMenu.addEventListener('input', (e) => {
   if (!e.target.matches('[data-am="search"]')) return;
   const q = e.target.value;
