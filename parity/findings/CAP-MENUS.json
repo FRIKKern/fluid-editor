@@ -3508,5 +3508,10 @@
   "hide": "Hide on desktop and Hide on mobile are on all 37 tiles, as CAP-L5TYPES found on the tiles it read.",
   "arrangeRows": "The Arrange rows match ARRANGE.json: Move forward, Move to front, Move backward, Move to back."
  },
- "ours": "From app/src/menus.js, not run: ours shows Copy Properties and Paste Properties on every tile, never greys Arrange, and never greys a row inside Arrange. Layers rows are sorted top first by z, as the oracle shows."
+ "ours": "From app/src/menus.js, not run: ours shows Copy Properties and Paste Properties on every tile, never greys Arrange, and never greys a row inside Arrange. Layers rows are sorted top first by z, as the oracle shows.",
+ "differences": {
+  "83": "Copy Properties and Paste Properties: none on 16 tiles on the oracle, on every tile on ours",
+  "84": "Arrange greyed on a block alone in its section on the oracle, never on ours",
+  "85": "Move forward and Move to front greyed on the newest block on the oracle, never on ours"
+ }
 }
