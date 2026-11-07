@@ -398,18 +398,27 @@ const outOut = await outlineWatch(800, 20);
 add('outline fades out over 0.2 s on its alpha', outOut.frames >= 6 && outOut.span >= 110 && outOut.span <= 230 && outOut.hue.join() === '72,148,255' && outOut.falling && outOut.near, JSON.stringify(outOut));
 add('chrome gone after the outline', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
 // Back on the section during the fade, the outline runs back: no new fade from nothing.
-// Each mouse call takes time, so the gap runs near the 200 ms timer: if the chrome did go in between, a fresh fade is right, so try again.
-let backOn;
-for (let tries = 0; tries < 3 && (!backOn || backOn.hid); tries++) {
+// The way back has to beat the chrome's 200 ms timer, and each mouse call takes time, more under load, so each try reads its real gap.
+// The chrome going on a gap that long is a fresh fade, which is right, and tests nothing: try again, and say so if none came short enough.
+// The chrome going on a shorter gap is a real miss. Every try's read goes in the line.
+const backTries = [];
+let backOn = null;
+for (let tries = 0; tries < 5 && !backOn; tries++) {
   mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(500);
   evalJs(S, `(() => { const T = window.__bo = { hid: false, stop: false }, c = document.getElementById('section-chrome'); const tick = () => { if (T.stop) return; if (c.hidden) T.hid = true; requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
-  mouse(S, 'move', 800, 20); mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(350);
-  backOn = evalJs(S, `(() => { const T = window.__bo; T.stop = true; const c = document.getElementById('section-chrome'); const o = getComputedStyle(c.querySelector('.sc-outline')); return JSON.stringify({ hid: T.hid, hidden: c.hidden, name: o.animationName, color: o.borderTopColor }); })()`);
-  if (backOn.hid) { mouse(S, 'move', 800, 20); await pause(400); }
+  const left = Date.now();
+  mouse(S, 'move', 800, 20); mouse(S, 'move', 60, 400);
+  const gap = Date.now() - left;
+  mouse(S, 'move', 62, 401); await pause(350);
+  const read = evalJs(S, `(() => { const T = window.__bo; T.stop = true; const c = document.getElementById('section-chrome'); const o = getComputedStyle(c.querySelector('.sc-outline')); return JSON.stringify({ hid: T.hid, hidden: c.hidden, name: o.animationName, color: o.borderTopColor }); })()`);
+  backTries.push({ gap, ...read });
+  if (read.hid && gap >= 150) { mouse(S, 'move', 800, 20); await pause(400); } else backOn = read;
 }
-add('outline back on during its fade runs back', !backOn.hid && !backOn.hidden && backOn.name === 'none' && backOn.color === 'rgb(72, 148, 255)', JSON.stringify(backOn));
+if (backOn) add('outline back on during its fade runs back', !backOn.hid && !backOn.hidden && backOn.name === 'none' && backOn.color === 'rgb(72, 148, 255)', JSON.stringify(backTries));
+else console.log(`NOT RUN outline back on during its fade runs back: no try's gap came under 150 ms ${JSON.stringify(backTries)}`);
+// The try above can end with the pointer away, so come back and let it settle first.
+mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(500);
 // A rebuild in place, on selecting a block, keeps the outline lit.
-await pause(300);
 const lit = evalJs(S, `(() => { const c = document.getElementById('section-chrome'); const id = c.dataset.key.split('|')[0]; const sec = fe.model.sections.find((x) => x.id === id); fe.select(id, sec.blocks[0].id); const o = getComputedStyle(c.querySelector('.sc-outline')); const r = { rebuilt: c.dataset.key.split('|')[4], name: o.animationName, color: o.borderTopColor }; fe.select(null); return JSON.stringify(r); })()`);
 add('outline stays lit through a rebuild', lit.rebuilt === 'true' && lit.name === 'none' && lit.color === 'rgb(72, 148, 255)', JSON.stringify(lit));
 // Add Section: opacity over 0.2 s, ease-in-out, both ways, no slide, against CAP-U9ADDFADE.json's series.
