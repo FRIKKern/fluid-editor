@@ -946,6 +946,7 @@ function onDown(e) {
   const r = blk.getBoundingClientRect();
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected,
+    onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -955,6 +956,7 @@ function onMove(e) {
   if (!gesture || e.pointerId !== gesture.pointerId) return;
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
+    if (gesture.onWords) return;
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -971,6 +973,18 @@ function onMove(e) {
   else if (gesture.type === 'gresize') updateGroupResize(e);
   // Only a move scrolls the page: a resize held near the edge leaves it where it is (CAP-RESIZESCROLL.json).
   if (gesture.type === 'move') autoScroll(gesture);
+}
+
+// A drag that starts on the words of a selected Text opens its editor and doesn't move it. From its
+// empty part it moves, like any block (CAP-TEXTWIDTH7.json d1 to d6).
+function onWords(blk, x, y) {
+  const walk = doc.createTreeWalker(blk.querySelector('.sqs-html-content') || blk, NodeFilter.SHOW_TEXT), range = doc.createRange();
+  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+    if (!n.nodeValue.trim()) continue;
+    range.selectNodeContents(n);
+    for (const q of range.getClientRects()) if (x >= q.left && x <= q.right && y >= q.top && y <= q.bottom) return true;
+  }
+  return false;
 }
 
 function onUp(e) {
