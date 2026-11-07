@@ -1,0 +1,462 @@
+{
+  "item": "CAP-U10MIXPICK-VIDEO-BUTTON",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10MIXPICK-VIDEO-BUTTON",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "before",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "hover",
+      {
+        "labelTag": true
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 0",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "pick 5",
+      {
+        "stack": 0,
+        "sections": true,
+        "look": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "before": {
+      "sections": [
+        {
+          "id": "b8827f",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "02_438",
+            "02_697"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_697",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "9/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "hover": {
+      "labelTag": [
+        "Video",
+        "Button"
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            456.4,
+            ""
+          ],
+          [
+            "2",
+            608.9,
+            ""
+          ],
+          [
+            "3",
+            787.7,
+            ""
+          ],
+          [
+            "4",
+            1011.1,
+            ""
+          ],
+          [
+            "5",
+            1248.1,
+            ""
+          ],
+          [
+            "6",
+            1528.2,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0": {
+      "sections": [
+        {
+          "id": "b8827f",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 13,
+          "blocks": [
+            "02_438",
+            "02_697"
+          ],
+          "h": 873
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            456.4,
+            ""
+          ],
+          [
+            "2",
+            608.9,
+            ""
+          ],
+          [
+            "3",
+            787.7,
+            ""
+          ],
+          [
+            "4",
+            1011,
+            ""
+          ],
+          [
+            "5",
+            1242.2,
+            ""
+          ],
+          [
+            "6",
+            1508.2,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "2/2/13/12",
+          "phone": "1/2/10/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_697",
+          "type": "csr",
+          "desktop": "7/14/10/22",
+          "phone": "11/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 5": {
+      "sections": [
+        {
+          "id": "b8827f",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 28,
+          "blocks": [
+            "02_438",
+            "02_697"
+          ],
+          "h": 1489.5
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1489.5,
+        "rows": 28,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            -620,
+            ""
+          ],
+          [
+            "1",
+            -467.6,
+            ""
+          ],
+          [
+            "2",
+            -315.1,
+            ""
+          ],
+          [
+            "3",
+            -136.3,
+            ""
+          ],
+          [
+            "4",
+            87,
+            ""
+          ],
+          [
+            "5",
+            318.2,
+            ""
+          ],
+          [
+            "6",
+            584.2,
+            ""
+          ]
+        ]
+      },
+      "stack": [
+        {
+          "id": "2_438",
+          "type": "csr",
+          "desktop": "5/2/29/26",
+          "phone": "6/1/16/11",
+          "z": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "id": "2_697",
+          "type": "csr",
+          "desktop": "1/18/4/26",
+          "phone": "4/2/8/10",
+          "z": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

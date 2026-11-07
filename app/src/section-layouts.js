@@ -1,7 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
-import { TYPE_LAYOUTS, TYPE_TILES } from './section-layouts-types.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
 
 const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
 const roleOf = (b) => {
@@ -45,6 +45,15 @@ export function sectionMix(s) {
   if (kept.length === 1 && kindOf(kept[0])) {
     const list = typeList(kindOf(kept[0]), kept[0]);
     return list ? { key: kindOf(kept[0]), by: { t: kept }, list } : null;
+  }
+  // One of those types with other blocks: the mixes read (CAP-U10MIX-*.json), by the blocks' names; the rest off.
+  if (kept.some(kindOf)) {
+    const ROLE = { i: 'Image', b: 'Button', h: 'Heading', p: 'Text' };
+    const key = kept.map((b) => kindOf(b) || ROLE[roleOf(b)]).sort().join('+'), list = MIX_LAYOUTS[key];
+    if (!list) return null;
+    const by = {};
+    for (const b of kept) (by[kindOf(b) ? 't' : roleOf(b)] ||= []).push(b);
+    return { key, by, list };
   }
   const by = { h: [], p: [], i: [], b: [] };
   for (const b of s.blocks) {
