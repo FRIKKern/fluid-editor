@@ -23,10 +23,11 @@ if (process.argv.includes('--score')) {
     for (const { p, s } of scored.filter((x) => !x.s.match)) console.log(`  miss: ${p.tile} | ${p.row} | ${p.name}: ${s.why.join('; ')}`);
   };
   tally('round 1', (p) => ({ ours: p.ours?.diff, oracle: p.oracle?.diff }));
-  if (f.picks.some((p) => p.round2)) {
-    tally('round 2 at 1.1 s', (p) => ({ ours: p.round2?.ours?.d1, oracle: p.round2?.oracle?.d1 }));
-    tally('round 2 at 3 s', (p) => ({ ours: p.round2?.ours?.d3, oracle: p.round2?.oracle?.d3 }));
-    for (const p of f.picks.filter((x) => x.round2 && !x.round2.oracle?.d3)) console.log(`  round 2 not read: ${p.tile} | ${p.row} | ${p.name}: ${p.round2.oracle?.notPressed || p.round2.oracle?.error || p.round2.ours?.error || 'no read'}`);
+  for (const k of ['round2', 'round3']) {
+    if (!f.picks.some((p) => p[k])) continue;
+    tally(`${k} at 1.1 s`, (p) => ({ ours: p[k]?.ours?.d1, oracle: p[k]?.oracle?.d1 }));
+    tally(`${k} at 3 s`, (p) => ({ ours: p[k]?.ours?.d3, oracle: p[k]?.oracle?.d3 }));
+    for (const p of f.picks.filter((x) => x[k] && !x[k].oracle?.d3)) console.log(`  ${k} not read: ${p.tile} | ${p.row} | ${p.name}: ${p[k].oracle?.notPressed || p[k].oracle?.error || p[k].ours?.error || 'no read'}`);
   }
   process.exit(0);
 }
@@ -88,16 +89,18 @@ async function run(c, two) {
   await pause(300);
   return { diff: lookDiff(before, look()), value: findValue(controls(), c), to };
 }
-if (process.argv.includes('--round2')) {
+const AGAIN = process.argv.includes('--round2') ? 'round2' : process.argv.includes('--round3') ? 'round3' : null;
+if (AGAIN) {
   const f = JSON.parse(readFileSync(FILE));
   for (const p of f.picks) {
-    p.round2 = {};
-    try { p.round2.ours = await run(p, true); } catch (e) { p.round2.ours = { error: e.message.slice(0, 120) }; }
-    console.log(p.tile, '|', p.row, '|', p.name, '|', p.round2.ours.d3 ? Object.keys(p.round2.ours.d3).join(',') || 'nothing' : p.round2.ours.error);
+    p[AGAIN] = {};
+    try { p[AGAIN].ours = await run(p, true); } catch (e) { p[AGAIN].ours = { error: e.message.slice(0, 120) }; }
+    console.log(p.tile, '|', p.row, '|', p.name, '|', p[AGAIN].ours.d3 ? Object.keys(p[AGAIN].ours.d3).join(',') || 'nothing' : p[AGAIN].ours.error);
   }
-  f.round2 = { rule: 'The same picks. Each read at about 1.1 s (round 1\'s moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit.' };
+  if (AGAIN === 'round2') f.round2 = { rule: 'The same picks. Each read at about 1.1 s (round 1\'s moment) and at 3 s after the gesture (readTwice), with ::before and ::after counted in the look. A measurement fix, not a refit.' };
+  else f.round3 = { rule: 'Round 2 with one reader fix, found after round 2: editor-only parts are dropped by name, not by the word editing. With its panel open the oracle adds sqs-block-editing to the block\'s own content wrapper, so rounds 1 and 2 read no content on the oracle: no words, no leaves, no fills. A measurement fix, not a refit.' };
   writeFileSync(FILE, `${JSON.stringify(f, null, 1)}\n`);
-  console.log('wrote round2.ours');
+  console.log(`wrote ${AGAIN}.ours`);
   process.exit(0);
 }
 const picks = [];

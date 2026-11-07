@@ -4,7 +4,7 @@
 // refusal: greyed, REFUSE, UNREAD's no rows, a field that reaches out, a tab whose note reaches further. No menu is closed by
 // a press: the next load ends whatever is open, and the run ends on a load of the pages list.
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-sample.mjs [--page 'Gestures Probe'] [--round2]
-// --round2: the picks whose round2.ours is pushed, each read at about 1.1 s and at 3 s, into round2.oracle.
+// --round2 / --round3: the picks whose roundN.ours is pushed, each read at about 1.1 s and at 3 s, into roundN.oracle.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, pause, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
@@ -17,7 +17,7 @@ const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-sample: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
 const args = process.argv.slice(2), i0 = args.indexOf('--page'), PAGE = i0 < 0 ? 'Gestures Probe' : args[i0 + 1];
 const FILE = new URL('../parity/findings/SAMPLE-ROWS.json', import.meta.url);
-const f = JSON.parse(readFileSync(FILE)), TWO = process.argv.includes('--round2');
+const f = JSON.parse(readFileSync(FILE)), TWO = process.argv.includes('--round2') ? 'round2' : process.argv.includes('--round3') ? 'round3' : null;
 const UNREAD = JSON.parse(readFileSync(new URL('../parity/findings/UNREAD.json', import.meta.url)));
 const js = (b) => evalJs(S, b);
 const save = () => writeFileSync(FILE, `${JSON.stringify(f, null, 1).replace(/https?:\/\//g, '')}\n`);
@@ -47,7 +47,7 @@ async function fresh(T) {
 }
 
 for (const p of f.picks) {
-  if (TWO ? !p.round2?.ours || p.round2.oracle : !p.ours?.diff || p.oracle) continue;
+  if (TWO ? !p[TWO]?.ours || p[TWO].oracle : !p.ours?.diff || p.oracle) continue;
   const rec = {};
   try {
     const id = await fresh(p.tile);
@@ -74,7 +74,7 @@ for (const p of f.picks) {
       rec.value = findValue(js(controlsJs(ROOT)) || [], p);
     }
   } catch (e) { rec.error = e.message.slice(0, 140); }
-  if (TWO) p.round2.oracle = rec; else p.oracle = rec;
+  if (TWO) p[TWO].oracle = rec; else p.oracle = rec;
   save();
   const d = TWO ? rec.d3 : rec.diff;
   console.log(p.tile, '|', p.row, '|', p.name, '|', d ? Object.keys(d).join(',') || 'nothing' : rec.notPressed || rec.error);

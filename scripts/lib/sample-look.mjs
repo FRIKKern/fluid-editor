@@ -26,7 +26,9 @@ export const controlsJs = (root) => `(() => { const root = ${root}; window.__ctl
 // frame: the page frame's id, sqs-site-frame on the oracle, site-frame on ours.
 export const lookJs = (frame, id) => `(() => { const F = document.getElementById('${frame}'), d = F.contentDocument, W = F.contentWindow;
   const b = d.querySelector('.fe-block[data-block-id="${id}"]'); if (!b) return JSON.stringify(null);
-  const EDITOR = /overlay|resiz|handle|indicator|editing|outline|selection|fe-design/i;
+  // Editor-only parts, by name. Not a word like "editing": with its panel open the oracle's own content wrapper takes
+  // sqs-block-editing, and rounds 1 and 2 dropped the whole content that way.
+  const EDITOR = /\b(sqs-editing-overlay|sqs-block-outline|sqs-block-resizing-outline|sqs-block-resizing-inner|sqs-block-label-tag|sqs-block-editor-button-container|fe-handle|fe-label)\b|fluid-engine-block-editing-indicator/;
   const cls = (e) => String(e.className && (e.className.baseVal ?? e.className));
   const editor = (e) => { for (let p = e; p && p !== b; p = p.parentElement) if (EDITOR.test(cls(p))) return true; return false; };
   const shown = (e) => { const q = e.getBoundingClientRect(); return q.width >= 1 && q.height >= 1 && e.checkVisibility({ opacityProperty: true, visibilityProperty: true }); };
