@@ -634,13 +634,14 @@ function measure(fe) {
 // Rows a block needs so its content fits without stretching a row.
 // The form on the page, not the copy a Lightbox holds to open.
 const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
-function contentRows(b, m, normalizing = false, widthPull = false) {
+function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
   if (b.standin) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
     const h = c.getBoundingClientRect().height;
+    if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
@@ -675,6 +676,7 @@ function contentRows(b, m, normalizing = false, widthPull = false) {
   if (!c) return 1;
   // A text block's stroke counts: it sits outside the text (BLOCKDESIGN.json).
   const outer = b.type === 'text' ? root.querySelector('.sqs-block') : null, edge = outer ? outer.offsetHeight - outer.clientHeight : 0;
+  if (exact) return (c.offsetHeight + edge + m.rg) / m.pitch;
   return Math.max(1, Math.ceil((c.offsetHeight + edge + m.rg) / m.pitch - 0.02));
 }
 
@@ -1078,38 +1080,42 @@ function onCancel(e) {
   if (gesture && e.pointerId === gesture.pointerId) cancelGesture();
 }
 
-// After a group resize the oracle draws a short Text or Quote at the rows it kept, but stores it at the rows
-// its content needs, with the group's box that many rows taller, the other blocks scaled to it. The next
-// layout gesture shows what is stored; a press, a select, typing and undo don't (CAP-X8NEXT.json).
-// Candidate rule, scored in CAP-X8LAG.json.
+// After a group resize leaves a Text or Quote short of its content, the next layout gesture moves rows in
+// (CAP-X8NEXT.json, CAP-X8LAG.json): d is the overflow in rows, rounded, and L the short block's bottom line.
+// The short block grows d, a block across L grows d, any other block that ends on or below L moves d, and
+// blocks above L stay, in the whole section. A press, a select, typing and undo don't do it. Candidate, refit 1.
 let stored = null;
 function storedRows(g) {
-  const m = measure(feEl(g.sid)), ids = [g.bid, ...g.more.map((o) => o.id)], origs = [g.orig, ...g.more.map((o) => o.orig)];
-  let d = 0;
-  for (const id of g.kept.keys()) { const a = lay(B(g.sid, id)).area; d = Math.max(d, contentRows(B(g.sid, id), m) - (a[2] - a[0])); }
+  const m = measure(feEl(g.sid)), s = S(g.sid);
+  let d = 0, L = 0, tid = null;
+  for (const id of g.kept.keys()) {
+    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; tid = id; }
+  }
   if (d <= 0) return null;
-  const [br0, , br1] = g.box0, [r0, , r1] = g.box, up = g.dir.includes('n');
-  const R0 = up ? Math.max(1, r0 - d) : r0, R1 = up ? r1 : r1 + d, areas = new Map();
-  ids.forEach((id, k) => {
-    const b = B(g.sid, id), a = lay(b).area, [rs0, re] = scaleSpan(origs[k][0], origs[k][2], br0, br1, R0, R1, up);
-    const need = contentRows(b, m), rs = re - rs0 < need ? Math.max(R0, re - need) : rs0;
-    areas.set(id, [rs, a[1], Math.max(re, rs + need), a[3]]);
-  });
+  const areas = new Map();
+  for (const b of s.blocks) {
+    const a = [...lay(b).area];
+    if (b.id === tid || (a[0] < L && a[2] > L)) a[2] += d;
+    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    areas.set(b.id, a);
+  }
   return { sid: g.sid, bp, areas };
 }
 function showStored() {
-  const t = stored;
+  const t = stored, shift = new Map();
   stored = null;
   const s = t.bp === bp ? S(t.sid) : null;
-  if (!s) return;
-  for (const b of s.blocks) if (t.areas.has(b.id)) lay(b).area = t.areas.get(b.id);
+  if (!s) return shift;
+  for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
   growRows(s);
   renderSectionDom(s.id);
+  return shift;
 }
 
 function prepare(e, type, extra = {}) {
   if (unsettled) settleTextRows();
-  if (stored) showStored();
+  const shift = stored ? showStored() : null;
   const g = gesture?.type === 'pending' ? gesture : { sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, before: JSON.stringify(model) };
   Object.assign(g, { type }, extra);
   gesture = g;
@@ -1125,6 +1131,8 @@ function prepare(e, type, extra = {}) {
   g.rows0 = s.rows[bp];
   g.target = [...g.orig];
   g.m = measure(fe);
+  // A block the stored rows moved is held where they put it (CAP-X8LAG.json, l3 and l6).
+  if (shift?.get(g.bid) && g.grabY != null) g.grabY -= shift.get(g.bid) * g.m.pitch;
   fe.style.gridAutoRows = `${g.m.rowMin}px`;
   showGrid(g.sid, s.rows[bp]);
   g.original = layer(fe, 'fe-original-position', g.orig);
