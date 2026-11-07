@@ -707,9 +707,7 @@ function normalize(sid) {
     const r0 = Math.max(1, Math.round((br.top - top) / m.pitch) + 1);
     // A block keeps its rows and grows only if its content needs more (CAP-NORMALIZE.json): a heading
     // or a shape in stretched rows does not take their height.
-    // A short Text grows by its overflow rounded, not rounded up (87, CAP-X8LAG2.json m3, CAP-X8NEXT.json c).
-    const need = b.type === 'text' ? Math.max(1, Math.round(contentRows(b, m, true, false, true))) : contentRows(b, m, true);
-    const n = Math.max(a[2] - a[0], need);
+    const n = Math.max(a[2] - a[0], contentRows(b, m, true));
     return [r0, a[1], r0 + n, a[3]];
   });
   s.blocks.forEach((b, i) => {
