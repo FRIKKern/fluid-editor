@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 769,
+  "pass": 770,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 776,
+  "total": 783,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3574,6 +3574,48 @@
     {
       "name": "group drop keeps a written Text short",
       "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text l1",
+      "diffs": []
+    },
+    {
+      "name": "next gesture after a short Text l3",
+      "diffs": [
+        "block 1: oracle 7/10/13/14, ours 6/10/12/14"
+      ]
+    },
+    {
+      "name": "next gesture after a short Text l6",
+      "diffs": [
+        "block 1: oracle 12/2/18/8, ours 11/2/17/8",
+        "block 2: oracle 2/10/9/14, ours 2/10/8/14"
+      ]
+    },
+    {
+      "name": "next gesture after a short Text m2",
+      "diffs": [
+        "block 1: oracle 2/10/9/14, ours 2/10/8/14",
+        "block 2: oracle 3/20/10/26, ours 3/20/9/26"
+      ]
+    },
+    {
+      "name": "next gesture after a short Text m4",
+      "diffs": [
+        "block 1: oracle 2/9/10/12, ours 2/9/8/12"
+      ]
+    },
+    {
+      "name": "next gesture after a short Text n2",
+      "diffs": [
+        "block 1: oracle 3/10/8/14, ours 3/10/7/14"
+      ]
+    },
+    {
+      "name": "next gesture after a short Text n5",
+      "diffs": [
+        "block 1: oracle 3/10/10/14, ours 3/10/9/14"
+      ]
     }
   ]
 }
