@@ -33,7 +33,7 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
@@ -1709,7 +1709,7 @@ phoneMenu.addEventListener('click', (e) => {
   blockPanel.scrollTop = top;
 });
 function syncAnimView(b) {
-  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
+  const el = b ? blockEl(b.id) : null, a = b && designTab === 'Animation' && anim.view === 'editor' && !document.body.classList.contains('is-preview') ? animRowsOf(b)[anim.i] : null, key = a && poseKey(anim.tab);
   if (animPosed && (animPosed !== el || !key)) { releasePose(animPosed); animPosed = null; }
   if (key && el && !animPlaying) { holdPose(el, a[key]); animPosed = el; }
   const play = animPlay;
@@ -6524,12 +6524,13 @@ function setBp(next) {
 // Preview (oracle "Toggle preview mode"): the page without editor chrome; Escape or the
 // button again leaves it. Our developer tools sit behind the menu next to it.
 // Reload page preview (TOPBAR.json): ours draws the canvas again from the model.
-document.getElementById('reload-preview').addEventListener('click', () => { renderAll(); });
+document.getElementById('reload-preview').addEventListener('click', () => { renderAll(); if (document.body.classList.contains('is-preview')) startPageMotion(doc, rowsOfBlock); });
 // Ctrl+Shift+D shows our developer menu, which stays out of the bar otherwise.
 document.addEventListener('keydown', (e) => { if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') { e.preventDefault(); document.body.classList.toggle('dev-tools'); } });
 
+const rowsOfBlock = (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; };
 function setPreview(on) {
-  if (on) { selectionLeft.clear(); for (const o of model.sections.flatMap((x) => x.blocks)) previewed.set(o.id, o.html); }
+  if (on) { selectionLeft.clear(); for (const o of model.sections.flatMap((x) => x.blocks)) previewed.set(o.id, o.html); } else stopPageMotion();
   document.body.classList.toggle('is-preview', on);
   doc?.body.classList.toggle('is-preview', on);
   if (!on) doc?.querySelectorAll('.cdk-image-lightbox, body > .form-lightbox').forEach((x) => x.remove());
@@ -6537,7 +6538,7 @@ function setPreview(on) {
   if (!on) { doc?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); doc?.querySelectorAll('.native-video-player video').forEach((v) => v.pause()); } // no controls while editing
   $('preview').setAttribute('aria-pressed', String(on));
   $('page-state').textContent = on ? 'Previewing' : 'Page · Published';
-  if (on) { closeFloating(); closeSectionPanel(); designOpen = null; if (editing) finishTextEdit(); select(null); }
+  if (on) { closeFloating(); closeSectionPanel(); designOpen = null; animStopPreview(); if (editing) finishTextEdit(); select(null); syncAnimView(null); startPageMotion(doc, rowsOfBlock); }
 }
 $('preview').addEventListener('click', () => setPreview(!document.body.classList.contains('is-preview')));
 $('dev-toggle').addEventListener('click', () => { $('dev-pop').hidden = !$('dev-pop').hidden; });
@@ -6590,7 +6591,7 @@ function boot() {
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
   watchShapeRects(doc, rectPath);
-  bindTriggers(doc, (id) => { for (const sec of model.sections) { const b = sec.blocks.find((x) => x.id === id); if (b) return b.animations && animRowsOf(b); } return null; });
+  bindTriggers(doc, rowsOfBlock);
   doc.addEventListener('pointerdown', onDown);
   doc.addEventListener('pointermove', onMove);
   doc.addEventListener('pointerup', onUp);
