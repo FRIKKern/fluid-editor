@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - U10: a Flip X start; a layout's own divider turns the flips off ([#386](https://github.com/FRIKKern/fluid-editor/pull/386))
   - T15: Blend Mode mixes with the section (89) ([#385](https://github.com/FRIKKern/fluid-editor/pull/385))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
