@@ -1,0 +1,657 @@
+{
+  "item": "Y2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "Y2: rows on going back over wrapped text as the first step of an edit: in the edit, reopened, by the buttons. Predicted first.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows Z1 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows Z1 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows Z1 2 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows Z1 1 Undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows Z1 2 Redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "abc longer line of words that runs on past the end of the block"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "rows Z2 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows Z2 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows Z2 2 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows Z2 1 Undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "rows Z2 2 Redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a fourth line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "rows Z3 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ]
+  ],
+  "reads": {
+    "rows Z1 typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z1 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z1 2 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z1 1 Undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z1 2 Redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z2 typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z2 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z2 2 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z2 1 Undo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "rows Z2 2 Redo": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "answer": "Wrapped text as an edit's first step: in the edit, reopened, by the buttons. Rows fall when lost is over a row; under a row with the same paragraphs they stay what the text needs.",
+  "ours": "Predicted no floor on a first step: 8 of 11, the misses that, built since. One more set aside.",
+  "pressed": "Named presses with an on-top check; real clicks on Text blocks; typing by real keys. No Save, no upload. The run reports left dirty because each case ends unsaved; the read ended with Exit Without Saving, and after a reload the probe page had 0 blocks.",
+  "setAside": {
+    "rows Z3 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill and then again on and on over a fourth line and more words </p>",
+      "areas": [
+        [
+          "1/2/4/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "setAsideWhy": "The oracle read took only the end of the typed words: keysFast stalled over a second there, so the step split where it should not."
+}
