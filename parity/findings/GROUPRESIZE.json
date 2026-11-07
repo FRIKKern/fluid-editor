@@ -209,7 +209,7 @@
   }
  ],
  "rule": {
-  "scale": "k = new group size / old group size in cells, rounded to one decimal, per axis. An edge on the group box stays on the box. Other edges: start = group start + offset times k. Width in columns: size times k, a half rounds down. Height in rows: round((rows px times k + gap) / row pitch), where rows px = rows times pitch minus gap. A text block keeps the rows its content needs by moving its start up (the paragraph at 3 rows). Inferred from one group: it fits all 15 widths and 8 of 9 heights; a group of 11 rows gives the heading 7 rows, the rule 6."
+  "scale": "Replaced by the rule read in CAP-X8ROWS.json, CAP-X8ROWS2.json and CAP-X8ROWS3.json: k = new group size / old group size in cells, exact, per axis. From the side of the box that stays, a block's near line goes to D * k and its far line to (D - 1) * k + K, K being k with a half rounded down. A half goes to the larger line number. A block keeps at least 1 cell, inside the box. A text block keeps the rows its content needs by moving its start up (the paragraph at 3 rows). The first try here was k rounded to one decimal, and it fitted 15 widths and 8 of 9 heights."
  },
  "drops": [
   {
@@ -268,13 +268,7 @@
  ],
  "textRowsAfterDrop": "after a drop that widens a text block the oracle sometimes takes a row off it (the paragraph 5 to 4 rows in the e3 drop above, against 5 rows while held). Seen for a group and for a single block's resize: at 13 columns yes, at 12 no, at 15 yes in a group and no alone, at 18 no. Rule not found, not built.",
  "undo": "enabled after every drop, also after the north drop that moved nothing. A lone block's drop at home too (TEXTUNDO.json). Ours: the same",
- "knownMisses": [
-  {
-   "case": "south by 4 rows",
-   "oracle": "heading 7 rows",
-   "rule": "6 rows"
-  }
- ],
+ "knownMisses": [],
  "selected": "The section's chrome stays on screen with a group selected (marquee), and while its handles are held. The group toolbar lies over Add Block.",
  "start": "like a drag: the move past 10px changes nothing, the next one shows the ring (one group of two shapes on an empty page)",
  "secondGroup": {
@@ -362,6 +356,6 @@
    ]
   ],
   "rowsAre": "box rows, the first block's rows, the second block's start offset. The second block's bottom stays on the box",
-  "fit": "the scale rule fits 13 of 16. It misses 3 boxes of rows, 13, 15 and 3: rule 6, 7 and 2, oracle 7, 8 and 1. The first group's miss is the same kind: at k = 1.6 the oracle gives 7. Rounding k to one decimal does not explain these, nor does the exact ratio, in cells or in pixels. Rule not found."
+  "fit": "Explained by the rule in CAP-X8ROWS.json to CAP-X8ROWS3.json. The row 6, 3, 1 here looks misread: three walks read a second block offset of 2 at box 6."
  }
 }

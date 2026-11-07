@@ -1229,13 +1229,17 @@ function startResize(e, dir) {
 
 const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
 
-// One edge pair of a block in a resized group (parity/findings/GROUPRESIZE.json). An edge on the
-// group box stays on it; the rest scale by k, the size ratio rounded to one decimal. size gives
-// the new size in cells.
-function scaleSpan(a0, a1, b0, b1, n0, n1, k, size) {
-  const start = a0 === b0 ? n0 : n0 + Math.ceil((a0 - b0) * k - 0.5);
-  const end = a1 === b1 ? n1 : start + Math.max(1, size(a1 - a0));
-  return [start, Math.max(start + 1, end)];
+// One axis of a block in a resized group, k being the exact size ratio. From the side of the box that stays, a block's near
+// line goes to D * k and its far line to (D - 1) * k + K, K being k with a half rounded down. A half goes to the larger line
+// number, so an edge on the box stays there, except at a tie when the box's start moves (CAP-X8ROWS.json to CAP-X8ROWS3.json).
+function scaleSpan(a0, a1, b0, b1, n0, n1, fromEnd) {
+  const k = (n1 - n0) / (b1 - b0), K = Math.ceil(k - 0.5 - 1e-9), up = (v) => Math.floor(v + 0.5 + 1e-9);
+  if (fromEnd) {
+    const end = up(n1 - (b1 - a1) * k), start = Math.min(end - 1, up(n1 - (b1 - a0 - 1) * k - K));
+    return start < n0 ? [n0, n0 + 1] : [start, end];
+  }
+  const start = up(n0 + (a0 - b0) * k), end = Math.max(start + 1, up(n0 + (a1 - 1 - b0) * k + K));
+  return end > n1 ? [n1 - 1, n1] : [start, end];
 }
 
 function updateGroupResize(e) {
@@ -1251,10 +1255,9 @@ function updateGroupResize(e) {
   if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   const [br0, bc0, br1, bc1] = g.box0;
-  const kc = Math.round((c1 - c0) / (bc1 - bc0) * 10) / 10, kr = Math.round((r1 - r0) / (br1 - br0) * 10) / 10;
   const place = (id, a) => {
-    const [cs, ce] = scaleSpan(a[1], a[3], bc0, bc1, c0, c1, kc, (n) => Math.ceil(n * kc - 0.5));
-    const [rs0, re] = scaleSpan(a[0], a[2], br0, br1, r0, r1, kr, (n) => Math.round(((n * m.pitch - m.rg) * kr + m.rg) / m.pitch));
+    const [cs, ce] = scaleSpan(a[1], a[3], bc0, bc1, c0, c1, g.dir.includes('w'));
+    const [rs0, re] = scaleSpan(a[0], a[2], br0, br1, r0, r1, g.dir.includes('n'));
     const el = blockEl(id);
     setArea(el, [rs0, cs, re, ce]);
     // A text block keeps the rows its content needs by moving its start up.
