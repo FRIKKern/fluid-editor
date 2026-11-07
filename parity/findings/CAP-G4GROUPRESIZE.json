@@ -410,9 +410,7 @@
   "answer": "A group's handles follow the held-drag rule, not nearest line. Half a pitch plus half a gap, the same both ways: east and corner x 35, 94; back 93, 34, -35, -94; home -93, -34. South and corner y 27, 68; back 67, 26, -27, -68; home -67, -26.",
   "predicted": "Each side line changes when the pointer is nearer the next line, half a pitch from the edge.",
   "result": "Wrong: it's the same rule as one block.",
-  "ours": "Nearest line: x 28, 87; back 86, 27, -32, -91; y 19, 60; back 59, 18, -23, -64.",
-  "differs": [
-    "73: ours steps a group's size 7 to 8 px early, by nearest line (updateGroupResize). The oracle uses the rule of one block's handle."
-  ],
+  "ours": "One block's rule now, from the press: x 35, 94, back 93, 34, -35, -94; y 27, 68, back 67, 26, -27, -68. npm run snap-check, 3 reads. It was nearest line before: x 28, 87; y 19, 60.",
+  "differs": [],
   "pressed": "Add Block and the tile, by the tool's hover and press, and the block's middle and handles by the real mouse, on Gestures Probe, unsaved. Nothing else but Escape and Exit."
 }
