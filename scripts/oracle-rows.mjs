@@ -1,7 +1,8 @@
 // A row-by-row read of one tile's panel, unsaved, on a probe page: each row's name, kind and default, and what a change does
 // to the block. It changes only the tile's own rows: a switch both ways, each choice, a menu's other options, a slider at
 // three quarters, a text field by a few typed letters. It goes one level into a Navigate row, to read it, and comes back.
-// It presses only what has a name, and reloads if a panel has no named way out. It never presses what REFUSE names, and reads a tab without changing it if the tab says it reaches other pages or blocks.
+// It presses only what has a name, and reloads if a panel has no named way out. It never presses what REFUSE names or what UNREAD marks `no` on this tile. A tab whose note says it reaches further is read, nothing pressed.
+// A field that can reach outside (URL, ID, name lookup, a service's name) isn't typed in, and the tile's presses stop there.
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-rows.mjs --type Quote [--page 'Gestures Probe'] [--only Design] [--name CAP-ROWSQUOTE]
 // Writes parity/findings/CAP-ROWS<TILE>.json after each tab, so a stop loses little.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -9,7 +10,7 @@ import { evalJs, pause, mouse, browser, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { enterEdit, exitWithoutSaving, addSection, addBlock, sectionCount, escape, select } from './oracle/ui.mjs';
 import { tabsJs } from './lib/panel-rows.mjs';
-import { BACK_NAME, hasName } from './lib/press-names.mjs';
+import { BACK_NAME, hasName, noRows, onNoList, reachesOut, WIDE_NOTE } from './lib/press-names.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-rows: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
@@ -23,11 +24,13 @@ const out = existsSync(FILE) ? JSON.parse(readFileSync(FILE)) : { item: 'T12', c
 const save = () => writeFileSync(FILE, `${JSON.stringify(out, null, 1).replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '(an email)').replace(/https?:\/\//g, '')}\n`);
 
 // Never pressed, by name: what writes outside the block, reaches an account or a store, or takes a file.
-const REFUSE = /reset|save|delete|remove|upload|replace|create|connect|account|manage|export|store|payment|learn more|set up|site style|form style|edit button|color theme|privacy|terms|add an image|add a new animation|add item|attach|duplicate|^close$|storage|podcast|^x$|restaurant id|registry name|band name|soundcloud url/i;
+const REFUSE = /reset|save|delete|remove|upload|replace|create|connect|account|manage|export|store|payment|learn more|set up|site style|form style|edit button|color theme|privacy|terms|add an image|add a new animation|add item|attach|duplicate|^close$|storage|podcast|^x$/i;
 const READ_ONLY = process.argv.includes('--read-only');
 // Rows every panel has: their defaults are read, block design has their rules (T15).
 const COMMON = /^(Background|Stroke|Stroke Color|Blend Mode|Blur|Transforms|More actions|Opacity|Rotate|Scale|Offset|Skew|Anchor|Position|Triggers|Animation list actions|Add a new animation|Fill|Thickness|Corner)\b/;
-const WIDE = /all forms|whole site|every page|site-wide|across your site/i;
+// UNREAD's `no` rows for this tile: never pressed or typed in.
+const NO = noRows(JSON.parse(readFileSync(new URL('../parity/findings/UNREAD.json', import.meta.url), 'utf8')), TYPE);
+let stoppedAt = null;
 
 const js = (b) => evalJs(S, b);
 const FRAME = `document.getElementById('sqs-site-frame')`;
@@ -156,8 +159,8 @@ async function readTab(t) {
   await toTab(t); await pause(500);
   const panelText = js(`(() => JSON.stringify((${PANEL}).innerText))()`);
   const rows = [], list = read() || [];
-  const wide = WIDE.test(panelText);
-  out.tabs[t] = { rows, wideNote: wide ? panelText.match(/[^\n]*(all forms|whole site|every page|site-wide|across your site)[^\n]*/i)?.[0] : undefined };
+  const wide = WIDE_NOTE.test(panelText);
+  out.tabs[t] = { rows, wideNote: wide ? panelText.split('\n').find((l) => WIDE_NOTE.test(l)) : undefined };
   for (const c0 of list) {
     const key = `${t}|${c0.kind}|${c0.row}|${c0.name}`;
     if (c0.kind === 'button' && c0.name === c0.row) continue;
@@ -166,10 +169,13 @@ async function readTab(t) {
     if (tried.has(key)) continue; tried.add(key);
     if (READ_ONLY) { rec.notPressed = 'a read-only run'; continue; }
     const label = `${c0.row} ${c0.name}`;
+    if (stoppedAt) { rec.notPressed = `the walk stopped at ${stoppedAt}`; continue; }
+    if (wide) { rec.notPressed = 'the tab says it reaches further'; continue; }
+    if (onNoList(c0, NO)) { rec.notPressed = 'UNREAD says no'; continue; }
+    if (reachesOut(c0)) { rec.notPressed = 'it can reach outside'; stoppedAt = c0.name; continue; }
     if (!hasName(c0)) { rec.notPressed = 'no name'; continue; }
     if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.off ? 'greyed out' : c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
-    if (wide && /style/i.test(label)) { rec.notPressed = 'the tab says it reaches further'; continue; }
     if (c0.kind === 'choice') { if (c0.value) { rec.notPressed = 'the default'; continue; } rec.home = list.find((x) => x.kind === 'choice' && x.row === c0.row && x.value)?.name; }
     try { await toTab(t); await pause(250); const c = find(c0); if (!c) { rec.gone = true; continue; } await changeRow(c, t, rec); await settle(t); await pause(200); console.log(`  ${t} | ${c0.kind} | ${label.slice(0, 50)} | ${(rec.change || []).length} changes`); } catch (e) { rec.error = e.message.slice(0, 160); console.log(`  ${t} | ${label.slice(0, 50)} ERROR ${rec.error}`); try { await settle(t); } catch { rec.reloaded = true; await startOver(t, rec); } }
   }
