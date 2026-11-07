@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 842,
+  "pass": 845,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -3943,26 +3943,15 @@
     },
     {
       "name": "selected on let go: a press, 11 px, let go",
-      "diffs": [
-        "step 0: oracle false, ours true",
-        "step 1: oracle false, ours true"
-      ]
+      "diffs": []
     },
     {
       "name": "selected on let go: a press, 14 px, let go",
-      "diffs": [
-        "step 0: oracle false, ours true",
-        "step 1: oracle false, ours true",
-        "step 2: oracle false, ours true"
-      ]
+      "diffs": []
     },
     {
       "name": "selected on let go: c 35, 70 px, let go",
-      "diffs": [
-        "step 0: oracle false, ours true",
-        "step 1: oracle false, ours true",
-        "step 2: oracle false, ours true"
-      ]
+      "diffs": []
     }
   ]
 }

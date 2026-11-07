@@ -5294,7 +5294,9 @@ function placeChrome() {
   const k = model.sections.findIndex((x) => x.id === sid);
   const phone = bp === 'mobile';
   // A group leaves the section's chrome on screen (GROUPRESIZE.json); one selected block does not.
-  const blockSelected = !editSid && sel?.sid === sid && !sel.more?.length && !marquee && !(pressFresh && (!gesture || gesture.type === 'pending'));
+  // A press past 10 px counts as the block selected, though it is selected only on let go (CAP-U9FADE4.json, CAP-SELECTLETGO.json).
+  const armed = gesture?.type === 'pending' && gesture.armed && gesture.pick?.sid === sid && !gesture.pick.more?.length;
+  const blockSelected = !editSid && !marquee && ((sel?.sid === sid && !sel.more?.length && !(pressFresh && (!gesture || gesture.type === 'pending'))) || armed);
   const hasLayouts = !phone && !!sectionMix(S(sid));
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
