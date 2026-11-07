@@ -1,6 +1,8 @@
 // The word endings that make a typed word a link (E4, parity/findings/CAP-E4ENDS.json): every name the
 // oracle linked, read one by one. Made up and reserved names are left out: comma, toolong, nope, abcd,
-// wxyz, test, local, example, invalid, localhost, onion. Inferred: real names we did not read link there too.
+// wxyz, test, local, example, invalid, localhost, onion. Then the rest of a public list's longer names, typed on the
+// oracle: 540 of 587 link (CAP-E4ENDS2.json), all 80 more (CAP-E4ENDS3.json). The 47 that don't, retired or dropped
+// names (active, comcast, goo, vista and the rest), are left out. Not read: names in other scripts.
 export const LINK_ENDINGS = new Set(`
 ac ad ae af ag ai al am ao aq ar as at au aw ax az ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz ca
 cc cd cf cg ch ci ck cl cm cn co cr cu cv cw cx cy cz de dj dk dm do dz ec ee eg er es et eu fi fj fk fm fo fr
@@ -35,4 +37,38 @@ store stream studio study style sucks supplies supply support surf surgery sydne
 technology tennis theater tickets tienda tips tires today tokyo tools top tours town toys trade training tube
 university uno vacations vegas ventures vet viajes video villas vin vip vision vodka vote voting voyage watch
 webcam website wedding wiki win wine work works world wtf xyz yoga zip zone google amazon apple
+aaa aarp abb abbott abbvie abc able abogado abudhabi accenture aco ads aeg aetna afl africa agakhan aig airbus airtel
+akdn alibaba alipay allfinanz allstate ally alsace alstom americanexpress americanfamily amex amfam amica amsterdam
+analytics android anquan anz aol aquarelle arab aramco archi arte asda athleta audi audible auspost author autos aws
+axa azure baby baidu banamex barclaycard barclays barefoot bargains baseball basketball bauhaus bayern bbc bbt bbva
+bcg bcn beats bestbuy bharti bing blockbuster bloomberg bms bmw bnpparibas boats boehringer bofa bom bond boo book
+booking bosch bostik bot box bradesco bridgestone broadway broker brother brussels buy bzh cal call calvinklein canon
+capetown capitalone caravan career case catholic cba cbn cbre cern cfa cfd chanel channel chase chintai chrome
+cipriani circle cisco citadel citi citic clinique clubmed cologne commbank compare comsec contact corsica coupon cpa
+creditunion crown crs cruise cuisinella cymru cyou dad data datsun day dclk dds deal dealer dell deloitte delta desi
+dhl discover dish diy dnp docs dot drive dtv dubai dupont durban dvag dvr eat edeka emerck epson ericsson erni esq
+eurovision eus extraspace fage fairwinds fan farmers fast fedex feedback ferrari ferrero fidelity fido final fire
+firestone firmdale flickr flir fly foo food ford forum fox free fresenius frl frogans frontier ftr fujitsu gal gallo
+gallup gap gbiz gdn gea gent genting george ggee giving gle globo gmail gmo gmx godaddy goldpoint goodyear goog gop
+got grainger grocery gucci guge hamburg hangout hbo hdfc hdfcbank helsinki here hermes hisamitsu hitachi hiv hkt
+homedepot homegoods homesense honda hot hotels hotmail hsbc hughes hyatt hyundai ibm icbc ice ieee ifm ikano imamat
+imdb infiniti ing intuit ipiranga ismaili ist istanbul itau itv jaguar java jcb jeep jio jll jmp jnj joburg jot joy
+jpmorgan jprs juniper kddi kerryhotels kerryproperties kfh kia kids kindle koeln komatsu kosher kpmg kpn krd kred
+kuokgroup kyoto lacaixa lamborghini lamer landrover lanxess lasalle lat latino latrobe lds leclerc lefrak lego lexus
+lidl lifeinsurance lifestyle like lilly lincoln living llc llp locker locus lotte lotto lpl lplfinancial ltda lundbeck
+luxe madrid maif makeup man mango map markets marriott marshalls mattel mckinsey med meet melbourne merck merckmsd
+microsoft mini mint mit mitsubishi mlb mls mobile moe moi monash monster mormon moscow moto motorcycles mov msd mtn
+mtr music nab navy nba nec netbank netflix neustar next nextdirect nfl nhk nico nike nikon nissan nissay nokia norton
+nowruz nowtv nra nrw ntt obi office okinawa olayan olayangroup ollo omega open oracle orange origins osaka otsuka ott
+ovh panasonic pars pay pccw pfizer pharmacy philips phone pictet pid pin ping pioneer play playstation pnc pohl
+politie praxi prime prod prof progressive pru prudential pwc quest read realtor redumbrella reit reliance ren rexroth
+richardli ricoh ril rio rogers room rsvp ruhr rwe ryukyu saarland safe safety sakura samsclub samsung sandvik
+sandvikcoromant sanofi sap sas save saxo sbi sbs scb schaeffler schmidt scholarships schwarz scot search seat secure
+seek sener seven sew sfr shangrila sharp shell shia shouji silk sina skype sling smart smile sncf soccer softbank sohu
+song sony spot srl stada staples star statebank statefarm stc stcgroup stockholm suzuki swatch swiss tab taipei talk
+taobao target tatamotors tatar tattoo tax tci tdk temasek teva thd theatre tiaa tirol tjmaxx tjx tkmaxx tmall toray
+toshiba total toyota trading travelers travelersinsurance trust trv tui tunes tushu tvs ubank ubs unicom uol ups vana
+vanguard verisign versicherung vig viking virgin visa viva vivo vlaanderen volvo voto wales walmart walter wang
+wanggou watches weather weatherchannel weber wed weibo weir whoswho wien williamhill windows winners wme woodside wow
+wtc xbox xerox xihuan xin yachts yahoo yamaxun yandex yodobashi yokohama you youtube yun zappos zara zero zuerich
 `.trim().split(/\s+/));
