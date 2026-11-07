@@ -1,0 +1,30 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-07",
+ "question": "U10: a start with Flip X on. Wavy (the first shape), Divider on, Edit Settings, Flip X Axis, then View Layouts on a paragraph and picks 2, 0, 3, 4. Predictions pushed before the read. Blocks Probe, unsaved, one capture.",
+ "basis": "CAP-U10DIVIDER.json: layouts with no divider of their own put the start's divider back; layouts 2 and 3 set soft corners and rounded with isFlipX false and stroke none (CAP-U10UNDO.json)",
+ "predictions": [
+  {
+   "case": "the start",
+   "predict": "wavy, isFlipX true"
+  },
+  {
+   "case": "pick 2",
+   "predict": "soft-corners, isFlipX false",
+   "ours": "ours keeps the flip on"
+  },
+  {
+   "case": "pick 0 after 2",
+   "predict": "wavy, isFlipX true (the start back)"
+  },
+  {
+   "case": "pick 3",
+   "predict": "rounded, isFlipX false",
+   "ours": "ours keeps the flip on"
+  },
+  {
+   "case": "pick 4",
+   "predict": "wavy, isFlipX true"
+  }
+ ]
+}
