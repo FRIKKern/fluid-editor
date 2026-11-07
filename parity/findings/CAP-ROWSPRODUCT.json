@@ -217,7 +217,7 @@
       "Pointed Window",
       "Award"
      ],
-     "closedBy": "did not close"
+     "closedBy": "still open after a press on its tab"
     },
     {
      "row": "Image",
@@ -249,16 +249,16 @@
      ],
      "picked": "1:1",
      "change": [
-      "area 1 / 2 / 11 / 8 > 1 / 2 / 12 / 8",
-      "section rows 10 > 11",
-      "DIV.fe-block b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
-      "DIV b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
-      "DIV.yui3-widget b: 100.1,244.2,341.7,399.9 > 100.1,244.2,341.7,441",
+      "area 1 / 2 / 9 / 8 > 1 / 2 / 12 / 8",
+      "section rows 8 > 11",
+      "DIV.fe-block b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
+      "DIV b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
       "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,427.1",
       "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,427.1",
       "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,416.1",
       "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,416.1",
-      "STYLE w: #block-yui_3_17_2_1_17940283 .. t-ratio: 1.5 > #block-yui_3_17_2_1_17940283 .. ratio: 1 / 1",
+      "STYLE w: #block-yui_3_17_2_1_17940286 .. t-ratio: 1.5 > #block-yui_3_17_2_1_17940286 .. ratio: 1 / 1",
       "DIV b: 100.1,244.2,341.7,227.8 > 100.1,244.2,341.7,341.7",
       "DIV b: 101.1,245.2,339.7,225.8 > 101.1,245.2,339.7,339.7",
       "SPAN b: 101.1,245.2,339.7,225.8 > 101.1,245.2,339.7,339.7",
@@ -406,6 +406,144 @@
      "notPressed": "a row every panel has"
     }
    ]
+  },
+  "Content": {
+   "rows": [
+    {
+     "row": "Product",
+     "kind": "button",
+     "name": "CREATE NEW PRODUCT",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Image",
+     "kind": "switch",
+     "name": "Image",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 11 / 8 > 1 / 2 / 4 / 8",
+      "section rows 10 > 3",
+      "DIV.fe-block b: 100.1,244.2,341.7,399.9 > 100.1,325,341.7,112.3",
+      "DIV b: 100.1,244.2,341.7,399.9 > 100.1,325,341.7,112.3",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,399.9 > 100.1,325,341.7,112.3",
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,325,341.7,69.4",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,325,341.7,69.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,325,341.7,58.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,325,341.7,58.4",
+      "DIV b: 100.1,244.2,341.7,227.8 > 0,0,0,0",
+      "DIV display: block > none",
+      "DIV b: 101.1,245.2,339.7,225.8 > 0,0,0,0",
+      "SPAN b: 101.1,245.2,339.7,225.8 > 0,0,0,0",
+      "svg b: 254,322.1,34,34 > 0,0,0,0"
+     ]
+    },
+    {
+     "row": "Title",
+     "kind": "switch",
+     "name": "Title",
+     "value": true,
+     "change": [
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,279.5",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,279.5",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,268.5",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,268.5",
+      "DIV.productDetails b: 100.1,488,341.7,58.4 > 100.1,488,341.7,24.8",
+      "DIV.product-title b: 100.1,488,151,29.5 > 0,0,0,0",
+      "DIV.product-title display: inline-block > none",
+      "DIV.product-price b: 100.1,521.7,341.7,24.8 > 100.1,488,341.7,24.8"
+     ]
+    },
+    {
+     "row": "Price",
+     "kind": "switch",
+     "name": "Price",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 9 / 8 > 1 / 2 / 7 / 8",
+      "section rows 8 > 6",
+      "DIV.fe-block b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,277.4",
+      "DIV b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,277.4",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,277.4",
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,277.4",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,277.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,277.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,277.4",
+      "DIV.productDetails b: 100.1,488,341.7,58.4 > 100.1,488,341.7,33.7",
+      "DIV.product-price b: 100.1,521.7,341.7,24.8 > 0,0,0,0",
+      "DIV.product-price display: block > none"
+     ]
+    },
+    {
+     "row": "Description",
+     "kind": "switch",
+     "name": "Description",
+     "value": false,
+     "change": [
+      "area 1 / 2 / 9 / 8 > 1 / 2 / 12 / 8",
+      "section rows 8 > 11",
+      "DIV.fe-block b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
+      "DIV b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,441",
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,401.4",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,401.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,385.4",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,385.4",
+      "DIV.productDetails b: 100.1,488,341.7,58.4 > 100.1,488,341.7,141.6",
+      "DIV.product-excerpt b: 0,0,0,0 > 100.1,562.4,341.7,67.2",
+      "DIV.product-excerpt display: none > block",
+      "P b: 0,0,0,0 > 100.1,562.4,341.7,67.2"
+     ]
+    },
+    {
+     "row": "Add to Cart Button",
+     "kind": "switch",
+     "name": "Add to Cart Button",
+     "value": false,
+     "change": [
+      "area 1 / 2 / 9 / 8 > 1 / 2 / 11 / 8",
+      "section rows 8 > 10",
+      "DIV.fe-block b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,399.9",
+      "DIV b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,399.9",
+      "DIV.yui3-widget b: 100.1,244.2,341.7,317.8 > 100.1,244.2,341.7,399.9",
+      "DIV b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,367.8",
+      "DIV.product-block b: 100.1,244.2,341.7,313.2 > 100.1,244.2,341.7,367.8",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,367.8",
+      "DIV b: 100.1,244.2,341.7,302.2 > 100.1,244.2,341.7,367.8",
+      "DIV.productDetails b: 100.1,488,341.7,58.4 > 100.1,488,341.7,124",
+      "DIV b: 0,0,0,0 > 100.1,557.4,341.7,54.6",
+      "DIV display: none > flex",
+      "DIV b: 0,0,0,0 > 100.1,557.4,107.5,54.6",
+      "DIV display: none > block"
+     ]
+    },
+    {
+     "row": "Product Quick View",
+     "kind": "switch",
+     "name": "Product Quick View",
+     "value": false,
+     "change": []
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
   }
  },
  "errors": [],
@@ -415,6 +553,6 @@
   "Design",
   "Animation"
  ],
- "answer": "Product: tabs Content, Design, Animation. 16 rows read, 3 changed the block when changed. Each row below has its default and what the change did.",
+ "answer": "Product: tabs Content, Design, Animation. 23 rows read, 8 changed the block when changed. Each row below has its default and what the change did.",
  "pressed": "Add Block, Product, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
 }

@@ -1,0 +1,318 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Archive: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Archive",
+ "tabs": {
+  "Content": {
+   "rows": [
+    {
+     "row": "Group by",
+     "kind": "menu",
+     "name": "Month",
+     "value": "Month",
+     "options": [
+      "Month",
+      "Year",
+      "Author",
+      "Category",
+      "Tag"
+     ],
+     "picked": "Year",
+     "change": [
+      "area 1 / 2 / 22 / 10 > 1 / 2 / 18 / 10",
+      "section rows 21 > 17",
+      "elements 63 > 57",
+      "DIV.fe-block b: 100.1,93.2,459.3,852 > 100.1,93.2,459.3,698.9",
+      "DIV b: 100.1,93.2,459.3,852 > 100.1,93.2,459.3,698.9",
+      "DIV.yui3-widget b: 100.1,93.2,459.3,852 > 100.1,93.2,459.3,698.9",
+      "DIV b: 100.1,93.2,459.3,851.2 > 100.1,93.2,459.3,698.9",
+      "DIV.sqs-blockStatus b: 100.1,93.2,459.3,852 > 100.1,93.2,459.3,698.9",
+      "DIV.\n b: 100.1,93.2,459.3,851.2 > 100.1,93.2,459.3,698.9",
+      "UL b: 100.1,93.2,459.3,851.2 > 100.1,93.2,459.3,698.9",
+      "LI.archive-group b: 100.1,93.2,459.3,210.6 > 100.1,93.2,459.3,277.8",
+      "A w: January 2026 > 2026",
+      "UL b: 100.1,147,459.3,112 > 100.1,147,459.3,179.2",
+      "SPAN w: Jan  5, 2026 > Feb 12, 2026"
+     ]
+    },
+    {
+     "row": "Dates ascending",
+     "kind": "switch",
+     "name": "Dates ascending",
+     "value": false,
+     "off": true,
+     "notPressed": "refused by name"
+    },
+    {
+     "row": "Item date",
+     "kind": "switch",
+     "name": "Item date",
+     "value": true,
+     "change": [
+      "area 1 / 2 / 18 / 10 > 1 / 2 / 12 / 10",
+      "section rows 17 > 11",
+      "elements 57 > 50",
+      "DIV.fe-block b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "DIV b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "DIV.yui3-widget b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "DIV b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "DIV.sqs-blockStatus b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "DIV.\n b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "UL b: 100.1,93.2,459.3,698.9 > 100.1,93.2,459.3,497.2",
+      "LI.archive-group b: 100.1,93.2,459.3,277.8 > 100.1,93.2,459.3,188.1",
+      "UL b: 100.1,147,459.3,179.2 > 100.1,147,459.3,89.6",
+      "LI.archive-item b: 100.1,147,459.3,44.8 > 100.1,147,459.3,22.4",
+      "new LI archive-item"
+     ]
+    },
+    {
+     "row": "Group count",
+     "kind": "switch",
+     "name": "Group count",
+     "value": false,
+     "change": [
+      "elements 57 > 60",
+      "new SPAN  3",
+      "new UL",
+      "new LI archive-item",
+      "new SPAN  Feb 12, 2026",
+      "new A  Pellentesque Risus Ridiculus",
+      "new SPAN  Feb 12, 2026",
+      "new LI archive-item",
+      "new SPAN  Jan 28, 2026",
+      "new A  Cursus Amet",
+      "new SPAN  Jan 28, 2026",
+      "new LI archive-item",
+      "new SPAN  Jan  5, 2026",
+      "new A  Aenean eu leo Quam"
+     ]
+    }
+   ]
+  },
+  "Design": {
+   "rows": [
+    {
+     "row": "Layout",
+     "kind": "menu",
+     "name": "Index",
+     "value": "Index",
+     "options": [
+      "Index",
+      "List",
+      "Drop down"
+     ],
+     "picked": "List",
+     "change": [
+      "area 1 / 2 / 19 / 10 > 1 / 2 / 2 / 10",
+      "section rows 18 > 1",
+      "elements 57 > 26",
+      "DIV.fe-block b: 100.1,93.2,459.3,728.7 > 100.1,207.8,459.3,44.8",
+      "DIV b: 100.1,93.2,459.3,728.7 > 100.1,207.8,459.3,44.8",
+      "DIV.yui3-widget b: 100.1,93.2,459.3,728.7 > 100.1,207.8,459.3,44.8",
+      "DIV b: 100.1,93.2,459.3,698.9 > 100.1,207.8,459.3,44.8",
+      "DIV.sqs-blockStatus b: 100.1,93.2,459.3,728.7 > 100.1,207.8,459.3,44.8",
+      "DIV b: 174.1,98.5,380,113.1 > 174.1,213,380,113.1",
+      "DIV b: 197.1,121.5,300,19.8 > 197.1,236,300,19.8",
+      "DIV b: 197.1,152.3,300,36.3 > 197.1,266.8,300,36.3",
+      "DIV.\n cl: \n archive-block-wrapper\n archive-block-setti > \n archive-block-wrapper\n archive-block-setti",
+      "DIV.\n b: 100.1,93.2,459.3,698.9 > 100.1,207.8,459.3,44.8",
+      "UL b: 100.1,93.2,459.3,698.9 > 100.1,207.8,459.3,44.8"
+     ]
+    },
+    {
+     "row": "Columns",
+     "kind": "choice",
+     "name": "option 1",
+     "value": false,
+     "home": "option 2",
+     "change": [
+      "area 1 / 2 / 2 / 10 > 1 / 2 / 3 / 10",
+      "section rows 1 > 2",
+      "DIV.fe-block b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,71.2",
+      "DIV b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,71.2",
+      "DIV.yui3-widget b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,71.2",
+      "DIV b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,67.2",
+      "DIV.sqs-blockStatus b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,71.2",
+      "DIV b: 174.1,213,380,113.1 > 174.1,199.8,380,113.1",
+      "DIV b: 197.1,236,300,19.8 > 197.1,222.8,300,19.8",
+      "DIV b: 197.1,266.8,300,36.3 > 197.1,253.6,300,36.3",
+      "DIV.\n cl: \n archive-block-wrapper\n archive-block-setti > \n archive-block-wrapper\n archive-block-setti",
+      "DIV.\n b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,67.2",
+      "UL b: 100.1,207.8,459.3,44.8 > 100.1,194.6,459.3,67.2",
+      "LI.archive-group b: 100.1,207.8,199.6,22.4 > 100.1,194.6,459.3,22.4"
+     ]
+    },
+    {
+     "row": "Columns",
+     "kind": "choice",
+     "name": "option 2",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "option 1",
+     "value": true,
+     "notPressed": "the default"
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "option 2",
+     "value": false,
+     "home": "option 1",
+     "change": [
+      "DIV.\n textAlign: left > center",
+      "UL textAlign: left > center",
+      "LI.archive-group textAlign: left > center",
+      "A b: 100.1,193.6,38.6,23 > 180.6,193.6,38.6,23",
+      "A textAlign: left > center",
+      "LI.archive-group textAlign: left > center",
+      "A b: 100.1,216,38.5,23 > 180.7,216,38.5,23",
+      "A textAlign: left > center",
+      "LI.archive-group textAlign: left > center",
+      "A b: 359.8,193.6,38.5,23 > 440.3,193.6,38.5,23",
+      "A textAlign: left > center",
+      "STYLE textAlign: left > center",
+      "STYLE textAlign: left > center",
+      "STYLE textAlign: left > center"
+     ]
+    },
+    {
+     "row": "Alignment",
+     "kind": "choice",
+     "name": "option 3",
+     "value": false,
+     "home": "option 1",
+     "change": [
+      "DIV.\n textAlign: left > right",
+      "UL textAlign: left > right",
+      "LI.archive-group textAlign: left > right",
+      "A b: 100.1,193.6,38.6,23 > 261.1,193.6,38.6,23",
+      "A textAlign: left > right",
+      "LI.archive-group textAlign: left > right",
+      "A b: 100.1,216,38.5,23 > 261.3,216,38.5,23",
+      "A textAlign: left > right",
+      "LI.archive-group textAlign: left > right",
+      "A b: 359.8,193.6,38.5,23 > 520.9,193.6,38.5,23",
+      "A textAlign: left > right",
+      "STYLE textAlign: left > right",
+      "STYLE textAlign: left > right",
+      "STYLE textAlign: left > right"
+     ]
+    },
+    {
+     "row": "Background",
+     "kind": "switch",
+     "name": "Background",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "No Stroke",
+     "value": true,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Solid Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "choice",
+     "name": "Dashed Stroke",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Stroke",
+     "kind": "menu",
+     "name": "Blend Mode",
+     "value": "Normal",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Blur",
+     "kind": "switch",
+     "name": "Blur",
+     "value": false,
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Transforms",
+     "kind": "menu",
+     "name": "More actions",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "field",
+     "name": "Opacity",
+     "value": "100%",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Opacity",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Rotate",
+     "kind": "field",
+     "name": "Rotate",
+     "value": "0°",
+     "notPressed": "a row every panel has"
+    },
+    {
+     "row": "Rotate",
+     "kind": "button",
+     "name": "Reset to default value",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Anchor",
+     "kind": "menu",
+     "name": "Position",
+     "notPressed": "a row every panel has"
+    }
+   ]
+  },
+  "Animation": {
+   "rows": [
+    {
+     "row": "Triggers",
+     "kind": "menu",
+     "name": "Animation list actions"
+    },
+    {
+     "row": "Animation list actions",
+     "kind": "button",
+     "name": "Add a new animation"
+    },
+    {
+     "row": "Add a new animation",
+     "kind": "button",
+     "name": "Press + to get started"
+    }
+   ],
+   "notPressed": "every panel has it"
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Content",
+  "Design",
+  "Animation"
+ ],
+ "answer": "Archive: tabs Content, Design, Animation. 21 rows read, 7 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Archive, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}

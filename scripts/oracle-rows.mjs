@@ -22,7 +22,8 @@ const out = existsSync(FILE) ? JSON.parse(readFileSync(FILE)) : { item: 'T12', c
 const save = () => writeFileSync(FILE, `${JSON.stringify(out, null, 1).replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '(an email)').replace(/https?:\/\//g, '')}\n`);
 
 // Never pressed, by name: what writes outside the block, reaches an account or a store, or takes a file.
-const REFUSE = /reset|save|delete|remove|upload|replace|create|connect|account|manage|export|store|payment|learn more|set up|site style|form style|edit button|color theme|privacy|terms|add an image|add a new animation|add item|attach|duplicate|^close$|storage|podcast|^x$/i;
+const REFUSE = /reset|save|delete|remove|upload|replace|create|connect|account|manage|export|store|payment|learn more|set up|site style|form style|edit button|color theme|privacy|terms|add an image|add a new animation|add item|attach|duplicate|^close$|storage|podcast|^x$|restaurant id|registry name|band name|soundcloud url/i;
+const READ_ONLY = process.argv.includes('--read-only');
 // Rows every panel has: their defaults are read, block design has their rules (T15).
 const COMMON = /^(Background|Stroke|Stroke Color|Blend Mode|Blur|Transforms|More actions|Opacity|Rotate|Scale|Offset|Skew|Anchor|Position|Triggers|Animation list actions|Add a new animation|Fill|Thickness|Corner)\b/;
 const WIDE = /all forms|whole site|every page|site-wide|across your site/i;
@@ -76,7 +77,8 @@ async function openPanel() {
 async function toTab(t) { await openPanel(); if (js(`(() => JSON.stringify((${tabEl(t)})?.getAttribute('aria-selected') === 'true'))()`)) return; await pressOnTop(S, tabEl(t), 900); }
 // Back in the panel, on the tab, after whatever a press did. Escape only if something sits on top of it.
 async function settle(t) { const open = js(`(() => JSON.stringify([...document.querySelectorAll('[role=listbox],[role=menu],[role=dialog]')].some((x) => x.getBoundingClientRect().width > 1 && !x.contains(${PANEL}))))()`); if (open) { await escape(); await pause(300); } await toTab(t); }
-const find = (c) => (read() || []).find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row);
+// A row's heading can change after an earlier press, so a name that's unique on its own will do.
+const find = (c) => { const l = read() || []; return l.find((x) => x.kind === c.kind && x.name === c.name && x.row === c.row) || (l.filter((x) => x.kind === c.kind && x.name === c.name).length === 1 ? l.find((x) => x.kind === c.kind && x.name === c.name) : undefined); };
 
 // The panel's own back arrow, or Escape if it has none.
 async function goBack(rec) {
@@ -152,6 +154,7 @@ async function readTab(t) {
     const rec = { row: c0.row, kind: c0.kind, name: c0.name, value: c0.value }; if (c0.min !== undefined) Object.assign(rec, { min: c0.min, max: c0.max, step: c0.step }); if (c0.off) rec.off = true; if (c0.options) rec.options = c0.options;
     rows.push(rec); save();
     if (tried.has(key)) continue; tried.add(key);
+    if (READ_ONLY) { rec.notPressed = 'a read-only run'; continue; }
     const label = `${c0.row} ${c0.name}`;
     if (c0.off || REFUSE.test(c0.name) || (REFUSE.test(c0.row) && !/^reset to default/i.test(c0.row)) || (c0.kind === 'button')) { rec.notPressed = c0.kind === 'button' ? 'a plain button' : 'refused by name'; continue; }
     if (COMMON.test(c0.row) || COMMON.test(c0.name)) { rec.notPressed = 'a row every panel has'; continue; }
