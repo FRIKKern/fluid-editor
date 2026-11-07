@@ -127,6 +127,10 @@ barDiff('Hovered section, phone', barsOf(ORACLE.chrome?.phoneHovered), barsOf(ou
 const side = new Set((ORACLE.chrome?.hoveredSection || []).map(norm));
 barDiff('Add Section menu', ORACLE.chrome?.addSectionMenu || [], ours.bars.addSectionMenu.filter((x) => !side.has(norm(x))));
 
+// Why a bar name differs and stays (U9, difference 78).
+const BAR_WHY = { 'Edit Site Header': 'out of scope, 0005', 'AI Terms': 'out of scope, 0005', Small: "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it", Medium: "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it", Large: "the oracle has this button with no name (CAP-ADDSECTIONVIEWS.json, CAP-U9BARNAMES.json); ours names it", 'Drag to change the row count': "the oracle has a row-resize handle here with no name (CAP-U9BARNAMES.json); ours names it" };
+for (const b of list.bars) if (BAR_WHY[b.name]) b.why = BAR_WHY[b.name];
+
 if (process.env.COVERAGE_DUMP) writeFileSync(process.env.COVERAGE_DUMP, JSON.stringify(ours));
 // The list by use: a row is a control, a heading (perhaps a control the reader can't name), a state, or something only an outside service or a site-wide list can answer.
 const OUTSIDE = /^(SET UP|ADD EXISTING SCHEDULE|Get started with Acuity|CREATE NEW PRODUCT|Set Up Payment Processor|Funds|General Fund|Fund Dropdown Label|Connected Account|Choose an account|Add an Account|Join Tock|ALREADY A CUSTOMER|OpenTable Restaurant ID|Registry Name|Band Name|Enter a SoundCloud|Squarespace|Other Storage Options|Podcast|Additional Terms|Privacy Policy|Additional Storage|Google reCAPTCHA|MANAGE SUBMISSIONS|Export Form Submissions|Color Theme Editor)/;

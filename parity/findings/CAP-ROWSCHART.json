@@ -1,0 +1,402 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "Chart: each row's name, kind and default, and what a change does on the block.",
+ "tile": "Chart",
+ "tabs": {
+  "Design": {
+   "rows": [
+    {
+     "row": "Chart Title",
+     "kind": "field",
+     "name": "Chart Title",
+     "value": "",
+     "to": "Ab",
+     "change": [
+      "DIV.fe-block b: 100.1,244.2,459.3,317.8 > 100.1,244.2,459.3,318.3",
+      "DIV b: 100.1,244.2,459.3,317.8 > 100.1,244.2,459.3,318.3",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,317.8 > 100.1,244.2,459.3,318.3",
+      "DIV.targeted b: 100.1,244.2,459.3,250.4 > 100.1,244.2,459.3,318.3",
+      "DIV.chart-type-1009 b: 100.1,259.2,459.3,235.4 > 100.1,244.2,459.3,318.3",
+      "H2 w:  > Ab",
+      "H2 b: 100.1,259.2,459.3,0 > 100.1,244.2,459.3,67.9",
+      "DIV.legend-none b: 100.1,259.2,459.3,235.4 > 100.1,327.1,459.3,235.4",
+      "DIV b: 100.1,259.2,459.3,235.4 > 100.1,327.1,459.3,235.4",
+      "DIV b: 100.1,259.2,459.3,235.4 > 100.1,327.1,459.3,235.4",
+      "CANVAS b: 100.1,259.2,459,229 > 100.1,327.1,459,229",
+      "DIV b: 100.1,494.6,459.3,0 > 100.1,562.5,459.3,0"
+     ]
+    },
+    {
+     "row": "Caption",
+     "kind": "field",
+     "name": "Caption",
+     "value": "",
+     "to": "Ab",
+     "change": [
+      "area 1 / 2 / 9 / 10 > 1 / 2 / 11 / 10",
+      "section rows 8 > 10",
+      "elements 33 > 34",
+      "DIV.fe-block b: 100.1,244.2,459.3,318.3 > 100.1,244.2,459.3,399.9",
+      "DIV b: 100.1,244.2,459.3,318.3 > 100.1,244.2,459.3,399.9",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,318.3 > 100.1,244.2,459.3,399.9",
+      "DIV.targeted b: 100.1,244.2,459.3,318.3 > 100.1,244.2,459.3,372.7",
+      "DIV.chart-type-1009 b: 100.1,244.2,459.3,318.3 > 100.1,244.2,459.3,372.7",
+      "DIV b: 100.1,562.5,459.3,0 > 100.1,577.5,459.3,39.4",
+      "new FIGCAPTION  Ab",
+      "new DIV",
+      "new SPAN  Chart",
+      "new DIV yui3-widget sqs-widget"
+     ]
+    },
+    {
+     "row": "Caption",
+     "kind": "switch",
+     "name": "Show Legend",
+     "value": false,
+     "change": [
+      "area 1 / 2 / 11 / 10 > 1 / 2 / 12 / 10",
+      "section rows 10 > 11",
+      "DIV.fe-block b: 100.1,244.2,459.3,399.9 > 100.1,244.2,459.3,441",
+      "DIV b: 100.1,244.2,459.3,399.9 > 100.1,244.2,459.3,441",
+      "DIV.yui3-widget b: 100.1,244.2,459.3,399.9 > 100.1,244.2,459.3,441",
+      "DIV.targeted b: 100.1,244.2,459.3,372.7 > 100.1,244.2,459.3,416.5",
+      "DIV.chart-type-1009 b: 100.1,244.2,459.3,372.7 > 100.1,244.2,459.3,416.5",
+      "DIV.legend-visible cl: legend-none > legend-visible",
+      "DIV.legend-visible b: 100.1,327.1,459.3,235.4 > 100.1,327.1,459.3,279.2",
+      "DIV.attach2 b: 0,0,0,0 > 100.1,562.5,459.3,43.8",
+      "DIV.attach2 textAlign: start > center",
+      "DIV.attach2 display: none > block",
+      "FIGCAPTION.legend-content b: 0,0,0,0 > 125.9,562.5,407.7,43.8",
+      "FIGCAPTION.legend-content textAlign: start > center"
+     ]
+    },
+    {
+     "row": "Grayscale",
+     "kind": "menu",
+     "name": "Grayscale",
+     "value": "Grayscale",
+     "options": [
+      "Grayscale",
+      "Primary",
+      "Warm",
+      "Cool",
+      "Muted",
+      "Cobblestone",
+      "Shops",
+      "Suburbs",
+      "Tea Party",
+      "Highway",
+      "DB-Nine",
+      "Italia",
+      "M-Three",
+      "Thunderbird"
+     ],
+     "to": "Primary",
+     "change": [
+      "SPAN st: background-color:rgba(121,121,121,1) > background-color:rgba(240,82,59,1)",
+      "SPAN backgroundColor: rgb(121, 121, 121) > rgb(240, 82, 59)",
+      "SPAN st: background-color:rgba(191,191,191,1) > background-color:rgba(247,180,19,1)",
+      "SPAN backgroundColor: rgb(191, 191, 191) > rgb(247, 180, 19)",
+      "SPAN st: background-color:rgba(229,229,229,1) > background-color:rgba(36,128,196,1)",
+      "SPAN backgroundColor: rgb(229, 229, 229) > rgb(36, 128, 196)",
+      "SPAN st: background-color:rgba(121,121,121,1) > background-color:rgba(240,82,59,1)",
+      "SPAN backgroundColor: rgb(121, 121, 121) > rgb(240, 82, 59)",
+      "SPAN st: background-color:rgba(191,191,191,1) > background-color:rgba(247,180,19,1)",
+      "SPAN backgroundColor: rgb(191, 191, 191) > rgb(247, 180, 19)",
+      "SPAN st: background-color:rgba(229,229,229,1) > background-color:rgba(36,128,196,1)",
+      "SPAN backgroundColor: rgb(229, 229, 229) > rgb(36, 128, 196)"
+     ],
+     "back": "Grayscale"
+    }
+   ]
+  },
+  "Data": {
+   "rows": [
+    {
+     "row": "Import/Export",
+     "kind": "button",
+     "name": "Learn more",
+     "notPressed": "a plain button"
+    },
+    {
+     "row": "Bar Chart",
+     "kind": "menu",
+     "name": "Bar Chart",
+     "value": "Bar Chart",
+     "options": [
+      "Bar Chart",
+      "Line Chart",
+      "Pie Chart"
+     ],
+     "to": "Line Chart",
+     "change": [
+      "DIV.chart-type-1010 cl: chart-type-1009 narrow-chart > chart-type-1010 narrow-chart",
+      "UL.line-legend cl: bar-legend > line-legend",
+      "UL.line-legend cl: bar-legend > line-legend"
+     ],
+     "back": "Bar Chart"
+    },
+    {
+     "row": "Bar Chart",
+     "kind": "switch",
+     "name": "Flip X And Y Axes",
+     "value": false,
+     "change": [
+      "elements 25 > 33",
+      "LI w: Population > New York",
+      "new LI  Las Vegas",
+      "new SPAN",
+      "new LI  San Francisco",
+      "new SPAN",
+      "new DIV",
+      "new DIV",
+      "new CANVAS",
+      "new DIV attach2",
+      "new FIGCAPTION legend-content",
+      "new UL bar-legend",
+      "new LI  New York",
+      "new SPAN"
+     ]
+    },
+    {
+     "row": "Chart Data",
+     "kind": "field",
+     "name": "Chart Data",
+     "value": "",
+     "off": true,
+     "notPressed": "greyed out"
+    },
+    {
+     "row": "Chart Data",
+     "kind": "field",
+     "name": "Chart Data",
+     "value": "Population"
+    },
+    {
+     "row": "Chart Data",
+     "kind": "field",
+     "name": "Chart Data",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true,
+     "notPressed": "greyed out"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "New York"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "150"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "Las Vegas"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "250"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "San Francisco"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "150"
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    },
+    {
+     "row": "+",
+     "kind": "field",
+     "name": "+",
+     "value": "",
+     "off": true
+    }
+   ]
+  },
+  "Import / Export": {
+   "rows": [
+    {
+     "row": "Chart Data",
+     "kind": "area",
+     "name": "Chart Data",
+     "value": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+     "to": "Label,Population\nNew York,150\nLas Vegas,250Ab\nSan Francisco,150",
+     "change": []
+    },
+    {
+     "row": "Chart Data",
+     "kind": "button",
+     "name": "UPDATE",
+     "notPressed": "a plain button"
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "path": "/gestures-probe",
+ "tabList": [
+  "Data",
+  "Design",
+  "Import / Export"
+ ],
+ "dialog": {
+  "title": "Chart",
+  "box": [
+   552,
+   235,
+   572,
+   657
+  ],
+  "buttons": [],
+  "escapeCloses": false,
+  "blockPressCloses": false
+ },
+ "answer": "Chart: tabs Data, Design, Import / Export. 36 rows read, 6 changed the block when changed. Each row below has its default and what the change did.",
+ "pressed": "Add Block, Chart, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved."
+}

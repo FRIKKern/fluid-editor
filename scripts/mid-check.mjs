@@ -803,6 +803,66 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   groupCases.push({ name: 'a click on the section handle', diffs: [rows('desktop') !== d1 && 'rows changed'].filter(Boolean) });
   evalJs(S, `fe.setBp('desktop')`);
 }
+// X8: the group size rule, replayed from the reads. A walk gives each box and each block's px on the oracle, a drop its areas.
+{ const reads = Object.assign({}, ...['CAP-X8ROWS', 'CAP-X8ROWS2', 'CAP-X8ROWS3'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+  const TYPES = { v: { type: 'button', label: 'Button' }, w: { type: 'text', html: '' } };
+  const play = (areas, type, phone, dir, rings, drop = false) => evalJs(S, `(async () => {
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms)), bp = '${phone ? 'mobile' : 'desktop'}';
+    const nums = ${JSON.stringify(areas)}.map((a) => a[${phone ? 1 : 0}].split('/').map(Number));
+    fe.setBp(bp);
+    fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 40, mobile: 40 }, blocks: nums.map((a, i) => { const l = { area: a, z: i + 1, justify: 'flex-start', align: 'flex-start' }; return { id: 'b' + i, ...(i === 0 && ${JSON.stringify(type || null)}) || { type: 'shape', fill: '#ccc', radius: '0', label: 'b' + i }, layout: { desktop: l, mobile: l } }; }) }] });
+    await sleep(120);
+    const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow;
+    const block = (i) => d.querySelector('.fe-block[data-block-id="b' + i + '"]');
+    const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
+    fe.select('s', 'b0'); await sleep(30);
+    for (let i = 1; i < nums.length; i++) { const r = block(i).getBoundingClientRect(), c = { ...o, shiftKey: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2 }; block(i).dispatchEvent(new W.PointerEvent('pointerdown', { ...c, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...c, buttons: 0 })); await sleep(30); }
+    const m = fe.measure('s'), top = block(0).parentElement.getBoundingClientRect().top;
+    const el = d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="${dir}"]'), q = el.getBoundingClientRect(), x0 = q.left + q.width / 2, y0 = q.top + q.height / 2;
+    const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+    el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: x0, clientY: y0, buttons: 1 }));
+    move(x0 + 14, y0); await sleep(15); move(x0, y0); await sleep(15);
+    const out = []; let x = x0, y = y0;
+    for (const [r0, c0, r1, c1] of ${JSON.stringify(rings)}) {
+      if ('${dir}'.includes('e')) x = m.colEnd[c1 - 2]; if ('${dir}'.includes('w')) x = m.colStart[c0 - 1];
+      if ('${dir}'.includes('s')) y = top + (r1 - 1) * m.pitch - m.rg; if ('${dir}'.includes('n')) y = top + (r0 - 1) * m.pitch;
+      move(x, y); await sleep(10);
+      out.push({ ring: W.getComputedStyle(d.querySelector('.fe-transform-indicator')).gridArea.replace(/ /g, ''), blocks: nums.map((_, i) => W.getComputedStyle(block(i)).gridArea.replace(/ /g, '')) });
+    }
+    d.dispatchEvent(new W.PointerEvent(${drop ? "'pointerup'" : "'pointercancel'"}, { ...o, clientX: x, clientY: y, buttons: 0 })); await sleep(60);
+    const after = fe.model.sections[0].blocks.map((b) => b.layout[bp].area.join('/'));
+    fe.setBp('desktop');
+    return JSON.stringify({ out, after }); })()`);
+  for (const [name, r] of Object.entries(reads)) {
+    if (!r.walk) continue;
+    const phone = name === 'x', pitch = phone ? 35 : 41.09, tile = 58.78, start = reads[`${name} start`].areas, w = r.walk;
+    const table = new Map();
+    for (const leg of ['yOut', 'yBack', 'yHome', 'xOut', 'xBack', 'xHome']) for (const [, row] of w[leg] || []) {
+      const [ring, rest] = row.split(' | ');
+      table.set(ring, rest.split(' ').map((b) => { const [v, h] = b.split('@'), [t, ht] = v.split('+').map(Number), [l, wd] = (h || '0+0').split('+').map(Number); return { row: Math.round(t / pitch) + 1, rows: Math.round((ht + 11) / pitch), l, cols: Math.round((wd + 11) / tile) }; }));
+    }
+    const across = w.xOut?.length > 0, L0 = across ? Number(w.from.split(' | ')[1].split(' ')[0].split('@')[1].split('+')[0]) : 0, c0 = Number(start[0][0].split('/')[1]);
+    const rings = [...table.keys()].map((k) => k.split('/').map(Number));
+    const got = play(start, TYPES[name], phone, w.part, rings);
+    const diffs = [];
+    rings.forEach((ring, k) => {
+      const key = ring.join('/'), g = got.out[k];
+      if (g.ring !== key) { diffs.push(`box: oracle ${key}, ours ${g.ring}`); return; }
+      table.get(key).forEach((want, i) => {
+        const [r0, c1, r1, c2] = g.blocks[i].split('/').map(Number);
+        if (across) { const cs = c0 + Math.round((want.l - L0) / tile); if (c1 !== cs || c2 - c1 !== want.cols) diffs.push(`${key} block ${i}: oracle columns ${cs}, ${want.cols} wide, ours ${c1}, ${c2 - c1} wide`); } else if (r0 !== want.row || r1 - r0 !== want.rows) diffs.push(`${key} block ${i}: oracle row ${want.row}, ${want.rows} tall, ours ${r0}, ${r1 - r0} tall`);
+      });
+    });
+    groupCases.push({ name: `group table ${name}`, diffs });
+  }
+  for (const [name, r] of Object.entries(reads)) {
+    if (!/^[biu]\d/.test(name) || / undone$/.test(name)) continue;
+    const start = reads[`${name[0]} start`].areas, want = r.areas.map((a) => a[0]);
+    const box = want.map((a) => a.split('/').map(Number)), ring = [Math.min(...box.map((a) => a[0])), Math.min(...box.map((a) => a[1])), Math.max(...box.map((a) => a[2])), Math.max(...box.map((a) => a[3]))];
+    const got = play(start, null, false, 'se', [ring], true);
+    groupCases.push({ name: `group drop by the rule ${name}`, diffs: want.flatMap((a, i) => (got.after[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got.after[i]}`])) });
+  }
+}
 const groupFails = groupCases.filter((c) => c.diffs.length && !c.known);
 const groupKnown = groupCases.filter((c) => c.known);
 for (const c of groupFails) console.log(`DIFF ${c.name}\n  ${c.diffs.join('\n  ')}`);

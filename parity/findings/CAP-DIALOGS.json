@@ -1,0 +1,203 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-07",
+ "question": "The older dialogs, Instagram and Flickr: size, tabs, rows, how each closes, and what is bound to an account.",
+ "dialogs": {
+  "Calendar": {
+   "title": "Calendar",
+   "box": [
+    791,
+    237,
+    335,
+    465
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 1,
+   "file": "CAP-ROWSCALENDAR.json"
+  },
+  "Chart": {
+   "title": "Chart",
+   "box": [
+    552,
+    235,
+    572,
+    657
+   ],
+   "tabs": [
+    "Data",
+    "Design",
+    "Import / Export"
+   ],
+   "rows": 38,
+   "file": "CAP-ROWSCHART.json"
+  },
+  "Page Link": {
+   "title": "Content Link",
+   "box": [
+    556,
+    237,
+    335,
+    445
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 1,
+   "file": "CAP-ROWSPAGELINK.json"
+  },
+  "Tag Cloud": {
+   "title": "Tag Cloud",
+   "box": [
+    556,
+    236,
+    300,
+    495
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 4,
+   "file": "CAP-ROWSTAGCLOUD.json"
+  },
+  "RSS": {
+   "title": "RSS Block",
+   "box": [
+    555,
+    238,
+    350,
+    365
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 1,
+   "file": "CAP-ROWSRSS.json"
+  },
+  "SoundCloud": {
+   "title": "Edit SoundCloud Embed",
+   "box": [
+    554,
+    241,
+    470,
+    191
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 2,
+   "file": "CAP-ROWSSOUNDCLOUD.json"
+  },
+  "Bandsintown": {
+   "title": "Bandsintown",
+   "box": [
+    554,
+    237,
+    410,
+    420
+   ],
+   "tabs": [
+    "(no tabs)"
+   ],
+   "rows": 3,
+   "file": "CAP-ROWSBANDSINTOWN.json"
+  },
+  "Instagram": {
+   "title": "Grid",
+   "box": [
+    555,
+    237,
+    395,
+    498
+   ],
+   "tabs": [
+    "Account",
+    "Design"
+   ],
+   "rows": 9,
+   "file": "CAP-ROWSINSTAGRAM.json"
+  },
+  "Flickr": {
+   "title": "Grid",
+   "box": [
+    555,
+    237,
+    395,
+    498
+   ],
+   "tabs": [
+    "Account",
+    "Design"
+   ],
+   "rows": 9,
+   "file": "CAP-ROWSFLICKR.json"
+  }
+ },
+ "tock": {
+  "box": [
+   1166,
+   301,
+   320,
+   500
+  ],
+  "kind": "a plain panel, not a dialog",
+  "rows": [
+   "Join Tock",
+   "LEARN MORE",
+   "ALREADY A CUSTOMER"
+  ],
+  "closes": "Escape closes it"
+ },
+ "closes": "All nine read: no button in the dialog outside its body, no Cancel, no X. Escape leaves it open. A press on its own block leaves it open. Left by a reload. Exit in the top bar took over 5 s in an earlier read. Not tried: a press on an empty part of the page.",
+ "accountBound": {
+  "Instagram": {
+   "rows": [
+    "Choose an account (Add an account)",
+    "the feed"
+   ],
+   "why": "the menu connects an outside account. Without one, the Items slider changes nothing. Aspect Ratio, Crop Images and Open Links in New Window do change the block."
+  },
+  "Flickr": {
+   "rows": [
+    "Choose an account (Add an account)",
+    "the feed"
+   ],
+   "why": "the same as Instagram. Aspect Ratio, Crop Images, Show Title and Open Links in New Window change the block."
+  },
+  "Bandsintown": {
+   "rows": [
+    "Band Name",
+    "Timeframe to Show"
+   ],
+   "why": "the name looks up an outside service. Timeframe reads Upcoming or Date Range and was not pressed: the walk stops at a field that can reach outside."
+  },
+  "SoundCloud": {
+   "rows": [
+    "Enter a SoundCloud URL here"
+   ],
+   "why": "its only row is an outside URL. Not typed in."
+  },
+  "Tock": {
+   "rows": [
+    "Join Tock",
+    "LEARN MORE",
+    "ALREADY A CUSTOMER"
+   ],
+   "why": "a sign-up for an outside service. Not pressed."
+  }
+ },
+ "siteContentBound": {
+  "Calendar": "its only row says there are no collections",
+  "Page Link": "help and Learn more only with no page to pick",
+  "RSS": "help and Learn more only",
+  "Tag Cloud": "says there are no collections, yet Display Type, Sort By and the Tags slider change the block"
+ },
+ "notRead": [
+  "Instagram and Flickr layout pictures (Slideshow, Carousel, Grid, Stacked): the reader takes them as headings, not controls, so nothing pressed them",
+  "Chart Type options beyond a press to Line Chart: Pie Chart named, not pressed",
+  "a dialog when a collection or account exists"
+ ],
+ "answer": "Nine dialogs, 300 to 572 wide. Chart has three tabs, Instagram and Flickr two, the others none. None has a way out inside it.",
+ "pressed": "Add Block, Edit, each dialog tab, the rows in each CAP-ROWS file, Escape, and a press on the block by its id. Nothing typed in a field that can reach outside. On a probe page, unsaved. Left by a reload."
+}
