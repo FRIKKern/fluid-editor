@@ -3,20 +3,21 @@
 // Presses only named controls on top: Add Block, the tile, Edit, the tab, the row. Before the press the row must pass every
 // refusal: greyed, REFUSE, UNREAD's no rows, a field that reaches out, a tab whose note reaches further. No menu is closed by
 // a press: the next load ends whatever is open, and the run ends on a load of the pages list.
-//   ORACLE_SURFACE=cdp:<port> node scripts/oracle-sample.mjs [--page 'Gestures Probe']
+//   ORACLE_SURFACE=cdp:<port> node scripts/oracle-sample.mjs [--page 'Gestures Probe'] [--round2]
+// --round2 / --round3: the picks whose roundN.ours is pushed, each read at about 1.1 s and at 3 s, into roundN.oracle.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, pause, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { enterEdit, addSection, addBlock, sectionCount, escape, select } from './oracle/ui.mjs';
 import { tabsJs } from './lib/panel-rows.mjs';
 import { hasName, noRows, onNoList, reachesOut, WIDE_NOTE } from './lib/press-names.mjs';
-import { controlsJs, lookJs, lookDiff, change, findAt, findValue, REFUSE } from './lib/sample-look.mjs';
+import { controlsJs, lookJs, lookDiff, change, findAt, findValue, readTwice, REFUSE } from './lib/sample-look.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-sample: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
 const args = process.argv.slice(2), i0 = args.indexOf('--page'), PAGE = i0 < 0 ? 'Gestures Probe' : args[i0 + 1];
 const FILE = new URL('../parity/findings/SAMPLE-ROWS.json', import.meta.url);
-const f = JSON.parse(readFileSync(FILE));
+const f = JSON.parse(readFileSync(FILE)), TWO = process.argv.includes('--round2') ? 'round2' : process.argv.includes('--round3') ? 'round3' : null;
 const UNREAD = JSON.parse(readFileSync(new URL('../parity/findings/UNREAD.json', import.meta.url)));
 const js = (b) => evalJs(S, b);
 const save = () => writeFileSync(FILE, `${JSON.stringify(f, null, 1).replace(/https?:\/\//g, '')}\n`);
@@ -46,7 +47,7 @@ async function fresh(T) {
 }
 
 for (const p of f.picks) {
-  if (!p.ours?.diff || p.oracle) continue;
+  if (TWO ? !p[TWO]?.ours || p[TWO].oracle : !p.ours?.diff || p.oracle) continue;
   const rec = {};
   try {
     const id = await fresh(p.tile);
@@ -66,15 +67,17 @@ for (const p of f.picks) {
     else if (c.kind === 'menu' && !c.options.includes(p.to)) rec.notPressed = `no option ${p.to}`;
     else {
       rec.value0 = c.value;
-      const before = js(lookJs('sqs-site-frame', id));
+      const look = () => js(lookJs('sqs-site-frame', id)), before = look();
       await change(S, c.kind === 'menu' ? { ...c, options: [p.to] } : c, at, js);
-      await pause(300);
-      rec.diff = lookDiff(before, js(lookJs('sqs-site-frame', id)));
+      if (TWO) Object.assign(rec, await readTwice(look, before));
+      else { await pause(300); rec.diff = lookDiff(before, look()); }
       rec.value = findValue(js(controlsJs(ROOT)) || [], p);
     }
   } catch (e) { rec.error = e.message.slice(0, 140); }
-  p.oracle = rec; save();
-  console.log(p.tile, '|', p.row, '|', p.name, '|', rec.diff ? Object.keys(rec.diff).join(',') || 'nothing' : rec.notPressed || rec.error);
+  if (TWO) p[TWO].oracle = rec; else p.oracle = rec;
+  save();
+  const d = TWO ? rec.d3 : rec.diff;
+  console.log(p.tile, '|', p.row, '|', p.name, '|', d ? Object.keys(d).join(',') || 'nothing' : rec.notPressed || rec.error);
 }
 f.oraclePressed = 'For each pick on its own load of a probe page: Add Section, Add Block and the tile, Edit, the tab, and the row, each named and on top. Unsaved. Ended by a load of the pages list; no menu closed by a press.';
 save();
