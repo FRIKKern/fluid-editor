@@ -374,7 +374,7 @@ function blockInner(b, model) {
       // A phone that draws differently has a container of its own, as a button does.
       const box = (sys, inner) => `<div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_${sys}${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${inner}</div>`;
       const desk = drawnIn('desktop'), phone = b.designMobile ? drawnIn('mobile') : desk;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(b.phoneHeight)}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle

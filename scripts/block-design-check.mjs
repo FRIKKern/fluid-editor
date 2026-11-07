@@ -1,7 +1,8 @@
 // T15: a new Text through the real menu, then Stroke, Background, Padding, Corner, Blur and More
 // actions in the oracle's order, against parity/findings/BLOCKDESIGN.json.
 // Writes parity/block-design-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run block-design-check.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { inflateSync } from 'node:zlib';
 import { evalJs, goto, viewport, pause, ensureVisible, mouse, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
@@ -284,6 +285,30 @@ await click(`panel.querySelector('[data-anim-tile="hover-1"]')`);
 await click(`panel.querySelector('[data-anim="gear"]')`);
 await click(`[...panel.querySelectorAll('.an-tab')].find((e) => e.textContent === 'End')`);
 await neverUnder('Animation End, a foot below', false);
+
+// Blend Mode mixes with the section under the block (parity/findings/CAP-89MULTIPLY.json): on the
+// oracle a white Shape on Multiply shows the section's colour. Read by pixel from a screenshot.
+const pixelAt = (file, x, y) => {
+  const png = readFileSync(file); let p = 8, w = 0, bpp = 4; const idat = [];
+  while (p < png.length) { const len = png.readUInt32BE(p), type = png.toString('latin1', p + 4, p + 8), d = png.subarray(p + 8, p + 8 + len); if (type === 'IHDR') { w = d.readUInt32BE(0); bpp = d[9] === 6 ? 4 : 3; } if (type === 'IDAT') idat.push(d); p += 12 + len; }
+  const raw = inflateSync(Buffer.concat(idat)), stride = w * bpp; let prev = Buffer.alloc(stride), row;
+  for (let r = 0; r <= y; r++) {
+    const f = raw[r * (stride + 1)], src = raw.subarray(r * (stride + 1) + 1, (r + 1) * (stride + 1)); row = Buffer.alloc(stride);
+    for (let i = 0; i < stride; i++) { const a = i >= bpp ? row[i - bpp] : 0, b = prev[i], c = i >= bpp ? prev[i - bpp] : 0; const pa = Math.abs(b - c), pb = Math.abs(a - c), pc = Math.abs(a + b - 2 * c); row[i] = (src[i] + [0, a, b, (a + b) >> 1, pa <= pb && pa <= pc ? a : pb <= pc ? b : c][f]) & 255; }
+    prev = row;
+  }
+  return [row[x * bpp], row[x * bpp + 1], row[x * bpp + 2]];
+};
+const blendShot = async (blend) => {
+  const at = q(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = []; fe.load(next); await sleep(250); fe.addBlock(s.id, 'Shape'); await sleep(300); const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[1].blocks.at(-1); b.design = { ...(b.design || {}), blend: '${blend}' }; fe.load(m); await sleep(300); fe.select(null); await sleep(100); const d = fr.contentDocument; d.querySelectorAll('.page-section')[1].scrollIntoView(); await sleep(300); const r = d.querySelector('.fe-block[data-block-id="' + b.id + '"]').getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([Math.round(o.left + r.left + r.width / 2), Math.round(o.top + r.top + r.height / 2), Math.round(o.left + r.right + 40)]);`);
+  const file = `/tmp/block-design-blend-${process.pid}.png`; browser(S, 'screenshot', '--out', file);
+  const got = { shape: pixelAt(file, at[0], at[1]), section: pixelAt(file, at[2], at[1]) }; rmSync(file, { force: true }); return got;
+};
+const same = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 2);
+let px = await blendShot('normal');
+add('Blend Normal: a white Shape stays white', same(px.shape, [255, 255, 255]) && !same(px.section, [255, 255, 255]), JSON.stringify(px));
+px = await blendShot('multiply');
+add('Blend Multiply: the Shape shows the section', same(px.shape, px.section) && !same(px.section, [255, 255, 255]), JSON.stringify(px));
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

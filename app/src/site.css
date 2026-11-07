@@ -686,7 +686,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .vp-btn { flex: none; width: 24px; height: 24px; padding: 3px; border: 0; background: none; color: inherit; cursor: pointer; }
 
 /* Content that follows the width (STANDINS.json). The block's rows come from these heights. */
-.sqs-block-quote .sqs-block-content { padding: 6%; box-sizing: border-box; }
+/* The padding sits on the block, around .sqs-block-content, which holds the figure and its margins (CAP-75QUOTE.json, difference 86). */
+.sqs-block-quote { padding: 6%; box-sizing: border-box; }
 .sqs-quote-block-contents { margin: 16px 0; }
 .sqs-quote-block-contents blockquote { margin: 0; font-size: 24.4px; line-height: 34.16px; }
 .sqs-quote-block-contents .source { font-size: 16px; line-height: 16px; font-weight: 500; text-align: right; }
@@ -703,6 +704,12 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .chart-block-caption { margin-top: 15px; }
 .chart-block-caption figcaption { padding-top: 9.6px; border-top: 1px solid rgba(0, 0, 0, .1); font-size: 16px; line-height: 28.8px; }
 .sqs-block-soundcloud .sqs-block-content { position: relative; padding-bottom: 67%; }
+/* On a phone a block draws its content's height, not its rows (CAP-68PULL.json). A stand-in holds the oracle's height there.
+   Flickr's tiles go two to a row: 6 rows of squares at 376.7 wide make the oracle's 1190 (CAP-68FLICKR.json, inferred from that height). */
+@media (max-width: 767px) {
+  .sqs-block-shape .sqs-block-content[style*="--phone-h"] { height: var(--phone-h); }
+  .sqs-block-flickr .fe-tiles { grid-template-columns: repeat(2, 1fr); }
+}
 .fe-status { position: absolute; inset: 0 0 auto; box-sizing: border-box; padding: 22px 56px 22px 22px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 2px; background: #fff; color: rgb(62, 62, 62); text-align: left; }
 .fe-status-title { margin-bottom: 11px; font-size: 12px; line-height: 19.8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .fe-status-message { font-size: 11px; line-height: 18.15px; }

@@ -1079,9 +1079,7 @@
   "answer": "A phone pull takes its rows from the height the block draws, not from its rows. South one row, from a new block: Scheduling 21, Calendar 16, Archive 26, SoundCloud 9, Flickr 36, Pricing Plan 14. Rows = ceil((height + 11) / 35) + 1. That explains the jumps in CAP-X6PHONEFLOORS.json. Inferred from reads.",
   "predicted": "21, 16, 26, 9, 36, 14.",
   "result": "6 of 6.",
-  "ours": "South one row: Scheduling 6, Calendar 19, Archive 9, SoundCloud 9, Flickr 10, Pricing Plan 12. SoundCloud is the one drawn at the oracle's height, and it matches, so ours has this rule; the drawn heights are what differ.",
-  "differs": [
-    "71: the height a block draws on the phone, and so the rows a pull gives."
-  ],
+  "ours": "The same now, 6 of 6, by npm run x6-check: Scheduling 21, Calendar 16, Archive 26, SoundCloud 9, Flickr 36, Pricing Plan 14. Before, the pull stepped on rows the content had stretched: Scheduling 6, Calendar 19, Archive 9, SoundCloud 9, Flickr 10, Pricing Plan 12.",
+  "differs": [],
   "pressed": "Add Block, the tile and the south handle by the real mouse, the handle checked on top by its cursor and size, on Gestures Probe, unsaved."
 }

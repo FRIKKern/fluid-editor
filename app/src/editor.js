@@ -648,10 +648,12 @@ const FORM_ON_PAGE = '.fe-form:not(.form-lightbox .fe-form)';
 function contentRows(b, m, normalizing = false, widthPull = false, exact = false) {
   // Content that follows the width (STANDINS.json). A pull that changes the width lets it run over by
   // less than the gap until the next gesture; one that changes only the height does not.
-  if (b.standin) {
+  // A stand-in with a phone height counts it there, as one whose content follows the width (CAP-68PULL.json).
+  if (b.standin || (b.phoneHeight && bp === 'mobile')) {
     const c = blockEl(b.id)?.querySelector('.sqs-block-content');
     if (!c) return 1;
-    const h = c.getBoundingClientRect().height;
+    // A Quote's padding sits around its content box and still takes rows (CAP-75QUOTE.json).
+    const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
   }
@@ -1307,6 +1309,16 @@ function startResize(e, dir) {
   const q0 = blockEl(held.id).getBoundingClientRect();
   gesture.bottom0 = q0.bottom;
   gesture.right0 = q0.right;
+  // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
+  // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
+  if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
+    const h = blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height, rg = gesture.m.rg, pitch = PHONE_ROW + rg;
+    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.02)) };
+    // Held, the block leaves the flow and its rows would close up, the page with them, and the frame's scroll would jump: the grid
+    // keeps its height until the gesture ends.
+    const fe = feEl(gesture.sid);
+    fe.style.minHeight = `${fe.getBoundingClientRect().height}px`;
+  }
 }
 
 const boxOf = (areas) => [Math.min(...areas.map((a) => a[0])), Math.min(...areas.map((a) => a[1])), Math.max(...areas.map((a) => a[2])), Math.max(...areas.map((a) => a[3]))];
@@ -1399,10 +1411,12 @@ function updateResize(e) {
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
   if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('s')) r1 = g.free ? r0 + g.free.need + Math.sign(dy) * Math.max(0, Math.round((Math.abs(dy) - g.free.rg / 2) / g.free.pitch)) : Math.max(r0 + 1, snapRow(m, r1, dy));
   if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   // Guard: a target cannot be shorter than the content at the width the block has now.
-  const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
+  // A stand-in on a phone takes at least the rows of the height it drew at the press, on a side pull too, and keeps them as it
+  // narrows; one whose content grows as it narrows, like a Quote, takes that (CAP-X6PHONEFLOORS.json).
+  const need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
@@ -1437,6 +1451,7 @@ function endGesture() {
   const fe = feEl(g.sid);
   fe.dataset.gridIsVisible = 'false';
   fe.style.gridAutoRows = '';
+  fe.style.minHeight = '';
   clearFlags(g.sid);
   fe.classList.remove('is-gesture');
   g.line?.remove();
@@ -1756,14 +1771,18 @@ function renderBlockPanel() {
 // it and lets the block go; Escape and a press on its own block leave it open. It sits by the block's right edge, at a
 // height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
 const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
+// Edit gives the first control that takes input the focus, with its ring (CAP-T12PALETTES.json: Chart Type on Chart, read
+// once; the others inferred). A row that redraws the dialog keeps the focus on its own control.
+const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]:not([disabled]), .dl-row textarea:not([disabled])';
 function renderDialog(b) {
-  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]);
+  const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;
   if (dialogEl.dataset.key !== key) {
-    const top = dialogEl.scrollTop;
+    const top = dialogEl.scrollTop, had = dialogEl.contains(document.activeElement) ? document.activeElement.dataset.dl : null;
     dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
     if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
     dialogEl.dataset.key = key;
     dialogEl.dataset.bid = b.id;
+    if (had) dialogEl.querySelector(`[data-dl="${had}"]`)?.focus({ preventScroll: true });
   }
   const el = blockEl(b.id), f = frame.getBoundingClientRect(), st = stage.getBoundingClientRect();
   dialogEl.style.width = `${d.w}px`;
@@ -1771,6 +1790,7 @@ function renderDialog(b) {
   dialogEl.style.left = `${f.left - st.left + el.getBoundingClientRect().right + d.dx}px`;
   dialogEl.style.top = `${f.top - st.top + d.top}px`;
   dialogEl.hidden = false;
+  if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
 // read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
@@ -4767,6 +4787,10 @@ function renderPanel() {
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
+// On a phone a block draws its content's height, not its rows. These stand-ins hold the height the oracle's block draws at the
+// phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
+const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
+const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
@@ -4786,10 +4810,11 @@ const ADD_TYPES = [
   ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}) })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHT[name] ? { phoneHeight: PHONE_HEIGHT[name] } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
-const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
+// Calendar and Pricing Plan too, a rule and not late content: the same rows from 1 s to 111 s (CAP-68CAL.json, CAP-68PRICE.json, CAP-68PULL.json).
+const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8, Calendar: 15, 'Pricing Plan': 10 };
 // A new block lands by how far its section's top sits above the frame; past the section's last row it lands on
 // row 1, and the frame goes so the block's middle is at its middle, or as near as the page allows (CAP-T14FRAME.json,
 // CAP-T14FRAME2.json, CAP-T14PLACE.json, CAP-T14BACK.json: inferred, on predictions). Read on desktop only, so the
@@ -6244,6 +6269,15 @@ styleMenu.addEventListener('click', (e) => {
 });
 
 const pinPop = $('pin-popover');
+// Each option keeps its own Offset with its unit, and one never set starts at 0px (97, CAP-U4PINTO.json, CAP-U4PINTO2.json:
+// 5vh on Top, Center 0px, 3vh on Center, Bottom 0px, Center 3vh again, Top 5vh again). The others wait in kept.
+function pinTo(st, k) {
+  const kept = { ...(st?.kept || {}) };
+  if (st) kept[st.anchor] = { offset: st.offset, ...(st.unit ? { unit: st.unit } : {}) };
+  const got = kept[k] || { offset: 0 };
+  delete kept[k];
+  return { anchor: k, ...got, ...(Object.keys(kept).length ? { kept } : {}) };
+}
 function openPin(sid, bid) {
   const b = B(sid, bid);
   pinPop.dataset.sid = sid; pinPop.dataset.bid = bid;
@@ -6267,7 +6301,7 @@ pinPop.addEventListener('click', (e) => {
   const o = e.target.closest('[data-pin]');
   if (!o) return;
   const k = o.dataset.pin;
-  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = { anchor: k, offset: L.sticky?.offset || 0 }; }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
 // The field wants a number and a unit, exactly so: anything else stays as typed until the field is
 // left, then goes back. No limit on the number; the slider only shows what fits its range.
@@ -6280,7 +6314,8 @@ function applyPinField(f, revert) {
   const offset = parseFloat(m[1]), unit = m[2];
   if (offset === L.sticky.offset && unit === (L.sticky.unit || 'px')) return;
   const before = JSON.stringify(model);
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit === 'px' ? {} : { unit }) };
+  L.sticky = { ...L.sticky, offset, unit };
+  if (unit === 'px') delete L.sticky.unit;
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${f.value}`);
   pinPop.querySelector('[data-pin-range]').value = pinRangeValue(offset);
@@ -6293,7 +6328,7 @@ pinPop.addEventListener('input', (e) => {
   if (!L?.sticky) return;
   const before = JSON.stringify(model);
   const offset = Number(e.target.value), unit = L.sticky.unit;
-  L.sticky = { anchor: L.sticky.anchor, offset, ...(unit ? { unit } : {}) }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
+  L.sticky = { ...L.sticky, offset }; // It keeps the unit (CAP-U4PINUNIT.json, CAP-U4PINDRAG.json).
   renderSectionDom(pinPop.dataset.sid);
   commit(before, `Pin offset ${offset}${unit || 'px'}`);
   pinPop.querySelector('[data-pin-offset]').value = `${offset}${unit || 'px'}`;

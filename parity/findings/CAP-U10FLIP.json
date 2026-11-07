@@ -1,0 +1,356 @@
+{
+  "item": "CAP-U10FLIP",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "CAP-U10FLIP",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "click",
+      "Flip X Axis"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "flip pressed",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "start",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "pick 2",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "pick 0",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "pick 3",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "pick 4",
+      {
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "flip pressed": {
+      "look": {
+        "top": -157,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.888,
+        "edge": "curve",
+        "h": 845.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":true,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
