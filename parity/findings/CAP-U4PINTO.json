@@ -1,0 +1,689 @@
+{
+  "item": "CAP-U4PINTO",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "97: after Offset 5vh, each other Pin option, then Remove Pin and a new pin: the Offset field and slider",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "fillValue",
+      "0px",
+      "5vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "5vh",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Center on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Pin to Center on Scroll",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Bottom on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Pin to Bottom on Scroll",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Top on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Pin to Top on Scroll",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Remove Pin\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Remove Pin",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Top on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Remove Pin, then Pin to Top on Scroll",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "shot",
+      "pinto"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ]
+  ],
+  "reads": {
+    "5vh": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc focus-visible",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Pin to Center on Scroll": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Pin to Bottom on Scroll": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            445.4,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            478.4,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Pin to Top on Scroll": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Remove Pin": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Remove Pin, then Pin to Top on Scroll": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressEl [\"label:has(input[aria-label=\\\"Pin to Top on Scroll\\\"])\"]: nothing at label:has(input[aria-label=\"Pin to Top on Scroll\"]) 0"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
