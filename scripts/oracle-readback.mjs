@@ -111,24 +111,6 @@ async function readLists(view) {
   if (spec.family) await readFamily(spec.family, out);
   // A view's font rows after the first one read: each opens its own list, read and closed the same way.
   if (spec.moreFamilies) {
-    const name = JSON.stringify(spec.moreFamilies);
-    const isRow = `(x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 150 && getComputedStyle(x).cursor === 'pointer' && (x.innerText || '').trim() === ${name}; }`;
-    const rows = `[...document.querySelectorAll('body *')].filter(${isRow}).filter((x) => ![...x.children].some(${isRow}))`;
-    const count = js(`return JSON.stringify(${COMBOS}.length);`);
-    if (!count) throw new Error(`${view}: no list rows`);
-    out.combos = [];
-    for (let i = 0; i < count; i++) {
-      const name = js(`return JSON.stringify(${COMBOS}[${i}].innerText.replace(/\\s+/g, ' ').trim());`);
-      await press('list row', `${COMBOS}[${i}]`, 700); await away();
-      const options = js(`return JSON.stringify([...document.querySelectorAll('[role=listbox] [role=option]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => [x.innerText.trim(), x.getAttribute('aria-selected') || '']));`);
-      if (!options.length) throw new Error(`${view} ${name}: no list opened`);
-      out.combos.push([name, options]);
-      await closeOpen(`${view} ${name}`);
-    }
-  }
-  if (spec.family) await readFamily(spec.family, out);
-  // A view's font rows after the first one read: each opens its own list, read and closed the same way.
-  if (spec.moreFamilies) {
     const rows = `[...document.querySelectorAll('body *')].filter((x) => { const r = x.getBoundingClientRect(); return r.left >= 1282 && r.width > 150 && getComputedStyle(x).cursor === 'pointer' && (x.innerText || '').trim() === ${JSON.stringify(spec.moreFamilies)} && !x.parentElement.closest('[style*="cursor"]') && ![...x.children].some((c) => (c.innerText || '').trim() === ${JSON.stringify(spec.moreFamilies)} && getComputedStyle(c).cursor === 'pointer'); })`;
     const count = js(`return JSON.stringify(${rows}.length);`);
     out.moreFamilies = [];
