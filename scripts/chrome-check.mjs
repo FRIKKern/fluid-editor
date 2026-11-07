@@ -105,6 +105,20 @@ for (const [file, pin, phone] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', fals
   total++; if (!bad.length && presses >= 4) pass++; else console.log(`DIFF ${file}, ${presses} presses: ${bad.join(' ; ')}`);
   results.push({ name: `${file}: Forward and Backward, ${presses} presses`, same: !bad.length && presses >= 4 });
 }
+// Offset, Rotate and Scale move the block, not its panel, open or opened again (CAP-PANELSTILL.json, CAP-PANELSTILL2.json).
+{ const P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PANELSTILL.json', import.meta.url))).reads, P2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PANELSTILL2.json', import.meta.url))).reads;
+  const r = evalJs(S, `(async () => { const sleep = (x) => new Promise((res) => setTimeout(res, x)); const f = document.getElementById('site-frame'), d = () => f.contentDocument;
+    fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 20, mobile: 20 }, blocks: [{ id: 'a', type: 'shape', label: 'a', fill: '#ccc', layout: { desktop: { area: [1, 2, 7, 8], z: 1, justify: 'center', align: 'center' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'center', align: 'center' } } }] }] }); await sleep(200);
+    fe.select('s', 'a'); await sleep(120); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200);
+    const panel = () => { const q = document.getElementById('block-panel').getBoundingClientRect(); return [q.left, q.top]; }, blockAt = () => { const q = d().querySelector('.fe-block[data-block-id="a"]').getBoundingClientRect(); return [q.left, q.top, q.width, q.height].map(Math.round); };
+    const set = async (key, v) => { const i = document.querySelector('#block-panel input[data-design="' + key + '"]'); i.value = v; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); };
+    const out = { start: panel(), steps: {}, moved: {} };
+    for (const [name, key, v] of [['Offset X 200', 'tx', '200'], ['Offset Y 100', 'ty', '100'], ['Rotate 30', 'rotate', '30'], ['Scale X 150', 'sx', '150']]) { await set(key, v); out.steps[name] = panel(); out.moved[name] = blockAt(); }
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); fe.select('s', 'a'); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.steps.again = panel();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fe.select(null); return JSON.stringify(out); })()`);
+  for (const name of ['Offset X 200', 'Offset Y 100', 'Rotate 30', 'Scale X 150']) { total++; const box = P[name].block.box.map(Math.round), still = near(r.steps[name], r.start), same = r.moved[name].every((v, k) => Math.abs(v - box[k]) <= 2 || k === 1); if (still && same) pass++; else console.log(`DIFF panel under ${name}: at ${r.start}, then ${r.steps[name]}; block ${r.moved[name]}, oracle ${box}`); results.push({ name: `panel stays under ${name}`, same: still && same }); }
+  total++; const again = near(r.steps.again, r.start) && P2['opened again'].panelBox.box[0] === P.start.panelBox.box[0]; if (again) pass++; else console.log(`DIFF panel opened again: ${r.steps.again}, at first ${r.start}`); results.push({ name: 'panel opened again beside the box', same: again });
+}
 console.log(`Editor chrome: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/chrome-check.json', import.meta.url), JSON.stringify({ check: 'block toolbar and selection rings', tolerance: 1, pass, total, results }, null, 2) + '\n');
 process.exit(pass === total ? 0 : 1);

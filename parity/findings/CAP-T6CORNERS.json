@@ -1,208 +1,340 @@
 {
- "item": "T6",
- "kind": "capture",
- "oracle": "trial site, Blocks Probe, a new Shape, unsaved",
- "capturedAt": "2026-11-07",
- "question": "A rectangle Shape with four corners and a stroke: what is drawn",
- "how": "Corners typed 5, 10, 20, 40 in Individual. Thickness pressed by part. Read: the block svg children, computed stroke, the path d in full.",
- "block": [
-  341.6875,
-  235.5625
- ],
- "rule": {
-  "note": "With a corner above 0 it is a path in the svg, with no viewBox. It starts at the top middle and runs clockwise. W and H are the box in whole px (342 by 236 here). With stroke w its box is -w/2, -w/2, W+w, H+w. Radii that do not fit shrink together by f = min(1, side with stroke / sum of the two radii on it), each is then r*f - w/2 and at least 0. A radius of 0 has no arc. Corners all 0 give a rect.",
-  "joins": "square caps and miter joins with a stroke, non-scaling."
- },
- "corners": [
-  5,
-  10,
-  20,
-  40
- ],
- "reads": {
-  "nostroke": {
-   "tag": "path",
-   "d": "M171,0 H332 A10,10 0 0 1 342,10 V216 A20,20 0 0 1 322,236 H40 A40,40 0 0 1 0,196 V5 A5,5 0 0 1 5,0 Z",
-   "box": [
-    0,
-    0,
-    342,
-    236
-   ],
-   "stroke": "none",
-   "w": "1px",
-   "dash": "none",
-   "effect": "none",
-   "cap": "butt",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
+  "item": "T6",
+  "kind": "capture",
+  "oracle": "trial site, Blocks Probe, a new Shape, unsaved",
+  "capturedAt": "2026-11-07",
+  "question": "A rectangle Shape with four corners and a stroke: what is drawn",
+  "how": "Corners typed 5, 10, 20, 40 in Individual. Thickness pressed by part. Read: the block svg children, computed stroke, the path as numbers: its start, its extent and each arc radius in drawing order.",
+  "block": [
+    341.6875,
+    235.5625
+  ],
+  "rule": {
+    "note": "With a corner above 0 it is a path in the svg, with no viewBox. It starts at the top middle and runs clockwise. W and H are the box in whole px (342 by 236 here). With stroke w its box is -w/2, -w/2, W+w, H+w. Radii that do not fit shrink together by f = min(1, side with stroke / sum of the two radii on it), each is then r*f - w/2 and at least 0. A radius of 0 has no arc. Corners all 0 give a rect.",
+    "joins": "square caps and miter joins with a stroke, non-scaling.",
+    "ours": "The rule is ours, written from the box and the radii. No path string or computed clip-path is copied into the repo, and the curves stay ours by O2."
   },
-  "solidS": {
-   "tag": "path",
-   "d": "M171,-1 H334 A9,9 0 0 1 343,8 V218 A19,19 0 0 1 324,237 H38 A39,39 0 0 1 -1,198 V3 A4,4 0 0 1 3,-1 Z",
-   "box": [
-    -1,
-    -1,
-    344,
-    238
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "2px",
-   "dash": "0px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  },
-  "solidM": {
-   "tag": "path",
-   "d": "M171,-3 H338 A7,7 0 0 1 345,4 V222 A17,17 0 0 1 328,239 H34 A37,37 0 0 1 -3,202 V-1 A2,2 0 0 1 -1,-3 Z",
-   "box": [
-    -3,
-    -3,
-    348,
-    242
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "6px",
-   "dash": "0px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  },
-  "solidL": {
-   "tag": "path",
-   "d": "M171,-7.5 H347 A2.5,2.5 0 0 1 349.5,-5 V231 A12.5,12.5 0 0 1 337,243.5 H25 A32.5,32.5 0 0 1 -7.5,211 V-7.5 Z",
-   "box": [
-    -7.5,
-    -7.5,
-    357,
-    251
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "15px",
-   "dash": "0px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  },
-  "dashS": {
-   "tag": "path",
-   "d": "M171,-1 H334 A9,9 0 0 1 343,8 V218 A19,19 0 0 1 324,237 H38 A39,39 0 0 1 -1,198 V3 A4,4 0 0 1 3,-1 Z",
-   "box": [
-    -1,
-    -1,
-    344,
-    238
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "2px",
-   "dash": "5px, 17px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  },
-  "dashM": {
-   "tag": "path",
-   "d": "M171,-3 H338 A7,7 0 0 1 345,4 V222 A17,17 0 0 1 328,239 H34 A37,37 0 0 1 -3,202 V-1 A2,2 0 0 1 -1,-3 Z",
-   "box": [
-    -3,
-    -3,
-    348,
-    242
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "6px",
-   "dash": "5px, 21px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  },
-  "dashL": {
-   "tag": "path",
-   "d": "M171,-7.5 H347 A2.5,2.5 0 0 1 349.5,-5 V231 A12.5,12.5 0 0 1 337,243.5 H25 A32.5,32.5 0 0 1 -7.5,211 V-7.5 Z",
-   "box": [
-    -7.5,
-    -7.5,
-    357,
-    251
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "15px",
-   "dash": "5px, 30px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  }
- },
- "big": {
   "corners": [
-   0,
-   10,
-   20,
-   300
+    5,
+    10,
+    20,
+    40
   ],
-  "stroked": {
-   "tag": "path",
-   "d": "M171,-3 H339.933 A5.067,5.067 0 0 1 345,2.067 V225.867 A13.133,13.133 0 0 1 331.867,239 H236 A239,239 0 0 1 -3,0 V-3 Z",
-   "box": [
-    -3,
-    -3,
-    348,
-    242
-   ],
-   "stroke": "rgb(0, 0, 0)",
-   "w": "6px",
-   "dash": "0px",
-   "effect": "non-scaling-stroke",
-   "cap": "square",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
+  "reads": {
+    "nostroke": {
+      "tag": "path",
+      "box": [
+        0,
+        0,
+        342,
+        236
+      ],
+      "stroke": "none",
+      "w": "1px",
+      "dash": "none",
+      "effect": "none",
+      "cap": "butt",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        0.0
+      ],
+      "extent": [
+        0.0,
+        0.0,
+        342.0,
+        236.0
+      ],
+      "arcs": [
+        10.0,
+        20.0,
+        40.0,
+        5.0
+      ]
+    },
+    "solidS": {
+      "tag": "path",
+      "box": [
+        -1,
+        -1,
+        344,
+        238
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "2px",
+      "dash": "0px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -1.0
+      ],
+      "extent": [
+        -1.0,
+        -1.0,
+        343.0,
+        237.0
+      ],
+      "arcs": [
+        9.0,
+        19.0,
+        39.0,
+        4.0
+      ]
+    },
+    "solidM": {
+      "tag": "path",
+      "box": [
+        -3,
+        -3,
+        348,
+        242
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "6px",
+      "dash": "0px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -3.0
+      ],
+      "extent": [
+        -3.0,
+        -3.0,
+        345.0,
+        239.0
+      ],
+      "arcs": [
+        7.0,
+        17.0,
+        37.0,
+        2.0
+      ]
+    },
+    "solidL": {
+      "tag": "path",
+      "box": [
+        -7.5,
+        -7.5,
+        357,
+        251
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "15px",
+      "dash": "0px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -7.5
+      ],
+      "extent": [
+        -7.5,
+        -7.5,
+        349.5,
+        243.5
+      ],
+      "arcs": [
+        2.5,
+        12.5,
+        32.5
+      ]
+    },
+    "dashS": {
+      "tag": "path",
+      "box": [
+        -1,
+        -1,
+        344,
+        238
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "2px",
+      "dash": "5px, 17px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -1.0
+      ],
+      "extent": [
+        -1.0,
+        -1.0,
+        343.0,
+        237.0
+      ],
+      "arcs": [
+        9.0,
+        19.0,
+        39.0,
+        4.0
+      ]
+    },
+    "dashM": {
+      "tag": "path",
+      "box": [
+        -3,
+        -3,
+        348,
+        242
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "6px",
+      "dash": "5px, 21px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -3.0
+      ],
+      "extent": [
+        -3.0,
+        -3.0,
+        345.0,
+        239.0
+      ],
+      "arcs": [
+        7.0,
+        17.0,
+        37.0,
+        2.0
+      ]
+    },
+    "dashL": {
+      "tag": "path",
+      "box": [
+        -7.5,
+        -7.5,
+        357,
+        251
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "15px",
+      "dash": "5px, 30px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -7.5
+      ],
+      "extent": [
+        -7.5,
+        -7.5,
+        349.5,
+        243.5
+      ],
+      "arcs": [
+        2.5,
+        12.5,
+        32.5
+      ]
+    }
   },
-  "off": {
-   "tag": "path",
-   "d": "M171,0 H334.133 A7.867,7.867 0 0 1 342,7.867 V220.267 A15.733,15.733 0 0 1 326.267,236 H236 A236,236 0 0 1 0,0 V0 Z",
-   "box": [
-    0,
-    0,
-    342,
-    236
-   ],
-   "stroke": "none",
-   "w": "1px",
-   "dash": "none",
-   "effect": "none",
-   "cap": "butt",
-   "join": "miter",
-   "fill": "rgb(255, 255, 255)"
-  }
- },
- "uniformZero": {
-  "tag": "rect",
-  "d": null,
-  "box": [
-   0,
-   0,
-   341.7,
-   235.6
-  ],
-  "stroke": "none",
-  "w": "1px",
-  "dash": "none",
-  "effect": "none",
-  "cap": "butt",
-  "join": "miter",
-  "fill": "rgb(255, 255, 255)"
- },
- "dashes": "Built: the same path as the oracle, so dashes start at the top middle and go the same way. Dash lengths along an arc follow from the same d.",
- "plainDiv": "With no stroke ours stays a div with border-radius, the same box and the same shrink rule. Compared in one screenshot, named in T6.",
- "inferred": [
-  "A shape other than a rectangle: its caps and joins were not read here.",
-  "A box with a half pixel: whole px is read at 341.69 and 235.56."
- ]
+  "big": {
+    "corners": [
+      0,
+      10,
+      20,
+      300
+    ],
+    "stroked": {
+      "tag": "path",
+      "box": [
+        -3,
+        -3,
+        348,
+        242
+      ],
+      "stroke": "rgb(0, 0, 0)",
+      "w": "6px",
+      "dash": "0px",
+      "effect": "non-scaling-stroke",
+      "cap": "square",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        -3.0
+      ],
+      "extent": [
+        -3.0,
+        -3.0,
+        345.0,
+        239.0
+      ],
+      "arcs": [
+        5.067,
+        13.133,
+        239.0
+      ]
+    },
+    "off": {
+      "tag": "path",
+      "box": [
+        0,
+        0,
+        342,
+        236
+      ],
+      "stroke": "none",
+      "w": "1px",
+      "dash": "none",
+      "effect": "none",
+      "cap": "butt",
+      "join": "miter",
+      "fill": "rgb(255, 255, 255)",
+      "start": [
+        171.0,
+        0.0
+      ],
+      "extent": [
+        0.0,
+        0.0,
+        342.0,
+        236.0
+      ],
+      "arcs": [
+        7.867,
+        15.733,
+        236.0
+      ]
+    }
+  },
+  "uniformZero": {
+    "tag": "rect",
+    "d": null,
+    "box": [
+      0,
+      0,
+      341.7,
+      235.6
+    ],
+    "stroke": "none",
+    "w": "1px",
+    "dash": "none",
+    "effect": "none",
+    "cap": "butt",
+    "join": "miter",
+    "fill": "rgb(255, 255, 255)"
+  },
+  "dashes": "Built: the same path as the oracle, so dashes start at the top middle and go the same way. Dash lengths along an arc follow from the same d.",
+  "plainDiv": "With no stroke ours stays a div with border-radius, the same box and the same shrink rule. Compared in one screenshot, named in T6.",
+  "inferred": [
+    "A shape other than a rectangle: its caps and joins were not read here.",
+    "A box with a half pixel: whole px is read at 341.69 and 235.56."
+  ]
 }

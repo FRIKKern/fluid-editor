@@ -33,18 +33,18 @@ export const PRESETS = {
   scroll: [
     { id: 'scroll-1', name: 'Parallax', start: ['100%', '15°', '100%', '100%', '-25%', '25%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0px', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '100%', ease: 'In Out', iterations: '1'},
     { id: 'scroll-2', name: 'Twirl', start: ['0%', '90°', '80%', '80%', '0%', '0%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '50%', ease: 'Out', iterations: '1'},
-    { id: 'scroll-3', name: 'Move', start: ['100%', '0°', '100%', '100%', '-200%', '0%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '100%', ease: 'Ease', iterations: '1'},
+    { id: 'scroll-3', name: 'Move', start: ['100%', '0°', '100%', '100%', '-200%', '0%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', endEdge: 'Top', startPasses: '0%', endPasses: '100%', ease: 'Ease', iterations: '1'},
     { id: 'scroll-4', name: 'Roll', start: ['100%', '180°', '95%', '95%', '200%', '0px', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '50%', ease: 'Out', iterations: '1'},
-    { id: 'scroll-5', name: 'Drop', start: ['0%', '30°', '100%', '100%', '0%', '-200%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '100%', ease: 'In Out', iterations: '1'},
-    { id: 'scroll-6', name: 'Zoom', start: ['100%', '0°', '400%', '400%', '0%', '200%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', startPasses: '0%', endPasses: '100%', ease: 'Ease', iterations: '1'},
+    { id: 'scroll-5', name: 'Drop', start: ['0%', '30°', '100%', '100%', '0%', '-200%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', endEdge: 'Top', startPasses: '0%', endPasses: '100%', ease: 'In Out', iterations: '1'},
+    { id: 'scroll-6', name: 'Zoom', start: ['100%', '0°', '400%', '400%', '0%', '200%', '0°', '0°'], end: ['100%', '0°', '100%', '100%', '0%', '0%', '0°', '0°'], when: 'Block', action: 'Passes', endEdge: 'Top', startPasses: '0%', endPasses: '100%', ease: 'Ease', iterations: '1'},
   ],
   appear: [
-    { id: 'appear-1', name: 'Pop', start: ['100%', '0°', '0%', '0%', '0px', '0px', '0°', '0°'], ease: 'Spring', bounce: '0.1', duration: '0.7s', delay: '0s', when: 'Block', screen: '0%'},
-    { id: 'appear-2', name: 'Slide', start: ['100%', '-10°', '100%', '100%', '0px', '100%', '0°', '0°'], ease: 'Spring', bounce: '0.1', duration: '0.8s', delay: '0s', when: 'Block', screen: '0%'},
-    { id: 'appear-3', name: 'Drop', start: ['0%', '-15°', '80%', '80%', '0px', '-200%', '0°', '0°'], ease: 'Spring', bounce: '0.2', duration: '0.7s', delay: '0s', when: 'Block', screen: '50%'},
-    { id: 'appear-4', name: 'Reveal', start: ['0%', '0°', '20%', '20%', '0px', '100%', '15°', '-40°'], ease: 'Spring', bounce: '0.1', duration: '0.9s', delay: '0s', when: 'Block', screen: '0%'},
-    { id: 'appear-5', name: 'Stamp', start: ['0%', '-15°', '125%', '125%', '0px', '0px', '0°', '0°'], ease: 'Spring', bounce: '0.3', duration: '0.6s', delay: '0s', when: 'Block', screen: '33%'},
-    { id: 'appear-6', name: 'Zoom', start: ['100%', '0°', '200%', '200%', '0px', '200%', '0°', '0°'], ease: 'Spring', bounce: '0', duration: '0.9s', delay: '0s', when: 'Block', screen: '-100%'},
+    { id: 'appear-1', name: 'Pop', start: ['100%', '0°', '0%', '0%', '0px', '0px', '0°', '0°'], ease: 'Spring', bounce: '0.1', duration: '0.7s', delay: '0s', when: 'Block', edge: 'Middle', screen: '0%'},
+    { id: 'appear-2', name: 'Slide', start: ['100%', '-10°', '100%', '100%', '0px', '100%', '0°', '0°'], ease: 'Spring', bounce: '0.1', duration: '0.8s', delay: '0s', when: 'Block', edge: 'Middle', screen: '0%'},
+    { id: 'appear-3', name: 'Drop', start: ['0%', '-15°', '80%', '80%', '0px', '-200%', '0°', '0°'], ease: 'Spring', bounce: '0.2', duration: '0.7s', delay: '0s', when: 'Block', edge: 'Middle', screen: '50%'},
+    { id: 'appear-4', name: 'Reveal', start: ['0%', '0°', '20%', '20%', '0px', '100%', '15°', '-40°'], ease: 'Spring', bounce: '0.1', duration: '0.9s', delay: '0s', when: 'Block', edge: 'Top', screen: '0%'},
+    { id: 'appear-5', name: 'Stamp', start: ['0%', '-15°', '125%', '125%', '0px', '0px', '0°', '0°'], ease: 'Spring', bounce: '0.3', duration: '0.6s', delay: '0s', when: 'Block', edge: 'Bottom', screen: '33%'},
+    { id: 'appear-6', name: 'Zoom', start: ['100%', '0°', '200%', '200%', '0px', '200%', '0°', '0°'], ease: 'Spring', bounce: '0', duration: '0.9s', delay: '0s', when: 'Block', edge: 'Top', screen: '-100%'},
   ],
   follow: [
     { id: 'follow-1', name: 'Follow', end: ['100%', '0°', '100%', '100%', '150px', '150px', '0°', '0°'], motion: 'Attract', on: 'Block', smoothing: '0.75', radius: '200%', bounce: '0.3', snap: true},
@@ -105,9 +105,9 @@ export function newAnimation(trigger, id) {
   const p = id && PRESETS[trigger].find((x) => x.id === id);
   const a = { trigger, preset: p ? p.id : 'custom', ...BLANK[trigger], end: [...REST] };
   if (TABS[trigger].includes('Start')) a.start = [...REST];
-  if (p) { const { id: _i, name: _n, ...v } = p; delete a.custom; Object.assign(a, JSON.parse(JSON.stringify(v))); }
   if (trigger === 'scroll') Object.assign(a, { startEdge: 'Top', endEdge: 'Bottom', startCross: 'Entry Crossing', endCross: 'Exit Crossing', topInset: '0%', bottomInset: '0%' });
   if (trigger === 'appear') a.edge = 'Top';
+  if (p) { const { id: _i, name: _n, ...v } = p; delete a.custom; Object.assign(a, JSON.parse(JSON.stringify(v))); }
   return a;
 }
 // The list row's second line: the time, or for two triggers the choice that stands for it.
@@ -279,4 +279,100 @@ export function bindTriggers(doc, rowsOf) {
   on('pointerout', (s) => { s.over = false; s.down = false; });
   on('pointerdown', (s) => { s.down = true; s.over = true; });
   on('pointerup', (s) => { s.down = false; });
+}
+
+// ---- The page in preview mode: Loop, On Appear and On Scroll (parity/findings/CAP-T15TRIGGERS.json).
+// A row watches a box where it sits before any transform: its block's, or its section's. Screen
+// percents count up from the bottom of the frame.
+const SHARE = { Top: 0, Middle: 0.5, Bottom: 1 };
+const pct = (s) => (parseFloat(s) || 0) / 100;
+function watched(el, a) {
+  const box = a.when === 'Section' ? el.closest('section') || el : el;
+  let top = 0;
+  for (let e = box; e; e = e.offsetParent) top += e.offsetTop;
+  return { top, h: box.offsetHeight, self: box === el };
+}
+// The scroll at which On Appear plays. Start's Offset Y moves the edge; its scale and rotate do
+// not, but a scale of 0 leaves no box: Top and Middle act at the middle, and Bottom never plays.
+export function appearAt({ top, h, self }, a, view) {
+  const n = numbers(a.start);
+  let share = SHARE[a.edge] ?? 0;
+  if (self && n.sy === 0) { if (a.edge === 'Bottom') return Infinity; share = 0.5; }
+  return top + (self ? n.ypx + (n.yp * h) / 100 : 0) + h * share - view * (1 - pct(a.screen));
+}
+// The scroll where On Scroll starts and ends.
+export function scrollSpan({ top, h }, a, view) {
+  if (a.action === 'Passes') {
+    const at = (edge, passes) => top + h * (SHARE[edge] ?? 0) - view * (1 - pct(passes));
+    return [at(a.startEdge, a.startPasses), at(a.endEdge, a.endPasses)];
+  }
+  const custom = a.action === 'Custom', hi = custom ? view * pct(a.topInset) : 0, lo = view - (custom ? view * pct(a.bottomInset) : 0);
+  const fits = h <= lo - hi, inFull = fits ? top + h - lo : top - hi, outFull = fits ? top - hi : top + h - lo;
+  const spans = {
+    Cover: [top - lo, top + h - hi],
+    Contain: [inFull, outFull],
+    Entry: [top - lo, inFull],
+    Exit: [outFull, top + h - hi],
+    'Entry Crossing': [top - lo, top + h - lo],
+    'Exit Crossing': [top - hi, top + h - hi],
+  };
+  const within = (name, p) => { const [x, y] = spans[name] || spans.Cover; return x + (y - x) * pct(p); };
+  if (custom) return [within(a.startCross, a.startPasses), within(a.endCross, a.endPasses)];
+  const name = { Enters: 'Entry', Leaves: 'Exit' }[a.action] || 'Cover';
+  return [within(name, a.startPasses), within(name, a.endPasses)];
+}
+export function scrollProgress(a, y, [from, to]) {
+  const p = to > from ? (y - from) / (to - from) : y >= to ? 1 : 0;
+  if (p <= 0) return 0;
+  if (p >= 1) return 1;
+  return curve(a, (p * (parseFloat(a.iterations) || 1)) % 1);
+}
+const between = (from, to, p) => Object.fromEntries(Object.keys(from).map((k) => [k, from[k] + (to[k] - from[k]) * p]));
+// Continuous starts over; Ping Pong runs to its End and back, each way one Duration.
+function runLoop(el, a) {
+  const s = stateOf(el), win = el.ownerDocument.defaultView, end = numbers(a.end), ms = seconds(a), both = a.type === 'Ping Pong';
+  const t0 = win.performance.now() + (parseFloat(a.delay) || 0) * 1000;
+  s.win = win;
+  const frame = (now) => {
+    const t = ((now - t0) / ms) % (both ? 2 : 1);
+    if (now >= t0) { s.pose = t < 1 ? between(REST_N, end, curve(a, t)) : between(end, REST_N, curve(a, t - 1)); write(el, s); }
+    s.raf = win.requestAnimationFrame(frame);
+  };
+  s.raf = win.requestAnimationFrame(frame);
+}
+let motion = null;
+export function stopPageMotion() {
+  if (!motion) return;
+  motion.off();
+  motion.els.forEach(clear);
+  motion = null;
+}
+export function startPageMotion(doc, rowsOf) {
+  stopPageMotion();
+  const win = doc.defaultView, els = new Set(), appear = [], scroll = [];
+  for (const el of doc.querySelectorAll('.fe-block')) {
+    const rows = rowsOf(el.dataset.blockId) || [];
+    const row = (t) => rows.find((a) => a.trigger === t);
+    const a = row('scroll') || row('appear') || row('loop');
+    if (!a) continue;
+    els.add(el);
+    if (a.trigger === 'loop') { runLoop(el, a); continue; }
+    (a.trigger === 'appear' ? appear : scroll).push({ el, a, from: numbers(a.start), to: a.trigger === 'scroll' ? numbers(a.end) : REST_N });
+    const s = stateOf(el);
+    s.pose = numbers(a.start);
+    write(el, s);
+  }
+  const check = () => {
+    const y = win.scrollY, view = win.innerHeight;
+    for (const r of scroll) { const s = stateOf(r.el); s.pose = between(r.from, r.to, scrollProgress(r.a, y, scrollSpan(watched(r.el, r.a), r.a, view))); write(r.el, s); }
+    for (const r of appear) {
+      if (r.done || y < appearAt(watched(r.el, r.a), r.a, view)) continue;
+      r.done = true;
+      morph(r.el, REST_N, r.a, seconds(r.a), () => clear(r.el));
+    }
+  };
+  win.addEventListener('scroll', check, { passive: true });
+  win.addEventListener('resize', check);
+  check();
+  motion = { els, off: () => { win.removeEventListener('scroll', check); win.removeEventListener('resize', check); } };
 }

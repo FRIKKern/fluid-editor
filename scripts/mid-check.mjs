@@ -749,13 +749,26 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load(over); gb('middle and right, middle over left', 'middle and right, middle over left', bar('m', 'r'));
   await load(over); gb('all three, one overlap', 'all three, one overlap', bar('l', 'm', 'r'));
   await load(apart, true); gb('phone two', 'phone two', bar('l', 'm'));
-  // On a phone the bar stands beside the phone. Oracle: first button x 1041, y 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
+  // On a phone the bar stands beside the phone: first button 27 right of it, 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
   const barAt = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(); return JSON.stringify([Math.round((b.left - q.right) * 10) / 10, Math.round((b.top - q.top - r.top) * 10) / 10]); })()`);
   const at = (name, got, want) => groupCases.push({ name: `phone bar place: ${name}`, diffs: Math.abs(got[0] - want[0]) <= 1 && Math.abs(got[1] - want[1]) <= 1.5 ? [] : [`oracle ${want}, ours ${got}`] });
-  const sb = G['phone two'].controls.find((c) => c.label === 'Stack Blocks').box, AP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ACCPHONE.json', import.meta.url))).reads['phone, selected'], PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads['phone selected shape'], FR = { right: 1014, top: 55 };
-  // The group read has no block box: its top block is taken at 205.7, the same first row as CAP-ACCPHONE and what its shot shows.
-  await load(apart, true); bar('r', 'm'); at('a group', barAt('r'), [sb[0] - FR.right, sb[1] - 205.7]);
+  const AP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ACCPHONE.json', import.meta.url))).reads['phone, selected'], PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONE.json', import.meta.url))).reads['phone selected shape'], FR = { right: 1014, top: 55 };
   for (const [name, F] of [['one block', PH], ['one block, Accordion read', AP]]) { await load(apart, true); evalJs(S, `fe.select('s', 'r')`); await pause(120); const e = F.controls.find((c) => c.label === 'Edit').box; at(name, barAt('r'), [e[0] - FR.right, e[1] - (F.block.box[1] + FR.top)]); }
+  // At other widths and scrolled to the canvas top, a group on desktop too (CAP-PHONEBAR.json, CAP-GROUPBARTOP.json). x from the phone's right or the block's left, y in the window.
+  const PB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-PHONEBAR.json', import.meta.url))).reads, GT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GROUPBARTOP.json', import.meta.url))).reads;
+  const tall = (id, d, m) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: d, z: 1, justify: 'center', align: 'center' }, mobile: { area: m, z: 1, justify: 'center', align: 'center' } } });
+  const placed = [['1600 one', PB, 1600, 1], ['1600 one, scrolled 130', PB, 1600, 1], ['1600 one, scrolled 180', PB, 1600, 1], ['1600 one, scrolled 300', PB, 1600, 1], ['1600 group', PB, 1600, 2], ['1600 group, scrolled 180', PB, 1600, 2], ['1280 one', PB, 1280, 1], ['1280 group', PB, 1280, 2], ['1024 one', PB, 1024, 1], ['1024 group', PB, 1024, 2], ['desktop group', GT, 1600, 2], ['desktop group, scrolled 180', GT, 1600, 2], ['desktop group, scrolled 300', GT, 1600, 2]];
+  for (const [name, F, width, members] of placed) {
+    const phone = !name.startsWith('desktop'), R = F[name], want = R.controls.find((c) => c.label === (members > 1 ? 'Stack Blocks' : 'Edit')).box, blockAt = R.block.box;
+    viewport(S, width, 1000); await pause(200);
+    evalJs(S, `(async () => { fe.setBp('${phone ? 'mobile' : 'desktop'}'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 80, mobile: 80 }, blocks: ${JSON.stringify([tall('l', [30, 2, 36, 8], [30, 2, 36, 10]), tall('m', [30, 10, 36, 16], [36, 2, 42, 10])])} }] }); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(100);
+    if (members > 1) bar('l', 'm'); else { evalJs(S, `fe.select('s', 'l')`); await pause(120); }
+    const got = evalJs(S, `(async () => { const f = document.getElementById('site-frame'), W = f.contentWindow, d = f.contentDocument, q = f.getBoundingClientRect(), el = d.querySelector('.fe-block[data-block-id="l"]'); W.scrollTo({ top: W.scrollY + el.getBoundingClientRect().top - ${blockAt[1]}, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 200)); const b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(), r = el.getBoundingClientRect(); return JSON.stringify([Math.round((${phone} ? b.left - q.right : b.left - q.left - r.left) * 10) / 10, Math.round(b.top * 10) / 10, Math.round(r.top * 10) / 10]); })()`);
+    const wantX = phone ? want[0] - (width + 428) / 2 : want[0] - blockAt[0];
+    groupCases.push({ name: `bar place: ${name}`, diffs: Math.abs(got[0] - wantX) <= 1 && Math.abs(got[1] - want[1]) <= 1.5 && Math.abs(got[2] - blockAt[1]) <= 1 ? [] : [`oracle ${wantX},${want[1]} under a block at ${blockAt[1]}; ours ${got}`] });
+    evalJs(S, `fe.select(null)`);
+  }
+  viewport(S, 1600, 1000); await pause(200);
   evalJs(S, `fe.select(null); fe.setBp('desktop')`);
 }
 // A Shape child (CAP-S3ALIGN.json, CAP-S3ALIGN2.json, CAP-S3HUGFIXED.json, CAP-S3HUGMENU.json): Align Vertically moves it with Stretch off, Hug is grey with Stretch on.
@@ -780,6 +793,18 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load('row', 'center', { w: 'Hug', h: '200px' }, {}); { const got = offset(), want = size('typed hug'); groupCases.push({ name: 'Shape child: typed hug is 300 wide', diffs: got[3] === want[3] ? [] : [`oracle ${want[3]}, ours ${got[3]}`] }); }
   await load('row', 'center', { w: 'Hug', h: '200px' }, { stretch: false }); { const got = offset(), want = size('stretch off'); groupCases.push({ name: 'Shape child: Hug with Stretch off', diffs: JSON.stringify(got) === JSON.stringify(want) ? [] : [`oracle ${want}, ours ${got}`] }); }
   await load('row', 'center', { w: '100px', h: '200px' }, { stretch: false }); { const got = hug('w'); groupCases.push({ name: 'Shape child: Hug offered with Stretch off', diffs: [got.off && 'grey', got.size?.w !== 'Hug' && `w ${got.size?.w}`].filter(Boolean) }); }
+  // The Size menu's rows: icon, text and tick to the oracle's boxes, the current row grey, the open toggle white (CAP-SIZEMENU.json, CAP-SIZEMENU2.json, CAP-SIZEMENUH.json).
+  const SM = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENU.json', import.meta.url))).reads, SH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SIZEMENUH.json', import.meta.url))).reads;
+  const shape = (F) => { const rows = F.panelEls.filter((e) => e.tag === 'div'), out = []; rows.forEach((r) => { const inside = F.panelEls.filter((e) => e.box[1] >= r.box[1] && e.box[1] + e.box[3] <= r.box[1] + r.box[3]); out.push([r.label.replace(/ · .*/, ''), r.box[2], r.box[3], ...inside.filter((e) => e.tag === 'svg').map((e) => [e.box[0] - r.box[0], e.box[1] - r.box[1], e.box[2]]).flat(), inside.find((e) => e.tag === 'p').box[0] - r.box[0]]); }); return out; };
+  const menu = (axis) => evalJs(S, `(async () => { const sleep = (x) => new Promise((r) => setTimeout(r, x)); fe.select('s', 'k2'); await sleep(100); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(150); document.querySelector('#block-panel [data-stack="kidopen:${axis}"]').click(); await sleep(80); const P = document.querySelector('#block-panel'), rd = (e) => e.getBoundingClientRect(), rows = [...P.querySelectorAll('.st-size-menu button')]; const out = { rows: rows.map((b) => { const q = rd(b), svgs = [...b.querySelectorAll('svg')]; return [(b.querySelector('span') || b).textContent.replace(/ · .*/, ''), Math.round(q.width), Math.round(q.height), ...svgs.map((e) => [rd(e).left - q.left, rd(e).top - q.top, rd(e).width]).flat(), rd(b.querySelector('span') || b).left - q.left]; }), on: rows.filter((b) => getComputedStyle(b).backgroundColor === 'rgb(242, 242, 242)').map((b) => (b.querySelector('span') || b).textContent.replace(/ · .*/, '')), upright: rows.map((b) => { const e = b.querySelector('svg path'); return !!e && rd(e).height > rd(e).width; }), toggle: getComputedStyle(P.querySelector('.st-gap-toggle.is-open') || P.querySelector('.st-gap-toggle')).backgroundColor }; document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return JSON.stringify(out); })()`);
+  for (const [name, F, sz, axis, on] of [['W at Fill', SM['Shape W at Fill'], undefined, 'w', 'Fill'], ['W at Fixed', SM['Shape W at Fixed'], { w: '100px', h: 'Fill' }, 'w', 'Fixed'], ['H at Fill', SH['Shape H at Fill'], undefined, 'h', 'Fill']]) {
+    await load('row', 'center', sz, {}); const got = menu(axis), want = shape(F), near = (a, b) => a.length === b.length && a.every((v, k) => typeof v === 'string' ? v === b[k] : Math.abs(v - b[k]) <= 1);
+    const diffs = want.map((w, k) => !near(w, got.rows[k] || []) && `oracle ${w}, ours ${got.rows[k]}`).filter(Boolean);
+    if (got.on.join() !== on) diffs.push(`current row ${got.on}`);
+    if (got.toggle !== 'rgb(255, 255, 255)') diffs.push(`toggle ${got.toggle}`);
+    if (got.upright.some((u) => u !== (axis === 'h'))) diffs.push(`icons ${got.upright}`);
+    groupCases.push({ name: `Size menu: ${name}`, diffs });
+  }
   evalJs(S, `fe.select(null)`);
 }
 // S4 on phones (CAP-S4PHONE.json), with the real mouse: the handle, 90 down, 150 up, desktop stays, a click does nothing.

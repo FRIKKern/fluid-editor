@@ -289,8 +289,14 @@ function blendRow(cur, open) {
 const POS_Y = [['flex-start', 'Top'], ['center', 'Center'], ['flex-end', 'Bottom']];
 const POS_X = [['flex-start', 'Left'], ['center', 'Center'], ['flex-end', 'Right']];
 // A child's Size (S3.json children): W and H, each a field with Fixed, Hug and Fill under it.
+// The Size menu's rows (CAP-SIZEMENU.json, CAP-SIZEMENU2.json, CAP-SIZEMENUH.json): an icon, upright for H, and a tick on the current one. Our own drawing, measured to the oracle's box.
+const SIZE_ICON = { Fixed: 'M2 11h18M2 7v8M20 7v8', Hug: 'M0 11h9M6 7.5l3.5 3.5L6 14.5M22 11h-9M16 7.5L12.5 11l3.5 3.5', Fill: 'M1 11h20M4.5 7.5L1 11l3.5 3.5M17.5 7.5L21 11l-3.5 3.5' };
+const sizeRow = (axis, name, text, current, off) => `<button type="button"${off || current ? ` class="${off ? 'is-off' : 'is-on'}"` : ''}${off ? ' disabled' : ''} data-stack="kid:${axis}:${name === 'Fixed' ? text.slice(8) : name}"><svg class="st-size-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#b7b7b7" stroke-width="1.5" aria-hidden="true"><path d="${SIZE_ICON[name]}"${axis === 'h' ? ' transform="rotate(90 11 11)"' : ''}/></svg><span>${esc(text)}</span>${current ? '<svg class="st-size-tick" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#0e0e0e" stroke-width="2" aria-hidden="true"><path d="M5.5 11.5l3.5 3.5 7.5-8.5"/></svg>' : ''}</button>`;
 function kidSizeHtml(k) {
-  const one = (axis, v) => `<span class="st-size-f"><b aria-hidden="true">${axis.toUpperCase()}</b><input type="text" aria-label="${axis.toUpperCase()}" data-stack-field="k${axis}" value="${esc(v)}"><button type="button" class="st-gap-toggle" aria-label="${axis.toUpperCase()} options" data-stack="kidopen:${axis}">${pi('<path d="M8 10l4 4 4-4"/>')}</button>${k.open === axis ? `<span class="st-gap-menu st-size-menu"><button type="button" data-stack="kid:${axis}:${k.fixed[axis]}">Fixed · ${k.fixed[axis]}</button><button type="button"${k.noHug ? ' class="is-off" disabled' : ''} data-stack="kid:${axis}:Hug">Hug</button><button type="button" data-stack="kid:${axis}:Fill">Fill</button></span>` : ''}</span>`;
+  const one = (axis, v) => {
+    const open = k.open === axis, now = v === 'Fill' || v === 'Hug' ? v : 'Fixed';
+    return `<span class="st-size-f"><b aria-hidden="true">${axis.toUpperCase()}</b><input type="text" aria-label="${axis.toUpperCase()}" data-stack-field="k${axis}" value="${esc(v)}"><button type="button" class="st-gap-toggle${open ? ' is-open' : ''}" aria-label="${axis.toUpperCase()} options" data-stack="kidopen:${axis}">${pi(open ? '<path d="M8 14l4-4 4 4"/>' : '<path d="M8 10l4 4 4-4"/>')}</button>${open ? `<span class="st-gap-menu st-size-menu">${sizeRow(axis, 'Fixed', `Fixed · ${k.fixed[axis]}`, now === 'Fixed')}${sizeRow(axis, 'Hug', 'Hug', now === 'Hug', k.noHug)}${sizeRow(axis, 'Fill', 'Fill', now === 'Fill')}</span>` : ''}</span>`;
+  };
   return `<div class="st-head">Layout</div><div class="st-size"><span class="sp-label">Size</span><span class="st-size-col">${one('w', k.w)}${one('h', k.h)}</span></div>`;
 }
 function stackLayoutHtml(st) {

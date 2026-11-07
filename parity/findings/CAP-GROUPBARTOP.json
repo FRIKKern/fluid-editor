@@ -1,0 +1,1085 @@
+{
+  "item": "CAP-GROUPBARTOP",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "A desktop group scrolled to the canvas top: where its bar stops. The Gap menu on a stack, and the open Size menu toggle.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "desktop group",
+      {
+        "controls": true,
+        "block": [
+          0,
+          0
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "frameTo",
+      180
+    ],
+    [
+      "read",
+      "desktop group, scrolled 180",
+      {
+        "controls": true,
+        "block": [
+          0,
+          0
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "scrolled"
+    ],
+    [
+      "frameTo",
+      300
+    ],
+    [
+      "read",
+      "desktop group, scrolled 300",
+      {
+        "controls": true,
+        "block": [
+          0,
+          0
+        ],
+        "areas": 0
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "stack",
+      {
+        "has": [
+          "Edit"
+        ]
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "stack panel",
+      {
+        "rows": [
+          "Gap"
+        ]
+      }
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Gap menu",
+      {
+        "panelEls": "[role=option], [role=option] *, [role=combobox], button[aria-expanded=true], button[aria-expanded=true] *"
+      }
+    ],
+    [
+      "shot",
+      "gap"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressRow",
+      "Shape"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressCombo",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Size menu open",
+      {
+        "panelEls": "[role=option], [role=option] *, [role=combobox], button[aria-expanded=true], button[aria-expanded=true] *"
+      }
+    ],
+    [
+      "shot",
+      "size"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      200
+    ]
+  ],
+  "reads": {
+    "desktop group": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            222.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            272.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            327.6,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            374.6,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Blocks",
+          "box": [
+            102.1,
+            236.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Group",
+          "box": [
+            147.1,
+            236.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            192.1,
+            236.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            232.1,
+            236.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794034230400_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -7,112.8",
+          "nw 10x10 at -7,-7",
+          "sw 10x10 at -7,232.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/10/7/16",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop group, scrolled 180": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            84,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            134,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            236,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            525,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Blocks",
+          "box": [
+            102.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Group",
+          "box": [
+            147.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            192.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            232.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          64.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794034230400_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -7,112.8",
+          "nw 10x10 at -7,-7",
+          "sw 10x10 at -7,232.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/10/7/16",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "desktop group, scrolled 300": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Section Settings",
+          "box": [
+            1407,
+            84,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "View Layouts",
+          "box": [
+            1407,
+            134,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate Section",
+          "box": [
+            1412,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Save Section",
+          "box": [
+            1452,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Up",
+          "box": [
+            1492,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Move Section Down",
+          "box": [
+            1532,
+            189,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Section",
+          "box": [
+            1407,
+            236,
+            164,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            405,
+            111.1,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Blocks",
+          "box": [
+            102.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Group",
+          "box": [
+            147.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            192.1,
+            81,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            232.1,
+            81,
+            36,
+            36
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          -55.8,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794034230400_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -7,112.8",
+          "nw 10x10 at -7,-7",
+          "sw 10x10 at -7,232.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/10/7/16",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack": {
+      "has": {
+        "Edit": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack panel": {
+      "rows": {
+        "Gap": [
+          "20px"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Gap menu": {
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Size menu open": {
+      "panelEls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressRow [\"Shape\"]: nothing labelled Stack",
+    "no Edit",
+    "pressCombo [0]: no combobox 0"
+  ],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "A desktop group's first button is 2 right of the block, 63 above it, and stops at y 81 when scrolled, at 180 and 300. The stack's Gap has no combobox for the tool to press, so the Gap menu isn't read here. Its other errors follow from that press's Escape clearing the selection; the open Size menu came from CAP-SIZEMENU.json's shot.",
+  "ours": "Same, npm run mid-check, 3 reads. Ours stopped 6 high: 75.",
+  "differs": [
+    "Gap menu not read: ours has no icons or tick there."
+  ],
+  "pressed": "Probe page, unsaved."
+}

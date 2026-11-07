@@ -1543,6 +1543,6 @@
   "leftDirty": true,
   "answer": "Hug is greyed in W at Fill and at Fixed with Stretch on, and in H at Fixed, and pressing does nothing (W 100, box 100; H 200). Typed hug in W with Stretch on is taken: box 300 wide, H 200. With Stretch off: box 20 by 200, the shape 20 by 20 at y offset 90; the menu reads Fixed · 20px, Hug not grey, Fill. The 'no Edit' errors are a clickIf that found nothing to press and are harmless.",
   "ours": "Same now: greyed and press does nothing in those cases, typed hug 300 wide, Stretch off 20 by 200 with the shape 20 by 20 at 90, Hug offered. npm run mid-check. Ours offered Hug at Fill and at Fixed before.",
-  "differs": "Not built: the oracle's size menu has icons and a tick on the current row, ours is text only (shot fillW). Not read: H with Hug and Stretch off.",
+  "differs": "Not read: H with Hug and Stretch off. The menu's icons and tick: CAP-SIZEMENU.json.",
   "pressed": "Probe page, unsaved: size menu rows by label, W field typed, Stretch switch, in a new stack of Text, Shape, Button."
 }

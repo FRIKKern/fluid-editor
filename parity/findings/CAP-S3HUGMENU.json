@@ -729,7 +729,7 @@
   "leftDirty": true,
   "answer": "The Size menus read: Fixed, then the current px, then Hug and Fill. Hug is greyed for a Shape child at Fill in W and H, on a desktop row and on the phone, from screenshots. Pressing it does nothing. The menu in a column was out of the crop here. CAP-S3HUGCOL.json reads it: greyed too. Shape 300 by 150 when hugging, in S3.json, was reached another way.",
   "ours": "Ours greys Hug in the same menu now, pressing does nothing. npm run mid-check. It offered Hug before. CAP-S3HUGFIXED.json holds the Fixed and Stretch off cases.",
-  "differs": "Menu icons and the tick on the current row are not built: ours is text only.",
+  "differs": "None: the icons and tick are in CAP-SIZEMENU.json.",
   "pressed": [
     "By position or index, not by name: Custom at 1538,534 or 1538,589, typeAt in the Custom field, comboboxes by index, real clicks on blocks and a drag on the stack. All else pressed by name with an on-top check."
   ]
