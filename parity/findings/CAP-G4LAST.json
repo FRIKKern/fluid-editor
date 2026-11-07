@@ -1,0 +1,913 @@
+{
+  "item": "CAP-G4LAST",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-07",
+  "engine": "chrome",
+  "question": "G4's unread cases: one block's w and n handles pressed in the middle and 6 px either way; a group's w and n handles; a group from the desktop left margin, se and e.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "w",
+      80,
+      0,
+      [
+        0,
+        0
+      ]
+    ],
+    [
+      "read",
+      "w middle",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "w",
+      80,
+      0,
+      [
+        6,
+        0
+      ]
+    ],
+    [
+      "read",
+      "w 6 in",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "w",
+      80,
+      0,
+      [
+        -6,
+        0
+      ]
+    ],
+    [
+      "read",
+      "w 6 out",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "n",
+      0,
+      60,
+      [
+        0,
+        0
+      ]
+    ],
+    [
+      "read",
+      "n middle",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "n",
+      0,
+      60,
+      [
+        0,
+        6
+      ]
+    ],
+    [
+      "read",
+      "n 6 in",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      "n",
+      0,
+      60,
+      [
+        0,
+        -6
+      ]
+    ],
+    [
+      "read",
+      "n 6 out",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "spread",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "w",
+      120,
+      0
+    ],
+    [
+      "read",
+      "group w",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "n",
+      0,
+      90
+    ],
+    [
+      "read",
+      "group n",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      -60,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "in the margin",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "se",
+      120,
+      90
+    ],
+    [
+      "read",
+      "margin group se",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "walkGroup",
+      0,
+      0,
+      "e",
+      120,
+      0
+    ],
+    [
+      "read",
+      "margin group e",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "shot",
+      "end"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "w middle": {
+      "walk": {
+        "part": "w",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 3 / 7 / 8"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -51,
+            "1 / 1 / 7 / 8"
+          ]
+        ],
+        "xHome": [
+          [
+            -50,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "w 6 in": {
+      "walk": {
+        "part": "w",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 3 / 7 / 8"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -51,
+            "1 / 1 / 7 / 8"
+          ]
+        ],
+        "xHome": [
+          [
+            -50,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "w 6 out": {
+      "walk": {
+        "part": "w",
+        "from": null,
+        "xOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            35,
+            "1 / 3 / 7 / 8"
+          ]
+        ],
+        "xBack": [
+          [
+            34,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            -51,
+            "1 / 1 / 7 / 8"
+          ]
+        ],
+        "xHome": [
+          [
+            -50,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yOut": [],
+        "yBack": [],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "n middle": {
+      "walk": {
+        "part": "n",
+        "from": null,
+        "xOut": [],
+        "xBack": [],
+        "xHome": [],
+        "yOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            27,
+            "2 / 2 / 7 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "n 6 in": {
+      "walk": {
+        "part": "n",
+        "from": null,
+        "xOut": [],
+        "xBack": [],
+        "xHome": [],
+        "yOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            27,
+            "2 / 2 / 7 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "n 6 out": {
+      "walk": {
+        "part": "n",
+        "from": null,
+        "xOut": [],
+        "xBack": [],
+        "xHome": [],
+        "yOut": [
+          [
+            1,
+            "1 / 2 / 7 / 8"
+          ],
+          [
+            27,
+            "2 / 2 / 7 / 8"
+          ]
+        ],
+        "yBack": [
+          [
+            26,
+            "1 / 2 / 7 / 8"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "spread": {
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group w": {
+      "walk": {
+        "part": "w",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/2/12/20"
+          ],
+          [
+            35,
+            "1/3/12/20"
+          ],
+          [
+            94,
+            "1/4/12/20"
+          ]
+        ],
+        "xBack": [
+          [
+            93,
+            "1/3/12/20"
+          ],
+          [
+            34,
+            "1/2/12/20"
+          ],
+          [
+            -51,
+            "1/1/12/20"
+          ]
+        ],
+        "xHome": [
+          [
+            -50,
+            "1/2/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "group n": {
+      "walk": {
+        "part": "n",
+        "from": "",
+        "yOut": [
+          [
+            1,
+            "1/2/12/20"
+          ],
+          [
+            27,
+            "2/2/12/20"
+          ],
+          [
+            68,
+            "3/2/12/20"
+          ]
+        ],
+        "yBack": [
+          [
+            67,
+            "2/2/12/20"
+          ],
+          [
+            26,
+            "1/2/12/20"
+          ]
+        ],
+        "yHome": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "in the margin": {
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "margin group se": {
+      "walk": {
+        "part": "se",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/1/12/20"
+          ],
+          [
+            51,
+            "1/1/12/21"
+          ]
+        ],
+        "xBack": [
+          [
+            50,
+            "1/1/12/20"
+          ],
+          [
+            -35,
+            "1/1/12/19"
+          ],
+          [
+            -94,
+            "1/1/12/18"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1/1/12/19"
+          ],
+          [
+            -34,
+            "1/1/12/20"
+          ]
+        ],
+        "yOut": [
+          [
+            27,
+            "1/1/13/20"
+          ],
+          [
+            68,
+            "1/1/14/20"
+          ]
+        ],
+        "yBack": [
+          [
+            67,
+            "1/1/13/20"
+          ],
+          [
+            26,
+            "1/1/12/20"
+          ],
+          [
+            -27,
+            "1/1/11/20"
+          ],
+          [
+            -68,
+            "1/1/10/20"
+          ]
+        ],
+        "yHome": [
+          [
+            -67,
+            "1/1/11/20"
+          ],
+          [
+            -26,
+            "1/1/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "margin group e": {
+      "walk": {
+        "part": "e",
+        "from": "",
+        "xOut": [
+          [
+            1,
+            "1/1/12/20"
+          ],
+          [
+            51,
+            "1/1/12/21"
+          ]
+        ],
+        "xBack": [
+          [
+            50,
+            "1/1/12/20"
+          ],
+          [
+            -35,
+            "1/1/12/19"
+          ],
+          [
+            -94,
+            "1/1/12/18"
+          ]
+        ],
+        "xHome": [
+          [
+            -93,
+            "1/1/12/19"
+          ],
+          [
+            -34,
+            "1/1/12/20"
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "1/1/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "6/14/12/20",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "One block's w and n handles step the same from the middle and 6 px either way: w out 35, back 34, -51 to the margin, home -50; n 27, back 26. A group's w and n handles take one block's rule: w 35, 94, back 93, 34, -51, home -50; n 27, 68, back 67, 26. A desktop group on the left margin track grows east by its left edge's steps, as one block does: 51 to 1/1/12/21, back 50, -35, -94, home -93, -34; north and south as from column 2.",
+  "predicted": "CAP-FIXES-PREDICTED.json predicted7, pushed before the read.",
+  "ours": "All the same now, within 1 px: npm run snap-check, 153 of 153. Before, the margin group grew at 35 and 94 as from column 2 (147 of 153 on the old app).",
+  "differs": [],
+  "pressed": "Add Section, Add Block and the tile, by the tool's hover and press; the block's middle and handles by the real mouse; Shift and a press for the group; Mobile View for the phone case. On Gestures Probe, unsaved. Nothing else but Escape and Exit, then Exit Without Saving. CAP-G4LAST-RELOAD.json reads the page back as it was: no sections, Save clean."
+}
