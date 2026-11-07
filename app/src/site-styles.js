@@ -8,7 +8,9 @@
 // button. Works: Base Size and Reset in Fonts and Buttons, Headings, Paragraphs, Animations, Spacing and
 // the packs we hold in each list panel (parity/findings/CAP-SITESTYLEROWS.json), Edit Palette and Edit
 // Color Theme's rows (CAP-THEMEROWS.json), each button type's rows (CAP-BUTTONROWS.json), the Forms rows, Form Spacing and pack picks (CAP-FORMROWS.json), Forms' sub panels (CAP-FORMSUBS.json, form-panels.js). Faded and not built (data-unbuilt): the other rows of a view, Customize.
-import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize } from './site-style-packs.js';
+import { PALETTES, FONT_PACKS, BUTTON_PACKS, FORM_PACKS, THEMES, VARS, TYPE_DEFAULTS, SPACE_DEFAULTS, BASE_VARS, resolveSiteStyles, fontLink, baseSize, fontName, fontFamilyCss } from './site-style-packs.js';
+import { fontInRow } from './font-list.js';
+import { assignName, assignStylesHtml, assignRowHtml } from './assign-styles.js';
 import { paletteHtml } from './site-palette.js';
 import { ROW_GROUPS, rowValue, rowCss } from './theme-rows.js';
 import { TIERS, TIER_NAMES, SHAPES, tierValues, sameTier, tierSample } from './button-tiers.js';
@@ -25,7 +27,7 @@ const q = (s) => s.replace(/"/g, '&quot;');
 // The panel. view is null for the cards, or Fonts, Colors, Buttons, Forms or Miscellaneous; rows are
 // the section color themes for Colors: { name, bg, ink, used }.
 // The views a level down (parity/findings/CAP-SITESTYLEROWS.json): the view, its parent and its title.
-export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], FontButtons: ['Fonts', 'Buttons'], FontMisc: ['Fonts', 'Miscellaneous'], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], FormEffects: ['Forms', 'Effects'], FormOptions: ['Forms', 'Field Options'], FormOption: ['FormOptions', ''], FormFonts: ['Forms', 'Fonts'], FormFont: ['FormFonts', ''], FormColors: ['Forms', 'Colors'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
+export const SUB = { ButtonTier: ['Buttons', 'Buttons'], FontPacks: ['Fonts', 'Font Packs'], Headings: ['Fonts', 'Headings'], Paragraphs: ['Fonts', 'Paragraphs'], FontButtons: ['Fonts', 'Buttons'], FontMisc: ['Fonts', 'Miscellaneous'], AssignStyles: ['Fonts', 'Assign Styles'], AssignRow: ['AssignStyles', ''], ButtonPacks: ['Buttons', 'Button Packs'], FormPacks: ['Forms', 'Form Packs'], FormSpacing: ['Forms', 'Form Spacing'], FormEffects: ['Forms', 'Effects'], FormOptions: ['Forms', 'Field Options'], FormOption: ['FormOptions', ''], FormFonts: ['Forms', 'Fonts'], FormFont: ['FormFonts', ''], FormColors: ['Forms', 'Colors'], EditPalette: ['Colors', 'Edit Palette'], ThemeRows: ['Colors', 'Edit Color Theme'], Animations: ['Miscellaneous', 'Animations'], Spacing: ['Miscellaneous', 'Spacing'] };
 const CHEV_DOWN = '<path d="M6 9l6 6 6-6"/>';
 // What a font pack sets, shown in its rows: the readings in site-style-packs.js.
 function packValue(font, k, n) {
@@ -64,7 +66,7 @@ function subHtml(view, styles, font, opts) {
   const open = opts.select;
   // A list row: the open list lays the current option over the row, as on the oracle.
   const select = (key, label, now, options) => `<div class="ss-sel-row"><span>${label}</span><button type="button" class="ss-sel" data-ss-select="${key}" aria-label="${label}" aria-expanded="${open === key}"><span>${now}</span>${svg(CHEV_DOWN)}</button>${open === key ? `<div class="ss-options" role="listbox" style="top:${1 - 44 * options.indexOf(now)}px">${options.map((o) => `<button type="button" role="option" class="ss-option${o === now ? ' is-on' : ''}" aria-selected="${o === now}" data-ss-set="${key}" data-v="${o}">${o}</button>`).join('')}</div>` : ''}</div>`;
-  const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
+  const slide = (key, label, now, min, max, step, unit) => `<div class="ss-slide"><span>${label}</span><input type="text" data-ss-set="${key}" aria-label="${label} value" value="${now}${unit}"${typeBox(key, unit)}><input type="range" data-ss-set="${key}" data-unit="${unit}" aria-label="${label}" min="${min}" max="${max}" step="${step}" value="${now}" style="--p:${(100 * (now - min)) / (max - min)}%"></div>`;
   if (view === 'ButtonTier') return tierHtml(styles, font, slide, opts);
   const parts = { svg, slide, select, CHEV, CHEV_DOWN, CHECK };
   if (view === 'FormEffects') return formEffectsHtml(styles);
@@ -72,29 +74,30 @@ function subHtml(view, styles, font, opts) {
   if (view === 'FormOption') return formOptionHtml(styles, opts, parts);
   if (view === 'FormFonts') return formFontsHtml(styles, parts);
   if (view === 'FormFont') return formFontHtml(styles, opts, parts);
+  if (view === 'AssignStyles') return assignStylesHtml(styles, parts);
+  if (view === 'AssignRow') return assignRowHtml(styles, opts, parts, fontRow);
   if (view === 'FormColors') return formColorsHtml(styles, opts, resolveSiteStyles(styles).vars || BASE_VARS, VARS, parts);
   if (view === 'FormSpacing') { const f = formValues(styles); return `<div class="ss-spacing">${[['label', 'Space Below Label'], ['desc', 'Space Below Description'], ['cap', 'Space Below Caption'], ['fields', 'Space Between Fields'], ['cols', 'Space Between Columns']].map(([k, l]) => slide(`forms.${k}`, l, f[k], 1, 40, 1, 'px')).join('')}</div>`; }
   if (view === 'Headings' || view === 'Paragraphs') {
     const k = view === 'Headings' ? 'h' : 'p', d = TYPE_DEFAULTS[k], t = styles?.type?.[k] || {}, v = (n) => t[n] ?? packValue(font, k, n) ?? d[n];
-    const family = (k === 'h' ? font?.h : font?.p) || 'Poppins';
     const sizes = k === 'h' ? [1, 2, 3, 4].map((n) => slide(`type.h.s${n}`, `Heading ${n}`, v(`s${n}`), 0.1, 10, 0.1, 'rem')) : [1, 2, 3].map((n) => slide(`type.p.s${n}`, `Paragraph ${n}`, v(`s${n}`), 0.1, 10, 0.1, 'rem'));
-    return `<div class="ss-font-l">Font</div><button type="button" class="ss-font" data-unbuilt style="font-family:'${family}',sans-serif"><span>${family}</span>${svg(CHEV_DOWN)}</button>
+    return `<div class="ss-font-l">Font</div>${fontRow(styles, k, svg(CHEV_DOWN), opts)}
     ${select(`type.${k}.style`, 'Style', v('style'), ['Normal', 'Italic'])}${select(`type.${k}.weight`, 'Weight', String(v('weight')), ['100', '200', '300', '400', '500', '600', '700', '800', '900'])}
     ${slide(`type.${k}.lh`, 'Line Height', v('lh'), 0.5, 10, 0.1, 'em')}${slide(`type.${k}.ls`, 'Letter Spacing', v('ls'), -0.1, 2, 0.01, k === 'h' ? 'rem' : 'em')}
     ${select(`type.${k}.tt`, 'Text Transform', v('tt'), ['None', 'Uppercase', 'Lowercase', 'Capitalize'])}
     <div class="ss-group ss-group-size">Size</div>${sizes.join('')}`;
   }
   if (view === 'FontButtons' || view === 'FontMisc') {
-    // Font is the unbuilt font list. The rows are read (CAP-U12FONTVIEWS.json); what a value draws is not, since Site Styles is read only.
+    // The rows are read (CAP-U12FONTVIEWS.json); what a value draws is not, since Site Styles is read only.
     const row = (k, d) => (n) => styles?.type?.[k]?.[n] ?? d[n];
-    const font0 = `<button type="button" class="ss-font" data-unbuilt style="font-family:'${font?.p || 'Poppins'}',sans-serif"><span>${font?.p || 'Poppins'}</span>${svg(CHEV_DOWN)}</button>`;
+    const font0 = (k) => fontRow(styles, k, svg(CHEV_DOWN), opts);
     const lists = (k, v) => `${select(`type.${k}.style`, 'Style', v('style'), ['Normal', 'Italic'])}${select(`type.${k}.weight`, 'Weight', String(v('weight')), ['100', '200', '300', '400', '500', '600', '700', '800', '900'])}`;
     const tt = (k, v) => select(`type.${k}.tt`, 'Text Transform', v('tt'), ['None', 'Uppercase', 'Lowercase', 'Capitalize']);
     if (view === 'FontMisc') {
       const v = row('misc', TYPE_DEFAULTS.misc);
-      return `<p class="ss-lead ss-lead-misc">Set styles for miscellaneous text like tags and prices sitewide</p>${font0}${lists('misc', v)}${slide('type.misc.lh', 'Line Height', v('lh'), 0.5, 10, 0.1, 'em')}${slide('type.misc.ls', 'Letter Spacing', v('ls'), -0.1, 2, 0.01, 'em')}${tt('misc', v)}<div class="ss-fb-size">${slide('type.misc.size', 'Miscellaneous', v('size'), 0.1, 10, 0.1, 'rem')}</div>`;
+      return `<p class="ss-lead ss-lead-misc">Set styles for miscellaneous text like tags and prices sitewide</p>${font0('misc')}${lists('misc', v)}${slide('type.misc.lh', 'Line Height', v('lh'), 0.5, 10, 0.1, 'em')}${slide('type.misc.ls', 'Letter Spacing', v('ls'), -0.1, 2, 0.01, 'em')}${tt('misc', v)}<div class="ss-fb-size">${slide('type.misc.size', 'Miscellaneous', v('size'), 0.1, 10, 0.1, 'rem')}</div>`;
     }
-    return TIERS.map((k, i) => { const v = row(k, TYPE_DEFAULTS.button); return `<div class="ss-fb-h${i ? '' : ' ss-fb-first'}">${TIER_NAMES[k]} Button Font</div>${font0}${lists(k, v)}${slide(`type.${k}.ls`, 'Letter Spacing', v('ls'), -0.1, 2, 0.01, 'em')}${tt(k, v)}${slide(`type.${k}.size`, 'Size', v('size'), 0.1, 10, 0.1, 'rem')}`; }).join('');
+    return TIERS.map((k, i) => { const v = row(k, TYPE_DEFAULTS.button); return `<div class="ss-fb-h${i ? '' : ' ss-fb-first'}">${TIER_NAMES[k]} Button Font</div>${font0(k)}${lists(k, v)}${slide(`type.${k}.ls`, 'Letter Spacing', v('ls'), -0.1, 2, 0.01, 'em')}${tt(k, v)}${slide(`type.${k}.size`, 'Size', v('size'), 0.1, 10, 0.1, 'rem')}`; }).join('');
   }
   if (view === 'Spacing') {
     const sp = styles?.space || {};
@@ -128,6 +131,15 @@ function subHtml(view, styles, font, opts) {
   }
   return '';
 }
+// A value box's width goes with its row, not its value: 11 reads fit this table and no fit to the text (CAP-U12FONTVIEWS.json, CAP-U12FONTLIST.json). Other values aren't read.
+const typeBox = (key, unit) => {
+  if (/^fontAssign\..*\.rem$/.test(key)) return ' style="width:58px"';
+  if (!key.startsWith('type.')) return '';
+  const n = key.split('.')[2], w = n === 'ls' ? (unit === 'rem' ? 51 : 44) : n === 'lh' ? 51 : 58;
+  return ` style="width:${w}px"`;
+};
+const fontRow = (styles, key, chev, opts) => { const f = fontInRow(styles, key), n = fontName(f); return `<button type="button" class="ss-font" data-ss-fontrow="${key}" aria-label="Font ${n}" aria-expanded="${opts.fontRow === key}" style="font-family:${fontFamilyCss(f).replace(/"/g, '&quot;')}"><span>${n}</span>${chev}</button>`; };
+
 export function siteStylesHtml(styles, view = null, rows = [], opts = {}) {
   const { vars, font, button } = resolveSiteStyles(styles);
   const colors = swatches(vars || BASE_VARS);
@@ -149,7 +161,7 @@ export function siteStylesHtml(styles, view = null, rows = [], opts = {}) {
     <h1 class="ss-title">Edit Color Theme</h1><p class="ss-theme-help">Changes you make will affect all sections that use this color theme.</p><button type="button" class="ss-theme-reset" data-ss-theme-reset>Reset Color Theme</button>`;
   }
   if (SUB[view]) {
-    const parent = SUB[SUB[view][0]]?.[1] || SUB[view][0], title = view === 'FormOption' ? FORM_KINDS[opts.formKind] : view === 'FormFont' ? opts.formFont : SUB[view][1];
+    const parent = SUB[SUB[view][0]]?.[1] || SUB[view][0], title = view === 'FormOption' ? FORM_KINDS[opts.formKind] : view === 'FormFont' ? opts.formFont : view === 'AssignRow' ? assignName(opts.assignRow) : SUB[view][1];
     return `${close}<button type="button" class="ss-back" data-ss-back aria-label="Back to ${parent}">${svg('<path d="M15 4l-8 8 8 8"/>', 18)}<span>${parent}</span></button>
     <h2 class="ss-title">${title}</h2>${subHtml(view, styles, font, opts)}`;
   }
@@ -182,7 +194,7 @@ function viewHtml(view, { styles, font, colors, bg, ink, btnStyle, rows, opts })
     return `<div class="ss-preview ss-preview-fonts"><span class="ss-pv-h" style="${headFont};color:${ink}">Heading</span><span class="ss-pv-p" style="${paraFont};color:${ink}">This is your paragraph.</span><span class="ss-pv-n">${h === p ? h : `${h} · ${p}`}</span></div>
     ${disRow('All Font Packs', '', 'FontPacks')}
     <div class="ss-base"><span>Base Size</span><input class="ss-base-in" type="text" inputmode="numeric" aria-label="Base Size" value="${base}"><span class="ss-base-px">px</span><button type="button" class="ss-step ss-dec" data-ss-base="-1" aria-label="Decrement">${svg('<path d="M5 12h14"/>', 18)}</button><button type="button" class="ss-step ss-inc" data-ss-base="1" aria-label="Increment">${svg('<path d="M12 5v14M5 12h14"/>', 18)}</button></div>
-    ${disRow('Headings', h, 'Headings')}${disRow('Paragraphs', p, 'Paragraphs')}${disRow('Buttons', '', 'FontButtons')}${disRow('Miscellaneous', p, 'FontMisc')}${disRow('Assign Styles')}
+    ${disRow('Headings', h, 'Headings')}${disRow('Paragraphs', p, 'Paragraphs')}${disRow('Buttons', '', 'FontButtons')}${disRow('Miscellaneous', p, 'FontMisc')}${disRow('Assign Styles', '', 'AssignStyles')}
     ${reset('Reset Font Pack', 'data-ss-reset="font"', 'ss-reset-fonts')}`;
   }
   if (view === 'Colors') {

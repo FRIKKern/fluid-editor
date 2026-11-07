@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node scripts/check-render.mjs && node scripts/check-design.mjs && node scripts/check-markdown.mjs && node scripts/check-chrome.mjs && node scripts/check-start-chrome.mjs && node scripts/check-items.mjs && node scripts/check-traces.mjs && node scripts/check-readback.mjs && node scripts/check-docs.mjs",
+    "check": "node scripts/check-render.mjs && node scripts/check-design.mjs && node scripts/check-markdown.mjs && node scripts/check-chrome.mjs && node scripts/check-start-chrome.mjs && node scripts/check-items.mjs && node scripts/check-traces.mjs && node scripts/check-press-names.mjs && node scripts/check-readback.mjs && node scripts/check-docs.mjs",
     "fixtures": "node scripts/extract-fixtures.mjs",
     "neworder-check": "node scripts/neworder-check.mjs",
     "textpush-check": "node scripts/neworder-check.mjs --text",

@@ -52,7 +52,29 @@
      "kind": "menu",
      "name": "Currency Symbol",
      "value": "$ Dollar",
-     "gone": true
+     "options": [
+      "$ Dollar",
+      "€ Euro",
+      "£ Pound",
+      "¥ Yen"
+     ],
+     "picked": "€ Euro",
+     "change": [
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign b: 434.7,240.5,10,23 > 433.2,240.5,13,23",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign b: 434.8,372.2,10,23 > 433.2,372.2,13,23",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign b: 434.7,504,10,23 > 433.2,504,13,23",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign b: 432.7,817.2,10,23 > 431.2,817.2,13,23",
+      "SPAN.currency-sign w: $ > €",
+      "SPAN.currency-sign w: $ > €"
+     ]
     }
    ]
   },
@@ -74,6 +96,6 @@
   "Design",
   "Formatting Help"
  ],
- "pressed": "Add Block, Menu, Edit, its tabs, and the rows with a change below, each named and on top, on Gestures Probe, unsaved.",
- "answer": "Menu: tabs Content, Design, Formatting Help. 3 rows read, 2 changed the block when changed. Each row below has its default and what the change did."
+ "pressed": "Add Block, Menu, Edit, its tabs, and the rows with a change below, each named and on top, on a probe page, unsaved.",
+ "answer": "Menu: tabs Content, Design, Formatting Help. 3 rows read, 3 changed the block when changed. Each row below has its default and what the change did."
 }

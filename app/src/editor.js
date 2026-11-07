@@ -26,6 +26,7 @@ import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, 
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
 import { formOption, OPTION_RADIUS, FORM_KINDS, FORM_CUSTOM_RADIUS, formValues } from './form-rows.js';
 import { formColor } from './form-colors.js';
+import { fontListHtml, fontRowsHtml, fontListTop, watchFontRows } from './font-list.js';
 import { siteStylesHead, baseSize, resolveSiteStyles, VARS as PALETTE_VARS, BASE_VARS } from './site-style-packs.js';
 import { hslToRgb, rgbToHsl, rgbToHsv, hsvToRgb, hexToRgb, hueToRgb, clampByte, rgbToHslParts } from './color-math.js';
 import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette.js';
@@ -846,19 +847,6 @@ const rightEdgeOut = (m, line, d) => snapColumn(m, line, d, line, m.colStart.len
 // The same rule for rows, on a uniform pitch, also past the last row (traces T0013, T0014).
 const snapRow = (m, line, d) => line + Math.sign(d) * Math.max(0, Math.round((Math.abs(d) - m.rg / 2) / m.pitch));
 
-function nearest(from, to, f) {
-  let best = from;
-  let bd = Infinity;
-  for (let v = from; v <= to; v++) {
-    const d = Math.abs(f(v));
-    if (d < bd) {
-      bd = d;
-      best = v;
-    }
-  }
-  return best;
-}
-
 // ---------- gestures ----------
 // Marquee (X13, parity/findings/X13.json): a drag of 30px from empty space in a section draws a 3px
 // rgb(0, 114, 240) box. The blocks of that section it touches join the selection while held, with
@@ -1153,13 +1141,13 @@ function updateMove(e) {
   const cHi = Math.max(...origs.map((a) => a[3]));
   const cMin = c0 + 1 - cLo;
   // A box that starts on the left margin track goes as far as the last column, not the right margin.
-  // One block on a phone does go into it (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json); a group on a phone isn't read.
-  const cMax = Math.max(c0, c0 + (cLo === 1 && !(solo && bp === 'mobile') ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
+  // A phone does go into it, one block or a group (CAP-G4MARGIN2.json to CAP-G4MARGIN4.json, CAP-G4GROUPMARGIN.json).
+  const cMax = Math.max(c0, c0 + (cLo === 1 && bp !== 'mobile' ? LAST_LINE[bp] - 1 : LAST_LINE[bp]) - cHi);
   const dx = left - baseLeft;
   let nc0 = dx > 0 && c0 > 1 ? snapColumn(m, c0 + w, dx, cMin + w, cMax + w) - w : snapColumn(m, c0, dx, cMin, cMax);
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
-  if (solo && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
+  if ((solo || bp === 'mobile') && c0 === 1 && nc0 === cMax && cMax > c0 && !rightEdgeOut(m, c0 + w, dx)) nc0 = cMax - 1;
   // A group's ring stops when its box reaches the top (HOLD.json).
   const nr0 = Math.max(r0 + 1 - Math.min(...origs.map((a) => a[0])), snapRow(m, r0, y - baseTop));
   let t = [nr0, nc0, nr0 + h, nc0 + w];
@@ -1260,11 +1248,12 @@ function updateGroupResize(e) {
   const m = g.m;
   const top = fe.getBoundingClientRect().top;
   let [r0, c0, r1, c1] = g.box0;
-  const x = e.clientX, y = e.clientY;
-  if (g.dir.includes('e')) c1 = nearest(c0 + 1, LAST_LINE[bp], (l) => m.colEnd[l - 2] - x);
-  if (g.dir.includes('w')) c0 = nearest(1, c1 - 1, (l) => m.colStart[l - 1] - x);
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, Math.round((y - top + m.rg) / m.pitch) + 1);
-  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, Math.round((y - top) / m.pitch) + 1));
+  // One block's handle rule, from the press (CAP-G4GROUPRESIZE.json).
+  const dx = e.clientX - g.x0, dy = e.clientY - top - g.py0;
+  if (g.dir.includes('e')) c1 = snapColumn(m, c1, dx, c0 + 1, LAST_LINE[bp]);
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, c1 - 1);
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   const [br0, bc0, br1, bc1] = g.box0;
   const place = (id, a) => {
     const [cs, ce] = scaleSpan(a[1], a[3], bc0, bc1, c0, c1, g.dir.includes('w'));
@@ -1317,7 +1306,8 @@ function updateResize(e) {
   // Out of the flow, so its height does not push the grid's rows. Its area is still its place.
   Object.assign(el.style, { position: 'absolute', left: '0', top: '0', width: `${R - L}px` });
   if (g.dir.includes('e')) {
-    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = x - m.colEnd[c1 - 2];
+    // The step counts from the press, wherever on the handle that was (CAP-G4GRAB.json).
+    const lo = Math.min(c0 + leastCols, LAST_LINE[bp]), hi = LAST_LINE[bp], d = dx;
     // A block on the left margin track grows by its left edge's steps, as a move does. It stops as a move does, and its last
     // step waits the same way (CAP-G4MARGIN.json, CAP-G4MARGIN2.json, CAP-G4MARGIN5.json, CAP-G4MARGIN6.json, BLOCKTYPES.json columnSnap).
     const top = bp === 'mobile' ? hi : hi - 1;
@@ -1326,9 +1316,9 @@ function updateResize(e) {
       c1 = Math.max(lo, e === top && !rightEdgeOut(m, c1, d) ? top - 1 : e);
     } else c1 = snapColumn(m, c1, d, lo, hi);
   }
-  if (g.dir.includes('w')) c0 = snapColumn(m, c0, x - m.colStart[c0 - 1], 1, Math.max(1, c1 - leastCols));
-  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, y - (top + (r1 - 1) * m.pitch - m.rg)));
-  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, y - (top + (r0 - 1) * m.pitch))));
+  if (g.dir.includes('w')) c0 = snapColumn(m, c0, dx, 1, Math.max(1, c1 - leastCols));
+  if (g.dir.includes('s')) r1 = Math.max(r0 + 1, snapRow(m, r1, dy));
+  if (g.dir.includes('n')) r0 = Math.min(r1 - 1, Math.max(1, snapRow(m, r0, dy)));
   // Guard: a target cannot be shorter than the content at the width the block has now.
   const need = contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
@@ -4407,16 +4397,25 @@ const ADD_TYPES = [
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 const PHONE_ROWS = { Accordion: 5, Scheduling: 5, Flickr: 5, SoundCloud: 5, Archive: 8 };
-// A new block lands by how far its section's top sits above the frame; past the section's last row it
-// lands on row 1, with the frame back at the section (CAP-T14FRAME.json, CAP-T14FRAME2.json: inferred, 8 of 8
-// on predictions). Read on desktop only, so the phone view stays on row 1.
+// A new block lands by how far its section's top sits above the frame; past the section's last row it lands on
+// row 1, and the frame goes so the block's middle is at its middle, or as near as the page allows (CAP-T14FRAME.json,
+// CAP-T14FRAME2.json, CAP-T14PLACE.json, CAP-T14BACK.json: inferred, on predictions). Read on desktop only, so the
+// phone view stays on row 1.
+let landedPast = false;
 function landingRow(s) {
   const el = sectionEl(s.id), fe = feEl(s.id);
   if (bp !== 'desktop' || !el || !fe) return 1;
   const above = -el.getBoundingClientRect().top, row = 1 + Math.max(0, Math.floor(above / measure(fe).pitch));
   if (row <= s.rows.desktop) return row;
-  win.scrollBy({ top: -above, behavior: 'instant' });
+  landedPast = true;
   return 1;
+}
+// After the new block is drawn.
+function frameToLanded(bid) {
+  if (!landedPast) return;
+  landedPast = false;
+  const c = blockEl(bid)?.getBoundingClientRect();
+  if (c) win.scrollBy({ top: c.top + c.height / 2 - win.innerHeight / 2, behavior: 'instant' });
 }
 // A new Line sits in the middle of its block, in each view (CAP-U4LINE.json).
 const NEW_ALIGN = { Line: 'center', Shape: 'center' }; // CAP-S3ALIGN.json start
@@ -4779,6 +4778,7 @@ panel.addEventListener('click', (e) => {
   if (btn.dataset.act === 'stack') stackBlocks();
   if (btn.dataset.act === 'add') addBlock(sel.sid, btn.dataset.v);
   renderSectionDom(sel.sid);
+  frameToLanded(sel.bid);
   commit(before, `${btn.textContent} on ${b.id}`);
 });
 
@@ -5216,6 +5216,7 @@ addMenu.addEventListener('click', (e) => {
   addBlock(sid, b.dataset.add);
   addMenu.hidden = true;
   renderSectionDom(sid);
+  frameToLanded(sel.bid);
   commit(before, `Added ${b.dataset.add} to ${sid}`);
 });
 // ---------- floating menus: Add Block, Layers, the block context menu ----------
@@ -5225,8 +5226,9 @@ const contextMenu = $('context-menu');
 // button again close it.
 const siteStyles = $('site-styles');
 let ssView = null;
-let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null;
+let ssSelect = null, ssHelp = false, ssTheme = null, ssThemeList = false, ssTier = 'primary', ssFormKind = 'check', ssFormFont = 'Title', ssFormTheme = null, ssAssign = 0;
 const pal = { swatch: 'accent', tab: 'Presets', format: 'Hex', list: false }; // Edit Palette's own view state
+let fontPop = null; // the open font list: { key, query, watch }
 let dot = null; // the open color popover: { row, custom, format, list }, and form: the theme when it is a Forms > Colors row
 function themeRows() {
   themeColors = themeColors || readThemeColors();
@@ -5242,7 +5244,7 @@ function pageButtonTiers() {
 function renderSsPanel() {
   let rows = [];
   if (ssView === 'Colors') rows = themeRows();
-  let opts = { select: ssSelect, help: ssHelp, pal };
+  let opts = { select: ssSelect, help: ssHelp, pal, fontRow: fontPop?.key };
   if (ssView === 'ButtonTier') opts = { ...opts, tier: ssTier, pageTiers: pageButtonTiers() };
   if (ssView === 'ThemeRows') {
     themeColors = themeColors || readThemeColors();
@@ -5251,6 +5253,7 @@ function renderSsPanel() {
   }
   if (ssView === 'FormOption') opts = { ...opts, formKind: ssFormKind };
   if (ssView === 'FormFont') opts = { ...opts, formFont: ssFormFont };
+  if (ssView === 'AssignRow') opts = { ...opts, assignRow: ssAssign };
   if (ssView === 'FormColors') { const list = themeRows(); opts = { ...opts, themeRows: list, formTheme: ssFormTheme || list.find((t) => t.used)?.name || 'Light 1', colorRow: dot?.form ? dot.row : null }; }
   const top = siteStyles.scrollTop;
   siteStyles.innerHTML = siteStylesHtml(model.siteStyles, ssView, rows, opts);
@@ -5289,6 +5292,7 @@ function setSiteStyles(on) {
   }
   closeStylePopover();
   closeDotPop();
+  closeFontList();
   hideStyleConfirm();
   if (!on) ssView = null;
   placeThemeChips();
@@ -5309,7 +5313,7 @@ siteStyles.addEventListener('click', (e) => {
   }
   if (tierPress(e) || formPress(e)) return;
   const open = e.target.closest('[data-ss-view]');
-  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); pal.list = false; }
+  if (open || e.target.closest('[data-ss-back]')) { ssThemeList = false; closeDotPop(); closeFontList(); pal.list = false; }
   // Edit Color Theme's back goes to Site Styles' Colors, not to the section panel it was opened from (CAP-DIVSHAPES.json).
   if (ssView === 'ColorTheme' && e.target.closest('[data-ss-back]')) { ssView = 'Colors'; ssSelect = null; renderSsPanel(); siteStyles.scrollTop = 0; return; }
   if (e.target.closest('[data-ss-help]')) { ssHelp = !ssHelp; renderSsPanel(); return; }
@@ -5328,6 +5332,8 @@ siteStyles.addEventListener('click', (e) => {
   const from = e.target.closest('[data-pal-from]');
   if (from) { setPalette(fromColor(palette().accent, Number(from.dataset.palFrom)), from.getAttribute('aria-label')); return; }
   if (colorFormatPress(e, pal)) { renderSsPanel(); return; }
+  const fontBtn = e.target.closest('[data-ss-fontrow]');
+  if (fontBtn) { const same = fontPop?.key === fontBtn.dataset.ssFontrow; closeFontList(); if (!same) openFontList(fontBtn); return; }
   const sel0 = e.target.closest('[data-ss-select]');
   if (sel0?.dataset.ssFcTheme) {
     const name = sel0.getAttribute('aria-label'), same = dot?.form && dot.row === name;
@@ -5403,6 +5409,39 @@ siteStyles.addEventListener('pointerdown', (e) => {
   const key = pal.swatch;
   colorDrag(e, (x, y) => mapOrHue(kind, x, y, hslToRgb(palette()[key]), (rgb) => withColors({ [key]: rgbToHsl(rgb) })));
 });
+// The font list (U12, CAP-U12FONTLIST.json). It lives outside the panel, so a pick's redraw keeps its place.
+const fontList = $('ss-font-list');
+function closeFontList() {
+  if (!fontPop) return;
+  fontPop.watch?.disconnect();
+  siteStyles.querySelector(`[data-ss-fontrow="${fontPop.key}"]`)?.setAttribute('aria-expanded', 'false');
+  fontPop = null; fontList.hidden = true; fontList.innerHTML = '';
+}
+function fontRowsNow() {
+  const host = fontList.querySelector('.ss-fl-scroll'), top = host.scrollTop;
+  fontPop.watch?.disconnect();
+  host.innerHTML = fontRowsHtml(model.siteStyles, fontPop.key, fontPop.query);
+  host.scrollTop = top;
+  fontPop.watch = watchFontRows(host);
+}
+function openFontList(btn) {
+  fontPop = { key: btn.dataset.ssFontrow, query: '' };
+  btn.setAttribute('aria-expanded', 'true');
+  fontList.innerHTML = fontListHtml(model.siteStyles, fontPop.key);
+  fontList.style.top = `${fontListTop(btn.getBoundingClientRect().bottom, innerHeight)}px`;
+  fontList.hidden = false;
+  fontPop.watch = watchFontRows(fontList.querySelector('.ss-fl-scroll'));
+}
+fontList.addEventListener('click', (e) => {
+  const pick = e.target.closest('[data-ss-font]');
+  if (!pick) return;
+  const key = fontPop.key, f = pick.dataset.ssFont;
+  setSiteStyleKeys(`${key} font ${f}`, (st) => { st.type = { ...(st.type || {}), [key]: { ...(st.type?.[key] || {}), family: f } }; return st; });
+  fontRowsNow();
+});
+fontList.addEventListener('input', (e) => { if (e.target.matches('input')) { fontPop.query = e.target.value; fontRowsNow(); fontList.querySelector('.ss-fl-scroll').scrollTop = 0; } });
+document.addEventListener('pointerdown', (e) => { if (fontPop && !fontList.contains(e.target) && !e.target.closest?.('[data-ss-fontrow]')) closeFontList(); }, true);
+document.addEventListener('keydown', (e) => { if (fontPop && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeFontList(); } }, true);
 // A row's color popover (U12): five palette circles, Custom color, the opacity track. Centered on its row.
 const dotPop = $('ss-dot-pop');
 function closeDotPop() {
@@ -5516,6 +5555,8 @@ function formPress(e) {
   if (kind) ssFormKind = kind.dataset.ssFkind;
   const font = e.target.closest('[data-ss-ffont]');
   if (font) ssFormFont = font.dataset.ssFfont;
+  const assign = e.target.closest('[data-ss-assign]');
+  if (assign) ssAssign = Number(assign.dataset.ssAssign);
   const f = formValues(model.siteStyles);
   const shape = e.target.closest('[data-ss-fshape]');
   if (shape) { const n = shape.dataset.ssFshape; const r = FORM_CUSTOM_RADIUS; setForms(n, n === 'Custom' ? { shape: n, multi: false, radii: [r, r, r, r] } : { shape: n }); return true; }
@@ -5657,7 +5698,7 @@ styleConfirm.addEventListener('click', (e) => {
     });
     return;
   }
-  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'form') delete st.forms; if (kind === 'font') { delete st.base; delete st.type; } return st; });
+  setSiteStyleKeys(`Reset ${kind} pack`, (st) => { delete st[kind]; if (kind === 'button') delete st.buttons; if (kind === 'form') delete st.forms; if (kind === 'font') { delete st.base; delete st.type; delete st.fontAssign; } return st; });
 });
 // A style pack popover (parity/findings/SITESTYLES2.json). A tile sets that part of the site's
 // styles in one undo step and the popover stays open, as on the oracle.
@@ -5692,6 +5733,8 @@ function applyStylePick(t) {
   if (kind === 'button') delete st.buttons;
   if (kind === 'form') delete st.forms;
   model.siteStyles = kind === 'theme' ? { theme: t.dataset.v } : { ...st, [kind]: t.dataset.v };
+  // A font pack sets the fonts, so the rows' own picks go (inferred: no pick is read).
+  if (kind === 'font' && st.type) model.siteStyles.type = Object.fromEntries(Object.entries(st.type).map(([k, { family, ...rest }]) => [k, rest]));
   commit(before, `Site Styles: ${t.getAttribute('aria-label')}`);
   renderAll();
   fitHeader();
@@ -6389,7 +6432,7 @@ function boot() {
     select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
-    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); return true; },
+    addBlock: (sid, name) => { addBlock(sid, name); renderSectionDom(sid); frameToLanded(sel.bid); return true; },
   };
 }
 
