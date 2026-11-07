@@ -240,11 +240,11 @@ function linkHeadHtml(kind) {
     + `<div class="lk-menu" hidden>${rows}<div class="lk-sep" role="separator"></div><button type="button" class="lk-learn">${LINK_ICONS.info}<span>Learn more</span></button></div></div>`;
 }
 // The box a linked Button opens from its toolbar (CAP-E7REOPEN2.json): the link as the panel's row shows it, then Edit, Copy and
-// Remove Link. Only a page has the tip with its full address.
+// Remove Link. A page has a tip with its full address; anything else has one only if the row cuts it short (drawLinkBox).
 export function linkBoxHtml(href, groups, origin) {
   const sum = linkSummary(href, groups);
   return `<button type="button" class="lk-box-row${sum.sub ? '' : ' is-one'}" aria-label="${esc(`${sum.title}${sum.sub}`)}"><span class="lk-box-icon">${sum.icon === 'page' ? PAGE_ROW_ICON : LINK_ICONS[sum.icon]}</span><span class="lk-box-name">${esc(sum.title)}</span>${sum.sub ? `<span class="lk-box-sub">${esc(sum.sub)}</span>` : ''}</button>`
-    + (sum.icon === 'page' ? `<div class="lk-tip" role="tooltip">${esc(origin + href)}</div>` : '')
+    + `<div class="lk-tip" role="tooltip"${sum.icon === 'page' ? ' data-page' : ''}>${esc(sum.icon === 'page' ? origin + href : sum.title)}</div>`
     + '<div class="lk-box-acts"><button type="button" data-link-box="edit">Edit</button><button type="button" data-link-box="copy">Copy</button><button type="button" data-link-box="remove">Remove Link</button></div>';
 }
 function urlBodyHtml(href, groups, newTab) {

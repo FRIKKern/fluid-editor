@@ -10,7 +10,7 @@ const SEE = `(() => { const P = document.getElementById('link-popover'), a = doc
   const box = !P.hidden && P.classList.contains('is-box'), field = !P.hidden && !box, tip = q('.lk-tip');
   const name = !a || a === document.body ? null : a.closest('#site-frame') || a.id === 'site-frame' ? 'frame' : a.matches('input') ? 'field' : a.matches('.lk-pill') ? q('.lk-pill').textContent.trim() : a.matches('[data-tb="link"]') ? 'Open link editor popover' : a.getAttribute('aria-label') || a.textContent.trim();
   return JSON.stringify({ selected: !!document.querySelector('#block-toolbar [data-tb="link"]') && !document.getElementById('block-toolbar').hidden, view: box ? 'box' : field ? P.dataset.kind : 'closed', row: box ? q('.lk-box-row').getAttribute('aria-label') : null, focus: name, value: a?.matches?.('input') ? a.value : null,
-    list: field && on(q('.lk-pages')), ticked: field && q('.lk-box') ? q('.lk-box').checked : null, tip: box && tip && getComputedStyle(tip).display !== 'none' ? tip.textContent.replace(location.origin, '') : null }); })()`;
+    list: field && on(q('.lk-pages')), ticked: field && q('.lk-box') ? q('.lk-box').checked : null, tip: box && tip && getComputedStyle(tip).display !== 'none' ? tip.textContent.replace(location.origin, '').replace(/^https?:\\/\\//, '') : null }); })()`;
 
 // What the oracle's read says, in the same words. Its link-button tip and its typed scheme are written otherwise.
 function oracleSees(reads, name) {
@@ -19,7 +19,7 @@ function oracleSees(reads, name) {
   const view = has('Click and drag to reposition block editor form') ? 'closed' : has('Remove Link') ? 'box' : has('Email') ? 'email' : has('Phone') ? 'phone' : has('URL') ? 'url' : 'closed';
   const row = view === 'box' ? fix(labels.find((c) => c.box[3] >= 60 && c.box[2] > 200).label) : null;
   const focus = f === 'frame' ? 'frame' : !f ? null : f.tag === 'input' ? 'field' : fix(f.label);
-  const above = reads[`${name}, above`]?.looks?.find((x) => x.text.startsWith('<site>'));
+  const above = reads[`${name}, above`]?.looks?.find((x) => x.text && x.color === 'rgb(255, 255, 255)');
   return { selected: has('Primary'), view, row, focus, value: f?.tag === 'input' ? fix(f.value) : null, list: labels.some((c) => /^Services/.test(c.label)), ticked: view === 'url' ? r.checks?.[0]?.checked ?? null : null, tip: above ? above.text.replace('<site>', '') : null };
 }
 
@@ -46,7 +46,7 @@ export async function replayLinkBox(S, finding, add) {
     else if (op === 'read' && !a[0].endsWith(', above') && !a[0].startsWith('skip ') && !finding.setAside?.[a[0]]) {
       const was = oracleSees(finding.reads, a[0]), ours = evalJs(S, SEE);
       // With no block selected the focus isn't the link editor's. The capture cuts long labels short.
-      const same = (k) => (k === 'focus' && (!was.selected || !('focused' in (finding.reads[a[0]] || {})))) || JSON.stringify(was[k]) === JSON.stringify(ours[k]) || ((k === 'row' || k === 'focus') && was[k] && String(ours[k]).startsWith(was[k]));
+      const same = (k) => (k === 'focus' && (!was.selected || !('focused' in (finding.reads[a[0]] || {})))) || JSON.stringify(was[k]) === JSON.stringify(ours[k]) || ((k === 'row' || k === 'focus' || k === 'tip') && was[k] && String(ours[k]).startsWith(was[k]));
       add(a[0], Object.keys(was).filter((k) => !same(k)).map((k) => `${k}: oracle ${JSON.stringify(was[k])}, ours ${JSON.stringify(ours[k])}`), ours);
     }
   }

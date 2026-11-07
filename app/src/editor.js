@@ -3669,8 +3669,11 @@ function closeLinkPopover() {
     const v = linkPop.dataset.kind === 'url' ? linkValue(linkPop.querySelector('.lk-input').value) : '';
     const was = sel?.bid === linkPop.dataset.bid ? B(sel.sid, sel.bid) : null;
     if (v && was && v !== was.href) setLinkOnButton(v, linkPop.querySelector('.lk-box').checked);
-    // Clear takes the link at the close, and the box is on when it opens again (CAP-E7REOPEN2.json).
-    else if (!v && linkPop.dataset.cleared && was?.href) setButton((x) => { delete x.href; x.newTab = true; }, 'Link removed');
+    // Clear takes the link at the close, by Escape or a press away, and the box is on when it opens again (CAP-E7REOPEN2.json, CAP-E7REOPEN3.json).
+    else if (!v && linkPop.dataset.cleared) {
+      const x = B(linkSid, linkPop.dataset.bid);
+      if (x?.href) { const before = JSON.stringify(model); delete x.href; x.newTab = true; renderSectionDom(linkSid); commit(before, 'Link removed'); }
+    }
     return;
   }
   if (linkPop.dataset.kind !== 'url') t.apply(linkFormHref());
@@ -3712,6 +3715,7 @@ function onLinkAction(act, el) {
 let linkTarget = null;
 let linkPlace = null;
 let linkFromBar = false;
+let linkSid = null;
 let linkBarClosed = false;
 function placeLinkPop() {
   const p = linkPlace(stage.getBoundingClientRect(), linkPop.offsetHeight);
@@ -3727,14 +3731,16 @@ function drawLinkPop(kind, href, newTab) {
   else linkPop.querySelector('.lk-pill').focus();
 }
 // The box: a page opens with Edit in focus and its tip showing until the mouse moves, anything else with the row in focus
-// (CAP-E7REOPEN2.json).
+// and a tip only under the mouse, if it is cut short (CAP-E7REOPEN2.json, CAP-E7REOPEN3.json).
 function drawLinkBox(b) {
   delete linkPop.dataset.cleared;
   linkPop.dataset.kind = 'box';
   linkPop.classList.add('is-box');
   linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
   placeLinkPop();
-  if (linkPop.querySelector('.lk-tip')) {
+  const name = linkPop.querySelector('.lk-box-name');
+  if (!linkPop.querySelector('.lk-tip[data-page]') && name.scrollWidth <= name.clientWidth) linkPop.querySelector('.lk-tip').remove();
+  if (linkPop.querySelector('.lk-tip[data-page]')) {
     linkPop.querySelector('[data-link-box="edit"]').focus();
     linkPop.classList.add('tip-held');
     document.addEventListener('pointermove', () => linkPop.classList.remove('tip-held'), { once: true });
@@ -3753,6 +3759,7 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkTarget = target;
   linkPlace = place;
   linkFromBar = fromBar;
+  linkSid = sel?.sid;
   linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
   linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
