@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 31 changes
-  - T10, T7: the Link form and Meta+Z as read, four Corner fields' pull ([#324](https://github.com/FRIKKern/fluid-editor/pull/324))
-  - T15: transform fields as measured: one text, chip, ring, <> and a drag bar ([#320](https://github.com/FRIKKern/fluid-editor/pull/320))
+- **Today** · 33 changes
+  - T7, T10: back to partial, the toolbar's Align Vertically is unbuilt on them ([#325](https://github.com/FRIKKern/fluid-editor/pull/325))
+  - X2: a drag inside a selected Text's text opens its editor; under it the block moves ([#321](https://github.com/FRIKKern/fluid-editor/pull/321))
 - **Yesterday** · 112 changes
   - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
 - **This week** · 160 changes, 3 milestones closed
