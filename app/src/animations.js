@@ -170,8 +170,9 @@ export function curve(a, t) {
   if (e === 'Custom') { const c = String(a.custom || '0, 0, 1, 1').split(',').map(Number); return c.length === 4 && c.every(Number.isFinite) ? bezier(c, t) : t; }
   return bezier(BEZIER[e] || BEZIER.Out, t);
 }
-// On Scroll eases the scroll's progress with its own curves, read on the oracle (CAP-T15FRESH.json).
-const SCROLL_BEZIER = { In: [0.214, 0, 0.739, 0], Out: [0.22, 0.597, 0.359, 1], 'In Out': [0.78, 0, 0.22, 1] }; // Ease and the Back eases: not read
+// On Scroll eases the scroll's progress with its own curves, read on the oracle (CAP-T15FRESH.json; Ease and the Back
+// eases CAP-T15EASE-*.json, where these four fit every read to .0001).
+const SCROLL_BEZIER = { In: [0.214, 0, 0.739, 0], Out: [0.22, 0.597, 0.359, 1], 'In Out': [0.78, 0, 0.22, 1], Ease: [0.4, 0.2, 0.2, 1], 'In Back': [0.36, 0, 0.66, -0.56], 'Out Back': [0.34, 1.56, 0.64, 1], 'In Out Back': [0.68, -0.6, 0.32, 1.6] };
 function scrollCurve(a, t) {
   return SCROLL_BEZIER[a.ease] ? bezier(SCROLL_BEZIER[a.ease], t) : curve(a, t);
 }

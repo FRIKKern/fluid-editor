@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { STUB_JS } from './lib/clip-guard.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 viewport(S, 1600, 1000);
@@ -18,9 +19,9 @@ const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.
 const TEXT = process.argv[2] === '--text', FULL = process.argv[2] === '--full';
 // The sample: file and the sections in it, by their place. New blocks, moves, turns, copies, deletes, typing,
 // a long drag, text that grows, shrinks and undoes, and a named miss so a change there shows.
-const SAMPLE = { 'CAP-NEWORDER3': [1], 'CAP-NEWORDER7': [3], 'CAP-DESKMOVE5': [6], 'CAP-TURNTEST4': [3], 'CAP-CYCLE4': [1], 'CAP-A2EDITS': [3, 9], 'CAP-A2ROUND2': [10], 'CAP-A2DELETE': [1], 'CAP-A2TYPED3': [4], 'CAP-LONGDRAG': [0], 'CAP-TEXTPUSH5': [1, 15], 'CAP-TEXTPUSH7': [2, 9] };
+const SAMPLE = { 'CAP-NEWORDER3': [1], 'CAP-NEWORDER7': [3], 'CAP-DESKMOVE5': [6], 'CAP-TURNTEST4': [3], 'CAP-CYCLE4': [1], 'CAP-A2EDITS': [3, 9], 'CAP-A2ROUND2': [10], 'CAP-A2DELETE': [1], 'CAP-A2STOPNEW': [3], 'CAP-A2TYPED3': [4], 'CAP-LONGDRAG': [0], 'CAP-TEXTPUSH5': [1, 15], 'CAP-TEXTPUSH7': [2, 9] };
 const ONLY = TEXT ? ['CAP-TEXTPUSH', 'CAP-TEXTPUSH2', 'CAP-TEXTPUSH3', 'CAP-TEXTPUSH4', 'CAP-TEXTPUSH5', 'CAP-TEXTPUSH6', 'CAP-TEXTPUSH7'] : process.argv[2] && !FULL ? process.argv[2].split(',') : null;
-const FILES = ONLY ?? (FULL ? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2DELETE', 'CAP-A2TYPED3', 'CAP-LONGDRAG'] : Object.keys(SAMPLE));
+const FILES = ONLY ?? (FULL ? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2DELETE', 'CAP-A2STOPNEW', 'CAP-A2TYPED3', 'CAP-LONGDRAG'] : Object.keys(SAMPLE));
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 // After typing, the first Escape only closes the editor, so the next one counts too.
 let loud = 0;
@@ -101,7 +102,8 @@ for (const file of FILES) {
       if (writing) loud = 2;
       writing = false; quiet = false;
     } else if (op === 'stubClipboard') {
-      // the oracle needs one; ours keeps its own
+      // The same stub as on the oracle: cdp-run sends Meta+c, x and v only with its marker in place.
+      evalJs(S, STUB_JS);
     } else if (op === 'read') {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;

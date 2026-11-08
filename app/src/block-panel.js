@@ -513,6 +513,31 @@ function formDesignHtml(c, open) {
 // Quote's Content tab (CAP-T12QUOTE.json): a caption and a field that grows by 22px lines, with a rule 10px under it.
 const quoteContentHtml = (c) => [['quote', 'Quote', 'Add a quote'], ['source', 'Source', 'Add a quote source']]
   .map(([k, l, ph]) => `<div class="bp-qf"><label class="bp-soccap" for="bp-q-${k}">${l}</label><textarea id="bp-q-${k}" class="bp-qta" rows="1" aria-label="${l}" placeholder="${ph}" data-content="${k}" spellcheck="false">${esc(c[k])}</textarea></div>`).join('');
+// Newsletter's tabs (CAP-T12NEWSLETTER.json). Title, Description, Disclaimer, Button Text and Show Name Field change the
+// block; Form Name is kept. Description and Disclaimer are plain fields here: a new line makes a paragraph on the block.
+// Learn More, the Form Name tip, Post-Submit and the Storage rows are shown as the oracle shows them, and not built.
+const nlCap = (k, label) => `<label class="bp-nl-cap" for="bp-nl-${k}">${label}</label>`;
+const nlLine = (k, label, ph, v) => `<div class="bp-nl-f">${nlCap(k, label)}<input id="bp-nl-${k}" class="bp-nl-in" type="text" aria-label="${label}" placeholder="${ph}" data-content="${k}" value="${esc(v)}" autocomplete="off" spellcheck="false"></div>`;
+const nlArea = (k, label, v) => `${nlCap(k, label)}<div class="bp-nl-box"><textarea id="bp-nl-${k}" class="bp-nl-ta" aria-label="${label}" data-content="${k}" spellcheck="false">${esc(v)}</textarea></div>`;
+const nlRow = (label, ctl, nav) => `<div class="sp-row bp-nl-row"><span class="sp-label">${label}</span>${nav ? `<button type="button" class="bp-nl-go" aria-label="Navigate to ${label}" disabled data-unbuilt title="Not built yet">${pi('<path d="M9 6l6 6-6 6"/>')}</button>` : ctl}</div>`;
+const NL_HELP = '<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M8.8 8.9a2.2 2.2 0 1 1 3.1 2c-.6.3-.9.8-.9 1.4v.4" stroke-linecap="round"/><circle cx="11" cy="15.2" r=".4" fill="currentColor"/></svg>';
+function newsletterContentHtml(c) {
+  return `<p class="bp-nl-note">Add a sign-up to your site to begin collecting mailing list subscribers. <span class="bp-nl-u" data-unbuilt title="Not built yet">Learn More.</span></p>`
+    + `<div class="bp-nl-name"><label for="bp-nl-nlFormName">Form Name</label><input id="bp-nl-nlFormName" type="text" aria-label="Form Name" placeholder="Enter a name" data-content="nlFormName" value="${esc(c.nlFormName)}" autocomplete="off" spellcheck="false"><button type="button" class="bp-nl-help" aria-label="Form Name help" disabled data-unbuilt title="Not built yet">${NL_HELP}</button></div>`
+    + nlLine('nlTitle', 'Title', 'Enter a title', c.nlTitle) + nlArea('nlDesc', 'Description', c.nlDesc) + nlArea('nlDisc', 'Disclaimer', c.nlDisc)
+    + nlLine('nlButton', 'Button Text', 'Sign Up', c.nlButton)
+    + nlRow('Show Name Field', `<label class="sp-switch"><input type="checkbox" aria-label="Show Name Field" data-nl-set="nlName"${c.nlName ? ' checked' : ''}><span aria-hidden="true"></span></label>`)
+    + nlRow('Post-Submit', '', true);
+}
+const NL_ALIGN = [['left', 'alignLeft', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'alignCenter', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'alignRight', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']];
+function newsletterDesignHtml(c) {
+  const seg = (key, v, label, on, inner, def) => `<button type="button" role="radio" class="bp-nl-seg${on ? ' is-on' : ''}" aria-checked="${on}" aria-label="${label}" data-nl-set="${key}" data-v="${v === def ? '' : v}">${inner}</button>`;
+  return `<div class="bp-nl-cap bp-nl-dcap">Layout</div><div class="bp-nl-segs bp-nl-two" role="radiogroup" aria-label="Layout">${[['stack', 'Stack'], ['float', 'Float']].map(([v, l]) => seg('nlLayout', v, l, c.nlLayout === v, l, 'float')).join('')}</div>`
+    + `<div class="bp-nl-cap bp-nl-dcap">Alignment</div><div class="bp-nl-segs" role="radiogroup" aria-label="Alignment">${NL_ALIGN.map(([v, l, icon]) => seg('nlAlign', v, l, c.nlAlign === v, pi(icon), 'center')).join('')}</div>`;
+}
+const newsletterStorageHtml = () => `<p class="bp-nl-note bp-nl-snote"><span class="bp-nl-u" data-unbuilt title="Not built yet">Learn more</span> about how we handle your customers’ personal information.</p>`
+  + `<button type="button" class="bp-nl-store" disabled data-unbuilt title="Not built yet"><span><b>Squarespace</b><em>Confirmation Email Off</em></span>${pi('<path d="M9 6l6 6-6 6"/>')}</button>`
+  + nlRow('Other Storage Options', '', true);
 function mapContentHtml(c) {
   const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
   return f('mapName', 'Business Name', 'Squarespace') + f('mapAddress', 'Address', '8 Clarkson St') + f('mapCity', 'City, State, Zip Code', 'New York, NY, 10014') + f('mapCountry', 'Country', 'United States');
@@ -537,7 +562,11 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, , , , axis]) => `<label class="bp-box sc-box">${barHtml(d[k], designRange(k))}<input type="text" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" value="${designText(k, d[k])}" autocomplete="off" spellcheck="false">${HITS}${axis ? `<b class="an-axis">${axis}</b>` : ARROWS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'newsletter' ? newsletterContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+  } else if (tab === 'Storage') {
+    body = newsletterStorageHtml();
+  } else if (tab === 'Design' && content?.kind === 'newsletter') {
+    body = newsletterDesignHtml(content) + appearanceRows(d) + blendRow(d.blend || 'normal', open === 'blend') + blurRows(d); // no transforms
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
@@ -617,7 +646,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if (content?.kind === 'form' && tab === 'Design') body = formDesignHtml(content, open === 'bstyle') + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
-  const tabs = content?.kind === 'markdown' ? ['Content'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  const tabs = content?.kind === 'markdown' ? ['Content'] : content?.kind === 'newsletter' ? ['Content', 'Design', 'Storage'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }

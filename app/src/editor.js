@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -14,12 +14,12 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelT
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
+import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
-import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, parseCsv } from './dialogs.js';
+import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -147,7 +147,11 @@ function phoneFollowsMove(s, was) {
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
   closeUp(s, gone);
   if (bp === 'mobile') {
-    if (!gone.length && (changed('mobile', (a) => a.slice(0, 2)) || phoneOverlaps(s))) s.phoneFollows = false;
+    // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
+    if (!gone.length && s.phoneFollows !== false) {
+      const moved = changed('mobile', (a) => a.slice(0, 2));
+      if (moved || phoneOverlaps(s)) { s.phoneFollows = false; s.phoneStop = moved ? 'move' : 'overlap'; }
+    }
     return gone.length > 0;
   }
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
@@ -179,6 +183,10 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
+  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
+  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
+  if (shown.length === 2) heightShown = [secSid(), ...shown];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -559,7 +567,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -1052,6 +1060,7 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'resize') delete b.asAdded;
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1625,6 +1634,7 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
+    delete b.asAdded; // as a pull does (inferred for the keys)
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
@@ -1733,6 +1743,7 @@ let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 const dialogEl = $('block-dialog');
+dialogEl.addEventListener('scroll', () => dialogEl.style.setProperty('--dl-scroll', `${dialogEl.scrollTop}px`));
 let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
@@ -1760,9 +1771,11 @@ function renderBlockPanel() {
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
-    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) } : null;
+    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b) } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
+  if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
@@ -1770,7 +1783,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' && b.standin !== 'quote' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -1825,7 +1838,9 @@ function renderDialog(b) {
   if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
-// read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
+// read four times (CAP-ROWSFLICKR.json) and Instagram 13 times (CAP-T12INSTAASPECT-*.json). A new Instagram that nothing has
+// been done to keeps one row over the fit when its first change shrinks the content: 12 to 8 at 3:2, 9 at 4:3, 7 at 16:9.
+// A pull before it took that away (run F); any content change ends it. The rule behind it is not scored: two refits missed.
 // Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
 function setDialogValue(k, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -1833,9 +1848,11 @@ function setDialogValue(k, v) {
   const was = content();
   if (JSON.stringify(v) === JSON.stringify(DIALOG_DEFAULTS[k])) delete b[k]; else b[k] = v;
   renderSectionDom(sel.sid);
-  if (b.standin && content() !== was) {
-    const a = lay(b).area, need = contentRows(b, formPitch(b)); // the pitch with the content out, as it stretches the rows
+  const now = content();
+  if (b.standin && now !== was) {
+    const a = lay(b).area, need = contentRows(b, formPitch(b)) + (b.asAdded && now < was ? 1 : 0); // the pitch with the content out, as it stretches the rows
     setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
+    delete b.asAdded;
   }
   commit(before, `${dialogOf(b).title} changed`);
 }
@@ -1844,12 +1861,54 @@ dialogEl.addEventListener('click', (e) => {
   if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
   const box = e.target.closest('button[data-dl]');
   if (box && !box.disabled) setDialogValue(box.dataset.dl, box.getAttribute('aria-checked') !== 'true');
-  // Update reads the box's text as the data (not pressed on the oracle: inferred).
-  if (e.target.closest('[data-dl-action="csv"]')) { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
+  // The + under the rows adds a row of 0s, the + after the series a series of 0s, and the focus goes to its name (CAP-T12CHARTCELLS2.json,
+  // CAP-T12CHARTCELLS3.json). One undo step each.
+  const add = e.target.closest('[data-dl-add]');
+  if (add && sel) {
+    const data = chartOf(B(sel.sid, sel.bid)).data.map((row) => [...row]), n = data[0].length - 1;
+    if (add.dataset.dlAdd === 'row') data.push(['', ...Array(n).fill('0')]); else data.forEach((row, r) => row.push(r ? '0' : ''));
+    setDialogValue('chartData', data);
+    dialogEl.querySelector(`[data-dl-cell="${add.dataset.dlAdd === 'row' ? `${data.length - 1},0` : `0,${n + 1}`}"]`)?.focus({ preventScroll: true });
+    // The row + scrolls the panel to its end: 42 in the one read (CAP-T12CHARTCELLS2.json, rows 555 to 513). Inferred: to the end.
+    if (add.dataset.dlAdd === 'row') dialogEl.scrollTop = dialogEl.scrollHeight;
+    return;
+  }
+  // Update asks first: Are You Sure?, centred on the button, Confirm focused; Cancel keeps the box's text, Confirm makes it the
+  // data (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCONFIRM.json).
+  const upd = e.target.closest('[data-dl-action="csv"]');
+  if (upd && !upd.disabled) {
+    dialogEl.querySelector('.dl-confirm')?.remove();
+    const row = upd.closest('.dl-row'), box = document.createElement('div');
+    box.className = 'dl-confirm'; box.setAttribute('role', 'dialog');
+    box.style.top = `${row.offsetTop + row.offsetHeight / 2 - 69}px`; box.style.left = `${(dialogEl.clientWidth - 350) / 2}px`;
+    box.innerHTML = '<div class="dl-confirm-title">Are You Sure?</div><div class="dl-confirm-text">This will overwrite the current chart data.</div><button type="button" data-dl-confirm="cancel">Cancel</button><button type="button" data-dl-confirm="ok">Confirm</button>';
+    dialogEl.append(box); box.querySelector('[data-dl-confirm="ok"]').focus({ preventScroll: true });
+    return;
+  }
+  const answer = e.target.closest('[data-dl-confirm]');
+  if (answer) {
+    answer.closest('.dl-confirm').remove();
+    if (answer.dataset.dlConfirm === 'ok') { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
+  }
 });
 dialogEl.addEventListener('input', (e) => {
+  const area = e.target.closest('[data-dl-area]');
+  if (area && sel) { const u = dialogEl.querySelector('[data-dl-action="csv"]'); if (u) u.disabled = area.value === chartCsv(chartOf(B(sel.sid, sel.bid)).data); return; }
   const r = e.target.closest('input[type="range"][data-dl]');
   if (r) r.parentElement.querySelector('.dl-count').textContent = `${r.value} ${r.getAttribute('aria-label')}`;
+});
+// Tab from a Chart cell goes to the next cell, its text selected, skipping the + (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCELLS3.json).
+// The change redraws the grid, so the next cell is found again by its place after it.
+dialogEl.addEventListener('keydown', (e) => {
+  const cell = e.key === 'Tab' && sel && e.target.closest?.('[data-dl-cell]');
+  if (!cell) return;
+  const all = [...dialogEl.querySelectorAll('[data-dl-cell]:not(:disabled)')], next = all[all.indexOf(cell) + (e.shiftKey ? -1 : 1)];
+  if (!next) return;
+  e.preventDefault();
+  const key = next.dataset.dlCell;
+  cell.blur();
+  const to = dialogEl.querySelector(`[data-dl-cell="${key}"]`);
+  to?.focus({ preventScroll: true }); to?.select?.();
 });
 dialogEl.addEventListener('change', (e) => {
   const cell = e.target.closest('[data-dl-cell]');
@@ -2575,29 +2634,48 @@ function setFormRows(b, s, need) {
   renderSectionDom(sel.sid);
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
-// Quote's fields (CAP-T12QUOTE.json): each key shows on the block at once, the rows follow the content both ways, and
-// a field's edit is one undo step when the field is left.
-let quoteBefore = null;
-blockPanel.addEventListener('input', (e) => {
-  const t = e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]');
-  if (!t || !sel) return;
-  const b = B(sel.sid, sel.bid);
-  quoteBefore ??= JSON.stringify(model);
-  // Refit 1, seen only (CAP-T12QUOTEROWS.json): content that grows takes the rows up to hold it; content that shrinks
-  // past a row lets them go down to the whole rows it fills, so 6 rows at 4.93 go to 4, and 4 rows stay at 3.27. Seen 7 of
-  // 8; the miss: Source emptied at 8.69 keeps 9 rows on the oracle, 8 here.
+// Quote's fields (CAP-T12QUOTE.json) and Newsletter's (CAP-T12NEWSLETTER.json): each key shows on the block at once, the
+// rows follow the content both ways, and a field's edit is one undo step when the field is left.
+const STANDIN_FIELDS = 'textarea[data-content="quote"], textarea[data-content="source"], [data-content^="nl"]';
+// Refit 1, seen only (CAP-T12QUOTEROWS.json): content that grows takes the rows up to hold it; content that shrinks past a
+// row lets them go down to the whole rows it fills, so 6 rows at 4.93 go to 4, and 4 rows stay at 3.27. Seen 7 of 8 on
+// Quote; the miss: Source emptied at 8.69 keeps 9 rows on the oracle, 8 here. Newsletter's 15 reads, also seen (no
+// predictions were pushed for them), all fit: its Title, Description, Disclaimer, Show Name Field, Layout and Alignment.
+function refitStandin(b, change) {
   const x0 = contentRows(b, formPitch(b), false, false, true), rows = lay(b).area[2] - lay(b).area[0];
-  b[t.dataset.content] = t.value;
+  change();
   renderSectionDom(sel.sid);
   const x = contentRows(b, formPitch(b), false, false, true), up = Math.max(1, Math.ceil(x - 0.02));
   setFormRows(b, S(sel.sid), x > x0 ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+}
+let quoteBefore = null;
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest(STANDIN_FIELDS);
+  if (!t || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  quoteBefore ??= JSON.stringify(model);
+  refitStandin(b, () => { b[t.dataset.content] = t.value; });
 });
 blockPanel.addEventListener('change', (e) => {
-  if (!e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]') || quoteBefore == null) return;
-  const before = quoteBefore;
+  if (!e.target.closest(STANDIN_FIELDS) || quoteBefore == null) return;
+  const before = quoteBefore, name = B(sel.sid, sel.bid)?.standin === 'newsletter' ? 'Newsletter' : 'Quote';
   quoteBefore = null;
   // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone.
-  setTimeout(() => commit(before, 'Quote changed'));
+  setTimeout(() => commit(before, `${name} changed`));
+});
+// Newsletter's Show Name Field, Layout and Alignment: one undo step each.
+function setNewsletter(key, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  refitStandin(b, () => { if (v) b[key] = v; else delete b[key]; });
+  commit(before, 'Newsletter changed');
+}
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('input[data-nl-set]');
+  if (t && sel) setNewsletter(t.dataset.nlSet, t.checked);
+});
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-nl-set]');
+  if (t && sel) setNewsletter(t.dataset.nlSet, t.dataset.v);
 });
 // What a form's rows answer to: the form or its message, and any padding and stroke round it.
 function formHeight(b) {
@@ -4865,7 +4943,7 @@ function renderPanel() {
 // the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
-const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
+const STANDIN_TYPES = ['Quote', 'Newsletter', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 // The stand-ins with a phone height of their own: PHONE_HEIGHTS in render.js.
 const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
 // The height the oracle's content draws on desktop at each width in columns, [least columns, height], widest first: measurements
@@ -4933,7 +5011,7 @@ function addBlock(sid, name) {
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
   const row = landingRow(s);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
+  const slot = s.phoneFollows ? 0 : s.phoneFollows === false && s.phoneStop === 'overlap' && phoneOverlaps(s) ? stoppedSlot(stack, w, h, [row, 2]) : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
   const at = NEW_ALIGN[name] ?? 'flex-start';
@@ -4942,6 +5020,8 @@ function addBlock(sid, name) {
     desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
+  // A new Instagram is marked until a pull or a content change: its first change that shrinks the content keeps a row (CAP-T12INSTAASPECT-*.json).
+  if (block.standin === 'instagram') block.asAdded = true;
   if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
@@ -5293,9 +5373,15 @@ panel.addEventListener('click', (e) => {
 });
 
 // The custom height reads a whole number each time its slider or field changes, and the section follows at
-// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
-// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+// once (parity/findings/CAP-P3FIELD.json). The field's undo step comes on Enter; the slider's on each move
+// while held (difference 100, CAP-P3UNDO2.json). No number shows NaN with the slider at its middle, and the
+// height stays. The slider stops at 1 to 100, the field keeps what it read.
 let heightBefore = null;
+// After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
+// CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
+const heightNaN = new Map();
+// What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
+let heightShown = null;
 function showHeight(n) {
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (field.value !== String(n)) field.value = String(n);
@@ -5304,10 +5390,19 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
+  heightShown = null;
+  if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
-  heightBefore ??= JSON.stringify(model);
+  const before = JSON.stringify(model);
   s.customHeight = n;
   renderSectionDom(s.id);
+  if (input.type !== 'range') { heightBefore ??= before; return; }
+  // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
+  undoStack.push(before);
+  redoStack.length = 0;
+  note(`Section ${s.id} customHeight set to ${n}`);
+  $('undo').disabled = false;
+  $('redo').disabled = true;
 }
 function settleHeight(shown) {
   const before = heightBefore, sid = secSid();
@@ -5340,6 +5435,7 @@ function onSectionChange(e) {
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
+    if (input.type === 'range') updateUi(); // the slider's let go: its steps are in, the panel and Save follow
     return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
@@ -5587,6 +5683,8 @@ function renderSectionPanel() {
   sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5701,7 +5799,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -6726,6 +6824,9 @@ function openSubmenu(it) {
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
   arrangeMenu.style.top = `${r.top - st.top}px`;
   arrangeMenu.hidden = false;
+  // The row whose submenu is open stays lit while the pointer is on the submenu (CAP-U11LIT.json).
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
+  it.classList.add('is-sub');
   return true;
 }
 // A hover opens a row's submenu, as on the oracle.
@@ -6733,6 +6834,7 @@ contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {

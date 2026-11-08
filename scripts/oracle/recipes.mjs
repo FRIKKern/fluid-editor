@@ -430,6 +430,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2STOPNEW': { page: 'Gestures Probe', question: 'A2: where a new block goes on a phone that stopped following. Candidate G, predicted first from our code: stopped by overlap from a phone resize, with the overlap still there, it goes before the first block at its place that fits inside it, else last below every block, moving none; stopped by a hand move, or with the overlap gone, the older size rule. Fitted on CAP-A2ROUND1 b1, b4 and CAP-A2ROUND2 f1, m1 (seen).', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const TI = [...ADD('Text'), ...ADD('Image'), ['drag', 0, 'new', 'middle', 0, 123], ['press', 'Escape'], ['deselect', 0]];
+    const SBC = [...ADD('Shape'), ...ADD('Button'), ['drag', 0, 'new', 'middle', 472, 0], ['press', 'Escape'], ['deselect', 0], ...ADD('Code'), ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0]];
+    const PHONE = (steps) => [['view', 'Mobile'], ...steps, ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop']];
+    const TALL = (k, px) => PHONE([['select', 0, k], ['drag', 0, k, 's', 0, px]]);
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...TI, ...TALL(0, 140), ...READ('n1 Text over Image, before'), ...ADD('Button'), ...READ('n1 add button')],
+      [...TI, ...TALL(0, 140), ...READ('n2 Text over Image, before'), ...ADD('Shape'), ...READ('n2 add shape')],
+      [...TI, ...TALL(0, 140), ...READ('n3 Text over Image, before'), ...ADD('Video'), ...READ('n3 add video')],
+      [...SBC, ...TALL(0, 280), ...READ('n4 Shape over the rest, before'), ...ADD('Text'), ...READ('n4 add text')],
+      [...SBC, ...PHONE([['drag', 0, 1, 'middle', 0, 105]]), ...READ('n5 Code moved onto Button, before'), ...ADD('Text'), ...READ('n5 add text')]
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
