@@ -89,9 +89,12 @@ body:not(.is-preview) .fluid-engine.is-editing .vp-play, body:not(.is-preview) .
 /* A new image (MEDIAEMPTY.json): a white box with a round + in the middle. */
 .fluid-engine .fluid-image-component-empty-state-node { display: grid; place-items: center; width: 100%; height: 100%; background: #fff; }
 .fluid-engine .sqs-block-image .sqs-block-content:has(> .fluid-image-component-empty-state-node) { height: 100%; }
-.fluid-engine .fluid-image-add { position: relative; width: 36px; height: 36px; border-radius: 50%; background: #f2f2f2; }
-.fluid-engine .fluid-image-add::before, .fluid-engine .fluid-image-add::after { content: ""; position: absolute; left: 10px; top: 17.25px; width: 16px; height: 1.5px; background: #0e0e0e; }
-.fluid-engine .fluid-image-add::after { transform: rotate(90deg); }
+/* The plus is a 22px svg with a 16px path in a 36px circle, and a 1px file input sits at the node's corner, -1px out:
+   the oracle's two leaves, which turn with the block (CAP-75IMAGE.json, difference 90). */
+.fluid-engine .fluid-image-component-empty-state-node { position: relative; }
+.fluid-engine .fluid-image-add { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #f2f2f2; color: #0e0e0e; }
+.fluid-engine .fluid-image-add svg { display: block; }
+.fluid-engine .fluid-image-input { position: absolute; left: -1px; top: -1px; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; appearance: none; background: none; color: transparent; overflow: hidden; pointer-events: none; }
 .fluid-engine .sqs-block-embed .sqs-block-content, .fluid-engine .sqs-embed-container, .fluid-engine .sqs-block-video .sqs-block-content, .fluid-engine .sqs-block-video .sqs-block-content > div:not(.intrinsic) { height: 100%; }
 /* An empty video's .sqs-block is as tall as what is in it, 298.5 in 317.8 (CAP-T7CORNER.json). */
 .fluid-engine .sqs-block-video:has(.sqs-block-video-placeholder--empty), .fluid-engine .sqs-block-video:has(.sqs-block-video-placeholder--empty) .sqs-block-content { height: auto; }

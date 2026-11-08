@@ -31,6 +31,8 @@ const pickShape = (label) => q(`panel.querySelector('[data-shape-act="style"]').
 openDesign();
 add('A new Shape lands at 1/2/7/8', q(`return JSON.stringify(model().layout.desktop.area.join('/'));`) === '1/2/7/8');
 add('The block is 341.7 by 235.6', near(q(`const b = block().getBoundingClientRect(); return JSON.stringify([b.width, b.height]);`), F.stretchOff.block));
+// A new Shape is an svg.sqs-shape-rectangle holding a rect that fills it, as on the oracle (CAP-BLEND.json, difference 92).
+add('A plain rectangle is an svg with a rect (92)', q(`const s = block().querySelector('.sqs-shape'), r = s.querySelector('rect'); return JSON.stringify(s.tagName === 'svg' && s.classList.contains('sqs-shape-rectangle') && !!r && Math.abs(r.getBoundingClientRect().width - s.getBoundingClientRect().width) < 0.5 && Math.abs(r.getBoundingClientRect().height - s.getBoundingClientRect().height) < 0.5);`) === true);
 
 // The rows, in order.
 const order = q(`const at = (s) => { const e = [...panel.querySelectorAll('.sp-label, .sh-head, .bp-thead span')].find((x) => x.textContent.trim() === s); return e ? e.getBoundingClientRect().top : -1; }; return JSON.stringify(['Shape style', 'Stretch', 'Styling', 'Color', 'Blend Mode', 'Stroke', 'Drop Shadow', 'Blur', 'Transforms'].map(at));`);

@@ -1,8 +1,8 @@
 {
   "check": "image Fit, Fill and Shape",
   "tolerance": 1,
-  "pass": 47,
-  "total": 47,
+  "pass": 48,
+  "total": 48,
   "results": [
     {
       "what": "Fit rule on the oracle",
@@ -142,6 +142,10 @@
     },
     {
       "what": "Empty image is white with a +",
+      "ok": true
+    },
+    {
+      "what": "Empty image: svg +, 1px input",
       "ok": true
     },
     {

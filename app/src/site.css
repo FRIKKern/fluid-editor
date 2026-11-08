@@ -289,10 +289,11 @@ body { position: relative; }
 .sqs-svg-icon--list { display: flex; gap: var(--si-gap, 12px); }
 .social-icon-alignment-right .sqs-svg-icon--list { justify-content: flex-end; }
 .social-icon-alignment-center .sqs-svg-icon--list { justify-content: center; }
-.sqs-svg-icon--wrapper { display: block; flex: none; width: var(--si-size, 20px); height: var(--si-size, 20px); color: inherit; }
-.sqs-svg-icon--wrapper > div { width: 100%; height: 100%; }
+.sqs-svg-icon--wrapper { position: relative; display: block; flex: none; width: var(--si-size, 20px); height: var(--si-size, 20px); color: inherit; }
+/* The icon's own box is the link's, scaled: 2 on Regular, 1 with a border (CAP-BLEND.json, SAMPLE-ROWS.json difference 96). */
+.sqs-svg-icon--wrapper > div { position: absolute; inset: 0; transform: scale(1); }
 .sqs-svg-icon--social { display: block; width: 100%; height: 100%; fill: currentColor; }
-.social-icons-style-regular .sqs-svg-icon--wrapper > div { width: 200%; height: 200%; margin: -50%; }
+.social-icons-style-regular .sqs-svg-icon--wrapper > div { transform: scale(2); }
 .social-icons-style-regular .sqs-svg-icon--wrapper { overflow: visible; }
 .social-icons-shape-square .sqs-svg-icon--wrapper, .social-icons-shape-circle .sqs-svg-icon--wrapper, .social-icons-shape-rounded .sqs-svg-icon--wrapper { overflow: hidden; }
 .social-icons-shape-circle .sqs-svg-icon--wrapper { border-radius: 50%; }
@@ -307,9 +308,9 @@ body { position: relative; }
   .si-phone { display: block !important; }
   [data-m-style] .sqs-svg-icon--list { gap: var(--si-gap-m); }
   [data-m-style] .sqs-svg-icon--wrapper { width: var(--si-size-m); height: var(--si-size-m); overflow: hidden; border-radius: 0; box-shadow: none; background: none; }
-  [data-m-style] .sqs-svg-icon--wrapper > div { width: 100%; height: 100%; margin: 0; }
+  [data-m-style] .sqs-svg-icon--wrapper > div { transform: scale(1); }
   [data-m-style="regular"] .sqs-svg-icon--wrapper { overflow: visible; }
-  [data-m-style="regular"] .sqs-svg-icon--wrapper > div { width: 200%; height: 200%; margin: -50%; }
+  [data-m-style="regular"] .sqs-svg-icon--wrapper > div { transform: scale(2); }
   [data-m-shape="circle"] .sqs-svg-icon--wrapper { border-radius: 50%; }
   [data-m-shape="rounded"] .sqs-svg-icon--wrapper { border-radius: 15%; }
   [data-m-style="border"] .sqs-svg-icon--wrapper { box-shadow: inset 0 0 0 var(--si-thick-m, 2px) currentColor; }
@@ -379,7 +380,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .plus { position: relative; width: 100%; height: 100%; }
 .plus__horizontal-line, .plus__vertical-line { position: absolute; left: 0; top: calc(50% - var(--accordion-line, 1px) / 2); width: 100%; height: var(--accordion-line, 1px); background: currentColor; }
 .plus__vertical-line { transform: rotate(90deg); }
-[data-is-open] .plus__vertical-line { transform: none; }
+[data-is-open] .plus__vertical-line { transform: rotate(0deg); } /* the oracle's open bar keeps a transform, at 0 (SAMPLE-ROWS.json difference 91) */
 /* Arrow, Title and Description choices (ACCORDIONSTYLES.json) */
 .accordion-icon-container { position: relative; }
 .arrow-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.25s; }

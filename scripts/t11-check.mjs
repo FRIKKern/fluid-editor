@@ -41,13 +41,14 @@ add('Line: Design has transforms alone', q(`return JSON.stringify(!panel.querySe
 
 // Social Links
 ({ id } = await fresh('Social Links'));
-const soc = () => q(`const f = block('${id}'), q = f.getBoundingClientRect(), c = W.getComputedStyle(f), o = f.querySelector('.sqs-svg-icon--outer'), n = f.querySelector('nav'), as = [...f.querySelectorAll('nav a')], first = as[0], svg = first?.querySelector('svg'), ct = f.querySelector('.sqs-block-content'); const s1 = first && W.getComputedStyle(first); return JSON.stringify({ rows: Number(c.gridRowEnd) - Number(c.gridRowStart), area: [c.gridRowStart, c.gridColumnStart, c.gridRowEnd, c.gridColumnEnd].map(Number), size: [q.width, q.height], content: [ct.getBoundingClientRect().top - q.top, ct.getBoundingClientRect().height], gap: W.getComputedStyle(n).gap, cls: o.className, n: as.length, labels: as.map((a) => a.getAttribute('aria-label')), first: first && box(first, q), svg: first && box(svg, first.getBoundingClientRect()), radius: s1?.borderRadius, shadow: s1?.boxShadow, bg: s1?.backgroundColor, blockBg: W.getComputedStyle(f.querySelector('.sqs-block')).backgroundColor, firstFill: svg && W.getComputedStyle(svg.querySelector('.sqs-use--icon') || svg).fill, mask: !!svg?.querySelector('mask') });`);
+const soc = () => q(`const f = block('${id}'), q = f.getBoundingClientRect(), c = W.getComputedStyle(f), o = f.querySelector('.sqs-svg-icon--outer'), n = f.querySelector('nav'), as = [...f.querySelectorAll('nav a')], first = as[0], svg = first?.querySelector('svg'), ct = f.querySelector('.sqs-block-content'); const s1 = first && W.getComputedStyle(first); return JSON.stringify({ turn: first && W.getComputedStyle(first.querySelector(':scope > div')).transform, rows: Number(c.gridRowEnd) - Number(c.gridRowStart), area: [c.gridRowStart, c.gridColumnStart, c.gridRowEnd, c.gridColumnEnd].map(Number), size: [q.width, q.height], content: [ct.getBoundingClientRect().top - q.top, ct.getBoundingClientRect().height], gap: W.getComputedStyle(n).gap, cls: o.className, n: as.length, labels: as.map((a) => a.getAttribute('aria-label')), first: first && box(first, q), svg: first && box(svg, first.getBoundingClientRect()), radius: s1?.borderRadius, shadow: s1?.boxShadow, bg: s1?.backgroundColor, blockBg: W.getComputedStyle(f.querySelector('.sqs-block')).backgroundColor, firstFill: svg && W.getComputedStyle(svg.querySelector('.sqs-use--icon') || svg).fill, mask: !!svg?.querySelector('mask') });`);
 const set = (k, v) => click(`panel.querySelector('[data-soc-set="${k}"][data-v="${v}"]')`);
 let r = soc();
 add('Social: area and box', r.area.join() === F.social.area.join() && nearAll(r.size, F.social.box), `${r.area} ${r.size}`);
 add('Social: the oracle classes', r.cls === F.social.classes, r.cls);
 add('Social: three icons, 20 apart 12', r.n === 3 && r.gap === '12px' && nearAll(r.first, [70.1, 0, 20, 20]), `${r.n} ${r.gap} ${r.first}`);
 add('Social: svg twice the link at -50%', nearAll(r.svg, [-10, -10, 40, 40]), r.svg);
+add('Social: by a scale of 2 (96)', r.turn === 'matrix(2, 0, 0, 2, 0, 0)', r.turn); // CAP-BLEND.json
 add('Social: tabs', tabs().join() === F.social.tabs.join(), tabs());
 add('Social: starts on Content', q(`return JSON.stringify(panel.querySelector('[data-btab="Content"]').classList.contains('is-on'));`));
 const row0 = q(`const R = panel.querySelector('.bp-soc-row'); const name = R.querySelector('.bp-soc-name'), st = R.querySelector('.bp-soc-state'), go = R.querySelector('.bp-soc-go'), addB = panel.querySelector('.bp-soc-add'); return JSON.stringify({ h: R.getBoundingClientRect().height, name: rel(name).slice(0, 2), state: rel(st), go: rel(go), add: rel(addB), text: name.textContent, s: st.textContent, aria: go.getAttribute('aria-label') });`);
@@ -84,6 +85,7 @@ for (const [name, v] of [['Square', 'square'], ['Circle', 'circle'], ['Rounded',
   r = soc();
   add(`${name}: S is 28, gap 8, radius ${F.social.radius[name]}`, near(r.first[2], 28) && r.gap === '8px' && r.radius === F.social.radius[name] && r.cls.includes(`social-icons-shape-${v}`) && r.cls.includes('social-icons-style-knockout'), `${r.first} ${r.gap} ${r.radius} ${r.cls}`);
   add(`${name}: svg fills the link, mask cut`, nearAll(r.svg, [0, 0, 28, 28]) && r.mask, `${r.svg} ${r.mask}`);
+  if (v === 'square') add('Square: a scale of 1 (96)', r.turn === 'matrix(1, 0, 0, 1, 0, 0)', r.turn); // SAMPLE-ROWS.json round 3
 }
 for (const z of ['XS', 'M', 'L', 'XL']) {
   await set('iconSize', z);
