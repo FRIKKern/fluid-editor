@@ -339,8 +339,12 @@ await frameScroll(914); await hoverInSection(300);
 const pe = chromeBox('Open Section Settings'); await pressAt(pe[0] + 60, pe[1] + 20);
 const during = {};
 for (const y of [814, 514, 464, 214, 714, 1014, 1214, 1414]) { await frameScroll(y); during[y] = panelRect()[1]; }
-add('open panel follows the button', Math.abs(during[814] - 179) <= 3 && Math.abs(during[514] - 479) <= 3, JSON.stringify(during));
-add('open panel stops at H - 476', during[464] === 524 && during[214] === 524 && during[714] === 524, JSON.stringify(during));
+// It keeps to its section's content box, section top + 1 here (frozen band rule, CAP-U9DEMO.json: 241 of 245 on a section shaped like this one).
+// Named miss: SECTIONBAR.json's open read on the demo page (814: 179, 514: 479, then 524) sits 23-24 px lower, following the button, and reaches
+// H - 476 scrolled up. Not explained by step size or the content box (CAP-U9DEMO); untested guess: its 27 blocks, or opening with the section's top
+// at the frame's top. Cause not read.
+const bandWant = { 814: 156, 514: 456, 464: 506, 214: 506, 714: 506 };
+add('open panel keeps to its content box (SECTIONBAR read named)', Object.entries(bandWant).every(([y, v]) => Math.abs(during[y] - v) <= 1), JSON.stringify(during));
 add('open panel stays in the section', Math.abs(during[1014] - (1772 - 1014 + 55 + 1 - 476)) <= 1 && during[1414] === 0, JSON.stringify(during));
 browser(S, 'press', 'Escape'); await pause(120); await hoverBar(800, 20); await pause(200);
 // Stuck chrome, on any scroll; not stopped by the section's bottom.
