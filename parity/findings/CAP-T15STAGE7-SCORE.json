@@ -1,0 +1,17 @@
+{
+  "item": "T15",
+  "question": "CAP-T15STAGE7-PREDICTED.json scored on CAP-T15STAGE7-LOOP12, -APPEAR12, -SCROLL and -PINGPONG (one read each).",
+  "reads": {
+    "Loop 1.2s": "out to 2.25, D fitted 1195; back to 1 in one frame; out again, D 1200; held at 2.25 to the read's end (5 s)",
+    "On Appear 1.2s": "at 2.25 in its first moving frame, down to 1, D 1200",
+    "On Scroll again": "at 2.25 in its first moving frame, down to 1, D 995 (first read: 995)",
+    "Loop Ping Pong 0.4s": "out to 2.25, D 395, at the top for one frame, back on its ease, D 400, then at rest to the read's end (4 s)",
+    "Follow 6.5s": "still for about 0.5 s after the mouse came on; scale only: up to 1.836 at 1.45 s from its start, down past rest to 0.885 at 2.05 s, up to 1.016 at 2.6 s, at 0.998 to 1 from 3.1 s; the first read's rise had the same shape",
+    "clip": "the held shot at 2.25: the square shows 70 px tall, the stage's height, of its 81"
+  },
+  "score": {
+    "A": "Loop 1.2s holds (1195 against 1200), On Appear 1.2s holds (1200), On Scroll holds (995 against 1000), Ping Pong misses (no one-frame drop, ends at rest): 3 of 4",
+    "B": "Loop misses (1800), On Appear misses (1800), On Scroll holds, Ping Pong holds: 2 of 4"
+  },
+  "built": "Ping Pong out and back once (read fact); the stage clips its square (read fact). Follow's stage play stays unbuilt: matching it needs a model fitted to two reads."
+}
