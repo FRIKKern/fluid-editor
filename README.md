@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 74 changes
-  - T12: a Quote's Appear pick plays its effect in the editor ([#457](https://github.com/FRIKKern/fluid-editor/pull/457))
-  - T12: panels for Zola, Search Field and Donation ([#456](https://github.com/FRIKKern/fluid-editor/pull/456))
+- **Today** · 76 changes
+  - X6: Menu past its phone floor takes no give (7 of 7 predicted); the phone lags don't settle in 2 s ([#454](https://github.com/FRIKKern/fluid-editor/pull/454))
+  - T12: a Bar Chart's grid, axis and ticks, as read ([#459](https://github.com/FRIKKern/fluid-editor/pull/459))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
