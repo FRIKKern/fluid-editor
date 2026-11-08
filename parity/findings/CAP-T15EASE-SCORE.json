@@ -1,0 +1,54 @@
+{
+  "item": "T15",
+  "kind": "score",
+  "about": "On Scroll's Ease and the three Back eases. Round 1: predictions in CAP-T15EASE-PREDICTED.json (9f6af93), ours' time curves; reads in CAP-T15EASE-<ease>.json, Start 0% to End 100% of Scrolls, Linear read as the plain progress. Refit 1 (42f658c): one cubic bezier per ease, fitted to round 1 (worst .0001). Round 2: predictions in CAP-T15EASE2-PREDICTED.json (42f658c), frozen; reads in CAP-T15EASE2-<ease>.json, Start 20% to End 70%.",
+  "round1": {
+    "pass": "each read with progress between 0 and 1 within .02",
+    "Ease": "18 of 30",
+    "In Back": "19 of 30",
+    "Out Back": "23 of 30",
+    "In Out Back": "20 of 30",
+    "all": "80 of 120"
+  },
+  "refit1": {
+    "Ease": [
+      0.4,
+      0.2,
+      0.2,
+      1
+    ],
+    "In Back": [
+      0.36,
+      0,
+      0.66,
+      -0.56
+    ],
+    "Out Back": [
+      0.34,
+      1.56,
+      0.64,
+      1
+    ],
+    "In Out Back": [
+      0.68,
+      -0.6,
+      0.32,
+      1.6
+    ]
+  },
+  "round2": {
+    "pass": "every read within 4 px of the predicted Offset X",
+    "Ease": "47 of 47 (worst 0.07 px)",
+    "In Back": "47 of 47 (0.07 px)",
+    "Out Back": "47 of 47 (0.15 px)",
+    "In Out Back": "47 of 47 (0.12 px)",
+    "all": "188 of 188"
+  },
+  "notes": [
+    "Each run starts with the window at 1600 by 1000: the Linear run's narrowed window carried into the next runs, which then failed to add a block; those four were thrown away, nothing read.",
+    "CAP-T15EASE-UI.json is the way to the row: Animation, Add a new animation, the trigger list, On Scroll, Start blank; Start blank on On Scroll is Block, Scrolls, 0% to 50%, Out."
+  ],
+  "refit1Seen": "Refit 1 on the round 1 reads it was fitted to (seen): worst .0001 of the progress for each ease.",
+  "family": "Asked whether one family explains all seven scroll eases: the three Back eases equal the common Back beziers to .0001; ours' In, Out and In Out (fitted in #365) fit their reads (CAP-T15FRESH*.json: In 44, Out 19, In Out 50 reads) to .0024, while the common Sine, Quad, Cubic, Quart, Quint, Expo and Circ beziers miss them by .011 (In Out, Quart) to .26. Ease fits none of those. So: seven curves, as built; seen only, no new rule.",
+  "script": "scripts/oracle/scroll-ease-steps.mjs gives these runs' steps (the first Linear run had no window step; its window was 1600 by 1000 already)."
+}

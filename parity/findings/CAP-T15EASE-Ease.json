@@ -1,0 +1,2146 @@
+{
+  "item": "CAP-T15EASE-Ease",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "T15: On Scroll, Start blank, End 100%, Start Offset X -200px, Ease: the block's transform per 16 px of scroll in preview mode",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "clickIf",
+      "On Hover"
+    ],
+    [
+      "clickIf",
+      "On Scroll"
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "fillValue",
+      "0px",
+      "-200px"
+    ],
+    [
+      "clickIf",
+      "Timing"
+    ],
+    [
+      "fillValue",
+      "50%",
+      "100%"
+    ],
+    [
+      "clickIf",
+      "Out"
+    ],
+    [
+      "clickIf",
+      "Ease"
+    ],
+    [
+      "read",
+      "timing set",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "window",
+      1600,
+      300
+    ],
+    [
+      "clickIf",
+      "Toggle preview mode"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "geom",
+      {
+        "section": 0,
+        "block": [
+          0,
+          "new"
+        ],
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "read",
+      "y0",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      16
+    ],
+    [
+      "read",
+      "y16",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      32
+    ],
+    [
+      "read",
+      "y32",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      48
+    ],
+    [
+      "read",
+      "y48",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      64
+    ],
+    [
+      "read",
+      "y64",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      80
+    ],
+    [
+      "read",
+      "y80",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      96
+    ],
+    [
+      "read",
+      "y96",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      112
+    ],
+    [
+      "read",
+      "y112",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      128
+    ],
+    [
+      "read",
+      "y128",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      144
+    ],
+    [
+      "read",
+      "y144",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      160
+    ],
+    [
+      "read",
+      "y160",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      176
+    ],
+    [
+      "read",
+      "y176",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      192
+    ],
+    [
+      "read",
+      "y192",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      208
+    ],
+    [
+      "read",
+      "y208",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      224
+    ],
+    [
+      "read",
+      "y224",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      240
+    ],
+    [
+      "read",
+      "y240",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      256
+    ],
+    [
+      "read",
+      "y256",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      272
+    ],
+    [
+      "read",
+      "y272",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      288
+    ],
+    [
+      "read",
+      "y288",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      304
+    ],
+    [
+      "read",
+      "y304",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      320
+    ],
+    [
+      "read",
+      "y320",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      336
+    ],
+    [
+      "read",
+      "y336",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      352
+    ],
+    [
+      "read",
+      "y352",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      368
+    ],
+    [
+      "read",
+      "y368",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      384
+    ],
+    [
+      "read",
+      "y384",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      400
+    ],
+    [
+      "read",
+      "y400",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      416
+    ],
+    [
+      "read",
+      "y416",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      432
+    ],
+    [
+      "read",
+      "y432",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      448
+    ],
+    [
+      "read",
+      "y448",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      464
+    ],
+    [
+      "read",
+      "y464",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      480
+    ],
+    [
+      "read",
+      "y480",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      496
+    ],
+    [
+      "read",
+      "y496",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      512
+    ],
+    [
+      "read",
+      "y512",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      528
+    ],
+    [
+      "read",
+      "y528",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      544
+    ],
+    [
+      "read",
+      "y544",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      560
+    ],
+    [
+      "read",
+      "y560",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      576
+    ],
+    [
+      "read",
+      "y576",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      592
+    ],
+    [
+      "read",
+      "y592",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      608
+    ],
+    [
+      "read",
+      "y608",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      624
+    ],
+    [
+      "read",
+      "y624",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      640
+    ],
+    [
+      "read",
+      "y640",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      656
+    ],
+    [
+      "read",
+      "y656",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      672
+    ],
+    [
+      "read",
+      "y672",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      688
+    ],
+    [
+      "read",
+      "y688",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      704
+    ],
+    [
+      "read",
+      "y704",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      720
+    ],
+    [
+      "read",
+      "y720",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      736
+    ],
+    [
+      "read",
+      "y736",
+      {
+        "style": [
+          0,
+          "new"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "timing set": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Start",
+          "box": [
+            483,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            575,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            667,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Block",
+          "box": [
+            624,
+            484,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Scrolls",
+          "box": [
+            624,
+            535,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0%",
+          "box": [
+            635,
+            586,
+            113,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            586,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            619,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            635,
+            637,
+            113,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            637,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            670,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            752,
+            651,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Ease",
+          "box": [
+            624,
+            688,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            739,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Scroll to preview",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "geom": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -199.843, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          -99.7,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794126894655_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false",
+          "data-m-id": "m-yui_3_17_2_1_1794126894655_438"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, -199.843, 0)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "section": {
+        "frame": [
+          1600,
+          245
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y0": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -199.843, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y16": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -196.028, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y32": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -191.196, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y48": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -185.123, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y64": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -177.521, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y80": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -168.047, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y96": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -156.346, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y112": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -142.223, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y128": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -125.999, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y144": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -108.8, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y160": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -92.1861, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y176": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -77.2878, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y192": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -64.4794, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y208": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -53.6545, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y224": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -44.5412, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y240": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -36.8565, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y256": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -30.3564, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y272": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -24.8435, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y288": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -20.1604, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y304": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -16.1823, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y320": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -12.8094, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y336": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -9.96108, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y352": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -7.5718, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y368": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -5.58738, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y384": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -3.96279, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y400": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -2.66019, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y416": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -1.64747, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y432": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -0.897204, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y448": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -0.38577, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y464": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, -0.0926697, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y480": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y496": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y512": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y528": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y544": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y560": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y576": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y592": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y608": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y624": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y640": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y656": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y672": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y688": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y704": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y720": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "y736": {
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "170.844px 117.781px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "none 1px",
+        "rx": null,
+        "tagName": "rect",
+        "inner": [
+          341.7,
+          235.6
+        ],
+        "vars": "mix-blend-mode: normal; --m-offset-x: 0px; --m-offset-y: 0px; --m-offset-z: 0px; --m-scale-x: 1; --m-scale-y: 1; --m-scale-z: 1; --m-rotation-x: 0deg; --m-rotation-y: 0deg; --m-rotation-z: 0deg; --m-skew-x: 0deg; --m-skew-y: 0deg; --m-opacity: 1;"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
