@@ -1,0 +1,19 @@
+{
+  "item": "R2",
+  "question": "CAP-RESIZESCROLLPREDICT",
+  "frozenAt": "2026-11-08T20:30Z",
+  "reads": "CAP-RESIZESCROLL2.json: s1 the setup of CAP-DRAGSCROLL f3 again; s2 the Shape alone in a blank section; s3 the Shape moved 2 rows down first; s4 resized 123 px instead of 246; s5 the page scrolled 60 first.",
+  "seen": "CAP-DRAGSCROLL f3, CAP-RESIZESCROLL p3 and q3: a Shape at 1/2/7/8 (top 244.2 in the frame, scroll 0) resized south 246 px to 1/2/13/8 leaves the page scrolled 233, the block's top at 11.2. The Video's resize before it (f1, p1, q1: 1/2/9/10 to 1/2/17/10, top 244.2) left the scroll at 0.",
+  "rules": {
+    "R": "After a Shape's south resize the page scrolls so the block's top sits 11.2 px below the frame's top: scrollY after = the block's top on the page - 11.2 (its top in the frame before + scrollY before - 11.2), whatever the size, the section and the scroll before. The lead's two examples fail on the seen reads (the new bottom was already where the drop point was, and already in view), so neither is pushed.",
+    "R2": "A second candidate, pushed only to separate it from R on s2: the same, but only when the section's row count does not change (the Video's resize grew the section and did not scroll). s2 grows the section."
+  },
+  "predictions": {
+    "s1": { "R": 233, "R2": 233, "ours": "no scroll" },
+    "s2": { "R": 233, "R2": "no scroll", "ours": "no scroll" },
+    "s3": { "R": "top before + scrollY before - 11.2: 315.2 if the move leaves the page at 0 and the top at 326.4", "R2": "as R", "ours": "no scroll" },
+    "s4": { "R": 233, "R2": 233, "ours": "no scroll" },
+    "s5": { "R": "233, the same scroll on the page: 60 before, the top at 184.2 in the frame", "R2": "as R", "ours": "no scroll (60)" }
+  },
+  "scoring": "Per case, the scroll read in 'after' and 'settled' against each rule's, within 2 px, R computed from the case's own 'before' read. One round, up to two refits, then frozen."
+}
