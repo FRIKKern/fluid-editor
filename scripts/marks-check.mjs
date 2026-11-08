@@ -1619,6 +1619,27 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     browser(S, 'press', 'Escape'); await pause(150);
     add(`View Layouts h1p1: the heading's step through every pair (${run.length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // A heading alone (CAP-U10TEXTMIX-D.json), with the read's words: on, 6 tiles, 0 and 1 not built (the oracle makes it a
+  // Scrolling block there), and at 2 to 5 the read areas and rows, its end line fitted to its words, h1, centred, the theme.
+  {
+    const D = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-D.json', import.meta.url))).reads, errs = [];
+    await start();
+    evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: '<h2>Heading words for a probe</h2>', id: 'h0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+    await pause(450);
+    const b = await chromeBtn();
+    if (!b || b.off) errs.push(`button ${JSON.stringify(b)}`);
+    else {
+      await realClick(b.x, b.y);
+      const tiles = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => (t.disabled ? -1 : +t.dataset.layout)))`);
+      if (tiles.join() !== '-1,-1,2,3,4,5') errs.push(`tiles ${tiles}`);
+      for (const [k, r] of Object.entries(D).filter(([k]) => /layout [2-5]$/.test(k))) {
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${k.split(' ').pop()}"]').click(); const s = fe.model.sections[0], x = s.blocks[0]; return JSON.stringify([s.rows.desktop, x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.html.slice(0, 40), s.theme || '']); })()`);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0] || g[2] !== r.areas[0][1] || !/^<h1 [^>]*text-align: ?center/.test(g[3]) || g[4] !== r.look.th) errs.push(`${k} ${g}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts, a heading alone: 6 tiles, 2 to 5 as read, fitted to its words', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
   evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);

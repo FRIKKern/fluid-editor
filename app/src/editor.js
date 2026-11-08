@@ -11,7 +11,7 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
+import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
@@ -5974,6 +5974,12 @@ layoutsPanel.addEventListener('click', (e) => {
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
+  if (mix.list[layoutsPicked].fit) {
+    renderSectionDom(layoutsSid);
+    const fe = feEl(layoutsSid), m = measure(fe);
+    fitLayout(S(layoutsSid), mix, layoutsPicked, (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height ?? 0, { rg: m.rg, pitch: rowFloor(fe) + m.rg });
+  }
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
   renderAll();
