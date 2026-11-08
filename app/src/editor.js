@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBloc
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, APPEAR, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -2420,6 +2420,14 @@ blockPanel.addEventListener('change', (e) => {
   e.stopImmediatePropagation();
   setShape((b) => { if (f.checked) b[f.dataset.imageSet] = true; else delete b[f.dataset.imageSet]; }, `${f.dataset.imageSet} ${f.checked ? 'on' : 'off'}`);
 }, true);
+// A Quote's Appear (CAP-DESIGNTAB-EFFECTS2.json): its list over the row, Site Default 20 above the row's top.
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-appear]');
+  if (!a || !sel) return;
+  if (shapeUi?.kind === 'appear') { closeShapePop(); return; }
+  shapeUi = { kind: 'appear', bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  renderShapePop();
+});
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-sel]');
   if (!a || !sel) return;
@@ -3033,7 +3041,7 @@ function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
   blockPanel.querySelector('.bp-anchor')?.setAttribute('aria-expanded', String(kind === 'anchor'));
-  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'appear' ? 'is-appear' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'anchor') {
     const { ox, oy } = designFor(b, bp), btn = blockPanel.querySelector('[data-shape-act="anchor"]')?.getBoundingClientRect();
     shapePop.className = 'is-anchor';
@@ -3056,6 +3064,12 @@ function renderShapePop() {
     // Interaction (IMAGEEFFECT.json): a list over its row, the current one on the row with a check.
     shapePop.innerHTML = EFFECTS[b.effect.kind].groups.flatMap(([, rows]) => rows).find((r) => r[2] === shapeUi.key)[3].map((o) => `<button type="button" role="option" class="${o === b.effect[shapeUi.key] ? 'is-cur' : ''}" data-fx-opt="${o}">${o}${o === b.effect[shapeUi.key] ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 12l4 4 8-9"/></svg>' : ''}</button>`).join('');
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
+  } else if (kind === 'appear') {
+    // What a pick does on the page is not read: it is kept on the block.
+    const cur = b.appear || APPEAR[0];
+    shapePop.innerHTML = APPEAR.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" aria-selected="${o === cur}" data-appear-opt="${o}">${o}</button>`).join('');
+    const top = shapeUi.rect.top - 25;
+    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list past the window's foot scrolls (not read)
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
     const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
@@ -3150,6 +3164,13 @@ shapePop.addEventListener('click', (e) => {
     const { key } = shapeUi, v = fxo.dataset.fxOpt;
     closeShapePop();
     if (B(sel.sid, sel.bid).effect[key] !== v) setEffect((b) => { b.effect[key] = v; }, `image effect ${key} ${v}`);
+    return;
+  }
+  const apo = e.target.closest('[data-appear-opt]');
+  if (apo) {
+    const v = apo.dataset.appearOpt;
+    closeShapePop();
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`);
     return;
   }
   const io = e.target.closest('[data-image-opt]');
@@ -3328,7 +3349,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel], [data-appear]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
