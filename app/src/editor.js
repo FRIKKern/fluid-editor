@@ -5456,6 +5456,8 @@ function onSectionChange(e) {
 // Hovering a section shows its toolbar; Edit Section opens the settings in a floating panel
 // for that section, with or without a selected block.
 const chrome = $('section-chrome');
+// A wheel turn over the section's own buttons scrolls the page, and the chrome stays on its section (CAP-U9REST.json).
+chrome.addEventListener('wheel', (e) => { e.preventDefault(); frame.contentWindow.scrollBy({ top: e.deltaY, left: e.deltaX }); }, { passive: false });
 const sectionPanel = $('section-panel');
 const addMenu = $('add-block-menu');
 let hoverSid = null;
@@ -5554,9 +5556,9 @@ function chromeSid() { return editSid || sel?.sid || hoverSid; }
 let chromeOut = 0;
 let copies = [];
 const litNow = (o) => { const c = getComputedStyle(o); return o.classList.contains('sc-outline') ? Number(c.borderTopColor.match(/rgba\(.*, ([\d.]+)\)/)?.[1] ?? 1) : Number(c.opacity); };
-function leaveCopy(o, cls, frames) {
+function leaveCopy(o, cls, frames, sid = chrome.dataset.key?.split('|')[0]) {
   const gone = o.cloneNode(true);
-  const entry = { gone, sid: chrome.dataset.key?.split('|')[0], part: o.dataset.scPart, y: win.scrollY };
+  const entry = { gone, sid, part: o.dataset.scPart, y: win.scrollY };
   gone.classList.add(cls);
   for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
   const lit = litNow(o);
@@ -5611,14 +5613,23 @@ function placeChrome() {
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
-  if (newSection) outlineAway();
+  // With one block selected the outline goes to the section under the pointer, on the same 0.2 s cross, and Layers
+  // stays with the block; a press there changes nothing until the let go, which leaves the outline lit (CAP-U9REST2.json,
+  // CAP-U9REST3.json). Read on the desktop.
+  const oSid = !phone && blockSelected && hoverSid && hoverSid !== sid && sectionEl(hoverSid) ? hoverSid : sid;
+  const prevO = chrome.hidden ? null : chrome.dataset.outline;
+  const outlineStays = newSection && prevO === sid;
+  const outlineMoves = !newSection && !!prevO && prevO !== oSid;
+  if (newSection && !outlineStays) outlineAway();
+  if (outlineMoves) { const o = chrome.querySelector('.sc-outline'); if (o) leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], prevO); }
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const own = o.getAnimations().filter((a) => !(a instanceof CSSTransition || a instanceof CSSAnimation)); if (own.length) { const lit = litNow(o), frame = litFrame(o); own.forEach((a) => a.cancel()); runUp(o, frame, lit); } } }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
   if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); runCopiesBack(sid); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-add-in'); if (!outlineStays) chrome.classList.add('is-outline-in'); runCopiesBack(sid); }
+  if (outlineMoves) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); runCopiesBack(oSid); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -5626,6 +5637,11 @@ function placeChrome() {
   const secs = [...el.parentElement.querySelectorAll(':scope > .page-section')];
   const drift = (n) => secs.slice(0, n).reduce((sum, x) => { const h = x.getBoundingClientRect().height; return sum + Math.round(h) - h; }, 0);
   const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid, [drift(secs.indexOf(el)), drift(secs.indexOf(el) + 1)]);
+  if (oSid !== sid) {
+    const hEl = sectionEl(oSid), hHeader = model.sections[0]?.id === oSid ? doc.getElementById('header') : null;
+    L.outline = sectionChromeLayout(hEl.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), hHeader ? hHeader.getBoundingClientRect().bottom : 0, phone, hEl.querySelector('.fluid-engine')?.getBoundingClientRect() || null, [drift(secs.indexOf(hEl)), drift(secs.indexOf(hEl) + 1)]).outline;
+  }
+  chrome.dataset.outline = oSid;
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;
@@ -5635,10 +5651,12 @@ function placeChrome() {
   if (editSid) {
     // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
-    // Read on desktop only, so the phone panel stays open.
-    if (!phone && sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
+    // On phones the panel keeps the top it opened at, and closes once its section's bottom is above the canvas's top
+    // (CAP-U9REST.json, CAP-U9REST2.json).
+    if (phone ? q.bottom < 0 : sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
-    const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
+    const held = panelPlace?.sid === editSid ? panelPlace.top : null;
+    const place = phone && held !== null ? held : sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: held });
     panelPlace = { sid: editSid, top: place };
     sectionPanel.style.top = `${place - st.top}px`;
   }

@@ -1,0 +1,22 @@
+{
+  "item": "CAP-U9REST-PREDICT2",
+  "question": "U9, second round, predictions written and pushed before the read. B1 again with both blocks on screen, so the capture does not scroll the page (in CAP-U9REST it scrolled 973 px before the press). The phone panel's closing at two other sizes.",
+  "predictions": [
+    {
+      "case": "B1b: a Shape in section 0 selected, the pointer moved onto a Button in section 1 with no press",
+      "predict": "The Shape stays selected. The outline crosses to section 1 on the 0.2 s cross. Add Section stays out."
+    },
+    {
+      "case": "B1b: then pressed, 2 px, let go",
+      "predict": "On the press the Shape is let go and section 1's Add Section fades in over 0.2 s. On the let go the Button is selected and that Add Section fades out over 0.2 s."
+    },
+    {
+      "case": "C2: phone, window 1600 by 1000, Edit Section open on section 2, scrolled down 10 px a step",
+      "predict": "The panel's top stays where it opened, and it closes at the first step where section 2's bottom is above the frame's top (the frame top read as frameTop)."
+    },
+    {
+      "case": "C3: phone, window 1600 by 800, Edit Section open on section 1, scrolled down 10 px a step",
+      "predict": "The same: fixed top, closed at the first step where section 1's bottom is above the frame's top."
+    }
+  ]
+}
