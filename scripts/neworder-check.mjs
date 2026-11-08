@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, mouse, drag, browser, cdp } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { STUB_JS } from './lib/clip-guard.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 viewport(S, 1600, 1000);
@@ -101,7 +102,8 @@ for (const file of FILES) {
       if (writing) loud = 2;
       writing = false; quiet = false;
     } else if (op === 'stubClipboard') {
-      // the oracle needs one; ours keeps its own
+      // The same stub as on the oracle: cdp-run sends Meta+c, x and v only with its marker in place.
+      evalJs(S, STUB_JS);
     } else if (op === 'read') {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;
