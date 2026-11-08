@@ -154,7 +154,9 @@ function phoneFollowsMove(s, was) {
     }
     return gone.length > 0;
   }
-  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
+  const typed = same.some(([b, o]) => b.html !== o.html);
+  return (s.phoneFollows && (changed('desktop', (a) => a) || typed) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
@@ -5318,8 +5320,12 @@ function onSectionClick(e) {
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
-  if (act === 'valign') s.valign = v;
+  // Custom height after a flattening Vertical press starts again at 1 (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json, custom again).
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
+  // (CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5380,6 +5386,8 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (CAP-P3ALIGN2 to 4).
+let panelFlat = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5395,6 +5403,7 @@ function followHeight(input) {
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
   s.customHeight = n;
+  delete s.flat;
   renderSectionDom(s.id);
   if (input.type !== 'range') { heightBefore ??= before; return; }
   // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
@@ -5432,6 +5441,7 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+    delete s.flat;
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
@@ -5458,6 +5468,8 @@ function onSectionChange(e) {
 // Hovering a section shows its toolbar; Edit Section opens the settings in a floating panel
 // for that section, with or without a selected block.
 const chrome = $('section-chrome');
+// A wheel turn over the section's own buttons scrolls the page, and the chrome stays on its section (CAP-U9REST.json).
+chrome.addEventListener('wheel', (e) => { e.preventDefault(); frame.contentWindow.scrollBy({ top: e.deltaY, left: e.deltaX }); }, { passive: false });
 const sectionPanel = $('section-panel');
 const addMenu = $('add-block-menu');
 let hoverSid = null;
@@ -5556,9 +5568,9 @@ function chromeSid() { return editSid || sel?.sid || hoverSid; }
 let chromeOut = 0;
 let copies = [];
 const litNow = (o) => { const c = getComputedStyle(o); return o.classList.contains('sc-outline') ? Number(c.borderTopColor.match(/rgba\(.*, ([\d.]+)\)/)?.[1] ?? 1) : Number(c.opacity); };
-function leaveCopy(o, cls, frames) {
+function leaveCopy(o, cls, frames, sid = chrome.dataset.key?.split('|')[0]) {
   const gone = o.cloneNode(true);
-  const entry = { gone, sid: chrome.dataset.key?.split('|')[0], part: o.dataset.scPart, y: win.scrollY };
+  const entry = { gone, sid, part: o.dataset.scPart, y: win.scrollY };
   gone.classList.add(cls);
   for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
   const lit = litNow(o);
@@ -5613,14 +5625,23 @@ function placeChrome() {
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
-  if (newSection) outlineAway();
+  // With one block selected the outline goes to the section under the pointer, on the same 0.2 s cross, and Layers
+  // stays with the block; a press there changes nothing until the let go, which leaves the outline lit (CAP-U9REST2.json,
+  // CAP-U9REST3.json). Read on the desktop.
+  const oSid = !phone && blockSelected && hoverSid && hoverSid !== sid && sectionEl(hoverSid) ? hoverSid : sid;
+  const prevO = chrome.hidden ? null : chrome.dataset.outline;
+  const outlineStays = newSection && prevO === sid;
+  const outlineMoves = !newSection && !!prevO && prevO !== oSid;
+  if (newSection && !outlineStays) outlineAway();
+  if (outlineMoves) { const o = chrome.querySelector('.sc-outline'); if (o) leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], prevO); }
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const own = o.getAnimations().filter((a) => !(a instanceof CSSTransition || a instanceof CSSAnimation)); if (own.length) { const lit = litNow(o), frame = litFrame(o); own.forEach((a) => a.cancel()); runUp(o, frame, lit); } } }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
   if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); runCopiesBack(sid); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-add-in'); if (!outlineStays) chrome.classList.add('is-outline-in'); runCopiesBack(sid); }
+  if (outlineMoves) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); runCopiesBack(oSid); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -5628,6 +5649,11 @@ function placeChrome() {
   const secs = [...el.parentElement.querySelectorAll(':scope > .page-section')];
   const drift = (n) => secs.slice(0, n).reduce((sum, x) => { const h = x.getBoundingClientRect().height; return sum + Math.round(h) - h; }, 0);
   const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid, [drift(secs.indexOf(el)), drift(secs.indexOf(el) + 1)]);
+  if (oSid !== sid) {
+    const hEl = sectionEl(oSid), hHeader = model.sections[0]?.id === oSid ? doc.getElementById('header') : null;
+    L.outline = sectionChromeLayout(hEl.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), hHeader ? hHeader.getBoundingClientRect().bottom : 0, phone, hEl.querySelector('.fluid-engine')?.getBoundingClientRect() || null, [drift(secs.indexOf(hEl)), drift(secs.indexOf(hEl) + 1)]).outline;
+  }
+  chrome.dataset.outline = oSid;
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;
@@ -5637,10 +5663,12 @@ function placeChrome() {
   if (editSid) {
     // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
-    // Read on desktop only, so the phone panel stays open.
-    if (!phone && sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
+    // On phones the panel keeps the top it opened at, and closes once its section's bottom is above the canvas's top
+    // (CAP-U9REST.json, CAP-U9REST2.json).
+    if (phone ? q.bottom < 0 : sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
-    const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
+    const held = panelPlace?.sid === editSid ? panelPlace.top : null;
+    const place = phone && held !== null ? held : sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: held });
     panelPlace = { sid: editSid, top: place };
     sectionPanel.style.top = `${place - st.top}px`;
   }
@@ -5680,7 +5708,8 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
+  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
@@ -5799,7 +5828,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();

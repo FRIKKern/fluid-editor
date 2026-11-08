@@ -281,6 +281,9 @@ body { position: relative; }
    (oracle: 10 gives 10vh and 1vmax, 0 gives none; linear between is assumed). */
 .page-section.section-height--custom { min-height: calc(var(--custom-height, 0) * 1vh); }
 .page-section.section-height--custom > .content-wrapper { --section-pad: calc(var(--custom-height, 0) * 0.1vmax); }
+/* Custom height at top or bottom (CAP-P3ALIGN2 to 4): no gutter on the near edge, twice the padding on the far one. */
+.page-section.section-height--custom.vertical-alignment--top > .content-wrapper { padding-top: 0; }
+.page-section.section-height--custom.vertical-alignment--bottom > .content-wrapper { padding-bottom: 0; }
 /* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
 .sqs-html-content p[data-rte-preserve-empty]:empty::before { content: ""; display: inline-block; }
 .page-section a { color: inherit; }

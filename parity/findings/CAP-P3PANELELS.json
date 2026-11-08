@@ -1,0 +1,1520 @@
+{
+  "item": "CAP-P3PANELELS",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "P3: the section panel's controls by name, on a new blank section on Blocks Probe (read only, unsaved).",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "controls": true,
+        "elsIn": [
+          1240,
+          120,
+          1600,
+          1000
+        ],
+        "panelEls": "[aria-label=\"Section editor form\"] input, [aria-label=\"Section editor form\"] label, [aria-label=\"Section editor form\"] [role=radio]"
+      }
+    ]
+  ],
+  "reads": {
+    "panel": {
+      "range": null,
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "DesignBackgroundColors",
+          "box": [
+            1258,
+            248,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            1280,
+            248,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Background",
+          "box": [
+            1342,
+            248,
+            79.7,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Colors",
+          "box": [
+            1437.7,
+            248,
+            42.9,
+            55
+          ]
+        },
+        {
+          "role": "input:number",
+          "label": "Row Count",
+          "value": "8",
+          "min": "1",
+          "max": "10000",
+          "step": "1",
+          "box": [
+            1479,
+            345,
+            77,
+            36
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Divider",
+          "value": false,
+          "box": [
+            1530,
+            693.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "466815",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "elsIn": [
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "okEnE2LaEA8_U5PB section-toolb",
+          1400,
+          204.6,
+          178,
+          210,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "js-section-toolbar BQ6HdBsu1UQ",
+          1400,
+          204.6,
+          178,
+          210,
+          "rgb(231, 231, 231)",
+          "1px",
+          "auto",
+          ""
+        ],
+        [
+          "button",
+          "",
+          "Open Section Settings",
+          "",
+          "toolbar-button-settings",
+          "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+          1407,
+          211.6,
+          164,
+          44,
+          "rgb(231, 231, 231)",
+          "1px",
+          "pointer",
+          ""
+        ],
+        [
+          "span",
+          "",
+          "",
+          "",
+          "",
+          "fs-unmask",
+          1448,
+          222.6,
+          87,
+          22,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          "Edit Section"
+        ],
+        [
+          "button",
+          "",
+          "",
+          "",
+          "toolbar-layout-switcher",
+          "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+          1407,
+          261.6,
+          164,
+          44,
+          "rgb(231, 231, 231)",
+          "1px",
+          "not-allowed",
+          ""
+        ],
+        [
+          "div",
+          "toolbar",
+          "",
+          "",
+          "section-toolbar",
+          "za67_MCHi9MYyrtW css-sncxrr",
+          1407,
+          311.6,
+          164,
+          46,
+          "rgb(231, 231, 231)",
+          "1px",
+          "auto",
+          ""
+        ],
+        [
+          "button",
+          "",
+          "Remove Section",
+          "",
+          "toolbar-button-delete",
+          "u3BcFpctH0ECg6u9 OUNMob8tCgDm1",
+          1407,
+          363.6,
+          164,
+          44,
+          "rgb(231, 231, 231)",
+          "1px",
+          "pointer",
+          ""
+        ],
+        [
+          "span",
+          "",
+          "",
+          "",
+          "",
+          "fs-unmask",
+          1448,
+          374.6,
+          54,
+          22,
+          "rgb(195, 45, 56)",
+          "0px",
+          "pointer",
+          "Remove"
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "dialog",
+          "Section editor form",
+          "",
+          "",
+          "E3wn3QCWK_Er69Iq css-kyjzx4",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "eI_M2OuIpy8iLeFp",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "S9aJ18k_uwJEn46O",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "Transition-container-GTAkx CSS",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "Transition-panel-K9Z1s",
+          1258,
+          248,
+          320,
+          476,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "",
+          1258,
+          248,
+          320,
+          55,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "button",
+          "",
+          "",
+          "",
+          "",
+          1258,
+          248,
+          320,
+          55,
+          "rgb(62, 62, 62)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-1rwfrrc",
+          1258,
+          248,
+          320,
+          55,
+          "rgb(62, 62, 62)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-1k4tg43",
+          1258,
+          248,
+          320,
+          55,
+          "rgb(62, 62, 62)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "div",
+          "tablist",
+          "",
+          "",
+          "",
+          "css-8vecfd",
+          1280,
+          248,
+          276,
+          55,
+          "rgb(62, 62, 62)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "section-settings-tab-spacing",
+          "css-4ogar7",
+          1280,
+          248,
+          46,
+          55,
+          "rgb(14, 14, 14)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "button",
+          "tab",
+          "Design",
+          "true",
+          "",
+          "css-1jjp8vb",
+          1280,
+          248,
+          46,
+          55,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "section-settings-tab-background",
+          "css-1sps4um",
+          1342,
+          248,
+          80,
+          55,
+          "rgb(102, 102, 102)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "button",
+          "tab",
+          "Background",
+          "false",
+          "",
+          "css-1jjp8vb",
+          1342,
+          248,
+          80,
+          55,
+          "rgb(102, 102, 102)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "section-settings-tab-color",
+          "css-1sps4um",
+          1437.7,
+          248,
+          43,
+          55,
+          "rgb(102, 102, 102)",
+          "0px",
+          "grab",
+          ""
+        ],
+        [
+          "button",
+          "tab",
+          "Colors",
+          "false",
+          "",
+          "css-1jjp8vb",
+          1437.7,
+          248,
+          43,
+          55,
+          "rgb(102, 102, 102)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "N2lWaMFOhEIA3YIU",
+          1258,
+          303,
+          320,
+          421,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "va_LKx3dRbIWV9NS",
+          1258,
+          303,
+          320,
+          22,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "_t8zw7xNA4gyUXtf SmfOYAI5fiQTC",
+          1258,
+          325,
+          320,
+          509,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "fQDwThfaxaAGFRnd",
+          1269,
+          341,
+          298,
+          45,
+          "rgb(14, 14, 14)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "be8TGAVwnKUDaeao",
+          1280,
+          341,
+          276,
+          44,
+          "rgb(14, 14, 14)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "pqG320mnGqckNkRF StNVqOEfxooVn",
+          1384.9,
+          341,
+          171,
+          44,
+          "rgb(14, 14, 14)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "input",
+          "",
+          "Row Count",
+          "",
+          "",
+          "KKd3kchgKUymgiCN css-1tec340",
+          1479,
+          345,
+          77,
+          36,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-18emuiy",
+          1280,
+          386,
+          276,
+          45,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-14ufkhp",
+          1280,
+          386,
+          276,
+          44,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-1rxyiww",
+          1280,
+          390,
+          276,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-3xgmsg",
+          1280,
+          397,
+          88,
+          22,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-rfj5ie",
+          1428,
+          390,
+          128,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "radiogroup",
+          "",
+          "",
+          "",
+          "css-xfc9w0",
+          1428,
+          390,
+          128,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "css-owbdot",
+          1428,
+          390,
+          44,
+          36,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "content css-y84vo3",
+          1428,
+          390,
+          44,
+          36,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "img",
+          "",
+          "",
+          "",
+          "",
+          "",
+          1428,
+          386,
+          44,
+          44,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-18emuiy",
+          1280,
+          469,
+          276,
+          171,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "css-7lfxrs",
+          1280,
+          469,
+          276,
+          42,
+          "rgb(62, 62, 62)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "p",
+          "",
+          "",
+          "",
+          "",
+          "css-15m5h7s",
+          1280,
+          482,
+          67,
+          22,
+          "rgb(14, 14, 14)",
+          "0px",
+          "pointer",
+          "Fill Screen"
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-14ufkhp",
+          1280,
+          512,
+          276,
+          44,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-1rxyiww",
+          1280,
+          516,
+          276,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-3xgmsg",
+          1280,
+          523,
+          88,
+          22,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "css-cb07jm",
+          1280,
+          523,
+          44,
+          22,
+          "rgb(14, 14, 14)",
+          "0px",
+          "default",
+          "Height"
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-rfj5ie",
+          1394,
+          516,
+          162,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "radiogroup",
+          "",
+          "",
+          "",
+          "css-9vcj3w",
+          1394,
+          516,
+          162,
+          36,
+          "rgb(14, 14, 14)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-14ufkhp",
+          1280,
+          557,
+          276,
+          44,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-1rxyiww",
+          1280,
+          561,
+          276,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-3xgmsg",
+          1280,
+          568,
+          88,
+          22,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "css-cb07jm",
+          1280,
+          568,
+          69,
+          22,
+          "rgb(14, 14, 14)",
+          "0px",
+          "default",
+          "Alignment"
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "css-rfj5ie",
+          1436,
+          561,
+          120,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "div",
+          "radiogroup",
+          "",
+          "",
+          "",
+          "css-xfc9w0",
+          1436,
+          561,
+          120,
+          36,
+          "rgb(62, 62, 62)",
+          "0px",
+          "auto",
+          ""
+        ],
+        [
+          "span",
+          "",
+          "",
+          "",
+          "",
+          "css-xj9ceh",
+          1280,
+          608,
+          276,
+          32,
+          "rgb(102, 102, 102)",
+          "0px",
+          "auto",
+          "Fill screen will exp"
+        ],
+        [
+          "label",
+          "",
+          "",
+          "",
+          "",
+          "tfBTmQBkIMg0EDwC CQSLaTYrphIJk",
+          1269,
+          677,
+          298,
+          46,
+          "rgb(62, 62, 62)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "nhLCYXOlVQ4J4iPL Pt1JagHaRs0LP",
+          1280,
+          678,
+          276,
+          45,
+          "rgb(62, 62, 62)",
+          "0px",
+          "pointer",
+          ""
+        ],
+        [
+          "div",
+          "",
+          "",
+          "",
+          "",
+          "Fp3_KobHyG8IUxhc undefined",
+          1280,
+          686,
+          242,
+          28,
+          "rgb(62, 62, 62)",
+          "0px",
+          "pointer",
+          ""
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "label",
+          "cls": "css-1snnkhq",
+          "label": "Grid",
+          "lines": 0,
+          "box": [
+            1258,
+            325,
+            320,
+            16
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "fQDwThfaxaAGFRnd",
+          "label": "Row Count",
+          "lines": 2,
+          "box": [
+            1269,
+            341,
+            298,
+            45
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-1gvk7m",
+          "label": "Row Count",
+          "lines": 0,
+          "box": [
+            1280,
+            355,
+            104.9,
+            16
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "8",
+          "cls": "KKd3kchgKUymgiCN css-1tec340",
+          "label": "Row Count",
+          "lines": 0,
+          "box": [
+            1479,
+            345,
+            77,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-cb07jm",
+          "label": "Gap",
+          "lines": 0,
+          "box": [
+            1280,
+            397,
+            28,
+            22
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Zero gap",
+          "lines": 2,
+          "box": [
+            1428,
+            390,
+            44,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-170sbtt",
+          "label": "Medium gap",
+          "lines": 2,
+          "box": [
+            1478,
+            390,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Custom gap",
+          "lines": 2,
+          "box": [
+            1520,
+            390,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-1snnkhq",
+          "label": "Section",
+          "lines": 0,
+          "box": [
+            1258,
+            453,
+            320,
+            16
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-7lfxrs",
+          "label": "Fill Screen",
+          "lines": 3,
+          "box": [
+            1280,
+            469,
+            276,
+            42
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1rgsnx8",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1279,
+            468,
+            1,
+            1
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-cb07jm",
+          "label": "Height",
+          "lines": 0,
+          "box": [
+            1280,
+            523,
+            44,
+            22
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "S",
+          "lines": 2,
+          "box": [
+            1394,
+            516,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-170sbtt",
+          "label": "M",
+          "lines": 2,
+          "box": [
+            1436,
+            516,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "L",
+          "lines": 2,
+          "box": [
+            1478,
+            516,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Custom height",
+          "lines": 2,
+          "box": [
+            1520,
+            516,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-cb07jm",
+          "label": "Alignment",
+          "lines": 0,
+          "box": [
+            1280,
+            568,
+            68.6,
+            22
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Vertical top",
+          "lines": 2,
+          "box": [
+            1436,
+            561,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-170sbtt",
+          "label": "Vertical center",
+          "lines": 2,
+          "box": [
+            1478,
+            561,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-owbdot",
+          "label": "Vertical bottom",
+          "lines": 2,
+          "box": [
+            1520,
+            561,
+            36,
+            36
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-1snnkhq",
+          "label": "Styling",
+          "lines": 0,
+          "box": [
+            1258,
+            662,
+            320,
+            16
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "tfBTmQBkIMg0EDwC CQSLaTYrphIJkkzg MJFbsa2CXuQwlyhL",
+          "label": "Divider",
+          "lines": 2,
+          "box": [
+            1269,
+            677,
+            298,
+            46
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-ufyl68",
+          "label": "",
+          "lines": 2,
+          "box": [
+            1528,
+            691.5,
+            28,
+            16
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Divider",
+          "lines": 0,
+          "box": [
+            1530,
+            693.5,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-lqq89",
+          "label": "Anchor Link",
+          "lines": 0,
+          "box": [
+            1280,
+            739,
+            84.3,
+            22
+          ]
+        },
+        {
+          "tag": "label",
+          "cls": "css-1rxyiww",
+          "label": "#",
+          "lines": 3,
+          "box": [
+            1291,
+            778,
+            254,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-ru2bbq",
+          "label": "",
+          "lines": 0,
+          "box": [
+            1309.8,
+            778,
+            202.2,
+            22
+          ]
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

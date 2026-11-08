@@ -1,0 +1,3779 @@
+{
+  "item": "CAP-U9REST",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U9's last unread parts (predictions in CAP-U9REST-PREDICT.json): A, a wheel turn over the section's own buttons; B, a press with another block selected, in another section and in the same one; C, the phone's Edit Section panel while scrolling.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      300
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "outlineStart"
+    ],
+    [
+      "wheelOn",
+      "Open Section Settings",
+      60
+    ],
+    [
+      "addStop",
+      "A1 add"
+    ],
+    [
+      "outlineStop",
+      "A1 outline"
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "outlineStart"
+    ],
+    [
+      "wheelOn",
+      "Open Layers Panel",
+      60
+    ],
+    [
+      "addStop",
+      "A3 add"
+    ],
+    [
+      "outlineStop",
+      "A3 outline"
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "outlineStart"
+    ],
+    [
+      "wheelOn",
+      "Open Section Settings",
+      600
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "addStop",
+      "A2 add"
+    ],
+    [
+      "outlineStop",
+      "A2 outline"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "read",
+      "B layout",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "read",
+      "B button 1",
+      {
+        "block": [
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "B button 0",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B1 shape selected",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "outlineStart"
+    ],
+    [
+      "pressOnly",
+      1,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B1 pressed, Button",
+      {
+        "block": [
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "B1 pressed, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "move",
+      2,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "B1 2 px, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "release"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "addStop",
+      "B1 add"
+    ],
+    [
+      "outlineStop",
+      "B1 outline"
+    ],
+    [
+      "read",
+      "B1 let go, Button",
+      {
+        "block": [
+          1,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "B1 let go, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "addStart"
+    ],
+    [
+      "outlineStart"
+    ],
+    [
+      "pressOnly",
+      0,
+      0
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B2 pressed, Button",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "move",
+      2,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "release"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "addStop",
+      "B2 add"
+    ],
+    [
+      "outlineStop",
+      "B2 outline"
+    ],
+    [
+      "read",
+      "B2 let go, Button",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "B2 let go, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "panel",
+      1
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "C open",
+      {
+        "panelBox": 1
+      }
+    ],
+    [
+      "scrollWalk",
+      "C to close",
+      10,
+      200,
+      80
+    ],
+    [
+      "scrollWalk",
+      "C back",
+      -20,
+      20,
+      150
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "wheel 60 on Open Section Settings": {
+      "at": [
+        1489,
+        106
+      ],
+      "scrollBefore": 300,
+      "scrollAfter": 360
+    },
+    "A1 add": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          9,
+          [
+            [
+              -124,
+              1,
+              "visible"
+            ],
+            [
+              625,
+              1,
+              "visible"
+            ],
+            [
+              625,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              1513,
+              0,
+              "hidden"
+            ],
+            [
+              2401,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          1194,
+          [
+            [
+              -184,
+              1,
+              "visible"
+            ],
+            [
+              565,
+              1,
+              "visible"
+            ],
+            [
+              565,
+              0,
+              "hidden"
+            ],
+            [
+              1453,
+              0,
+              "hidden"
+            ],
+            [
+              1453,
+              0,
+              "hidden"
+            ],
+            [
+              2341,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "A1 outline": {
+      "columns": [
+        "ms",
+        "each outline: top, border color, has the show class, displayed"
+      ],
+      "seen": [
+        [
+          10,
+          [
+            [
+              -162,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              587,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              1474,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          1094,
+          [
+            [
+              -222,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              527,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              1414,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    "wheel 60 on Open Layers Panel": {
+      "at": [
+        45,
+        99
+      ],
+      "scrollBefore": 360,
+      "scrollAfter": 420
+    },
+    "A3 add": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          7,
+          [
+            [
+              -184,
+              1,
+              "visible"
+            ],
+            [
+              565,
+              1,
+              "visible"
+            ],
+            [
+              565,
+              0,
+              "hidden"
+            ],
+            [
+              1453,
+              0,
+              "hidden"
+            ],
+            [
+              1453,
+              0,
+              "hidden"
+            ],
+            [
+              2341,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          1126,
+          [
+            [
+              -244,
+              1,
+              "visible"
+            ],
+            [
+              505,
+              1,
+              "visible"
+            ],
+            [
+              505,
+              0,
+              "hidden"
+            ],
+            [
+              1393,
+              0,
+              "hidden"
+            ],
+            [
+              1393,
+              0,
+              "hidden"
+            ],
+            [
+              2281,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "A3 outline": {
+      "columns": [
+        "ms",
+        "each outline: top, border color, has the show class, displayed"
+      ],
+      "seen": [
+        [
+          13,
+          [
+            [
+              -222,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              527,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              1414,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          1015,
+          [
+            [
+              -282,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              467,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              1354,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    "wheel 600 on Open Section Settings": {
+      "at": [
+        1489,
+        106
+      ],
+      "scrollBefore": 420,
+      "scrollAfter": 1020
+    },
+    "A2 add": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          11,
+          [
+            [
+              -244,
+              1,
+              "visible"
+            ],
+            [
+              505,
+              1,
+              "visible"
+            ],
+            [
+              505,
+              0,
+              "hidden"
+            ],
+            [
+              1393,
+              0,
+              "hidden"
+            ],
+            [
+              1393,
+              0,
+              "hidden"
+            ],
+            [
+              2281,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          1146,
+          [
+            [
+              -844,
+              1,
+              "visible"
+            ],
+            [
+              -95,
+              1,
+              "visible"
+            ],
+            [
+              -95,
+              0,
+              "hidden"
+            ],
+            [
+              793,
+              0,
+              "hidden"
+            ],
+            [
+              793,
+              0,
+              "hidden"
+            ],
+            [
+              1681,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "A2 outline": {
+      "columns": [
+        "ms",
+        "each outline: top, border color, has the show class, displayed"
+      ],
+      "seen": [
+        [
+          4,
+          [
+            [
+              -282,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              467,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              1354,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          1039,
+          [
+            [
+              -882,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              -133,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              754,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    "B layout": {
+      "sections": [
+        {
+          "id": "1494d6",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "49_422",
+            "49_646"
+          ],
+          "h": 887.7
+        },
+        {
+          "id": "50a297",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "49_886"
+          ],
+          "h": 887.7
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B button 1": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          1172.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_886",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B button 0": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          354.3,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_422",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 shape selected": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          354.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_646",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 pressed, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          199.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_886",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 pressed, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          -618.7,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 2 px, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          -618.7,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 add": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          2,
+          [
+            [
+              176,
+              0,
+              "hidden"
+            ],
+            [
+              925,
+              0,
+              "hidden"
+            ],
+            [
+              925,
+              0,
+              "hidden"
+            ],
+            [
+              1813,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          273,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              840,
+              0,
+              "hidden"
+            ]
+          ]
+        ],
+        [
+          336,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.013,
+              "visible"
+            ],
+            [
+              840,
+              0.013,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          353,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.056,
+              "visible"
+            ],
+            [
+              840,
+              0.056,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          370,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.129,
+              "visible"
+            ],
+            [
+              840,
+              0.129,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          386,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.232,
+              "visible"
+            ],
+            [
+              840,
+              0.232,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          403,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.359,
+              "visible"
+            ],
+            [
+              840,
+              0.359,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          420,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.5,
+              "visible"
+            ],
+            [
+              840,
+              0.5,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          436,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.641,
+              "visible"
+            ],
+            [
+              840,
+              0.641,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          453,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.768,
+              "visible"
+            ],
+            [
+              840,
+              0.768,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          474,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.871,
+              "visible"
+            ],
+            [
+              840,
+              0.871,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          486,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.944,
+              "visible"
+            ],
+            [
+              840,
+              0.944,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          503,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.986,
+              "visible"
+            ],
+            [
+              840,
+              0.986,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          520,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              1,
+              "visible"
+            ],
+            [
+              840,
+              1,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3193,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.986,
+              "visible"
+            ],
+            [
+              840,
+              0.986,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3203,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.944,
+              "visible"
+            ],
+            [
+              840,
+              0.944,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3220,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.871,
+              "visible"
+            ],
+            [
+              840,
+              0.871,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3236,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.768,
+              "visible"
+            ],
+            [
+              840,
+              0.768,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3252,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.641,
+              "visible"
+            ],
+            [
+              840,
+              0.641,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3270,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.501,
+              "visible"
+            ],
+            [
+              840,
+              0.501,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3286,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.359,
+              "visible"
+            ],
+            [
+              840,
+              0.359,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3302,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.232,
+              "visible"
+            ],
+            [
+              840,
+              0.232,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3320,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.129,
+              "visible"
+            ],
+            [
+              840,
+              0.129,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3336,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.056,
+              "visible"
+            ],
+            [
+              840,
+              0.056,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3353,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0.014,
+              "visible"
+            ],
+            [
+              840,
+              0.014,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3370,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "visible"
+            ],
+            [
+              840,
+              0,
+              "visible"
+            ]
+          ]
+        ],
+        [
+          3386,
+          [
+            [
+              -797,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              -48,
+              0,
+              "hidden"
+            ],
+            [
+              840,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "B1 outline": {
+      "columns": [
+        "ms",
+        "each outline: top, border color, has the show class, displayed"
+      ],
+      "seen": [
+        [
+          14,
+          [
+            [
+              138,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              887,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          168,
+          [
+            [
+              -835,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              -86,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          203,
+          [
+            [
+              -835,
+              "72, 148, 255",
+              0,
+              1
+            ],
+            [
+              -86,
+              "0, 0, 0, 0",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          210,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.99",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.01",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          217,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.945",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.055",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          231,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.87",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.13",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          248,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.77",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.23",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          265,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.64",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.36",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          280,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.5",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.5",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          298,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.36",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.64",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          315,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.23",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.77",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          331,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.13",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.87",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          347,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.055",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.945",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          368,
+          [
+            [
+              -835,
+              "72, 148, 255, 0.01",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 0.99",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          381,
+          [
+            [
+              -835,
+              "72, 148, 255, 0",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255, 1",
+              1,
+              1
+            ]
+          ]
+        ],
+        [
+          397,
+          [
+            [
+              -835,
+              "0, 0, 0, 0",
+              0,
+              1
+            ],
+            [
+              -86,
+              "72, 148, 255",
+              1,
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    "B1 let go, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          199.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_886",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 337.7,30.6",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,67.2",
+          "se 10x10 at 337.7,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 let go, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          -618.7,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 pressed, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          200.3,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_422",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 add": {
+      "columns": [
+        "ms",
+        "each Add Section: top, opacity with its parents, visibility"
+      ],
+      "seen": [
+        [
+          10,
+          [
+            [
+              22,
+              0,
+              "hidden"
+            ],
+            [
+              771,
+              0,
+              "hidden"
+            ],
+            [
+              771,
+              0,
+              "hidden"
+            ],
+            [
+              1659,
+              0,
+              "hidden"
+            ]
+          ]
+        ]
+      ]
+    },
+    "B2 outline": {
+      "columns": [
+        "ms",
+        "each outline: top, border color, has the show class, displayed"
+      ],
+      "seen": [
+        [
+          8,
+          [
+            [
+              -16,
+              "72, 148, 255",
+              1,
+              1
+            ],
+            [
+              733,
+              "0, 0, 0, 0",
+              0,
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    "B2 let go, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          200.3,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_422",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 337.7,30.6",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,67.2",
+          "se 10x10 at 337.7,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 let go, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          200.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794141586549_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C open": {
+      "panelBox": {
+        "box": [
+          1209,
+          213,
+          320,
+          476
+        ],
+        "edit": 73,
+        "scrollY": 544,
+        "secTop": 134.7,
+        "secH": 623.7
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C to close": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          554,
+          213,
+          73,
+          -499
+        ],
+        [
+          564,
+          213,
+          73,
+          -509
+        ],
+        [
+          574,
+          213,
+          73,
+          -519
+        ],
+        [
+          584,
+          213,
+          73,
+          -529
+        ],
+        [
+          594,
+          213,
+          73,
+          -539
+        ],
+        [
+          604,
+          213,
+          73,
+          -549
+        ],
+        [
+          614,
+          213,
+          73,
+          -559
+        ],
+        [
+          624,
+          213,
+          73,
+          -569
+        ],
+        [
+          634,
+          213,
+          63,
+          -579
+        ],
+        [
+          644,
+          213,
+          53,
+          -589
+        ],
+        [
+          654,
+          213,
+          43,
+          -599
+        ],
+        [
+          664,
+          213,
+          33,
+          -609
+        ],
+        [
+          674,
+          213,
+          23,
+          -619
+        ],
+        [
+          684,
+          213,
+          13,
+          -629
+        ],
+        [
+          694,
+          213,
+          3,
+          -639
+        ],
+        [
+          704,
+          213,
+          -7,
+          -649
+        ],
+        [
+          714,
+          213,
+          -17,
+          -659
+        ],
+        [
+          724,
+          213,
+          -27,
+          -669
+        ],
+        [
+          734,
+          213,
+          -37,
+          -679
+        ],
+        [
+          744,
+          213,
+          -47,
+          -689
+        ],
+        [
+          754,
+          213,
+          -57,
+          -699
+        ],
+        [
+          764,
+          213,
+          -67,
+          -709
+        ],
+        [
+          774,
+          213,
+          -77,
+          -719
+        ],
+        [
+          784,
+          213,
+          -87,
+          -729
+        ],
+        [
+          794,
+          213,
+          -97,
+          -739
+        ],
+        [
+          804,
+          213,
+          -107,
+          -749
+        ],
+        [
+          814,
+          213,
+          -117,
+          -759
+        ],
+        [
+          824,
+          213,
+          -127,
+          -769
+        ],
+        [
+          834,
+          213,
+          -137,
+          -779
+        ],
+        [
+          844,
+          213,
+          -147,
+          -789
+        ],
+        [
+          854,
+          213,
+          -157,
+          -799
+        ],
+        [
+          864,
+          213,
+          -167,
+          -809
+        ],
+        [
+          874,
+          213,
+          -177,
+          -819
+        ],
+        [
+          884,
+          213,
+          -187,
+          -829
+        ],
+        [
+          894,
+          213,
+          -197,
+          -839
+        ],
+        [
+          904,
+          213,
+          -207,
+          -849
+        ],
+        [
+          914,
+          213,
+          -217,
+          -859
+        ],
+        [
+          924,
+          213,
+          -227,
+          -869
+        ],
+        [
+          934,
+          213,
+          -237,
+          -879
+        ],
+        [
+          944,
+          213,
+          -247,
+          -889
+        ],
+        [
+          954,
+          213,
+          -257,
+          -899
+        ],
+        [
+          964,
+          213,
+          -267,
+          -909
+        ],
+        [
+          974,
+          213,
+          -277,
+          -919
+        ],
+        [
+          984,
+          213,
+          -287,
+          -929
+        ],
+        [
+          994,
+          213,
+          -297,
+          -939
+        ],
+        [
+          1004,
+          213,
+          -307,
+          -949
+        ],
+        [
+          1014,
+          213,
+          -317,
+          -959
+        ],
+        [
+          1024,
+          213,
+          -327,
+          -969
+        ],
+        [
+          1034,
+          213,
+          -337,
+          -979
+        ],
+        [
+          1044,
+          213,
+          -347,
+          -989
+        ],
+        [
+          1054,
+          213,
+          -357,
+          -999
+        ],
+        [
+          1064,
+          213,
+          -367,
+          -1009
+        ],
+        [
+          1074,
+          213,
+          -377,
+          -1019
+        ],
+        [
+          1084,
+          213,
+          -387,
+          -1029
+        ],
+        [
+          1094,
+          213,
+          -397,
+          -1039
+        ],
+        [
+          1104,
+          213,
+          -407,
+          -1049
+        ],
+        [
+          1114,
+          213,
+          -417,
+          -1059
+        ],
+        [
+          1124,
+          213,
+          -427,
+          -1069
+        ],
+        [
+          1134,
+          213,
+          -437,
+          -1079
+        ],
+        [
+          1144,
+          213,
+          -447,
+          -1089
+        ],
+        [
+          1154,
+          213,
+          -457,
+          -1099
+        ],
+        [
+          1164,
+          213,
+          -467,
+          -1109
+        ],
+        [
+          1174,
+          213,
+          -477,
+          -1119
+        ],
+        [
+          1184,
+          213,
+          -487,
+          -1129
+        ],
+        [
+          1194,
+          213,
+          -497,
+          -1139
+        ],
+        [
+          1204,
+          213,
+          -507,
+          -1149
+        ],
+        [
+          1214,
+          213,
+          -517,
+          -1159
+        ],
+        [
+          1224,
+          213,
+          -527,
+          -1169
+        ],
+        [
+          1234,
+          213,
+          -537,
+          -1179
+        ],
+        [
+          1244,
+          213,
+          -547,
+          -1189
+        ],
+        [
+          1254,
+          null,
+          -557,
+          -1199
+        ],
+        [
+          1264,
+          null,
+          -567,
+          -1209
+        ],
+        [
+          1274,
+          null,
+          -577,
+          -1219
+        ],
+        [
+          1284,
+          null,
+          -587,
+          -1229
+        ],
+        [
+          1294,
+          null,
+          -597,
+          -1239
+        ],
+        [
+          1304,
+          null,
+          -607,
+          -1249
+        ],
+        [
+          1314,
+          null,
+          -617,
+          -1259
+        ],
+        [
+          1324,
+          null,
+          -627,
+          -1269
+        ],
+        [
+          1334,
+          null,
+          -637,
+          -1279
+        ],
+        [
+          1344,
+          null,
+          -647,
+          -1289
+        ],
+        [
+          1354,
+          null,
+          -657,
+          -1299
+        ],
+        [
+          1364,
+          null,
+          -667,
+          -1309
+        ],
+        [
+          1374,
+          null,
+          -677,
+          -1319
+        ],
+        [
+          1384,
+          null,
+          -687,
+          -1329
+        ],
+        [
+          1394,
+          null,
+          -697,
+          -1339
+        ],
+        [
+          1404,
+          null,
+          -707,
+          -1349
+        ],
+        [
+          1414,
+          null,
+          -717,
+          -1359
+        ],
+        [
+          1424,
+          null,
+          -727,
+          -1369
+        ],
+        [
+          1434,
+          null,
+          -737,
+          -1379
+        ],
+        [
+          1444,
+          null,
+          -747,
+          -1389
+        ],
+        [
+          1454,
+          null,
+          -757,
+          -1399
+        ],
+        [
+          1464,
+          null,
+          -767,
+          -1409
+        ],
+        [
+          1474,
+          null,
+          -777,
+          -1419
+        ],
+        [
+          1484,
+          null,
+          -787,
+          -1429
+        ],
+        [
+          1494,
+          null,
+          -797,
+          -1439
+        ],
+        [
+          1504,
+          null,
+          -807,
+          -1449
+        ],
+        [
+          1514,
+          null,
+          -817,
+          -1459
+        ],
+        [
+          1524,
+          null,
+          -827,
+          -1469
+        ],
+        [
+          1534,
+          null,
+          -837,
+          -1479
+        ],
+        [
+          1544,
+          null,
+          -847,
+          -1489
+        ],
+        [
+          1554,
+          null,
+          -857,
+          -1499
+        ],
+        [
+          1564,
+          null,
+          -867,
+          -1509
+        ],
+        [
+          1574,
+          null,
+          -877,
+          -1519
+        ],
+        [
+          1584,
+          null,
+          -887,
+          -1529
+        ],
+        [
+          1594,
+          null,
+          -897,
+          -1539
+        ],
+        [
+          1604,
+          null,
+          -907,
+          -1549
+        ],
+        [
+          1614,
+          null,
+          -917,
+          -1559
+        ],
+        [
+          1624,
+          null,
+          -927,
+          -1569
+        ],
+        [
+          1634,
+          null,
+          -937,
+          -1579
+        ],
+        [
+          1644,
+          null,
+          -947,
+          -1589
+        ],
+        [
+          1654,
+          null,
+          -957,
+          -1599
+        ],
+        [
+          1664,
+          null,
+          -967,
+          -1609
+        ],
+        [
+          1674,
+          null,
+          -977,
+          -1619
+        ],
+        [
+          1684,
+          null,
+          -987,
+          -1629
+        ],
+        [
+          1694,
+          null,
+          -997,
+          -1639
+        ],
+        [
+          1704,
+          null,
+          -1007,
+          -1649
+        ],
+        [
+          1714,
+          null,
+          -1017,
+          -1659
+        ],
+        [
+          1724,
+          null,
+          -1027,
+          -1669
+        ],
+        [
+          1734,
+          null,
+          -1037,
+          -1679
+        ],
+        [
+          1744,
+          null,
+          -1047,
+          -1689
+        ],
+        [
+          1754,
+          null,
+          -1057,
+          -1699
+        ],
+        [
+          1764,
+          null,
+          -1067,
+          -1709
+        ],
+        [
+          1774,
+          null,
+          -1077,
+          -1719
+        ],
+        [
+          1784,
+          null,
+          -1087,
+          -1729
+        ],
+        [
+          1794,
+          null,
+          -1097,
+          -1739
+        ],
+        [
+          1804,
+          null,
+          -1107,
+          -1749
+        ],
+        [
+          1814,
+          null,
+          -1117,
+          -1759
+        ],
+        [
+          1824,
+          null,
+          -1127,
+          -1769
+        ],
+        [
+          1834,
+          null,
+          -1137,
+          -1779
+        ],
+        [
+          1844,
+          null,
+          -1147,
+          -1789
+        ],
+        [
+          1854,
+          null,
+          -1157,
+          -1799
+        ],
+        [
+          1864,
+          null,
+          -1167,
+          -1809
+        ],
+        [
+          1874,
+          null,
+          -1177,
+          -1819
+        ],
+        [
+          1884,
+          null,
+          -1187,
+          -1829
+        ],
+        [
+          1894,
+          null,
+          -1197,
+          -1839
+        ],
+        [
+          1904,
+          null,
+          -1207,
+          -1849
+        ],
+        [
+          1914,
+          null,
+          -1217,
+          -1859
+        ],
+        [
+          1924,
+          null,
+          -1227,
+          -1869
+        ],
+        [
+          1934,
+          null,
+          -1237,
+          -1879
+        ],
+        [
+          1944,
+          null,
+          -1247,
+          -1889
+        ],
+        [
+          1954,
+          null,
+          -1257,
+          -1899
+        ],
+        [
+          1964,
+          null,
+          -1267,
+          -1909
+        ],
+        [
+          1974,
+          null,
+          -1277,
+          -1919
+        ],
+        [
+          1984,
+          null,
+          -1287,
+          -1929
+        ],
+        [
+          1994,
+          null,
+          -1297,
+          -1939
+        ],
+        [
+          2004,
+          null,
+          -1307,
+          -1949
+        ],
+        [
+          2014,
+          null,
+          -1317,
+          -1959
+        ],
+        [
+          2024,
+          null,
+          -1327,
+          -1969
+        ],
+        [
+          2034,
+          null,
+          -1337,
+          -1979
+        ],
+        [
+          2044,
+          null,
+          -1347,
+          -1989
+        ],
+        [
+          2054,
+          null,
+          -1357,
+          -1999
+        ],
+        [
+          2064,
+          null,
+          -1367,
+          -2009
+        ],
+        [
+          2074,
+          null,
+          -1377,
+          -2019
+        ],
+        [
+          2084,
+          null,
+          -1387,
+          -2029
+        ],
+        [
+          2094,
+          null,
+          -1397,
+          -2039
+        ],
+        [
+          2104,
+          null,
+          -1407,
+          -2049
+        ],
+        [
+          2114,
+          null,
+          -1417,
+          -2059
+        ],
+        [
+          2124,
+          null,
+          -1427,
+          -2069
+        ],
+        [
+          2134,
+          null,
+          -1437,
+          -2079
+        ],
+        [
+          2144,
+          null,
+          -1447,
+          -2089
+        ],
+        [
+          2154,
+          null,
+          -1457,
+          -2099
+        ],
+        [
+          2164,
+          null,
+          -1467,
+          -2109
+        ],
+        [
+          2174,
+          null,
+          -1477,
+          -2119
+        ],
+        [
+          2184,
+          null,
+          -1487,
+          -2129
+        ],
+        [
+          2194,
+          null,
+          -1497,
+          -2139
+        ],
+        [
+          2204,
+          null,
+          -1507,
+          -2149
+        ],
+        [
+          2214,
+          null,
+          -1517,
+          -2159
+        ],
+        [
+          2224,
+          null,
+          -1527,
+          -2169
+        ],
+        [
+          2234,
+          null,
+          -1537,
+          -2179
+        ],
+        [
+          2244,
+          null,
+          -1547,
+          -2189
+        ],
+        [
+          2254,
+          null,
+          -1557,
+          -2199
+        ],
+        [
+          2264,
+          null,
+          -1567,
+          -2209
+        ],
+        [
+          2274,
+          null,
+          -1577,
+          -2219
+        ],
+        [
+          2284,
+          null,
+          -1587,
+          -2229
+        ],
+        [
+          2294,
+          null,
+          -1597,
+          -2239
+        ],
+        [
+          2304,
+          null,
+          -1607,
+          -2249
+        ],
+        [
+          2314,
+          null,
+          -1617,
+          -2259
+        ],
+        [
+          2324,
+          null,
+          -1627,
+          -2269
+        ],
+        [
+          2334,
+          null,
+          -1637,
+          -2279
+        ],
+        [
+          2344,
+          null,
+          -1647,
+          -2289
+        ],
+        [
+          2354,
+          null,
+          -1657,
+          -2299
+        ],
+        [
+          2364,
+          null,
+          -1667,
+          -2309
+        ],
+        [
+          2374,
+          null,
+          -1677,
+          -2319
+        ],
+        [
+          2384,
+          null,
+          -1687,
+          -2329
+        ],
+        [
+          2394,
+          null,
+          -1697,
+          -2339
+        ],
+        [
+          2404,
+          null,
+          -1707,
+          -2349
+        ],
+        [
+          2414,
+          null,
+          -1717,
+          -2359
+        ],
+        [
+          2424,
+          null,
+          -1727,
+          -2369
+        ],
+        [
+          2434,
+          null,
+          -1737,
+          -2379
+        ],
+        [
+          2444,
+          null,
+          -1747,
+          -2389
+        ],
+        [
+          2454,
+          null,
+          -1757,
+          -2399
+        ],
+        [
+          2464,
+          null,
+          -1767,
+          -2409
+        ],
+        [
+          2474,
+          null,
+          -1777,
+          -2419
+        ],
+        [
+          2484,
+          null,
+          -1787,
+          -2429
+        ],
+        [
+          2494,
+          null,
+          -1797,
+          -2439
+        ],
+        [
+          2504,
+          null,
+          -1807,
+          -2449
+        ],
+        [
+          2514,
+          null,
+          -1817,
+          -2459
+        ],
+        [
+          2524,
+          null,
+          -1827,
+          -2469
+        ],
+        [
+          2534,
+          null,
+          -1837,
+          -2479
+        ],
+        [
+          2544,
+          null,
+          -1847,
+          -2489
+        ]
+      ]
+    },
+    "C back": {
+      "columns": [
+        "scroll",
+        "panel top",
+        "Edit Section y",
+        "section top"
+      ],
+      "seen": [
+        [
+          2524,
+          null,
+          -1827,
+          -2469
+        ],
+        [
+          2504,
+          null,
+          -1807,
+          -2449
+        ],
+        [
+          2484,
+          null,
+          -1787,
+          -2429
+        ],
+        [
+          2464,
+          null,
+          -1767,
+          -2409
+        ],
+        [
+          2444,
+          null,
+          -1747,
+          -2389
+        ],
+        [
+          2424,
+          null,
+          -1727,
+          -2369
+        ],
+        [
+          2404,
+          null,
+          -1707,
+          -2349
+        ],
+        [
+          2384,
+          null,
+          -1687,
+          -2329
+        ],
+        [
+          2364,
+          null,
+          -1667,
+          -2309
+        ],
+        [
+          2344,
+          null,
+          -1647,
+          -2289
+        ],
+        [
+          2324,
+          null,
+          -1627,
+          -2269
+        ],
+        [
+          2304,
+          null,
+          -1607,
+          -2249
+        ],
+        [
+          2284,
+          null,
+          -1587,
+          -2229
+        ],
+        [
+          2264,
+          null,
+          -1567,
+          -2209
+        ],
+        [
+          2244,
+          null,
+          -1547,
+          -2189
+        ],
+        [
+          2224,
+          null,
+          -1527,
+          -2169
+        ],
+        [
+          2204,
+          null,
+          -1507,
+          -2149
+        ],
+        [
+          2184,
+          null,
+          -1487,
+          -2129
+        ],
+        [
+          2164,
+          null,
+          -1467,
+          -2109
+        ],
+        [
+          2144,
+          null,
+          -1447,
+          -2089
+        ]
+      ]
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "A, a wheel turn on the section's own buttons (window 1600 by 1400, section 0 hovered, page at 300): on Open Section Settings, 60 scrolls the page 60; on Open Layers Panel, 60 more; on the card again, 600 scrolls 600. Each time the outline and Add Section stay on section 0 and move with the page, with no fade, even when the 600 brings section 1 under the pointer (the pointer stays on section 0's card). Predictions (CAP-U9REST-PREDICT.json): A1 and A3 held, A2 missed (no cross). B1 is not a clean read: the capture scrolled the page 973 px to reach section 1's Button, taking the selected Shape out of view just before the press; the Shape read unselected 500 ms after the press and section 1's Add Section faded in over 0.2 s, then out on the let go. Read again with both on screen in CAP-U9REST2.json. B2, the Button in the selected Shape's own section: nothing fades at the press, 2 px or the let go, and the Button is selected on the let go (held). C, the phone, Edit Section on section 1 at window 1600 by 1000: the panel's top stays at 213 while the page scrolls, and it closes between scroll 1244 and 1254, where section 1's bottom passes from 58.4 to 48.4 in the window, the canvas starting at 55 (missed: predicted it comes along and closes at -421)."
+}
