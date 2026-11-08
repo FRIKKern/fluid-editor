@@ -1060,6 +1060,7 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'resize' && b.type === 'text' && bp === 'desktop' && g.target[2] - g.target[0] !== g.orig[2] - g.orig[0]) sizedByHand.add(b.id);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1666,6 +1667,10 @@ function onDblClick(e) {
 const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
 const previewed = new Map(); // the text of each block when Preview last forgot its selection
+// A text whose words an edit changed: a new Text's second row is kept only in that first edit, and in a later one the
+// first change fits it to its words (CAP-A2TYPEDNEW t2, t5). Rows added by hand stay spare in every edit
+// (CAP-TEXTPUSH3 r6, CAP-TEXTPUSH5 t3, CAP-TEXTPUSH6 v4), so a text sized by hand on desktop keeps the old rule.
+const editedTexts = new Set(), sizedByHand = new Set();
 const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
 const nodeAtPath = (root, path) => path.reduce((n, k) => n?.childNodes[k], root);
 
@@ -1695,7 +1700,7 @@ function startTextEdit(sid, bid) {
   const fe = feEl(sid);
   const m = measure(fe);
   fe.style.gridAutoRows = `${m.rowMin}px`;
-  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: contentRows(b, m), height0: textHeight(b), prevHeight: textHeight(b), marks: [before], atMark: true, prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
+  editing = { sid, bid: b.id, before, ce, m, area: [...lay(b).area], need: editedTexts.has(b.id) && !sizedByHand.has(b.id) ? Math.max(contentRows(b, m), lay(b).area[2] - lay(b).area[0]) : contentRows(b, m), html0: ce.innerHTML, height0: textHeight(b), prevHeight: textHeight(b), marks: [before], atMark: true, prevHtml: ce.innerHTML, prevArea: [...lay(b).area], lastInput: 0 };
   ce.addEventListener('beforeinput', onTextBeforeInput);
   ce.addEventListener('input', onTextInput);
   ce.addEventListener('paste', onPaste);
@@ -4812,6 +4817,7 @@ function finishTextEdit() {
   const b = B(ed.sid, ed.bid);
   const height = textHeight(b);
   b.html = ed.ce.innerHTML;
+  if (b.html !== ed.html0) editedTexts.add(b.id);
   const left = win.getSelection();
   if (ed.ce.contains(left.anchorNode) && ed.ce.contains(left.focusNode)) selectionLeft.set(b.id, { html: b.html, anchor: pathFrom(ed.ce, left.anchorNode), anchorOffset: left.anchorOffset, focus: pathFrom(ed.ce, left.focusNode), focusOffset: left.focusOffset });
   lay(b).area = ed.area;
