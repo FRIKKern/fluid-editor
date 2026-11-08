@@ -295,7 +295,7 @@ export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.s
 // Button Text shows Sign Up, and each line of Description or Disclaimer is a paragraph. Show Name Field adds First Name
 // and Last Name. The fields take nothing on the canvas, and nothing is sent.
 export const NEWSLETTER_TEXT = { nlFormName: 'Newsletter Form', nlTitle: 'Subscribe', nlDesc: 'Sign up with your email address to receive news and updates.', nlDisc: 'We respect your privacy.', nlButton: 'Sign Up' };
-export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
+export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlReqFirst: !!b.nlReqFirst, nlReqLast: !!b.nlReqLast, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
 function newsletterHtml(b) {
   const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l)}</p>`).join('') : '');
   const input = (type, label) => `<label class="newsletter-form-field-label title">${label}</label><input class="newsletter-form-field-element field-element" type="${type}" placeholder="${label}" aria-label="${label}" tabindex="-1" readonly>`;
