@@ -1,0 +1,98 @@
+{
+  "item": "T12",
+  "kind": "prediction",
+  "note": "Predictions before the read (CAP-T12CHARTCELLS.json): Chart's + cells and Update, on a new Chart on Gestures Probe, unsaved. The data is read back as the Import / Export box's CSV. Ours today keeps every empty cell and the + row off, and Update always on (app/src/dialogs.js), so these are guesses about the oracle, not ours.",
+  "predictions": [
+    {
+      "id": "P1",
+      "step": "type Ab in the + row's label cell, then Tab",
+      "csv": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150\nAb,",
+      "grid": "a fourth row Ab with an empty value, and a new empty + row under it",
+      "block": "the chart gets a fourth label, Ab"
+    },
+    {
+      "id": "P2",
+      "step": "type 90 in Ab's value cell, then Tab",
+      "csv": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150\nAb,90"
+    },
+    {
+      "id": "P3",
+      "step": "type Cd in the empty header cell after Population, then Tab",
+      "csv": "Label,Population,Cd\nNew York,150,\nLas Vegas,250,\nSan Francisco,150,\nAb,90,",
+      "grid": "a second series column, its cells empty, and another empty header cell after it"
+    },
+    {
+      "id": "P4",
+      "step": "Import / Export as it opens",
+      "update": "off (greyed) while the box holds the data as it is"
+    },
+    {
+      "id": "P5",
+      "step": "add a line Ef,40 at the end of the box",
+      "update": "on"
+    },
+    {
+      "id": "P6",
+      "step": "press Update",
+      "grid": "the Data tab shows the box's rows, Ef among them",
+      "update": "off again"
+    }
+  ],
+  "round2": {
+    "note": "Before the second read (CAP-T12CHARTCELLS2.json), after the first: the empty cells took no focus from a press (P1 to P3 not reached), Update was grey and turned on after an edit (P4, P5 as predicted), and Update asked 'Are you sure?' with Cancel and Confirm (P6 missed).",
+    "predictions": [
+      {
+        "id": "P7",
+        "step": "press the + under the rows",
+        "grid": "a fourth, empty row, the focus in its label cell; the + moves one row down",
+        "then": "type Ab, Tab: CSV gains a line 'Ab,'"
+      },
+      {
+        "id": "P8",
+        "step": "press the + after Population",
+        "grid": "a second series column with an empty name, the focus in it",
+        "then": "type Cd, Tab: CSV header 'Label,Population,Cd', a trailing comma on each row"
+      },
+      {
+        "id": "P9",
+        "step": "edit the box (a line Ef,40), Update, Cancel",
+        "result": "the question closes; the data and the box stay as they were before Update (the box keeps the edit)"
+      },
+      {
+        "id": "P10",
+        "step": "Update, Confirm",
+        "result": "the data becomes the box's: the Data tab lists Ef 40; Update grey again"
+      }
+    ]
+  },
+  "round3": {
+    "note": "Before the third read (CAP-T12CHARTCELLS3.json). The second read missed the + after Population: the row + had scrolled the panel 42 px first. P7 read: the row + adds a row whose value is 0, not empty. So P8 as pushed (empty cells) is kept and scored, and P8b, from that read, is added.",
+    "predictions": [
+      {
+        "id": "P8b",
+        "step": "press the + after Population on a fresh Chart, type Cd, Tab",
+        "grid": "a second series column, the focus in its name cell, each row's value 0",
+        "csv": "Label,Population,Cd\nNew York,150,0\nLas Vegas,250,0\nSan Francisco,150,0"
+      }
+    ]
+  },
+  "score": {
+    "count": "5 of 11",
+    "hit": [
+      "P4",
+      "P5",
+      "P8b",
+      "P9",
+      "P10"
+    ],
+    "miss": {
+      "P1": "not reachable as stated: a press on an empty cell takes no focus (CAP-T12CHARTCELLS.json)",
+      "P2": "not reachable, as P1",
+      "P3": "not reachable, as P1",
+      "P6": "Update asks Are You Sure? first, with Cancel and Confirm (CAP-T12CHARTCELLS.json)",
+      "P7": "the row and the focus as predicted, but its CSV line reads Ab,0, not Ab, (CAP-T12CHARTCELLS2.json)",
+      "P8": "the + adds a series of 0s at once (CAP-T12CHARTCELLS3.json)"
+    },
+    "note": "Read facts, built as read; no rule was fitted, so no refit."
+  }
+}
