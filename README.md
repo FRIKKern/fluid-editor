@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 53 changes
-  - T12: the shared Design tab's rows where the oracle's are, a Quote's Effects and Appear ([#435](https://github.com/FRIKKern/fluid-editor/pull/435))
-  - P3: numbers 102 to 104; after Undo the panel keeps its Height and Alignment buttons (99) ([#436](https://github.com/FRIKKern/fluid-editor/pull/436))
+- **Today** · 57 changes
+  - T12: tab names in every panel sit where the oracle's do, the rest in rgb(102) ([#440](https://github.com/FRIKKern/fluid-editor/pull/440))
+  - X6: phone rows as they narrow, Flickr's phone tiles (63 of 70 seen, 58 predicted) ([#433](https://github.com/FRIKKern/fluid-editor/pull/433))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

@@ -711,10 +711,10 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .chart-block-caption figcaption { padding-top: 9.6px; border-top: 1px solid rgba(0, 0, 0, .1); font-size: 16px; line-height: 28.8px; }
 .sqs-block-soundcloud .sqs-block-content { position: relative; padding-bottom: 67%; }
 /* On a phone a block draws its content's height, not its rows (CAP-68PULL.json). A stand-in holds the oracle's height there.
-   Flickr's tiles go two to a row: 6 rows of squares at 376.7 wide make the oracle's 1190 (CAP-68FLICKR.json, inferred from that height). */
+   Flickr's and Instagram's tiles go two to a row, 178.3 square: 6 rows at 376.7 wide make the oracle's 1190 (CAP-X6FLICKRPHONE.json, CAP-X6PHONEROWS.json). */
 @media (max-width: 767px) {
   .sqs-block-shape .sqs-block-content[style*="--phone-h"] { height: var(--phone-h); }
-  .sqs-block-flickr .fe-tiles { grid-template-columns: repeat(2, 1fr); }
+  .sqs-block-flickr .fe-tiles, .sqs-block-instagram .fe-tiles { grid-template-columns: repeat(2, 1fr); }
 }
 .fe-status { position: absolute; inset: 0 0 auto; box-sizing: border-box; padding: 22px 56px 22px 22px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 2px; background: #fff; color: rgb(62, 62, 62); text-align: left; }
 .fe-status-title { margin-bottom: 11px; font-size: 12px; line-height: 19.8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
