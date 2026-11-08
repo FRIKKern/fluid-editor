@@ -825,6 +825,33 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   add('A right press on a group leaves that block; the paste goes to it', grouped && dropped && same(anims('b'), ['p1', 'p2']) && same(anims('e'), []), JSON.stringify([grouped, dropped, anims('b'), anims('e')]));
 }
 
+// The editor's stage square on an On Hover row (CAP-T15STAGE.json, CAP-T15STAGE2.json, CAP-T15STAGE3.json): still after a
+// change and on Preview; the mouse on the stage plays it once, End's scale squared, there and back.
+{
+  const R = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads;
+  const sx = (m) => (!m || m === 'none' ? 1 : parseFloat(m.slice(7)));
+  const motion = (frames) => { const v = frames.map(([t, m]) => [t, sx(m)]), moving = v.filter(([, x]) => Math.abs(x - 1) > 0.001); if (!moving.length) return null; const peak = Math.max(...v.map(([, x]) => x)), t0 = moving[0][0], top = v.find(([, x]) => x >= peak - 0.01)[0], back = v.find(([t, x]) => t > top && x < peak - 0.01)?.[0], end = moving.at(-1)[0]; return { peak: Math.round(peak * 1000) / 1000, up: top - t0, back: back == null ? null : back - t0, end: end - t0 }; };
+  const theirs = (r) => motion(r.frames.map((f) => [f[0], f[1][0][0]]));
+  const watch = (ms) => q(`const w = window.__stw = []; const t0 = performance.now(); const tick = () => { const e = panel.querySelector('.an-stage .an-sq'); w.push([Math.round(performance.now() - t0), e ? getComputedStyle(e).transform : null]); if (performance.now() - t0 < ${ms}) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true';`);
+  const frames = () => q(`return JSON.stringify(window.__stw);`);
+  await fresh('Shape');
+  await clickSel(act('add'));
+  await clickSel(act('blank'));
+  const stage = q(`const r = panel.querySelector('.an-stage').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  watch(2500); q(`const e = panel.querySelector('[data-afield="end:2X"]'); e.focus(); e.value = '150%'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); return 'true';`); await pause(2700);
+  const ch = motion(frames()), ch0 = theirs(R('CAP-T15STAGE2').change);
+  add('Stage square: still after Scale X goes to 150% on On Hover', ch === null && ch0 === null, JSON.stringify(ch));
+  watch(3000); await clickSel(act('play'), 60); await pause(3200);
+  const pv = motion(frames());
+  add('Stage square: still while Preview plays the block', pv === null && theirs(R('CAP-T15STAGE2').preview) === null, JSON.stringify(pv));
+  mouse(S, 'move', stage[0], stage[1] + 120); await pause(1600);
+  watch(3000); mouse(S, 'move', stage[0], stage[1]); await pause(3200);
+  const hv = motion(frames()), hv0 = theirs(R('CAP-T15STAGE3').hover);
+  add(`Stage square: the mouse on it plays it once, to Scale X ${hv0.peak} and back (oracle up ${hv0.up}, back ${hv0.back}, end ${hv0.end} ms)`, !!hv && near(hv.peak, hv0.peak, 0.01) && hv.back != null && Math.abs(hv.back - hv0.back) <= 150 && Math.abs(hv.end - hv0.end) <= 150, JSON.stringify(hv));
+  watch(1500); await pause(1700);
+  add('Stage square: resting on it, it does not play again', motion(frames()) === null, 'it played');
+}
+
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nAnimation: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

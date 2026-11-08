@@ -2070,8 +2070,10 @@ function animWrite(a, key, v) {
   if (key === 'ease' && v === 'Spring') a.bounce ??= '0.3';
   if (key === 'ease' && v === 'Custom') a.custom ??= '0, 0, 1, 1';
 }
+// After a change the stage square stays still on an On Hover row; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE3.json).
+const squareAfterChange = () => animRows()[anim.i]?.trigger !== 'hover';
 function animSet(key, v) {
-  animPlay = 'square';
+  if (squareAfterChange()) animPlay = 'square';
   animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
@@ -2150,7 +2152,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
     if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
-    animPlay = 'square';
+    if (squareAfterChange()) animPlay = 'square';
     renderBlockPanel();
     caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
@@ -2158,6 +2160,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
   addEventListener('pointerup', up);
 });
 blockPanel.addEventListener('mouseover', (e) => {
+  const st = e.target.closest?.('.an-stage');
+  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), a); return; } // once each time the mouse comes onto it
   const t = e.target.closest?.('.an-tile[data-anim-tile]');
   if (!t || t.contains(e.relatedTarget)) return;
   const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
