@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -3820,6 +3820,9 @@ function setAccordion(change, label, before = JSON.stringify(model)) {
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-acc]');
   const s = e.target.closest('button[data-acc-set]');
+  const st = e.target.closest('button[data-acc-step]');
+  // A step stays within the limits; at a limit the button stays on and the value stays (CAP-T12READS-D.json).
+  if (st && sel) { const k = st.dataset.accStep; setAccordion((b) => { b[k] = Math.max(Number(st.dataset.min), Math.min(Number(st.dataset.max), accCustomFrom(b, k) + Number(st.dataset.v))); }, `${k} ${st.dataset.v > 0 ? 'up' : 'down'}`); return; }
   if ((!a && !s) || !sel) return;
   if (s) {
     const k = s.dataset.accSet, v = s.dataset.v;
@@ -3858,6 +3861,7 @@ function accCustomFrom(b, k) {
   if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
   if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
   if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
+  if (k === 'iconThickness') return typeof b.iconThickness === 'number' ? b.iconThickness : ACCORDION_LINE[b.iconThickness || 'S'];
   if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
   return pad(b.rowPadding, (n) => [n, 0, n, 0]);
 }
@@ -5710,10 +5714,18 @@ function placeChrome() {
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
     // On phones the panel keeps the top it opened at, and closes once its section's bottom is above the canvas's top
     // (CAP-U9REST.json, CAP-U9REST2.json).
-    if (phone ? q.bottom < 0 : sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
+    // On the desktop, while it stays open, it keeps to the band of its section's content box (sectionPanelScrolled).
+    const cw = el.querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+    const low = fr.top + cw.top + 1, high = fr.top + cw.bottom + 1 - 476;
+    if (phone ? q.bottom < 0 : high < PANEL_BAND_CLOSES_AT) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
     const held = panelPlace?.sid === editSid ? panelPlace.top : null;
-    const place = phone && held !== null ? held : sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: held });
+    // Opening at edit + 49 on the desktop, it starts inside that band: seen on all 9 opens of the scroll walks, not predicted;
+    // the openings lower down stay as read (SECTIONBAR.json), above the band.
+    const edit = st.top + L.card.top + 7, opened = held === null && sectionPanelTop({ edit, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom });
+    const inBand = !phone && edit + 49 + 476 <= window.innerHeight - 170;
+    const place = held === null ? (inBand ? Math.round(Math.min(Math.max(opened, low), high)) : opened)
+      : phone ? held : sectionPanelScrolled({ prev: held, H: window.innerHeight, low, high });
     panelPlace = { sid: editSid, top: place };
     sectionPanel.style.top = `${place - st.top}px`;
   }

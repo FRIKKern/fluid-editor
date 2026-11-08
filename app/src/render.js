@@ -205,7 +205,7 @@ function accordionHtml(b) {
   const row = Array.isArray(b.rowPadding) ? b.rowPadding : [ACCORDION_PAD[b.rowPadding || 'M'], 0, ACCORDION_PAD[b.rowPadding || 'M'], 0];
   const dPad = Array.isArray(b.descPad) ? b.descPad : [0, 0, ACCORDION_PAD[b.descPad || 'M'], 0];
   const width = b.descWidth === 'S' ? '300px' : typeof b.descWidth === 'number' ? `max(300px, ${b.descWidth}%)` : `${ACCORDION_WIDTH[b.descWidth || 'M']}%`;
-  const style = `--accordion-icon:${ACCORDION_ICON[b.iconSize] ?? (b.iconSize || 14)}px;--accordion-line:${ACCORDION_LINE[b.iconThickness || 'S']}px;--accordion-pad:${px4(row)};--accordion-desc-pad:${px4(dPad)};--accordion-desc-width:${width};--accordion-divider:${ACCORDION_LINE[b.dividerSize] ?? (b.dividerSize ?? 1)}px;--accordion-divider-opacity:${b.dividerOpacity ?? 1}`;
+  const style = `--accordion-icon:${ACCORDION_ICON[b.iconSize] ?? (b.iconSize || 14)}px;--accordion-line:${ACCORDION_LINE[b.iconThickness] ?? (b.iconThickness || 1)}px;--accordion-pad:${px4(row)};--accordion-desc-pad:${px4(dPad)};--accordion-desc-width:${width};--accordion-divider:${ACCORDION_LINE[b.dividerSize] ?? (b.dividerSize ?? 1)}px;--accordion-divider-opacity:${b.dividerOpacity ?? 1}`;
   return `<ul class="accordion-items-container" style="${style}" data-should-allow-multiple-open-items="${flag(b.multiple)}" data-is-divider-enabled="${flag(on)}" data-is-first-divider-visible="${flag(b.showFirst !== false)}" data-is-last-divider-visible="${flag(b.showLast !== false)}" data-is-expanded-first-item="${flag(b.expandFirst)}" data-accordion-title-alignment="${b.titleAlign || 'left'}" data-accordion-description-alignment="${b.descAlign || 'left'}" data-accordion-description-placement="${b.descPlace || 'left'}" data-accordion-icon-placement="${b.iconLeft ? 'left' : 'right'}">${items}</ul>`;
 }
 
@@ -300,7 +300,7 @@ export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.s
 export const NEWSLETTER_TEXT = { nlFormName: 'Newsletter Form', nlTitle: 'Subscribe', nlDesc: 'Sign up with your email address to receive news and updates.', nlDisc: 'We respect your privacy.', nlButton: 'Sign Up' };
 export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlReqFirst: !!b.nlReqFirst, nlReqLast: !!b.nlReqLast, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
 function newsletterHtml(b) {
-  const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l)}</p>`).join('') : '');
+  const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l) || '<br>'}</p>`).join('') : ''); // an empty line is one line tall (CAP-T12READS-D.json)
   const input = (type, label) => `<label class="newsletter-form-field-label title">${label}</label><input class="newsletter-form-field-element field-element" type="${type}" placeholder="${label}" aria-label="${label}" tabindex="-1" readonly>`;
   const name = n.nlName ? `<fieldset class="form-item fields name required"><div class="field first-name">${input('text', 'First Name')}</div> <div class="field last-name">${input('text', 'Last Name')}</div></fieldset> ` : '';
   const cap = (s) => s[0].toUpperCase() + s.slice(1);

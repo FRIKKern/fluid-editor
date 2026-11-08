@@ -551,6 +551,9 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .bp-acc-view .bp-acc-iconrow { width: 298px; margin: 0 -11px -1px; padding: 0 11px; box-sizing: border-box; min-height: 46px; border-bottom: 0; background: linear-gradient(#e7e7e7, #e7e7e7) bottom / 276px 1px no-repeat; }
 .bp-acc-inline { display: flex; align-items: center; gap: 8px; height: 44px; margin-top: 5.5px; }
 .bp-acc-inline + .bp-acc-labelled { margin-top: 11.5px; }
+.bp-acc-step { display: flex; justify-content: flex-end; align-items: center; height: 44px; margin: 6px -7px 0 0; }
+.bp-acc-step input[type=text] { width: 28px; margin-right: 6px; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; line-height: 22px; text-align: right; color: #0e0e0e; }
+.bp-acc-stepbtn { width: 32px; height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 0; background: none; color: #0e0e0e; cursor: pointer; }
 .bp-acc-inline input[type=range] { width: 212px; margin: 0; }
 .bp-acc-inline input[type=text] { flex: 1; min-width: 0; padding: 0; border: 0; background: none; font: inherit; text-align: right; }
 .bp-acc-labelled { margin-top: 17px; }

@@ -285,6 +285,26 @@ viewport(S, 1600, 1400);
   const ph = qs(`const el = d.querySelector('.fe-block[data-block-id="one"]'), Q = el.getBoundingClientRect(), r = (s) => { const q = el.querySelector(s).getBoundingClientRect(); return [q.left - Q.left, q.top - Q.top, q.width, q.height]; }; return JSON.stringify({ boxes: ['fieldset', '.first-name', '.last-name', '.form-item.email', '.submit-wrapper', '.newsletter-form-footnote p'].map(r), font: getComputedStyle(el.querySelector('.newsletter-form-footnote p')).fontSize });`);
   qs(`fe.setBp('desktop'); await sleep(200); return 'true';`);
   const PH = NLP.phone.names.boxes;
+  // CAP-T12READS-D.json: Stack with names, and an empty line in Description. Boxes from the block, as read.
+  const ND = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12READS-D.json', import.meta.url))).newsletter;
+  const TAGS = ['H2', 'P', 'FIELDSET', 'INPUT', 'BUTTON'];
+  const readBoxes = (tree) => tree.map((l) => l.trim().split(' | ')).filter((c) => TAGS.includes(c[0])).map((c) => [c[0], c[5].split(',').map(Number)]);
+  const ourBoxes = () => qs(`const b = fe.model.sections[1].blocks[0], el = d.querySelector('.fe-block[data-block-id="one"]'), Q = el.getBoundingClientRect(); return JSON.stringify({ rows: b.layout.desktop.area[2] - b.layout.desktop.area[0], boxes: [...el.querySelectorAll('${TAGS.join(', ').toLowerCase()}')].map((e) => { const q = e.getBoundingClientRect(); return [e.tagName, [q.left - Q.left, q.top - Q.top, q.width, q.height]]; }) });`);
+  const sameBoxes = (k, want) => k.boxes.length === want.length && k.boxes.every(([t, q], i) => t === want[i][0] && near(q, want[i][1], 0.6));
+  const fresh = (extra) => qs(`const next = JSON.parse(JSON.stringify(fe.model)), b = next.sections[1].blocks[0]; for (const k of Object.keys(b)) if (k.startsWith('nl') || k === 'post') delete b[k]; Object.assign(b, ${JSON.stringify(extra)}); b.layout.desktop.area = [b.layout.desktop.area[0], b.layout.desktop.area[1], b.layout.desktop.area[0] + ${extra.rows}, b.layout.desktop.area[3]]; delete b.rows; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  fresh({ nlName: true, rows: ND.stackNames.names.rows });
+  await press('[data-btab="Design"]'); await press('button[aria-label="Stack"]');
+  const sn = ourBoxes();
+  add('Newsletter: Stack with names, the boxes as read', sameBoxes(sn, readBoxes(ND.stackNames.stack.tree)), JSON.stringify(sn));
+  // A named miss: the frozen rows rule floors 12.92 to 12 when content shrinks; the oracle keeps 13. No refit fits it and
+  // Quote's 6 to 4 at 4.93 (CAP-T12QUOTEROWS.json).
+  add('Newsletter: Stack with names, rows as read (named miss)', sn.rows === ND.stackNames.stack.rows, `${sn.rows}/${ND.stackNames.stack.rows}`);
+  fresh({ rows: 7 });
+  await press('[data-btab="Content"]'); await press('[data-content][aria-label="Description"]', 150); await key('Meta+ArrowDown');
+  for (const c of ['Enter', 'Enter', 'Z', 'q']) await key(c);
+  await key('Tab', 400);
+  const el = ourBoxes();
+  add('Newsletter: an empty line in Description is one line tall, rows as read', sameBoxes(el, readBoxes(ND.emptyLine.read.tree)) && el.rows === ND.emptyLine.read.rows, JSON.stringify(el));
   add('Newsletter, phone: the names stack, the button below, the disclaimer at 14.92px, as read', near(ph.boxes.flat(), [PH.fieldset, PH.first, PH.last, PH.email, PH.button, PH.disclaimer].flat(), 0.6) && ph.font === '14.92px', JSON.stringify(ph));
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
