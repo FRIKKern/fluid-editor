@@ -2177,7 +2177,7 @@ blockPanel.addEventListener('mouseover', (e) => {
 // A Loop's square stays at its End until the mouse leaves the stage (inferred: the read after leaving found it at rest).
 blockPanel.addEventListener('mouseout', (e) => {
   const st = e.target.closest?.('.an-stage');
-  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop') releasePose(st.querySelector('.an-sq'));
+  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop' && animRows()[anim.i].type !== 'Ping Pong') releasePose(st.querySelector('.an-sq'));
 });
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {

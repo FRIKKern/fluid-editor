@@ -1117,7 +1117,7 @@ body.is-preview #reload-preview { display: inline-flex; }
 .an-foot { position: sticky; bottom: -2px; z-index: 2; flex: none; height: 55px; margin-top: auto; border-top: 1px solid #e7e7e7; box-sizing: border-box; background: #fff; }
 .an-footbtn { width: 100%; height: 100%; border: 0; background: none; font: 500 14px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; cursor: pointer; }
 .an-footbtn.is-off { background: #f2f2f2; color: #9a9a9a; cursor: default; }
-.an-stage { flex: none; width: 276px; height: 70px; margin: 0 22px; border-radius: 6px; background: #f2f2f2; display: flex; align-items: center; justify-content: center; }
+.an-stage { flex: none; width: 276px; height: 70px; margin: 0 22px; border-radius: 6px; background: #f2f2f2; overflow: hidden; /* the square is clipped to it (CAP-T15STAGE7-LOOP12.json held shot) */ display: flex; align-items: center; justify-content: center; }
 .an-tabs { display: flex; flex: none; width: 276px; height: 36px; margin: 11px 22px 0; }
 .an-tab { flex: 1; height: 36px; padding: 0; border: 0; border-radius: 3px; background: none; font: inherit; color: #6f6f6f; cursor: pointer; }
 .an-tab.is-on { background: #f2f2f2; color: #0e0e0e; font-weight: 500; }
