@@ -11,7 +11,7 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
@@ -183,7 +183,10 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
+  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
+  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
   model = JSON.parse(undoStack.pop());
+  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
   // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
@@ -990,6 +993,9 @@ function onDown(e) {
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
+    // After one Escape a drag from the text opens the editor again and moves nothing; a click there opens nothing
+    // (CAP-TEXTPRESS a10, CAP-TEXTPRESS3 r1 and r2; CAP-ESC2.json). The press redrew the section, so look the block up again.
+    escWords: !wasSelected && sel?.sid === sid && sel.bid === bid && !sel.more?.length && B(sid, bid)?.type === 'text' && onWords(blockEl(bid) || blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -1000,6 +1006,7 @@ function onMove(e) {
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
     if (gesture.onWords) return;
+    if (gesture.escWords) { if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10) gesture.escDrag = true; return; }
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -1038,7 +1045,7 @@ function onUp(e) {
     // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
     // A press with no move is not read.
     if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
-    if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
+    if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
   const g = gesture;
