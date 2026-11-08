@@ -1,0 +1,744 @@
+{
+  "item": "CAP-T15EASE-UI",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "T15: the way to an On Scroll row from Start blank, its Timing tab and the top bar (no scroll read)",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "clickIf",
+      "On Hover"
+    ],
+    [
+      "clickIf",
+      "On Scroll"
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "fillValue",
+      "0px",
+      "-200px"
+    ],
+    [
+      "read",
+      "start set",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "clickIf",
+      "Timing"
+    ],
+    [
+      "read",
+      "timing",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "timing"
+    ]
+  ],
+  "reads": {
+    "start set": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Start",
+          "box": [
+            483,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            575,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            667,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            484,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            517,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            535,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            568,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Reset to default value",
+          "box": [
+            658,
+            651,
+            16,
+            16
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Preview",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "-200px",
+        "box": [
+          588,
+          637,
+          66,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "timing": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Start",
+          "box": [
+            483,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            575,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            667,
+            437,
+            92,
+            36
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Block",
+          "box": [
+            624,
+            484,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Scrolls",
+          "box": [
+            624,
+            535,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0%",
+          "box": [
+            635,
+            586,
+            113,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            586,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            619,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "50%",
+          "box": [
+            635,
+            637,
+            113,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            637,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            670,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Out",
+          "box": [
+            624,
+            688,
+            135,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            624,
+            739,
+            135,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Scroll to preview",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
