@@ -1,0 +1,114 @@
+{
+  "item": "R2",
+  "question": "R2: which widening drops keep their rows until let go? No rule in the reads separates them: CAP-TEXTWIDTH4.json l wider 5 keeps where CAP-TEXTWIDTH8.json g1 wider 2, the same heights 156.8 to 134.4, falls; the short Text keeps at 1 and 6 columns and falls at 4 (CAP-TEXTWIDTH7.json f4, f7, f3). Width one step, two steps, half a column or a column before the end, step size and row slack all fail on our own text heights. This round looks for it, one thing at a time. Predictions are ours as built: the rows fall at the drop by the height lost, always. Seen: a1 (f4), a4 (f3), a6 (f7) and b1 (CAP-TEXTWIDTH4.json m1, m2; CAP-TEXTWIDTH5.json t, u, v); ours is known to miss a1, a6 and b1. Hold cases press, move 14 px, then 6 steps, not the 12 of a drag.",
+  "predicted": {
+    "a1 T3 wider 1 held": {
+      "text": "1/2/2/11",
+      "rows": 7
+    },
+    "a1 T3 wider 1 let go": {
+      "text": "1/2/2/11",
+      "rows": 7
+    },
+    "a2 T3 wider 2 held": {
+      "text": "1/2/2/12",
+      "rows": 7
+    },
+    "a2 T3 wider 2 let go": {
+      "text": "1/2/2/12",
+      "rows": 7
+    },
+    "a3 T3 wider 3 held": {
+      "text": "1/2/2/13",
+      "rows": 7
+    },
+    "a3 T3 wider 3 let go": {
+      "text": "1/2/2/13",
+      "rows": 7
+    },
+    "a4 T3 wider 4 held": {
+      "text": "1/2/2/14",
+      "rows": 7
+    },
+    "a4 T3 wider 4 let go": {
+      "text": "1/2/2/14",
+      "rows": 7
+    },
+    "a5 T3 wider 5 held": {
+      "text": "1/2/2/15",
+      "rows": 7
+    },
+    "a5 T3 wider 5 let go": {
+      "text": "1/2/2/15",
+      "rows": 7
+    },
+    "a6 T3 wider 6 held": {
+      "text": "1/2/2/16",
+      "rows": 7
+    },
+    "a6 T3 wider 6 let go": {
+      "text": "1/2/2/16",
+      "rows": 7
+    },
+    "a7 T3 hold wider 1 pointer down": {
+      "text": "1/2/3/11",
+      "rows": 8,
+      "note": "ours changes no rows before the pointer comes up"
+    },
+    "a7 T3 hold wider 1 held": {
+      "text": "1/2/2/11",
+      "rows": 7
+    },
+    "a7 T3 hold wider 1 let go": {
+      "text": "1/2/2/11",
+      "rows": 7
+    },
+    "a8 T3 hold wider 4 pointer down": {
+      "text": "1/2/3/14",
+      "rows": 8,
+      "note": "ours changes no rows before the pointer comes up"
+    },
+    "a8 T3 hold wider 4 held": {
+      "text": "1/2/2/14",
+      "rows": 7
+    },
+    "a8 T3 hold wider 4 let go": {
+      "text": "1/2/2/14",
+      "rows": 7
+    },
+    "b1 lorem wider 1 held": {
+      "text": "1/2/6/11",
+      "rows": 11
+    },
+    "b1 lorem wider 1 let go": {
+      "text": "1/2/6/11",
+      "rows": 11
+    },
+    "b2 lorem hold wider 1 pointer down": {
+      "text": "1/2/8/11",
+      "rows": 13,
+      "note": "ours changes no rows before the pointer comes up"
+    },
+    "b2 lorem hold wider 1 held": {
+      "text": "1/2/6/11",
+      "rows": 11
+    },
+    "b2 lorem hold wider 1 let go": {
+      "text": "1/2/6/11",
+      "rows": 11
+    },
+    "b3 lorem moved right": {
+      "text": "1/3/8/11",
+      "rows": 13,
+      "note": "placement, not scored"
+    },
+    "b3 lorem moved, wider 1 held": {
+      "text": "1/3/6/12",
+      "rows": 11
+    },
+    "b3 lorem moved, wider 1 let go": {
+      "text": "1/3/6/12",
+      "rows": 11
+    }
+  }
+}

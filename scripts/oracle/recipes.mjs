@@ -394,6 +394,25 @@ export const RECIPES = {
       ...NEW, ...TYPED, ...PLACE('Shape', 705.4, 370), ...WIDEN('c4 Shape lower to the right'),
       ...NEW, ...TYPED, ...PLACE('Shape', 0, 370), ['pick', 0, 0], ['click', 'Write'], ['press', 'Meta+ArrowDown'], ...FAST(2), ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ...WIDEN('c5 Shape pushed by 1')];
   })() },
+  'CAP-R2WIDEDROP': { page: 'Gestures Probe', question: 'R2: which widening drops keep their rows until let go? A short Text widened 1 to 6 columns (CAP-TEXTWIDTH7.json f4, f3, f7 again), held at 1 and 4 with a read while the pointer is down, and the lorem Text widened 1 (CAP-TEXTWIDTH4.json m again), held, and moved a column right first. Predicted first: ours falls at the drop every time.', steps: (() => {
+    const T3 = "Short note about the mill road and the birch trees above it.";
+    const LOREM = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore";
+    const READ = (name) => [['read', name, { stack: 0, section: 0, textH: [0, 0] }]];
+    const TYPED = (text) => [['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LETGO = (name) => [['press', 'Escape'], ['deselect', 0], ...READ(`${name} let go`)];
+    const WIDEN = (name, cols) => [['pick', 0, 0], ['drag', 0, 0, 'e', 58.78 * cols, 0], ...READ(`${name} held`), ...LETGO(name)];
+    const HOLD = (name, cols) => [['hold', 0, 0, 'e', 58.78 * cols, 0], ...READ(`${name} pointer down`), ['release'], ...READ(`${name} held`), ...LETGO(name)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      ...[1, 2, 3, 4, 5, 6].map((k) => [...TYPED(T3), ...WIDEN(`a${k} T3 wider ${k}`, k)]),
+      [...TYPED(T3), ...HOLD('a7 T3 hold wider 1', 1)],
+      [...TYPED(T3), ...HOLD('a8 T3 hold wider 4', 4)],
+      [...TYPED(LOREM), ...WIDEN('b1 lorem wider 1', 1)],
+      [...TYPED(LOREM), ...HOLD('b2 lorem hold wider 1', 1)],
+      [...TYPED(LOREM), ['drag', 0, 0, 'middle', 58.78, 0], ['press', 'Escape'], ['deselect', 0], ...READ('b3 lorem moved right'), ...WIDEN('b3 lorem moved, wider 1', 1)],
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
