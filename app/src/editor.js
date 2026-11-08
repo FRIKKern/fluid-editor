@@ -840,6 +840,7 @@ function autoScroll(g) {
     else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
     if (!dir) { g.scrolling = false; return; }
     win.scrollBy(0, dir * SCROLL_STEP);
+    g.pageScrolled = true;
     updateMove(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
@@ -1083,6 +1084,14 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'move' && g.pageScrolled) scrolledMove = { sid: g.sid, bid: g.bid };
+  // After a south resize the page scrolls so the bottom of the block last moved while the page scrolled under it sits at the
+  // frame's bottom; with no such block, none (CAP-RESIZESCROLLPREDICT.json R5: 2 of 2 on its refit, the 233 of CAP-DRAGSCROLL f3,
+  // CAP-RESIZESCROLL p3, q3 and CAP-RESIZESCROLL2 s1, s3 to s5). An east resize does not (t3); other south corners inferred.
+  if (g.type === 'resize' && /s/.test(g.dir)) {
+    const q = scrolledMove && blockEl(scrolledMove.bid)?.getBoundingClientRect();
+    if (q && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
+  }
   // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
   // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).
   if (g.type === 'resize' && b.type === 'text' && /^(se|sw|ne|nw)$/.test(g.dir) && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1127,6 +1136,7 @@ function fitTextRows(s, b, g) {
 // Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
 // Time alone does nothing. No undo step of its own. Growing pushes as typing does.
 let unsettled = null;
+let scrolledMove = null; // the block last moved while the page scrolled under it (R5 above)
 function settleTextRows() {
   const u = unsettled;
   unsettled = null;
@@ -7287,6 +7297,7 @@ function boot() {
       redoStack.length = 0;
       sel = null;
       stored = null;
+      scrolledMove = null;
       leftRings = null;
       renderAll();
       return true;
