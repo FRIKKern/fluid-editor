@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
+- **Today** · 9 changes
+  - U10: tiles draw a layout's own divider edge (CAP-U10TILES.json) ([#393](https://github.com/FRIKKern/fluid-editor/pull/393))
   - T10: code-check pulls T10PULL by the oracle's own pixels (the #330 drop) ([#389](https://github.com/FRIKKern/fluid-editor/pull/389))
-  - R2: a Text in the same place as a growing one keeps its top and stretches (difference 79) ([#391](https://github.com/FRIKKern/fluid-editor/pull/391))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
