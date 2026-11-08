@@ -586,6 +586,53 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   add('97: back on Top the block is held 5vh down', Math.abs(parseFloat(css) - 0.05 * q(`return JSON.stringify(document.getElementById('site-frame').contentWindow.innerHeight);`)) <= 1, css);
 }
 
+// The shared Design tab (CAP-DESIGNTAB-QUOTE.json, -TEXT.json, -SHAPE2.json, -EFFECTS.json, -EFFECTS2.json): its rows and lines
+// where the oracle's are, a chevron after Blend Mode's Normal, and on a Quote only Effects with an Appear list.
+{
+  const D = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/CAP-DESIGNTAB-${n}.json`, import.meta.url))).reads;
+  const tab = () => q(`panel.querySelector('[data-btab="Design"]').click(); await sleep(250); return 'true';`);
+  const ours = () => q(`const lab = {}; for (const e of panel.querySelectorAll('.bp-look-rows .sp-label, .bp-look-rows + .bp-thead > span, .bp-trow > .sp-label, .bp-effects > span, .bp-appear > span')) { const r = rel(e); lab[e.textContent.trim()] = r[1] + r[3] / 2; }
+    const lines = []; for (const e of panel.querySelectorAll('.bp-look-rows > *, .bp-look-rows > .bp-blend-wrap > .sp-row')) { const r = rel(e); if (getComputedStyle(e).borderBottomWidth === '1px') lines.push([r[1] + r[3] - 1, r[0], r[2]]); }
+    const th = panel.querySelector('.bp-look-rows + .bp-thead'); if (th) { const r = rel(th); lines.push([r[1], r[0], r[2]]); }
+    const ap = panel.querySelector('.bp-appear'); if (ap) { const r = rel(ap), a = getComputedStyle(ap, '::after'); lines.push([r[1] + r[3] - 1, r[0] + parseFloat(a.left), r[2] - parseFloat(a.left) - parseFloat(a.right)]); }
+    const v = panel.querySelector('.bp-blend-value'), vr = rel(v);
+    return JSON.stringify({ lab, lines, normal: [vr[0] + vr[2], getComputedStyle(v).color], chev: !!panel.querySelector('.bp-blend .bp-chev'), ap: ap && [...rel(ap), getComputedStyle(ap.firstElementChild).color], max: panel.scrollHeight - panel.clientHeight });`);
+  const theirs = (looks, left, top, scroll = 0) => {
+    const lab = {}, lines = [];
+    for (const o of looks) {
+      if (o.text && o.box[3] >= 18 && o.box[0] - left < 60 && o.box[1] - top > 55) lab[o.text] = o.box[1] - top + scroll + o.box[3] / 2;
+      if (o.box[3] === 1 && o.bg === 'rgb(231, 231, 231)' && o.box[1] - top > 60) lines.push([o.box[1] - top + scroll, o.box[0] - left, o.box[2]]);
+    }
+    return { lab, lines };
+  };
+  const same = (got, want, tol = 1) => Object.entries(want.lab).filter(([k, y]) => got.lab[k] == null || Math.abs(got.lab[k] - y) > tol).map(([k, y]) => `${k} ${got.lab[k]} vs ${y}`)
+    .concat(want.lines.filter((w) => !got.lines.some((g) => w.every((v, i) => Math.abs(g[i] - v) <= tol))).map((w) => `line ${w}`));
+  const Q = D('QUOTE').design, T = D('TEXT').design, E2 = D('EFFECTS2'), E = D('EFFECTS').end;
+  await fresh('Quote'); tab();
+  const oq = ours(), scroll = Q.looks.find((o) => o.text === 'Opacity').box[1] - E2.open.looks.find((o) => o.text === 'Opacity').box[1];
+  const wq = theirs(Q.looks.concat(E2.end.looks.map((o) => ({ ...o, box: [o.box[0], o.box[1] + scroll, o.box[2], o.box[3]] }))), 461, 301);
+  const mq = same(oq, wq);
+  add(`Design tab, Quote: ${Object.keys(wq.lab).length} labels and ${wq.lines.length} lines where the oracle's are`, !mq.length, mq.join('; '));
+  const n = Q.looks.find((o) => o.text === 'Normal');
+  add('Design tab: Normal ends where the oracle\'s does, its colour, then a chevron', near(oq.normal[0], n.box[0] + n.box[2] - 461, 1) && oq.normal[1] === n.color && oq.chev, JSON.stringify(oq.normal));
+  const ab = E.controls.find((c) => c.label === 'Appear').box, at = E2.end.looks.find((o) => o.text === 'Appear');
+  add('Design tab, Quote: the Appear row\'s box and grey label', !!oq.ap && [ab[0] - 461, ab[1] - 301 + scroll, ab[2], ab[3]].every((v, i) => near(oq.ap[i], v, 1)) && oq.ap[4] === at.color, JSON.stringify(oq.ap));
+  add('Design tab, Quote: scrolls as far as the oracle\'s', near(oq.max, scroll, 1), `${oq.max} vs ${scroll}`);
+  const opts = E2.open.controls.filter((c) => c.role === 'option');
+  const l = q(`const a = panel.querySelector('[data-appear]'); if (!a) return JSON.stringify({ shown: false, opts: [] }); a.scrollIntoView({ block: 'nearest' }); await sleep(150); const r = a.getBoundingClientRect(); a.click(); await sleep(250); return JSON.stringify({ shown: !pop.hidden, opts: [...pop.querySelectorAll('[data-appear-opt]')].map((o) => [o.textContent, ...box(o, r)]), cur: pop.querySelector('.is-cur')?.textContent });`);
+  const wl = opts.map((o) => [o.label, o.box[0] - ab[0], o.box[1] - ab[1], o.box[2]]);
+  add('Design tab, Quote: Appear opens its 6 options over the row, Site Default on', l.shown && l.cur === 'Site Default' && l.opts.length === wl.length && wl.every((w, i) => l.opts[i][0] === w[0] && near(l.opts[i][1], w[1], 1) && near(l.opts[i][2], w[2], 1) && near(l.opts[i][3], w[3], 1)), JSON.stringify(l.opts.map((o) => o.slice(0, 3))));
+  const pk = q(`if (!pop.querySelector('[data-appear-opt]')) return JSON.stringify(null); pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(200); const b = fe.model.sections[1].blocks.at(-1), a = b.appear; panel.querySelector('[data-appear]').click(); await sleep(200); const cur = pop.querySelector('.is-cur')?.textContent; pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(150); fe.undo(); await sleep(250); return JSON.stringify({ a, cur, after: fe.model.sections[1].blocks.at(-1).appear ?? null });`);
+  add('Design tab, Quote: a pick is kept on the block and is one undo step', pk?.a === 'Fade In' && pk.cur === 'Fade In' && pk.after === null, JSON.stringify(pk));
+  await fresh('Text'); q(`document.body.click(); await sleep(150); return 'true';`);
+  const tid = q(`return JSON.stringify(fe.model.sections[1].blocks.at(-1).id);`);
+  q(`fe.select(fe.model.sections[1].id, '${tid}'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`); tab();
+  const ot = ours(), wt = theirs(T.looks, 578, 301), mt = same(ot, wt);
+  add(`Design tab, Text: ${Object.keys(wt.lab).length} labels and ${wt.lines.length} lines where the oracle's are, no Effects`, !mt.length && !ot.ap && !ot.lab.Effects, mt.join('; ') + (ot.ap ? ' Appear shown' : ''));
+  await fresh('Shape'); tab();
+  add('Design tab, Shape: a chevron after Normal, no Effects', q(`return JSON.stringify(!!panel.querySelector('.bp-blend .bp-chev') && !panel.querySelector('.bp-appear, .bp-effects'));`), 'not');
+}
+
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nT11: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
