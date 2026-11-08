@@ -34,6 +34,16 @@ const erow = (key, label, def) => (v) => toggle(key, label, def)(v).replace('cla
 const ALIGN_ICONS = { left: '<path d="M6 5v14M19 12H10M13 9l-3 3 3 3"/>', center: '<path d="M12 5v14M3 12h6M6 9l3 3-3 3M21 12h-6M18 9l-3 3 3 3"/>', right: '<path d="M18 5v14M5 12h9M11 9l3 3-3 3"/>' };
 const icons = (key, label, opts, def) => (v) => `<div class="bp-sp-icons" role="radiogroup" aria-label="${label}">${opts.map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? def) === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? def) === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</div>`;
 const darkOut = (text) => () => `<button type="button" class="bp-sp-dark" ${OUT}>${text}</button>`;
+// Product's rows, in the same older look: a black head, a bordered box out, the image picker (not built), Corner, Ratio,
+// a Focal Point that waits for an image, Block Alignment.
+const phead = (label) => () => `<div class="bp-sp-phead">${label}</div>`;
+const newOut = (text) => () => `<button type="button" class="bp-sp-new" ${OUT}>${pi('<path d="M12 5v14M5 12h14"/>')}<span>${text}</span></button>`;
+const picker = () => () => `<button type="button" class="bp-sp-pick" aria-label="Image style" data-unbuilt title="Not built yet"><span></span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>`;
+const CORNER = [['uniform', 'Uniform corner radii', '<rect x="6" y="6" width="12" height="12" rx="2"/>'], ['each', 'Individual corner radii', '<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/>']];
+const corner = (key, rkey) => (v) => `<div class="bp-sp-corner"><div class="bp-sp-csegs" role="radiogroup" aria-label="Corner">${CORNER.map(([val, l, d]) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? 'uniform') === val ? ' is-on' : ''}" aria-checked="${(v[key] ?? 'uniform') === val}" aria-label="${l}" data-sp-set="${key}" data-v="${val}">${pi(d)}</button>`).join('')}</div><input type="text" aria-label="Corner radius" data-sp-field="${rkey}" value="${esc(v[rkey] ?? '0px')}" autocomplete="off" spellcheck="false"></div>`;
+const select = (key, label, opts, def) => (v) => `<label class="sp-row bp-sp-erow bp-sp-sel"><span class="sp-label">${label}</span><span class="bp-sp-selv">${esc(v[key] ?? def)}${pi('<path d="M7 10l5 5 5-5"/>')}</span><select aria-label="${label}" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
+const focal = () => () => `<button type="button" class="bp-sp-focal" disabled>${pi('<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><circle cx="12" cy="12" r="1.5"/>')}<span>Focal Point</span></button>`;
+const balign = (key, label) => (v) => `<div class="sp-row bp-sp-erow bp-sp-balign"><span class="sp-label">${label}</span><span class="bp-sp-bicons" role="radiogroup" aria-label="${label}">${['left', 'center', 'right'].map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? 'left') === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? 'left') === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</span></div>`;
 
 // Per block: its tabs (Animation is the shared list), its Content rows, and its Design rows before the shared ones.
 // look: the shared Appearance rows follow (with an Appearance head); transforms: the Transforms rows follow.
@@ -58,7 +68,7 @@ export const STANDIN_PANELS = {
     design: [tile(), note('Form style affects all forms on your site.', ' bp-sp-fnote')],
   },
   Audio: {
-    // Upload File would put a file on the site (0005); Add File Link keeps its value, its field is not read (CAP-T12PRESS-D.json).
+    // Upload File would put a file on the site, Add File Link's field loads an outside file (both 0005): the choice keeps its value.
     // Podcast opens a view of its own: drawn, not built.
     content: [pair('auSource', [['embedded', 'Upload File'], ['external', 'Add File Link']], 'embedded'), upload('Upload File'), head('Elements'), side('auTitle', 'Title'), side('auArtist', 'Artist'), toggle('auDownload', 'Download Link'), rule(), head('Metadata'), view('Podcast')],
     // Classic hides the Color row (CAP-T12PRESS-D.json).
@@ -68,6 +78,12 @@ export const STANDIN_PANELS = {
     tabs: ['Content', 'Design'],
     content: [cap('Pricing Plan'), note(`Use pricing plans to sell your digital products. To<br>use this block, create at least one pricing plan.<br>${link('Learn more')}.`, ' bp-sp-pnote'), darkOut('Get started')],
     design: [cap('Alignment'), icons('ppAlign', 'Alignment', ['left', 'center', 'right'], 'left'), cap('Elements'), ...PLAN_PARTS.map(([k, l]) => erow(k, l, true)), field('ppButton', 'Button Text', 'Sign Up')],
+  },
+  Product: {
+    // Create new product makes a product in the store (0005). Its rows follow neither the switches nor its content box by the
+    // frozen rule (CAP-T12PRESS-A.json, -E.json): the switches and Ratio keep its rows (named misses).
+    content: [phead('Product'), newOut('Create new product'), phead('Elements'), erow('pdImage', 'Image', true), erow('pdTitle', 'Title', true), erow('pdPrice', 'Price', true), erow('pdDesc', 'Description', false), erow('pdCart', 'Add to Cart Button', false), erow('pdQuick', 'Product Quick View', false), note('On hover, a button will appear that lets<br>customers dynamically access product details<br>without leaving the page.', ' bp-sp-qnote')],
+    design: [phead('Image'), picker(), corner('pdCorner', 'pdRadius'), select('pdRatio', 'Ratio', ['1:1', '3:2', '2:3', '4:3', '3:4', '16:9', 'Original'], 'Original'), focal(), balign('pdAlign', 'Block Alignment')], look: true, transforms: true,
   },
 };
 export const standinPanelOf = (b) => (b.type === 'shape' && !b.standin && STANDIN_PANELS[b.label] ? b.label : null);

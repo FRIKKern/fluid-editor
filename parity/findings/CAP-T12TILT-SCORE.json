@@ -1,0 +1,56 @@
+{
+  "item": "T12",
+  "question": "Scores of CAP-T12TILT-PREDICTED.json against CAP-T12TILT.json (round 1) CAP-T12TILT2.json (round 2) and CAP-T12TILT3.json (round 3, the last refit). Angles are the PCA direction of each label's dark pixels, one connected blob per label; band edges from the grid lines in each shot.",
+  "reads": {
+    "default (New York, Las Vegas, San Francisco)": {
+      "band": 123.5,
+      "angle": 6.4,
+      "rightEnds": "at the band centres within 1px"
+    },
+    "short (Oslo, Rome, Lima)": {
+      "band": 130,
+      "angle": "0 (letter shape gives 0.9 to 2.5)",
+      "centres": "213.3, 340.6, 472.3 against band centres 213, 342.5, 471.8"
+    },
+    "long (Kristiansandsfjorden, Hardangervidaplatou, Sognefjordenvalleys)": {
+      "band": 119,
+      "angle": 42.8,
+      "rightEnds": "254, 373, 492 against band centres 253.5, 372.5, 491.5",
+      "cut": "each cut with an ellipsis after 12 or 13 letters"
+    },
+    "mid14 (Stavangerfjord, Bergenhalvoya, Tromsoyabrua)": {
+      "band": 113,
+      "angle": 28.6,
+      "lengthAlong": "115 to 118"
+    },
+    "mid12 (Kristiansand, Haugesundsby, Lillehammers)": {
+      "band": 117,
+      "angle": 21.8,
+      "lengthAlong": "97 to 119"
+    },
+    "X (Haugesundsby, Oslo, Rome)": {
+      "band": 108,
+      "angle": "10.2 on Haugesundsby (7.4 and 8.1 on the short words, letter shape)"
+    },
+    "Z (San Francisco, Kristiansand, Lillehammers)": {
+      "band": 111.5,
+      "angle": 12.3
+    },
+    "Y (Stavangerfjord, Bergenhalvoya, Haugesundsby)": {
+      "band": 113,
+      "angle": 28.9
+    }
+  },
+  "round1": {
+    "A": "4 of 4 (short flat and centred; long over 8 degrees, right ends at band centres)",
+    "B": "1 of 4 (only the long right ends)"
+  },
+  "round2": {
+    "R": "1 of 2: mid14 28.6 against 26 (within 3, hit); mid12 21.8 against flat (miss)"
+  },
+  "standing": "Frozen after round 3: no rule predicted the angle (S 1 of 3, M 0 of 3). Read facts: one angle for all labels; flat when they fit; tilted labels end at their band's centre; the y axis and the baseline move to make room; long labels are cut with an ellipsis. A set with one long label tilts (X, 10.2). Not built.",
+  "round3": {
+    "S": "1 of 3: X 10.2 against flat (miss), Z 12.3 against 19 (miss), Y 28.9 against 29.5 (hit)",
+    "M": "0 of 3: X against 22, Z against 6, Y against 22"
+  }
+}

@@ -1,0 +1,519 @@
+{
+  "item": "CAP-TBEDGE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "E4: a new Text pressed on its text once, then again with plain clicks: what shows around the text bar",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.15,
+        0.15
+      ]
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "shot",
+      "one-click"
+    ],
+    [
+      "read",
+      "one click",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.15,
+        0.15
+      ]
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "shot",
+      "two-clicks"
+    ],
+    [
+      "read",
+      "two clicks",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "one click": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Write",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            148.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            189.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            229.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            274.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            314.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": "frame",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "two clicks": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            104.1,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Style",
+          "box": [
+            149.1,
+            243.2,
+            121.1,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            279.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            319.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Color",
+          "box": [
+            359.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Scaled Text",
+          "box": [
+            399.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Highlight",
+          "box": [
+            439.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            479.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Text Alignment",
+          "box": [
+            524.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Quote",
+          "box": [
+            569.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bullet List",
+          "box": [
+            609.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Numbered List",
+          "box": [
+            649.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Strike",
+          "box": [
+            694.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Outdent",
+          "box": [
+            739.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Indent",
+          "box": [
+            779.2,
+            243.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            824.2,
+            243.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": "frame",
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Pressed once on its text, a new Text shows the block toolbar, Write at 108.1, 242.2 to Remove at 314.1, 36 high. Pressed again with a plain click, the editor opens: the text bar's Squarespace AI at 104.1, 243.2 to Clear Formatting at 824.2, and no block toolbar button on top. In a screenshot, above and below the text bar the pixels where the toolbar sat (x 150, 250, 340) equal those at x 600 and 850, where none can be: the page's purple and the bar's own shadow, no edge.",
+  "ours": "Ours the same since #465: writing hides the block toolbar on the click path (mid-check: a second click on a Text, the editor, no block toolbar).",
+  "differs": []
+}

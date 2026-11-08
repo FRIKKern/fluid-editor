@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 80 changes
-  - X2: the never-resized rule, 3 of 15 on its one round, not built ([#464](https://github.com/FRIKKern/fluid-editor/pull/464))
-  - X8: 98, a lone widening that leaves a Text short arms the stored rows (R1 4 of 4) ([#462](https://github.com/FRIKKern/fluid-editor/pull/462))
+- **Today** · 88 changes
+  - T12: Product panel; Audio's Add File Link field out (0005) ([#471](https://github.com/FRIKKern/fluid-editor/pull/471))
+  - R2, A2: single reads again (f3 built), resize scroll round frozen ([#470](https://github.com/FRIKKern/fluid-editor/pull/470))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

@@ -897,6 +897,15 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   await setup('Loop', 'end', async () => { await clickSel(`panel.querySelector('.an-sel')`); await clickSel(`document.querySelector('[data-an-opt="Ping Pong"]')`); });
   { const mine = oursPairs(await hoverRun(2500)), them = theirPairs(R('CAP-T15STAGE7-PINGPONG').hover), ok = (v) => snapsOf(v) === 0 && near(Math.max(...v.map(([, x]) => x)), 2.25, 0.01) && near(v.at(-1)[1], 1, 0.001);
     add('Stage square on a Ping Pong Loop: out and back on its ease, once, then at rest', ok(mine) && ok(them), JSON.stringify([snapsOf(mine), mine.at(-1)[1]])); }
+  // A preset's editor (CAP-T15STAGE8-GROW.json, opened by Grow's unnamed Edit button, pressed by an on-top check against its
+  // tile): the same stage. Still after Opacity goes to 50% on End; the mouse on it plays End once, to Grow's scale squared, and back.
+  await settle(); await fresh('Shape'); await clickSel(act('add')); await clickRadio('hover-1', 120); await clickSel(act('gear'));
+  { const T = R('CAP-T15STAGE8-GROW');
+    watch(2500); q(`const e = panel.querySelector('[data-afield="end:0"]'); e.focus(); e.value = '50%'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); e.blur(); return 'true';`); await pause(2700);
+    const c = motion(frames());
+    add('Stage square in a preset\'s editor: still after Opacity goes to 50%', c === null && theirs(T.change) === null, JSON.stringify(c));
+    const hm = motion(await hoverRun(2600)), ht = theirs(T.hover);
+    add(`Stage square in a preset's editor: the mouse on it plays Grow to ${ht.peak} and back in ${ht.end} ms, as read`, !!hm && near(hm.peak, ht.peak, 0.015) && Math.abs(hm.end - ht.end) <= 0.15 * ht.end, JSON.stringify(hm)); }
   await settle();
 }
 

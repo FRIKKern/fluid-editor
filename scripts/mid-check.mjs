@@ -728,6 +728,15 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
   // Let go, the rows follow the text at its real width (CAP-TEXTWIDTH4.json o narrower 20): Escape takes 11 stretched rows to 12.
   { const w = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH4.json', import.meta.url))).reads['o narrower 20 let go']; browser(S, 'press', 'Escape'); await pause(150); const r = read(); groupCases.push({ name: 'R2 narrower 20 let go', diffs: [r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`, r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`].filter(Boolean) }); }
+  // A one-row Text narrowed from the middle of its east side, where the south-east corner is on top on both (CAP-ONEROWHANDLE.json):
+  // one row at the drop, then the rows its text needs and a section row more when let go (CAP-SINGLEAGAIN.json f3, CAP-TEXTWIDTH7.json f3).
+  { const F3 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SINGLEAGAIN.json', import.meta.url))).reads, t3 = 'Short note about the mill road and the birch trees above it.';
+    evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 7, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: '<p>${t3}</p>', layout: { desktop: { area: [1, 2, 2, 14], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 200)); fe.select('s', 't'); return 1; })()`); await pause(200);
+    for (const [name, after] of [['f3 T3 narrower 4 held', async () => { await step(-235.12); }], ['f3 T3 narrower 4 let go', async () => { browser(S, 'press', 'Escape'); await pause(150); }]]) {
+      await after(); const r = read(), w = F3[name];
+      groupCases.push({ name: `R2 one row narrowed by its corner, ${name.includes('held') ? 'at the drop' : 'let go'}`, diffs: [r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
+    }
+  }
   // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.
   { const W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2WIDEFALL.json', import.meta.url))); const garden = W.steps.find((x) => x[0] === 'keysFast')[1];
     const area = (t) => t.split('/').map(Number);
@@ -773,6 +782,16 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     cdp(S, { op: 'drag', from: p, to: [p[0] + 118, p[1]], steps: 12, holdMs: 200 }); await pause(200);
     const got = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area[1], open: !document.getElementById('text-bar').hidden })`);
     groupCases.push({ name: `X2 selected Text, a drag ${name}`, diffs: [(got.a !== 5) !== moved && `oracle moved ${moved}, ours column ${got.a}`, got.open === moved && `oracle editor ${!moved}, ours ${got.open}`].filter(Boolean) });
+    browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
+  }
+  // A click, then a second click on a Text: the editor opens and the block toolbar hides, so no edge of it shows by the text
+  // bar (an oracle shot with the editor open shows nothing there but the bar's own shadow).
+  {
+    await load('text', '<p>Some text</p>');
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.top + t.height / 2]); })()`);
+    for (let n = 0; n < 2; n++) { mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400); }
+    const got = evalJs(S, `JSON.stringify({ open: !document.getElementById('text-bar').hidden, tb: !document.getElementById('block-toolbar').hidden })`);
+    groupCases.push({ name: 'X2 a second click on a Text: the editor, no block toolbar', diffs: [!got.open && 'oracle editor open, ours closed', got.tb && 'oracle no block toolbar, ours shows it'].filter(Boolean) });
     browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
   // After Write and one Escape: a drag from the text opens the editor again and the block stays (CAP-TEXTPRESS a10,
