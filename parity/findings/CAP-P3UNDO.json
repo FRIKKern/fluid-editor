@@ -822,5 +822,7 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "named": "Field: each change on Enter is one undo step for the section (Undo after 20 then 40 gives the height of 20, then of 1), but the panel keeps showing 40 and its slider until it is opened again; ours updates the panel. Slider: Undo after a pull 50, 68, 25 and let go gives 68, not 50: not one step on let go (CAP-P3UNDO2.json reads the rest). After NaN by fill, the panel opened again shows an empty field and the slider at 51, with the height kept; ours shows the last number, 50. One reading for that part. The real keys abc (typeAt by position) did not reach the field here: the field still read 68, so that read and the one after it say nothing about NaN. Not numbered: difference numbers come from the lead.",
+  "score": "CAP-P3UNDO-PREDICTED.json, ours as is: 7 of 13 read (real keys abc not read). Misses: undo 1 and undo 2 (the panel shows the old number), undo after slider, panel again 2, panel after NaN typed, and panel after NaN keys (after the keys that missed)."
 }
