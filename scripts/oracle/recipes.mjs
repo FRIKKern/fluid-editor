@@ -507,6 +507,29 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-X2UNREAD': { page: 'Gestures Probe', question: 'X2: the parts CAP-X2EDGES left unread, each twice: a corner press with no move (se, ne), a top corner pulled down 60 (ne, nw), a top corner pulled up 10, 20, 40 and 50 px (ne; ours puts the line at 30, predicted first), and a drag from under the text after Write and one Escape. Setup as in CAP-X2EDGES. No Meta+c, x or v.', steps: (() => {
+    const BIG = (n) => [['add', 0, 'Text'], ['pause', 800], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 's', 0, 160, `${n} s`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e1`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e2`], ['press', 'Escape']];
+    const END = [['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['blank']];
+    const corner = (n, part, dx, dy) => [...BIG(n), ['select', 0, 'new'], ['read', `${n} before`, { areas: 0, block: [0, 'new'] }],
+      ['handleDrag', 0, 'new', part, dx, dy, `${n} pull`], ['read', n, { areas: 0, block: [0, 'new'] }], ...END];
+    const has = { stack: 0, section: 0, has: ['Write', 'Bold'] };
+    const under = (n) => [['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['drag', 0, 0, 's', 0, 164], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['press', 'Escape'], ['read', `${n} Write and Escape`, has],
+      ['drag', 0, 0, [0.3, 0.7], 58.78, 0], ['read', `${n} dragged under the text`, has], ...END];
+    const cases = [];
+    for (const r of ['r1', 'r2']) {
+      cases.push(corner(`${r} se 0,0`, 'se', 0, 0), corner(`${r} ne 0,0`, 'ne', 0, 0));
+      cases.push(corner(`${r} ne 0,60`, 'ne', 0, 60), corner(`${r} nw 0,60`, 'nw', 0, 60));
+      for (const up of [10, 20, 40, 50]) cases.push(corner(`${r} ne 0,-${up}`, 'ne', 0, -up));
+      cases.push(under(`${r} under`));
+    }
+    return [['enter'], ['blank'], ...cases.flat()];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
