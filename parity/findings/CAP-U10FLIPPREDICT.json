@@ -27,5 +27,6 @@
    "predict": "wavy, isFlipX true"
   }
  ],
- "scored": "2 of 2 that could be read held (CAP-U10FLIP.json): pick 3 rounded with isFlipX false and stroke none, pick 4 wavy with isFlipX true, so the start had Flip X on. Not readable: the start, pick 2 and pick 0, whose section context still showed the state from before the Flip X press. It is rewritten only when the section redraws, as on a theme change, and picks 3 and 4 change the theme."
+ "scored": "2 of 2 that could be read held (CAP-U10FLIP.json): pick 3 rounded with isFlipX false and stroke none, pick 4 wavy with isFlipX true, so the start had Flip X on. Not readable: the start, pick 2 and pick 0, whose section context still showed the state from before the Flip X press. It is rewritten only when the section redraws, as on a theme change, and picks 3 and 4 change the theme.",
+ "rescored": "4 of 4 now (CAP-U10FLIP3.json): pick 2 soft-corners with isFlipX false, and pick 0 after 2 wavy with isFlipX true, both held; pick 0 alone also wavy with isFlipX true, by the same rule. Read from the section's context after a second press labelled Divider, meant for the tab, switched the divider off: that redraws the section and rewrites the context (unsaved, left through Exit Without Saving). CAP-U10FLIP2.json: the drawn wavy edge has the same points with Flip X on and off, so the drawing in edit mode can't show it."
 }

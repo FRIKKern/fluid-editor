@@ -29,6 +29,8 @@ export async function replayLinkBox(S, finding, add) {
   const fresh = async () => {
     goto(S, `${BASE}/index.html?replay`); waitFor(S, '(() => !!window.fe)()', 20);
     evalJs(S, `(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; return 1; })()`); // no real tab here
+    // Copy writes the clipboard, which in headless Chrome may be the Mac's own: stub it in the page and its frame, with a marker.
+    evalJs(S, `(() => { const stub = (w) => { Object.defineProperty(w.navigator, 'clipboard', { configurable: true, value: { writeText: async (t) => { window.__clip.push(String(t)); }, readText: async () => '', write: async () => { window.__clip.push('item'); }, read: async () => [] } }); w.__clipStub = 'replay'; }; window.__clip = []; stub(window); stub(document.getElementById('site-frame').contentWindow); return 1; })()`);
     evalJs(S, `(() => { fe.load({ ...fe.model, sections: [{ ...fe.model.sections[0], blocks: [] }] }); fe.addBlock(fe.model.sections[0].id, 'Button'); const s = fe.model.sections[0]; fe.select(s.id, s.blocks[0].id); return 1; })()`);
     await pause(150);
   };
@@ -43,7 +45,12 @@ export async function replayLinkBox(S, finding, add) {
     if (op === 'pause' && a[0] >= 1000) await pause(a[0]); // a wait the read is about (CAP-E7BOX2.json, Copy 3 s on)
     else if (op === 'exit') await fresh();
     else if (op === 'select') { evalJs(S, `(() => { const s = fe.model.sections[0]; fe.select(s.id, s.blocks[0].id); return 1; })()`); await pause(120); place(); }
-    else if (op === 'click') { browser(S, 'click', BUTTONS[a[0]]); await pause(150); }
+    else if (op === 'click' && a[0] === 'Copy') {
+      const ok = () => evalJs(S, `(() => window.__clipStub === 'replay' && document.getElementById('site-frame').contentWindow.__clipStub === 'replay')()`) === true;
+      if (!ok()) throw new Error('link-box replay: the clipboard stub is gone; Copy not pressed');
+      const n = evalJs(S, '(() => window.__clip.length)()'); browser(S, 'click', BUTTONS.Copy); await pause(150);
+      if (evalJs(S, '(() => window.__clip.length)()') !== n + 1) throw new Error('link-box replay: Copy did not reach the stub');
+    } else if (op === 'click') { browser(S, 'click', BUTTONS[a[0]]); await pause(150); }
     else if (op === 'keysFast') { cdp(S, { op: 'presses', keys: [...a[0]] }); await pause(120); }
     else if (op === 'press') { browser(S, 'press', a[0]); await pause(100); }
     else if (op === 'fill') { browser(S, 'fill', FIELDS[a[0]], a[1]); browser(S, 'press', 'Enter'); await pause(100); }

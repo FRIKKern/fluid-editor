@@ -55,6 +55,8 @@ export function sectionMix(s) {
     if (!list) return null;
     const by = {};
     for (const b of kept) (by[kindOf(b) ? 't' : roleOf(b)] ||= []).push(b);
+    // Two typed blocks (Code and Map) take their places by name, as the list keys them (CAP-U10FADED-C.json).
+    by.t?.sort((x, y) => kindOf(x).localeCompare(kindOf(y)));
     return { key, by, list };
   }
   const by = { h: [], p: [], i: [], b: [] };

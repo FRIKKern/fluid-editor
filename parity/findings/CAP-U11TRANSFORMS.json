@@ -1,0 +1,791 @@
+{
+  "item": "CAP-U11TRANSFORMS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U11: does the Design panel's More actions (Copy transforms, Paste transforms) share its clip with the block menu's Copy Properties and Paste Properties > Transforms? Clipboard calls kept in memory (stubClipboard). P: panel Copy at 5 deg, 90%. A: menu Copy at 10 deg, 50%. B: panel Paste. P2: panel Copy at 15 deg, 70%. Q: menu Paste.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "5"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "90"
+    ],
+    [
+      "read",
+      "P set",
+      {
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "pressNamed",
+      "More actions"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "P panel copy menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Copy transforms"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "P panel copy",
+      {
+        "clip": true,
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      450,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "10"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "50"
+    ],
+    [
+      "read",
+      "A set",
+      {
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Transforms"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A menu copy",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      330
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B before",
+      {
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "pressNamed",
+      "More actions"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "pressNamed",
+      "Paste transforms"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B panel paste",
+      {
+        "clip": true,
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      450,
+      330
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "15"
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "70"
+    ],
+    [
+      "read",
+      "P2 set",
+      {
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "pressNamed",
+      "More actions"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "P2 panel copy menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Copy transforms"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "P2 panel copy",
+      {
+        "clip": true,
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      900,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Paste Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q menu",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Transforms"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q menu paste",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q after",
+      {
+        "rows": [
+          "Rotate",
+          "Scale"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "P set": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ],
+        "Scale": [
+          "90%",
+          "100%"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P panel copy menu": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "Copy transforms",
+          "box": [
+            667,
+            427,
+            144,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Paste transforms",
+          "box": [
+            667,
+            471,
+            144,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P panel copy": {
+      "rows": {
+        "Rotate": [
+          "5°"
+        ],
+        "Scale": [
+          "90%",
+          "100%"
+        ]
+      },
+      "clip": {
+        "top": [
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A set": {
+      "rows": {
+        "Rotate": [
+          "10°"
+        ],
+        "Scale": [
+          "50%",
+          "100%"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A menu": {
+      "controls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A menu copy": {
+      "clip": {
+        "top": [
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B before": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B panel paste": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ]
+      },
+      "clip": {
+        "top": [
+          "readText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 set": {
+      "rows": {
+        "Rotate": [
+          "15°"
+        ],
+        "Scale": [
+          "70%",
+          "100%"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 panel copy menu": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "Copy transforms",
+          "box": [
+            1137,
+            383,
+            144,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Paste transforms",
+          "box": [
+            1137,
+            427,
+            144,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 panel copy": {
+      "rows": {
+        "Rotate": [
+          "15°"
+        ],
+        "Scale": [
+          "70%",
+          "100%"
+        ]
+      },
+      "clip": {
+        "top": [
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q menu": {
+      "controls": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q menu paste": {
+      "clip": {
+        "top": [
+          "readText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q after": {
+      "rows": {
+        "Rotate": [
+          "0°"
+        ],
+        "Scale": [
+          "100%",
+          "100%"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "named": "Measured from the stub's log: the block menu's Copy Properties > Transforms and the Design panel's More actions > Copy transforms each call navigator.clipboard.writeText in the top window, and both Pastes call readText, so the oracle keeps this clip in the system clipboard as text. Every call went to the stub, so nothing reached the machine's clipboard. Not read: whether the two share the same text. stubClipboard ran again before each paste and emptied the stub, so both pastes read an empty string and changed nothing (B and Q stayed 0 deg, 100%): a step mistake, not a read."
+}

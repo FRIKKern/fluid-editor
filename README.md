@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 27 changes
-  - T15: the importer reads each block's Design rule, keeping values off their default ([#406](https://github.com/FRIKKern/fluid-editor/pull/406))
-  - A2: a delete moves blocks below only by the uncovered rows it held ([#409](https://github.com/FRIKKern/fluid-editor/pull/409))
+- **Today** · 36 changes
+  - U10: every faded Layouts tile picked and built as read (CAP-U10FADED-A to D) ([#419](https://github.com/FRIKKern/fluid-editor/pull/419))
+  - U11: the capture's clipboard guard reads __fxClip, the marker cdp-run's key guard reads ([#418](https://github.com/FRIKKern/fluid-editor/pull/418))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
