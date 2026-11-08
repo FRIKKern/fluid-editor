@@ -264,6 +264,12 @@ for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   // A 0 bar is a 1px line on the baseline, as wide as a bar, in its series' colour: the second swatch, rgb(191, 191, 191) in Grayscale (CAP-T12CHARTCELLS3.json headplus shot).
   const zero = q(`const z = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-zero')], bars = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')], rule = d.querySelector('.fe-block[data-block-id="${id}"] .fe-chart-rule').getBoundingClientRect(); return JSON.stringify(z.map((p) => { const r = p.getBoundingClientRect(), b = bars[1].getBoundingClientRect(); return [getComputedStyle(p).stroke === getComputedStyle(bars[1]).fill, Math.abs(r.width - b.width) < 0.5, Math.abs(r.top - rule.top) < 0.6]; }));`);
   add('Chart 0 bars: three 1px lines on the baseline, bar wide, in the second series colour', JSON.stringify(zero) === JSON.stringify(Array(3).fill([true, true, true])), JSON.stringify(zero));
+  // Two series' bars stand apart, and each + is a 12px cross a little above its box's middle (CAP-T12CHARTCELLS3.json headplus shot, by pixel:
+  // bars 54 wide 2.6 apart in a 123.5 band; the cross 12 by 12, its middle 17.2 across and 21.1 down the 35.6 by 44 box).
+  const pair = q(`const r = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')].slice(0, 2).map((e) => [+e.getAttribute('x'), +e.getAttribute('width')]); return JSON.stringify([Math.round(r[0][1] * 10) / 10, Math.round(r[1][1] * 10) / 10, Math.round((r[1][0] - r[0][0] - r[0][1]) * 10) / 10]);`);
+  add('Chart bars: two series 54 wide and 2.5 apart', near(pair, [54, 54, 2.6], 0.5), JSON.stringify(pair));
+  const cross = q(`return JSON.stringify([...dl.querySelectorAll('.dl-plus')].map((p) => { const b = p.getBoundingClientRect(), g = p.querySelector('svg')?.getBoundingClientRect(); return g ? [g.width, g.height, Math.round((g.left + g.width / 2 - b.left) * 10) / 10, Math.round((g.top + g.height / 2 - b.top) * 10) / 10] : null; }));`);
+  add('Chart +: each a 12px cross, its middle at 17.2, 21.1 in its box', cross.length >= 2 && cross.every((c) => c && c[0] === 12 && c[1] === 12 && near(c.slice(2), [17.2, 21.1], 0.5)), JSON.stringify(cross));
   // Tab from the new name skips the + and goes to New York's label, its text selected (CAP-T12CHARTCELLS3.json P8).
   browser(S, 'press', 'Tab'); await pause(200);
   const tabName = q(`const a = document.activeElement; return JSON.stringify([a.dataset.dlCell ?? a.tagName, a.selectionStart, a.selectionEnd]);`);
