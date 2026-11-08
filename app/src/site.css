@@ -46,7 +46,7 @@ body {
   body { font-size: calc((var(--normal-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h1 { font-size: calc((var(--heading-1-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h2 { font-size: calc((var(--heading-2-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
-  h3 { font-size: calc((var(--heading-3-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  h3, .newsletter-form-header-title { font-size: calc((var(--heading-3-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h4 { font-size: calc((var(--heading-4-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   .sqsrte-large { font-size: calc((var(--large-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   .sqsrte-small { font-size: calc((var(--small-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
@@ -55,7 +55,7 @@ body {
   body { font-size: min(calc((var(--normal-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--normal-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--normal-text-size-value) * 1rem))); }
   h1 { font-size: min(calc((var(--heading-1-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-1-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-1-size-value) * 1rem))); }
   h2 { font-size: min(calc((var(--heading-2-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-2-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-2-size-value) * 1rem))); }
-  h3 { font-size: min(calc((var(--heading-3-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-3-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-3-size-value) * 1rem))); }
+  h3, .newsletter-form-header-title { font-size: min(calc((var(--heading-3-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-3-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-3-size-value) * 1rem))); }
   h4 { font-size: min(calc((var(--heading-4-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-4-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-4-size-value) * 1rem))); }
   .sqsrte-large { font-size: min(calc((var(--large-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--large-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--large-text-size-value) * 1rem))); }
   .sqsrte-small { font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); }
@@ -720,3 +720,36 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-tile { display: block; color: inherit; text-decoration: none; }
 .fe-tile > span:first-child { display: block; aspect-ratio: 1; background: #d9d4ca; }
 .fe-tile-title { display: block; margin-top: 7px; font-size: 14px; line-height: 22.4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Newsletter (CAP-T12NEWSLETTER.json, read at 10 columns, 576.8 wide). Float puts the email field and the button on one
+   line when they fit, a space apart; Stack puts them under each other. The heading is an h2 at Heading 3's size (41.2px),
+   1.2 high. Its margins stay
+   inside the block, so an empty Title leaves the description's 16px above it. The placeholder's grey is inferred from a
+   screenshot. */
+.sqs-block-newsletter .sqs-block-content { display: flow-root; }
+.newsletter-form { margin: 0; line-height: 1.4; text-align: center; }
+.newsletter-form-wrapper--alignLeft .newsletter-form { text-align: left; }
+.newsletter-form-wrapper--alignRight .newsletter-form { text-align: right; }
+.newsletter-form-header { margin: 0 7.5%; }
+.newsletter-form-wrapper--alignLeft .newsletter-form-header, .newsletter-form-wrapper--alignRight .newsletter-form-header { margin: 0; }
+.newsletter-form-header-title { margin: 0 0 16px; line-height: 1.2; }
+.newsletter-form-header-description p { margin: 16px 0; white-space: pre-wrap; }
+.newsletter-form-body { padding-bottom: 16px; }
+.newsletter-form-fields-wrapper { display: inline-block; margin-top: 16px; vertical-align: middle; }
+.newsletter-form fieldset { display: inline-block; min-width: 0; margin: 0; padding: 0; border: 0; vertical-align: bottom; }
+.newsletter-form .form-item:not(fieldset), .newsletter-form .field { display: inline-block; box-sizing: border-box; width: 288px; max-width: 100%; padding: 8px 4px; vertical-align: bottom; }
+.newsletter-form-button-wrapper { display: inline-block; margin-top: 16px; padding: 8px 4px; vertical-align: middle; }
+.newsletter-form-wrapper--alignLeft .form-item:not(fieldset), .newsletter-form-wrapper--alignLeft .field, .newsletter-form-wrapper--alignLeft .newsletter-form-button-wrapper { padding: 8px 4px 8px 0; }
+.newsletter-form-wrapper--alignRight .form-item:not(fieldset), .newsletter-form-wrapper--alignRight .field, .newsletter-form-wrapper--alignRight .newsletter-form-button-wrapper { padding: 8px 0 8px 4px; }
+.newsletter-form .title { display: block; height: 0; overflow: hidden; }
+.newsletter-form .field-element { display: inline-block; box-sizing: border-box; width: 100%; margin: 0; padding: 22.4px 32px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 0; background: #fff; color: #000; font: inherit; font-size: 16px; line-height: 19.2px; text-align: start; outline: none; }
+.newsletter-form .field-element::placeholder { color: rgba(0, 0, 0, .3); }
+.newsletter-form-button { display: inline-block; padding: 22.4px 32px; border: 0; border-radius: 300px; background: #000; color: #fff; font: inherit; font-size: 16px; line-height: 19.2px; font-weight: 500; letter-spacing: .02em; white-space: nowrap; }
+.page-section .newsletter-form-button { background: var(--button-bg); color: var(--button-ink); }
+.newsletter-form-footnote { font-size: .88rem; line-height: 1.4; }
+.newsletter-form-footnote p { margin: 16px 0 0; white-space: pre-wrap; }
+.newsletter-form-wrapper--layoutStack .newsletter-form-body { display: flex; flex-direction: column; align-items: center; }
+.newsletter-form-wrapper--layoutStack.newsletter-form-wrapper--alignLeft .newsletter-form-body { align-items: flex-start; }
+.newsletter-form-wrapper--layoutStack.newsletter-form-wrapper--alignRight .newsletter-form-body { align-items: flex-end; }
+.newsletter-form-wrapper--layoutStack .newsletter-form-fields-wrapper { display: block; }
+.newsletter-form-wrapper--layoutStack .newsletter-form .form-item:not(fieldset), .newsletter-form-wrapper--layoutStack .newsletter-form .field { padding: 8px 0; }
+.newsletter-form-wrapper--layoutStack .newsletter-form-button-wrapper { display: block; margin: 0; padding: 8px 0; }

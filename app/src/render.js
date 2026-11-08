@@ -291,7 +291,23 @@ function chartHtml(b) {
 }
 export const QUOTE_TEXT = { quote: 'Whatever it is, the way you tell your story online can make all the difference.', source: 'Quote Source' };
 export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.source ?? QUOTE_TEXT.source });
-// Five menu types whose content sets the height and follows the width (STANDINS.json). The words and
+// Newsletter (CAP-T12NEWSLETTER.json): the panel's words as typed. An empty Title takes the heading away, an empty
+// Button Text shows Sign Up, and each line of Description or Disclaimer is a paragraph. Show Name Field adds First Name
+// and Last Name. The fields take nothing on the canvas, and nothing is sent.
+export const NEWSLETTER_TEXT = { nlFormName: 'Newsletter Form', nlTitle: 'Subscribe', nlDesc: 'Sign up with your email address to receive news and updates.', nlDisc: 'We respect your privacy.', nlButton: 'Sign Up' };
+export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
+function newsletterHtml(b) {
+  const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l)}</p>`).join('') : '');
+  const input = (type, label) => `<label class="newsletter-form-field-label title">${label}</label><input class="newsletter-form-field-element field-element" type="${type}" placeholder="${label}" aria-label="${label}" tabindex="-1" readonly>`;
+  const name = n.nlName ? `<fieldset class="form-item fields name required"><div class="field first-name">${input('text', 'First Name')}</div> <div class="field last-name">${input('text', 'Last Name')}</div></fieldset> ` : '';
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  return `<div class="newsletter-form-wrapper newsletter-form-wrapper--layout${cap(n.nlLayout)} newsletter-form-wrapper--align${cap(n.nlAlign)}"><form class="newsletter-form" novalidate onsubmit="return false">`
+    + `<header class="newsletter-form-header">${n.nlTitle ? `<h2 class="newsletter-form-header-title">${escapeHtml(n.nlTitle)}</h2>` : ''}<div class="newsletter-form-header-description">${paras(n.nlDesc)}</div></header>`
+    + `<div class="newsletter-form-body"><div class="newsletter-form-fields-wrapper form-fields">${name}<div class="newsletter-form-field-wrapper form-item field email required">${input('email', 'Email Address')}</div></div> `
+    + `<div class="newsletter-form-button-wrapper submit-wrapper"><button class="newsletter-form-button" type="button" tabindex="-1"><span class="newsletter-form-button-label">${escapeHtml(n.nlButton || NEWSLETTER_TEXT.nlButton)}</span></button></div></div>`
+    + `<div class="newsletter-form-footnote">${paras(n.nlDisc)}</div></form></div>`;
+}
+// The menu types whose content sets the height and follows the width (STANDINS.json). The words and
 // the 12 plain tiles are local; no picture or service is behind them.
 const STANDIN = {
   // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
@@ -300,6 +316,7 @@ const STANDIN = {
     const q = quoteOf(b), lines = (t) => escapeHtml(t).replace(/\n/g, '<br>');
     return `<figure class="sqs-quote-block-contents"><blockquote><span>“</span>${lines(q.quote)}<span>”</span></blockquote>${q.source ? `<figcaption class="source">— ${escapeHtml(q.source)}</figcaption>` : ''}</figure>`;
   },
+  newsletter: (b) => newsletterHtml(b),
   chart: (b) => chartHtml(b),
   soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',
   // Aspect Ratio, Crop Images, Show Title and Open Links in New Window (CAP-ROWSINSTAGRAM.json, CAP-ROWSFLICKR.json): a
@@ -311,7 +328,7 @@ const STANDIN = {
     return `<div class="fe-tiles">${Array.from({ length: 12 }, (_, n) => tile(n)).join('')}</div>`;
   },
 };
-const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
+const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', newsletter: 'sqs-block-newsletter newsletter-block',chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
 export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)(b)}</div></div>`;
 
 export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
