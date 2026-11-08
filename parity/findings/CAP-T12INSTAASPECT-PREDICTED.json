@@ -281,5 +281,100 @@
       }
     },
     "unseen": "D's and E's first picks repeat seen reads (4:3 from new: 9; 3:2 from new: 8). The other 5 are unseen; D's 16:9 and E's 16:9 tell R1 from H0. E's 16:9 sits near a boundary (7.07)."
+  },
+  "round2": {
+    "count": {
+      "R1": "3 of 5 unseen",
+      "H0": "5 of 5 unseen"
+    },
+    "read": {
+      "D": [
+        9,
+        6,
+        5
+      ],
+      "E": [
+        8,
+        6,
+        5,
+        8
+      ]
+    },
+    "misses": {
+      "R1": "D 16:9 after 4:3 read 6, predicted 7; E 16:9 after 3:2 read 6, predicted 7"
+    },
+    "seen now": "The kept row shows only on the first shrinking change of a new 12-row block (3:2 8, 4:3 9, 16:9 7, each the fit + 1, and each the scaled height floored). Every later change, and a first change that grows (2:3 13), fits the content."
+  },
+  "refit2": {
+    "last": "Refit 2, the last: after this read the rule is frozen.",
+    "candidates": {
+      "R2a": "content that shrinks keeps one row over the fit when the block stood 2 or more rows over its old fit; otherwise the fit",
+      "R2b": "the first content change after the block is added keeps one row over the fit if it shrinks (a pull is not a content change); otherwise the fit",
+      "R2c": "as R2b, but the scaled height floored, never below the fit, in place of fit + 1",
+      "R2d": "as R2a, but the scaled height floored, never below the fit, in place of fit + 1"
+    },
+    "runs": {
+      "F": {
+        "steps": "a new Instagram, its bottom handle pulled up 30 (it should stop at the fit, 9 rows, as STANDINS.json walks read), then 3:2, then 16:9",
+        "predicted": {
+          "H0": [
+            7,
+            6
+          ],
+          "R2a": [
+            7,
+            6
+          ],
+          "R2b": [
+            8,
+            6
+          ],
+          "R2c": [
+            7,
+            6
+          ],
+          "R2d": [
+            7,
+            6
+          ]
+        }
+      },
+      "G": {
+        "steps": "a new Instagram, its bottom handle pulled down 41 (13 rows expected), then 16:9, then 3:2",
+        "predicted": {
+          "H0": [
+            6,
+            7
+          ],
+          "R2a": [
+            7,
+            7
+          ],
+          "R2b": [
+            7,
+            7
+          ],
+          "R2c": [
+            8,
+            7
+          ],
+          "R2d": [
+            8,
+            7
+          ]
+        },
+        "if the pull reads 14 rows": {
+          "R2c": [
+            9,
+            7
+          ],
+          "R2d": [
+            9,
+            7
+          ],
+          "others": "as above"
+        }
+      }
+    }
   }
 }
