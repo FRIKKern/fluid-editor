@@ -1,14 +1,14 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 410,
+ "matched": 413,
  "counts": {
   "unread": 39,
-  "namedNotOurs": 248,
-  "oursOnly": 561,
+  "namedNotOurs": 242,
+  "oursOnly": 549,
   "proseOnlyOracle": 51,
   "proseOnlyOurs": 16,
-  "tabs": 30,
+  "tabs": 28,
   "toolbar": 0,
   "bars": 12,
   "kinds": 4,
@@ -16,10 +16,10 @@
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 83,
+  "controls": 81,
   "headings": 32,
   "outside": 17,
-  "states": 11,
+  "states": 10,
   "byKind": {
    "button": 14,
    "slider": 1,
@@ -27,7 +27,7 @@
    "switch": 26,
    "field": 11,
    "menu": 8,
-   "area": 5
+   "area": 3
   },
   "tiles": {
    "Text": {
@@ -421,31 +421,27 @@
     "oursOff": []
    },
    "Quote": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
     "control": [
-     "Quote (area)",
-     "Source (area)",
      "Appear (button)"
     ],
     "heading": [
      "Effects"
     ],
     "outside": [],
-    "state": [
-     "Press + to get started"
-    ],
+    "state": [],
     "help": 0,
-    "matched": 0,
-    "common": 14,
+    "matched": 17,
+    "common": 0,
     "oursOff": []
    },
    "Audio": {
@@ -2227,27 +2223,6 @@
    ]
   },
   {
-   "where": "Quote > Content",
-   "name": "Quote",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Quote > Content",
-   "name": "Source",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
    "where": "Quote > Design",
    "name": "Effects",
    "kinds": []
@@ -2257,27 +2232,6 @@
    "name": "Appear",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Quote phone > Content",
-   "name": "Quote",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Quote phone > Content",
-   "name": "Source",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -4771,47 +4725,6 @@
   },
   {
    "where": "Quote > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Quote > Design",
    "name": "More actions",
    "kinds": [
     "button"
@@ -4822,47 +4735,6 @@
    "name": "Animation list actions",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -6941,30 +6813,6 @@
     "Content",
     "Design",
     "Storage"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Quote",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Quote phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
    ],
    "ours": [
     "Design",

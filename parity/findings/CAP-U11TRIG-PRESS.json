@@ -1,0 +1,1149 @@
+{
+  "item": "CAP-U11TRIG-PRESS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U11: Copy Properties > Animations, then Paste Properties > Animations onto a new Shape, with one Start blank row of trigger onpress; the target's Animation list read after. One stubClipboard after enter, its marker checked before every step, every writeText and readText logged with its text.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "read",
+      "stubbed",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "On Hover"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "On Press"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Start blank"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "source",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      450,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "placed",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "target before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animations"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "menu copy",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Paste Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animations"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "menu paste",
+      {
+        "clip": true,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "target selected",
+      {
+        "leaves": [
+          "On Hover",
+          "On Press",
+          "Loop",
+          "On Scroll",
+          "On Appear",
+          "Follow",
+          "Start blank",
+          "End",
+          "Timing"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "target rows",
+      {
+        "leaves": [
+          "On Hover",
+          "On Press",
+          "Loop",
+          "On Scroll",
+          "On Appear",
+          "Follow",
+          "Press + to get started"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "stubbed": {
+      "clip": {
+        "top": [],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "object",
+        "topTexts": [],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "clean"
+    },
+    "source": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            303.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            483,
+            435,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            621,
+            435,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            482,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            482,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            515,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            482,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            533,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            533,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            566,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            533,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            584,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            584,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            584,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            584,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            635,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            635,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            635,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            635,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            686,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            686,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            686,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            686,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Preview",
+          "box": [
+            461,
+            746,
+            320,
+            55
+          ]
+        }
+      ],
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794128138613_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "placed": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794128138613_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/10/7/16",
+          "7/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target before": {
+      "block": {
+        "desktop": "1/10/7/16",
+        "mobile": "7/2/13/10",
+        "box": [
+          570.4,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794128138613_668",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 10 / 7 / 16",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "menu copy": {
+      "clip": {
+        "top": [
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"press\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          },\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.4,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"ease-out\",\n        \"customEase\": \"0.22,0.61,0.36,1\",\n        \"bounce\": 0.5,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "menu paste": {
+      "block": {
+        "desktop": "1/10/7/16",
+        "mobile": "7/2/13/10",
+        "box": [
+          570.4,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794128138613_668",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 10 / 7 / 16",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "clip": {
+        "top": [
+          "writeText",
+          "readText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"press\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          },\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.4,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"ease-out\",\n        \"customEase\": \"0.22,0.61,0.36,1\",\n        \"bounce\": 0.5,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"press\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          },\n          {\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 100,\n                \"unit\": \"%\"\n              }\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.4,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"ease-out\",\n        \"customEase\": \"0.22,0.61,0.36,1\",\n        \"bounce\": 0.5,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target selected": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            578.4,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            623.4,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            663.4,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            703.4,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "leaves": {
+        "On Hover": null,
+        "On Press": null,
+        "Loop": null,
+        "On Scroll": null,
+        "On Appear": null,
+        "Follow": null,
+        "Start blank": null,
+        "End": null,
+        "Timing": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target rows": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            931,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            953,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            1015,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Animation list actions",
+          "box": [
+            1143.5,
+            371,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add a new animation",
+          "box": [
+            1190.5,
+            371,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "On Press0.4s",
+          "box": [
+            1003,
+            420,
+            86.8,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Preview animation",
+          "box": [
+            1188.6,
+            421,
+            36,
+            36
+          ]
+        }
+      ],
+      "leaves": {
+        "On Hover": null,
+        "On Press": null,
+        "Loop": null,
+        "On Scroll": null,
+        "On Appear": null,
+        "Follow": null,
+        "Press + to get started": null
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": []
+}

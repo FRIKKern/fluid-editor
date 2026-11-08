@@ -113,7 +113,7 @@ function read(what) {
     const [i, k, pts] = what.hit; const id = blockId(i, k);
     out.hit = evalJs(S, `(() => { ${FRAME} ${cls} const b = ${BLOCK(i, id)}; const q = b.getBoundingClientRect(); return JSON.stringify(${JSON.stringify(pts)}.map(([fx, fy]) => { const e = d.elementFromPoint(q.left + q.width * fx, q.top + q.height * fy); return { at: [fx, fy], tag: e && e.tagName.toLowerCase(), cls: e && cls(e).slice(0, 80), cursor: e && W.getComputedStyle(e).cursor, inBlock: !!(e && b.contains(e)) }; })); })()`);
   }
-  if (what.clip) out.clip = evalJs(S, `(() => { const a = window.__fxClip, b = document.getElementById('sqs-site-frame').contentWindow.__fxClip; return JSON.stringify({ top: a && a.log, frame: b && b.log, frameKind: b && typeof b.data, topKind: a && typeof a.data }); })()`);
+  if (what.clip) out.clip = evalJs(S, `(() => { const a = window.__fxClip, b = document.getElementById('sqs-site-frame').contentWindow.__fxClip; return JSON.stringify({ top: a && a.log, frame: b && b.log, frameKind: b && typeof b.data, topKind: a && typeof a.data, ...(a && a.texts ? { topTexts: a.texts, frameTexts: b && b.texts } : {}) }); })()`);
   if (what.sections) out.sections = evalJs(S, `(() => { ${FRAME} return JSON.stringify([...d.querySelectorAll('main#page .page-section')].map((s) => { const fe = s.querySelector('.fluid-engine'); const c = fe && W.getComputedStyle(fe); return { id: (s.getAttribute('data-section-id') || '').slice(-6), classes: [...s.classList].filter((x) => /section-height|vertical-alignment|content-width|background-width/.test(x)).join(' '), rows: c ? c.gridTemplateRows.split(' ').length : null, blocks: fe ? [...fe.querySelectorAll(':scope > .fe-block')].map((b) => (b.getAttribute('data-block-id') || b.id || '').slice(-6)) : [], h: Math.round(s.getBoundingClientRect().height * 10) / 10 }; })); })()`);
   // Labels present in the panel even when its scroll clips them, which the controls list leaves out.
   if (what.boxes) out.boxes = Object.fromEntries(what.boxes.map((l) => [l, tag(LABEL(l)) ? evalJs(S, `(() => { const out = []; let e = document.getElementById('fx-target'); while (e && e !== document.body) { const q = e.getBoundingClientRect(); const b = [Math.round(q.left * 10) / 10, Math.round(q.top * 10) / 10, Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10]; if (q.width > 0 && !out.some((x) => x.join() === b.join())) out.push(b); e = e.parentElement; } return JSON.stringify(out.slice(0, 6)); })()`) : null]));
@@ -369,7 +369,9 @@ const STEPS = {
   // Keeps the page's clipboard calls in memory, in the top window and the site frame, so a Copy cannot reach the machine's clipboard.
   // A copy or paste event with our own DataTransfer, in the frame or the top window. No key press, nothing reaches the machine's clipboard. Logs whether the page took it and the types, never the data.
   synthClip: (type, where = 'frame') => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; const w = ${JSON.stringify(where)} === 'top' ? window : f; const d = w.document; f.__fxDt = f.__fxDt || new f.DataTransfer(); const dt = f.__fxDt; const t = d.activeElement && d.activeElement !== d.body ? d.activeElement : d; const ev = new w.ClipboardEvent(${JSON.stringify(type)}, { bubbles: true, cancelable: true, composed: true, clipboardData: dt }); const taken = !t.dispatchEvent(ev); f.__fxClip.log.push(${JSON.stringify(type + ':' + where + ':')} + (taken ? 'taken' : 'not taken') + ':' + [...dt.types].join(',')); return JSON.stringify(true); })()`),
-  stubClipboard: () => { const stub = `(w) => { w.__fxClip = { log: [], data: null }; const c = w.__fxClip; const nav = { writeText: async (t) => { c.log.push('writeText'); c.data = t; }, readText: async () => { c.log.push('readText'); return typeof c.data === 'string' ? c.data : ''; }, write: async (items) => { c.log.push('write'); c.data = items; }, read: async () => { c.log.push('read'); return Array.isArray(c.data) ? c.data : []; } }; Object.defineProperty(w.navigator, 'clipboard', { value: nav, configurable: true }); const ex = w.document.execCommand.bind(w.document); w.document.execCommand = (cmd, ...rest) => { if (/^(copy|cut|paste)$/i.test(cmd)) { c.log.push('exec:' + cmd); return false; } return ex(cmd, ...rest); }; }`; return evalJs(S, `(() => { const f = ${stub}; f(window); f(document.getElementById('sqs-site-frame').contentWindow); return JSON.stringify(true); })()`); },
+  // With a marker in both windows: from here on every step but exit first checks it, and the run stops and exits if it is gone.
+  // The texts the page writes and reads are kept too: they are the page's own, never the machine's clipboard.
+  stubClipboard: () => { const stub = `(w) => { w.__fxClip = { log: [], data: null, texts: [] }; const c = w.__fxClip; const nav = { writeText: async (t) => { c.log.push('writeText'); c.texts.push(['writeText', String(t)]); c.data = t; }, readText: async () => { c.log.push('readText'); const t = typeof c.data === 'string' ? c.data : ''; c.texts.push(['readText', t]); return t; }, write: async (items) => { c.log.push('write'); c.data = items; }, read: async () => { c.log.push('read'); return Array.isArray(c.data) ? c.data : []; } }; Object.defineProperty(w.navigator, 'clipboard', { value: nav, configurable: true }); const ex = w.document.execCommand.bind(w.document); w.document.execCommand = (cmd, ...rest) => { if (/^(copy|cut|paste)$/i.test(cmd)) { c.log.push('exec:' + cmd); return false; } return ex(cmd, ...rest); }; }`; return evalJs(S, `(() => { const f = ${stub}; f(window); f(document.getElementById('sqs-site-frame').contentWindow); return JSON.stringify(true); })()`); },
   shiftClick: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); await inFrame(() => { mouse(S, 'move', x, y, { mods: ['Shift'] }); mouse(S, 'down', x, y, { mods: ['Shift'] }); mouse(S, 'up', x, y, { mods: ['Shift'] }); }); await pause(800); },
   hold: async (i, k, part, dx, dy, mods = []) => {
     await STEPS.select(i, k);
@@ -612,20 +614,24 @@ const STEPS = {
 // These don't act on the page, or are how it gets there.
 const NO_PAGE_NEEDED = new Set(['enter', 'toPage', 'exit', 'pause', 'window', 'frame', 'unframe', 'moveAt']);
 const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.stringify(d.location.pathname); })()`); return at === pathOf(pageTitle) ? null : at; };
+// After stubClipboard, its marker (__fxClip, the name cdp-run's key guard reads too) must still be in the top window and the frame before each step (a reload or a new document drops it).
+const stubMarked = () => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); const has = (w) => !!w && typeof w.__fxClip === 'object' && w.__fxClip !== null; return JSON.stringify(has(window) && !!f && has(f.contentWindow)); })()`) === true;
+let stubbed = false;
 try {
   for (const [op, ...a] of recipe.steps) {
     if (!STEPS[op]) throw new Error(`no step ${op}`);
     console.log(op, JSON.stringify(a).slice(0, 80));
+    if (stubbed && op !== 'exit' && !stubMarked()) { finding.errors.push(`stopped before ${op}: the clipboard stub's marker is gone`); console.log('  error:', finding.errors.at(-1)); break; }
     if (!NO_PAGE_NEEDED.has(op)) {
       const at = wrongPage();
       if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
     }
     if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false;
-    try { await STEPS[op](...a); } catch (e) {
+    try { await STEPS[op](...a); if (op === 'stubClipboard') stubbed = true; } catch (e) {
       if (op === 'click' && a[0] === 'Write') noWrite = true;
       finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
       console.log('  error:', finding.errors.at(-1));
-      if (op === 'enter') break;
+      if (op === 'enter' || op === 'stubClipboard') break;
       if (held) await inFrame(() => mouse(S, 'up', held.x, held.y)).catch(() => {});
       held = null;
     }

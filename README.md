@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 31 changes
-  - E7: the link-box replay stubs the clipboard before Copy, and stops if the stub is gone ([#413](https://github.com/FRIKKern/fluid-editor/pull/413))
-  - P3: undo and the number after NaN, read on the oracle ([#412](https://github.com/FRIKKern/fluid-editor/pull/412))
+- **Today** · 36 changes
+  - U10: every faded Layouts tile picked and built as read (CAP-U10FADED-A to D) ([#419](https://github.com/FRIKKern/fluid-editor/pull/419))
+  - U11: the capture's clipboard guard reads __fxClip, the marker cdp-run's key guard reads ([#418](https://github.com/FRIKKern/fluid-editor/pull/418))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
