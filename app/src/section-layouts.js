@@ -2,6 +2,7 @@
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
 import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
+import { dividerEdge } from './render.js';
 
 const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
 const roleOf = (b) => {
@@ -118,7 +119,14 @@ function tile(mix, n, on, look) {
       if (r === 'h' || r === 'p') parts.push(`<span class="lo-t lo-${L.tag && r === 'h' ? L.tag : r}" style="${box};color:${ink}">${words(b).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`);
     });
   }
-  return `<li><button type="button" class="lo-tile${on ? ' is-on' : ''}" data-layout="${n}" aria-label="Layout ${n + 1}" aria-pressed="${on}" style="height:${height}px;background:${bg}">${parts.join('')}</button></li>`;
+  // A layout with a divider of its own: the tile's bottom is that divider's edge, its line too (CAP-U10TILES.json, the
+  // rounded tile's screenshot). A 6vw band at 1600 is 17px here. A start's divider kept by a layout isn't drawn: not read.
+  const edge = L.style?.divider && dividerEdge({ dividerShape: L.style.divider });
+  if (edge) {
+    const band = 96 * SCALE, y = (r) => +(height - band * (1 - r)).toFixed(2), pts = edge.map(([v, r]) => `L${+(v * 283).toFixed(2)},${y(r)}`).reverse().join('');
+    parts.unshift(`<svg class="lo-edge" viewBox="0 0 283 ${height}" width="283" height="${height}" aria-hidden="true"><path d="M0,6A6,6 0 0 1 6,0H277A6,6 0 0 1 283,6${pts}Z" fill="${bg}"/></svg>`);
+  }
+  return `<li><button type="button" class="lo-tile${on ? ' is-on' : ''}${edge ? ' lo-div' : ''}" data-layout="${n}" aria-label="Layout ${n + 1}" aria-pressed="${on}" style="height:${height}px;background:${edge ? 'transparent' : bg}">${parts.join('')}</button></li>`;
 }
 
 export function layoutsPanelHtml(mix, picked, look) {
