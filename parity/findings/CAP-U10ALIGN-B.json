@@ -1,0 +1,1227 @@
+{
+  "item": "CAP-U10ALIGN-B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: each text block alignment after every pick of the heading and paragraph list (predicted in CAP-U10ALIGNPREDICT.json)",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "open",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "open b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 5",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 5 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 0",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 0 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 1",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 1 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 2",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 2 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 3",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 3 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "pick 4",
+      {
+        "areas": 0,
+        "look": 0,
+        "tiles": true,
+        "tileNames": true,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "pick 4 b1",
+      {
+        "html": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            412.4,
+            ""
+          ],
+          [
+            "2",
+            500.4,
+            ""
+          ],
+          [
+            "3",
+            590.2,
+            ""
+          ],
+          [
+            "4",
+            682.9,
+            ""
+          ],
+          [
+            "5",
+            824,
+            ""
+          ]
+        ]
+      },
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h2>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "open b1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 5": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            96,
+            ""
+          ],
+          [
+            "1",
+            180.4,
+            ""
+          ],
+          [
+            "2",
+            268.4,
+            ""
+          ],
+          [
+            "3",
+            358.2,
+            ""
+          ],
+          [
+            "4",
+            450.9,
+            ""
+          ],
+          [
+            "5",
+            592,
+            ""
+          ]
+        ]
+      },
+      "html": "<h1 style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Heading words for a probe</h1>",
+      "areas": [
+        [
+          "4/2/7/26",
+          "4/1/9/11"
+        ],
+        [
+          "8/10/10/18",
+          "11/3/13/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 5 b1": {
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 4,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          217,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            273,
+            ""
+          ],
+          [
+            "1",
+            357.4,
+            ""
+          ],
+          [
+            "2",
+            445.4,
+            ""
+          ],
+          [
+            "3",
+            535.2,
+            ""
+          ],
+          [
+            "4",
+            627.9,
+            ""
+          ],
+          [
+            "5",
+            769,
+            ""
+          ]
+        ]
+      },
+      "html": "<h3 style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Heading words for a probe</h3>",
+      "areas": [
+        [
+          "1/9/3/19",
+          "3/2/6/10"
+        ],
+        [
+          "3/10/5/18",
+          "7/3/9/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0 b1": {
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 1": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          217,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            203,
+            ""
+          ],
+          [
+            "1",
+            287.4,
+            ""
+          ],
+          [
+            "2",
+            375.4,
+            ""
+          ],
+          [
+            "3",
+            465.2,
+            ""
+          ],
+          [
+            "4",
+            557.9,
+            ""
+          ],
+          [
+            "5",
+            699,
+            ""
+          ]
+        ]
+      },
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h2>",
+      "areas": [
+        [
+          "1/3/6/13",
+          "5/2/9/10"
+        ],
+        [
+          "1/15/3/23",
+          "10/2/12/8"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 1 b1": {
+      "html": "<p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          217,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            115,
+            ""
+          ],
+          [
+            "1",
+            199.4,
+            ""
+          ],
+          [
+            "2",
+            287.4,
+            ""
+          ],
+          [
+            "3",
+            377.2,
+            ""
+          ],
+          [
+            "4",
+            469.9,
+            ""
+          ],
+          [
+            "5",
+            611,
+            ""
+          ]
+        ]
+      },
+      "html": "<h1 style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Heading words for a probe</h1>",
+      "areas": [
+        [
+          "1/4/4/24",
+          "5/2/9/10"
+        ],
+        [
+          "4/10/6/18",
+          "10/3/12/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2 b1": {
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 3": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          214,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            38,
+            ""
+          ],
+          [
+            "1",
+            122.4,
+            ""
+          ],
+          [
+            "2",
+            210.4,
+            ""
+          ],
+          [
+            "3",
+            300.2,
+            ""
+          ],
+          [
+            "4",
+            392.9,
+            ""
+          ],
+          [
+            "5",
+            534,
+            ""
+          ]
+        ]
+      },
+      "html": null,
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/13",
+          "8/3/10/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed",
+      "htmlNote": "Not read: the block had no text container, so the read took the whole block and its grid style text filled the limit first. Left out of the repo (O2)."
+    },
+    "pick 3 b1": {
+      "html": "<p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          68.4
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          71.9
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          73.9
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          76.7
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          125.1
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          139.8
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 790.9,
+        "rows": 11,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          214,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            38,
+            ""
+          ],
+          [
+            "1",
+            122.4,
+            ""
+          ],
+          [
+            "2",
+            210.4,
+            ""
+          ],
+          [
+            "3",
+            300.2,
+            ""
+          ],
+          [
+            "4",
+            392.9,
+            ""
+          ],
+          [
+            "5",
+            534,
+            ""
+          ]
+        ]
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h1>",
+      "areas": [
+        [
+          "4/3/9/14",
+          "5/2/9/10"
+        ],
+        [
+          "4/15/6/23",
+          "10/2/12/8"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 4 b1": {
+      "html": "<p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
