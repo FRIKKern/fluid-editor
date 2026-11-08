@@ -1,0 +1,16 @@
+{
+ "item": "X6",
+ "capturedAt": "2026-11-08",
+ "question": "X6: Flickr's tiles on the phone, how many to a row. Prediction pushed before the read of CAP-X6FLICKRPHONE.json.",
+ "setup": "Blocks Probe, unsaved, a new section; a Flickr added on desktop, read there after 15 s, then on the phone after 15 s: the boxes of its pictures, its links and every element in its content.",
+ "predictions": [
+  {
+   "case": "phone",
+   "predict": "2 tiles to a row, each about 178 wide ((376.7 - 20) / 2), in 6 rows, the block 1190 high: inferred in CAP-68FLICKR.json from that height"
+  },
+  {
+   "case": "desktop",
+   "predict": "4 tiles to a row, as ours draws its stand-in"
+  }
+ ]
+}
