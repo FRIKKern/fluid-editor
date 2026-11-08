@@ -4936,11 +4936,15 @@ function duplicateBlock(sid, bid) {
 
 // Copy and Paste of blocks (U11). The oracle's clipboard did not reach the page in the probe, so
 // the place is ours: the same grid area in any section, one row and one column on while that
-// area is taken, at the bottom of the phone layout. Ours keeps the copy in memory.
-let blockClip = null;
+// area is taken, at the bottom of the phone layout.
+// The clip outlasts leaving the page and coming back, as on the oracle (CAP-U11RELOAD.json): ours keeps it in the browser.
+// The oracle's read held its clip in the capture tool, not the real clipboard: that a real clipboard keeps it is inferred.
+const CLIP_KEY = 'fe-block-clip';
+let blockClip = (() => { try { return JSON.parse(localStorage.getItem(CLIP_KEY)); } catch { return null; } })();
 let transformClip = null;
 function copyBlocks() {
   blockClip = [sel.bid, ...(sel.more || [])].map((id) => JSON.parse(JSON.stringify(B(sel.sid, id))));
+  try { localStorage.setItem(CLIP_KEY, JSON.stringify(blockClip)); } catch {}
 }
 function pasteBlocks(sid) {
   const s = S(sid);
