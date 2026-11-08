@@ -1,10 +1,10 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 427,
+ "matched": 429,
  "counts": {
   "unread": 39,
-  "namedNotOurs": 218,
+  "namedNotOurs": 214,
   "oursOnly": 506,
   "proseOnlyOracle": 47,
   "proseOnlyOurs": 16,
@@ -16,12 +16,12 @@
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 72,
-  "headings": 32,
+  "controls": 71,
+  "headings": 31,
   "outside": 15,
   "states": 10,
   "byKind": {
-   "button": 13,
+   "button": 12,
    "slider": 1,
    "choice": 16,
    "switch": 25,
@@ -421,16 +421,12 @@
      "Design",
      "Animation"
     ],
-    "control": [
-     "Appear (button)"
-    ],
-    "heading": [
-     "Effects"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [],
     "help": 0,
-    "matched": 17,
+    "matched": 19,
     "common": 0,
     "oursOff": []
    },
@@ -2044,30 +2040,6 @@
    "name": "Background",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Effects",
-   "kinds": []
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Appear",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Effects",
-   "kinds": []
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Appear",
-   "kinds": [
-    "button"
    ]
   },
   {
