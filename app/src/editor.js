@@ -1802,7 +1802,7 @@ function renderBlockPanel() {
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
-    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
+    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';

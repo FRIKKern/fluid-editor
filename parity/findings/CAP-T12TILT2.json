@@ -1,0 +1,94 @@
+{
+  "item": "CAP-T12TILT2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "A Bar Chart's labels at 14 and 12 letters, same block: the tilt angle, read from shots; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "fillValue",
+      "New York",
+      "Stavangerfjord"
+    ],
+    [
+      "fillValue",
+      "Las Vegas",
+      "Bergenhalvoya"
+    ],
+    [
+      "fillValue",
+      "San Francisco",
+      "Tromsoyabrua"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "mid14"
+    ],
+    [
+      "fillValue",
+      "Stavangerfjord",
+      "Kristiansand"
+    ],
+    [
+      "fillValue",
+      "Bergenhalvoya",
+      "Haugesundsby"
+    ],
+    [
+      "fillValue",
+      "Tromsoyabrua",
+      "Lillehammers"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "mid12"
+    ]
+  ],
+  "reads": {},
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}
