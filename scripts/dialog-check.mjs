@@ -3,7 +3,7 @@
 // the title, the tabs, and every read row's box. Then the close (a press beside it), Escape and a press on the block, and
 // the rows 0005 keeps in scope. Writes parity/dialog-check.json. FLUID_SURFACE=cdp:<port> npm run dialog-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, mouse, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -222,8 +222,31 @@ const contentOf = (ch) => Number(ch.find((c) => c.startsWith('DIV.targeted')).sp
   pick('button[data-dl="chartFlip"]');
   const cell = q(`const c = dl.querySelector('[data-dl-cell="2,1"]'); if (!c) return 'null'; c.value = '50'; c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const r = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')].map((e) => Math.round(e.getBoundingClientRect().height)); return JSON.stringify([b.chartData?.[2]?.[1], r[1] < r[0], dl.querySelectorAll('.dl-grid input:not([disabled])').length]);`);
   add('Chart Data: Las Vegas 50 in its cell redraws, 7 cells take typing', JSON.stringify(cell) === '["50",true,7]', JSON.stringify(cell));
-  const csv = q(`dl.querySelector('[data-dl-tab="Import / Export"]').click(); await sleep(150); const t = dl.querySelector('textarea[data-dl-area]'); if (!t) return '[0,0]'; t.value = 'Label,Population\\nA,1\\nB,2\\nC,3\\nD,4'; dl.querySelector('[data-dl-action="csv"]')?.click(); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); return JSON.stringify([b.chartData?.length, d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar').length]);`);
-  add('Chart Update: the CSV becomes the data, four bars', JSON.stringify(csv) === '[5,4]', JSON.stringify(csv));
+  // The + under the rows and after the series (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCELLS3.json): a row of 0s with the focus on its
+  // label, a series of 0s at 165 + 110 with the focus on its name and the + one slot on; the chart draws two bars a label.
+  // The + row has no stripe (CAP-T12CHARTCELLS3.json headplus shot), and a focused cell is white with no ring (its focused read).
+  const plusLook = q(`const p = dl.querySelector('[data-dl-add="row"]'), c = dl.querySelector('[data-dl-cell="1,0"]'); c?.focus(); const cs = c && getComputedStyle(c); return JSON.stringify([[...dl.querySelectorAll('.dl-cell')].filter((e) => p && e.style.top === p.style.top).map((e) => getComputedStyle(e).backgroundColor), cs?.outlineStyle, cs?.backgroundColor]);`);
+  add('Chart cells: the + row unstriped, a focused cell white with no ring', JSON.stringify(plusLook) === JSON.stringify([Array(plusLook[0].length || 1).fill('rgba(0, 0, 0, 0)'), 'none', 'rgb(255, 255, 255)']), JSON.stringify(plusLook));
+  const plusRow = q(`dl.querySelector('[data-dl-add="row"]')?.click(); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const a = document.activeElement; return JSON.stringify([b.chartData?.at(-1), a.dataset.dlCell, Math.round(a.getBoundingClientRect().left - dl.getBoundingClientRect().left)]);`);
+  add('Chart + under the rows: a row of 0s, its label cell focused at 55', JSON.stringify(plusRow) === JSON.stringify([['', '0'], '4,0', 55]), JSON.stringify(plusRow));
+  // Ab then Tab: the label kept and the focus on its value (CAP-T12CHARTCELLS2.json); the change redraws the grid, so the focus is kept by place.
+  for (const k of ['A', 'b', 'Tab']) { browser(S, 'press', k); await pause(150); }
+  const tabRow = q(`const a = document.activeElement; return JSON.stringify([fe.model.sections[1].blocks.find((o) => o.id === '${id}').chartData?.at(-1), a.dataset.dlCell ?? a.tagName]);`);
+  add('Chart cell Ab then Tab: the row reads Ab, 0 and its value cell has the focus', JSON.stringify(tabRow) === JSON.stringify([['Ab', '0'], '4,1']), JSON.stringify(tabRow));
+  undo(); undo();
+  const plusSeries = q(`dl.querySelector('[data-dl-add="series"]')?.click(); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const a = document.activeElement, L = dl.getBoundingClientRect().left, p = dl.querySelector('[data-dl-add="series"]'); return JSON.stringify([b.chartData?.map((r) => r.at(-1)), a.dataset.dlCell, Math.round(a.getBoundingClientRect().left - L), Math.round(p?.getBoundingClientRect().left - L), d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar').length]);`);
+  add('Chart + after the series: 0s, its name cell focused at 275, the + at 385, two bars a label', JSON.stringify(plusSeries) === JSON.stringify([['', '0', '0', '0'], '0,2', 275, 385, 6]), JSON.stringify(plusSeries));
+  // Tab from the new name skips the + and goes to New York's label, its text selected (CAP-T12CHARTCELLS3.json P8).
+  browser(S, 'press', 'Tab'); await pause(200);
+  const tabName = q(`const a = document.activeElement; return JSON.stringify([a.dataset.dlCell ?? a.tagName, a.selectionStart, a.selectionEnd]);`);
+  add('Chart new series name then Tab: New York\'s label, its text selected', JSON.stringify(tabName) === JSON.stringify(['1,0', 0, 8]), JSON.stringify(tabName));
+  undo();
+  // Update (CAP-T12CHARTCELLS.json, CAP-T12CHARTCELLS2.json, CAP-T12CHARTCONFIRM.json): off while the box holds the data, on once it
+  // differs; it asks Are You Sure? in a 350 by 138 box centred on it, Confirm focused. Cancel keeps the data and the box's text;
+  // Confirm makes the text the data and Update goes off again.
+  const csv = q(`dl.querySelector('[data-dl-tab="Import / Export"]').click(); await sleep(150); const t = dl.querySelector('textarea[data-dl-area]'), u = () => dl.querySelector('[data-dl-action="csv"]'); const was = u().disabled; t.value += '\\nEf,40'; t.dispatchEvent(new Event('input', { bubbles: true })); const on = !u().disabled; u().click(); await sleep(150); const box = dl.querySelector('.dl-confirm'), D = dl.getBoundingClientRect(), r = box?.getBoundingClientRect(), ur = u().getBoundingClientRect(); const geo = r ? [Math.round(r.left - D.left), Math.round(r.top - ur.top), r.width, r.height, document.activeElement.textContent, getComputedStyle(document.activeElement).outlineStyle, box.querySelector('.dl-confirm-title').textContent] : null; box?.querySelector('[data-dl-confirm="cancel"]').click(); await sleep(200); const b = () => fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const kept = [b().chartData?.length ?? 4, dl.querySelector('textarea[data-dl-area]').value.endsWith('Ef,40'), !!dl.querySelector('.dl-confirm')]; u().click(); await sleep(150); dl.querySelector('.dl-confirm [data-dl-confirm="ok"]')?.click(); await sleep(300); return JSON.stringify([was, on, geo, kept, b().chartData?.length, b().chartData?.at(-1), u().disabled, d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar').length]);`);
+  add('Chart Update: off, on after an edit, Are You Sure? 111 in and 47 above it, Confirm focused, no ring', JSON.stringify(csv.slice(0, 3)) === JSON.stringify([true, true, [111, -47, 350, 138, 'Confirm', 'none', 'Are You Sure?']]), JSON.stringify(csv.slice(0, 3)));
+  add('Chart Update: Cancel keeps the data and the box; Confirm takes the box, Update off again', JSON.stringify(csv.slice(3)) === JSON.stringify([[4, true, false], 5, ['Ef', '40'], true, 4]), JSON.stringify(csv.slice(3)));
   for (let n = 0; n < 24; n++) undo();
   s = state(id);
   const back = q(`const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); return JSON.stringify(b ? Object.keys(b).filter((k) => k.startsWith('chart')) : ['no block']);`);

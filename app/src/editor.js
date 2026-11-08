@@ -19,7 +19,7 @@ import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
 import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
-import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, parseCsv } from './dialogs.js';
+import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
@@ -183,6 +183,10 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
+  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
+  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
+  if (shown.length === 2) heightShown = [secSid(), ...shown];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -1846,12 +1850,52 @@ dialogEl.addEventListener('click', (e) => {
   if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
   const box = e.target.closest('button[data-dl]');
   if (box && !box.disabled) setDialogValue(box.dataset.dl, box.getAttribute('aria-checked') !== 'true');
-  // Update reads the box's text as the data (not pressed on the oracle: inferred).
-  if (e.target.closest('[data-dl-action="csv"]')) { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
+  // The + under the rows adds a row of 0s, the + after the series a series of 0s, and the focus goes to its name (CAP-T12CHARTCELLS2.json,
+  // CAP-T12CHARTCELLS3.json). One undo step each.
+  const add = e.target.closest('[data-dl-add]');
+  if (add && sel) {
+    const data = chartOf(B(sel.sid, sel.bid)).data.map((row) => [...row]), n = data[0].length - 1;
+    if (add.dataset.dlAdd === 'row') data.push(['', ...Array(n).fill('0')]); else data.forEach((row, r) => row.push(r ? '0' : ''));
+    setDialogValue('chartData', data);
+    dialogEl.querySelector(`[data-dl-cell="${add.dataset.dlAdd === 'row' ? `${data.length - 1},0` : `0,${n + 1}`}"]`)?.focus({ preventScroll: true });
+    return;
+  }
+  // Update asks first: Are You Sure?, centred on the button, Confirm focused; Cancel keeps the box's text, Confirm makes it the
+  // data (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCONFIRM.json).
+  const upd = e.target.closest('[data-dl-action="csv"]');
+  if (upd && !upd.disabled) {
+    dialogEl.querySelector('.dl-confirm')?.remove();
+    const row = upd.closest('.dl-row'), box = document.createElement('div');
+    box.className = 'dl-confirm'; box.setAttribute('role', 'dialog');
+    box.style.top = `${row.offsetTop + row.offsetHeight / 2 - 69}px`; box.style.left = `${(dialogEl.clientWidth - 350) / 2}px`;
+    box.innerHTML = '<div class="dl-confirm-title">Are You Sure?</div><div class="dl-confirm-text">This will overwrite the current chart data.</div><button type="button" data-dl-confirm="cancel">Cancel</button><button type="button" data-dl-confirm="ok">Confirm</button>';
+    dialogEl.append(box); box.querySelector('[data-dl-confirm="ok"]').focus({ preventScroll: true });
+    return;
+  }
+  const answer = e.target.closest('[data-dl-confirm]');
+  if (answer) {
+    answer.closest('.dl-confirm').remove();
+    if (answer.dataset.dlConfirm === 'ok') { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
+  }
 });
 dialogEl.addEventListener('input', (e) => {
+  const area = e.target.closest('[data-dl-area]');
+  if (area && sel) { const u = dialogEl.querySelector('[data-dl-action="csv"]'); if (u) u.disabled = area.value === chartCsv(chartOf(B(sel.sid, sel.bid)).data); return; }
   const r = e.target.closest('input[type="range"][data-dl]');
   if (r) r.parentElement.querySelector('.dl-count').textContent = `${r.value} ${r.getAttribute('aria-label')}`;
+});
+// Tab from a Chart cell goes to the next cell, its text selected, skipping the + (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCELLS3.json).
+// The change redraws the grid, so the next cell is found again by its place after it.
+dialogEl.addEventListener('keydown', (e) => {
+  const cell = e.key === 'Tab' && sel && e.target.closest?.('[data-dl-cell]');
+  if (!cell) return;
+  const all = [...dialogEl.querySelectorAll('[data-dl-cell]:not(:disabled)')], next = all[all.indexOf(cell) + (e.shiftKey ? -1 : 1)];
+  if (!next) return;
+  e.preventDefault();
+  const key = next.dataset.dlCell;
+  cell.blur();
+  const to = dialogEl.querySelector(`[data-dl-cell="${key}"]`);
+  to?.focus({ preventScroll: true }); to?.select?.();
 });
 dialogEl.addEventListener('change', (e) => {
   const cell = e.target.closest('[data-dl-cell]');
@@ -5316,9 +5360,15 @@ panel.addEventListener('click', (e) => {
 });
 
 // The custom height reads a whole number each time its slider or field changes, and the section follows at
-// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
-// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+// once (parity/findings/CAP-P3FIELD.json). The field's undo step comes on Enter; the slider's on each move
+// while held (difference 100, CAP-P3UNDO2.json). No number shows NaN with the slider at its middle, and the
+// height stays. The slider stops at 1 to 100, the field keeps what it read.
 let heightBefore = null;
+// After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
+// CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
+const heightNaN = new Map();
+// What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
+let heightShown = null;
 function showHeight(n) {
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (field.value !== String(n)) field.value = String(n);
@@ -5327,10 +5377,19 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
+  heightShown = null;
+  if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
-  heightBefore ??= JSON.stringify(model);
+  const before = JSON.stringify(model);
   s.customHeight = n;
   renderSectionDom(s.id);
+  if (input.type !== 'range') { heightBefore ??= before; return; }
+  // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
+  undoStack.push(before);
+  redoStack.length = 0;
+  note(`Section ${s.id} customHeight set to ${n}`);
+  $('undo').disabled = false;
+  $('redo').disabled = true;
 }
 function settleHeight(shown) {
   const before = heightBefore, sid = secSid();
@@ -5363,6 +5422,7 @@ function onSectionChange(e) {
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
+    if (input.type === 'range') updateUi(); // the slider's let go: its steps are in, the panel and Save follow
     return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
@@ -5610,6 +5670,8 @@ function renderSectionPanel() {
   sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5724,7 +5786,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -6749,6 +6811,9 @@ function openSubmenu(it) {
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
   arrangeMenu.style.top = `${r.top - st.top}px`;
   arrangeMenu.hidden = false;
+  // The row whose submenu is open stays lit while the pointer is on the submenu (CAP-U11LIT.json).
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
+  it.classList.add('is-sub');
   return true;
 }
 // A hover opens a row's submenu, as on the oracle.
@@ -6756,6 +6821,7 @@ contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {

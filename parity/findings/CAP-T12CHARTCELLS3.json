@@ -1,0 +1,1349 @@
+{
+  "item": "CAP-T12CHARTCELLS3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "T12 Chart: the + after the series name",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "data0",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "clickAt",
+      844,
+      576
+    ],
+    [
+      "read",
+      "head plus",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "shot",
+      "headplus"
+    ],
+    [
+      "keys",
+      "Cd"
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "read",
+      "P8",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "shot",
+      "P8"
+    ],
+    [
+      "pressNamed",
+      "Import / Export"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "csv",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "clickIf",
+      "Exit"
+    ],
+    [
+      "pause",
+      1500
+    ]
+  ],
+  "reads": {
+    "data0": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            360,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            555,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            599,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            643,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            687,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            733,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            733,
+            110,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "select",
+        "label": "Bar ChartLine ChartPie Chart",
+        "value": "1009",
+        "box": [
+          585,
+          423,
+          506,
+          44
+        ],
+        "outline": "rgb(0, 0, 0) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "head plus": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            691,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            691,
+            110,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          827,
+          513,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P8": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Cd",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            691,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            691,
+            110,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "New York",
+        "box": [
+          607,
+          557,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "csv": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "textarea",
+          "label": "Label,Population,Cd New York,150,0 Las Vegas,250",
+          "value": "Label,Population,Cd\nNew York,150,0\nLas Vegas,250,0\nSan Francisco,150,0",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Update",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ]
+        }
+      ],
+      "focused": null,
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

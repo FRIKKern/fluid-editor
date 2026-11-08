@@ -1,0 +1,328 @@
+{
+  "item": "CAP-T12CHARTCONFIRM",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "T12 Chart: the look of Update when on, and of its Are you sure box",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressNamed",
+      "Import / Export"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickAt",
+      900,
+      620
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "Ef,40"
+    ],
+    [
+      "read",
+      "edited",
+      {
+        "looks": [
+          580,
+          650,
+          1100,
+          720
+        ]
+      }
+    ],
+    [
+      "shot",
+      "edited"
+    ],
+    [
+      "pressNamed",
+      "Update"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "asked",
+      {
+        "looks": [
+          600,
+          580,
+          1080,
+          780
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "asked"
+    ],
+    [
+      "pressNamed",
+      "Cancel"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Exit"
+    ],
+    [
+      "pause",
+      1500
+    ]
+  ],
+  "reads": {
+    "edited": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(62, 62, 62)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Update",
+          "box": [
+            596,
+            673,
+            484,
+            22
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "asked": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ]
+        }
+      ],
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "dialog",
+          "text": "",
+          "box": [
+            663,
+            615,
+            350,
+            138
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Are You Sure?",
+          "box": [
+            696,
+            637,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "This will overwrite the current chart data.",
+          "box": [
+            696,
+            670,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

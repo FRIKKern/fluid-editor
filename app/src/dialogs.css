@@ -51,7 +51,20 @@
 .dl-cell { height: 44px; padding: 0 11px; border: 0; background: none; color: #3e3e3e; font: inherit; }
 .dl-cell.is-head { border-bottom: 1px solid #d0d0d0; }
 .dl-cell.is-alt { background: #e4e4e4; }
+/* A focused cell: white, no ring (CAP-T12CHARTCELLS3.json focused: outline none, bg rgb(255, 255, 255)). */
+.dl-cell:focus { outline: none; background: #fff; }
 .dl-grip { left: 41px; width: 6px; height: 12px; margin-top: 16px; background: radial-gradient(circle, #b4b4b4 .8px, transparent 1px) 0 0 / 3px 3px; pointer-events: none; }
-.dl-plus { width: 44px; height: 44px; text-align: center; font-size: 24px; line-height: 44px; }
+.dl-plus { width: 44px; height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: center; font-size: 24px; line-height: 44px; cursor: pointer; }
 .dl-area textarea { width: 100%; height: 100%; box-sizing: border-box; padding: 11px; border: 0; background: #fff; color: #3e3e3e; font: inherit; resize: vertical; }
 .dl-button button { width: 100%; height: 100%; padding: 11px; border: 0; background: #3e3e3e; color: #fff; font: 500 11px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
+.dl-button button:disabled { opacity: .3; } /* (191, 191, 191) over the panel, read by pixel (CAP-T12CHARTCELLS.json) */
+/* Update asks first (CAP-T12CHARTCONFIRM.json): a box centred on the button, Confirm focused. */
+.dl-confirm { position: absolute; z-index: 2; width: 350px; height: 138px; box-sizing: border-box; overflow: hidden; border-radius: 4px; background: #f6f6f6; color: #3e3e3e; box-shadow: rgba(0, 0, 0, .22) 0 4px 33px 0, rgba(0, 0, 0, .04) 0 0 0 1px; font-size: 12px; font-weight: 400; line-height: 22px; }
+.dl-confirm-title, .dl-confirm-text { position: absolute; left: 33px; width: 284px; text-align: center; }
+.dl-confirm-title { top: 22px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
+.dl-confirm-text { top: 55px; }
+.dl-confirm button { position: absolute; top: 99px; height: 38px; box-sizing: content-box; padding: 0; border: 0; border-top: 1px solid #e4e4e4; background: #f6f6f6; color: #3e3e3e; font-family: inherit; font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: .5px; text-transform: uppercase; }
+.dl-confirm [data-dl-confirm="cancel"] { left: 0; width: 174.5px; }
+.dl-confirm [data-dl-confirm="ok"] { left: 174.5px; width: 175.5px; box-shadow: inset 1px 0 #e4e4e4; }
+/* Confirm takes the focus with no ring drawn (CAP-T12CHARTCONFIRM.json asked shot). */
+.dl-confirm button:focus { outline: none; }
