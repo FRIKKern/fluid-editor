@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 20 changes
+- **Today** · 21 changes
+  - E7: done. The × shows only on a field with text; Learn More goes to 0005 ([#403](https://github.com/FRIKKern/fluid-editor/pull/403))
   - U11: keep the block clip across a reload, as on the oracle ([#402](https://github.com/FRIKKern/fluid-editor/pull/402))
-  - T10: code-check --full on main 23d09dc, 1146 of 1146 (stored 1144) ([#401](https://github.com/FRIKKern/fluid-editor/pull/401))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
