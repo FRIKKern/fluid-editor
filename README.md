@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 32 changes
+- **Today** · 33 changes
+  - T12: Quote's rows from its content, one round ([#416](https://github.com/FRIKKern/fluid-editor/pull/416))
   - T12: Quote's panel, Content tab as read ([#415](https://github.com/FRIKKern/fluid-editor/pull/415))
-  - E7: the link-box replay stubs the clipboard before Copy, and stops if the stub is gone ([#413](https://github.com/FRIKKern/fluid-editor/pull/413))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
