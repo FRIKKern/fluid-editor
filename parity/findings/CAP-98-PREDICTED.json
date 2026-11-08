@@ -1,0 +1,224 @@
+{
+  "item": "CAP-98-PREDICTED",
+  "from": "our code on main daca915, as is, run twice with these steps before any oracle read of them (the same both times). neworder-check.mjs's replay, with no Escape after an add so the read right after it is the add's own. Each area is [desktop, phone]; sectionRows is the section's desktop rows.",
+  "question": "98: a new Shape next to a 5-row Text, moved 12 columns right and 1 row down, is 1 row taller on the oracle (2/14/9/20 against 2/14/8/20, CAP-SHORTPULL). Which step adds the row: the add (T14, the landing), its Escape, or the move or its let go (X8)? Setup a of CAP-SHORTPULL on Blocks Probe, read after the Text is widened, after the Shape is added, after Escape, right after the 705,41 move and after Escape.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "shape added",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "read",
+      "moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "text widened": {
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ]
+      ],
+      "sectionRows": 10
+    },
+    "shape added": {
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ],
+      "sectionRows": 10
+    },
+    "shape escaped": {
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ],
+      "sectionRows": 10
+    },
+    "moved": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/8/20",
+          "3/2/9/10"
+        ]
+      ],
+      "sectionRows": 11
+    },
+    "moved escaped": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/8/20",
+          "3/2/9/10"
+        ]
+      ],
+      "sectionRows": 11
+    }
+  }
+}
