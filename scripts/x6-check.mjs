@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
@@ -33,29 +33,33 @@ const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9'
   // And one the 0.13 give misses: OpenTable runs 0.35 of a row over at 3 columns, where Page Link takes a row at 0.23. Its
   // extra row is then kept as it widens, as rows are.
   'CAP-X6PHONEROWS OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `CAP-X6PHONEROWS OpenTable e back ${n}`),
-  // The rule frozen, these older reads miss it: Menu at 6 phone columns took 32 rows there, 31 in CAP-X6PHONEROWS.json.
-  'CAP-X6PHONEFLOORS Menu w far in', 'CAP-X6PHONEFLOORS Menu e far in']);
-const VOID = (file, read) => file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read);
+  // Read again 2 s later, they don't settle to ours (CAP-X6FARSETTLE.json): misses. Instagram e 4 read 18 rows there, ours, 19 here.
+  ...['Instagram e 5', 'Instagram e back 8', 'OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `OpenTable e back ${n}`)].flatMap((r) => [`CAP-X6FARSETTLE ${r}`, `CAP-X6FARSETTLE ${r} later`])]);
+// Held, the oracle's area doesn't move until it is let go (CAP-X6FARSETTLE.json): only the let-go read is compared.
+const VOID = (file, read) => (file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read)) || (file === 'CAP-X6FARSETTLE' && / held /.test(read));
 // On a phone, as a start row or a pull: Summary's content moves between runs (1170, 1689, 1958), and its south pull took effect
 // at the next press (CAP-X6PHONEROWS.json). The others draw the oracle's phone height by width (CAP-68PULL.json, CAP-X6PHONEROWS.json).
 const PHONE_ROWS_UNBUILT = /^Summary /;
 let known = 0;
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
-  let off = 0, pulled = false, seen = [], last = null;
+  let off = 0, pulled = 0, seen = [], last = null, hold = null;
   for (const step of F.steps) {
     if (step[0] === 'window') { viewport(S, step[1], step[2]); await pause(300); } // a tall block's south handle needs the oracle's window (CAP-68PULL.json)
-    if (step[0] === 'add') { view = 'desktop'; fresh(step[2]); off = null; last = null; }
+    if (step[0] === 'add') { view = 'desktop'; fresh(step[2]); off = null; last = null; pulled = 0; }
     if (step[0] === 'view') { view = step[1] === 'Mobile' ? 'mobile' : 'desktop'; Q(`fe.setBp('${view}'); await sleep(400); return 'true';`); }
-    if (step[0] === 'drag' || step[0] === 'handleDrag') { const was = area().join(); await pull(step[3], step[4], step[5]); pulled = area().join() !== was; }
+    if (step[0] === 'drag' || step[0] === 'handleDrag') { const was = area().join(); await pull(step[3], step[4], step[5]); pulled += area().join() !== was; }
+    // A hold, then a move and a let-go: one pull, from the hold's place by the move's distance.
+    if (step[0] === 'holdRaw') hold = step;
+    if (step[0] === 'release' && hold) { const was = area().join(); await pull(hold[3], hold[4], hold[5]); pulled += area().join() !== was; hold = null; }
     // With nothing pulled the oracle's Undo takes the add away, and the reads after it are empty: keep the block.
-    if (step[0] === 'press' && step[1] === 'Meta+z' && pulled) { Q(`fe.undo(); await sleep(250); return 'true';`); pulled = false; }
+    if (step[0] === 'press' && step[1] === 'Meta+z' && pulled) { Q(`fe.undo(); await sleep(250); return 'true';`); pulled--; }
     if (step[0] === 'read' && step[2]?.areas !== undefined) {
       // The oracle's section may hold other blocks: the one read is the one that changed since the last read, or that one again.
       const all = (F.reads[step[1]]?.areas || []).map((a) => a[view === 'mobile' ? 1 : 0]), changed = all.filter((a) => !seen.includes(a));
       const same = (a) => last && a.split('/')[0] === last.split('/')[0] && a.split('/')[1] === last.split('/')[1];
       const isNew = (a) => !seen.some((b) => b.split('/').slice(0, 2).join() === a.split('/').slice(0, 2).join());
-      const pick = !['CAP-X6DESKROWS', 'CAP-X6PHONEROWS'].includes(file) || all.length < 2 ? all[0] : (last ? changed.find(same) : changed.find(isNew)) ?? changed[0] ?? all.find((a) => a === last) ?? all[0];
+      const pick = !['CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE'].includes(file) || all.length < 2 ? all[0] : (last ? changed.find(same) : changed.find(isNew)) ?? changed[0] ?? all.find((a) => a === last) ?? all[0];
       seen = all; last = pick;
       const want = pick?.split('/').map(Number), have = area();
       if (!want || VOID(file, step[1])) continue;
