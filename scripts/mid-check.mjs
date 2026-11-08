@@ -290,7 +290,7 @@ for (const sw of H.sweeps) {
 for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'], ['CAP-X2WIDTHS3', 'H', 'H w6 coarse'], ['CAP-X2WIDTHS3', 'J', 'J w13 middle coarse'], ['CAP-X2RESIZED', 'N4', 'N4 code'], ['CAP-X2RESIZED', 'R6', 'R6 shape']]) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
   const at = F[`${start} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F).filter(([k, v]) => k.startsWith(`${tag} -`) && v.ring !== undefined);
-  const { out } = sweep({ area: at }, rings.map(([, v]) => v.at));
+  const { out } = sweep({ area: at, pre: [14, 0] }, rings.map(([, v]) => v.at)); // the capture's hold moves 14px first
   rings.forEach(([k, v], i) => { const six = area(at)[3] - area(at)[1] === 6 && v.at[0] > -100; groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], known: six }); });
 }
 { const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
