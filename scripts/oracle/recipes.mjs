@@ -612,6 +612,15 @@ export const RECIPES = {
       ['exit'], ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 400], ['press', 'Escape'], ['deselect', 0],
       ['read', 'v2 tall shape', { stack: 0, section: 0, block: [0, 'new'] }], ['drag', 0, 'new', 'middle', 0, 287], ['read', 'v2 moved', { stack: 0, section: 0, block: [0, 'new'] }], ['press', 'Escape'], ['deselect', 0], ...resize('v2')];
   })() },
+  'CAP-STOPMOVE2': { page: 'Gestures Probe', question: 'A2: a move on a phone stopped by overlap, refit 1 (M2 in CAP-STOPMOVEPREDICT.json, pushed first): h1 as f1 with the Line moved to columns 12 to 16 first; h4 as g1, the Video moved a row down. No Meta+c, x or v.', steps: (() => {
+    const ADD = (t) => [['add', 0, t], ['press', 'Escape'], ['deselect', 0]];
+    const STOP = [...ADD('Text'), ...ADD('Image'), ['drag', 0, 'new', 'middle', 0, 123], ['press', 'Escape'], ['deselect', 0],
+      ['view', 'Mobile'], ['select', 0, 0], ['drag', 0, 0, 's', 0, 140], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop']];
+    const R = (n) => ['read', n, { stack: 0 }];
+    return [['enter'], ['blank'], ...STOP, ...ADD('Line'), ['drag', 0, 'new', 'middle', 587.8, 0], ['press', 'Escape'], ['deselect', 0], R('h1 line moved right'),
+      ...ADD('Video'), R('h1 add video'), ['drag', 0, 'new', 'middle', 531, 0], ['press', 'Escape'], ['deselect', 0], R('h1 video moved'),
+      ['exit'], ['enter'], ['blank'], ...STOP, ...ADD('Video'), R('h4 add video'), ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], R('h4 video moved down')];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

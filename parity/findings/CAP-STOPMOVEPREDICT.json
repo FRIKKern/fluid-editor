@@ -22,5 +22,24 @@
       "ours": "Video, Text, Image, Line, Button as added"
     }
   },
-  "scoring": "Per case, the phone order read after the move, then the phone areas where M gives them. One round, up to two refits, then frozen."
+  "scoring": "Per case, the phone order read after the move, then the phone areas where M gives them. One round, up to two refits, then frozen.",
+  "round1": {
+    "M": "The moved block's place 2 of 3: g1 (Text, Image, Video 9/2/17/10) and g4 (the Video at 9/2/17/10, before the Button and the Line). g3 missed: the Video moved a row down onto the Image went last, 10/2/18/10 after the Line, not before the Image. The whole order in g4 also missed on the Button and the Line, which is an add, not the move: the Button went before the Line by rule G (it holds the Line at its place).",
+    "ours": "0 of 3."
+  },
+  "refit1": {
+    "pushedAt": "2026-11-08T21:38Z",
+    "M2": "On a phone stopped by overlap, a block moved on desktop leaves its phone place (the blocks under it rise by its height) and goes right after the last block in phone order that shares desktop columns with it and starts on a row at or above its own; with none, right after the blocks whose phone rows overlap. The blocks after it move down by its height. Fitted on f1, g1, g3, g4 (seen).",
+    "reads": "CAP-STOPMOVE2.json: h1 as f1, but the Line moved first to columns 12 to 16 (the Video moved right then shares its columns); h4 as g1 (no Line), the Video moved a row down, not right.",
+    "predictions": {
+      "h1": {
+        "M2": "the Line's own move changes nothing (it shares no columns: 9/2/10/10); the Video moved right goes after the Line, last: Text 1/2/7/10, Image 3/2/9/10, Line 9/2/10/10, Video 10/2/18/10",
+        "M": "Video 9/2/17/10 before the Line, Line 17/2/18/10"
+      },
+      "h4": {
+        "M2": "the Video at 2/2/10/10 shares columns with the Text (row 1) and the Image (row 4, below it): it goes right after the Text, its phone rows from 7: 7/2/15/10",
+        "M": "Video 9/2/17/10, after the Image"
+      }
+    }
+  }
 }
