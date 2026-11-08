@@ -184,10 +184,16 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
-  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
-  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
+  // The layout a section shows before Undo sets the step of the one it goes back to, with the Layouts panel open or
+  // closed (restep: CAP-U10WALK2.json, CAP-U10UNDOCLOSED-A.json). Only sections the Undo changes, in the same mix.
+  const was = new Map(model.sections.map((s) => { const m = s.id === layoutsSid ? layoutsMix : sectionMix(s); return [s.id, [JSON.stringify(s), m?.key, m?.list.length ? layoutShown(s, m, null) : null]]; }));
   model = JSON.parse(undoStack.pop());
-  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
+  for (const s of model.sections) {
+    const [json, key, left] = was.get(s.id) || [];
+    if (json == null || json === JSON.stringify(s) || !s.blocks.length) continue;
+    const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
+    if (m && m.key === key) restep(s, m, left);
+  }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
   // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
@@ -1077,6 +1083,9 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
+  // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).
+  if (g.type === 'resize' && b.type === 'text' && /^(se|sw|ne|nw)$/.test(g.dir) && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
   if (g.type === 'resize') delete b.asAdded;
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
@@ -1493,6 +1502,10 @@ function updateResize(e) {
     const past = g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols;
     need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
   }
+  // A Text on a corner pull takes the floor its text had one pointer step before, as a side pull does at the drop: narrowed
+  // from one row it stays one row, and the text runs over until let go (CAP-TEXTWIDTH7.json f3, CAP-SINGLEAGAIN.json f3,
+  // CAP-ONEROWHANDLE.json, 3 reads, se). Other corners inferred.
+  if (held.type === 'text' && /^(se|sw|ne|nw)$/.test(g.dir)) { const now = need; need = g.needPrev ?? now; g.needPrev = now; }
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {

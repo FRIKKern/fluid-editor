@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 85 changes
-  - E4: the oracle's click path shows no block toolbar edge by the text bar, read (CAP-TBEDGE) ([#469](https://github.com/FRIKKern/fluid-editor/pull/469))
-  - X6: the desktop lags read again 2 s later stay as they were: misses, named (CAP-X6DESKSETTLE) ([#468](https://github.com/FRIKKern/fluid-editor/pull/468))
+- **Today** · 87 changes
+  - R2, A2: single reads again (f3 built), resize scroll round frozen ([#470](https://github.com/FRIKKern/fluid-editor/pull/470))
+  - U10: Undo puts the layout step with the panel closed too, and from layout 1 onto the start ([#461](https://github.com/FRIKKern/fluid-editor/pull/461))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
