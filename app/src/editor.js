@@ -1060,6 +1060,7 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'resize') delete b.asAdded;
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1631,6 +1632,7 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
+    delete b.asAdded; // as a pull does (inferred for the keys)
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
@@ -1739,6 +1741,7 @@ let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 const dialogEl = $('block-dialog');
+dialogEl.addEventListener('scroll', () => dialogEl.style.setProperty('--dl-scroll', `${dialogEl.scrollTop}px`));
 let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
@@ -1833,7 +1836,9 @@ function renderDialog(b) {
   if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
-// read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
+// read four times (CAP-ROWSFLICKR.json) and Instagram 13 times (CAP-T12INSTAASPECT-*.json). A new Instagram that nothing has
+// been done to keeps one row over the fit when its first change shrinks the content: 12 to 8 at 3:2, 9 at 4:3, 7 at 16:9.
+// A pull before it took that away (run F); any content change ends it. The rule behind it is not scored: two refits missed.
 // Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
 function setDialogValue(k, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -1841,9 +1846,11 @@ function setDialogValue(k, v) {
   const was = content();
   if (JSON.stringify(v) === JSON.stringify(DIALOG_DEFAULTS[k])) delete b[k]; else b[k] = v;
   renderSectionDom(sel.sid);
-  if (b.standin && content() !== was) {
-    const a = lay(b).area, need = contentRows(b, formPitch(b)); // the pitch with the content out, as it stretches the rows
+  const now = content();
+  if (b.standin && now !== was) {
+    const a = lay(b).area, need = contentRows(b, formPitch(b)) + (b.asAdded && now < was ? 1 : 0); // the pitch with the content out, as it stretches the rows
     setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
+    delete b.asAdded;
   }
   commit(before, `${dialogOf(b).title} changed`);
 }
@@ -1860,6 +1867,8 @@ dialogEl.addEventListener('click', (e) => {
     if (add.dataset.dlAdd === 'row') data.push(['', ...Array(n).fill('0')]); else data.forEach((row, r) => row.push(r ? '0' : ''));
     setDialogValue('chartData', data);
     dialogEl.querySelector(`[data-dl-cell="${add.dataset.dlAdd === 'row' ? `${data.length - 1},0` : `0,${n + 1}`}"]`)?.focus({ preventScroll: true });
+    // The row + scrolls the panel to its end: 42 in the one read (CAP-T12CHARTCELLS2.json, rows 555 to 513). Inferred: to the end.
+    if (add.dataset.dlAdd === 'row') dialogEl.scrollTop = dialogEl.scrollHeight;
     return;
   }
   // Update asks first: Are You Sure?, centred on the button, Confirm focused; Cancel keeps the box's text, Confirm makes it the
@@ -5011,6 +5020,8 @@ function addBlock(sid, name) {
     desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
+  // A new Instagram is marked until a pull or a content change: its first change that shrinks the content keeps a row (CAP-T12INSTAASPECT-*.json).
+  if (block.standin === 'instagram') block.asAdded = true;
   if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
@@ -5307,8 +5318,12 @@ function onSectionClick(e) {
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
-  if (act === 'valign') s.valign = v;
+  // Custom height after a flattening Vertical press starts again at 1 (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json, custom again).
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
+  // (CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5369,6 +5384,8 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (CAP-P3ALIGN2 to 4).
+let panelFlat = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5384,6 +5401,7 @@ function followHeight(input) {
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
   s.customHeight = n;
+  delete s.flat;
   renderSectionDom(s.id);
   if (input.type !== 'range') { heightBefore ??= before; return; }
   // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
@@ -5421,6 +5439,7 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+    delete s.flat;
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
@@ -5447,6 +5466,8 @@ function onSectionChange(e) {
 // Hovering a section shows its toolbar; Edit Section opens the settings in a floating panel
 // for that section, with or without a selected block.
 const chrome = $('section-chrome');
+// A wheel turn over the section's own buttons scrolls the page, and the chrome stays on its section (CAP-U9REST.json).
+chrome.addEventListener('wheel', (e) => { e.preventDefault(); frame.contentWindow.scrollBy({ top: e.deltaY, left: e.deltaX }); }, { passive: false });
 const sectionPanel = $('section-panel');
 const addMenu = $('add-block-menu');
 let hoverSid = null;
@@ -5545,9 +5566,9 @@ function chromeSid() { return editSid || sel?.sid || hoverSid; }
 let chromeOut = 0;
 let copies = [];
 const litNow = (o) => { const c = getComputedStyle(o); return o.classList.contains('sc-outline') ? Number(c.borderTopColor.match(/rgba\(.*, ([\d.]+)\)/)?.[1] ?? 1) : Number(c.opacity); };
-function leaveCopy(o, cls, frames) {
+function leaveCopy(o, cls, frames, sid = chrome.dataset.key?.split('|')[0]) {
   const gone = o.cloneNode(true);
-  const entry = { gone, sid: chrome.dataset.key?.split('|')[0], part: o.dataset.scPart, y: win.scrollY };
+  const entry = { gone, sid, part: o.dataset.scPart, y: win.scrollY };
   gone.classList.add(cls);
   for (const n of ['data-sc-part', 'data-sc']) gone.removeAttribute(n);
   const lit = litNow(o);
@@ -5602,14 +5623,23 @@ function placeChrome() {
   const key = `${sid}|${k}|${model.sections.length}|${phone}|${blockSelected}|${hasLayouts}`;
   const newSection = chrome.hidden || chrome.dataset.key?.split('|')[0] !== sid;
   const appears = newSection || !!chromeOut;
-  if (newSection) outlineAway();
+  // With one block selected the outline goes to the section under the pointer, on the same 0.2 s cross, and Layers
+  // stays with the block; a press there changes nothing until the let go, which leaves the outline lit (CAP-U9REST2.json,
+  // CAP-U9REST3.json). Read on the desktop.
+  const oSid = !phone && blockSelected && hoverSid && hoverSid !== sid && sectionEl(hoverSid) ? hoverSid : sid;
+  const prevO = chrome.hidden ? null : chrome.dataset.outline;
+  const outlineStays = newSection && prevO === sid;
+  const outlineMoves = !newSection && !!prevO && prevO !== oSid;
+  if (newSection && !outlineStays) outlineAway();
+  if (outlineMoves) { const o = chrome.querySelector('.sc-outline'); if (o) leaveCopy(o, 'sc-outline-gone', [{ borderColor: getComputedStyle(o).borderTopColor }, { borderColor: 'transparent' }], prevO); }
   if (chromeOut) { clearTimeout(chromeOut); chromeOut = 0; chrome.classList.remove('is-out'); for (const o of chrome.querySelectorAll('.sc-outline, .sc-add-section')) { const own = o.getAnimations().filter((a) => !(a instanceof CSSTransition || a instanceof CSSAnimation)); if (own.length) { const lit = litNow(o), frame = litFrame(o); own.forEach((a) => a.cancel()); runUp(o, frame, lit); } } }
   // A rebuild in place keeps the outline lit. Coming back during its fade, it runs back from where it is.
   // Selecting a block takes Add Section away, and letting the block go brings it back: both over 0.2 s (CAP-U9ADDFADE3.json).
   if (chrome.dataset.key !== key && !newSection) { if (blockSelected) addSectionAway(); chrome.classList.toggle('is-add-in', chrome.dataset.key?.split('|')[4] === 'true' && !blockSelected); }
   if (chrome.dataset.key !== key) { if (!newSection) chrome.classList.remove('is-outline-in'); chrome.innerHTML = sectionChromeHtml({ first: k === 0, last: k === model.sections.length - 1, phone, blockSelected, layouts: hasLayouts }); chrome.dataset.key = key; }
   if (appears) { chrome.classList.remove('is-in'); void chrome.offsetWidth; chrome.classList.add('is-in'); }
-  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in', 'is-add-in'); runCopiesBack(sid); }
+  if (newSection) { chrome.classList.remove('is-outline-in', 'is-add-in'); void chrome.offsetWidth; chrome.classList.add('is-add-in'); if (!outlineStays) chrome.classList.add('is-outline-in'); runCopiesBack(sid); }
+  if (outlineMoves) { chrome.classList.remove('is-outline-in'); void chrome.offsetWidth; chrome.classList.add('is-outline-in'); runCopiesBack(oSid); }
   const header = k === 0 ? doc.getElementById('header') : null;
   const grid = el.querySelector('.fluid-engine')?.getBoundingClientRect() || null;
   // The Add Section buttons sit on the sum of the rounded heights above, not on the section's edge
@@ -5617,6 +5647,11 @@ function placeChrome() {
   const secs = [...el.parentElement.querySelectorAll(':scope > .page-section')];
   const drift = (n) => secs.slice(0, n).reduce((sum, x) => { const h = x.getBoundingClientRect().height; return sum + Math.round(h) - h; }, 0);
   const L = sectionChromeLayout(el.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), header ? header.getBoundingClientRect().bottom : 0, phone, grid, [drift(secs.indexOf(el)), drift(secs.indexOf(el) + 1)]);
+  if (oSid !== sid) {
+    const hEl = sectionEl(oSid), hHeader = model.sections[0]?.id === oSid ? doc.getElementById('header') : null;
+    L.outline = sectionChromeLayout(hEl.getBoundingClientRect(), frame.getBoundingClientRect(), stage.getBoundingClientRect(), hHeader ? hHeader.getBoundingClientRect().bottom : 0, phone, hEl.querySelector('.fluid-engine')?.getBoundingClientRect() || null, [drift(secs.indexOf(hEl)), drift(secs.indexOf(hEl) + 1)]).outline;
+  }
+  chrome.dataset.outline = oSid;
   for (const [part, box] of Object.entries(L)) {
     const node = chrome.querySelector(`[data-sc-part="${part}"]`);
     if (!node) continue;
@@ -5626,10 +5661,12 @@ function placeChrome() {
   if (editSid) {
     // 342px from the window's right edge; on phones 195px right of the canvas (SECTIONBAR.json).
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
-    // Read on desktop only, so the phone panel stays open.
-    if (!phone && sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
+    // On phones the panel keeps the top it opened at, and closes once its section's bottom is above the canvas's top
+    // (CAP-U9REST.json, CAP-U9REST2.json).
+    if (phone ? q.bottom < 0 : sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
-    const place = sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: panelPlace?.sid === editSid ? panelPlace.top : null });
+    const held = panelPlace?.sid === editSid ? panelPlace.top : null;
+    const place = phone && held !== null ? held : sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: held });
     panelPlace = { sid: editSid, top: place };
     sectionPanel.style.top = `${place - st.top}px`;
   }
@@ -5669,7 +5706,8 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
+  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
@@ -5788,7 +5826,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
