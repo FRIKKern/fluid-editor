@@ -284,6 +284,15 @@ for (const sw of H.sweeps) {
     groupCases.push({ name, diffs, known: H.knownMisses.some((x) => x.sweep === sw.name && x.at.includes(m.dx)) });
   });
 }
+// X2's table from the right margin track, held and moved like HOLD.json's sweep: the mirror on 4 (a Code, never resized), 12 and 13 wide, the left edge
+// rule on 6 wide, resized or not (CAP-X2WIDTHS2.json B, CAP-X2WIDTHS3.json H and J, CAP-X2RESIZED.json). The 6 wide's first
+// 90px are HOLD.json's known miss.
+for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'], ['CAP-X2WIDTHS3', 'H', 'H w6 coarse'], ['CAP-X2WIDTHS3', 'J', 'J w13 middle coarse'], ['CAP-X2RESIZED', 'N4', 'N4 code'], ['CAP-X2RESIZED', 'R6', 'R6 shape']]) {
+  const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
+  const at = F[`${start} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F).filter(([k, v]) => k.startsWith(`${tag} -`) && v.ring !== undefined);
+  const { out } = sweep({ area: at, pre: [14, 0] }, rings.map(([, v]) => v.at)); // the capture's hold moves 14px first
+  rings.forEach(([k, v], i) => { const six = area(at)[3] - area(at)[1] === 6 && v.at[0] > -100; groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], known: six }); });
+}
 { const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
 { const sw = { view: 'mobile', area: '1 / 2 / 7 / 10', pre: [-12, 0] }; for (const c of H.phoneResize) { const { out } = sweep(sw, [[c.dx, 0]], 'pointercancel', 'e'); groupCases.push({ name: `hold phone resize east ${c.dx}`, diffs: [out[0].ring !== c.ring && `ring: oracle ${c.ring}, ours ${out[0].ring}`, out[0].line !== c.line && `line: oracle ${c.line}, ours ${out[0].line}`].filter(Boolean) }); } }
 // X7: Alt and Shift change nothing on a resize, shape or image (CAP-ALT.json, CAP-IMAGEMODS.json).

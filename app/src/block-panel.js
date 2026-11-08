@@ -12,7 +12,7 @@ import { HITS, resetBtn, ARROWS, barHtml, POSE_RANGE } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
 import { formFieldsPanelHtml } from './form-fields.js';
 import { lookBox } from './code-look.js';
-import { STANDIN_PANELS, standinTabs, standinContentHtml, standinDesignHtml } from './standin-panels.js';
+import { STANDIN_PANELS, standinTabs, standinContentHtml, standinDesignHtml, standinHelpHtml, standinViewHtml } from './standin-panels.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -570,6 +570,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if (image && open?.startsWith('image-shape:')) return imageShapeHtml(image.shapeId, open.slice(12));
   if (image && open === 'image-fx') return effectPanelHtml(image);
   if ((content?.kind === 'form' || content?.kind === 'newsletter') && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
+  if (content?.kind === 'standin' && open?.startsWith('sp-view:')) return standinViewHtml(content, open.slice(8));
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
@@ -577,6 +578,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   let body;
   if (tab === 'Content' && content?.kind === 'standin') {
     body = standinContentHtml(content);
+  } else if (tab === 'Formatting Help' && content?.kind === 'standin') {
+    body = standinHelpHtml(content);
   } else if (tab === 'Content' && content) {
     body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'newsletter' ? newsletterContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Storage') {
@@ -668,6 +671,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
   const tabs = content?.kind === 'standin' ? standinTabs(content.name) : content?.kind === 'markdown' ? ['Content'] : content?.kind === 'newsletter' ? ['Content', 'Design', 'Storage'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
+  // Tock's panel has no tab row (CAP-T12PANELS-C.json): its body is the whole panel.
+  if (content?.kind === 'standin' && STANDIN_PANELS[content.name].bare) return `<div class="bp-drag is-bare" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-body is-bare">${body}</div>`;
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }
 

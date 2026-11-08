@@ -1,0 +1,1326 @@
+{
+  "item": "U10",
+  "name": "CAP-U10STEPPREDICT",
+  "question": "Rule P's step on other Layouts lists, predicted before the read: h1p1 (heading, paragraph), p1i1 (paragraph, image) and Instagram, each through one walk that has every layout right after every other once.",
+  "rules": {
+    "S": "A content-fit block (Text, Instagram) takes its low span right after the list's tallest-box layouts for that block, and its high span after anything else. The tallest layouts themselves take the low span right after a layout where the block's box is centred (start line + end line = 28) with other areas. A block whose boxes are all one height has no step; images, like Flickr, have none. Boxes from the probe-word reads (CAP-U10ALIGN-B.json, CAP-U10ALIGN-D.json, CAP-U10FADED-A.json). Fitted on p1 (CAP-U10ROWS-A.json) and Instagram (CAP-U10FADED-A.json, CAP-U10SHARE-INSTAGRAM.json): seen."
+  },
+  "scoring": "Per pick and block, the desktop span (end line - start line). same: the span equals the one the layout shows most often in the walk. high: equals the most common span among this layout's high-predicted reads. low: less than that. The first pick of each walk (after the start) is not scored.",
+  "predictions": [
+    {
+      "list": "h1p1",
+      "read": "h1p1 01 pick 1",
+      "block": "h0",
+      "after": 0,
+      "layout": 1,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 01 pick 1",
+      "block": "p0",
+      "after": 0,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 02 pick 0",
+      "block": "h0",
+      "after": 1,
+      "layout": 0,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 02 pick 0",
+      "block": "p0",
+      "after": 1,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 03 pick 2",
+      "block": "h0",
+      "after": 0,
+      "layout": 2,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 03 pick 2",
+      "block": "p0",
+      "after": 0,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 04 pick 0",
+      "block": "h0",
+      "after": 2,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 04 pick 0",
+      "block": "p0",
+      "after": 2,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 05 pick 3",
+      "block": "h0",
+      "after": 0,
+      "layout": 3,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 05 pick 3",
+      "block": "p0",
+      "after": 0,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 06 pick 0",
+      "block": "h0",
+      "after": 3,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 06 pick 0",
+      "block": "p0",
+      "after": 3,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 07 pick 4",
+      "block": "h0",
+      "after": 0,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 07 pick 4",
+      "block": "p0",
+      "after": 0,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 08 pick 0",
+      "block": "h0",
+      "after": 4,
+      "layout": 0,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 08 pick 0",
+      "block": "p0",
+      "after": 4,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 09 pick 5",
+      "block": "h0",
+      "after": 0,
+      "layout": 5,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 09 pick 5",
+      "block": "p0",
+      "after": 0,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 10 pick 1",
+      "block": "h0",
+      "after": 5,
+      "layout": 1,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 10 pick 1",
+      "block": "p0",
+      "after": 5,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 11 pick 2",
+      "block": "h0",
+      "after": 1,
+      "layout": 2,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 11 pick 2",
+      "block": "p0",
+      "after": 1,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 12 pick 1",
+      "block": "h0",
+      "after": 2,
+      "layout": 1,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 12 pick 1",
+      "block": "p0",
+      "after": 2,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 13 pick 3",
+      "block": "h0",
+      "after": 1,
+      "layout": 3,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 13 pick 3",
+      "block": "p0",
+      "after": 1,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 14 pick 1",
+      "block": "h0",
+      "after": 3,
+      "layout": 1,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 14 pick 1",
+      "block": "p0",
+      "after": 3,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 15 pick 4",
+      "block": "h0",
+      "after": 1,
+      "layout": 4,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 15 pick 4",
+      "block": "p0",
+      "after": 1,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 16 pick 1",
+      "block": "h0",
+      "after": 4,
+      "layout": 1,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 16 pick 1",
+      "block": "p0",
+      "after": 4,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 17 pick 5",
+      "block": "h0",
+      "after": 1,
+      "layout": 5,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 17 pick 5",
+      "block": "p0",
+      "after": 1,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 18 pick 2",
+      "block": "h0",
+      "after": 5,
+      "layout": 2,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 18 pick 2",
+      "block": "p0",
+      "after": 5,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 19 pick 3",
+      "block": "h0",
+      "after": 2,
+      "layout": 3,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 19 pick 3",
+      "block": "p0",
+      "after": 2,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 20 pick 2",
+      "block": "h0",
+      "after": 3,
+      "layout": 2,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 20 pick 2",
+      "block": "p0",
+      "after": 3,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 21 pick 4",
+      "block": "h0",
+      "after": 2,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 21 pick 4",
+      "block": "p0",
+      "after": 2,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 22 pick 2",
+      "block": "h0",
+      "after": 4,
+      "layout": 2,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 22 pick 2",
+      "block": "p0",
+      "after": 4,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 23 pick 5",
+      "block": "h0",
+      "after": 2,
+      "layout": 5,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 23 pick 5",
+      "block": "p0",
+      "after": 2,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 24 pick 3",
+      "block": "h0",
+      "after": 5,
+      "layout": 3,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 24 pick 3",
+      "block": "p0",
+      "after": 5,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 25 pick 4",
+      "block": "h0",
+      "after": 3,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 25 pick 4",
+      "block": "p0",
+      "after": 3,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 26 pick 3",
+      "block": "h0",
+      "after": 4,
+      "layout": 3,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 26 pick 3",
+      "block": "p0",
+      "after": 4,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 27 pick 5",
+      "block": "h0",
+      "after": 3,
+      "layout": 5,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 27 pick 5",
+      "block": "p0",
+      "after": 3,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 28 pick 4",
+      "block": "h0",
+      "after": 5,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 28 pick 4",
+      "block": "p0",
+      "after": 5,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 29 pick 5",
+      "block": "h0",
+      "after": 4,
+      "layout": 5,
+      "span": "low"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 29 pick 5",
+      "block": "p0",
+      "after": 4,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 30 pick 0",
+      "block": "h0",
+      "after": 5,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "h1p1",
+      "read": "h1p1 30 pick 0",
+      "block": "p0",
+      "after": 5,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 01 pick 1",
+      "block": "p0",
+      "after": 0,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 01 pick 1",
+      "block": "i0",
+      "after": 0,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 02 pick 0",
+      "block": "p0",
+      "after": 1,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 02 pick 0",
+      "block": "i0",
+      "after": 1,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 03 pick 2",
+      "block": "p0",
+      "after": 0,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 03 pick 2",
+      "block": "i0",
+      "after": 0,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 04 pick 0",
+      "block": "p0",
+      "after": 2,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 04 pick 0",
+      "block": "i0",
+      "after": 2,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 05 pick 3",
+      "block": "p0",
+      "after": 0,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 05 pick 3",
+      "block": "i0",
+      "after": 0,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 06 pick 0",
+      "block": "p0",
+      "after": 3,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 06 pick 0",
+      "block": "i0",
+      "after": 3,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 07 pick 4",
+      "block": "p0",
+      "after": 0,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 07 pick 4",
+      "block": "i0",
+      "after": 0,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 08 pick 0",
+      "block": "p0",
+      "after": 4,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 08 pick 0",
+      "block": "i0",
+      "after": 4,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 09 pick 5",
+      "block": "p0",
+      "after": 0,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 09 pick 5",
+      "block": "i0",
+      "after": 0,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 10 pick 0",
+      "block": "p0",
+      "after": 5,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 10 pick 0",
+      "block": "i0",
+      "after": 5,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 11 pick 6",
+      "block": "p0",
+      "after": 0,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 11 pick 6",
+      "block": "i0",
+      "after": 0,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 12 pick 1",
+      "block": "p0",
+      "after": 6,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 12 pick 1",
+      "block": "i0",
+      "after": 6,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 13 pick 2",
+      "block": "p0",
+      "after": 1,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 13 pick 2",
+      "block": "i0",
+      "after": 1,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 14 pick 1",
+      "block": "p0",
+      "after": 2,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 14 pick 1",
+      "block": "i0",
+      "after": 2,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 15 pick 3",
+      "block": "p0",
+      "after": 1,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 15 pick 3",
+      "block": "i0",
+      "after": 1,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 16 pick 1",
+      "block": "p0",
+      "after": 3,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 16 pick 1",
+      "block": "i0",
+      "after": 3,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 17 pick 4",
+      "block": "p0",
+      "after": 1,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 17 pick 4",
+      "block": "i0",
+      "after": 1,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 18 pick 1",
+      "block": "p0",
+      "after": 4,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 18 pick 1",
+      "block": "i0",
+      "after": 4,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 19 pick 5",
+      "block": "p0",
+      "after": 1,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 19 pick 5",
+      "block": "i0",
+      "after": 1,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 20 pick 1",
+      "block": "p0",
+      "after": 5,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 20 pick 1",
+      "block": "i0",
+      "after": 5,
+      "layout": 1,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 21 pick 6",
+      "block": "p0",
+      "after": 1,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 21 pick 6",
+      "block": "i0",
+      "after": 1,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 22 pick 2",
+      "block": "p0",
+      "after": 6,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 22 pick 2",
+      "block": "i0",
+      "after": 6,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 23 pick 3",
+      "block": "p0",
+      "after": 2,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 23 pick 3",
+      "block": "i0",
+      "after": 2,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 24 pick 2",
+      "block": "p0",
+      "after": 3,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 24 pick 2",
+      "block": "i0",
+      "after": 3,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 25 pick 4",
+      "block": "p0",
+      "after": 2,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 25 pick 4",
+      "block": "i0",
+      "after": 2,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 26 pick 2",
+      "block": "p0",
+      "after": 4,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 26 pick 2",
+      "block": "i0",
+      "after": 4,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 27 pick 5",
+      "block": "p0",
+      "after": 2,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 27 pick 5",
+      "block": "i0",
+      "after": 2,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 28 pick 2",
+      "block": "p0",
+      "after": 5,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 28 pick 2",
+      "block": "i0",
+      "after": 5,
+      "layout": 2,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 29 pick 6",
+      "block": "p0",
+      "after": 2,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 29 pick 6",
+      "block": "i0",
+      "after": 2,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 30 pick 3",
+      "block": "p0",
+      "after": 6,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 30 pick 3",
+      "block": "i0",
+      "after": 6,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 31 pick 4",
+      "block": "p0",
+      "after": 3,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 31 pick 4",
+      "block": "i0",
+      "after": 3,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 32 pick 3",
+      "block": "p0",
+      "after": 4,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 32 pick 3",
+      "block": "i0",
+      "after": 4,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 33 pick 5",
+      "block": "p0",
+      "after": 3,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 33 pick 5",
+      "block": "i0",
+      "after": 3,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 34 pick 3",
+      "block": "p0",
+      "after": 5,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 34 pick 3",
+      "block": "i0",
+      "after": 5,
+      "layout": 3,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 35 pick 6",
+      "block": "p0",
+      "after": 3,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 35 pick 6",
+      "block": "i0",
+      "after": 3,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 36 pick 4",
+      "block": "p0",
+      "after": 6,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 36 pick 4",
+      "block": "i0",
+      "after": 6,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 37 pick 5",
+      "block": "p0",
+      "after": 4,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 37 pick 5",
+      "block": "i0",
+      "after": 4,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 38 pick 4",
+      "block": "p0",
+      "after": 5,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 38 pick 4",
+      "block": "i0",
+      "after": 5,
+      "layout": 4,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 39 pick 6",
+      "block": "p0",
+      "after": 4,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 39 pick 6",
+      "block": "i0",
+      "after": 4,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 40 pick 5",
+      "block": "p0",
+      "after": 6,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 40 pick 5",
+      "block": "i0",
+      "after": 6,
+      "layout": 5,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 41 pick 6",
+      "block": "p0",
+      "after": 5,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 41 pick 6",
+      "block": "i0",
+      "after": 5,
+      "layout": 6,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 42 pick 0",
+      "block": "p0",
+      "after": 6,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "p1i1",
+      "read": "p1i1 42 pick 0",
+      "block": "i0",
+      "after": 6,
+      "layout": 0,
+      "span": "same"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 01 pick 1",
+      "block": "t0",
+      "after": 0,
+      "layout": 1,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 02 pick 0",
+      "block": "t0",
+      "after": 1,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 03 pick 2",
+      "block": "t0",
+      "after": 0,
+      "layout": 2,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 04 pick 0",
+      "block": "t0",
+      "after": 2,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 05 pick 3",
+      "block": "t0",
+      "after": 0,
+      "layout": 3,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 06 pick 0",
+      "block": "t0",
+      "after": 3,
+      "layout": 0,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 07 pick 4",
+      "block": "t0",
+      "after": 0,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 08 pick 1",
+      "block": "t0",
+      "after": 4,
+      "layout": 1,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 09 pick 2",
+      "block": "t0",
+      "after": 1,
+      "layout": 2,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 10 pick 1",
+      "block": "t0",
+      "after": 2,
+      "layout": 1,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 11 pick 3",
+      "block": "t0",
+      "after": 1,
+      "layout": 3,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 12 pick 1",
+      "block": "t0",
+      "after": 3,
+      "layout": 1,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 13 pick 4",
+      "block": "t0",
+      "after": 1,
+      "layout": 4,
+      "span": "low"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 14 pick 2",
+      "block": "t0",
+      "after": 4,
+      "layout": 2,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 15 pick 3",
+      "block": "t0",
+      "after": 2,
+      "layout": 3,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 16 pick 2",
+      "block": "t0",
+      "after": 3,
+      "layout": 2,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 17 pick 4",
+      "block": "t0",
+      "after": 2,
+      "layout": 4,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 18 pick 3",
+      "block": "t0",
+      "after": 4,
+      "layout": 3,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 19 pick 4",
+      "block": "t0",
+      "after": 3,
+      "layout": 4,
+      "span": "high"
+    },
+    {
+      "list": "Instagram",
+      "read": "Instagram 20 pick 0",
+      "block": "t0",
+      "after": 4,
+      "layout": 0,
+      "span": "low"
+    }
+  ],
+  "scored": {
+    "S": "Round 1: 145 of 164. Held: no step on the paragraphs of h1p1 and p1i1 or on the image (114 of 114); Instagram 2 and 3 short after 0 and 1 (by 7). Misses: 15 on the h1p1 heading (it does not follow the tallest box: layout 1 is a row shorter after 4 only, layout 0 has three spans, 1 after 1, 4 and the start, 2 after 2 and 5, 3 after 3, the paragraph moving down with it; every other heading span is the same whatever came before); 4 on Instagram (4 never steps, and 0 and 1 do not step after 4). Not refitted."
+  }
+}

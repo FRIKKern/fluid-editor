@@ -25,13 +25,11 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 87 changes
-  - R2, A2: single reads again (f3 built), resize scroll round frozen ([#470](https://github.com/FRIKKern/fluid-editor/pull/470))
-  - U10: Undo puts the layout step with the panel closed too, and from layout 1 onto the start ([#461](https://github.com/FRIKKern/fluid-editor/pull/461))
-- **Yesterday** · 92 changes
-  - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
-- **This week** · 272 changes, 3 milestones closed
-  - R2: neworder-check runs a sample by default, the full replay behind --full; R2 names the last fresh count ([#291](https://github.com/FRIKKern/fluid-editor/pull/291))
+- **Today** · 1 change
+  - T12: OpenTable, Scheduling and Tock panels; Podcast and Size and Spacing views ([#477](https://github.com/FRIKKern/fluid-editor/pull/477))
+- **Yesterday** · 93 changes
+  - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
+- **Last week** · 364 changes, 3 milestones closed
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)

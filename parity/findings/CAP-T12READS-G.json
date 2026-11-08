@@ -1,0 +1,512 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Audio's Podcast view and Summary's Size and Spacing view in full: every label, field, range bound and menu option, for building them.",
+ "how": "Run f76 and f77 on the oracle: Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block, Edit. f76: Navigate to Podcast (Audio, Content) or Navigate to Size and Spacing (Summary, Design), named presses with an on-top check; then a read of the view's text, every field with its min, max and step, and the view at each scroll of its scroller (scrolling only). f77: Navigate to Podcast, then Episode type's and Mime type's menu button pressed by its shown value (named, on-top check), the options read, and the shown value pressed again, so nothing changed; one menu per added block. Left each time by Exit Without Saving; the probe page read 0 blocks at the end.",
+ "unnamedPresses": [],
+ "podcast": {
+  "dump": {
+   "text": "Back\nPodcast\nThese fields become tags for your podcasts RSS feed. Squarespace uses Apple Podcasts standard format. Learn more\nTitle\nSubtitle\nSummary\n\nEpisode notes\n\n\n\n\nEpisode type\nFull (default)\nSeason number\nEpisode number\nDuration\nExplicit content\nFile size\nMime type\nOther\nPodcast analytics URL",
+   "scroller": [
+    1301,
+    447
+   ],
+   "fields": [
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      33,
+      178,
+      254,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      33,
+      272,
+      254,
+      22
+     ]
+    },
+    {
+     "tag": "TEXTAREA",
+     "type": "textarea",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "box": [
+      33,
+      369,
+      254,
+      88
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "full",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      162,
+      752,
+      1,
+      1
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      174,
+      815,
+      113,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      174,
+      866,
+      113,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      174,
+      917,
+      113,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "checkbox",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      272,
+      973,
+      12,
+      12
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      174,
+      1053,
+      113,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "other",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      162,
+      1092,
+      1,
+      1
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      33,
+      1165,
+      254,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": null,
+     "ph": "(web-address placeholder)",
+     "value": "",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      33,
+      1293,
+      254,
+      22
+     ]
+    }
+   ],
+   "view0": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Podcast @133,15,54,22",
+     "Learn more @118,107,65,16",
+     "Title @22,129,276,32",
+     "Subtitle @22,223,276,32",
+     "Summary @22,322,276,36",
+     "Episode notes @22,479,276,22",
+     "Episode type @22,753,87,44",
+     "Full (default) @175,764,88,22",
+     "Season number @22,804,105,44",
+     "Episode number @22,855,110,44",
+     "Duration @22,906,57,44",
+     "Explicit content @22,957,88,44",
+     "File size @22,1042,53,44",
+     "Mime type @22,1093,71,44",
+     "Other @175,1104,88,22",
+     "Podcast analytics URL @22,1244,276,32"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|||||||33,178,254,22",
+     "INPUT|text|||||||33,272,254,22",
+     "TEXTAREA|textarea|||||||33,369,254,88",
+     "INPUT|text|||full||||162,752,1,1",
+     "BUTTON|submit||||||Full (default)|163,753,135,44",
+     "INPUT|text|||||||174,815,113,22",
+     "INPUT|text|||||||174,866,113,22",
+     "INPUT|text|||||||174,917,113,22",
+     "INPUT|checkbox|||||||272,973,12,12",
+     "INPUT|text|||||||174,1053,113,22",
+     "INPUT|text|||other||||162,1092,1,1",
+     "BUTTON|submit||||||Other|163,1093,135,44",
+     "INPUT|text|||||||33,1165,254,22",
+     "INPUT|text||(web-address placeholder)|||||33,1293,254,22"
+    ]
+   },
+   "top0": 0,
+   "view1": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Podcast @133,15,54,22",
+     "Learn more @118,-313,65,16",
+     "Title @22,-291,276,32",
+     "Subtitle @22,-197,276,32",
+     "Summary @22,-98,276,36",
+     "Episode notes @22,59,276,22",
+     "Episode type @22,333,87,44",
+     "Full (default) @175,344,88,22",
+     "Season number @22,384,105,44",
+     "Episode number @22,435,110,44",
+     "Duration @22,486,57,44",
+     "Explicit content @22,537,88,44",
+     "File size @22,622,53,44",
+     "Mime type @22,673,71,44",
+     "Other @175,684,88,22",
+     "Podcast analytics URL @22,824,276,32"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|||||||33,-242,254,22",
+     "INPUT|text|||||||33,-148,254,22",
+     "TEXTAREA|textarea|||||||33,-51,254,88",
+     "INPUT|text|||full||||162,332,1,1",
+     "BUTTON|submit||||||Full (default)|163,333,135,44",
+     "INPUT|text|||||||174,395,113,22",
+     "INPUT|text|||||||174,446,113,22",
+     "INPUT|text|||||||174,497,113,22",
+     "INPUT|checkbox|||||||272,553,12,12",
+     "INPUT|text|||||||174,633,113,22",
+     "INPUT|text|||other||||162,672,1,1",
+     "BUTTON|submit||||||Other|163,673,135,44",
+     "INPUT|text|||||||33,745,254,22",
+     "INPUT|text||(web-address placeholder)|||||33,873,254,22"
+    ]
+   },
+   "top1": 420,
+   "view2": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Podcast @133,15,54,22",
+     "Learn more @118,-733,65,16",
+     "Title @22,-711,276,32",
+     "Subtitle @22,-617,276,32",
+     "Summary @22,-518,276,36",
+     "Episode notes @22,-361,276,22",
+     "Episode type @22,-87,87,44",
+     "Full (default) @175,-76,88,22",
+     "Season number @22,-36,105,44",
+     "Episode number @22,15,110,44",
+     "Duration @22,66,57,44",
+     "Explicit content @22,117,88,44",
+     "File size @22,202,53,44",
+     "Mime type @22,253,71,44",
+     "Other @175,264,88,22",
+     "Podcast analytics URL @22,404,276,32"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|||||||33,-662,254,22",
+     "INPUT|text|||||||33,-568,254,22",
+     "TEXTAREA|textarea|||||||33,-471,254,88",
+     "INPUT|text|||full||||162,-88,1,1",
+     "BUTTON|submit||||||Full (default)|163,-87,135,44",
+     "INPUT|text|||||||174,-25,113,22",
+     "INPUT|text|||||||174,26,113,22",
+     "INPUT|text|||||||174,77,113,22",
+     "INPUT|checkbox|||||||272,133,12,12",
+     "INPUT|text|||||||174,213,113,22",
+     "INPUT|text|||other||||162,252,1,1",
+     "BUTTON|submit||||||Other|163,253,135,44",
+     "INPUT|text|||||||33,325,254,22",
+     "INPUT|text||(web-address placeholder)|||||33,453,254,22"
+    ]
+   },
+   "top2": 840,
+   "view3": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Podcast @133,15,54,22",
+     "Learn more @118,-747,65,16",
+     "Title @22,-725,276,32",
+     "Subtitle @22,-631,276,32",
+     "Summary @22,-532,276,36",
+     "Episode notes @22,-375,276,22",
+     "Episode type @22,-101,87,44",
+     "Full (default) @175,-90,88,22",
+     "Season number @22,-50,105,44",
+     "Episode number @22,1,110,44",
+     "Duration @22,52,57,44",
+     "Explicit content @22,103,88,44",
+     "File size @22,188,53,44",
+     "Mime type @22,239,71,44",
+     "Other @175,250,88,22",
+     "Podcast analytics URL @22,390,276,32"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|||||||33,-676,254,22",
+     "INPUT|text|||||||33,-582,254,22",
+     "TEXTAREA|textarea|||||||33,-485,254,88",
+     "INPUT|text|||full||||162,-102,1,1",
+     "BUTTON|submit||||||Full (default)|163,-101,135,44",
+     "INPUT|text|||||||174,-39,113,22",
+     "INPUT|text|||||||174,12,113,22",
+     "INPUT|text|||||||174,63,113,22",
+     "INPUT|checkbox|||||||272,119,12,12",
+     "INPUT|text|||||||174,199,113,22",
+     "INPUT|text|||other||||162,238,1,1",
+     "BUTTON|submit||||||Other|163,239,135,44",
+     "INPUT|text|||||||33,311,254,22",
+     "INPUT|text||(web-address placeholder)|||||33,439,254,22"
+    ]
+   },
+   "top3": 854
+  },
+  "menus": {
+   "Episode type": [
+    "Full (default)",
+    "Trailer",
+    "Bonus"
+   ],
+   "Mime type": [
+    "audio/mpeg (.mp3)",
+    "Other"
+   ]
+  },
+  "area": [
+   "1 / 2 / 4 / 8",
+   "1 / 2 / 4 / 8"
+  ]
+ },
+ "sizeSpacing": {
+  "dump": {
+   "text": "Back\nSize and Spacing\nColumn Width\npx\nGutter Width\npx",
+   "scroller": null,
+   "fields": [
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": "Column Width",
+     "ph": "",
+     "value": "270",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      249,
+      65,
+      27,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "range",
+     "aria": "Column Width",
+     "ph": "",
+     "value": "270",
+     "min": "50",
+     "max": "600",
+     "step": "10",
+     "box": [
+      22,
+      86.5,
+      276,
+      44
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "text",
+     "aria": "Gutter Width",
+     "ph": "",
+     "value": "60",
+     "min": "",
+     "max": "",
+     "step": "",
+     "box": [
+      255,
+      142,
+      21,
+      22
+     ]
+    },
+    {
+     "tag": "INPUT",
+     "type": "range",
+     "aria": "Gutter Width",
+     "ph": "",
+     "value": "60",
+     "min": "0",
+     "max": "100",
+     "step": "1",
+     "box": [
+      22,
+      163.5,
+      276,
+      44
+     ]
+    }
+   ],
+   "view0": {
+    "box": [
+     1166,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Size and Spacing @103,15,114,22",
+     "Column Width @22,65,221,22",
+     "px @276,65,16,22",
+     "Gutter Width @22,142,227,22",
+     "px @276,142,16,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackSize and Spacing|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|Column Width||270||||249,65,27,22",
+     "INPUT|range|Column Width||270||||22,87,276,44",
+     "INPUT|text|Gutter Width||60||||255,142,21,22",
+     "INPUT|range|Gutter Width||60||||22,164,276,44"
+    ]
+   },
+   "top0": -1
+  },
+  "area": [
+   "1 / 2 / 12 / 20",
+   "1 / 2 / 12 / 20"
+  ]
+ },
+ "facts": [
+  "Podcast: a note (These fields become tags for your podcasts RSS feed. Squarespace uses Apple Podcasts standard format. Learn more), then Title, Subtitle, Summary (a 4-line text box), Episode notes (a rich text box, placeholder Write here...), a rule, Episode type (Full (default), Trailer, Bonus), Season number, Episode number, Duration, Explicit content (a switch, off), a rule, File size, Mime type (audio/mpeg (.mp3), Other; Other at first) with a free field under it, a rule, Podcast analytics URL (a web-address placeholder). The scroller is 1301 tall in 447.",
+  "Size and Spacing: Back and the title, then Column Width 270 px (a range 50 to 600, step 10) and Gutter Width 60 px (0 to 100, step 1), each a value field with px after it and a slider under it.",
+  "Opening either view changed nothing on the block: rows and area the same before and after."
+ ]
+}
