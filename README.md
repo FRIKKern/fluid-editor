@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 45 changes
+- **Today** · 46 changes
+  - T12: Instagram Aspect Ratio rows, Chart's panel scroll and 0-bar line ([#429](https://github.com/FRIKKern/fluid-editor/pull/429))
   - U10: what a layout's rows depend on, read (24 of 24 predicted); Map mixes' picks 4 and 5 leave no height class ([#428](https://github.com/FRIKKern/fluid-editor/pull/428))
-  - T12: Newsletter's panel and block, as read (CAP-T12NEWSLETTER) ([#426](https://github.com/FRIKKern/fluid-editor/pull/426))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
