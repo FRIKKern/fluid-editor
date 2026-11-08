@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -11,14 +11,14 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, APPEAR, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -154,7 +154,9 @@ function phoneFollowsMove(s, was) {
     }
     return gone.length > 0;
   }
-  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
+  const typed = same.some(([b, o]) => b.html !== o.html);
+  return (s.phoneFollows && (changed('desktop', (a) => a) || typed) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
@@ -181,12 +183,17 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
+  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
+  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
   model = JSON.parse(undoStack.pop());
+  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
   note('Undo');
-  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
-  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
+  // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
+  // CAP-P3UNDO2.json; the buttons CAP-P3ALIGN.json, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json). Redo is not read.
   const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
   if (shown.length === 2) heightShown = [secSid(), ...shown];
+  if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -671,7 +678,9 @@ function contentRows(b, m, normalizing = false, widthPull = false, exact = false
     const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     // An Instagram runs over by up to 0.13 of a row before it takes another: more than 0.106, less than 0.16 (CAP-X6DESKROWS.json).
-    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - (b.standin === 'instagram' ? 0.13 : 0.02)));
+    // A stand-in's phone height the same (CAP-X6PHONEROWS.json: OpenTable keeps 8 rows at 8.03, Menu 31 at 31.09).
+    const give = b.standin === 'instagram' || (b.phoneHeight && bp === 'mobile') ? 0.13 : 0.02;
+    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - give));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
@@ -984,6 +993,9 @@ function onDown(e) {
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
+    // After one Escape a drag from the text opens the editor again and moves nothing; a click there opens nothing
+    // (CAP-TEXTPRESS a10, CAP-TEXTPRESS3 r1 and r2; CAP-ESC2.json). The press redrew the section, so look the block up again.
+    escWords: !wasSelected && sel?.sid === sid && sel.bid === bid && !sel.more?.length && B(sid, bid)?.type === 'text' && onWords(blockEl(bid) || blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -994,6 +1006,7 @@ function onMove(e) {
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
     if (gesture.onWords) return;
+    if (gesture.escWords) { if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10) gesture.escDrag = true; return; }
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -1032,7 +1045,7 @@ function onUp(e) {
     // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
     // A press with no move is not read.
     if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
-    if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
+    if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
   const g = gesture;
@@ -1338,7 +1351,7 @@ function startResize(e, dir) {
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
   if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
     const h = blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height, rg = gesture.m.rg, pitch = PHONE_ROW + rg;
-    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.02)) };
+    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.13)) }; // 0.13 of a row of give (CAP-X6PHONEROWS.json)
     // Held, the block leaves the flow and its rows would close up, the page with them, and the frame's scroll would jump: the grid
     // keeps its height until the gesture ends.
     const fe = feEl(gesture.sid);
@@ -1442,17 +1455,19 @@ function updateResize(e) {
   // A stand-in on a phone takes at least the rows of the height it drew at the press, on a side pull too, and keeps them as it
   // narrows; one whose content grows as it narrows, like a Quote, takes that (CAP-X6PHONEFLOORS.json).
   let need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
-  // On desktop a side pull gives these stand-ins the rows of the oracle's content at the new width and never gives rows back.
-  // An Instagram follows its tiles both ways: its rows at the snapped width (CAP-X6DESKROWS.json).
-  const side = bp === 'desktop' && /^[ew]$/.test(g.dir);
+  // A side pull gives these stand-ins the rows of the oracle's content at the new width and never gives rows back, on desktop
+  // and on a phone (CAP-X6DESKROWS.json, CAP-X6PHONEROWS.json). An Instagram follows its tiles both ways: its rows at the snapped width.
+  const side = /^[ew]$/.test(g.dir);
   if (side && held.standin === 'instagram') {
-    // Held, it is out of the flow: measured now, the grid's rows aren't the ones its content stretched at the press.
+    // Held, it is out of the flow: measured now, the grid's rows aren't the ones its content stretched at the press. A phone's
+    // grid keeps its height while held, so its rows go by the plain pitch.
     const { width, height } = el.style;
     Object.assign(el.style, { width: `${m.colEnd[c1 - 2] - m.colStart[c0 - 1]}px`, height: '' });
-    need = contentRows(held, measure(fe));
+    need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  else if (side && bp === 'mobile' && held.phoneHeight) need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - 0.13));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
@@ -2416,6 +2431,14 @@ blockPanel.addEventListener('change', (e) => {
   e.stopImmediatePropagation();
   setShape((b) => { if (f.checked) b[f.dataset.imageSet] = true; else delete b[f.dataset.imageSet]; }, `${f.dataset.imageSet} ${f.checked ? 'on' : 'off'}`);
 }, true);
+// A Quote's Appear (CAP-DESIGNTAB-EFFECTS2.json): its list over the row, Site Default 20 above the row's top.
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-appear]');
+  if (!a || !sel) return;
+  if (shapeUi?.kind === 'appear') { closeShapePop(); return; }
+  shapeUi = { kind: 'appear', bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  renderShapePop();
+});
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-sel]');
   if (!a || !sel) return;
@@ -3029,7 +3052,7 @@ function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
   blockPanel.querySelector('.bp-anchor')?.setAttribute('aria-expanded', String(kind === 'anchor'));
-  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'appear' ? 'is-appear' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'anchor') {
     const { ox, oy } = designFor(b, bp), btn = blockPanel.querySelector('[data-shape-act="anchor"]')?.getBoundingClientRect();
     shapePop.className = 'is-anchor';
@@ -3052,6 +3075,12 @@ function renderShapePop() {
     // Interaction (IMAGEEFFECT.json): a list over its row, the current one on the row with a check.
     shapePop.innerHTML = EFFECTS[b.effect.kind].groups.flatMap(([, rows]) => rows).find((r) => r[2] === shapeUi.key)[3].map((o) => `<button type="button" role="option" class="${o === b.effect[shapeUi.key] ? 'is-cur' : ''}" data-fx-opt="${o}">${o}${o === b.effect[shapeUi.key] ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 12l4 4 8-9"/></svg>' : ''}</button>`).join('');
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
+  } else if (kind === 'appear') {
+    // What a pick does on the page is not read: it is kept on the block.
+    const cur = b.appear || APPEAR[0];
+    shapePop.innerHTML = APPEAR.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" aria-selected="${o === cur}" data-appear-opt="${o}">${o}</button>`).join('');
+    const top = shapeUi.rect.top - 25;
+    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list past the window's foot scrolls (not read)
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
     const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
@@ -3146,6 +3175,13 @@ shapePop.addEventListener('click', (e) => {
     const { key } = shapeUi, v = fxo.dataset.fxOpt;
     closeShapePop();
     if (B(sel.sid, sel.bid).effect[key] !== v) setEffect((b) => { b.effect[key] = v; }, `image effect ${key} ${v}`);
+    return;
+  }
+  const apo = e.target.closest('[data-appear-opt]');
+  if (apo) {
+    const v = apo.dataset.appearOpt;
+    closeShapePop();
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`);
     return;
   }
   const io = e.target.closest('[data-image-opt]');
@@ -3324,7 +3360,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel], [data-appear]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -4940,9 +4976,7 @@ function renderPanel() {
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Newsletter', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
-// On a phone a block draws its content's height, not its rows. These stand-ins hold the height the oracle's block draws at the
-// phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
-const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
+// The stand-ins with a phone height of their own: PHONE_HEIGHTS in render.js.
 const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
 // The height the oracle's content draws on desktop at each width in columns, [least columns, height], widest first: measurements
 // only (CAP-X6DESKROWS.json). Summary's moves between sessions (CAP-X6STEPS.json read 14 rows at 17 columns, this 11), and its
@@ -4974,7 +5008,7 @@ const ADD_TYPES = [
   ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHT[name] ? { phoneHeight: PHONE_HEIGHT[name] } : {}) })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHTS[name] ? { phoneHeight: phoneHeightAt(name, 8) } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 // Calendar and Pricing Plan too, a rule and not late content: the same rows from 1 s to 111 s (CAP-68CAL.json, CAP-68PRICE.json, CAP-68PULL.json).
@@ -5314,10 +5348,15 @@ function onSectionClick(e) {
   // A row's more button shows its sliders and takes no undo step, as read (CAP-ARTSHUFFLE.json).
   if (act === 'artSeg' && v === 'more') { if (s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  segShown = null;
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
-  if (act === 'valign') s.valign = v;
+  // Custom height after a flattening Vertical press starts again at 1 (difference 104, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json).
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
+  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5378,6 +5417,10 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (104, CAP-P3ALIGN2 to 4).
+let panelFlat = null;
+// The Height and Alignment buttons the open panel showed before an Undo (99): [sid, { height, valign }].
+let segShown = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5388,11 +5431,12 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
-  heightShown = null;
+  heightShown = segShown = null;
   if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
   s.customHeight = n;
+  delete s.flat;
   renderSectionDom(s.id);
   if (input.type !== 'range') { heightBefore ??= before; return; }
   // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
@@ -5430,6 +5474,7 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+    delete s.flat;
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
@@ -5704,11 +5749,13 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
+  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
+  if (segShown?.[0] === s.id) for (const [a, v] of Object.entries(segShown[1])) for (const b of sectionPanel.querySelectorAll(`[data-sact="${a}"]`)) { b.classList.toggle('is-on', b.dataset.v === v); b.setAttribute('aria-pressed', String(b.dataset.v === v)); }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5823,7 +5870,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; segShown = null; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();

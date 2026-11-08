@@ -1,0 +1,262 @@
+{
+  "item": "P3",
+  "capturedAt": "2026-11-08",
+  "question": "P3, the alignment press on a Custom height section: does it drop the custom padding to 0 until the next field change, and does the panel opened again then show S with no slider? Blocks Probe, new blank section, frame 1600 x 945, named presses only, unsaved. Predictions pushed before the read.",
+  "from": "CAP-P3ALIGN.json, one read: C = 456.4 is the blank section with no padding. Custom N by the field: C + 3.2N (1.6N on each edge, 0.1N vmax): 459.6 at 1, 584.4 at 40. Any Vertical press while Custom: center C (456.4 after top), top or bottom C + 64 (520.4 at 1 and at 40). Typing 40 after that gave 584.4 again. Undo three times, then opened again: S checked, no slider, 456.4. The open panel kept Custom checked throughout.",
+  "rule": {
+    "field change": "C + 3.2N at center; at top or bottom the near edge is the 4vw gutter (64) and the far edge 3.2N, so C + 64 + 3.2N (inferred, as ours draws M).",
+    "Vertical press while Custom": "padding 0: C at center, C + 64 at top or bottom, until the next field change.",
+    "panel opened again after a Vertical press while Custom": "S checked, no custom slider.",
+    "panel opened again on a state left by a field change": "Custom height checked, slider and field at N."
+  },
+  "hit": "Section height within 0.5 px (sections[0].h). Panel reads: which Height radio is checked, and the slider and field values (null for no slider).",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "20"
+    ],
+    [
+      "read",
+      "20 center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "20 top",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "20 top later",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "30"
+    ],
+    [
+      "read",
+      "30 top",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical center"
+    ],
+    [
+      "read",
+      "30 center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "reopened",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom again",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "10"
+    ],
+    [
+      "read",
+      "10 center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "10 bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo 1",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "reopened after undo",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ]
+  ],
+  "predictions": {
+    "20 center": {
+      "h": 520.4
+    },
+    "20 top": {
+      "h": 520.4
+    },
+    "20 top later": {
+      "h": 520.4
+    },
+    "30 top": {
+      "h": 616.4
+    },
+    "30 center": {
+      "h": 456.4
+    },
+    "reopened": {
+      "h": 456.4,
+      "height": "S",
+      "range": null
+    },
+    "10 center": {
+      "h": 488.4
+    },
+    "10 bottom": {
+      "h": 520.4
+    },
+    "undo 1": {
+      "h": 488.4
+    },
+    "reopened after undo": {
+      "h": 488.4,
+      "height": "Custom height",
+      "range": "10/10"
+    }
+  },
+  "notPredicted": [
+    "custom (459.6, already read)",
+    "custom again: what Custom height does in a panel that opened on S"
+  ],
+  "count": {
+    "all": "6 of 10",
+    "misses": "20 top, 20 top later, 30 top, 10 bottom: all C + 64 predicted, read C (456.4) or C + 3.2N with no near gutter"
+  },
+  "result": "Round 1. The panel and the center reads held; the 4vw gutter at top or bottom did not. Refitted once (CAP-P3ALIGN3-PREDICTED.json)."
+}

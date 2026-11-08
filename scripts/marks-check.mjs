@@ -642,6 +642,35 @@ hLet = hState();
 const PU = JSON.parse(readFileSync(new URL('../parity/findings/CAP-P3UNDO.json', import.meta.url))).reads['panel after NaN typed'].range;
 add('Custom height after NaN, opened again: empty, slider at the middle', hLet.t === PU.field && hLet.r === PU.slider && Math.abs(hLet.min - 12 * hLet.vh) < 0.5, JSON.stringify(hLet));
 
+// P3: a Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change,
+// and the panel opened again then shows S with no slider (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json: the frozen rule, 12 of
+// 12). Each read of the oracle's steps, replayed here, compared in vh and vmax: section min-height, the content
+// wrapper's top and bottom padding; and the panel's pressed Height and its slider and field.
+const p3Pads = (p) => { const v = p.split(' ').map(parseFloat); return [v[0], v.length === 1 ? v[0] : v.length === 2 ? v[0] : v[2]]; };
+const p3AlignRead = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow, s = f.contentDocument.querySelectorAll('main#page .page-section')[1], w = s.querySelector('.content-wrapper'), c = W.getComputedStyle(w), vh = W.innerHeight / 100, vmax = Math.max(W.innerWidth, W.innerHeight) / 100; const on = [...document.querySelectorAll('#section-panel [data-sact="height"][aria-pressed="true"]')].map((b) => b.getAttribute('aria-label')), va = [...document.querySelectorAll('#section-panel [data-sact="valign"][aria-pressed="true"]')].map((b) => b.getAttribute('aria-label')); const r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'); return JSON.stringify({ minVh: parseFloat(W.getComputedStyle(s).minHeight) / vh, pad: [parseFloat(c.paddingTop) / vmax, parseFloat(c.paddingBottom) / vmax], height: on.join('+'), valign: va.join('+'), range: r ? r.value + '/' + t.value : null }); })()`);
+const p3OpenPanel = async () => { await frameScroll(914); await hoverInSection(300); const p = chromeBox('Open Section Settings'); await pressAt(p[0] + 60, p[1] + 20); await pause(200); };
+// CAP-P3ALIGN.json first read the M presses and the history gutter, not built: its reads compare the panel's buttons only.
+for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2', 'CAP-P3ALIGN']) {
+  const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
+  await fresh(); await p3OpenPanel();
+  for (const l of ['M', 'Vertical center']) { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${l}"]').click(); return 'ok'; })()`); await pause(200); }
+  for (const [op, a] of F.steps.slice(F.steps.findIndex(([o]) => o === 'panel') + 1)) {
+    if (op === 'pressNamed' && a === 'Undo') { evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300); }
+    else if (op === 'pressNamed') { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${a}"]').click(); return 'ok'; })()`); await pause(200); }
+    else if (op === 'fillRange') await hFill(a);
+    else if (op === 'press' && a === 'Escape') { browser(S, 'press', 'Escape'); await pause(200); }
+    else if (op === 'panel') await p3OpenPanel();
+    else if (op === 'read') {
+      const o = F.reads[a], css = o.sectionCss, vh = o.section.frame[1] / 100, vmax = Math.max(...o.section.frame) / 100, r = p3AlignRead();
+      const buttons = (l) => o.radios.filter(([x, c]) => c && l.includes(x)).map(([x]) => x).join('+');
+      const want = { valign: buttons(['Vertical top', 'Vertical center', 'Vertical bottom']), minVh: css && parseFloat(css.section.minHeight) / vh, pad: css && p3Pads(css.wrapper.padding).map((x) => x / vmax), height: o.radios.filter(([l, c]) => c && ['S', 'M', 'L', 'Custom height'].includes(l)).map(([l]) => l).join('+'), range: o.range ? `${o.range.slider}/${o.range.field}` : null };
+      const sameCss = !css || (Math.abs(r.minVh - want.minVh) < 0.05 && r.pad.every((x, i) => Math.abs(x - want.pad[i]) < 0.05));
+      add(`Custom height and alignment, ${name} ${a}`, sameCss && r.height === want.height && r.valign === want.valign && r.range === want.range, JSON.stringify({ ours: r, oracle: want }));
+    }
+  }
+}
+browser(S, 'press', 'Escape'); await pause(200);
+
 // U4: the toolbar's halo, Align Vertically's menu, Pin's field and slider, phones, tips.
 const TB = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARS.json', import.meta.url)));
 const PN = JSON.parse(readFileSync(new URL('../parity/findings/PIN.json', import.meta.url)));
@@ -1520,12 +1549,19 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const start = async () => { goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300); };
   const build = (key) => evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Image');
     const pool = fe.model.sections[0].blocks, of = (t) => JSON.parse(JSON.stringify(pool.find((b) => b.type === t)));
-    const T = { h: { ...of('text'), html: '<h2>Heading words here</h2>' }, p: { ...of('text'), html: '<p>Paragraph words go here so the block has real text in it to lay out across lines.</p>' }, i: of('image'), b: of('button') };
+    const T = { h: { ...of('text'), html: '<h2>Heading words here</h2>' }, p: { ...of('text'), html: ${JSON.stringify(key === 'p1' ? '<p>Paragraph words for a probe</p>' : '<p>Paragraph words go here so the block has real text in it to lay out across lines.</p>')} }, i: of('image'), b: of('button') };
     const out = []; for (const [, r, n] of '${key}'.matchAll(/([hpib])(\\d)/g)) for (let k = 0; k < +n; k++) out.push({ ...JSON.parse(JSON.stringify(T[r])), id: r + k + 'aaaaaaaaaaaaaaaaaaaaaa' });
     const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = out; fe.load(m); return 'true'; })()`);
   const chromeBtn = async (y = 200) => { const f = evalJs(S, `(() => { const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + ${y}]); })()`); mouse(S, 'move', f[0], f[1]); await pause(150); mouse(S, 'move', f[0] + 3, f[1] + 2); await pause(250); return evalJs(S, `(() => { const b = document.querySelector('[data-sc="layouts"]'); if (!b) return 'null'; const r = b.getBoundingClientRect(); return JSON.stringify({ x: r.left + r.width / 2, y: r.top + r.height / 2, off: b.hasAttribute('data-unbuilt') }); })()`); };
   const realClick = async (x, y) => { mouse(S, 'move', x, y); await pause(50); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(250); };
-  for (const [key, mix] of Object.entries(VL.mixes)) {
+  // The paragraph list against CAP-U10ROWS-A.json instead: in this order each layout has the span rule P gives it after
+  // the one before (CAP-U10ROWSPREDICT.json), read there after the same layout (A17, A21, A11, A15) or at the same span
+  // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows by the last-phone-row rule. Built with the
+  // reads' own words: longer words wrap in layout 2's one-row block and ours grows the section.
+  const RA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWS-A.json', import.meta.url))).reads;
+  const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - 1, places: { p0: [d, p] } }; });
+  for (const [key, mix0] of Object.entries(VL.mixes)) {
+    const mix = key === 'p1' ? { ...mix0, layouts: PARA } : mix0;
     await start(); build(key); await pause(450);
     const b = await chromeBtn();
     add(`View Layouts ${key}: on`, b && !b.off, JSON.stringify(b));
@@ -1543,6 +1579,26 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       for (const r of roles) { const x = g.b.find((v) => v[0] === r), w = L.places[r]; if (!x || x[1] !== w[0] || x[2] !== w[1] || (r[0] === 'h' && x[3] !== L.tag)) errs.push(`${n} ${r} ${x}`); }
     });
     add(`View Layouts ${key}: ${mix.layouts.length} picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // Rule P on the paragraph list (CAP-U10ROWSPREDICT.json): ours through the three read orders, each from the start:
+  // CAP-U10ROWSEQ.json (rows), CAP-U10ALIGN-A.json and CAP-U10ROWS-A.json (rows and the block's areas). 52 picks.
+  {
+    const errs = [];
+    const runs = [
+      Object.entries(JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWSEQ.json', import.meta.url))).reads).filter(([k]) => /layout/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, null]),
+      Object.entries(JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ALIGN-A.json', import.meta.url))).reads).filter(([k]) => /pick/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0]]),
+      Object.entries(RA).filter(([k]) => /^A\d\d layout/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0]]),
+    ];
+    for (const run of runs) {
+      await start(); build('p1'); await pause(450);
+      const b = await chromeBtn(); await realClick(b.x, b.y);
+      for (const [k, n, rows, at] of run) {
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/'), s.blocks[0].layout.mobile.area.join('/')]); })()`);
+        if (g[0] !== rows || (at && (g[1] !== at[0] || g[2] !== at[1]))) errs.push(`${k} ${g}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
@@ -2448,20 +2504,21 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Layouts panel: later picks leave it there', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === afterPick);
   browser(S, 'press', 'Escape'); await pause(200);
   // Each pick moves it up to where it would open on the section as it now is, never down (CAP-U10PANELPREDICT.json:
-  // ours' own values; the oracle read 214 and 114 for the two 206 and 106, a named 8 px miss).
+  // ours' own values; the oracle read 214 and 114 for the two 204 and 104, a named 10 px miss. Since rule P the
+  // section is the oracle's own 623.7 after pick 5 here; it was 626.5, which gave 206 and 106).
   const para = async () => { await start(); await change(`(m) => { const s = m.sections[0], t = JSON.parse(JSON.stringify(m.sections.flatMap((x) => x.blocks).find((b) => b.type === 'text'))); t.id = 'probe-p'; t.html = '<p>Paragraph words for a probe</p>'; t.layout.desktop.area = [2, 2, 4, 12]; t.layout.mobile.area = [1, 2, 3, 10]; s.blocks = [t]; s.height = 'medium'; s.rows = { ...s.rows, desktop: 8 }; delete s.theme; delete s.divider; }`); };
   const panelTop = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
   const pickTile = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'nearest' }); return 'true';`); await pause(200); await real(await centre(`document.querySelector('[data-layout="${n}"]')`)); await pause(400); return panelTop(); };
   await para();
   const walk = [Math.round(await openLayouts(300))];
   for (const n of [1, 5, 2]) walk.push(await pickTile(n));
-  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 206, stays', walk.join() === '248,248,206,206', walk.join());
+  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 204, stays', walk.join() === '248,248,204,204', walk.join());
   browser(S, 'press', 'Escape'); await pause(200);
   await para();
   const fr = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 400]);`);
   wheel(S, fr[0], fr[1], 100); await pause(800);
   const scrolled = [Math.round(await openLayouts(250)), await pickTile(5)];
-  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 106', scrolled.join() === '148,106', scrolled.join());
+  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 104', scrolled.join() === '148,104', scrolled.join());
   browser(S, 'press', 'Escape'); await pause(200);
   await para(); await change(`(m) => { m.sections[0].divider = true; }`);
   const withDivider = Math.round(await openLayouts(300));
@@ -2656,6 +2713,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Mark: Redo to a pick that isn\'t the last marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
   await esc(); await open();
   add('Mark: but reopening there marks it', mark() === '0', mark());
+  // Rule P's step on Undo, the other read order (CAP-U10UNDO.json b): pick 0, Undo, Redo, pick 3, Undo, Undo.
+  {
+    const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10UNDO.json', import.meta.url))).reads, got = [];
+    await setup(); await open(); await pick(0); got.push(now().rows);
+    await key('Meta+z'); got.push(now().rows); await key('Meta+Shift+z'); got.push(now().rows);
+    await pick(3); got.push(now().rows); await key('Meta+z'); got.push(now().rows); await key('Meta+z'); got.push(now().rows);
+    const want = ['b pick 0', 'b meta z', 'b meta shift z', 'b pick 3', 'b meta z again', 'b meta z twice'].map((k) => U[k].look.rows);
+    add('Layouts: the step after Undo and Redo, as CAP-U10UNDO.json read', got.join() === want.join(), `${got} want ${want}`);
+    await esc();
+  }
   await setup(); await open(); await pick(0); await key('Meta+z');
   add('Mark: goes with Undo by keyboard', mark() === '', mark());
   await key('Meta+Shift+z');
@@ -3389,9 +3456,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Audio alone: 5 tiles, the shared list', audioTiles.length === 5 && !!au && au.at[0][0] === `3/3/${3 + span}/13` && au.rows === 3 + span - 1 + 4 && au.look.join() === 'dark,rounded', JSON.stringify({ audioTiles, au }));
   browser(S, 'press', 'Escape'); await pause(200);
   // Every pick of the lists read in full, in order (CAP-U10FADED-A.json and B): rows, areas and look. Instagram, Flickr
-  // and Scrolling keep their first reads for the picks built from those (CAP-U10SHARE-*.json).
+  // and Scrolling keep their first reads for the picks built from those (CAP-U10SHARE-*.json), but Instagram's pick 2:
+  // after pick 1 it has the short span (rule P, CAP-U10ROWS-A.json), as FADED-A read it.
   const FADED = { ...FIND('CAP-U10FADED-A').reads, ...FIND('CAP-U10FADED-B').reads };
-  const OLD = { Instagram: ['INSTAGRAM', [2, 4]], Flickr: ['FLICKR', [2, 4]], Scrolling: ['SCROLLING', [0, 2]] };
+  const OLD = { Instagram: ['INSTAGRAM', [4]], Flickr: ['FLICKR', [2, 4]], Scrolling: ['SCROLLING', [0, 2]] };
   for (const T of ['Instagram', 'Flickr', 'Scrolling', 'SoundCloud', 'Calendar', 'Bandsintown', 'Menu', 'Chart', 'Tock', 'Archive']) {
     const L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.length, errs = [];
     alone(T); await pause(250);
@@ -3405,6 +3473,21 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts, ${T} alone: all ${L} picks as read`, errs.length === 0, errs.slice(0, 3).join(' | '));
     browser(S, 'press', 'Escape'); await pause(200);
+  }
+  // Instagram's pick 2 after each start read (CAP-U10ROWS-A.json, Ba, Bb and Bc, each from a fresh block): 16 rows after
+  // picks 0 and 1, 23 after the start, 3 and 4 (rule P's step), and the section's height within 2px: after 0 and 1 the
+  // block is shorter than its content, and the section grows to 1226.3 on both.
+  {
+    const RB = FIND('CAP-U10ROWS-A').reads, errs = [];
+    for (const name of ['Ba', 'Bb', 'Bc']) {
+      alone('Instagram'); await pause(250); await open();
+      for (const [k, r] of Object.entries(RB).filter(([k]) => k.startsWith(name) && /layout/.test(k))) {
+        const g = pick(+k.split(' ').pop());
+        if (!g || g.rows !== r.look.rows || g.at[0][0] !== r.stack[0].desktop || g.at[0][1] !== r.stack[0].phone || Math.abs(g.h - r.look.h) > 2) errs.push(`${k} ${g && [g.rows, g.at[0][0], Math.round(g.h * 10) / 10]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(200);
+    }
+    add('View Layouts, Instagram: pick 2 after each start as read, and the section height (13 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // Embed and Tag Cloud take Code's list (CAP-U10FAMILYPREDICT.json): each read pick's columns, row starts, rows past the
   // block and look; the block keeps its own height here, so the row ends follow ours.

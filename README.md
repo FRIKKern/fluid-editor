@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 48 changes
-  - U9: a wheel on the section's buttons, a press with a block selected, the phone panel's close: read and built ([#431](https://github.com/FRIKKern/fluid-editor/pull/431))
-  - O1: copy, cut and paste keys never reach the owner's clipboard ([#430](https://github.com/FRIKKern/fluid-editor/pull/430))
+- **Today** · 59 changes
+  - U10: rule P built, a layout's span set by the layout before it; Instagram pick 2; the step on Undo ([#442](https://github.com/FRIKKern/fluid-editor/pull/442))
+  - X2: after Write and one Escape, a drag from the text opens the editor again (CAP-TEXTPRESS3, read twice fresh) ([#441](https://github.com/FRIKKern/fluid-editor/pull/441))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

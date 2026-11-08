@@ -160,7 +160,8 @@ body:has(#layers-panel:not([hidden])) .sc-layers { background: #e7e7e7; }
 /* Edit Section panel contents, drawn like the oracle's (app/src/section-chrome.js sectionPanelHtml). */
 .section-panel { padding: 0; font: 14px/1.3 "Helvetica Neue", Helvetica, Arial, sans-serif; color: #0e0e0e; }
 .sp-tabs { display: flex; gap: 16px; padding: 0 22px; height: 55px; align-items: flex-end; border-bottom: 1px solid #e7e7e7; }
-.sp-tab { border: 0; background: none; padding: 0 0 14px; font: inherit; color: #6f6f6f; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+/* The names' letters run 23 to 32 below the row's top, the rest in rgb(102) (CAP-DESIGNTAB-QUOTE.json, CAP-SECTIONTABS.json). */
+.sp-tab { border: 0; background: none; padding: 0 0 16px; font: inherit; color: #666; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
 .sp-tab.is-on { color: #0e0e0e; font-weight: 500; border-bottom-color: #0e0e0e; }
 .sp-body { padding: 8px 22px 16px 22px; }
 .sp-head { margin: 22px 0 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6f6f6f; }
@@ -1287,6 +1288,24 @@ body.is-preview #reload-preview { display: inline-flex; }
 .bp-shape-rows > .bp-blend-wrap, .bp-shape-rows > .bp-blend-wrap > .sp-row { min-height: 46px; box-sizing: border-box; }
 .bp-shape-rows + .bp-thead { margin: 11px -22px 0; padding: 15px 22px 4px; }
 .bp-shape-rows > .sp-row:last-child { border-bottom: 0; }
+/* The shared Design tab (CAP-DESIGNTAB-QUOTE.json, -TEXT.json): rows right under the tabs, 46, 45, 45 and 44 tall;
+   Background's and Blend Mode's lines 5 wider each side than Stroke's; one full line 12 under Blur, then Transforms. */
+.bp-look-rows { margin-top: -8px; }
+.bp-look-rows > .sp-row, .bp-look-rows > .bp-blend-wrap > .sp-row { min-height: 45px; }
+.bp-look-rows > .sp-row:first-child { min-height: 46px; }
+.bp-look-rows > .sp-row:first-child, .bp-look-rows > .bp-blend-wrap > .sp-row { margin: 0 -5px; padding: 0 5px; }
+.bp-look-rows > .sp-row:last-child { min-height: 44px; border-bottom: 0; }
+.bp-look-rows + .bp-thead { min-height: 56px; margin: 12px -22px 0; padding: 11px 22px 0; }
+.bp-look-rows .bp-blend-value, .bp-shape-rows .bp-blend-value { margin-left: auto; color: #3e3e3e; }
+.bp-blend .bp-chev { flex: none; margin: 0 -4.5px 0 -5.5px; }
+/* A Quote's Effects and Appear (CAP-DESIGNTAB-EFFECTS2.json): 11 under Anchor, no line above; the row 46 tall over the panel's padding, its line 17 to 303. */
+.bp-thead.bp-effects { min-height: 44px; margin: 11px 0 -1px; padding: 0; border-top: 0; }
+.bp-appear { position: relative; display: flex; align-items: center; justify-content: space-between; width: calc(100% + 22px); height: 46px; margin: 0 -11px 6px; padding: 0 11px; border: 0; background: none; color: #666; font: inherit; text-align: left; cursor: pointer; }
+.bp-appear::after { content: ''; position: absolute; left: 6px; right: 6px; bottom: 0; height: 1px; background: #e7e7e7; }
+.bp-appear svg { flex: none; margin-right: 14.5px; color: #0e0e0e; }
+#shape-pop.is-appear { width: 298px; padding: 5px 0 6px; border-radius: 3px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16); }
+#shape-pop.is-appear button { display: block; width: 100%; height: 45px; padding: 0 11px; border: 0; background: #fff; color: #0e0e0e; font: inherit; text-align: left; cursor: pointer; }
+#shape-pop.is-appear button:hover, #shape-pop.is-appear button.is-cur { background: #f2f2f2; }
 .sh-style { position: relative; display: flex; align-items: center; justify-content: center; width: 276px; height: 103px; padding: 0; border: 0; border-radius: 3px; background: #f2f2f2; cursor: pointer; }
 .sh-chev { position: absolute; right: 16px; top: 42px; color: #0e0e0e; }
 .sh-thumb { display: block; fill: #666; }

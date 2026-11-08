@@ -1,0 +1,1054 @@
+{
+  "item": "CAP-DESIGNTAB-EFFECTS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "Quote's Design tab end, narrow: Anchor, the Effects header, the Appear row and its list when pressed (closed with Escape)",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "scrollTo",
+      "Appear"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "end",
+      {
+        "looks": [
+          461,
+          630,
+          781,
+          801
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Appear"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "open",
+      {
+        "controls": true,
+        "looks": [
+          461,
+          330,
+          781,
+          801
+        ]
+      }
+    ],
+    [
+      "shot",
+      "open"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "closed",
+      {
+        "looks": [
+          461,
+          680,
+          781,
+          801
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "end": {
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Anchor",
+          "box": [
+            483,
+            635,
+            48.6,
+            44
+          ],
+          "font": "Clarkson 14px 400 44px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            715,
+            635,
+            44,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            715,
+            635,
+            44,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            734.5,
+            654.5,
+            5,
+            5
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Effects",
+          "box": [
+            483,
+            690,
+            276,
+            44
+          ],
+          "font": "Clarkson 14px 500 22px -0.14px none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Appear",
+          "box": [
+            483,
+            747,
+            49.5,
+            18
+          ],
+          "font": "Clarkson 14px 400 22px normal none",
+          "color": "rgb(102, 102, 102)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(102, 102, 102)"
+        },
+        {
+          "tag": "div",
+          "role": "separator",
+          "text": "",
+          "box": [
+            478,
+            778,
+            286,
+            1
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "open": {
+      "controls": [
+        {
+          "role": "option",
+          "label": "Site Default",
+          "value": 0,
+          "box": [
+            472,
+            713,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "None",
+          "value": 0,
+          "box": [
+            472,
+            758,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Fade In",
+          "value": 0,
+          "box": [
+            472,
+            803,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Slide Up",
+          "value": 0,
+          "box": [
+            472,
+            848,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Focus In",
+          "value": 0,
+          "box": [
+            472,
+            893,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Reveal",
+          "value": 0,
+          "box": [
+            472,
+            938,
+            298,
+            46
+          ]
+        }
+      ],
+      "looks": [
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            552,
+            352,
+            46,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(14, 14, 14)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "separator",
+          "text": "",
+          "box": [
+            461,
+            353,
+            320,
+            1
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "combobox",
+          "text": "",
+          "box": [
+            720.5,
+            333,
+            36,
+            36
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            727.5,
+            340,
+            22,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Opacity",
+          "box": [
+            483,
+            380,
+            51.7,
+            44
+          ],
+          "font": "Clarkson 14px 400 44px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            380,
+            182,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            380,
+            182,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            380,
+            182,
+            11
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            413,
+            182,
+            11
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            380,
+            11,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            715,
+            380,
+            44,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            726,
+            388,
+            22,
+            28
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            752,
+            394,
+            16,
+            16
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(14, 14, 14)",
+          "shadow": "none",
+          "radius": "4px",
+          "over": "visible clip normal",
+          "border": "1px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            749,
+            391,
+            22,
+            22
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Rotate",
+          "box": [
+            483,
+            431,
+            43,
+            44
+          ],
+          "font": "Clarkson 14px 400 44px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            431,
+            182,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(242, 242, 242)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            486,
+            431,
+            182,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            431,
+            182,
+            11
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            464,
+            182,
+            11
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            431,
+            11,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            715,
+            431,
+            44,
+            44
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            726,
+            439,
+            22,
+            28
+          ],
+          "font": "Clarkson 14px 400 16px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            752,
+            445,
+            16,
+            16
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(14, 14, 14)",
+          "shadow": "none",
+          "radius": "4px",
+          "over": "visible clip normal",
+          "border": "1px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            749,
+            442,
+            22,
+            22
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Scale",
+          "box": [
+            483,
+            482,
+            88,
+            44
+          ],
+          "font": "Clarkson 14px 400 44px -0.14px none",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            482,
+            88,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(242, 242, 242)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            533,
+            482,
+            88,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            482,
+            88,
+            11
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            515,
+            88,
+            11
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            577,
+            482,
+            11,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            621,
+            482,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            632,
+            490,
+            22,
+            28
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            658,
+            496,
+            16,
+            16
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(14, 14, 14)",
+          "shadow": "none",
+          "radius": "4px",
+          "over": "visible clip normal",
+          "border": "1px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            655,
+            493,
+            22,
+            22
+          ],
+          "font": "Clarkson 14px 500 14px -0.14px none",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            671,
+            482,
+            88,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(242, 242, 242)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            627,
+            482,
+            88,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(231, 231, 231)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            671,
+            482,
+            88,
+            11
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            671,
+            515,
+            88,
+            11
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            671,
+            482,
+            11,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            715,
+            482,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(148, 148, 148)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(148, 148, 148)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "closed": {
+      "looks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
