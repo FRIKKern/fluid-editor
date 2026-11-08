@@ -481,6 +481,16 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-TEXTPRESS3': { page: 'Gestures Probe', question: 'X2: CAP-TEXTPRESS a10 read again, twice: a written Text, Write, one Escape, then a drag from its middle. Does the editor open again, and does the block stay?', steps: (() => {
+    const has = { stack: 0, section: 0, has: ['Write', 'Bold'] };
+    const one = (n) => [
+      ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['press', 'Escape'], ['read', `${n} Write and Escape`, has],
+      ['drag', 0, 0, 'middle', 58.78, 0], ['read', `${n} dragged`, has], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]
+    ];
+    return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
