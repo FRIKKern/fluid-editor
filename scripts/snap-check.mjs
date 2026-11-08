@@ -46,7 +46,7 @@ for (const r of F.readings) {
     results.push({ kind: r.kind, section: r.section, block: r.block, leg, ok });
   }
 }
-// From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json.
+// From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json, CAP-X2STEPS.json, CAP-X2STEPS3.json.
 const WALKS = [
   ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110],
   ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110],
@@ -60,10 +60,19 @@ const WALKS = [
   ['CAP-G4MARGIN6', 'se', 'desktop', [1, 1, 7, 22], 400],
   ['CAP-G4PHONE', 'move', 'mobile', [1, 2, 7, 10], 110],
   ['CAP-G4PHONE', 'se', 'mobile', [1, 2, 7, 10], 110],
+  // From the right margin track, a lone block on desktop: its right edge leads (CAP-X2STEPS.json, 'w4 on 26' read a 4 wide block on the margin; CAP-X2STEPS3.json).
+  ['CAP-X2STEPS', 'w2', 'desktop', [1, 25, 7, 27], 280],
+  ['CAP-X2STEPS', 'w7', 'desktop', [1, 20, 7, 27], 280],
+  ['CAP-X2STEPS', 'w8', 'desktop', [1, 19, 7, 27], 280],
+  ['CAP-X2STEPS', 'w10', 'desktop', [1, 17, 7, 27], 280],
+  ['CAP-X2STEPS', 'w4 on 26', 'desktop', [1, 23, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w2', 'desktop', [1, 25, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w7', 'desktop', [1, 20, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w10', 'desktop', [1, 17, 7, 27], 280],
 ];
 for (const [file, name, view, area, mx] of WALKS) {
   const R = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads[name].walk;
-  const part = R.part === 'middle' ? null : R.part, phone = view === 'mobile';
+  const part = R.part === 'middle' || Array.isArray(R.part) ? null : R.part, phone = view === 'mobile'; // a point on the block is a move
   const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const f = document.getElementById('site-frame');
     fe.setBp('desktop');
     fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 12 }, phoneFollows: false, blocks: [{ id: 'a', type: 'shape', layout: { desktop: { area: ${JSON.stringify(phone ? [1, 2, 7, 8] : area)} }, mobile: { area: ${JSON.stringify(phone ? area : [1, 2, 7, 10])} } }, content: {} }] }] });
