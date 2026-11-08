@@ -1,0 +1,590 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Two reads left open on built stand-ins: Accordion Icon Thickness more (its control, limits and what it draws), and Newsletter with Stack and names on, and an empty line in Description.",
+ "how": "Runs f68 and f69 on the oracle, Blocks Probe, a new block each time, unsaved, left by Exit Without Saving (the page read 0 blocks after each). Named presses with an on-top check; real keys Enter and letters for the Description (no copy, cut or paste).",
+ "iconThickness": {
+  "control": "The more button (fourth in the S M L row) turns into a field reading the current value in px with Decrement and Increment buttons beside it (field 206,339,28,22; buttons 32 by 44 at 240 and 272, panel-relative). There is no range here, unlike Icon Size.",
+  "limits": {
+   "min": 1,
+   "max": 10,
+   "step": 1,
+   "note": "At 10 Increment keeps 10, at 1 Decrement keeps 1; both buttons stay enabled at full opacity at the limits."
+  },
+  "startsAt": {
+   "fromS": "1px",
+   "fromM": "3px",
+   "fromL": "6px",
+   "note": "more keeps the line the preset drew"
+  },
+  "draws": "Both lines of the plus are the value thick, centred in the 14px icon: at 1px the horizontal line is 0,6.5,14,1; at 10px 0,2,14,10.",
+  "steps": [
+   [
+    "start",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "up1",
+    [
+     "2px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6,14,2",
+     "6,0,2,14"
+    ]
+   ],
+   [
+    "up2",
+    [
+     "3px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,5.5,14,3",
+     "5.5,0,3,14"
+    ]
+   ],
+   [
+    "up3",
+    [
+     "4px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,5,14,4",
+     "5,0,4,14"
+    ]
+   ],
+   [
+    "up4",
+    [
+     "5px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,4.5,14,5",
+     "4.5,0,5,14"
+    ]
+   ],
+   [
+    "up5",
+    [
+     "6px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,4,14,6",
+     "4,0,6,14"
+    ]
+   ],
+   [
+    "up6",
+    [
+     "7px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,3.5,14,7",
+     "3.5,0,7,14"
+    ]
+   ],
+   [
+    "up7",
+    [
+     "8px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,3,14,8",
+     "3,0,8,14"
+    ]
+   ],
+   [
+    "up8",
+    [
+     "9px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2.5,14,9",
+     "2.5,0,9,14"
+    ]
+   ],
+   [
+    "up9",
+    [
+     "10px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2,14,10",
+     "2,0,10,14"
+    ]
+   ],
+   [
+    "up10",
+    [
+     "10px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2,14,10",
+     "2,0,10,14"
+    ]
+   ],
+   [
+    "up11",
+    [
+     "10px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2,14,10",
+     "2,0,10,14"
+    ]
+   ],
+   [
+    "up12",
+    [
+     "10px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2,14,10",
+     "2,0,10,14"
+    ]
+   ],
+   [
+    "down1",
+    [
+     "9px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,2.5,14,9",
+     "2.5,0,9,14"
+    ]
+   ],
+   [
+    "down2",
+    [
+     "8px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,3,14,8",
+     "3,0,8,14"
+    ]
+   ],
+   [
+    "down3",
+    [
+     "7px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,3.5,14,7",
+     "3.5,0,7,14"
+    ]
+   ],
+   [
+    "down4",
+    [
+     "6px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,4,14,6",
+     "4,0,6,14"
+    ]
+   ],
+   [
+    "down5",
+    [
+     "5px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,4.5,14,5",
+     "4.5,0,5,14"
+    ]
+   ],
+   [
+    "down6",
+    [
+     "4px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,5,14,4",
+     "5,0,4,14"
+    ]
+   ],
+   [
+    "down7",
+    [
+     "3px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,5.5,14,3",
+     "5.5,0,3,14"
+    ]
+   ],
+   [
+    "down8",
+    [
+     "2px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6,14,2",
+     "6,0,2,14"
+    ]
+   ],
+   [
+    "down9",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down10",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down11",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down12",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down13",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down14",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down15",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ],
+   [
+    "down16",
+    [
+     "1px",
+     "on 1",
+     "on 1"
+    ],
+    [
+     "0,6.5,14,1",
+     "6.5,0,1,14"
+    ]
+   ]
+  ],
+  "before": {
+   "row": [
+    "BUTTON|submit||S|[object Object]||||true|18,549,71,32",
+    "BUTTON|submit||M|[object Object]||||false|89,549,71,32",
+    "BUTTON|submit||L|[object Object]||||false|160,549,71,32",
+    "BUTTON|submit|||VNnZ5cvr@xBHN0vS!0Cre$vc5qJ1tsZoQCH2*fDAzUZsNghP&qmvonR0X!LF$67s9L@U2y!W||||false|231,549,71,32",
+    "BUTTON|submit|left||left||||false|18,631,142,32",
+    "BUTTON|submit|right||right||||true|160,631,142,32"
+   ],
+   "icon": {
+    "box": [
+     14,
+     14
+    ],
+    "parts": [
+     "DIV | accordion-icon-container | 0,0,14,14 | sw 1px | h 14px | w 14px | bt 0px | bg rgba(0, 0, 0, 0)",
+     "DIV | plus | 0,0,14,14 | sw 1px | h 14px | w 14px | bt 0px | bg rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line | 0,6.5,14,1 | sw 1px | h 1px | w 14px | bt 0px | bg rgb(0, 0, 0)",
+     "DIV | plus__vertical-line | 6.5,0,1,14 | sw 1px | h 1px | w 14px | bt 0px | bg rgb(0, 0, 0)"
+    ]
+   }
+  },
+  "more": {
+   "row": [
+    "BUTTON|submit||S|[object Object]||||false|18,290,71,32",
+    "BUTTON|submit||M|[object Object]||||false|89,290,71,32",
+    "BUTTON|submit||L|[object Object]||||false|160,290,71,32",
+    "BUTTON|submit|||VNnZ5cvr@xBHN0vS!0Cre$vc5qJ1tsZoQCH2*fDAzUZsNghP&qmvonR0X!LF$67s9L@U2y!W||||true|231,290,71,32",
+    "INPUT|text|||1px|||||206,339,28,22",
+    "BUTTON|submit|Decrement|||||||240,328,32,44",
+    "BUTTON|submit|Increment|||||||272,328,32,44"
+   ],
+   "icon": {
+    "box": [
+     14,
+     14
+    ],
+    "parts": [
+     "DIV | accordion-icon-container | 0,0,14,14 | sw 1px | h 14px | w 14px | bt 0px | bg rgba(0, 0, 0, 0)",
+     "DIV | plus | 0,0,14,14 | sw 1px | h 14px | w 14px | bt 0px | bg rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line | 0,6.5,14,1 | sw 1px | h 1px | w 14px | bt 0px | bg rgb(0, 0, 0)",
+     "DIV | plus__vertical-line | 6.5,0,1,14 | sw 1px | h 1px | w 14px | bt 0px | bg rgb(0, 0, 0)"
+    ]
+   }
+  }
+ },
+ "newsletter": {
+  "stackNames": {
+   "note": "Names on, then Layout Stack: rows 14 to 13. Every field item padding 8px 0, the button wrapper margin 0 (as Stack without names).",
+   "names": {
+    "rows": 14,
+    "area": "1/2/15/12",
+    "form": [
+     0,
+     535.90625
+    ],
+    "block": 564.3125,
+    "tree": [
+     "DIV | fe-block |  |  |  | 0,0,576.8,564.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     " DIV |  |  |  |  | 0,0,576.8,564.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "  DIV | yui3-widget.yui3-block-base.sqs-block-csr.sqs-block.yui3-dd-drop.rendered |  |  |  | 0,0,576.8,564.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | flex column | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,535.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV | newsletter-form-wrapper\n.newsletter-form-show-name\n.newsletter-form-wrapper--lay |  |  |  | 0,0,576.8,535.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "     FORM | newsletter-form |  |  |  | 0,0,576.8,535.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "      HEADER |  |  |  |  | 43.3,0,490.3,110.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 43.2656px | block | center | 0px | normal | normal | none",
+     "       H2 |  |  |  | Subscribe | 43.3,0,490.3,49.4 | Poppins 41.2px/49.44px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 0px 16px | block | center | 0px | normal | 0.16px | none",
+     "       DIV |  |  |  |  | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "        P |  |  |  | Sign up with your email address to receive news and updates. | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | normal | normal | none",
+     "      DIV |  |  |  |  | 0,126.3,576.8,373.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px 0px 16px | 0px | block | center | 0px | normal | normal | none",
+     "       DIV | form-fields |  |  |  | 0,142.3,576.8,246 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+     "        FIELDSET | form-item.fields.name.required |  |  |  | 0,142.3,576.8,164 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | inline-block | center | 0px | normal | normal | none",
+     "         DIV | field.first-name |  |  |  | 144.4,142.3,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 0px | inline-block | center | 0px | normal | normal | none",
+     "          LABEL | title |  |  | First Name | 148.4,150.3,280,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "          INPUT | field-element.field-control | text | First Name |  | 148.4,150.3,280,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "         DIV | field.last-name |  |  |  | 144.4,224.2,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 0px | inline-block | center | 0px | normal | normal | none",
+     "          LABEL | title |  |  | Last Name | 148.4,232.2,280,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "          INPUT | field-element.field-control | text | Last Name |  | 148.4,232.2,280,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "        DIV | form-item.field.email.required |  |  |  | 144.4,306.2,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 0px | inline-block | center | 0px | normal | normal | none",
+     "         LABEL | title |  |  | Email Address | 148.4,314.2,280,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "         INPUT | field-element | email | Email Address |  | 148.4,314.2,280,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "       DIV | submit-wrapper |  |  |  | 220.7,404.2,135.4,80 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+     "        BUTTON | \n.newsletter-form-button\n.sqs-system-button\n.sqs-editable-button-layout\n.sqs-edi | submit |  |  | 224.7,412.2,127.4,64 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgb(0, 0, 0) | 0px solid rgb(255, 255, 255) | 22.4px 32px | 0px | inline-block | center | 300px | nowrap | 0.32px | none",
+     "         SPAN | sqs-spin.light.large |  |  |  | 277.4,433.2,22,22 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | -11px 0px 0px -11px | block | center | 150px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  | Sign Up | 256.7,432.6,63.4,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  |  | 320.1,432.6,0,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "       DIV | captcha-container\n.\n.align-center\n.\n |  |  |  | 0,484.2,576.8,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "      DIV |  |  |  |  | 0,516.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "       P |  |  |  | We respect your privacy. | 0,516.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | block | center | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,564.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,6,6 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 3px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV |  |  |  |  | 1,1,4,4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 2px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none"
+    ]
+   },
+   "stack": {
+    "rows": 13,
+    "area": "1/2/14/12",
+    "form": [
+     0,
+     519.90625
+    ],
+    "block": 523.21875,
+    "tree": [
+     "DIV | fe-block |  |  |  | 0,0,576.8,523.2 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     " DIV |  |  |  |  | 0,0,576.8,523.2 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "  DIV | yui3-widget.yui3-block-base.sqs-block-csr.sqs-block.yui3-dd-drop.rendered |  |  |  | 0,0,576.8,523.2 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | flex column | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,519.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV | newsletter-form-wrapper\n.newsletter-form-show-name\n.newsletter-form-wrapper--lay |  |  |  | 0,0,576.8,519.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "     FORM | newsletter-form |  |  |  | 0,0,576.8,519.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "      HEADER |  |  |  |  | 43.3,0,490.3,110.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 43.2656px | block | center | 0px | normal | normal | none",
+     "       H2 |  |  |  | Subscribe | 43.3,0,490.3,49.4 | Poppins 41.2px/49.44px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 0px 16px | block | center | 0px | normal | 0.16px | none",
+     "       DIV |  |  |  |  | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "        P |  |  |  | Sign up with your email address to receive news and updates. | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | normal | normal | none",
+     "      DIV |  |  |  |  | 0,126.3,576.8,357.9 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px 0px 16px | 0px | flex column | center | 0px | normal | normal | none",
+     "       DIV | form-fields |  |  |  | 0,142.3,576.8,246 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | block | center | 0px | normal | normal | none",
+     "        FIELDSET | form-item.fields.name.required |  |  |  | 144.4,142.3,288,164 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | inline-block | center | 0px | normal | normal | none",
+     "         DIV | field.first-name |  |  |  | 144.4,142.3,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 0px | 0px | inline-block | center | 0px | normal | normal | none",
+     "          LABEL | title |  |  | First Name | 144.4,150.3,288,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "          INPUT | field-element.field-control | text | First Name |  | 144.4,150.3,288,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "         DIV | field.last-name |  |  |  | 144.4,224.2,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 0px | 0px | inline-block | center | 0px | normal | normal | none",
+     "          LABEL | title |  |  | Last Name | 144.4,232.2,288,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "          INPUT | field-element.field-control | text | Last Name |  | 144.4,232.2,288,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "        DIV | form-item.field.email.required |  |  |  | 144.4,306.2,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 0px | 0px | inline-block | center | 0px | normal | normal | none",
+     "         LABEL | title |  |  | Email Address | 144.4,314.2,288,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "         INPUT | field-element | email | Email Address |  | 144.4,314.2,288,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "       DIV | submit-wrapper |  |  |  | 224.7,388.2,127.4,80 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 0px | 0px | block | center | 0px | normal | normal | none",
+     "        BUTTON | \n.newsletter-form-button\n.sqs-system-button\n.sqs-editable-button-layout\n.sqs-edi | submit |  |  | 224.7,396.2,127.4,64 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgb(0, 0, 0) | 0px solid rgb(255, 255, 255) | 22.4px 32px | 0px | inline-block | center | 300px | nowrap | 0.32px | none",
+     "         SPAN | sqs-spin.light.large |  |  |  | 277.4,417.2,22,22 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | -11px 0px 0px -11px | block | center | 150px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  | Sign Up | 256.7,416.6,63.4,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  |  | 320.1,416.6,0,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "       DIV | captcha-container\n.\n.align-center\n.\n |  |  |  | 0,388.2,576.8,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | flex column | center | 0px | normal | normal | none",
+     "      DIV |  |  |  |  | 0,500.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "       P |  |  |  | We respect your privacy. | 0,500.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | block | center | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,523.2 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,6,6 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 3px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV |  |  |  |  | 1,1,4,4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 2px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none"
+    ]
+   }
+  },
+  "back": {
+   "rows": 7,
+   "area": "1/2/8/12",
+   "form": [
+    0,
+    275.953125
+   ],
+   "block": 276.65625,
+   "tree": [
+    "DIV | fe-block |  |  |  | 0,0,576.8,276.7 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+    " DIV |  |  |  |  | 0,0,576.8,276.7 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+    "  DIV | yui3-widget.yui3-block-base.sqs-block-csr.sqs-block.yui3-dd-drop.rendered |  |  |  | 0,0,576.8,276.7 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | flex column | start | 0px | normal | normal | none",
+    "   DIV |  |  |  |  | 0,0,576.8,276 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+    "    DIV | newsletter-form-wrapper\n.\n.newsletter-form-wrapper--layoutFloat\n.newsletter-form |  |  |  | 0,0,576.8,276 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+    "     FORM | newsletter-form |  |  |  | 0,0,576.8,276 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+    "      HEADER |  |  |  |  | 43.3,0,490.3,110.3 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 43.2656px | block | center | 0px | normal | normal | none",
+    "       H2 |  |  |  | Subscribe | 43.3,0,490.3,49.4 | Poppins 41.2px/49.44px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 0px 16px | block | center | 0px | normal | 0.16px | none",
+    "       DIV |  |  |  |  | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+    "        P |  |  |  | Sign up with your email address to receive news and updates. | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | normal | normal | none",
+    "      DIV |  |  |  |  | 0,126.3,576.8,114 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px 0px 16px | 0px | block | center | 0px | normal | normal | none",
+    "       DIV | form-fields |  |  |  | 74.5,142.3,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+    "        DIV | form-item.field.email.required |  |  |  | 74.5,142.3,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 0px | inline-block | center | 0px | normal | normal | none",
+    "         LABEL | title |  |  | Email Address | 78.5,150.3,280,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+    "         INPUT | field-element | email | Email Address |  | 78.5,150.3,280,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+    "       DIV | submit-wrapper |  |  |  | 366.8,143.3,135.4,80 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+    "        BUTTON | \n.newsletter-form-button\n.sqs-system-button\n.sqs-editable-button-layout\n.sqs-edi | submit |  |  | 370.8,151.3,127.4,64 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgb(0, 0, 0) | 0px solid rgb(255, 255, 255) | 22.4px 32px | 0px | inline-block | center | 300px | nowrap | 0.32px | none",
+    "         SPAN | sqs-spin.light.large |  |  |  | 423.5,172.2,22,22 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | -11px 0px 0px -11px | block | center | 150px | nowrap | 0.32px | none",
+    "         SPAN |  |  |  | Sign Up | 402.8,171.6,63.4,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+    "         SPAN |  |  |  |  | 466.3,171.6,0,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+    "       DIV | captcha-container\n.\n.align-center\n.\n |  |  |  | 0,224.2,576.8,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+    "      DIV |  |  |  |  | 0,256.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+    "       P |  |  |  | We respect your privacy. | 0,256.2,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | block | center | 0px | normal | normal | none",
+    "   DIV |  |  |  |  | 0,0,576.8,276.7 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+    "   DIV |  |  |  |  | 0,0,6,6 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 3px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none",
+    "    DIV |  |  |  |  | 1,1,4,4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 2px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none"
+   ]
+  },
+  "emptyLine": {
+   "note": "Caret at the end of Description, Enter, Enter, Z q, then the field left: the block draws three paragraphs, the middle one empty and one line tall (22.4), with the same 16px between paragraphs; rows 7 to 9. The editor keeps an empty paragraph (marked to keep empty).",
+   "read": {
+    "rows": 9,
+    "area": "1/2/10/12",
+    "form": [
+     0,
+     352.765625
+    ],
+    "block": 358.84375,
+    "tree": [
+     "DIV | fe-block |  |  |  | 0,0,576.8,358.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     " DIV |  |  |  |  | 0,0,576.8,358.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "  DIV | yui3-widget.yui3-block-base.sqs-block-csr.sqs-block.yui3-dd-drop.rendered |  |  |  | 0,0,576.8,358.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | flex column | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,352.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV | newsletter-form-wrapper\n.\n.newsletter-form-wrapper--layoutFloat\n.newsletter-form |  |  |  | 0,0,576.8,352.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "     FORM | newsletter-form |  |  |  | 0,0,576.8,352.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "      HEADER |  |  |  |  | 43.3,0,490.3,187.1 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 43.2656px | block | center | 0px | normal | normal | none",
+     "       H2 |  |  |  | Subscribe | 43.3,0,490.3,49.4 | Poppins 41.2px/49.44px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px 0px 16px | block | center | 0px | normal | 0.16px | none",
+     "       DIV |  |  |  |  | 43.3,65.4,490.3,121.6 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "        P |  |  |  | Sign up with your email address to receive news and updates. | 43.3,65.4,490.3,44.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | pre-wrap | normal | none",
+     "        P |  |  |  |  | 43.3,126.3,490.3,22.4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | pre-wrap | normal | none",
+     "        P |  |  |  | Zq | 43.3,164.7,490.3,22.4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px | block | center | 0px | pre-wrap | normal | none",
+     "      DIV |  |  |  |  | 0,203.1,576.8,114 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px 0px 16px | 0px | block | center | 0px | normal | normal | none",
+     "       DIV | form-fields |  |  |  | 74.5,219.1,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+     "        DIV | form-item.field.email.required |  |  |  | 74.5,219.1,288,82 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 0px | inline-block | center | 0px | normal | normal | none",
+     "         LABEL | title |  |  | Email Address | 78.5,227.1,280,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "         INPUT | field-element | email | Email Address |  | 78.5,227.1,280,66 | Poppins 16px/19.2px 400 | rgb(0, 0, 0) | rgb(255, 255, 255) | 1px solid rgba(0, 0, 0, 0.12) | 22.4px 32px | 0px | inline-block | start | 0px | normal | normal | none",
+     "       DIV | submit-wrapper |  |  |  | 366.8,220.1,135.4,80 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 8px 4px | 16px 0px 0px | inline-block | center | 0px | normal | normal | none",
+     "        BUTTON | \n.newsletter-form-button\n.sqs-system-button\n.sqs-editable-button-layout\n.sqs-edi | submit |  |  | 370.8,228.1,127.4,64 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgb(0, 0, 0) | 0px solid rgb(255, 255, 255) | 22.4px 32px | 0px | inline-block | center | 300px | nowrap | 0.32px | none",
+     "         SPAN | sqs-spin.light.large |  |  |  | 423.5,249,22,22 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | -11px 0px 0px -11px | block | center | 150px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  | Sign Up | 402.8,248.5,63.4,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "         SPAN |  |  |  |  | 466.3,248.5,0,23 | Poppins 16px/19.2px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0) | 0px none rgb(255, 255, 255) | 0px | 0px | inline | center | 0px | nowrap | 0.32px | none",
+     "       DIV | captcha-container\n.\n.align-center\n.\n |  |  |  | 0,301,576.8,0 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "      DIV |  |  |  |  | 0,333,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | center | 0px | normal | normal | none",
+     "       P |  |  |  | We respect your privacy. | 0,333,576.8,19.7 | Poppins 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 16px 0px 0px | block | center | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,576.8,358.8 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "   DIV |  |  |  |  | 0,0,6,6 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 3px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none",
+     "    DIV |  |  |  |  | 1,1,4,4 | Poppins 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 2px solid rgba(112, 151, 228, 0.7) | 0px | 0px | block | start | 0px | normal | normal | none"
+    ]
+   },
+   "editorHtml": "<p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\">Sign up with your email address to receive news and updates.</p><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\"><br class=\"ProseMirror-trailingBreak\"></p><p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\">Zq</p>"
+  }
+ }
+}
