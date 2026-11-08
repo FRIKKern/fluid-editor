@@ -844,12 +844,18 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   watch(3000); await clickSel(act('play'), 60); await pause(3200);
   const pv = motion(frames());
   add('Stage square: still while Preview plays the block', pv === null && theirs(R('CAP-T15STAGE2').preview) === null, JSON.stringify(pv));
-  mouse(S, 'move', stage[0], stage[1] + 120); await pause(1600);
-  watch(3000); mouse(S, 'move', stage[0], stage[1]); await pause(3200);
-  const hv = motion(frames()), hv0 = theirs(R('CAP-T15STAGE3').hover);
-  add(`Stage square: the mouse on it plays it once, to Scale X ${hv0.peak} and back (oracle up ${hv0.up}, back ${hv0.back}, end ${hv0.end} ms)`, !!hv && near(hv.peak, hv0.peak, 0.01) && hv.back != null && Math.abs(hv.back - hv0.back) <= 150 && Math.abs(hv.end - hv0.end) <= 150, JSON.stringify(hv));
+  // D of an ease-out fitted to the run out, p = 1 - (1 - (t - ts) / D)^3 (as in CAP-T15STAGE5-PREDICTED.json).
+  const fitD = (pairs) => { const peak = Math.max(...pairs.map(([, x]) => x)), at = pairs.findIndex(([, x]) => x >= peak - 1e-4), fwd = pairs.slice(0, at + 1).map(([t, x]) => [t, (x - 1) / (peak - 1)]); let best = null; for (let D = 100; D <= 5000; D += 5) for (let ts = fwd[0][0] - 50; ts <= fwd[0][0] + 400; ts += 4) { let e = 0; for (const [t, p] of fwd) { const x = Math.min(Math.max((t - ts) / D, 0), 1); e += (1 - (1 - x) ** 3 - p) ** 2; } if (!best || e < best.e) best = { D, e }; } return best.D; };
+  const oursPairs = (f) => f.map(([t, m]) => [t, sx(m)]), theirPairs = (r) => r.frames.map((f) => [f[0], sx(f[1][0][0])]);
+  const hoverRun = async (ms) => { mouse(S, 'move', stage[0], stage[1] + 120); await pause(1600); watch(ms); mouse(S, 'move', stage[0], stage[1]); await pause(ms + 200); return frames(); };
+  const h1 = await hoverRun(3000), hv = motion(h1), hv0 = theirs(R('CAP-T15STAGE3').hover), dOurs = hv && fitD(oursPairs(h1)), dThem = fitD(theirPairs(R('CAP-T15STAGE3').hover));
+  add(`Stage square: the mouse on it plays it once, to Scale X ${hv0.peak} and back, out in ${dThem} ms at Duration 0.4s`, !!hv && near(hv.peak, hv0.peak, 0.01) && hv.back != null && Math.abs(dOurs - dThem) <= 0.1 * dThem, JSON.stringify({ ...hv, D: dOurs }));
   watch(1500); await pause(1700);
   add('Stage square: resting on it, it does not play again', motion(frames()) === null, 'it played');
+  await clickSel(`panel.querySelector('[data-anim="tab"][data-v="Timing"]')`, 260);
+  q(`const e = panel.querySelector('[data-afield="duration"]'); e.focus(); e.value = '1s'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(150); e.blur(); return 'true';`);
+  const h2 = await hoverRun(4200), d1 = h2 && motion(h2) && fitD(oursPairs(h2)), d1Them = fitD(theirPairs(R('CAP-T15STAGE4').d1));
+  add(`Stage square: at Duration 1s it goes out in ${d1Them} ms, as read`, !!d1 && Math.abs(d1 - d1Them) <= 0.1 * d1Them, String(d1));
 }
 
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');

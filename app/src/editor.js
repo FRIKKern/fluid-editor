@@ -2161,7 +2161,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
 });
 blockPanel.addEventListener('mouseover', (e) => {
   const st = e.target.closest?.('.an-stage');
-  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), a); return; } // once each time the mouse comes onto it
+  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), { ...a, duration: `${(parseFloat(a.duration) || 0.4) * 1.5}s` }); return; } // once each time the mouse comes onto it, at 1.5 times the Duration (CAP-T15STAGE4.json, CAP-T15STAGE5.json)
   const t = e.target.closest?.('.an-tile[data-anim-tile]');
   if (!t || t.contains(e.relatedTarget)) return;
   const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
