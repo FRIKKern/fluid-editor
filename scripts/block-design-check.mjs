@@ -299,8 +299,9 @@ const pixelAt = (file, x, y) => {
   }
   return [row[x * bpp], row[x * bpp + 1], row[x * bpp + 2]];
 };
-const blendShot = async (blend) => {
-  const at = q(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = []; fe.load(next); await sleep(250); fe.addBlock(s.id, 'Shape'); await sleep(300); const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[1].blocks.at(-1); b.design = { ...(b.design || {}), blend: '${blend}' }; fe.load(m); await sleep(300); fe.select(null); await sleep(100); const d = fr.contentDocument; d.querySelectorAll('.page-section')[1].scrollIntoView(); await sleep(300); const r = d.querySelector('.fe-block[data-block-id="' + b.id + '"]').getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([Math.round(o.left + r.left + r.width / 2), Math.round(o.top + r.top + r.height / 2), Math.round(o.left + r.right + 40)]);`);
+// under: a second Shape in the same place over the first, as a new one lands on the oracle, carries the blend (CAP-T15BLEND2.json).
+const blendShot = async (blend, under = false) => {
+  const at = q(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = []; fe.load(next); await sleep(250); fe.addBlock(s.id, 'Shape'); await sleep(300); const m = JSON.parse(JSON.stringify(fe.model)); if (${under}) { const t = JSON.parse(JSON.stringify(m.sections[1].blocks[0])); t.id = t.id + 'top'; m.sections[1].blocks.push(t); } const b = m.sections[1].blocks.at(-1); b.design = { ...(b.design || {}), blend: '${blend}' }; fe.load(m); await sleep(300); fe.select(null); await sleep(100); const d = fr.contentDocument; d.querySelectorAll('.page-section')[1].scrollIntoView(); await sleep(300); const r = d.querySelector('.fe-block[data-block-id="' + b.id + '"]').getBoundingClientRect(), o = fr.getBoundingClientRect(); return JSON.stringify([Math.round(o.left + r.left + r.width / 2), Math.round(o.top + r.top + r.height / 2), Math.round(o.left + r.right + 40)]);`);
   const file = `/tmp/block-design-blend-${process.pid}.png`; browser(S, 'screenshot', '--out', file);
   const got = { shape: pixelAt(file, at[0], at[1]), section: pixelAt(file, at[2], at[1]) }; rmSync(file, { force: true }); return got;
 };
@@ -309,6 +310,16 @@ let px = await blendShot('normal');
 add('Blend Normal: a white Shape stays white', same(px.shape, [255, 255, 255]) && !same(px.section, [255, 255, 255]), JSON.stringify(px));
 px = await blendShot('multiply');
 add('Blend Multiply: the Shape shows the section', same(px.shape, px.section) && !same(px.section, [255, 255, 255]), JSON.stringify(px));
+// Every mode by pixel against the oracle's read, a white Shape over the probe section (CAP-T15BLEND.json), and one
+// over another Shape (CAP-T15BLEND2.json). Ours draws its section in the same colour, so the pixels compare as read.
+const BLENDS = { Screen: 'screen', Overlay: 'overlay', Darken: 'darken', Lighten: 'lighten', 'Color Dodge': 'color-dodge', 'Color Burn': 'color-burn', 'Hard Light': 'hard-light', 'Soft Light': 'soft-light', Difference: 'difference', Exclusion: 'exclusion', Hue: 'hue', Saturation: 'saturation', Color: 'color', Luminosity: 'luminosity' };
+const blendRead = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15BLEND.json', import.meta.url))).pixels;
+for (const [name, css] of Object.entries(BLENDS)) {
+  px = await blendShot(css);
+  add(`Blend ${name}: the Shape's pixel as read`, same(px.shape, blendRead[name].shape) && same(px.section, blendRead[name].section), JSON.stringify({ ours: px, oracle: blendRead[name] }));
+}
+px = await blendShot('difference', true);
+add('Blend Difference over another white Shape: black, it blends with the block under it', same(px.shape, [0, 0, 0]) && same(px.section, [181, 100, 247]), JSON.stringify(px));
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
