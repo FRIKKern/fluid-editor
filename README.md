@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 89 changes
+- **Today** · 90 changes
+  - U10: the step on other lists, read through every pair; rule S 145 of 164 ([#473](https://github.com/FRIKKern/fluid-editor/pull/473))
   - T12: Menu panel; Product's image shape picker and corner radii (CAP-T12READS-E) ([#472](https://github.com/FRIKKern/fluid-editor/pull/472))
-  - T12: Product panel; Audio's Add File Link field out (0005) ([#471](https://github.com/FRIKKern/fluid-editor/pull/471))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
