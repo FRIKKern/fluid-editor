@@ -1750,9 +1750,9 @@
  "facts": [
   "Pricing Plan: the pull of 4 columns left 6 columns, not 4 (the block stopped there; its least width is not read). At 6 columns the block takes 12 rows (content 455.1) where 8 columns took 11 (430.1). Each Elements switch off: Title 10 rows (409.1), Description 8 (333.1), Price 9 (364.4), Benefits 9 (358.3), Button 9 (366.5); each back on: 12.",
   "Pricing Plan content heights by element (content with it on, less with it off): at 8 columns Title 46, Description 97, Price 90.7, Benefits 96.8, Button 88.6; at 6 columns Title 46, Description 122, Price 90.7, Benefits 96.8, Button 88.6. Only the Description wraps with the width.",
-  "Pricing Plan, scored and not fitted: the frozen rows rule (CAP-T12NEWSLETTER.json rowRule: grow to ceil(x - 0.02), shrink to floor(x + 0.02) when ceil is under the rows, x = (content + 11) / 41.094), with content the lowest leaf box, gives all 22 switch steps at both widths (11 at 8 columns, 11 at 6). The rule was not fitted on these reads.",
+  "Pricing Plan, scored and not fitted: the frozen rows rule (CAP-T12NEWSLETTER.json rowRule: grow to ceil(x - 0.02), shrink to floor(x + 0.02) when ceil is under the rows, x = (content + 11) / 41.094), with content the lowest leaf box, gives all 20 switch steps (10 at 8 columns, 10 at 6). The rule was not fitted on these reads.",
   "Product at 3 columns keeps 10 rows after the pull (content 184.7). Switch steps: Image off 2, on 6; Title off 4, on 6; Price off 4, on 6; Description on 9, off 4; Add to Cart Button on 8, off 5; Product Quick View on and off 5. The rows depend on the order of the presses, not only on what is on.",
-  "Product, scored and not fitted: the same frozen rule with the lowest leaf box misses steps at both widths (at 6 columns Image off gives 1 for 3, Title off 6 for 8, Description on 10 for 11): the lowest leaf box is not what the rows of a Product answer to. Not modelled.",
+  "Product, scored and not fitted: the same frozen rule with the lowest leaf box scores 7 of 12 at 6 columns and 6 of 12 at 3, mostly one row under (at 6 columns Image off gives 1 for 3, Title off 6 for 8, Description on 10 for 11): the lowest leaf box is not what the rows of a Product answer to. Not modelled.",
   "Audio at 4 columns: Title, Artist and Download Link change no rows (3), as at 6."
  ]
 }
