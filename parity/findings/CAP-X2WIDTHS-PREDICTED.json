@@ -1,0 +1,822 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-08",
+  "question": "X2, a new rule for the first steps from the right margin track: a lone block there goes left by its right edge (the mirror of the left margin) unless its width is a multiple of 3, which keeps the left edge rule. Fresh widths 1, 5, 11 and 13, and 12 as the multiple-of-3 control. A new Shape, rows 1 to 7, ending on line 27, walked left 1px at a time with the real pointer, pressed 20px in from its left at half its height, one block per enter, Gestures Probe, unsaved.",
+  "from": "Our code in this commit (editor.js updateMove: fromRight needs bw % 3 !== 0), walked as snap-check walks (scratch predictor, press at the middle: the step counts from the press, CAP-G4GRAB.json). Seen before: the mirror fits CAP-X2STEPS.json (15 of 15 legs) and CAP-X2STEPS3.json (9 of 9 legs that ran); HOLD.json's 6 wide follows the left edge rule past its first moves. The mirror alone was round 1 (CAP-X2STEPS2, 3 of 18) and refit 1 (CAP-X2STEPS3, 11 of 15); this width split is a new rule, its own round 1.",
+  "rule": {
+    "not a multiple of 3": "the right edge leads: steps left at -51, -136, -194, -253 from the press, home at -252, -193, -135, -50 (frame 1600)",
+    "a multiple of 3": "the left edge rule, ours on main: -35, -94, -153, -212, -271, home -270, -211, -152, -93, -34"
+  },
+  "hit": "Each leg (xBack, xHome) within 1px per step with the same areas, as snap-check scores; the first xOut entry on the oracle is the ring showing, not a step. A block whose start is not on line 27 is a setup miss, named, not scored.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -293.9,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r w1 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      280,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "r w1",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r w5 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      280,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "r w5",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      293.9,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r w11 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      280,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "r w11",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      411.46,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r w13 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      280,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "r w13",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      352.68,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r w12 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      280,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "r w12",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "walks": {
+    "r w1": {
+      "start": "1 / 26 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 25 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 24 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 23 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 22 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 23 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 24 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 25 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 26 / 7 / 27"
+        ]
+      ]
+    },
+    "r w5": {
+      "start": "1 / 22 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 21 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 20 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 19 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 18 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 19 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 20 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 21 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 22 / 7 / 27"
+        ]
+      ]
+    },
+    "r w11": {
+      "start": "1 / 16 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 15 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 14 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 13 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 12 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 13 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 14 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 15 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 16 / 7 / 27"
+        ]
+      ]
+    },
+    "r w13": {
+      "start": "1 / 14 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 13 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 12 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 11 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 10 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 11 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 12 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 13 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 14 / 7 / 27"
+        ]
+      ]
+    },
+    "r w12": {
+      "start": "1 / 15 / 7 / 27",
+      "xBack": [
+        [
+          -35,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -94,
+          "1 / 13 / 7 / 25"
+        ],
+        [
+          -153,
+          "1 / 12 / 7 / 24"
+        ],
+        [
+          -212,
+          "1 / 11 / 7 / 23"
+        ],
+        [
+          -271,
+          "1 / 10 / 7 / 22"
+        ]
+      ],
+      "xHome": [
+        [
+          -270,
+          "1 / 11 / 7 / 23"
+        ],
+        [
+          -211,
+          "1 / 12 / 7 / 24"
+        ],
+        [
+          -152,
+          "1 / 13 / 7 / 25"
+        ],
+        [
+          -93,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -34,
+          "1 / 15 / 7 / 27"
+        ]
+      ]
+    }
+  }
+}
