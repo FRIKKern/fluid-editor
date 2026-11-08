@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -34,9 +34,10 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { standinPanelOf } from './standin-panels.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -574,7 +575,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -989,7 +990,7 @@ function onDown(e) {
   pressFresh = !sel;
   // The block is selected on let go, or when a drag starts, not on the press (CAP-U9FADE4D.json, CAP-SELECTLETGO.json).
   const pick = onKid ? null : keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid };
-  const r = blk.getBoundingClientRect();
+  const r = (blockEl(bid) || blk).getBoundingClientRect(); // After one Escape the press redrew the section: blk is gone (CAP-X2UNREAD under)
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
@@ -1042,9 +1043,11 @@ function onUp(e) {
     gesture = null;
     if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
-    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
-    // A press with no move is not read.
-    if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
+    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json), nor pressed
+    // with no move, and neither is a top corner pressed with no move (CAP-X2UNREAD.json se and ne 0,0, twice each).
+    // Read on se and ne only; sw and nw are inferred. A top corner moved short of a drag isn't read.
+    const corner = g.resizeDir || '', still = e.clientX === g.x0 && e.clientY === g.y0;
+    if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (/^s/.test(corner) || still || g.y0 - e.clientY > LET_GO_ABOVE)) { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1075,7 +1078,9 @@ function onUp(e) {
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
-const LET_GO_ABOVE = 30; // a Text's top corners: level with the old top stays selected, 60 above does not
+// A Text's top corners: level with the old top stays selected (CAP-X2EDGES.json), 10, 20, 40, 50 and 60 above do not
+// (CAP-X2UNREAD.json, twice each). The line is between 0 and 10: 5 is inferred.
+const LET_GO_ABOVE = 5;
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1751,7 +1756,7 @@ let anim = { ...ANIM_LIST };
 let animClip = null; // copied rows
 let animPosed = null; // the block held in the pose of the End, Start or Range tab
 let animPlaying = false;
-let animPlay = null; // after the next draw: 'tiles' or 'square'
+let animPlay = null; // after the next draw: 'tiles'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 let accGrew = false; // an edit in the item view on show made the block grow
@@ -1789,7 +1794,8 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
-    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() } : null;
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
+    : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -1800,7 +1806,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' && !standinPanelOf(b) ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -1993,7 +1999,6 @@ function syncAnimView(b) {
   const play = animPlay;
   animPlay = null;
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
-  if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
 function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
 function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
@@ -2083,10 +2088,8 @@ function animWrite(a, key, v) {
   if (key === 'ease' && v === 'Spring') a.bounce ??= '0.3';
   if (key === 'ease' && v === 'Custom') a.custom ??= '0, 0, 1, 1';
 }
-// After a change the stage square stays still on an On Hover row; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE3.json).
-const squareAfterChange = () => animRows()[anim.i]?.trigger !== 'hover';
+// After a change the stage square stays still, on every trigger; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE6-*.json).
 function animSet(key, v) {
-  if (squareAfterChange()) animPlay = 'square';
   animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
@@ -2165,7 +2168,6 @@ blockPanel.addEventListener('pointerdown', (e) => {
     // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
     if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
-    if (squareAfterChange()) animPlay = 'square';
     renderBlockPanel();
     caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
@@ -2174,11 +2176,16 @@ blockPanel.addEventListener('pointerdown', (e) => {
 });
 blockPanel.addEventListener('mouseover', (e) => {
   const st = e.target.closest?.('.an-stage');
-  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), { ...a, duration: `${(parseFloat(a.duration) || 0.4) * 1.5}s` }); return; } // once each time the mouse comes onto it, at 1.5 times the Duration (CAP-T15STAGE4.json, CAP-T15STAGE5.json)
+  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a) playStage(st.querySelector('.an-sq'), a); return; } // once each time the mouse comes onto it (CAP-T15STAGE3.json, CAP-T15STAGE6-*.json)
   const t = e.target.closest?.('.an-tile[data-anim-tile]');
   if (!t || t.contains(e.relatedTarget)) return;
   const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
   if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id));
+});
+// A Loop's square stays at its End until the mouse leaves the stage (inferred: the read after leaving found it at rest).
+blockPanel.addEventListener('mouseout', (e) => {
+  const st = e.target.closest?.('.an-stage');
+  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop' && animRows()[anim.i].type !== 'Ping Pong') releasePose(st.querySelector('.an-sq'));
 });
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
@@ -2698,6 +2705,32 @@ blockPanel.addEventListener('change', (e) => {
   // that left the field waits for its click: the redraw would take the switch or pick from under it.
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
+// A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
+function setStandinValue(key, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.sp = { ...b.sp, [key]: v };
+  commit(before, `${b.label} ${key} changed`);
+}
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('input[data-sp-set], input[data-sp-field], input[data-sp-range]');
+  if (!t || !sel) return;
+  if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
+  if (t.dataset.spRange) return setStandinValue(t.dataset.spRange, Number(t.value));
+  const f = t.dataset.spField;
+  if (t.dataset.min == null) return setStandinValue(f, t.value);
+  const n = Math.round(parseFloat(t.value));
+  if (Number.isFinite(n)) setStandinValue(f, Math.max(Number(t.dataset.min), Math.min(Number(t.dataset.max), n))); else renderBlockPanel();
+});
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('input[data-sp-range]');
+  const f = r && blockPanel.querySelector(`input[data-sp-field="${r.dataset.spRange}"]`);
+  if (f) f.value = r.value;
+  if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
+});
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-sp-set]');
+  if (t && sel) setStandinValue(t.dataset.spSet, t.dataset.v);
+});
 // Newsletter's Show Name Field, Layout and Alignment: one undo step each, after the step of a field just left.
 function setNewsletter(key, v) {
   standinFlush?.();
@@ -2975,6 +3008,20 @@ shapePop.hidden = true;
 document.body.append(shapePop);
 function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); blockPanel.querySelector('.st-color.is-open')?.classList.remove('is-open'); }
 const MAP_ORDER = [1, 2, 3, 5, 4, 6]; // Original, Grayscale, Satellite, Dark, Light, Blue
+// An Appear pick plays the effect once on the Quote, in the editor (CAP-T12QUOTEAPPEAR3.json, CAP-T12QUOTEAPPEAR4.json, two
+// reads each): the quote stays put about 290 ms after the press, takes the effect's start pose, holds to about 545 ms, then
+// eases to rest in 0.8s on cubic-bezier(0.4, 0, 0.2, 1), opacity from 0. None and Site Default do not move it.
+const APPEAR_FROM = { 'Fade In': 'none', 'Slide Up': 'translateY(20px)', 'Focus In': 'scale(0.92)', Reveal: 'translateX(20px)' };
+function playAppear(bid, v) {
+  const fig = blockEl(bid)?.querySelector('.sqs-quote-block-contents'), from = APPEAR_FROM[v];
+  if (!fig || !from) return;
+  const T = 290 + 255 + 800, at = 290 / T, go = 545 / T;
+  fig.animate([
+    { offset: 0, opacity: 1, transform: 'none' }, { offset: at, opacity: 1, transform: 'none' },
+    { offset: at, opacity: 0, transform: from }, { offset: go, opacity: 0, transform: from, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+    { offset: 1, opacity: 1, transform: 'none' },
+  ], { duration: T });
+}
 function setShape(change, label) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   change(b);
@@ -3198,7 +3245,7 @@ shapePop.addEventListener('click', (e) => {
   if (apo) {
     const v = apo.dataset.appearOpt;
     closeShapePop();
-    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`);
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
     return;
   }
   const io = e.target.closest('[data-image-opt]');
@@ -3825,6 +3872,9 @@ function setAccordion(change, label, before = JSON.stringify(model)) {
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-acc]');
   const s = e.target.closest('button[data-acc-set]');
+  const st = e.target.closest('button[data-acc-step]');
+  // A step stays within the limits; at a limit the button stays on and the value stays (CAP-T12READS-D.json).
+  if (st && sel) { const k = st.dataset.accStep; setAccordion((b) => { b[k] = Math.max(Number(st.dataset.min), Math.min(Number(st.dataset.max), accCustomFrom(b, k) + Number(st.dataset.v))); }, `${k} ${st.dataset.v > 0 ? 'up' : 'down'}`); return; }
   if ((!a && !s) || !sel) return;
   if (s) {
     const k = s.dataset.accSet, v = s.dataset.v;
@@ -3863,6 +3913,7 @@ function accCustomFrom(b, k) {
   if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
   if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
   if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
+  if (k === 'iconThickness') return typeof b.iconThickness === 'number' ? b.iconThickness : ACCORDION_LINE[b.iconThickness || 'S'];
   if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
   return pad(b.rowPadding, (n) => [n, 0, n, 0]);
 }
@@ -5715,10 +5766,18 @@ function placeChrome() {
     const st = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
     // On phones the panel keeps the top it opened at, and closes once its section's bottom is above the canvas's top
     // (CAP-U9REST.json, CAP-U9REST2.json).
-    if (phone ? q.bottom < 0 : sectionPanelGone({ secTop: fr.top + q.top, secBottom: fr.top + q.bottom })) { closeSectionPanel(); return; }
+    // On the desktop, while it stays open, it keeps to the band of its section's content box (sectionPanelScrolled).
+    const cw = el.querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+    const low = fr.top + cw.top + 1, high = fr.top + cw.bottom + 1 - 476;
+    if (phone ? q.bottom < 0 : high < PANEL_BAND_CLOSES_AT) { closeSectionPanel(); return; }
     sectionPanel.style.left = `${phone ? fr.right - st.left + 195 : st.width - 342}px`;
     const held = panelPlace?.sid === editSid ? panelPlace.top : null;
-    const place = phone && held !== null ? held : sectionPanelTop({ edit: st.top + L.card.top + 7, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom, prev: held });
+    // Opening at edit + 49 on the desktop, it starts inside that band: seen on all 9 opens of the scroll walks, not predicted;
+    // the openings lower down stay as read (SECTIONBAR.json), above the band.
+    const edit = st.top + L.card.top + 7, opened = held === null && sectionPanelTop({ edit, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom });
+    const inBand = !phone && edit + 49 + 476 <= window.innerHeight - 170;
+    const place = held === null ? (inBand ? Math.round(Math.min(Math.max(opened, low), high)) : opened)
+      : phone ? held : sectionPanelScrolled({ prev: held, H: window.innerHeight, low, high });
     panelPlace = { sid: editSid, top: place };
     sectionPanel.style.top = `${place - st.top}px`;
   }

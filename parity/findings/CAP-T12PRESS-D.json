@@ -1,0 +1,1707 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Press reads, batch D: what each in-scope row of Audio, Donation, Search Field, OpenTable, OpenTable (Domain), Zola changes on the block.",
+ "how": "Run f70 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then each step by a named press with an on-top check (a switch by its aria-label, a button by its label, a field by Cmd+A, Backspace and keys then Tab, a menu by its row then an option). The block (area, size, every visible leaf box) is read before and after each step. No row that makes something outside the block, opens a service, or reaches a store or payments was pressed. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "blocks": {
+  "Audio": {
+   "note": "Content: Title typed Song: the title line 'No File' reads Song (15.6px/18.2px, white 0.95). Artist typed Band: an artistName line (13px, white 0.5) shows under the title, the pair centered (title top 47 to 37.9). Download Link on: a Download link (13px, white 0.5) at the right, the title column narrows 221.7 to 156.1; off undoes both. Add File Link: the segment shows its field, the block does not change (no link typed: it would load an outside file). Design: Minimal is the default (its press changed nothing); Light turns text and play button black (0.95, artist 0.5) and the divider background black 0.03; Classic draws another player (a controls box, author and title 11px/12px 500 grey, a bar) and hides the Color row, so the Dark press found nothing. Navigate to Podcast opens a Podcast view (Back, Title, Subtitle, Summary, Episode notes, Episode type, in the step's note); nothing changed there. Rows stay 3 throughout. Upload File was not pressed.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 4 / 8",
+    "size": [
+     341.6875,
+     112.28125
+    ],
+    "leaves": [
+     "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+     "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+     "DIV | title | No File |  | 75,47,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "typenear": "Title",
+      "value": "Song"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | No File |  | 75,47,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,47,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "typenear": "Artist",
+      "value": "Band"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,47,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "swnear": "Download Link"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,156.1,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,156.1,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "A | download | Download |  | 261.1,48.3,65.6,15.6 | 13px/15.6px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "swnear": "Download Link"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,156.1,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,156.1,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "A | download | Download |  | 261.1,48.3,65.6,15.6 | 13px/15.6px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "btn": "Add File Link"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Minimal"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Light"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(255, 255, 255, 0.95) | rgba(255, 255, 255, 0.1)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(255, 255, 255, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(255, 255, 255, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0.03)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(0, 0, 0, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Classic"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | play-button |  |  | 22,46.2,15,20 | 13px/16px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0)",
+       "SPAN | icon |  |  | 59,0,1,112.3 | 13px/13px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0.03)",
+       "DIV | title | Song |  | 75,37.9,221.7,18.2 | 15.6px/18.2px 400 | rgba(0, 0, 0, 0.95) | rgba(0, 0, 0, 0)",
+       "DIV | artistName | Band |  | 75,56.1,221.7,18.2 | 13px/18.2px 400 | rgba(0, 0, 0, 0.5) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | controls disabled |  |  | 1,1,32,30 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-author | Band |  | 36,11,35.5,12 | 11px/12px 500 | rgb(204, 204, 204) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-title | Song |  | 74.8,11,27.1,12 | 11px/12px 500 | rgb(170, 170, 170) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 300.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 305.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 310.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 315.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 320.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Dark"
+     },
+     "error": "tap Dark: nothing found"
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "nav": "Navigate to Podcast"
+     },
+     "note": {
+      "view": {
+       "box": [
+        461,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Back @33,18,32,14",
+        "Podcast @133,15,54,22",
+        "Learn more @118,107,65,16",
+        "Title @22,129,276,32",
+        "Subtitle @22,223,276,32",
+        "Summary @22,322,276,36",
+        "Episode notes @22,479,276,22",
+        "Episode type @22,753,87,44",
+        "Full (default) @175,764,88,22",
+        "Season number @22,804,105,44",
+        "Episode number @22,855,110,44",
+        "Duration @22,906,57,44",
+        "Explicit content @22,957,88,44",
+        "File size @22,1042,53,44",
+        "Mime type @22,1093,71,44",
+        "Other @175,1104,88,22",
+        "Podcast analytics URL @22,1244,276,32"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+        "BUTTON|button||||||Back|11,3,54,46",
+        "INPUT|text|||||||33,178,254,22",
+        "INPUT|text|||||||33,272,254,22",
+        "TEXTAREA|textarea|||||||33,369,254,88",
+        "INPUT|text|||full||||162,752,1,1",
+        "BUTTON|submit||||||Full (default)|163,753,135,44",
+        "INPUT|text|||||||174,815,113,22",
+        "INPUT|text|||||||174,866,113,22",
+        "INPUT|text|||||||174,917,113,22",
+        "INPUT|checkbox|||||||272,973,12,12",
+        "INPUT|text|||||||174,1053,113,22",
+        "INPUT|text|||other||||162,1092,1,1",
+        "BUTTON|submit||||||Other|163,1093,135,44",
+        "INPUT|text|||||||33,1165,254,22",
+        "INPUT|text||(web-address placeholder)|||||33,1293,254,22"
+       ]
+      },
+      "looks": [
+       "BUTTON | button |  |  |  | 11,2.5,54.2,46 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(242, 242, 242) | 3px | none | -0.14px | ",
+       "SPAN |  |  | Back |  | 33,17.5,32.2,14 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "A |  |  | Learn more |  | 118.4,107,65,16 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 1px solid rgb(121, 121, 121) | 0px | none | normal | ",
+       "LABEL |  |  | Title |  | 22,129,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text |  |  |  | 33,178,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "LABEL |  |  | Subtitle |  | 22,223,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text |  |  |  | 33,272,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "LABEL |  |  | Summary |  | 22,322,276,36 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "TEXTAREA | textarea |  |  |  | 33,369,254,88 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "P |  |  | Episode notes |  | 22,479,276,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text |  | full |  | 162,752,1,1 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | combobox |  |  |  | 163,753,135,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 6px | none | normal | ",
+       "SPAN |  |  | Full (default) |  | 175,764,87.6,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "INPUT | text |  |  |  | 174,815,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "INPUT | text |  |  |  | 174,866,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "INPUT | text |  |  |  | 174,917,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "INPUT | checkbox |  |  |  | 272,973,12,12 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 9999px | none | normal | false",
+       "INPUT | text |  |  |  | 174,1053,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "INPUT | text |  | other |  | 162,1092,1,1 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | combobox |  |  |  | 163,1093,135,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 6px | none | normal | ",
+       "SPAN |  |  | Other |  | 175,1104,87.6,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "INPUT | text |  |  |  | 33,1165,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "LABEL |  |  | Podcast analytics URL |  | 22,1244,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text |  |  | (web-address placeholder) | 33,1293,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false"
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | controls disabled |  |  | 1,1,32,30 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-author | Band |  | 36,11,35.5,12 | 11px/12px 500 | rgb(204, 204, 204) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-title | Song |  | 74.8,11,27.1,12 | 11px/12px 500 | rgb(170, 170, 170) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 300.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 305.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 310.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 315.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 320.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-audio audio-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | controls disabled |  |  | 1,1,32,30 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-author | Band |  | 36,11,35.5,12 | 11px/12px 500 | rgb(204, 204, 204) | rgba(0, 0, 0, 0)",
+       "SPAN | audio-title | Song |  | 74.8,11,27.1,12 | 11px/12px 500 | rgb(170, 170, 170) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 300.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 305.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 310.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 315.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | bar active |  |  | 320.7,12,5,10 | 11px/12px 500 | rgb(107, 107, 107) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Podcast @133,15,54,22",
+     "Learn more @118,107,65,16",
+     "Title @22,129,276,32",
+     "Subtitle @22,223,276,32",
+     "Summary @22,322,276,36",
+     "Episode notes @22,479,276,22",
+     "Episode type @22,753,87,44",
+     "Full (default) @175,764,88,22",
+     "Season number @22,804,105,44",
+     "Episode number @22,855,110,44",
+     "Duration @22,906,57,44",
+     "Explicit content @22,957,88,44",
+     "File size @22,1042,53,44",
+     "Mime type @22,1093,71,44",
+     "Other @175,1104,88,22",
+     "Podcast analytics URL @22,1244,276,32"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|||||||33,178,254,22",
+     "INPUT|text|||||||33,272,254,22",
+     "TEXTAREA|textarea|||||||33,369,254,88",
+     "INPUT|text|||full||||162,752,1,1",
+     "BUTTON|submit||||||Full (default)|163,753,135,44",
+     "INPUT|text|||||||174,815,113,22",
+     "INPUT|text|||||||174,866,113,22",
+     "INPUT|text|||||||174,917,113,22",
+     "INPUT|checkbox|||||||272,973,12,12",
+     "INPUT|text|||||||174,1053,113,22",
+     "INPUT|text|||other||||162,1092,1,1",
+     "BUTTON|submit||||||Other|163,1093,135,44",
+     "INPUT|text|||||||33,1165,254,22",
+     "INPUT|text||(web-address placeholder)|||||33,1293,254,22"
+    ]
+   }
+  },
+  "Donation": {
+   "note": "Content: Fund Dropdown Label typed Give to: the block does not change (no funds, so no dropdown is drawn). Button Text typed Give: the button label reads Give and the button narrows 172.5 to 149, staying centered. Rows stay 15. Design was read only, not pressed: it says 'Form style affects all forms on your site.' Set Up Payment Processor and Funds were not pressed.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 16 / 8",
+    "size": [
+     341.6875,
+     605.40625
+    ],
+    "leaves": [
+     "svg | sqs-blockStatus-alert-badge |  |  | 307.7,64,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 309.7,66,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 317.7,70,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 317.7,78,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-blockStatus-box-title | Donation Block |  | 28.3,80.2,251.2,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-blockStatus-box-message | Set up a payment processor to start receiving donations. |  | 28.3,111,251.2,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "INPUT | rGgDKsQQwQshZCTQ | 1000 |  | 119.8,86.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | radio-label | NOK 10.00 |  | 150.8,86.6,67.2,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "INPUT | rGgDKsQQwQshZCTQ | 2000 |  | 118,118.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | radio-label | NOK 20.00 |  | 149,118.6,70.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "INPUT | rGgDKsQQwQshZCTQ | 3000 |  | 117.9,150.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | radio-label | NOK 30.00 |  | 148.9,150.6,70.9,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "INPUT | rGgDKsQQwQshZCTQ | 4000 |  | 117.6,182.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | radio-label | NOK 40.00 |  | 148.6,182.6,71.5,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "INPUT | rGgDKsQQwQshZCTQ | Custom Amount |  | 95.5,214.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | radio-label | Custom Amount |  | 126.5,214.6,115.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SELECT | WRQLXcvkXgAPo369 | MONTHLY |  | 22.5,254.5,296.7,44.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | form-input-effects-border |  |  | 22.5,254.5,296.7,44.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "svg |  |  |  | 280.2,270.7,18,12 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 280.6,271.2,17.1,10.6 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "INPUT | wIoTXuBC0lMFtpfY | coverTheFees |  | 22.5,340.6,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+     "SPAN |  | Support us by covering the fees we have to pay |  | 53.5,330.9,261.7,39.4 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "LABEL |  | 3% Cover the Fee |  | 22.5,394.3,216.5,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | BGBO5_6y1KYeayv6 | NOK 0.30 |  | 239,394.3,80.2,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "LABEL | ZW42lDnroPsGMk8d | Total per month |  | 22.5,419.3,216.5,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | ZW42lDnroPsGMk8d BGBO5_6y1KYeayv6 | NOK 10.30 |  | 239,419.3,80.2,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "BUTTON | button sqs-system-button sqs-editable-button form- |  |  | 84.6,464.3,172.5,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+     "SPAN |  | Donate |  | 140.6,485.1,60.5,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+     "SPAN |  |  |  | 156.8,494.8,28,5.6 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+     "SPAN |  |  |  | 160.4,487.2,20.8,20.8 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,341.7,605.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "typenear": "Fund Dropdown Label",
+      "value": "Give to"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 16 / 8",
+      "size": [
+       341.6875,
+       605.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 307.7,64,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 309.7,66,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,70,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,78,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Donation Block |  | 28.3,80.2,251.2,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Set up a payment processor to start receiving donations. |  | 28.3,111,251.2,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 1000 |  | 119.8,86.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 10.00 |  | 150.8,86.6,67.2,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 2000 |  | 118,118.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 20.00 |  | 149,118.6,70.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 3000 |  | 117.9,150.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 30.00 |  | 148.9,150.6,70.9,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 4000 |  | 117.6,182.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 40.00 |  | 148.6,182.6,71.5,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | Custom Amount |  | 95.5,214.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | Custom Amount |  | 126.5,214.6,115.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SELECT | WRQLXcvkXgAPo369 | MONTHLY |  | 22.5,254.5,296.7,44.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 22.5,254.5,296.7,44.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "svg |  |  |  | 280.2,270.7,18,12 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 280.6,271.2,17.1,10.6 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | wIoTXuBC0lMFtpfY | coverTheFees |  | 22.5,340.6,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN |  | Support us by covering the fees we have to pay |  | 53.5,330.9,261.7,39.4 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL |  | 3% Cover the Fee |  | 22.5,394.3,216.5,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | BGBO5_6y1KYeayv6 | NOK 0.30 |  | 239,394.3,80.2,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | ZW42lDnroPsGMk8d | Total per month |  | 22.5,419.3,216.5,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | ZW42lDnroPsGMk8d BGBO5_6y1KYeayv6 | NOK 10.30 |  | 239,419.3,80.2,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | button sqs-system-button sqs-editable-button form- |  |  | 84.6,464.3,172.5,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN |  | Donate |  | 140.6,485.1,60.5,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 156.8,494.8,28,5.6 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 160.4,487.2,20.8,20.8 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,605.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 16 / 8",
+      "size": [
+       341.6875,
+       605.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 307.7,64,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 309.7,66,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,70,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,78,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Donation Block |  | 28.3,80.2,251.2,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Set up a payment processor to start receiving donations. |  | 28.3,111,251.2,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 1000 |  | 119.8,86.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 10.00 |  | 150.8,86.6,67.2,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 2000 |  | 118,118.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 20.00 |  | 149,118.6,70.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 3000 |  | 117.9,150.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 30.00 |  | 148.9,150.6,70.9,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 4000 |  | 117.6,182.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 40.00 |  | 148.6,182.6,71.5,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | Custom Amount |  | 95.5,214.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | Custom Amount |  | 126.5,214.6,115.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SELECT | WRQLXcvkXgAPo369 | MONTHLY |  | 22.5,254.5,296.7,44.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 22.5,254.5,296.7,44.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "svg |  |  |  | 280.2,270.7,18,12 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 280.6,271.2,17.1,10.6 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | wIoTXuBC0lMFtpfY | coverTheFees |  | 22.5,340.6,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN |  | Support us by covering the fees we have to pay |  | 53.5,330.9,261.7,39.4 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL |  | 3% Cover the Fee |  | 22.5,394.3,216.5,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | BGBO5_6y1KYeayv6 | NOK 0.30 |  | 239,394.3,80.2,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | ZW42lDnroPsGMk8d | Total per month |  | 22.5,419.3,216.5,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | ZW42lDnroPsGMk8d BGBO5_6y1KYeayv6 | NOK 10.30 |  | 239,419.3,80.2,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | button sqs-system-button sqs-editable-button form- |  |  | 84.6,464.3,172.5,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN |  | Donate |  | 140.6,485.1,60.5,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 156.8,494.8,28,5.6 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 160.4,487.2,20.8,20.8 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,605.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "typenear": "Button Text",
+      "value": "Give"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 16 / 8",
+      "size": [
+       341.6875,
+       605.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 307.7,64,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 309.7,66,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,70,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,78,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Donation Block |  | 28.3,80.2,251.2,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Set up a payment processor to start receiving donations. |  | 28.3,111,251.2,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 1000 |  | 119.8,86.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 10.00 |  | 150.8,86.6,67.2,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 2000 |  | 118,118.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 20.00 |  | 149,118.6,70.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 3000 |  | 117.9,150.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 30.00 |  | 148.9,150.6,70.9,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 4000 |  | 117.6,182.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 40.00 |  | 148.6,182.6,71.5,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | Custom Amount |  | 95.5,214.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | Custom Amount |  | 126.5,214.6,115.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SELECT | WRQLXcvkXgAPo369 | MONTHLY |  | 22.5,254.5,296.7,44.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 22.5,254.5,296.7,44.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "svg |  |  |  | 280.2,270.7,18,12 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 280.6,271.2,17.1,10.6 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | wIoTXuBC0lMFtpfY | coverTheFees |  | 22.5,340.6,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN |  | Support us by covering the fees we have to pay |  | 53.5,330.9,261.7,39.4 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL |  | 3% Cover the Fee |  | 22.5,394.3,216.5,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | BGBO5_6y1KYeayv6 | NOK 0.30 |  | 239,394.3,80.2,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | ZW42lDnroPsGMk8d | Total per month |  | 22.5,419.3,216.5,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | ZW42lDnroPsGMk8d BGBO5_6y1KYeayv6 | NOK 10.30 |  | 239,419.3,80.2,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | button sqs-system-button sqs-editable-button form- |  |  | 84.6,464.3,172.5,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN |  | Donate |  | 140.6,485.1,60.5,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 156.8,494.8,28,5.6 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 160.4,487.2,20.8,20.8 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,605.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 16 / 8",
+      "size": [
+       341.6875,
+       605.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 307.7,64,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 309.7,66,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,70,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 317.7,78,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Donation Block |  | 28.3,80.2,251.2,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Set up a payment processor to start receiving donations. |  | 28.3,111,251.2,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 1000 |  | 119.8,86.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 10.00 |  | 150.8,86.6,67.2,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 119.8,86.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 2000 |  | 118,118.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 20.00 |  | 149,118.6,70.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 118,118.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 3000 |  | 117.9,150.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 30.00 |  | 148.9,150.6,70.9,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.9,150.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | 4000 |  | 117.6,182.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | NOK 40.00 |  | 148.6,182.6,71.5,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 117.6,182.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | rGgDKsQQwQshZCTQ | Custom Amount |  | 95.5,214.5,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | radio-label | Custom Amount |  | 126.5,214.6,115.8,19.7 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | CzwcrY6PnYkV2_MH radio-mark |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | YOn533mi9w4qUBoY radio-outline |  |  | 95.5,214.5,20,20 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SELECT | WRQLXcvkXgAPo369 | MONTHLY |  | 22.5,254.5,296.7,44.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 22.5,254.5,296.7,44.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "svg |  |  |  | 280.2,270.7,18,12 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 280.6,271.2,17.1,10.6 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT | wIoTXuBC0lMFtpfY | coverTheFees |  | 22.5,340.6,20,20 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN |  | Support us by covering the fees we have to pay |  | 53.5,330.9,261.7,39.4 | 14.08px/19.712px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL |  | 3% Cover the Fee |  | 22.5,394.3,216.5,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | BGBO5_6y1KYeayv6 | NOK 0.30 |  | 239,394.3,80.2,25 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | ZW42lDnroPsGMk8d | Total per month |  | 22.5,419.3,216.5,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | ZW42lDnroPsGMk8d BGBO5_6y1KYeayv6 | NOK 10.30 |  | 239,419.3,80.2,25 | 16px/normal 700 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | button sqs-system-button sqs-editable-button form- |  |  | 96.4,464.3,149,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN |  | Give |  | 152.4,485.1,37,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 156.8,494.8,28,5.6 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "SPAN |  |  |  | 160.4,487.2,20.8,20.8 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,605.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Set Up Payment Processor @45,92,214,22",
+     "This is required to start receiving donations. @45,114,214,44",
+     "Funds @22,206,41,22",
+     "General Fund @22,228,254,16",
+     "Fund Dropdown Label @0,286,320,16",
+     "The dropdown label is shown when there is more than one fund attached  @0,358,320,32",
+     "Button Text @0,412,320,16"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|submit|Navigate to Funds||||||282,217,16,16",
+     "INPUT|text|||Give to||||22,302,276,44",
+     "INPUT|text|||Give||||22,428,276,44"
+    ]
+   }
+  },
+  "Search Field": {
+   "note": "Content: Search specific page on and off: the block does not change (Page lists No collections found). Design: Theme Light turns the input text rgb(247, 247, 247) from rgb(0, 0, 0); Dark returns it. Quick preview off and on: no change on the block (it is a dropdown that shows while typing). Rows stay 8.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 9 / 10",
+    "size": [
+     459.25,
+     317.75
+    ],
+    "leaves": [
+     "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Search specific page"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Search specific page"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Light"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(247, 247, 247) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Dark"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(247, 247, 247) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Quick preview"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Quick preview"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-search sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "INPUT | search-input |  | Search | 0,0,459.3,51 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Animation @153,17,67,18",
+     "Style @22,64,276,44",
+     "Theme @22,115,46,44",
+     "Dark @119,118,87,38",
+     "Light @209,118,87,38",
+     "Behavior @22,187,276,44",
+     "Quick preview @22,242,94,22",
+     "A dropdown under the search block will allow a quicker access to the s @11,278,298,32",
+     "Appearance @22,342,276,44",
+     "Background @22,397,80,22",
+     "Stroke @22,442,42,22",
+     "Blend Mode @22,489,81,18",
+     "Normal @227,489,49,18",
+     "Blur @22,532,26,22",
+     "Transforms @22,606,182,44",
+     "Opacity @22,657,52,44",
+     "Rotate @22,708,43,44",
+     "Scale @22,759,88,44",
+     "Offset @22,810,88,44",
+     "Skew @22,861,88,44",
+     "Anchor @22,912,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|button|Animation|||||Animation|153,-2,67,55",
+     "BUTTON|submit|Dark|||||Dark|119,118,87,38",
+     "BUTTON|submit|Light|||||Light|209,118,87,38",
+     "INPUT|checkbox|Quick preview|||on|||284,247,12,12",
+     "INPUT|checkbox|Background||||||272,402,12,12",
+     "DIV|||||||Blend ModeNormal|11,475,298,46",
+     "INPUT|checkbox|Blur||||||272,537,12,12",
+     "BUTTON|submit|More actions||||||260,610,36,36",
+     "INPUT|text|||100%||||127,657,160,44",
+     "BUTTON|submit|||||||116,657,182,11",
+     "BUTTON|submit|||||||116,690,182,11",
+     "BUTTON|submit|||||||116,657,11,44",
+     "BUTTON|submit|||||||254,657,44,44",
+     "BUTTON|submit|Reset to default value||||||291,671,16,16",
+     "INPUT|text|||0°||||127,708,160,44",
+     "BUTTON|submit|||||||116,708,182,11",
+     "BUTTON|submit|||||||116,741,182,11",
+     "BUTTON|submit|||||||116,708,11,44",
+     "BUTTON|submit|||||||254,708,44,44",
+     "BUTTON|submit|Reset to default value||||||291,722,16,16",
+     "INPUT|text|||100%||||127,759,66,44",
+     "BUTTON|submit|||||||116,759,88,11",
+     "BUTTON|submit|||||||116,792,88,11",
+     "BUTTON|submit|||||||116,759,11,44",
+     "BUTTON|submit|||||||160,759,44,44",
+     "BUTTON|submit|Reset to default value||||||197,773,16,16",
+     "INPUT|text|||100%||||221,759,66,44",
+     "BUTTON|submit|||||||210,759,88,11",
+     "BUTTON|submit|||||||210,792,88,11",
+     "BUTTON|submit|||||||210,759,11,44",
+     "BUTTON|submit|||||||254,759,44,44",
+     "BUTTON|submit|Reset to default value||||||291,773,16,16",
+     "INPUT|text|||0px||||127,810,66,44",
+     "BUTTON|submit|||||||116,810,88,11",
+     "BUTTON|submit|||||||116,843,88,11",
+     "BUTTON|submit|||||||116,810,11,44",
+     "BUTTON|submit|||||||160,810,44,44",
+     "BUTTON|submit|Reset to default value||||||197,824,16,16",
+     "INPUT|text|||0px||||221,810,66,44",
+     "BUTTON|submit|||||||210,810,88,11",
+     "BUTTON|submit|||||||210,843,88,11",
+     "BUTTON|submit|||||||210,810,11,44",
+     "BUTTON|submit|||||||254,810,44,44",
+     "BUTTON|submit|Reset to default value||||||291,824,16,16",
+     "INPUT|text|||0°||||127,861,66,44",
+     "BUTTON|submit|||||||116,861,88,11",
+     "BUTTON|submit|||||||116,894,88,11",
+     "BUTTON|submit|||||||116,861,11,44",
+     "BUTTON|submit|||||||160,861,44,44",
+     "BUTTON|submit|Reset to default value||||||197,875,16,16",
+     "INPUT|text|||0°||||221,861,66,44",
+     "BUTTON|submit|||||||210,861,88,11",
+     "BUTTON|submit|||||||210,894,88,11",
+     "BUTTON|submit|||||||210,861,11,44",
+     "BUTTON|submit|||||||254,861,44,44",
+     "BUTTON|submit|Reset to default value||||||291,875,16,16",
+     "BUTTON|submit|Position||||||254,912,44,44"
+    ]
+   }
+  },
+  "OpenTable": {
+   "note": "Content: Hide Elements Title and Icons, each on and off, and Language (lists English, French, Spanish, German, Japanese; French picked): the block does not change (no Restaurant ID, so the widget draws nothing that changes). Rows stay 8.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "3 / 2 / 11 / 10",
+    "size": [
+     459.25,
+     317.75
+    ],
+    "leaves": [
+     "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Icons"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Icons"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "menu": "English",
+      "from": "English"
+     },
+     "note": {
+      "opts": [
+       "English",
+       "French",
+       "Spanish",
+       "German",
+       "Japanese"
+      ],
+      "pick": "French"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     296,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Animation @153,17,67,18",
+     "OpenTable Restaurant ID @22,40,276,44",
+     "Localization @22,163,276,44",
+     "Domain @22,214,52,44",
+     "US and Canada - opentable.com @128,225,136,22",
+     "Language @22,265,67,44",
+     "French @128,276,136,22",
+     "Hide Elements @22,344,276,44",
+     "Title @22,399,28,22",
+     "Icons @22,444,36,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|button|Animation|||||Animation|153,-2,67,55",
+     "INPUT|text|||||||33,95,254,22",
+     "INPUT|text|||com||||-1,236,1,1",
+     "BUTTON|submit||||||US and Canada - opentable.com|116,214,182,44",
+     "INPUT|text|||fr||||-1,287,1,1",
+     "BUTTON|submit||||||French|116,265,182,44",
+     "INPUT|checkbox|Title||||||272,404,12,12",
+     "INPUT|checkbox|Icons||||||272,449,12,12"
+    ]
+   }
+  },
+  "OpenTable (Domain)": {
+   "note": "A new OpenTable: the Domain menu lists the regions with their domains (in the step's note); the second was picked: the block does not change.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "3 / 2 / 11 / 10",
+    "size": [
+     459.25,
+     317.75
+    ],
+    "leaves": [
+     "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "menu": "US and Canada - opentable.com",
+      "from": "US and Canada - opentable.com"
+     },
+     "note": {
+      "opts": [
+       "US and Canada - opentable.com",
+       "Mexico - opentable.com.mx",
+       "United Kingdom - opentable.co.uk",
+       "Ireland - opentable.ie",
+       "Australia and New Zealand - opentable.com.au",
+       "Germany - opentable.de",
+       "Japan - opentable.jp"
+      ],
+      "pick": "Mexico - opentable.com.mx"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-opentable-v2 opentable-block opentable-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 11 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | OpenTable Block |  | 23,23,379.3,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-message | Enter a valid ID for your restaurant to allow customers to m |  | 23,53.8,379.3,36.3 | 11px/18.15px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     296,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Animation @153,17,67,18",
+     "OpenTable Restaurant ID @22,64,276,44",
+     "Localization @22,187,276,44",
+     "Domain @22,238,52,44",
+     "Mexico - opentable.com.mx @128,249,136,22",
+     "Language @22,289,67,44",
+     "Spanish @128,300,136,22",
+     "Hide Elements @22,368,276,44",
+     "Title @22,423,28,22",
+     "Icons @22,468,36,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|button|Animation|||||Animation|153,-2,67,55",
+     "INPUT|text|||||||33,119,254,22",
+     "INPUT|text|||commx||||-1,260,1,1",
+     "BUTTON|submit||||||Mexico - opentable.com.mx|116,238,182,44",
+     "INPUT|text|||es||||-1,311,1,1",
+     "BUTTON|submit||||||Spanish|116,289,182,44",
+     "INPUT|checkbox|Title||||||272,428,12,12",
+     "INPUT|checkbox|Icons||||||272,473,12,12"
+    ]
+   }
+  },
+  "Zola": {
+   "note": "Content: Items to Display typed 2 (from 4): the registry frame shrinks 607 to 368 tall, block rows stay 16. Design: Add Padding on insets the frame 20 at left and right and takes 20 off its height (419.3 by 348); off undoes it. Registry Name was not changed.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "3 / 2 / 19 / 10",
+    "size": [
+     459.25,
+     646.5
+    ],
+    "leaves": [
+     "IFRAME | zola-registry-iframe |  |  | 0,0,459.3,607 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "type": "Items to Display",
+      "value": "2"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 0,0,459.3,607 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 0,0,459.3,368 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Add Padding"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 0,0,459.3,368 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 20,0,419.3,348 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Add Padding"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 20,0,419.3,348 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "3 / 2 / 19 / 10",
+      "size": [
+       459.25,
+       646.5
+      ],
+      "leaves": [
+       "IFRAME | zola-registry-iframe |  |  | 0,0,459.3,368 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,646.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     296,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Animation @153,19,67,18",
+     "Add Padding @22,67,86,22",
+     "Transforms @22,112,182,44",
+     "Opacity @22,163,52,44",
+     "Rotate @22,214,43,44",
+     "Scale @22,265,88,44",
+     "Offset @22,316,88,44",
+     "Skew @22,367,88,44",
+     "Anchor @22,418,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Animation|||||Animation|153,0,67,55",
+     "INPUT|checkbox|Add Padding||||||272,72,12,12",
+     "BUTTON|submit|More actions||||||260,116,36,36",
+     "INPUT|text|||100%||||127,163,160,44",
+     "BUTTON|submit|||||||116,163,182,11",
+     "BUTTON|submit|||||||116,196,182,11",
+     "BUTTON|submit|||||||116,163,11,44",
+     "BUTTON|submit|||||||254,163,44,44",
+     "BUTTON|submit|Reset to default value||||||291,177,16,16",
+     "INPUT|text|||0°||||127,214,160,44",
+     "BUTTON|submit|||||||116,214,182,11",
+     "BUTTON|submit|||||||116,247,182,11",
+     "BUTTON|submit|||||||116,214,11,44",
+     "BUTTON|submit|||||||254,214,44,44",
+     "BUTTON|submit|Reset to default value||||||291,228,16,16",
+     "INPUT|text|||100%||||127,265,66,44",
+     "BUTTON|submit|||||||116,265,88,11",
+     "BUTTON|submit|||||||116,298,88,11",
+     "BUTTON|submit|||||||116,265,11,44",
+     "BUTTON|submit|||||||160,265,44,44",
+     "BUTTON|submit|Reset to default value||||||197,279,16,16",
+     "INPUT|text|||100%||||221,265,66,44",
+     "BUTTON|submit|||||||210,265,88,11",
+     "BUTTON|submit|||||||210,298,88,11",
+     "BUTTON|submit|||||||210,265,11,44",
+     "BUTTON|submit|||||||254,265,44,44",
+     "BUTTON|submit|Reset to default value||||||291,279,16,16",
+     "INPUT|text|||0px||||127,316,66,44",
+     "BUTTON|submit|||||||116,316,88,11",
+     "BUTTON|submit|||||||116,349,88,11",
+     "BUTTON|submit|||||||116,316,11,44",
+     "BUTTON|submit|||||||160,316,44,44",
+     "BUTTON|submit|Reset to default value||||||197,330,16,16",
+     "INPUT|text|||0px||||221,316,66,44",
+     "BUTTON|submit|||||||210,316,88,11",
+     "BUTTON|submit|||||||210,349,88,11",
+     "BUTTON|submit|||||||210,316,11,44",
+     "BUTTON|submit|||||||254,316,44,44",
+     "BUTTON|submit|Reset to default value||||||291,330,16,16",
+     "INPUT|text|||0°||||127,367,66,44",
+     "BUTTON|submit|||||||116,367,88,11",
+     "BUTTON|submit|||||||116,400,88,11",
+     "BUTTON|submit|||||||116,367,11,44",
+     "BUTTON|submit|||||||160,367,44,44",
+     "BUTTON|submit|Reset to default value||||||197,381,16,16",
+     "INPUT|text|||0°||||221,367,66,44",
+     "BUTTON|submit|||||||210,367,88,11",
+     "BUTTON|submit|||||||210,400,88,11",
+     "BUTTON|submit|||||||210,367,11,44",
+     "BUTTON|submit|||||||254,367,44,44",
+     "BUTTON|submit|Reset to default value||||||291,381,16,16",
+     "BUTTON|submit|Position||||||254,418,44,44"
+    ]
+   }
+  }
+ }
+}

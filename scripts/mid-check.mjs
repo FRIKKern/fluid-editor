@@ -745,6 +745,10 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     ['Text north-east 60 right', 'text', 'ne', 60, 0, 'mouse', true], ['Text north-east 60 up', 'text', 'ne', 0, -60, 'mouse', false],
     ['Text south-west 60 left', 'text', 'sw', -60, 0, 'mouse', false], ['Text south-west 60 down', 'text', 'sw', 0, 60, 'mouse', false],
     ['Text north-west 60 left', 'text', 'nw', -60, 0, 'mouse', true], ['Text north-west 60 up', 'text', 'nw', 0, -60, 'mouse', false],
+    // CAP-X2UNREAD.json, twice each: a corner pressed with no move, a top corner pulled down, and up 10, 20 and 40.
+    ['Text corner pressed, no move', 'text', 'se', 0, 0, 'mouse', false], ['Text north-east pressed, no move', 'text', 'ne', 0, 0, 'mouse', false],
+    ['Text north-east 60 down', 'text', 'ne', 0, 60, 'mouse', true], ['Text north-west 60 down', 'text', 'nw', 0, 60, 'mouse', true],
+    ['Text north-east 10 up', 'text', 'ne', 0, -10, 'mouse', false], ['Text north-east 20 up', 'text', 'ne', 0, -20, 'mouse', false], ['Text north-east 40 up', 'text', 'ne', 0, -40, 'mouse', false],
 ['Text east 60 right', 'text', 'e', 60, 0, 'mouse', true], ['Shape corner 70, 70 by pen', 'shape', 'se', 70, 70, 'pen', false], ['Shape corner 70, 70 by touch', 'shape', 'se', 70, 70, 'touch', true]]) {
     await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
@@ -760,14 +764,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
   // After Write and one Escape: a drag from the text opens the editor again and the block stays (CAP-TEXTPRESS a10,
-  // CAP-TEXTPRESS3 r1 and r2); a click there opens nothing (CAP-ESC2.json).
-  for (const [name, dx, open] of [['a drag', 118, true], ['a click', 0, false]]) {
+  // CAP-TEXTPRESS3 r1 and r2); a click there opens nothing (CAP-ESC2.json); from under the text it moves right, closed (CAP-X2UNREAD under).
+  for (const [name, dx, open, below = 0] of [['a drag on the text', 118, true], ['a click on the text', 0, false], ['a drag from under the text', 118, false, 30]]) {
     await load('text', '<p>Some text</p>'); evalJs(S, `fe.edit('s', 'k')`); await pause(80); browser(S, 'press', 'Escape'); await pause(80);
-    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.bottom - 4]); })()`);
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.bottom - 4 + ${below}]); })()`);
     if (dx) cdp(S, { op: 'drag', from: p, to: [p[0] + dx, p[1]], steps: 12, holdMs: 200 }); else { mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); }
     await pause(200);
     const got = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area[1], open: !document.getElementById('text-bar').hidden })`);
-    groupCases.push({ name: `X2 after Write and one Escape, ${name} on the text`, diffs: [got.a !== 5 && `oracle stays, ours column ${got.a}`, got.open !== open && `oracle editor ${open}, ours ${got.open}`].filter(Boolean) });
+    groupCases.push({ name: `X2 after Write and one Escape, ${name}`, diffs: [(below ? !(got.a > 5) : got.a !== 5) && `oracle ${below ? 'moves right' : 'stays'}, ours column ${got.a}`, got.open !== open && `oracle editor ${open}, ours ${got.open}`].filter(Boolean) });
     browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
 }

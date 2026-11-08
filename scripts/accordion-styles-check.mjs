@@ -75,6 +75,28 @@ await typed(`P.querySelector('[data-acc-field="iconSize"]')`, '20px');
 const iconBox = R(`(() => { const r = root.querySelector('.accordion-icon-container').getBoundingClientRect(); return [r.width, r.height]; })()`);
 add('Icon Size 20 draws at 20', near(iconBox[0], 20, 0.1) && near(iconBox[1], 20, 0.1), JSON.stringify(iconBox));
 await press(btn('S', 0));
+// Icon Thickness more (CAP-T12READS-D.json): a px field with Decrement and Increment, 1 to 10, from the preset; both plus
+// lines take the value, centred in the 14px icon. Boxes are taken from the more button, as read.
+{
+  const IT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12READS-D.json', import.meta.url))).iconThickness;
+  const box = (s) => s.split('|').pop().split(',').map(Number), mr = box(IT.more.row[3]);
+  const wantRel = IT.more.row.slice(4).map((s) => box(s)).map((q) => [q[0] - mr[0], q[1] - mr[1], q[2], q[3]]);
+  const lines = () => R(`(() => { const p = root.querySelector('.plus').getBoundingClientRect(); return ['.plus__horizontal-line', '.plus__vertical-line'].map((s) => { const r = root.querySelector(s).getBoundingClientRect(); return [r.left - p.left, r.top - p.top, r.width, r.height]; }); })()`);
+  const steps = () => R(`(() => { const m = P.querySelector('[aria-label="More Icon Thickness"]').getBoundingClientRect(); return { field: P.querySelector('[data-acc-field="iconThickness"]')?.value, boxes: ['[data-acc-field="iconThickness"]', '[aria-label="Decrement"]', '[aria-label="Increment"]'].map((s) => { const r = P.querySelector(s)?.getBoundingClientRect(); return r ? [r.left - m.left, r.top - m.top, r.width, r.height] : null; }) }; })()`);
+  await press(btn('M', 1));
+  await press(`P.querySelector('[aria-label="More Icon Thickness"]')`);
+  const st = steps();
+  add('Icon Thickness more: field and steppers as read, from M 3px', st.field === '3px' && st.boxes.every((q, i) => q && q.every((v, j) => near(v, wantRel[i][j], 0.6))), JSON.stringify([st, wantRel]));
+  for (let i = 0; i < 8; i++) await press(btn('Increment'), 200);
+  const top = [steps().field, lines()];
+  add('Icon Thickness more: Increment stops at 10px, lines 10 thick and centred', top[0] === '10px' && JSON.stringify(top[1].flat().map((v) => +v.toFixed(1))) === '[0,2,14,10,2,0,10,14]', JSON.stringify(top));
+  for (let i = 0; i < 10; i++) await press(btn('Decrement'), 200);
+  const low = [steps().field, lines(), R(`[...P.querySelectorAll('[data-acc-step]')].every((e) => !e.disabled)`)];
+  add('Icon Thickness more: Decrement stops at 1px, buttons stay on, lines as read', low[0] === '1px' && JSON.stringify(low[1].flat().map((v) => +v.toFixed(1))) === '[0,6.5,14,1,6.5,0,1,14]' && low[2], JSON.stringify(low));
+  await undo();
+  add('Icon Thickness more: each press is one undo step', steps().field === '2px', steps().field);
+  await press(btn('S', 1));
+}
 
 // Title.
 await press(btn('Navigate to Title'));

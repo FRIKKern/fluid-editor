@@ -1,0 +1,80 @@
+{
+ "item": "X2",
+ "question": "Ours on main at this commit, before any read of CAP-X2UNREAD, the same drags on a Text at 1/2/7/12 (mid-check style, real mouse, 12 steps). Part 3 is the guess: ours deselects a top corner let go more than 30 px above its old top (LET_GO_ABOVE), read only at 0 (level) and 60. A read hits when selected (and the area) match.",
+ "predicted": {
+  "r1 se 0,0": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r1 ne 0,0": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r1 ne 0,60": {
+   "selected": true,
+   "desktop": "2/2/7/12"
+  },
+  "r1 nw 0,60": {
+   "selected": true,
+   "desktop": "2/2/7/12"
+  },
+  "r1 ne 0,-10": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r1 ne 0,-20": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r1 ne 0,-40": {
+   "selected": false,
+   "desktop": "1/2/7/12"
+  },
+  "r1 ne 0,-50": {
+   "selected": false,
+   "desktop": "1/2/7/12"
+  },
+  "r1 under dragged under the text": {
+   "desktop": "1/2/7/10",
+   "editorOpen": false,
+   "note": "ours from 1/3/7/11, a drag 58.78 right after Write and one Escape; ours moves it a column left, which looks like a bug (the press redraws the section and the grab point is read from the old element)"
+  },
+  "r2 se 0,0": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r2 ne 0,0": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r2 ne 0,60": {
+   "selected": true,
+   "desktop": "2/2/7/12"
+  },
+  "r2 nw 0,60": {
+   "selected": true,
+   "desktop": "2/2/7/12"
+  },
+  "r2 ne 0,-10": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r2 ne 0,-20": {
+   "selected": true,
+   "desktop": "1/2/7/12"
+  },
+  "r2 ne 0,-40": {
+   "selected": false,
+   "desktop": "1/2/7/12"
+  },
+  "r2 ne 0,-50": {
+   "selected": false,
+   "desktop": "1/2/7/12"
+  },
+  "r2 under dragged under the text": {
+   "desktop": "1/2/7/10",
+   "editorOpen": false,
+   "note": "ours from 1/3/7/11, a drag 58.78 right after Write and one Escape; ours moves it a column left, which looks like a bug (the press redraws the section and the grab point is read from the old element)"
+  }
+ }
+}

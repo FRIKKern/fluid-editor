@@ -1,0 +1,1629 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Press reads, batch A: what each in-scope row of Pricing Plan, Product changes on the block.",
+ "how": "Run f70 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then each step by a named press with an on-top check (a switch by its aria-label, a button by its label, a field by Cmd+A, Backspace and keys then Tab, a menu by its row then an option). The block (area, size, every visible leaf box) is read before and after each step. No row that makes something outside the block, opens a service, or reaches a store or payments was pressed. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "blocks": {
+  "Pricing Plan": {
+   "note": "Design only (Content holds Get started, not pressed). Alignment left, right, center: rows stay 11. Each Elements switch off then on: Title off 9 rows, Description off 8, Price off 8, Benefits off 8, Button off 8; each back on returns to 11. Button Text typed Go: rows stay 11. Leaves before and after each step are in steps.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 12 / 10",
+    "size": [
+     459.25,
+     441.03125
+    ],
+    "leaves": [
+     "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 0,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+     "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 56,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+     "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+     "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "left"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 0,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 56,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 0,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 56,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "right"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 0,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 56,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 283.8,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 339.8,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "center"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 283.8,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 339.8,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 10 / 10",
+      "size": [
+       459.25,
+       384.09375
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,33,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,75.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,123.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,220.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,241.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,309.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,333.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,361.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,384.1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 10 / 10",
+      "size": [
+       459.25,
+       384.09375
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,33,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,75.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,123.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,220.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,241.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,309.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,333.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,361.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,384.1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       333.09375
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,169.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,190.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,258.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,282.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,310.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,333.1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       333.09375
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,169.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,190.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,258.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,282.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,310.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,333.1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       339.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,79,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,176,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,196.8,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,264.6,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,288.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,317,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,339.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       339.40625
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,79,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,176,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,196.8,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,264.6,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,288.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,317,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,339.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       333.28125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,333.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       333.28125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,333.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       341.5
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,266.7,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,290.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,319.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,341.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       341.5
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,266.7,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,290.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,319.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,341.5 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "type": "Button Text",
+      "value": "Go"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 141.9,266.7,175.4,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Sign Up |  | 197.9,287.5,63.4,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-pricing-plan sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 10",
+      "size": [
+       459.25,
+       441.03125
+      ],
+      "leaves": [
+       "svg | sqs-blockStatus-alert-badge |  |  | 425.3,12,22,22 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 427.3,14,18,18 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,18,2,7 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 435.3,26,2,2 | 16px/22.4px 400 | rgb(206, 44, 48) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-blockStatus-box-title | Pricing Plan Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "DIV | product-title pricing-plan-title  | Gold Subscription |  | 0,33,459.3,35 | 24px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-amount | NOK 100.00 |  | 0,79,459.3,31.7 | 35.2px/31.68px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-price-billing-period | Every month |  | 0,121.7,459.3,26 | 17.6px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P | pricing-plan-description   | Get anytime access to our growing collection of classes, wor |  | 0,169.7,459.3,75 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-editable-button join-button sqs-button-element |  |  | 162,266.7,135.2,66.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "DIV | sqs-add-to-cart-button-inner | Go |  | 218,287.5,23.2,25 | 16px/normal 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "HR | pricing-plan-benefits-divider |  |  | 0,355.3,459.3,2 | 16px/22.4px 400 | rgb(128, 128, 128) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Over 20 hours of video content |  | 0,379.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | pricing-plan-benefit-description | ✓ Unlimited lifetime access |  | 0,407.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Alignment @0,61,320,16",
+     "Elements @0,143,320,16",
+     "Title @22,170,28,22",
+     "Description @22,215,77,22",
+     "Price @22,260,34,22",
+     "Benefits @22,305,54,22",
+     "Button @22,350,44,22",
+     "Button Text @0,417,320,16"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|submit|left||||||18,83,95,32",
+     "BUTTON|submit|center||||||113,83,95,32",
+     "BUTTON|submit|right||||||207,83,95,32",
+     "INPUT|checkbox|Title|||on|||284,175,12,12",
+     "INPUT|checkbox|Description|||on|||284,220,12,12",
+     "INPUT|checkbox|Price|||on|||284,265,12,12",
+     "INPUT|checkbox|Benefits|||on|||284,310,12,12",
+     "INPUT|checkbox|Button|||on|||284,355,12,12",
+     "INPUT|text|Button Text||Go||||22,433,276,44"
+    ]
+   }
+  },
+  "Product": {
+   "note": "Content switches, each pressed twice: Image off 3 rows (from 10), on 8 (not back to 10); Title off and on 8; Price off 6, on 8; Description on 11, off 8; Add to Cart Button on 10, off 8; Product Quick View on and off 8 (no change seen while not hovered). Design: Ratio menu lists 1:1, 3:2, 2:3, 4:3, 3:4, 16:9, Original; 1:1 picked: 11 rows. Create new product was not pressed.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 11 / 8",
+    "size": [
+     341.6875,
+     399.9375
+    ],
+    "leaves": [
+     "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+     "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Image"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | product-title | Product Name |  | 0,0,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,33.7,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Image"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 4 / 8",
+      "size": [
+       341.6875,
+       112.28125
+      ],
+      "leaves": [
+       "DIV | product-title | Product Name |  | 0,0,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,33.7,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,112.3 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,243.8,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,243.8,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 7 / 8",
+      "size": [
+       341.6875,
+       277.4375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,277.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 7 / 8",
+      "size": [
+       341.6875,
+       277.4375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,277.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 8",
+      "size": [
+       341.6875,
+       441.03125
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Designed for ease, this solution offers reliable performance |  | 0,318.2,341.7,67.2 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 8",
+      "size": [
+       341.6875,
+       441.03125
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Designed for ease, this solution offers reliable performance |  | 0,318.2,341.7,67.2 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Add to Cart Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | decrease-button |  |  | 9.6,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "svg |  |  |  | 9.6,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 11.9,339.7,13.1,1.5 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT |  | 1 |  | 38.7,327,30.1,27 | 16px/27px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | increase-button |  |  | 80.9,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "svg |  |  |  | 80.9,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 83.2,334.3,12.4,12.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 0,313.2,107.5,54.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | form-input-effects-highlight form-field-highlight- |  |  | 0,313.2,107.5,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-add-to-cart-button sqs-suppress-edit-mode sqs- |  |  | 113.5,314.2,228.2,52.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN | add-to-cart-text | Add to cart |  | 180.9,327,93.4,27 | 16px/27px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Add to Cart Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | decrease-button |  |  | 9.6,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "svg |  |  |  | 9.6,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 11.9,339.7,13.1,1.5 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "INPUT |  | 1 |  | 38.7,327,30.1,27 | 16px/27px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | increase-button |  |  | 80.9,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "svg |  |  |  | 80.9,332,17,17 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "path |  |  |  | 83.2,334.3,12.4,12.4 | 16px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | form-input-effects-border |  |  | 0,313.2,107.5,54.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(255, 255, 255, 0)",
+       "SPAN | form-input-effects-highlight form-field-highlight- |  |  | 0,313.2,107.5,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "BUTTON | sqs-add-to-cart-button sqs-suppress-edit-mode sqs- |  |  | 113.5,314.2,228.2,52.6 | 16px/normal 500 | rgb(255, 255, 255) | rgb(0, 0, 0)",
+       "SPAN | add-to-cart-text | Add to cart |  | 180.9,327,93.4,27 | 16px/27px 500 | rgb(255, 255, 255) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Product Quick View"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Product Quick View"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "Ratio",
+      "from": "Original"
+     },
+     "note": {
+      "opts": [
+       "1:1",
+       "3:2",
+       "2:3",
+       "4:3",
+       "3:4",
+       "16:9",
+       "Original"
+      ],
+      "pick": "1:1"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 8",
+      "size": [
+       341.6875,
+       317.75
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 8",
+      "size": [
+       341.6875,
+       441.03125
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,134.8,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,143.8,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,186.8,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,357.7,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,391.3,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,17,53,18",
+     "Design @91,17,46,18",
+     "Animation @153,17,67,18",
+     "Image @0,57,320,16",
+     "Ratio @22,267,34,18",
+     "1:1 @262,267,14,18",
+     "Focal Point @134,321,85,22",
+     "Block Alignment @22,376,108,22",
+     "Background @22,421,80,22",
+     "Stroke @22,466,42,22",
+     "Blend Mode @22,513,81,18",
+     "Normal @227,513,49,18",
+     "Blur @22,556,26,22",
+     "Transforms @22,613,182,44",
+     "Opacity @22,664,52,44",
+     "Rotate @22,715,43,44",
+     "Scale @22,766,88,44",
+     "Offset @22,817,88,44",
+     "Skew @22,868,88,44",
+     "Anchor @22,919,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,-2,320,55",
+     "BUTTON|button|Content|||||Content|22,-2,53,55",
+     "BUTTON|button|Design|||||Design|91,-2,46,55",
+     "BUTTON|button|Animation|||||Animation|153,-2,67,55",
+     "BUTTON|submit|||||||0,84,320,103",
+     "INPUT|text|||0px||||127,193,160,44",
+     "BUTTON|submit|||||||116,193,182,11",
+     "BUTTON|submit|||||||116,226,182,11",
+     "BUTTON|submit|||||||116,193,11,44",
+     "BUTTON|submit|||||||254,193,44,44",
+     "BUTTON|submit|Reset to default value||||||291,207,16,16",
+     "BUTTON|submit|Uniform corner radii||||||25,196,41,38",
+     "BUTTON|submit|Individual corner radii||||||66,196,41,38",
+     "DIV|||||||Ratio1:1|11,253,298,46",
+     "BUTTON|submit|||||off|Focal Point|22,310,276,44",
+     "INPUT|checkbox|Background||||||272,426,12,12",
+     "DIV|||||||Blend ModeNormal|11,499,298,46",
+     "INPUT|checkbox|Blur||||||272,561,12,12",
+     "BUTTON|submit|More actions||||||260,617,36,36",
+     "INPUT|text|||100%||||127,664,160,44",
+     "BUTTON|submit|||||||116,664,182,11",
+     "BUTTON|submit|||||||116,697,182,11",
+     "BUTTON|submit|||||||116,664,11,44",
+     "BUTTON|submit|||||||254,664,44,44",
+     "BUTTON|submit|Reset to default value||||||291,678,16,16",
+     "INPUT|text|||0°||||127,715,160,44",
+     "BUTTON|submit|||||||116,715,182,11",
+     "BUTTON|submit|||||||116,748,182,11",
+     "BUTTON|submit|||||||116,715,11,44",
+     "BUTTON|submit|||||||254,715,44,44",
+     "BUTTON|submit|Reset to default value||||||291,729,16,16",
+     "INPUT|text|||100%||||127,766,66,44",
+     "BUTTON|submit|||||||116,766,88,11",
+     "BUTTON|submit|||||||116,799,88,11",
+     "BUTTON|submit|||||||116,766,11,44",
+     "BUTTON|submit|||||||160,766,44,44",
+     "BUTTON|submit|Reset to default value||||||197,780,16,16",
+     "INPUT|text|||100%||||221,766,66,44",
+     "BUTTON|submit|||||||210,766,88,11",
+     "BUTTON|submit|||||||210,799,88,11",
+     "BUTTON|submit|||||||210,766,11,44",
+     "BUTTON|submit|||||||254,766,44,44",
+     "BUTTON|submit|Reset to default value||||||291,780,16,16",
+     "INPUT|text|||0px||||127,817,66,44",
+     "BUTTON|submit|||||||116,817,88,11",
+     "BUTTON|submit|||||||116,850,88,11",
+     "BUTTON|submit|||||||116,817,11,44",
+     "BUTTON|submit|||||||160,817,44,44",
+     "BUTTON|submit|Reset to default value||||||197,831,16,16",
+     "INPUT|text|||0px||||221,817,66,44",
+     "BUTTON|submit|||||||210,817,88,11",
+     "BUTTON|submit|||||||210,850,88,11",
+     "BUTTON|submit|||||||210,817,11,44",
+     "BUTTON|submit|||||||254,817,44,44",
+     "BUTTON|submit|Reset to default value||||||291,831,16,16",
+     "INPUT|text|||0°||||127,868,66,44",
+     "BUTTON|submit|||||||116,868,88,11",
+     "BUTTON|submit|||||||116,901,88,11",
+     "BUTTON|submit|||||||116,868,11,44",
+     "BUTTON|submit|||||||160,868,44,44",
+     "BUTTON|submit|Reset to default value||||||197,882,16,16",
+     "INPUT|text|||0°||||221,868,66,44",
+     "BUTTON|submit|||||||210,868,88,11",
+     "BUTTON|submit|||||||210,901,88,11",
+     "BUTTON|submit|||||||210,868,11,44",
+     "BUTTON|submit|||||||254,868,44,44",
+     "BUTTON|submit|Reset to default value||||||291,882,16,16",
+     "BUTTON|submit|Position||||||254,919,44,44"
+    ]
+   }
+  }
+ }
+}

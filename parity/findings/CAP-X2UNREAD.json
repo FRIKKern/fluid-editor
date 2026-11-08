@@ -1,0 +1,6059 @@
+{
+  "item": "CAP-X2UNREAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "X2: the parts CAP-X2EDGES left unread, each twice: a corner press with no move (se, ne), a top corner pulled down 60 (ne, nw), a top corner pulled up 10, 20, 40 and 50 px (ne; ours puts the line at 30, predicted first), and a drag from under the text after Write and one Escape. Setup as in CAP-X2EDGES. No Meta+c, x or v.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 se 0,0 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 se 0,0 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 se 0,0 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 se 0,0 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "se",
+      0,
+      0,
+      "r1 se 0,0 pull"
+    ],
+    [
+      "read",
+      "r1 se 0,0",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,0 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,0 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,0 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,0 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      0,
+      "r1 ne 0,0 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,0",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,60 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,60 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,60 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,60 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      60,
+      "r1 ne 0,60 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,60",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 nw 0,60 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 nw 0,60 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 nw 0,60 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 nw 0,60 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "nw",
+      0,
+      60,
+      "r1 nw 0,60 pull"
+    ],
+    [
+      "read",
+      "r1 nw 0,60",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,-10 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-10 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-10 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,-10 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -10,
+      "r1 ne 0,-10 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,-10",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,-20 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-20 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-20 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,-20 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -20,
+      "r1 ne 0,-20 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,-20",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,-40 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-40 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-40 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,-40 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -40,
+      "r1 ne 0,-40 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,-40",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r1 ne 0,-50 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-50 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r1 ne 0,-50 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r1 ne 0,-50 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -50,
+      "r1 ne 0,-50 pull"
+    ],
+    [
+      "read",
+      "r1 ne 0,-50",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "s",
+      0,
+      164
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "r1 under Write and Escape",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      [
+        0.3,
+        0.7
+      ],
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "r1 under dragged under the text",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 se 0,0 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 se 0,0 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 se 0,0 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 se 0,0 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "se",
+      0,
+      0,
+      "r2 se 0,0 pull"
+    ],
+    [
+      "read",
+      "r2 se 0,0",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,0 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,0 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,0 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,0 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      0,
+      "r2 ne 0,0 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,0",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,60 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,60 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,60 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,60 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      60,
+      "r2 ne 0,60 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,60",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 nw 0,60 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 nw 0,60 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 nw 0,60 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 nw 0,60 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "nw",
+      0,
+      60,
+      "r2 nw 0,60 pull"
+    ],
+    [
+      "read",
+      "r2 nw 0,60",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,-10 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-10 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-10 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,-10 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -10,
+      "r2 ne 0,-10 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,-10",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,-20 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-20 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-20 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,-20 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -20,
+      "r2 ne 0,-20 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,-20",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,-40 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-40 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-40 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,-40 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -40,
+      "r2 ne 0,-40 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,-40",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "r2 ne 0,-50 s"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-50 e1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      70,
+      0,
+      "r2 ne 0,-50 e2"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "r2 ne 0,-50 before",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "ne",
+      0,
+      -50,
+      "r2 ne 0,-50 pull"
+    ],
+    [
+      "read",
+      "r2 ne 0,-50",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "s",
+      0,
+      164
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "r2 under Write and Escape",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      0,
+      [
+        0.3,
+        0.7
+      ],
+      58.78,
+      0
+    ],
+    [
+      "read",
+      "r2 under dragged under the text",
+      {
+        "stack": 0,
+        "section": 0,
+        "has": [
+          "Write",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "blank"
+    ]
+  ],
+  "reads": {
+    "r1 se 0,0 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 se 0,0 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 se 0,0 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 se 0,0 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 se 0,0 pull": {
+      "under": {
+        "cursor": "se-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 se 0,0": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,0 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,0 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,0 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,0 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "3/2/5/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_670",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,0 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,0": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "3/2/5/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_670",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,60 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,60 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,60 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,60 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "3/2/5/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_937",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,60 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,60": {
+      "block": {
+        "desktop": "2/2/7/12",
+        "mobile": "5/2/7/10",
+        "box": [
+          100.1,
+          285.3,
+          576.8,
+          194.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_937",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "3",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,92.2",
+          "col 10x10 at 572.8,92.2",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,190.5",
+          "se 10x10 at 572.8,190.5",
+          "sw 10x10 at -6,190.5"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "2/2/7/12",
+          "5/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 nw 0,60 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 nw 0,60 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 nw 0,60 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 nw 0,60 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "5/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1230",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "2/2/7/12",
+          "7/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 nw 0,60 pull": {
+      "under": {
+        "cursor": "nw-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 nw 0,60": {
+      "block": {
+        "desktop": "2/2/7/12",
+        "mobile": "5/2/7/10",
+        "box": [
+          100.1,
+          285.3,
+          576.8,
+          194.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1230",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "4",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,92.2",
+          "col 10x10 at 572.8,92.2",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,190.5",
+          "se 10x10 at 572.8,190.5",
+          "sw 10x10 at -6,190.5"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "2/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "2/2/7/12",
+          "7/2/9/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-10 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-10 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-10 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-10 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "5/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1544",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "2/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "2/2/7/12",
+          "9/2/11/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-10 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-10": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "5/2/7/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1544",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "5",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "2/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "2/2/7/12",
+          "9/2/11/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-20 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-20 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-20 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-20 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "7/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1859",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "2/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "2/2/7/12",
+          "11/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-20 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-20": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "7/2/9/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_1859",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "6",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "2/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "2/2/7/12",
+          "11/2/13/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-40 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-40 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-40 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-40 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "9/2/11/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_2212",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "2/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "2/2/7/12",
+          "13/2/15/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-40 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-40": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "9/2/11/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_2212",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "7",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "2/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "2/2/7/12",
+          "13/2/15/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-50 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-50 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-50 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-50 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "11/2/13/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_2584",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "2/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "2/2/7/12",
+          "15/2/17/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 ne 0,-50 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r1 ne 0,-50": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "11/2/13/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_2584",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "8",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/2/7/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/7/12",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "2/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "2/2/7/12",
+          "15/2/17/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 under Write and Escape": {
+      "has": {
+        "Write": true,
+        "Bold": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 9
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/11/12",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_670",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "3/2/5/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_2976",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "5/2/7/10",
+          "z": [
+            "9",
+            "9"
+          ]
+        },
+        {
+          "id": "_1544",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "7/2/9/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "_1859",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "9/2/11/10",
+          "z": [
+            "6",
+            "6"
+          ]
+        },
+        {
+          "id": "_2212",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "11/2/13/10",
+          "z": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "id": "_2584",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "13/2/15/10",
+          "z": [
+            "8",
+            "8"
+          ]
+        },
+        {
+          "id": "_1230",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "15/2/17/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "1_937",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "17/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r1 under dragged under the text": {
+      "has": {
+        "Write": true,
+        "Bold": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 9
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/3/11/13",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_670",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "3/2/5/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_2976",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "5/2/7/10",
+          "z": [
+            "9",
+            "9"
+          ]
+        },
+        {
+          "id": "_1544",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "7/2/9/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "_1859",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "9/2/11/10",
+          "z": [
+            "6",
+            "6"
+          ]
+        },
+        {
+          "id": "_2212",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "11/2/13/10",
+          "z": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "id": "_2584",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "13/2/15/10",
+          "z": [
+            "8",
+            "8"
+          ]
+        },
+        {
+          "id": "_1230",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "15/2/17/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "1_937",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "17/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 se 0,0 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 se 0,0 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 se 0,0 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 se 0,0 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "15/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_3343",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "10",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "2/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 se 0,0 pull": {
+      "under": {
+        "cursor": "se-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 se 0,0": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "15/2/17/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_3343",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "10",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "2/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,0 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,0 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,0 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,0 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "17/2/19/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_3738",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "11",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,0 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,0": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "17/2/19/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_3738",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "11",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,60 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,60 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,60 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,60 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_4149",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "12",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,60 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,60": {
+      "block": {
+        "desktop": "2/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          285.3,
+          576.8,
+          194.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_4149",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "12",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,92.2",
+          "col 10x10 at 572.8,92.2",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,190.5",
+          "se 10x10 at 572.8,190.5",
+          "sw 10x10 at -6,190.5"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 nw 0,60 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 nw 0,60 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 nw 0,60 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 nw 0,60 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_4622",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "13",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 nw 0,60 pull": {
+      "under": {
+        "cursor": "nw-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 nw 0,60": {
+      "block": {
+        "desktop": "2/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          285.3,
+          576.8,
+          194.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_4622",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "13",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,92.2",
+          "col 10x10 at 572.8,92.2",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,190.5",
+          "se 10x10 at 572.8,190.5",
+          "sw 10x10 at -6,190.5"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "2/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-10 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-10 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-10 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-10 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_5115",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "14",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-10 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-10": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "19/2/21/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_5115",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "14",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "2/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-20 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-20 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-20 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-20 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "21/2/23/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_5574",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "15",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-20 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-20": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "21/2/23/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_5574",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "15",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "2/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-40 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-40 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-40 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-40 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "23/2/25/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_6106",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "16",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "1/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ],
+        [
+          "2/2/7/12",
+          "31/2/33/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-40 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-40": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "23/2/25/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_6106",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "16",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "1/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "2/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ],
+        [
+          "2/2/7/12",
+          "31/2/33/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-50 s": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-50 e1": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-50 e2": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-50 before": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "25/2/27/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_6658",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "17",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 572.8,112.8",
+          "ne 10x10 at 572.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 283.4,-6",
+          "row 10x10 at 283.4,231.6",
+          "se 10x10 at 572.8,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "1/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "1/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ],
+        [
+          "2/2/7/12",
+          "31/2/33/10"
+        ],
+        [
+          "2/2/7/12",
+          "33/2/35/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 ne 0,-50 pull": {
+      "under": {
+        "cursor": "ne-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "r2 ne 0,-50": {
+      "block": {
+        "desktop": "1/2/7/12",
+        "mobile": "25/2/27/10",
+        "box": [
+          100.1,
+          244.2,
+          576.8,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794158642831_6658",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "17",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 12",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "areas": [
+        [
+          "1/3/11/13",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/12",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ],
+        [
+          "1/2/7/12",
+          "7/2/9/10"
+        ],
+        [
+          "1/2/7/12",
+          "9/2/11/10"
+        ],
+        [
+          "1/2/7/12",
+          "11/2/13/10"
+        ],
+        [
+          "1/2/7/12",
+          "13/2/15/10"
+        ],
+        [
+          "1/2/7/12",
+          "15/2/17/10"
+        ],
+        [
+          "1/2/7/12",
+          "17/2/19/10"
+        ],
+        [
+          "1/2/7/12",
+          "19/2/21/10"
+        ],
+        [
+          "1/2/7/12",
+          "21/2/23/10"
+        ],
+        [
+          "1/2/7/12",
+          "23/2/25/10"
+        ],
+        [
+          "1/2/7/12",
+          "25/2/27/10"
+        ],
+        [
+          "2/2/7/12",
+          "27/2/29/10"
+        ],
+        [
+          "2/2/7/12",
+          "29/2/31/10"
+        ],
+        [
+          "2/2/7/12",
+          "31/2/33/10"
+        ],
+        [
+          "2/2/7/12",
+          "33/2/35/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 under Write and Escape": {
+      "has": {
+        "Write": true,
+        "Bold": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          914.1
+        ],
+        "rows": 14,
+        "rowSizes": "30.1x14",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 18
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/3/15/13",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_670",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "3/2/5/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_2976",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "5/2/7/10",
+          "z": [
+            "9",
+            "9"
+          ]
+        },
+        {
+          "id": "_7230",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "18",
+            "18"
+          ]
+        },
+        {
+          "id": "_1544",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "9/2/11/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "_1859",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "11/2/13/10",
+          "z": [
+            "6",
+            "6"
+          ]
+        },
+        {
+          "id": "_2212",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "13/2/15/10",
+          "z": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "id": "_2584",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "15/2/17/10",
+          "z": [
+            "8",
+            "8"
+          ]
+        },
+        {
+          "id": "_3343",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "17/2/19/10",
+          "z": [
+            "10",
+            "10"
+          ]
+        },
+        {
+          "id": "_3738",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "19/2/21/10",
+          "z": [
+            "11",
+            "11"
+          ]
+        },
+        {
+          "id": "_5115",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "21/2/23/10",
+          "z": [
+            "14",
+            "14"
+          ]
+        },
+        {
+          "id": "_5574",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "23/2/25/10",
+          "z": [
+            "15",
+            "15"
+          ]
+        },
+        {
+          "id": "_6106",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "25/2/27/10",
+          "z": [
+            "16",
+            "16"
+          ]
+        },
+        {
+          "id": "_6658",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "27/2/29/10",
+          "z": [
+            "17",
+            "17"
+          ]
+        },
+        {
+          "id": "_4622",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "29/2/31/10",
+          "z": [
+            "13",
+            "13"
+          ]
+        },
+        {
+          "id": "_4149",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "31/2/33/10",
+          "z": [
+            "12",
+            "12"
+          ]
+        },
+        {
+          "id": "_1230",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "33/2/35/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "1_937",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "35/2/37/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "r2 under dragged under the text": {
+      "has": {
+        "Write": true,
+        "Bold": false
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          -44,
+          1600,
+          914.1
+        ],
+        "rows": 14,
+        "rowSizes": "30.1x14",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 44,
+        "blocks": 18
+      },
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/4/15/14",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_670",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "3/2/5/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_2976",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "5/2/7/10",
+          "z": [
+            "9",
+            "9"
+          ]
+        },
+        {
+          "id": "_7230",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "18",
+            "18"
+          ]
+        },
+        {
+          "id": "_1544",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "9/2/11/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "_1859",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "11/2/13/10",
+          "z": [
+            "6",
+            "6"
+          ]
+        },
+        {
+          "id": "_2212",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "13/2/15/10",
+          "z": [
+            "7",
+            "7"
+          ]
+        },
+        {
+          "id": "_2584",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "15/2/17/10",
+          "z": [
+            "8",
+            "8"
+          ]
+        },
+        {
+          "id": "_3343",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "17/2/19/10",
+          "z": [
+            "10",
+            "10"
+          ]
+        },
+        {
+          "id": "_3738",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "19/2/21/10",
+          "z": [
+            "11",
+            "11"
+          ]
+        },
+        {
+          "id": "_5115",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "21/2/23/10",
+          "z": [
+            "14",
+            "14"
+          ]
+        },
+        {
+          "id": "_5574",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "23/2/25/10",
+          "z": [
+            "15",
+            "15"
+          ]
+        },
+        {
+          "id": "_6106",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "25/2/27/10",
+          "z": [
+            "16",
+            "16"
+          ]
+        },
+        {
+          "id": "_6658",
+          "type": "csr",
+          "desktop": "1/2/7/12",
+          "phone": "27/2/29/10",
+          "z": [
+            "17",
+            "17"
+          ]
+        },
+        {
+          "id": "_4622",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "29/2/31/10",
+          "z": [
+            "13",
+            "13"
+          ]
+        },
+        {
+          "id": "_4149",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "31/2/33/10",
+          "z": [
+            "12",
+            "12"
+          ]
+        },
+        {
+          "id": "_1230",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "33/2/35/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "1_937",
+          "type": "csr",
+          "desktop": "2/2/7/12",
+          "phone": "35/2/37/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
