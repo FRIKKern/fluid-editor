@@ -26,6 +26,7 @@ import { browser, evalJs, mouse, wheel, cdp, goto, pause, reload, waitFor, engin
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
+import { STUB_JS } from './lib/clip-guard.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -375,7 +376,7 @@ const STEPS = {
   synthClip: (type, where = 'frame') => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame').contentWindow; const w = ${JSON.stringify(where)} === 'top' ? window : f; const d = w.document; f.__fxDt = f.__fxDt || new f.DataTransfer(); const dt = f.__fxDt; const t = d.activeElement && d.activeElement !== d.body ? d.activeElement : d; const ev = new w.ClipboardEvent(${JSON.stringify(type)}, { bubbles: true, cancelable: true, composed: true, clipboardData: dt }); const taken = !t.dispatchEvent(ev); f.__fxClip.log.push(${JSON.stringify(type + ':' + where + ':')} + (taken ? 'taken' : 'not taken') + ':' + [...dt.types].join(',')); return JSON.stringify(true); })()`),
   // With a marker in both windows: from here on every step but exit first checks it, and the run stops and exits if it is gone.
   // The texts the page writes and reads are kept too: they are the page's own, never the machine's clipboard.
-  stubClipboard: () => { const stub = `(w) => { w.__fxClip = { log: [], data: null, texts: [] }; const c = w.__fxClip; const nav = { writeText: async (t) => { c.log.push('writeText'); c.texts.push(['writeText', String(t)]); c.data = t; }, readText: async () => { c.log.push('readText'); const t = typeof c.data === 'string' ? c.data : ''; c.texts.push(['readText', t]); return t; }, write: async (items) => { c.log.push('write'); c.data = items; }, read: async () => { c.log.push('read'); return Array.isArray(c.data) ? c.data : []; } }; Object.defineProperty(w.navigator, 'clipboard', { value: nav, configurable: true }); const ex = w.document.execCommand.bind(w.document); w.document.execCommand = (cmd, ...rest) => { if (/^(copy|cut|paste)$/i.test(cmd)) { c.log.push('exec:' + cmd); return false; } return ex(cmd, ...rest); }; }`; return evalJs(S, `(() => { const f = ${stub}; f(window); f(document.getElementById('sqs-site-frame').contentWindow); return JSON.stringify(true); })()`); },
+  stubClipboard: () => evalJs(S, STUB_JS),
   shiftClick: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); await inFrame(() => { mouse(S, 'move', x, y, { mods: ['Shift'] }); mouse(S, 'down', x, y, { mods: ['Shift'] }); mouse(S, 'up', x, y, { mods: ['Shift'] }); }); await pause(800); },
   hold: async (i, k, part, dx, dy, mods = []) => {
     await STEPS.select(i, k);

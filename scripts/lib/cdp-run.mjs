@@ -8,6 +8,7 @@
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
 import { spawn } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { isClipKey, CLIP_EVENTS, STUBBED_JS, ARM_JS, fireJs, refusal } from './clip-guard.mjs';
 
 const cmd = JSON.parse(process.argv[2]);
 const base = `http://127.0.0.1:${cmd.port}`;
@@ -89,9 +90,11 @@ async function clickAt(p, times = 1) {
 }
 const KEYS = { Shift: 16, '.': 190, Escape: 27, Enter: 13, Tab: 9, Backspace: 8, Delete: 46, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Home: 36, End: 35, PageUp: 33, PageDown: 34, ' ': 32 };
 const TEXT = { Enter: '\r', ' ': ' ' };
-// A real key press. "Shift+Tab", "Meta+a". Chrome on a Mac runs editing commands only when asked.
-const COMMANDS = { 'Meta+a': 'selectAll', 'Meta+z': 'undo', 'Meta+Shift+z': 'redo', 'Meta+x': 'cut', 'Meta+c': 'copy', 'Meta+v': 'paste' };
+// A real key press. "Shift+Tab", "Meta+a". Chrome on a Mac runs editing commands only when asked. Never its copy, cut
+// or paste: those reach the owner's clipboard. Meta+c, x and v send the key, then a stand-in event (clip-guard.mjs).
+const COMMANDS = { 'Meta+a': 'selectAll', 'Meta+z': 'undo', 'Meta+Shift+z': 'redo' };
 async function press(combo) {
+  if (isClipKey(combo) && (await evaluateIn(undefined, STUBBED_JS)) !== true) throw new Error(refusal(combo));
   const parts = combo === '+' ? ['+'] : combo.split('+');
   const key = parts.pop() || '+';
   const named = key === 'Space' ? ' ' : key;
@@ -106,7 +109,10 @@ async function press(combo) {
   // chrome://settings/help in a new tab, which hides our page.
   const common = { key: named, code, windowsVirtualKeyCode: keyCode, modifiers };
   const command = COMMANDS[combo];
+  const clip = CLIP_EVENTS[combo];
+  if (clip) await evaluateIn(undefined, ARM_JS);
   await send('Input.dispatchKeyEvent', { type: text ? 'keyDown' : 'rawKeyDown', ...common, ...(text && { text, unmodifiedText: text }), ...(command && { commands: [command] }) });
+  if (clip) await evaluateIn(undefined, fireJs(clip));
   await send('Input.dispatchKeyEvent', { type: 'keyUp', ...common });
 }
 // Focus the field, select what is in it, type over it.
