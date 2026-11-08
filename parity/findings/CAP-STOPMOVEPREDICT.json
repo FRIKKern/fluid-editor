@@ -1,0 +1,26 @@
+{
+  "item": "A2",
+  "question": "CAP-STOPMOVEPREDICT",
+  "frozenAt": "2026-11-08T21:31Z",
+  "reads": "CAP-STOPMOVE.json: g1, g3, g4, each from f1's setup (CAP-A2ROUND2.json, CAP-SINGLEAGAIN.json f1): a Text, an Image moved 123 down, the Text pulled 140 down on the phone so they overlap and the phone stops.",
+  "seen": "f1, twice: the Video added on the stopped phone went first (the Text fits inside its desktop place, CAP-A2STOPNEW rule G). Moved 531 right on desktop, it went to rows 9 to 17, after the Text and the Image and before the Line, which moved down by its height; the Text and the Image closed up. Moves that changed nothing on a stopped phone: CAP-A2ROUND1 b4 (a Line that was last, moved), b3 (overlap gone), CAP-A2ROUND2 m1 and f4 (stopped by hand).",
+  "rules": {
+    "M": "On a phone stopped by overlap, with the overlap still there, a block moved on desktop is taken out of the phone stack (the blocks under it rise by its height) and put back by rule G at its new desktop place: before the first block there that fits inside it; otherwise right after the blocks whose phone rows overlap, moving the blocks under that down by its height. Stopped by hand, or with the overlap gone, a move changes nothing on the phone.",
+    "ours": "A move on a stopped phone changes nothing there."
+  },
+  "predictions": {
+    "g1": {
+      "M": "order Text, Image, Video: Text 1/2/7/10, Image 3/2/9/10, Video 9/2/17/10",
+      "ours": "Video, Text, Image as added"
+    },
+    "g3": {
+      "M": "the Video at 2/2/10/10 holds the Image: order Text, Video, Image, Line: Text 1/2/7/10, Video 3/2/11/10, Image 11/2/17/10, Line 17/2/18/10",
+      "ours": "Video, Text, Image, Line as added"
+    },
+    "g4": {
+      "M": "order Text, Image, Video, Line, Button: the Video at 9/2/17/10, before both later blocks",
+      "ours": "Video, Text, Image, Line, Button as added"
+    }
+  },
+  "scoring": "Per case, the phone order read after the move, then the phone areas where M gives them. One round, up to two refits, then frozen."
+}

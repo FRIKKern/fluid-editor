@@ -595,6 +595,23 @@ export const RECIPES = {
     ['pick', 0, 0], ['drag', 0, 0, 'e', 235.12, 0], ['press', 'Escape'], ['deselect', 0], ['read', 'h1 wider 4 let go', { stack: 0, section: 0, textH: [0, 0] }],
     ['pick', 0, 0], ['handleDrag', 0, 0, 'e', -235.12, 0, 'h1 east press'], ['read', 'h1 narrower 4 held', { stack: 0, section: 0, textH: [0, 0] }], ['press', 'Escape'], ['deselect', 0], ['read', 'h1 narrower 4 let go', { stack: 0, section: 0, textH: [0, 0] }],
   ] },
+  'CAP-STOPMOVE': { page: 'Gestures Probe', question: 'A2: where a block moved on desktop goes on a phone stopped by overlap (CAP-A2ROUND2 f1, read twice), against rule M pushed first (CAP-STOPMOVEPREDICT.json). g1 f1 with no Line; g3 f1 with the Video moved a row down, onto the Image, not right; g4 f1 with a Button added after the Line. No Meta+c, x or v.', steps: (() => {
+    const ADD = (t) => [['add', 0, t], ['press', 'Escape'], ['deselect', 0]];
+    const STOP = [...ADD('Text'), ...ADD('Image'), ['drag', 0, 'new', 'middle', 0, 123], ['press', 'Escape'], ['deselect', 0],
+      ['view', 'Mobile'], ['select', 0, 0], ['drag', 0, 0, 's', 0, 140], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop']];
+    const R = (n) => ['read', n, { stack: 0 }];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    return [['enter'], ['blank'], ...STOP, R('g1 stopped'), ...ADD('Video'), R('g1 add video'), ['drag', 0, 'new', 'middle', 531, 0], ['press', 'Escape'], ['deselect', 0], R('g1 video moved'),
+      ...NEW, ...STOP, ...ADD('Line'), ...ADD('Video'), R('g3 add video'), ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], R('g3 video moved down'),
+      ...NEW, ...STOP, ...ADD('Line'), ...ADD('Button'), R('g4 add button'), ...ADD('Video'), R('g4 add video'), ['drag', 0, 'new', 'middle', 531, 0], ['press', 'Escape'], ['deselect', 0], R('g4 video moved')];
+  })() },
+  'CAP-RESIZESCROLL4': { page: 'Gestures Probe', question: 'R2: the page scroll after a south resize, refit 2 (R5 in CAP-RESIZESCROLLPREDICT.json, pushed first): v1 no earlier move; v2 a Shape, not a Video, moved down while the page scrolls, then a new Shape resized south. No Meta+c, x or v.', steps: (() => {
+    const R = { stack: 0, section: 0, block: [0, 'new'] };
+    const resize = (n) => [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['read', `${n} before`, R], ['drag', 0, 'new', 's', 0, 246], ['read', `${n} after`, R], ['pause', 1500], ['read', `${n} settled`, R], ['press', 'Escape'], ['deselect', 0]];
+    return [['enter'], ['blank'], ['add', 0, 'Video'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 328], ['press', 'Escape'], ['deselect', 0], ...resize('v1'),
+      ['exit'], ['enter'], ['blank'], ['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 400], ['press', 'Escape'], ['deselect', 0],
+      ['read', 'v2 tall shape', { stack: 0, section: 0, block: [0, 'new'] }], ['drag', 0, 'new', 'middle', 0, 287], ['read', 'v2 moved', { stack: 0, section: 0, block: [0, 'new'] }], ['press', 'Escape'], ['deselect', 0], ...resize('v2')];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
