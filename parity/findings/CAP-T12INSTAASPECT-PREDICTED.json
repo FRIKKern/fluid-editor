@@ -162,5 +162,124 @@
       }
     }
   },
-  "note2": "Run B's first step under H2 sits on a boundary (12 * 509.2 / 359.4 = 17.0): predicted 16 with the floor taken below it."
+  "note2": "Run B's first step under H2 sits on a boundary (12 * 509.2 / 359.4 = 17.0): predicted 16 with the floor taken below it.",
+  "round1": {
+    "count": {
+      "H0": "7 of 9",
+      "H1": "7 of 9",
+      "H2": "7 of 9"
+    },
+    "read": {
+      "A": [
+        9,
+        5,
+        13
+      ],
+      "B": [
+        13,
+        6,
+        7
+      ],
+      "C": [
+        7,
+        7,
+        12
+      ]
+    },
+    "misses": {
+      "H0": "A 4:3 read 9, predicted 8; C 16:9 read 7, predicted 6",
+      "H1": "B 2:3 read 13, predicted 16; B 16:9 read 6, predicted 7",
+      "H2": "as H1"
+    }
+  },
+  "refit1": {
+    "rule": "R1: content that grows takes the rows that fit it; content that shrinks scales the block's height with it, floored to whole rows, never below the fit: max(fit(new), floor((H * new / old + 11) / 41.1))",
+    "seen": "9 of 9 on A, B and C, and the two older reads",
+    "runs": {
+      "D": {
+        "keys": [
+          "4",
+          "1",
+          "2"
+        ],
+        "predicted": {
+          "H0": [
+            {
+              "aspect": "4:3 Four-Three",
+              "rows": 8
+            },
+            {
+              "aspect": "16:9 Widescreen",
+              "rows": 6
+            },
+            {
+              "aspect": "2.40 Anamorphic Widescreen",
+              "rows": 5
+            }
+          ],
+          "R1": [
+            {
+              "aspect": "4:3 Four-Three",
+              "rows": 9
+            },
+            {
+              "aspect": "16:9 Widescreen",
+              "rows": 7
+            },
+            {
+              "aspect": "2.40 Anamorphic Widescreen",
+              "rows": 5
+            }
+          ]
+        }
+      },
+      "E": {
+        "keys": [
+          "3",
+          "1",
+          "2",
+          "4"
+        ],
+        "predicted": {
+          "H0": [
+            {
+              "aspect": "3:2 Standard",
+              "rows": 7
+            },
+            {
+              "aspect": "16:9 Widescreen",
+              "rows": 6
+            },
+            {
+              "aspect": "2.40 Anamorphic Widescreen",
+              "rows": 5
+            },
+            {
+              "aspect": "4:3 Four-Three",
+              "rows": 8
+            }
+          ],
+          "R1": [
+            {
+              "aspect": "3:2 Standard",
+              "rows": 8
+            },
+            {
+              "aspect": "16:9 Widescreen",
+              "rows": 7
+            },
+            {
+              "aspect": "2.40 Anamorphic Widescreen",
+              "rows": 5
+            },
+            {
+              "aspect": "4:3 Four-Three",
+              "rows": 8
+            }
+          ]
+        }
+      }
+    },
+    "unseen": "D's and E's first picks repeat seen reads (4:3 from new: 9; 3:2 from new: 8). The other 5 are unseen; D's 16:9 and E's 16:9 tell R1 from H0. E's 16:9 sits near a boundary (7.07)."
+  }
 }
