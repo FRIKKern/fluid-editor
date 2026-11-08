@@ -24,5 +24,28 @@
       "mid12 (Kristiansand, Haugesundsby, Lillehammers; 12 letters, about 101px)": "flat (under 1.5 degrees)"
     },
     "scoring": "PCA angle of each label's dark pixels; flat labels give the real W, tilted ones W from their footprint"
+  },
+  "round3": {
+    "pushed": "after CAP-T12TILT2.json and its score (round 2: 1 of 2), before CAP-T12TILT3.json; the last refit, then the rule freezes",
+    "seen": "label widths along their line (their font): New York 80, Las Vegas 79, San Francisco 109, Kristiansand 97, Haugesundsby 119, Lillehammers 104, Stavangerfjord 117, Bergenhalvoya 118, Tromsoyabrua 115; Oslo about 37, Rome about 40. Angles by the sum of the three: 268 gives 6.4, 320 gives 21.8, 350 gives 28.6. The widest alone can't order them: Haugesundsby's set has the widest (119) and tilts less than Stavangerfjord's (118).",
+    "rules": {
+      "S": "the angle follows the sum of the three widths, straight between the seen points (0 at or below about 246, 6.4 at 268, 21.8 at 320, 28.6 at 350, on at the last slope, at most about 43)",
+      "M": "the angle follows the widest label alone (119 wide gives about 22 degrees, 109 about 6)"
+    },
+    "predictions": {
+      "X (Haugesundsby, Oslo, Rome; sum about 196, widest 119)": {
+        "S": "flat (under 1.5 degrees), labels centred on their bands",
+        "M": "about 22 degrees"
+      },
+      "Z (San Francisco, Kristiansand, Lillehammers; sum 310, widest 109)": {
+        "S": "about 19 degrees (within 3)",
+        "M": "about 6 degrees"
+      },
+      "Y (Stavangerfjord, Bergenhalvoya, Haugesundsby; sum 354, widest 119)": {
+        "S": "about 29.5 degrees (within 3)",
+        "M": "about 22 degrees"
+      }
+    },
+    "scoring": "PCA angle of each label's connected blob, as in CAP-T12TILT-SCORE.json"
   }
 }
