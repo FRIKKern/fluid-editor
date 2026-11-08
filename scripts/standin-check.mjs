@@ -307,6 +307,57 @@ viewport(S, 1600, 1400);
   add('Newsletter: an empty line in Description is one line tall, rows as read', sameBoxes(el, readBoxes(ND.emptyLine.read.tree)) && el.rows === ND.emptyLine.read.rows, JSON.stringify(el));
   add('Newsletter, phone: the names stack, the button below, the disclaimer at 14.92px, as read', near(ph.boxes.flat(), [PH.fieldset, PH.first, PH.last, PH.email, PH.button, PH.disclaimer].flat(), 0.6) && ph.font === '14.92px', JSON.stringify(ph));
 }
+// The plain stand-ins' panels (standin-panels.js) against CAP-T12PANELS-A.json to -C.json: every label of each tab at
+// the read's place, from the tab row (the read's panel box sits 2px lower); then each in-scope row by a real press
+// keeps its value, is one undo step, and leaves the tile's rows alone (CAP-T12PRESS-D.json: none changed the rows).
+{
+  const PANELS = Object.assign({}, ...['A', 'B', 'C'].map((l) => JSON.parse(readFileSync(new URL(`../parity/findings/CAP-T12PANELS-${l}.json`, import.meta.url))).blocks));
+  const qs = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const p = document.getElementById('block-panel'); ${body} })()`);
+  const at = (sel) => qs(`const e = p.querySelector(${JSON.stringify(sel)}) || document.querySelector(${JSON.stringify(sel)}); e.scrollIntoView({ block: 'center' }); await sleep(50); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const press = async (sel, w = 300) => { const c = at(sel); mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(w); };
+  const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
+  const state = () => qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify({ sp: b.sp || {}, area: b.layout.desktop.area });`);
+  const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [e.innerText.replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`);
+  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15]]) {
+    const R0 = PANELS[name];
+    qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+    const first = qs(`return JSON.stringify([...p.querySelectorAll('[data-btab]')].map((t) => [t.textContent, t.classList.contains('is-on')]));`);
+    add(`${name} panel: tabs as read, opens on Content`, JSON.stringify(first.map(([t]) => t)) === JSON.stringify(R0.tabs) && first[0][1], JSON.stringify(first));
+    for (const tab of R0.tabs.filter((t) => t !== 'Animation')) {
+      await press(`[data-btab="${tab}"]`);
+      // Centres: the read's boxes and ours differ in height. x only for left-set labels: centred and right-set words move
+      // with the panel font. Tab names are the shared tab row's. Donation's Design rows are out (0005): only its note.
+      const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2]; })
+        .filter(([t]) => !R0.tabs.includes(t) && (name !== 'Donation' || tab !== 'Design' || t.startsWith('Form style')));
+      const same = (o, t) => o.toLowerCase() === t.toLowerCase() || (t.length > 60 && o.startsWith(t));
+      const miss = want.filter(([t, x, y]) => !ours.some(([o, ox, oy]) => same(o, t) && (x > 60 || Math.abs(ox - x) <= 1.5) && Math.abs(oy - y) <= 1.5)).map(([t, x, y]) => `${t.slice(0, 24)}@${x},${y} ours ${JSON.stringify(ours.filter(([o]) => same(o, t)).map(([, ox, oy]) => [+ox.toFixed(1), +oy.toFixed(1)]))}`);
+      add(`${name} panel, ${tab}: every label at its read place`, !miss.length, miss.join(' | '));
+    }
+  }
+  // Presses, on the last block placed and then the others.
+  const placeAndEdit = (name, span, rows) => qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  const undoOnce = async () => { await press('#undo', 300); };
+  placeAndEdit('Zola', 8, 16);
+  await press('input[data-sp-field="zolaItems"]', 150); await key('Meta+a'); await key('7'); await key('Tab', 400);
+  let z = state(); await undoOnce(); const zu = state();
+  await press('input[data-sp-field="zolaItems"]', 150); await key('Meta+a'); await key('4'); await key('0'); await key('Tab', 400);
+  const zmax = state();
+  await press('[data-btab="Design"]'); await press('input[data-sp-set="zolaPad"]');
+  const zp = state();
+  add('Zola: Items to Display keeps 7, one undo step, up to 12; Add Padding keeps on; rows stay', z.sp.zolaItems === 7 && zu.sp.zolaItems === undefined && zmax.sp.zolaItems === 12 && zp.sp.zolaPad === true && zp.area[2] === 17, JSON.stringify({ z, zu, zmax, zp }));
+  add('Zola: Registry Name is faded and takes nothing', qs(`return JSON.stringify((() => { const e = [...p.querySelectorAll('input')].find((i) => i.getAttribute('aria-label') === 'Registry Name'); return !e || e.disabled; })());`), '');
+  placeAndEdit('Search Field', 8, 8);
+  await press('input[data-sp-set="sfPage"]');
+  await press('[data-btab="Design"]'); await press('button[data-sp-set="sfTheme"][data-v="light"]'); await press('input[data-sp-set="sfPreview"]');
+  const sf = state(), on = qs(`return JSON.stringify(p.querySelector('button[data-sp-set="sfTheme"].is-on')?.textContent);`);
+  await undoOnce(); const sfu = state();
+  add('Search Field: Search specific page, Theme Light, Quick preview off keep their values; one undo each; rows stay', sf.sp.sfPage === true && sf.sp.sfTheme === 'light' && on === 'Light' && sf.sp.sfPreview === false && sfu.sp.sfPreview === undefined && sfu.sp.sfTheme === 'light' && sf.area[2] === 9, JSON.stringify({ sf, on, sfu }));
+  placeAndEdit('Donation', 6, 15);
+  await press('input[data-sp-field="donButton"]', 150); await key('Meta+a'); await key('G'); await key('o'); await key('Tab', 400);
+  const dn = state();
+  add('Donation: Button Text keeps Go; payment and Funds rows are faded; rows stay', dn.sp.donButton === 'Go' && dn.area[2] === 16 && qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-card, .bp-sp-nav')].every((e) => e.disabled));`), JSON.stringify(dn));
+  if (process.env.SP_SHOT) screenshot(S, process.env.SP_SHOT);
+}
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
 console.log(`Stand-ins: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);
