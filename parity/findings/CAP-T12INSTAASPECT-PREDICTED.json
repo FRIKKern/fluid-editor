@@ -1,0 +1,166 @@
+{
+  "item": "T12",
+  "kind": "predictions",
+  "note": "Pushed before the read. A new Instagram (12 rows, span 9, 1600 by 1000 window, content 359.4) gets its Aspect Ratio changed by typing a first letter on the focused select, three times per run, each run on a new block. Content per aspect = 3 tile heights + 60 at a tile width of 99.8. Fit = ceil((content + 11) / 41.1 - 0.13), as ours. Seen so far: 1:1 to 3:2 read 12 to 8 (CAP-ROWSINSTAGRAM.json); Flickr from 9 rows (content 359.4) read 7 (CAP-ROWSFLICKR.json). All three rules here give Flickr's 7; H1 and H2 give Instagram's 8, H0 gives 7.",
+  "rules": {
+    "H0": "ours now: the rows fit the new content",
+    "H1": "the block's height scales with the content, floored to whole rows, but never below the fit: max(fit(new), floor((H * new / old + 11) / 41.1)), H the block's height before",
+    "H2": "the rows scale with the content, floored, never below the fit: max(fit(new), floor(rows * new / old))"
+  },
+  "runs": {
+    "A": {
+      "keys": [
+        "4",
+        "2",
+        "2"
+      ],
+      "predicted": {
+        "H0": [
+          {
+            "aspect": "4:3 Four-Three",
+            "rows": 8
+          },
+          {
+            "aspect": "2.40 Anamorphic Widescreen",
+            "rows": 5
+          },
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 13
+          }
+        ],
+        "H1": [
+          {
+            "aspect": "4:3 Four-Three",
+            "rows": 9
+          },
+          {
+            "aspect": "2.40 Anamorphic Widescreen",
+            "rows": 5
+          },
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 13
+          }
+        ],
+        "H2": [
+          {
+            "aspect": "4:3 Four-Three",
+            "rows": 9
+          },
+          {
+            "aspect": "2.40 Anamorphic Widescreen",
+            "rows": 5
+          },
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 13
+          }
+        ]
+      }
+    },
+    "B": {
+      "keys": [
+        "2",
+        "1",
+        "3"
+      ],
+      "predicted": {
+        "H0": [
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 13
+          },
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 6
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          }
+        ],
+        "H1": [
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 16
+          },
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 7
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          }
+        ],
+        "H2": [
+          {
+            "aspect": "2:3 Standard (Vertical)",
+            "rows": 16
+          },
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 7
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          }
+        ]
+      }
+    },
+    "C": {
+      "keys": [
+        "1",
+        "3",
+        "3"
+      ],
+      "predicted": {
+        "H0": [
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 6
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          },
+          {
+            "aspect": "3:4 Three-Four (Vertical)",
+            "rows": 12
+          }
+        ],
+        "H1": [
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 7
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          },
+          {
+            "aspect": "3:4 Three-Four (Vertical)",
+            "rows": 12
+          }
+        ],
+        "H2": [
+          {
+            "aspect": "16:9 Widescreen",
+            "rows": 7
+          },
+          {
+            "aspect": "3:2 Standard",
+            "rows": 7
+          },
+          {
+            "aspect": "3:4 Three-Four (Vertical)",
+            "rows": 12
+          }
+        ]
+      }
+    }
+  },
+  "note2": "Run B's first step under H2 sits on a boundary (12 * 509.2 / 359.4 = 17.0): predicted 16 with the floor taken below it."
+}
