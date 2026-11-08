@@ -6867,5 +6867,11 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "A side pull gives a block the rows its content needs at the new width, ceil((height + 11) / 41.1 - 0.02), and never gives rows back as it widens. Instagram is the exception: its rows follow its tiles both ways, with up to 0.13 of a row of give (over 0.106, under 0.16). Heights by width in columns: Pricing Plan 455.1 at 6, 430.1 at 7 to 9, 405.1 at 10 to 16, 380.1 from 17; Newsletter 371.9 at 7, 276 at 8 to 10, 253.5 from 11; Bandsintown 1319 at 3 to 5, 1151 at 6, 927 at 7, 815 at 8 to 10, 731 at 11 and 12, 535 at 13 and 14, 423 from 15; Scheduling 680 at 8 to 24; Summary 1332 at 8, 1624 at 9, 659 to 735 at 10 to 13, 391 to 431 at 14 to 18; Instagram 44.07 a column plus 6.8. A new Bandsintown starts at 5 rows over 815 of content and takes rows only when pulled. Timing: a one-column pull on Summary sets rows from its content before it reflows (13 columns kept 11 rows over 735), and the next pull catches up; Instagram's first pull and a far pull from the west land a step behind the same way. Summary's content moves between sessions: CAP-X6STEPS.json read 14 rows at 17 columns, this read 11. Not compared: Summary's pulls from 8 columns on moved nothing, its handle pressed but not taken; the first Summary stayed in the section and later reads hold it too.",
+  "ours": "Ours holds these heights as a table by columns on desktop, measurements only, and a side pull takes their rows; Instagram's tiles already drew the oracle's heights to 0.1 px, and its rows now follow them both ways. npm run x6-check replays this read: 127 of 127, 4 named (the timing reads).",
+  "differs": [
+    "Summary e 13 and e 9, Instagram e 7 and w far in: the oracle's rows lag its content's reflow; ours takes the rows at once"
+  ],
+  "score": "Predictions (CAP-X6DESKROWS-PREDICTED.json): 56 of 144; rows don't give back as a block widens, but for Instagram. Refit 1, rows only grow, Instagram both ways: 112 of 118 seen (void reads left out). Refit 2, Instagram's give 0.13: 114 of 118 seen. Frozen, on reads it was not fitted on, x6-check's 14 desktop reads named unbuilt before: 9 match, 5 miss (Summary's 4 in CAP-X6STEPS.json, its content from another session; Instagram w far in in CAP-X6FLOORS.json, the lag)."
 }
