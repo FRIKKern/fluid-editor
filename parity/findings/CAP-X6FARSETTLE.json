@@ -2347,5 +2347,15 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "Menu at 6 phone columns is 1077.2 high, 31.09 rows. A pull whose pointer stops at the floor (96 px from 8 columns, from either side) gives 31 rows; one whose pointer goes past it (150, 200 from 7 columns, 300 held then let go) gives 32, from either side. A new OpenTable pulled 500 px to its 3-column floor gives 10 rows (316.1 high, 9.35 rows), where its step-by-step pull to 3 gives 9. Held past the floor, the oracle's area doesn't move: it changes on the let-go. Every read 2 s later equals its read at 400 ms: Instagram e 5 (23 rows, 21.85 from its height) and e back 8 (34, 34.31), and OpenTable e 3 (9, 9.35) and its widening reads (9, 8.03) stay as they were. Instagram e 4 read 18 rows here and 19 in CAP-X6PHONEROWS.json.",
+  "ours": "On a phone a side pull of a block with a phone height takes max(rows before, ceil((h + 11) / 35 - g)), g 0.13 with the pointer at or above the floor and 0.02 past it (the phone rule's last refit, frozen). npm run x6-check replays this read: 60 of 60, 14 with their rows named (Instagram e 5 and e back 8, OpenTable e 3 and e back 4 to 8, each twice), and CAP-X6PHONEFLOORS.json's two Menu far pulls now match.",
+  "differs": [
+    "Instagram e 5 and e back 8: one row over and one under its tiles' height, and they don't settle in 2 s: misses, named",
+    "OpenTable at 3 columns by steps: 9 rows at 0.35 of a row over, where Page Link takes a row at 0.23: misses, named, with the rows it keeps as it widens"
+  ],
+  "score": {
+    "predicted": "7 of 7 (CAP-X6FARSETTLE-PREDICTED.json): Menu e and w to the floor 31, e and w past it 32, e 7 then past it 29 and 32, 300 px let go 32, OpenTable 500 px 10",
+    "frozen": "the phone rule's refits are used: it stands as is"
+  }
 }
