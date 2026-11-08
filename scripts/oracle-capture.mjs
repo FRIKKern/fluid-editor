@@ -257,7 +257,8 @@ const STEPS = {
   hover: (i) => hoverSection(i),
   hoverBlock: async (i, k, part) => { const [x, y] = point(i, k, part); await inFrame(() => mouse(S, 'move', x, y)); await pause(600); },
   sectionDrag: async (i, dy) => { const at = evalJs(S, `(() => { ${FRAME} const h = ${SECTION_HANDLE(i)}; if (!h) return JSON.stringify(null); const q = h.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`); if (!at) throw new Error('no section handle'); const [x, y] = at; await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800); },
-  select: async (i, k) => { const [x, y] = point(i, k); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
+  // part: where to press, as for point(); the middle of a block right of about x 1390 lies under the section toolbar (CAP-X2WIDTHS2.json).
+  select: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
   deselect: async () => { await escape(); },
   pick: (i, k) => select(i, blockId(i, k)),
   add: async (i, type) => { added = await addBlock(i, type); await pause(800); },
@@ -385,7 +386,7 @@ const STEPS = {
   stubClipboard: () => evalJs(S, STUB_JS),
   shiftClick: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); await inFrame(() => { mouse(S, 'move', x, y, { mods: ['Shift'] }); mouse(S, 'down', x, y, { mods: ['Shift'] }); mouse(S, 'up', x, y, { mods: ['Shift'] }); }); await pause(800); },
   hold: async (i, k, part, dx, dy, mods = []) => {
-    await STEPS.select(i, k);
+    await STEPS.select(i, k, Array.isArray(part) ? part : 'middle');
     const [x, y] = point(i, k, part); held = { x, y, mods };
     await inFrame(async () => { mouse(S, 'move', x, y, { mods }); mouse(S, 'down', x, y, { mods }); mouse(S, 'move', x + 14, y, { buttons: 1, mods }); await pause(150); for (let n = 1; n <= 6; n++) { mouse(S, 'move', x + (dx * n) / 6, y + (dy * n) / 6, { buttons: 1, mods }); await pause(40); } });
     held.dx = dx; held.dy = dy; await pause(300);
