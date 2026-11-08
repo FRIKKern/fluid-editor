@@ -206,6 +206,55 @@ viewport(S, 1600, 1400);
   add('Quote: rows grow 3,5,5,6 and shrink 4,4,4, as read (seen)', `${up.join()} ${down.join()}` === want, `${up.join()} ${down.join()} wants ${want}`);
   if (process.env.QUOTE_SHOT) screenshot(S, process.env.QUOTE_SHOT);
 }
+
+// Newsletter (CAP-T12NEWSLETTER.json): added at 10 columns by 8 rows, Edit; its panel's boxes; then each edit of the read in
+// its order, by real presses and keys, and the block's boxes and rows after each.
+{
+  const NL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12NEWSLETTER.json', import.meta.url)));
+  const R = Object.fromEntries(NL.reads.map((r) => [r.step, r]));
+  goto(S, `${BASE}/index.html`); await pause(1800);
+  place('Newsletter', 10, 8);
+  const qs = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const p = document.getElementById('block-panel'), d = document.getElementById('site-frame').contentDocument; ${body} })()`);
+  qs(`fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  const blk = () => qs(`const b = fe.model.sections[1].blocks[0], el = d.querySelector('.fe-block[data-block-id="one"]'), Q = el.getBoundingClientRect(); return JSON.stringify({ rows: b.layout.desktop.area[2] - b.layout.desktop.area[0], boxes: [...el.querySelectorAll('h2, p, input, button, fieldset')].map((e) => { const q = e.getBoundingClientRect(); return [e.tagName, [q.left - Q.left, q.top - Q.top, q.width, q.height]]; }) });`);
+  const same = (k, step) => k.rows === R[step].rows && k.boxes.length === R[step].boxes.length && k.boxes.every(([t, q], i) => t === R[step].boxes[i][0] && near(q, R[step].boxes[i][1], 0.6));
+  const at = (sel) => qs(`const e = p.querySelector(${JSON.stringify(sel)}); e.scrollIntoView({ block: 'center' }); await sleep(50); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  const press = async (sel, w = 300) => { const c = at(sel); mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(w); };
+  const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
+  const empty = async (label) => { await press(`[data-content][aria-label="${label}"]`, 150); await key('Meta+a'); await key('Backspace', 300); };
+  // The panel: tabs, and the fields' and rules' boxes as read (the row of each rule is the top of a 1px line).
+  const L = qs(`const P0 = p.getBoundingClientRect(), rel = (e) => { const r = e.getBoundingClientRect(); return [r.left - P0.left, r.top - P0.top, r.width, r.height]; }; return JSON.stringify({ tabs: [...p.querySelectorAll('[data-btab]')].map((t) => t.textContent), fields: ['Form Name', 'Title', 'Button Text'].map((l) => rel(p.querySelector('[aria-label="' + l + '"][data-content]'))), boxes: [...p.querySelectorAll('.bp-nl-box')].map(rel), rules: [...p.querySelectorAll('.bp-nl-name, .bp-nl-f, .bp-nl-row')].map((e) => { const r = rel(e); return r[1] + r[3] - 1; }) });`);
+  add('Newsletter panel: Content, Design, Storage', L.tabs.join() === 'Content,Design,Storage', L.tabs.join());
+  add('Newsletter panel: fields, boxes and rules as read', near(L.fields.flat(), [127, 120, 149, 44, 22, 214, 276, 44, 22, 626, 276, 44], 0.5) && near(L.boxes.flat(), [22, 308, 276, 110, 22, 467, 276, 110], 0.5) && near(L.rules, [164, 258, 670, 737, 804], 0.5), JSON.stringify(L));
+  let k = blk();
+  add('Newsletter: the block at add, as read', same(k, 'start'), JSON.stringify(k));
+  // Show Name Field, Layout and Alignment: the rows follow the content up and down (refit 1, seen).
+  const look = [];
+  await press('input[data-nl-set="nlName"]'); look.push(['nameOn', blk()]);
+  await press('input[data-nl-set="nlName"]'); look.push(['nameOff', blk()]);
+  await press('[data-btab="Design"]');
+  await press('button[aria-label="Stack"]'); look.push(['stack', blk()]);
+  await press('button[aria-label="alignLeft"]'); look.push(['stackLeft', blk()]);
+  await press('button[aria-label="Float"]'); look.push(['floatLeft', blk()]);
+  await press('button[aria-label="alignRight"]'); look.push(['floatRight', blk()]);
+  await press('button[aria-label="alignCenter"]'); look.push(['back', blk()]);
+  const off = look.filter(([s, b]) => !same(b, s)).map(([s, b]) => `${s} ${b.rows}/${R[s].rows}`);
+  add('Newsletter: Show Name Field, Layout, Alignment as read', !off.length, off.join(' '));
+  // Title, Description, Disclaimer and Button Text by real keys.
+  await press('[data-btab="Content"]');
+  const typed = [];
+  await empty('Title'); typed.push(['titleEmpty', blk()]);
+  await key('H'); await key('i', 300); typed.push(['titleHi', blk()]);
+  await empty('Description'); typed.push(['descEmpty', blk()]);
+  for (const c of ['A', 'b', 'Enter', 'C', 'd']) await key(c);
+  await pause(200); typed.push(['descTwo', blk()]);
+  await empty('Disclaimer'); typed.push(['discEmpty', blk()]);
+  await empty('Button Text'); typed.push(['btnEmpty', blk()]);
+  await key('G'); await key('o', 300); typed.push(['btnGo', blk()]);
+  const miss = typed.filter(([s, b]) => !same(b, s)).map(([s, b]) => `${s} ${b.rows}/${R[s].rows}`);
+  add('Newsletter: typed Title, Description, Disclaimer, Button Text', !miss.length, miss.join(' '));
+  if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
+}
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
 console.log(`Stand-ins: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);

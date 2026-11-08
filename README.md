@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 41 changes
-  - U11: the parent row stays lit while its submenu is open, read and built; U11 done ([#423](https://github.com/FRIKKern/fluid-editor/pull/423))
-  - A2: G1, a new block on a phone stopped by overlap (CAP-A2STOPNEW 5 of 5 fresh) ([#422](https://github.com/FRIKKern/fluid-editor/pull/422))
+- **Today** · 44 changes
+  - T12: Newsletter's panel and block, as read (CAP-T12NEWSLETTER) ([#426](https://github.com/FRIKKern/fluid-editor/pull/426))
+  - T12: Chart's + cells, Tab, and Update's Are You Sure? box ([#425](https://github.com/FRIKKern/fluid-editor/pull/425))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
