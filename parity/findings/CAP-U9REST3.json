@@ -1,0 +1,3259 @@
+{
+  "item": "CAP-U9REST3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U9 round three (predictions in CAP-U9REST-PREDICT3.json): with a Shape in section 0 selected, which chrome controls show on the section under the pointer, by label with each parent's opacity.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      100
+    ],
+    [
+      "moveAt",
+      600,
+      450
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "nothing selected, pointer on section 0",
+      {
+        "rows": [
+          "Open Section Settings",
+          "Open Layers Panel",
+          "Add Block",
+          "Add Section"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Shape selected, pointer on it",
+      {
+        "rows": [
+          "Open Section Settings",
+          "Open Layers Panel",
+          "Add Block",
+          "Add Section"
+        ],
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      600,
+      450
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Shape selected, pointer on section 0 off it",
+      {
+        "rows": [
+          "Open Section Settings",
+          "Open Layers Panel",
+          "Add Block",
+          "Add Section"
+        ]
+      }
+    ],
+    [
+      "hoverBlock",
+      1,
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Shape selected, pointer on section 1",
+      {
+        "rows": [
+          "Open Section Settings",
+          "Open Layers Panel",
+          "Add Block",
+          "Add Section"
+        ],
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "nothing selected, pointer on section 0": {
+      "rows": {
+        "Open Section Settings": [
+          {
+            "box": [
+              1407,
+              123,
+              164,
+              44
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              1407,
+              861,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Open Layers Panel": [
+          {
+            "box": [
+              26,
+              120,
+              38,
+              36
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              26,
+              858,
+              38,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Block": [
+          {
+            "box": [
+              127,
+              120,
+              70,
+              36
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              127,
+              858,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Section": [
+          {
+            "box": [
+              756,
+              83,
+              87,
+              22
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              1720,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape selected, pointer on it": {
+      "rows": {
+        "Open Section Settings": [
+          {
+            "box": [
+              1407,
+              112,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              1407,
+              861,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Open Layers Panel": [
+          {
+            "box": [
+              26,
+              120,
+              38,
+              36
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              26,
+              858,
+              38,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Block": [
+          {
+            "box": [
+              127,
+              109,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              127,
+              858,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Section": [
+          {
+            "box": [
+              756,
+              83,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              1720,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          254.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794142746682_646",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape selected, pointer on section 0 off it": {
+      "rows": {
+        "Open Section Settings": [
+          {
+            "box": [
+              1407,
+              112,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              1407,
+              861,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Open Layers Panel": [
+          {
+            "box": [
+              26,
+              120,
+              38,
+              36
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              26,
+              858,
+              38,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Block": [
+          {
+            "box": [
+              127,
+              109,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              127,
+              858,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Section": [
+          {
+            "box": [
+              756,
+              83,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              1720,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Shape selected, pointer on section 1": {
+      "rows": {
+        "Open Section Settings": [
+          {
+            "box": [
+              1407,
+              112,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              1407,
+              861,
+              164,
+              44
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  164,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(14, 14, 14)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  178,
+                  210
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Open Layers Panel": [
+          {
+            "box": [
+              26,
+              120,
+              38,
+              36
+            ],
+            "onTop": true,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              26,
+              858,
+              38,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  38,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  46,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Block": [
+          {
+            "box": [
+              127,
+              109,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              127,
+              858,
+              70,
+              36
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  70,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  103,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  130,
+                  36
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(49, 49, 49)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  138,
+                  44
+                ],
+                "bg": "rgb(255, 255, 255)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  195,
+                  44
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ],
+        "Add Section": [
+          {
+            "box": [
+              756,
+              83,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              832,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          },
+          {
+            "box": [
+              756,
+              1720,
+              87,
+              22
+            ],
+            "onTop": false,
+            "chain": [
+              {
+                "tag": "span",
+                "role": null,
+                "size": [
+                  87,
+                  22
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "button",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgb(2, 122, 255)",
+                "color": "rgb(255, 255, 255)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  111,
+                  36
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "0"
+              },
+              {
+                "tag": "div",
+                "role": null,
+                "size": [
+                  1600,
+                  0
+                ],
+                "bg": "rgba(0, 0, 0, 0)",
+                "color": "rgb(62, 62, 62)",
+                "hover": false,
+                "expanded": null,
+                "disabled": null,
+                "opacity": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          254.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794142746682_646",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "With nothing selected, the hovered section 0 shows its card (Open Section Settings at 1407, 123), Layers (26, 120), Add Block (127, 120) and both Add Section buttons. With the Shape in section 0 selected, the pointer on the Shape, on section 0 off it, or on section 1's Button: only Layers shows, at 26, 120, section 0's place; no card, no Add Block, no Add Section (section 0 held; section 1 missed: predicted Layers on section 1)."
+}

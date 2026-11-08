@@ -1,0 +1,30 @@
+{
+  "item": "CAP-U9REST-PREDICT",
+  "question": "U9's last unread parts, predictions written and pushed before any read: a wheel turn over the section's own buttons, a press with another block selected, and the phone's Edit Section panel while scrolling.",
+  "predictions": [
+    {
+      "case": "A1: a wheel turn of 60 with the pointer on the hovered section's Edit Section card",
+      "predict": "The page scrolls 60, as a wheel turn elsewhere does. The card, the outline and Add Section stay on that section, moving with the page as they do; nothing fades."
+    },
+    {
+      "case": "A2: a wheel turn of 600 on the card, so another section comes under the pointer",
+      "predict": "The page scrolls 600. The section now under the pointer takes the chrome about 33 ms after the page moves, on the same 0.2 s cross as a wheel turn with the pointer still."
+    },
+    {
+      "case": "A3: a wheel turn of 60 with the pointer on Layers (Open Layers Panel)",
+      "predict": "The same as A1."
+    },
+    {
+      "case": "B1: a Shape in section 0 selected, a Button in section 1 pressed, moved 2 px, let go",
+      "predict": "On the press and at 2 px nothing changes: the Shape stays selected, its section keeps the outline and Layers, Add Section stays out everywhere. On the let go the Button is selected and the Shape is not; the outline moves to section 1 on the 0.2 s cross; Add Section stays out."
+    },
+    {
+      "case": "B2: a Shape selected, a Button in the same section pressed, 2 px, let go",
+      "predict": "Nothing fades at the press, at 2 px or on the let go: the outline stays, Add Section stays out. The Button is selected on the let go."
+    },
+    {
+      "case": "C: the phone view, Edit Section open on section 1, the page scrolled down in steps",
+      "predict": "As on the desktop: the panel comes along with the page, then closes once its top without the hold passes about -421."
+    }
+  ]
+}

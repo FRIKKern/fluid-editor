@@ -512,7 +512,7 @@ await fresh(); await hoverBar(800, 20); await pause(300);
   evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600); await frameScroll(0); await hoverInSection(400, 800);
   const pb = chromeBox('Open Section Settings'); await pressAt(pb[0] + 40, pb[1] + 20);
   await frameScroll(4000); await pause(200); const openPhone = !!panelRect();
-  add('phone: not read, so the panel stays open', openPhone);
+  add('phone: closed once its section has left the canvas (CAP-U9REST2.json)', !openPhone);
   browser(S, 'press', 'Escape'); await pause(150);
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400); await frameScroll(0); await hoverBar(800, 20); await pause(300);
 }
@@ -3288,6 +3288,62 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const pFall = f.map((r) => r.lit[0]?.[1]).filter((v) => v > 0 && v < 1);
   add('the phone: off, the same fade', pFall.length >= 6 && down(pFall), JSON.stringify(pFall.length));
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400);
+  viewport(S, 1600, 1000); await pause(300);
+}
+// U9: a wheel turn on the section's own buttons, the outline with a block selected, and the phone panel's close
+// (CAP-U9REST.json, CAP-U9REST2.json, CAP-U9REST3.json).
+{
+  const load = async (w, h, blocks) => {
+    viewport(S, w, h); goto(S, `${BASE}/index.html`); await pause(1500);
+    evalJs(S, `(() => { const lay = (r, c, w, hh) => ({ desktop: { area: [r, c, r + hh, c + w], z: 1 }, mobile: { area: [1, 2, 7, 10], z: 1 } });
+      const sec = (id, bl) => ({ id, theme: '', height: 'medium', valign: 'middle', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: bl });
+      const B = ${JSON.stringify(blocks)};
+      fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [0, 1, 2, 3, 4].map((i) => sec('u9s' + i, (B[i] || []).map(([id, type, r, c, w, hh]) => ({ id, type, label: id, ...(type === 'shape' ? { fill: '#999' } : { text: 'B' }), layout: lay(r, c, w, hh) })))) }); return 'true'; })()`);
+    await pause(500);
+  };
+  const scTo = async (y) => { evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollTo(0, ${y}); return 'true'; })()`); await pause(300); };
+  const sy = () => evalJs(S, `Math.round(document.querySelector('iframe').contentWindow.scrollY)`);
+  const named = (l) => evalJs(S, `(() => { const e = [...document.querySelectorAll('#section-chrome [aria-label="${l}"]')].find((x) => x.getBoundingClientRect().width > 0); if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+  const on = () => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), ly = c.querySelector('[data-sc-part="layers"]'), ol = c.querySelector('.sc-outline'); return JSON.stringify({ sid: c.hidden ? null : c.dataset.key.split('|')[0], outline: c.dataset.outline, layersTop: ly ? Math.round(ly.getBoundingClientRect().top) : null, olTop: ol ? Math.round(ol.getBoundingClientRect().top) : null, card: !!c.querySelector('[data-sc-part="card"]'), add: c.querySelectorAll('.sc-add-section').length }); })()`);
+  const at = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe'), o = f.getBoundingClientRect(), q = f.contentDocument.getElementById('block-${id}').getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + q.height / 2]); })()`);
+  const lit = () => evalJs(S, `(() => { const T = window.__u9 = { seen: [], stop: false }; const a = (o) => { const p = (getComputedStyle(o).borderTopColor.match(/\\(([^)]*)\\)/) || [, ''])[1].split(','); return p.length === 4 ? Number(p[3]) : 1; }; const tick = () => { if (T.stop) return; T.seen.push([...document.querySelectorAll('#section-chrome .sc-outline, .sc-outline-gone')].map(a)); requestAnimationFrame(tick); }; tick(); return 'true'; })()`);
+  const litStop = () => evalJs(S, `(() => { window.__u9.stop = true; return JSON.stringify(window.__u9.seen); })()`);
+
+  await load(1600, 1400, { 1: [['u9b', 'button', 1, 2, 6, 2]] });
+  await scTo(300); mouse(S, 'move', 800, 400); await pause(600);
+  const steps = [];
+  for (const [l, dy] of [['Open Section Settings', 60], ['Open Layers Panel', 60], ['Open Section Settings', 600]]) {
+    const p = named(l); mouse(S, 'move', p[0], p[1]); await pause(400); const y0 = sy(); wheel(S, p[0], p[1], dy); await pause(800); steps.push([l, sy() - y0, on().sid]);
+  }
+  add('a wheel turn on Edit Section or Layers scrolls the page, the chrome stays on its section', steps.every(([, d, sid], i) => d === [60, 60, 600][i] && sid === 'u9s0'), JSON.stringify(steps));
+
+  await load(1600, 1400, { 0: [['u9h', 'shape', 1, 14, 6, 6]], 1: [['u9c', 'button', 1, 2, 6, 2]] });
+  await scTo(100);
+  const sh = at('u9h'), bt = at('u9c');
+  mouse(S, 'move', sh[0], sh[1]); await pause(200); mouse(S, 'down', sh[0], sh[1], { buttons: 1 }); mouse(S, 'up', sh[0], sh[1]); await pause(700);
+  const before = on(); lit(); mouse(S, 'move', bt[0], bt[1]); await pause(600); const cross = litStop(), hover = on();
+  const rising = cross.filter((r) => r.length === 2).map((r) => r[0]);
+  add('a block selected, the pointer on another section: the outline crosses there over 0.2 s, Layers stays', hover.outline === 'u9s1' && hover.sid === 'u9s0' && hover.layersTop === before.layersTop && hover.olTop > before.olTop && !hover.card && !hover.add && rising.length >= 6 && rising.every((v, i) => !i || v >= rising[i - 1]), JSON.stringify({ before, hover, n: rising.length }));
+  lit(); mouse(S, 'down', bt[0], bt[1], { buttons: 1 }); await pause(300); const pressed = on(); mouse(S, 'move', bt[0] + 2, bt[1], { buttons: 1 }); await pause(300); mouse(S, 'up', bt[0] + 2, bt[1]); await pause(500);
+  const still = litStop(), after = on();
+  add('then a press there changes nothing, and the let go keeps the outline lit', pressed.sid === 'u9s0' && after.sid === 'u9s1' && after.outline === 'u9s1' && still.every((r) => r.length === 1 && r[0] === 1), JSON.stringify({ pressed: pressed.sid, after, frames: still.length, odd: still.find((r) => r.length !== 1 || r[0] !== 1) }));
+  browser(S, 'press', 'Escape'); await pause(300);
+
+  // The phone panel keeps its top, and closes on the first step that puts its section's bottom above the canvas's top.
+  for (const [w, h, n] of [[1600, 1000, 2], [1600, 800, 1]]) {
+    await load(w, h, {});
+    evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(900);
+    evalJs(S, `(() => { document.querySelector('iframe').contentDocument.querySelectorAll('.page-section')[${n}].scrollIntoView({ block: 'center' }); return 'true'; })()`); await pause(400);
+    const sp = evalJs(S, `(() => { const f = document.querySelector('iframe'), o = f.getBoundingClientRect(), q = f.contentDocument.querySelectorAll('.page-section')[${n}].getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + 100]); })()`);
+    mouse(S, 'move', sp[0], sp[1]); await pause(600);
+    const e = named('Open Section Settings'); mouse(S, 'move', e[0], e[1]); await pause(200); mouse(S, 'down', e[0], e[1], { buttons: 1 }); mouse(S, 'up', e[0], e[1]); await pause(900);
+    const rd = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), q = f.contentDocument.querySelectorAll('.page-section')[${n}].getBoundingClientRect(), p = document.getElementById('section-panel'); return JSON.stringify([p && !p.hidden && p.getBoundingClientRect().width > 0 ? Math.round(p.getBoundingClientRect().top) : null, Math.round(q.bottom * 10) / 10]); })()`);
+    const seen = [rd()];
+    for (let k = 0; k < 150 && seen.at(-1)[0] !== null; k++) { evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollBy(0, 10); return 'true'; })()`); await pause(50); seen.push(rd()); }
+    const open = seen.filter((r) => r[0] !== null), shut = seen.find((r) => r[0] === null);
+    add(`the phone panel at ${w} by ${h}: its top held, closed once its section's bottom is above the canvas`, open.length > 3 && new Set(open.map((r) => r[0])).size === 1 && open.every((r) => r[1] >= 0) && !!shut && shut[1] < 0, JSON.stringify({ tops: [...new Set(open.map((r) => r[0]))], last: open.at(-1), shut }));
+    evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400);
+  }
   viewport(S, 1600, 1000); await pause(300);
 }
 // U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), every pick of the 15 types
