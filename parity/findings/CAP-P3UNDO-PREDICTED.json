@@ -1,0 +1,341 @@
+{
+  "item": "CAP-P3UNDO-PREDICTED",
+  "from": "our code on main, as is, run twice before any oracle read of these steps (the same both times): Edit Section, Custom height, the field and slider as marks-check.mjs drives them, Undo by our top bar button, Escape and the panel opened again. field and slider are what each shows; minVh is the section min-height in vh; open is whether the panel shows. One difference in the steps: after 'panel again' the oracle presses Custom again (a no-op if Custom is still picked), ours presses it only if the slider is hidden.",
+  "question": "P3, its two inferred parts: is a field change on Enter one undo step, and a slider pull one undo step on let go? After NaN in the field, does the last number come back when the panel opens again? On Blocks Probe, predictions first.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "20"
+    ],
+    [
+      "read",
+      "typed 20",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "40"
+    ],
+    [
+      "read",
+      "typed 40",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo 1",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo 2",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel again",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "read",
+      "typed 50",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "holdAt",
+      1397,
+      526
+    ],
+    [
+      "moveAt",
+      1440,
+      526
+    ],
+    [
+      "moveAt",
+      1340,
+      526
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "slider let go",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo after slider",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel again 2",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "abc"
+    ],
+    [
+      "read",
+      "real keys abc",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel after NaN keys",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "abc"
+    ],
+    [
+      "read",
+      "typed abc",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel after NaN typed",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ]
+  ],
+  "reads": {
+    "custom": {
+      "open": true,
+      "slider": "1",
+      "field": "1",
+      "minVh": 1,
+      "custom": true
+    },
+    "typed 20": {
+      "open": true,
+      "slider": "20",
+      "field": "20",
+      "minVh": 20,
+      "custom": true
+    },
+    "typed 40": {
+      "open": true,
+      "slider": "40",
+      "field": "40",
+      "minVh": 40,
+      "custom": true
+    },
+    "undo 1": {
+      "open": true,
+      "slider": "20",
+      "field": "20",
+      "minVh": 20,
+      "custom": true
+    },
+    "undo 2": {
+      "open": true,
+      "slider": "1",
+      "field": "1",
+      "minVh": 1,
+      "custom": true
+    },
+    "panel again": {
+      "open": true,
+      "slider": "1",
+      "field": "1",
+      "minVh": 1,
+      "custom": true
+    },
+    "typed 50": {
+      "open": true,
+      "slider": "50",
+      "field": "50",
+      "minVh": 50,
+      "custom": true
+    },
+    "slider let go": {
+      "open": true,
+      "slider": "25",
+      "field": "25",
+      "minVh": 25,
+      "custom": true
+    },
+    "undo after slider": {
+      "open": true,
+      "slider": "50",
+      "field": "50",
+      "minVh": 50,
+      "custom": true
+    },
+    "panel again 2": {
+      "open": true,
+      "slider": "50",
+      "field": "50",
+      "minVh": 50,
+      "custom": true
+    },
+    "real keys abc": {
+      "open": true,
+      "slider": "51",
+      "field": "NaN",
+      "minVh": 50,
+      "custom": true
+    },
+    "panel after NaN keys": {
+      "open": true,
+      "slider": "50",
+      "field": "50",
+      "minVh": 50,
+      "custom": true
+    },
+    "typed abc": {
+      "open": true,
+      "slider": "51",
+      "field": "NaN",
+      "minVh": 50,
+      "custom": true
+    },
+    "panel after NaN typed": {
+      "open": true,
+      "slider": "50",
+      "field": "50",
+      "minVh": 50,
+      "custom": true
+    }
+  }
+}
