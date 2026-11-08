@@ -395,6 +395,18 @@ q(`document.getElementById('preview').click(); await sleep(350); return 'true';`
   const worst = (r) => { let w = 0, at = null; for (const [y, v] of r.at) { const p = scrollProgress(r.row, y, scrollSpan(boxOf(r.row.when), { topInset: '0%', bottomInset: '0%', ...r.row }, r.view)); if (Math.abs(p - v) > w) { w = Math.abs(p - v); at = [y, v, +p.toFixed(4)]; } } return [w, at]; };
   for (const r of T.scroll.reads) { const [w, at] = worst(r); add(`On Scroll rule: ${r.row.action} ${r.row.startCross || r.row.startEdge || ''} ${r.row.startPasses} ${r.row.endCross || r.row.endEdge || ''} ${r.row.endPasses} ${r.row.when} x${r.row.iterations}`, w <= 0.006, JSON.stringify(at)); }
   for (const r of T.scroll.presets) { const [w, at] = worst(r); add(`On Scroll rule: ${r.preset} with its ease`, w <= 0.02, JSON.stringify(at)); }
+  // Ease and the Back eases on scroll (CAP-T15EASE-*.json round 1, CAP-T15EASE2-*.json round 2): a new Shape, Start
+  // Offset X -200px, so x / 200 + 1 is the progress, Back eases past 0 and 1 too. View 245, as in the trigger reads.
+  for (const [round, start, end] of [['CAP-T15EASE', '0%', '100%'], ['CAP-T15EASE2', '20%', '70%']]) {
+    for (const ease of ['Linear', 'Ease', 'In Back', 'Out Back', 'In Out Back']) {
+      const url = new URL(`../parity/findings/${round}-${ease.replace(/ /g, '')}.json`, import.meta.url);
+      if (round === 'CAP-T15EASE2' && ease === 'Linear') continue;
+      const R = JSON.parse(readFileSync(url)).reads, row = { action: 'Scrolls', startPasses: start, endPasses: end, ease, iterations: '1' };
+      const at = Object.keys(R).filter((k) => /^y\d+$/.test(k)).map((k) => [+k.slice(1), 1 + +R[k].style.transform.match(/-?[\d.e-]+/g)[4] / 200]);
+      const [w, worstAt] = worst({ row: { when: 'Block', ...row }, view: 245, at });
+      add(`On Scroll rule: ${ease}, Scrolls ${start} to ${end}, read by Offset X (${round})`, w <= 0.006, JSON.stringify(worstAt));
+    }
+  }
 
   const state = () => q(`const c = W.getComputedStyle(d.querySelector('.fe-block[data-block-id="${id}"]')); return JSON.stringify([c.transform, c.opacity, c.translate]);`);
   const angle = (t) => { const m = /matrix\(([\d.e-]+), ([\d.e-]+)/.exec(t); return m ? (Math.atan2(+m[2], +m[1]) * 180) / Math.PI : 0; };
