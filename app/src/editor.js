@@ -2742,7 +2742,7 @@ function setStandinValue(key, v) {
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
-  const t = e.target.closest('input[data-sp-set], select[data-sp-set], input[data-sp-field], input[data-sp-range]');
+  const t = e.target.closest('input[data-sp-set], select[data-sp-set], input[data-sp-field], textarea[data-sp-field], input[data-sp-range]');
   if (!t || !sel) return;
   if (t.tagName === 'SELECT') return setStandinValue(t.dataset.spSet, t.value);
   if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
@@ -2759,6 +2759,10 @@ blockPanel.addEventListener('input', (e) => {
   if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
 });
 blockPanel.addEventListener('click', (e) => {
+  // Product's image shape picker opens and closes its tiles; a pick re-draws the panel, which closes them.
+  const pick = e.target.closest('[data-sp-pick]');
+  // The tiles reach past the panel's foot (CAP-T12READS-E.json: 567 high at the picker's top left), so they sit fixed there.
+  if (pick) { const l = pick.nextElementSibling, r = pick.getBoundingClientRect(); Object.assign(l.style, { left: `${r.left}px`, top: `${r.top}px` }); l.hidden = !l.hidden; return; }
   const t = e.target.closest('button[data-sp-set]');
   if (t && sel) setStandinValue(t.dataset.spSet, t.dataset.v);
 });
