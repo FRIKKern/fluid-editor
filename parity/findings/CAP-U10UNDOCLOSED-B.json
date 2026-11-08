@@ -1,0 +1,562 @@
+{
+  "item": "CAP-U10UNDOCLOSED-B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "Undo and Redo with the Layouts panel closed, after picks 1 then 0, read again.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "U00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "U01 pick 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "U02 pick 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "U03 closed"
+    ],
+    [
+      "read",
+      "U03 closed",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "shot",
+      "U04 undo closed"
+    ],
+    [
+      "read",
+      "U04 undo closed",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "U05 redo closed",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "U06 undo closed again",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "U07 undo closed twice",
+      {
+        "look": 0,
+        "areas": 0,
+        "tiles": true
+      }
+    ]
+  ],
+  "reads": {
+    "U00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U01 pick 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            186,
+            ""
+          ],
+          [
+            "1",
+            317.9,
+            ""
+          ],
+          [
+            "2",
+            477.1,
+            ""
+          ],
+          [
+            "3",
+            617.5,
+            ""
+          ],
+          [
+            "4",
+            752,
+            ""
+          ],
+          [
+            "5",
+            868,
+            ""
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U02 pick 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            435.9,
+            ""
+          ],
+          [
+            "2",
+            595.1,
+            ""
+          ],
+          [
+            "3",
+            735.5,
+            ""
+          ],
+          [
+            "4",
+            870,
+            ""
+          ],
+          [
+            "5",
+            986,
+            ""
+          ]
+        ]
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U03 closed": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U04 undo closed": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U05 redo closed": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U06 undo closed again": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "U07 undo closed twice": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 626.5,
+        "rows": 7,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": false,
+        "box": null,
+        "tiles": []
+      },
+      "areas": [
+        [
+          "1/2/2/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "With the Layouts panel closed, Undo puts the step again as it does with the panel open: from layout 0 back to 1 gives 13 rows, the text 4/6/11/22, where the pick gave 14. Redo brings back 9. Undo from layout 1 onto the start gives 7 rows and the text 1/2/2/10, where the start had 8 and 1/2/3/10: the 7 rows CAP-U10UNDOPAST.json read with no rule. Read again: all 8 reads the same as CAP-U10UNDOCLOSED-A.json.",
+  "ours": "Built: Undo resteps every section it changes, panel open or closed, and Undo from paragraph layout 1 onto a section that shows no layout takes a row off the text and the section. marks-check: the CAP-U10UNDOCLOSED case.",
+  "differs": "Nothing read differs. Undo onto the start from layouts 3, 4 and 5 is not read."
+}

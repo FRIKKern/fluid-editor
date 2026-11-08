@@ -184,10 +184,16 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
-  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
-  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
+  // The layout a section shows before Undo sets the step of the one it goes back to, with the Layouts panel open or
+  // closed (restep: CAP-U10WALK2.json, CAP-U10UNDOCLOSED-A.json). Only sections the Undo changes, in the same mix.
+  const was = new Map(model.sections.map((s) => { const m = s.id === layoutsSid ? layoutsMix : sectionMix(s); return [s.id, [JSON.stringify(s), m?.key, m?.list.length ? layoutShown(s, m, null) : null]]; }));
   model = JSON.parse(undoStack.pop());
-  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
+  for (const s of model.sections) {
+    const [json, key, left] = was.get(s.id) || [];
+    if (json == null || json === JSON.stringify(s) || !s.blocks.length) continue;
+    const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
+    if (m && m.key === key) restep(s, m, left);
+  }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
   // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
