@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes
+- **Today** · 20 changes
+  - U11: keep the block clip across a reload, as on the oracle ([#402](https://github.com/FRIKKern/fluid-editor/pull/402))
   - T10: code-check --full on main 23d09dc, 1146 of 1146 (stored 1144) ([#401](https://github.com/FRIKKern/fluid-editor/pull/401))
-  - R2: which widening drops keep their rows: where the block ends, not its width ([#400](https://github.com/FRIKKern/fluid-editor/pull/400))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
