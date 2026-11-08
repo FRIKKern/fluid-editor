@@ -233,6 +233,10 @@ function blocks(lines, ctx, tight = false) {
       continue;
     }
     const item = line.match(ITEM);
+    // A bullet mark and a space with nothing after it, alone between blank lines, is text: "* " is <p>* </p>
+    // (CAP-93MDEMBED.json). Other empty items are not read.
+    const bare = item && /^[-+*]$/.test(item[2]) && item[3] && !line.slice(item[0].length).trim() && !(lines[i + 1] ?? '').trim() && !(lines[i - 1] ?? '').trim();
+    if (bare) { out.push(tight ? inline(line.replace(/^ {0,3}/, ''), ctx) : `<p>${inline(line.replace(/^ {0,3}/, ''), ctx)}</p>\n`); i++; continue; }
     if (item) { const l = list(lines, i, ctx); out.push(l.html); i = l.next; continue; }
     if (htmlBlock(line)) {
       const script = line.match(/^ {0,3}<(script|style|pre|textarea)\b/i), comment = /^ {0,3}<!--/.test(line), body = [];

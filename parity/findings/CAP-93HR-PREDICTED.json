@@ -1,0 +1,19 @@
+{
+  "item": "T10",
+  "note": "93, written before the read. One read (CAP-93MDEMBED.json, rule between, desktop): a Markdown <hr> in a 224.1 wide block is 168.1 wide at a 28.0 inset, 1 tall, its line one pixel of rgb(204, 204, 204) at its bottom. Two rules fit that read. A: 28px each side, width W - 56. B: 75% wide and centred, width 0.75 W at an inset of W / 8. The next read is the same text in phone view, where the block has another width W.",
+  "capturedAt": "2026-11-07T23:22:16.727797Z",
+  "predicted": {
+    "A (28px each side)": {
+      "hrWidth": "W - 56",
+      "hrInsetLeft": 28,
+      "hrHeight": 1,
+      "line": "rgb(204, 204, 204), bottom pixel"
+    },
+    "B (75%, centred)": {
+      "hrWidth": "0.75 * W",
+      "hrInsetLeft": "W / 8",
+      "hrHeight": 1,
+      "line": "rgb(204, 204, 204), bottom pixel"
+    }
+  }
+}

@@ -932,6 +932,27 @@ for (const n of 'ABCDE') {
 }
 
 }
+// 93, 94: Bold and Bulleted List on an empty Markdown block, as read (CAP-93MDEMBED.json, CAP-93HR.json): Bold's rule is
+// 75% of the block, centred, 1 tall, its line one #ccc pixel at its bottom; a bare bullet is the text "* " in the block's colour.
+{
+  const R = read('CAP-93MDEMBED').reads, PH = read('CAP-93HR').reads.phone;
+  const partsOf = (id, tag) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'); if (!b) return '[]'; const B = b.getBoundingClientRect(); return JSON.stringify([...b.querySelectorAll('${tag}')].filter((e) => e.getBoundingClientRect().width > 0).map((e) => { const q = e.getBoundingClientRect(), c = W.getComputedStyle(e); return { box: [q.left - B.left, q.top - B.top, q.width, q.height], bw: B.width, top: c.borderTopStyle, bottom: c.borderBottomWidth + ' ' + c.borderBottomStyle + ' ' + c.borderBottomColor, color: c.color, text: e.textContent }; })); })()`);
+  const oracleBox = (inside, tag, k = 0) => { const b = inside.find((e) => e.cls.startsWith('fluid-engine-block-contents')).box, e = inside.filter((x) => x.tag === tag)[k].box; return [e[0] - b[0], e[1] - b[1], e[2], e[3]]; };
+  const rule = (h) => !!h && h.top === 'none' && h.bottom === '1px solid rgb(204, 204, 204)';
+  let id = await freshMd(); await setMd(''); browser(S, 'click', mdBtn('Bold')); await pause(300);
+  let hr = partsOf(id, 'hr');
+  add('93 Bold on empty: the rule as read', hr.length === 1 && nearBox(hr[0].box, oracleBox(R['bold empty'].inside, 'hr')) && rule(hr[0]), JSON.stringify(hr));
+  await setMd(R['rule between'].codeText); await pause(200);
+  const ps = partsOf(id, 'p'); hr = partsOf(id, 'hr');
+  add('93 A rule between two lines', ps.length === 2 && hr.length === 1 && nearBox(hr[0].box, oracleBox(R['rule between'].inside, 'hr')) && nearBox(ps[1].box, oracleBox(R['rule between'].inside, 'p', 1)), JSON.stringify([hr, ps.map((p) => p.box)]));
+  evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 300)); return 'true'; })()`); await pause(200);
+  hr = partsOf(id, 'hr'); const pb = PH.block.box, ph = oracleBox(PH.inside, 'hr');
+  add('93 Phone: the rule keeps 75%, centred', hr.length === 1 && Math.abs(hr[0].box[2] / hr[0].bw - ph[2] / pb[2]) < 0.002 && Math.abs(hr[0].box[0] / hr[0].bw - ph[0] / pb[2]) < 0.002, JSON.stringify([hr, ph, pb[2]]));
+  evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(200);
+  id = await freshMd(); await setMd(''); browser(S, 'click', mdBtn('Bulleted List')); await pause(300);
+  const p = partsOf(id, 'p'), want = R['bullet empty'];
+  add('94 Bulleted List on empty: the text "* "', mdBlock(id) === want.htmlOf && p.length === 1 && p[0].color === 'rgb(0, 0, 0)' && nearBox(p[0].box, oracleBox(want.inside, 'p')), JSON.stringify([mdBlock(id), p]));
+}
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 if (FULL) writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
 if (!total || pass !== total) process.exitCode = 1;
