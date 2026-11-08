@@ -1,7 +1,7 @@
 {
  "check": "content that follows the width",
- "pass": 122,
- "total": 122,
+ "pass": 131,
+ "total": 132,
  "results": [
   {
    "what": "Quote at span 6: the block",
@@ -490,6 +490,46 @@
   {
    "what": "Past the last row, by real presses: to 384",
    "ok": true
+  },
+  {
+   "what": "Quote panel: Content, Design, Animation",
+   "ok": true
+  },
+  {
+   "what": "Quote panel: the captions as read",
+   "ok": true
+  },
+  {
+   "what": "Quote panel: the fields as read",
+   "ok": true
+  },
+  {
+   "what": "Quote panel: the rule under Quote",
+   "ok": true
+  },
+  {
+   "what": "Quote: each key shows at once, as read",
+   "ok": true
+  },
+  {
+   "what": "Quote: Enter is a <br>, the rows grow to 7, as read",
+   "ok": true
+  },
+  {
+   "what": "Quote: a long quote grows the rows to 10, as read",
+   "ok": true
+  },
+  {
+   "what": "Quote: an empty Source takes the figcaption, 9 rows",
+   "ok": true
+  },
+  {
+   "what": "Quote: one Undo after leaving gives the Source back only",
+   "ok": true
+  },
+  {
+   "what": "Quote: an empty Quote, 3 rows, as read",
+   "ok": false
   }
  ]
 }

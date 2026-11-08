@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -1743,7 +1743,8 @@ function renderBlockPanel() {
     : b.type === 'social' ? (() => { const l = socialLook(b, bp === 'mobile'); return { kind: 'social', links: socialList(), err: socErr, iconBorder: l.iconBorder, iconStyle: l.iconStyle, iconThick: l.iconThick, iconSize: l.iconSize, align: l.align }; })()
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
-    : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description } : null;
+    : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
+    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
@@ -1753,7 +1754,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -2558,6 +2559,25 @@ function setFormRows(b, s, need) {
   renderSectionDom(sel.sid);
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
+// Quote's fields (CAP-T12QUOTE.json): each key shows on the block at once, the rows follow the content both ways, and
+// a field's edit is one undo step when the field is left.
+let quoteBefore = null;
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]');
+  if (!t || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  quoteBefore ??= JSON.stringify(model);
+  b[t.dataset.content] = t.value;
+  renderSectionDom(sel.sid);
+  setFormRows(b, S(sel.sid), contentRows(b, formPitch(b)));
+});
+blockPanel.addEventListener('change', (e) => {
+  if (!e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]') || quoteBefore == null) return;
+  const before = quoteBefore;
+  quoteBefore = null;
+  // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone.
+  setTimeout(() => commit(before, 'Quote changed'));
+});
 // What a form's rows answer to: the form or its message, and any padding and stroke round it.
 function formHeight(b) {
   const root = blockEl(b.id), lb = formView(b, bp).lightbox;

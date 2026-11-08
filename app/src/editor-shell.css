@@ -1963,3 +1963,11 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .c-i { font-style: italic; }
 .c-link { text-decoration: underline; }
 .bp-code.is-look .bp-code-expand { z-index: 3; }
+/* Quote's Content tab (CAP-T12QUOTE.json): caption 33px under the rule above it, the field 11px under its caption, 14px/22px
+   and as tall as its lines, then a 1px #e7e7e7 rule 10px under it, 286 wide. The placeholder's grey is not read. Ours wraps
+   by our panel font, so a long quote can take a line fewer in the field than the oracle's (the block's rows still match). */
+.bp-qf { margin: 0 -5px; padding: 0 5px 10px; border-bottom: 1px solid #e7e7e7; }
+.bp-qf .bp-soccap { margin-top: 33px; font-weight: 500; }
+.sp-body > .bp-qf:first-child .bp-soccap { margin-top: 25px; }
+.bp-qta { display: block; box-sizing: border-box; width: 276px; min-height: 22px; margin: 11px 0 0; padding: 0; border: 0; border-radius: 0; background: none; color: #0e0e0e; font-family: inherit; font-size: 14px; line-height: 22px; font-weight: 400; resize: none; overflow: hidden; outline: none; field-sizing: content; }
+.bp-qta::placeholder { color: #8a8a8a; }

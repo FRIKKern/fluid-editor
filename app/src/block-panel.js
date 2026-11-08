@@ -510,6 +510,9 @@ function formDesignHtml(c, open) {
     + `<div class="sp-row"><span class="sp-label">Lightbox</span><label class="sp-switch"><input type="checkbox" aria-label="Lightbox" data-form-lightbox${c.lightbox ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`
     + (!c.lightbox ? '' : `<label class="sp-row bp-lb-text"><span class="sp-label">Button Text</span><input type="text" aria-label="Button Text" placeholder="Open Form" data-form-lbtext value="${esc(c.lightboxText)}"></label>${colorRow('Background Color', 'lightboxBg', c.lightboxBg)}`);
 }
+// Quote's Content tab (CAP-T12QUOTE.json): a caption and a field that grows by 22px lines, with a rule 10px under it.
+const quoteContentHtml = (c) => [['quote', 'Quote', 'Add a quote'], ['source', 'Source', 'Add a quote source']]
+  .map(([k, l, ph]) => `<div class="bp-qf"><label class="bp-soccap" for="bp-q-${k}">${l}</label><textarea id="bp-q-${k}" class="bp-qta" rows="1" aria-label="${l}" placeholder="${ph}" data-content="${k}" spellcheck="false">${esc(c[k])}</textarea></div>`).join('');
 function mapContentHtml(c) {
   const f = (key, label, ph) => `<label class="bp-mapf"><span class="bp-soccap">${label}</span><input class="bp-socf" type="text" aria-label="${label}" placeholder="${ph}" data-content="${key}" value="${esc(c[key] || '')}"></label>`;
   return f('mapName', 'Business Name', 'Squarespace') + f('mapAddress', 'Address', '8 Clarkson St') + f('mapCity', 'City, State, Zip Code', 'New York, NY, 10014') + f('mapCountry', 'Country', 'United States');
@@ -534,7 +537,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const box = ([k, l, , , , axis]) => `<label class="bp-box sc-box">${barHtml(d[k], designRange(k))}<input type="text" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" value="${designText(k, d[k])}" autocomplete="off" spellcheck="false">${HITS}${axis ? `<b class="an-axis">${axis}</b>` : ARROWS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
   if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Design' && content?.kind === 'accordion') {
     body = accordionDesignHtml(content, open, d);
   } else if (tab === 'Design') {
