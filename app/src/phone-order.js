@@ -50,6 +50,15 @@ export function newBlockSlot(blocks, w, h, place = [1, 2]) {
   return blocks.reduce((last, b, k) => (key(b.layout.desktop.area) <= key(place) ? k + 1 : last), 0);
 }
 
+// A new block on a phone stopped by overlap from a phone resize, with the overlap still there: it goes before the first
+// block at its place that fits inside it, and otherwise last, below every block, moving none (CAP-A2ROUND1 b1, b4;
+// CAP-A2ROUND2 f1). A phone stopped by a hand move, overlap or not, or whose overlap was deleted, keeps the size rule
+// (CAP-A2ROUND1 a2; CAP-A2ROUND2 f2, f4, m1, m2).
+export function stoppedSlot(blocks, w, h, place = [1, 2]) {
+  const k = blocks.findIndex((b) => { const a = b.layout.desktop.area, x = a[3] - a[1], y = a[2] - a[0]; return a[0] === place[0] && a[1] === place[1] && x <= w && y <= h && (x < w || y < h); });
+  return k >= 0 ? k : blocks.length;
+}
+
 // How a section built here sets its phone order again (CAP-DESKMOVE*, CAP-NEWORDER*, CAP-CYCLE*,
 // CAP-TURNTEST*). Inferred from those reads. A smaller block with at least 80% of its area inside a
 // bigger one (read between 75 and 83%) belongs to the first of the smallest such blocks, and comes

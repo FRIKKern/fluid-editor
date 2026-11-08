@@ -14,7 +14,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelT
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
+import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
@@ -147,7 +147,11 @@ function phoneFollowsMove(s, was) {
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
   closeUp(s, gone);
   if (bp === 'mobile') {
-    if (!gone.length && (changed('mobile', (a) => a.slice(0, 2)) || phoneOverlaps(s))) s.phoneFollows = false;
+    // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
+    if (!gone.length && s.phoneFollows !== false) {
+      const moved = changed('mobile', (a) => a.slice(0, 2));
+      if (moved || phoneOverlaps(s)) { s.phoneFollows = false; s.phoneStop = moved ? 'move' : 'overlap'; }
+    }
     return gone.length > 0;
   }
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
@@ -179,6 +183,10 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
+  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
+  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
+  if (shown.length === 2) heightShown = [secSid(), ...shown];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -4971,7 +4979,7 @@ function addBlock(sid, name) {
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
   const row = landingRow(s);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
+  const slot = s.phoneFollows ? 0 : s.phoneFollows === false && s.phoneStop === 'overlap' && phoneOverlaps(s) ? stoppedSlot(stack, w, h, [row, 2]) : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
   const at = NEW_ALIGN[name] ?? 'flex-start';
@@ -5331,9 +5339,15 @@ panel.addEventListener('click', (e) => {
 });
 
 // The custom height reads a whole number each time its slider or field changes, and the section follows at
-// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
-// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+// once (parity/findings/CAP-P3FIELD.json). The field's undo step comes on Enter; the slider's on each move
+// while held (difference 100, CAP-P3UNDO2.json). No number shows NaN with the slider at its middle, and the
+// height stays. The slider stops at 1 to 100, the field keeps what it read.
 let heightBefore = null;
+// After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
+// CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
+const heightNaN = new Map();
+// What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
+let heightShown = null;
 function showHeight(n) {
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (field.value !== String(n)) field.value = String(n);
@@ -5342,10 +5356,19 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
+  heightShown = null;
+  if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
-  heightBefore ??= JSON.stringify(model);
+  const before = JSON.stringify(model);
   s.customHeight = n;
   renderSectionDom(s.id);
+  if (input.type !== 'range') { heightBefore ??= before; return; }
+  // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
+  undoStack.push(before);
+  redoStack.length = 0;
+  note(`Section ${s.id} customHeight set to ${n}`);
+  $('undo').disabled = false;
+  $('redo').disabled = true;
 }
 function settleHeight(shown) {
   const before = heightBefore, sid = secSid();
@@ -5378,6 +5401,7 @@ function onSectionChange(e) {
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
+    if (input.type === 'range') updateUi(); // the slider's let go: its steps are in, the panel and Save follow
     return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
@@ -5625,6 +5649,8 @@ function renderSectionPanel() {
   sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5739,7 +5765,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
@@ -6764,6 +6790,9 @@ function openSubmenu(it) {
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
   arrangeMenu.style.top = `${r.top - st.top}px`;
   arrangeMenu.hidden = false;
+  // The row whose submenu is open stays lit while the pointer is on the submenu (CAP-U11LIT.json).
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
+  it.classList.add('is-sub');
   return true;
 }
 // A hover opens a row's submenu, as on the oracle.
@@ -6771,6 +6800,7 @@ contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {
