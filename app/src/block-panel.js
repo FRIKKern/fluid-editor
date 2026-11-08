@@ -12,6 +12,7 @@ import { HITS, resetBtn, ARROWS, barHtml, POSE_RANGE } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
 import { formFieldsPanelHtml } from './form-fields.js';
 import { lookBox } from './code-look.js';
+import { STANDIN_PANELS, standinTabs, standinContentHtml, standinDesignHtml } from './standin-panels.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
 
@@ -573,7 +574,9 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
   const box = ([k, l, , , , axis]) => `<label class="bp-box sc-box">${barHtml(d[k], designRange(k))}<input type="text" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" value="${designText(k, d[k])}" autocomplete="off" spellcheck="false">${HITS}${axis ? `<b class="an-axis">${axis}</b>` : ARROWS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;
   let body;
-  if (tab === 'Content' && content) {
+  if (tab === 'Content' && content?.kind === 'standin') {
+    body = standinContentHtml(content);
+  } else if (tab === 'Content' && content) {
     body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'newsletter' ? newsletterContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Storage') {
     body = newsletterStorageHtml();
@@ -596,6 +599,12 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`
       + '<div class="bp-thead bp-vfx"><span>Effects</span></div>' + videoBlendRow(d.blend || 'normal') + blurRows(d);
     // Code, embed and Line blocks (CODEEMBED.json, T11.json) and a form as a Lightbox button have the transforms alone.
+    else if (content?.kind === 'standin') {
+      const sp = STANDIN_PANELS[content.name];
+      body = standinDesignHtml(content)
+        + (sp.look ? `<div class="bp-look-rows">${appearanceRows(d)}${blendRow(d.blend || 'normal', open === 'blend', true)}${blurRows(d)}</div>` : '')
+        + (sp.transforms ? `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}` : '');
+    }
     else if (content?.kind === 'code' || content?.kind === 'embed' || content?.kind === 'line' || (content?.kind === 'form' && content.lightbox)) body = `<div class="bp-thead"><span>Transforms</span>${MORE}</div>${pairs.join('')}`;
     // A shape's Design tab (parity/findings/SHAPESTYLES.json):
     // shape style, Corner radius with Uniform or Individual radii, Stretch, Color, Blend Mode,
@@ -656,7 +665,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if (content?.kind === 'form' && tab === 'Design') body = formDesignHtml(content, open === 'bstyle') + body;
   if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
-  const tabs = content?.kind === 'markdown' ? ['Content'] : content?.kind === 'newsletter' ? ['Content', 'Design', 'Storage'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
+  const tabs = content?.kind === 'standin' ? standinTabs(content.name) : content?.kind === 'markdown' ? ['Content'] : content?.kind === 'newsletter' ? ['Content', 'Design', 'Storage'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   return `<div class="bp-drag" role="button" aria-label="Click and drag to reposition block editor form" data-drag-panel></div><div class="sp-tabs" role="tablist">${tabs.map(tabBtn).join('')}</div><div class="sp-body">${body}</div>`;
 }

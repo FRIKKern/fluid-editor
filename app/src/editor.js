@@ -37,6 +37,7 @@ import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { standinPanelOf } from './standin-panels.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -574,7 +575,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -1783,7 +1784,8 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
-    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() } : null;
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
+    : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -1794,7 +1796,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' && !standinPanelOf(b) ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -2692,6 +2694,32 @@ blockPanel.addEventListener('change', (e) => {
   // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone. A press
   // that left the field waits for its click: the redraw would take the switch or pick from under it.
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
+});
+// A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
+function setStandinValue(key, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.sp = { ...b.sp, [key]: v };
+  commit(before, `${b.label} ${key} changed`);
+}
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('input[data-sp-set], input[data-sp-field], input[data-sp-range]');
+  if (!t || !sel) return;
+  if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
+  if (t.dataset.spRange) return setStandinValue(t.dataset.spRange, Number(t.value));
+  const f = t.dataset.spField;
+  if (t.dataset.min == null) return setStandinValue(f, t.value);
+  const n = Math.round(parseFloat(t.value));
+  if (Number.isFinite(n)) setStandinValue(f, Math.max(Number(t.dataset.min), Math.min(Number(t.dataset.max), n))); else renderBlockPanel();
+});
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('input[data-sp-range]');
+  const f = r && blockPanel.querySelector(`input[data-sp-field="${r.dataset.spRange}"]`);
+  if (f) f.value = r.value;
+  if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
+});
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-sp-set]');
+  if (t && sel) setStandinValue(t.dataset.spSet, t.dataset.v);
 });
 // Newsletter's Show Name Field, Layout and Alignment: one undo step each, after the step of a field just left.
 function setNewsletter(key, v) {
