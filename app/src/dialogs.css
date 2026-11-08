@@ -61,7 +61,8 @@
 .dl-cell:focus { outline: none; background: #fff; }
 .dl-grip { left: 41px; width: 6px; height: 12px; margin-top: 16px; background: radial-gradient(circle, #b4b4b4 .8px, transparent 1px) 0 0 / 3px 3px; pointer-events: none; }
 /* The + is a 35.6 by 44 box, its 24px glyph centred (CAP-T12DCHART.json). */
-.dl-plus { width: 35.6px; height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: center; font-size: 24px; line-height: 44px; cursor: pointer; }
+.dl-plus { display: flex; align-items: center; justify-content: center; width: 35.6px; height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 0; cursor: pointer; } /* the box keeps its "+" as the read has it; the cross draws it */
+.dl-plus-x { flex: none; transform: translate(-0.6px, -0.9px); }
 .dl-area textarea { width: 100%; height: 100%; box-sizing: border-box; padding: 11px; border: 0; background: #fff; color: #3e3e3e; font: inherit; resize: vertical; }
 .dl-button button { width: 100%; height: 100%; padding: 11px; border: 0; background: #3e3e3e; color: #fff; font: 500 11px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
 .dl-button button:disabled { opacity: .3; } /* (191, 191, 191) over the panel, read by pixel (CAP-T12CHARTCELLS.json) */

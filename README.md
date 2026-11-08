@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 61 changes
-  - T12: Newsletter's tip, Require rows, Post-Submit, phone; undo scored 4 of 6 ([#437](https://github.com/FRIKKern/fluid-editor/pull/437))
-  - T15: the stage square plays when the mouse comes onto it, at 1.5 times the Duration ([#443](https://github.com/FRIKKern/fluid-editor/pull/443))
+- **Today** · 65 changes
+  - T12: Chart + is a 12px cross, two series' bars 2.5 apart; T15 names its 2 reads ([#448](https://github.com/FRIKKern/fluid-editor/pull/448))
+  - U10: how the words set a layout's spans, read (rows 48 of 48; word rule 33 of 48, frozen) ([#446](https://github.com/FRIKKern/fluid-editor/pull/446))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
