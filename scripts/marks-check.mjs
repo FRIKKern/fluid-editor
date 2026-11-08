@@ -3249,8 +3249,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400);
   viewport(S, 1600, 1000); await pause(300);
 }
-// U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), each read pick of the five
-// types read in full (CAP-U10PICK-*.json), a shared list for an unread type, and Archive's tiles shown unbuilt.
+// U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), every pick of the 15 types
+// read in full (CAP-U10PICK-*.json, CAP-U10FADED-*.json), a shared list for an unread type, and the mixes.
 {
   const FIND = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
   const ON = new Set();
@@ -3289,35 +3289,24 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const span = au0[2] - au0[0];
   add('Audio alone: 5 tiles, the shared list', audioTiles.length === 5 && !!au && au.at[0][0] === `3/3/${3 + span}/13` && au.rows === 3 + span - 1 + 4 && au.look.join() === 'dark,rounded', JSON.stringify({ audioTiles, au }));
   browser(S, 'press', 'Escape'); await pause(200);
-  alone('Archive'); await pause(250);
-  const arch = await open(), archOn = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
-  add('Archive alone: its 6 tiles show, not built', arch.length === 6 && archOn.join() === '6,0', JSON.stringify({ arch, archOn }));
-  browser(S, 'press', 'Escape'); await pause(200);
-  // Two picks read each (CAP-U10SHARE-*.json): those built as read, the other tiles shown and not built.
-  for (const [T, F, picks] of [['Instagram', 'INSTAGRAM', [2, 4]], ['Flickr', 'FLICKR', [2, 4]], ['Scrolling', 'SCROLLING', [0, 2]]]) {
-    const R = FIND(`CAP-U10SHARE-${F}`).reads, L = FIND(`CAP-U10LIST-${F}`).reads.open.tileNames.length;
+  // Every pick of the lists read in full, in order (CAP-U10FADED-A.json and B): rows, areas and look. Instagram, Flickr
+  // and Scrolling keep their first reads for the picks built from those (CAP-U10SHARE-*.json).
+  const FADED = { ...FIND('CAP-U10FADED-A').reads, ...FIND('CAP-U10FADED-B').reads };
+  const OLD = { Instagram: ['INSTAGRAM', [2, 4]], Flickr: ['FLICKR', [2, 4]], Scrolling: ['SCROLLING', [0, 2]] };
+  for (const T of ['Instagram', 'Flickr', 'Scrolling', 'SoundCloud', 'Calendar', 'Bandsintown', 'Menu', 'Chart', 'Tock', 'Archive']) {
+    const L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.length, errs = [];
     alone(T); await pause(250);
-    const tiles = await open(), errs = [];
+    const tiles = await open();
     const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
-    const want = tiles.map((_, n) => (picks.includes(n) ? n : -1));
-    if (tiles.length !== L || off.join() !== want.join()) errs.push(`tiles ${off}`);
-    for (const n of picks) {
-      const g = pick(n), r = R[`pick ${n}`], lk = r.look, st = r.stack[0];
+    if (tiles.length !== L || off.join() !== tiles.map((_, n) => n).join()) errs.push(`tiles ${off}`);
+    for (let n = 0; n < L; n++) {
+      const old = OLD[T] && OLD[T][1].includes(n), r = old ? FIND(`CAP-U10SHARE-${OLD[T][0]}`).reads[`pick ${n}`] : FADED[`${T} pick ${n}`], lk = r.look, st = r.stack[0], g = pick(n);
       if (!g) { errs.push(`${n} no tile`); continue; }
       if (g.rows !== lk.rows || g.at[0][0] !== st.desktop || g.at[0][1] !== st.phone || g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} ${JSON.stringify(g)}`);
     }
-    add(`View Layouts, ${T} alone: ${picks.length} read picks of ${L}, the rest not built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    add(`View Layouts, ${T} alone: all ${L} picks as read`, errs.length === 0, errs.slice(0, 3).join(' | '));
     browser(S, 'press', 'Escape'); await pause(200);
   }
-  // The types the family test didn't put with Code or Video: every tile shown, none built.
-  const none = [];
-  for (const T of ['Chart', 'Calendar', 'Bandsintown', 'Tock', 'SoundCloud', 'Menu']) {
-    alone(T); await pause(250); const t = await open();
-    const c = evalJs(S, `JSON.stringify([document.querySelectorAll('.lo-tile.lo-unbuilt[disabled]').length, document.querySelectorAll('[data-layout]').length])`);
-    if (t.length !== 5 || c.join() !== '5,0') none.push(`${T} ${t.length} ${c}`);
-    browser(S, 'press', 'Escape'); await pause(200);
-  }
-  add('Chart, Calendar, Bandsintown, Tock, SoundCloud, Menu alone: 5 tiles, none built', none.length === 0, none.join(', '));
   // Embed and Tag Cloud take Code's list (CAP-U10FAMILYPREDICT.json): each read pick's columns, row starts, rows past the
   // block and look; the block keeps its own height here, so the row ends follow ours.
   const fam = [];
@@ -3333,21 +3322,23 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     browser(S, 'press', 'Escape'); await pause(200);
   }
   add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
-  // A type with one other block (CAP-U10MIX-*.json): on or off, the tile count, and the read picks as read
-  // (CAP-U10MIXPICK-*.json; areas compared as a set, as ours puts blocks in page order); the rest of the tiles shown, not built.
+  // A type with one other block (CAP-U10MIX-*.json): on, the tile count, and every pick as read, each block by its
+  // type (CAP-U10MIXPICK-*.json for the picks first built, CAP-U10FADED-C.json and D for the rest; blocks known by id).
   const pair = (a, b) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, ${JSON.stringify(a)}); fe.addBlock(sid, ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
-  for (const [a, b, F, picks] of [['Image', 'Code', 'IMAGE-CODE', [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', []], ['Map', 'Button', 'MAP-BUTTON', []], ['Map', 'Code', 'MAP-CODE', []]]) {
+  const MIXR = { ...FIND('CAP-U10FADED-C').reads, ...FIND('CAP-U10FADED-D').reads }, idn = (x) => +x.id.split('_').pop();
+  for (const [a, b, F, key, added, first] of [['Image', 'Code', 'IMAGE-CODE', 'Code+Image', ['Image', 'Code'], [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', 'Button+Video', ['Video', 'Button'], [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', 'Image+Quote', ['Image', 'Quote'], []], ['Map', 'Button', 'MAP-BUTTON', 'Button+Map', ['Button', 'Map'], []], ['Map', 'Code', 'MAP-CODE', 'Code+Map', ['Map', 'Code'], []]]) {
     const L = FIND(`CAP-U10MIX-${F}`).reads.open.tileNames.map((x) => Math.round(x[5] * 10) / 10), errs = [];
     pair(a, b); await pause(250);
     const tiles = await open();
     const on = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled ? -1 : +t.dataset.layout))`);
-    if (tiles.join() !== L.join() || on.join() !== L.map((_, n) => (picks.includes(n) ? n : -1)).join()) errs.push(`tiles ${tiles} ${on}`);
-    for (const n of picks) {
-      const r = FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`], g = pick(n);
-      const want = r.stack.map((x) => [x.desktop, x.phone].join(' ')).sort().join(), got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+    if (tiles.join() !== L.join() || on.join() !== L.map((_, n) => n).join()) errs.push(`tiles ${tiles} ${on}`);
+    for (let n = 0; n < L.length; n++) {
+      const r = first.includes(n) ? FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`] : MIXR[`${key} pick ${n}`], g = pick(n);
+      const want = [...r.stack].sort((x, y) => idn(x) - idn(y)).map((x, k) => [added[k].toLowerCase(), x.desktop, x.phone].join(' ')).sort().join();
+      const got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [(x.type === 'shape' ? x.label : x.type).toLowerCase(), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
       if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',') errs.push(`${n} ${got} ${g && g.rows}`);
     }
-    add(`View Layouts, ${a} + ${b}: ${L.length} tiles, ${picks.length} read picks built`, errs.length === 0, errs.slice(0, 3).join(' | '));
+    add(`View Layouts, ${a} + ${b}: all ${L.length} picks as read, each block by its type`, errs.length === 0, errs.slice(0, 3).join(' | '));
     browser(S, 'press', 'Escape'); await pause(200);
   }
   pair('Instagram', 'Button'); await pause(250);
