@@ -1,7 +1,7 @@
 // T12: five menu types whose content sets the rows and follows the width, against
 // parity/findings/STANDINS.json. Writes parity/standin-check.json. FLUID_SURFACE=cdp:<port> npm run standin-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, drag, mouse, screenshot } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, drag, mouse, screenshot, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -153,6 +153,46 @@ evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); fe.
 if (process.env.T14_SHOT) screenshot(S, process.env.T14_SHOT);
 viewport(S, 1600, 1400);
 
+// Quote's Content tab (CAP-T12QUOTE.json): span 6 and 6 rows as read, Edit, Content; real keys at the end of each field.
+{
+  const QT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12QUOTE.json', import.meta.url)));
+  goto(S, `${BASE}/index.html`); await pause(1800);
+  place('Quote', 6, 6);
+  const qs = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const p = document.getElementById('block-panel'), d = document.getElementById('site-frame').contentDocument; ${body} })()`);
+  qs(`fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); p.querySelector('[data-btab="Content"]')?.click(); await sleep(300); return 'true';`);
+  const look = () => qs(`const P0 = p.getBoundingClientRect(), rel = (e) => { const r = e.getBoundingClientRect(); return [r.left - P0.left, r.top - P0.top, r.width, r.height].map((v) => Math.round(v * 10) / 10); }; return JSON.stringify({ tabs: [...p.querySelectorAll('[data-btab]')].map((t) => t.textContent), caps: [...p.querySelectorAll('.bp-qf .bp-soccap')].map((e) => { const c = getComputedStyle(e); return { text: e.textContent, box: rel(e), font: c.fontSize + '/' + c.lineHeight + ' ' + c.fontWeight, color: c.color, up: c.textTransform }; }), fields: [...p.querySelectorAll('.bp-qta')].map((e) => { const c = getComputedStyle(e); return { label: e.getAttribute('aria-label'), placeholder: e.placeholder, box: rel(e), font: c.fontSize + '/' + c.lineHeight + ' ' + c.fontWeight, color: c.color, value: e.value }; }), rules: [...p.querySelectorAll('.bp-qf')].map((e) => { const b = rel(e); return [b[0], b[1] + b[3] - 1, b[2], getComputedStyle(e).borderBottomColor]; }) });`);
+  const blk = () => qs(`const b = fe.model.sections[1].blocks[0], el = d.querySelector('.fe-block[data-block-id="one"]'), bq = el.querySelector('blockquote'), fc = el.querySelector('figcaption'); return JSON.stringify({ rows: b.layout.desktop.area[2] - b.layout.desktop.area[0], quote: bq.innerHTML.replace(/\\s+/g, ' ').trim(), figcaption: fc ? fc.outerHTML : null, undo: !document.getElementById('undo').disabled });`);
+  const key = async (k, w = 150) => { browser(S, 'press', k); await pause(w); };
+  const toEnd = async (label) => { const c = qs(`const e = p.querySelector('.bp-qta[aria-label="${label}"]'), r = e.getBoundingClientRect(); return JSON.stringify([r.left + 30, r.top + 11]);`); mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(150); qs(`const e = document.activeElement; e.setSelectionRange(e.value.length, e.value.length); return 'true';`); };
+  let L = look();
+  add('Quote panel: Content, Design, Animation', L.tabs.join() === 'Content,Design,Animation', L.tabs.join());
+  add('Quote panel: the captions as read', L.caps.length === 2 && L.caps.every((c, n) => near(c.box, QT.captions[n].box, 1) && c.text === QT.captions[n].text && c.up === 'uppercase' && c.font === QT.captions[n].font && c.color === QT.captions[n].color), JSON.stringify(L.caps));
+  add('Quote panel: the fields as read', L.fields.length === 2 && L.fields.every((f, n) => near(f.box, QT.fields[n].box, 1) && f.font === QT.fields[n].font && f.color === QT.fields[n].color && f.placeholder === QT.fields[n].placeholder && f.label === QT.fields[n].label), JSON.stringify(L.fields));
+  add('Quote panel: the rule under Quote', near(L.rules[0].slice(0, 3), [QT.rule.x[0], QT.fields[0].box[1] + QT.fields[0].box[3] + QT.rule.under.Quote, QT.rule.x[1] - QT.rule.x[0] + 1], 1) && L.rules[0][3] === QT.rule.color, JSON.stringify(L.rules));
+  const T = QT.typing;
+  await toEnd('Quote'); await key('A'); await key('b', 300);
+  let k = blk();
+  add('Quote: each key shows at once, as read', k.quote === T.afterAb.quote && k.rows === T.afterAb.rows, JSON.stringify(k));
+  await key('Enter'); await key('C', 400);
+  k = blk(); L = look();
+  add('Quote: Enter is a <br>, the rows grow to 7, as read', k.quote === T.afterEnterC.quote && k.rows === T.afterEnterC.rows && near([L.fields[0].box[3]], [66], 0.5), `${JSON.stringify(k)} ${L.fields[0].box}`);
+  for (let n = 0; n < 6; n++) for (const ch of ' longer words') await key(ch === ' ' ? 'Space' : ch, 25);
+  await pause(400); k = blk(); L = look();
+  // The field wraps by our panel font, not the oracle's, so its lines are not compared here; the caption below still follows it.
+  add('Quote: a long quote grows the rows to 10, as read', k.quote === T.afterLong.quote && k.rows === T.afterLong.rows && L.caps[1].box[1] === L.fields[0].box[1] + L.fields[0].box[3] + 44, `${k.rows} ${L.fields[0].box} ${L.caps[1].box}`);
+  await toEnd('Source'); await key('Meta+a'); await key('Backspace', 400);
+  k = blk();
+  add('Quote: an empty Source takes the figcaption, 9 rows', k.figcaption === T.sourceEmpty.figcaption && k.rows === T.sourceEmpty.rows, JSON.stringify(k));
+  qs(`document.activeElement.blur(); await sleep(250); return 'true';`);
+  const u = qs(`const b = document.getElementById('undo'), r = b.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+  mouse(S, 'move', u[0], u[1]); await pause(60); mouse(S, 'down', u[0], u[1], { buttons: 1 }); await pause(40); mouse(S, 'up', u[0], u[1]); await pause(400);
+  k = blk(); L = look();
+  add('Quote: one Undo after leaving gives the Source back only', k.figcaption === T.undoAfterLeaving.figcaption && k.quote === T.undoAfterLeaving.quote && k.rows === T.undoAfterLeaving.rows && L.fields[1].value === 'Quote Source', `${JSON.stringify(k)} ${L.fields[1].value}`);
+  await toEnd('Quote'); await key('Meta+a'); await key('Backspace', 400);
+  k = blk();
+  add('Quote: an empty Quote, 3 rows, as read', k.quote === T.quoteEmpty.quote && k.rows === T.quoteEmpty.rows, JSON.stringify(k));
+  if (process.env.QUOTE_SHOT) screenshot(S, process.env.QUOTE_SHOT);
+}
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
 console.log(`Stand-ins: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);

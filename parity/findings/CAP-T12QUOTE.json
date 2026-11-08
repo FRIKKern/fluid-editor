@@ -1,0 +1,442 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Quote's Content tab: its fields' boxes and look, and what typing in them does to the block. Predicted first in CAP-T12QUOTE-PREDICTED.json.",
+ "how": "A new Quote on the probe page (span 6, 6 rows), Edit, Content. Real keys at the end of each field; Enter and C in Quote; six times \" longer words\"; Source emptied with Cmd+A and Backspace; the field left, then the top bar's Undo once; Quote emptied the same way; then the Design tab. Every press had an on-top check. Left by Exit, then Exit Without Saving; the page read 0 blocks after.",
+ "panel": {
+  "box": [
+   461,
+   301,
+   320,
+   500
+  ],
+  "tabs": [
+   {
+    "name": "Content",
+    "box": [
+     22,
+     18.5,
+     52.8,
+     18
+    ],
+    "font": "14px/22px 500",
+    "color": "rgb(14, 14, 14)"
+   },
+   {
+    "name": "Design",
+    "box": [
+     90.8,
+     18.5,
+     46,
+     18
+    ],
+    "font": "14px/22px 500",
+    "color": "rgb(102, 102, 102)"
+   },
+   {
+    "name": "Animation",
+    "box": [
+     152.8,
+     18.5,
+     67.5,
+     18
+    ],
+    "font": "14px/22px 500",
+    "color": "rgb(102, 102, 102)"
+   }
+  ]
+ },
+ "captions": [
+  {
+   "text": "Quote",
+   "shown": "uppercase",
+   "box": [
+    0,
+    88,
+    320,
+    16
+   ],
+   "font": "11px/16px 500",
+   "color": "rgb(102, 102, 102)"
+  },
+  {
+   "text": "Source",
+   "shown": "uppercase",
+   "box": [
+    0,
+    203,
+    320,
+    16
+   ],
+   "font": "11px/16px 500",
+   "color": "rgb(102, 102, 102)"
+  }
+ ],
+ "fields": [
+  {
+   "label": "Quote",
+   "tag": "TEXTAREA",
+   "placeholder": "Add a quote",
+   "box": [
+    22,
+    115,
+    276,
+    44
+   ],
+   "font": "14px/22px 400",
+   "color": "rgb(14, 14, 14)",
+   "background": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(14, 14, 14)",
+   "padding": "0px",
+   "resize": "none",
+   "overflow": "hidden"
+  },
+  {
+   "label": "Source",
+   "tag": "TEXTAREA",
+   "placeholder": "Add a quote source",
+   "box": [
+    22,
+    230,
+    276,
+    22
+   ],
+   "font": "14px/22px 400",
+   "color": "rgb(14, 14, 14)",
+   "background": "rgba(0, 0, 0, 0)",
+   "border": "0px none rgb(14, 14, 14)",
+   "padding": "0px",
+   "resize": "none",
+   "overflow": "hidden"
+  }
+ ],
+ "rule": {
+  "color": "rgb(231, 231, 231)",
+  "height": 1,
+  "x": [
+   17,
+   302
+  ],
+  "under": {
+   "Quote": 10,
+   "Source": 11
+  },
+  "by": "pixels of the screenshot, 1 under each field"
+ },
+ "growth": "Each field is as tall as its lines, 22px a line: Quote 44 at the default, 66 after Enter, 110 after the long typing; the Source caption moves down with it.",
+ "typing": {
+  "default": {
+   "rows": 6,
+   "size": [
+    341.7,
+    235.6
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    136.6
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    173.1,
+    300.7,
+    16
+   ]
+  },
+  "afterA": {
+   "rows": 6,
+   "size": [
+    341.7,
+    235.6
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.A<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    136.6
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    173.1,
+    300.7,
+    16
+   ]
+  },
+  "afterAb": {
+   "rows": 6,
+   "size": [
+    341.7,
+    235.6
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.Ab<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    136.6
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    173.1,
+    300.7,
+    16
+   ]
+  },
+  "afterEnterC": {
+   "rows": 7,
+   "size": [
+    341.7,
+    276.7
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.Ab<br>C<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    170.8
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    207.3,
+    300.7,
+    16
+   ]
+  },
+  "afterLong": {
+   "rows": 10,
+   "size": [
+    341.7,
+    399.9
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.Ab<br>C longer words longer words longer words longer words longer words longer words<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    273.3
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    309.8,
+    300.7,
+    16
+   ]
+  },
+  "sourceEmpty": {
+   "rows": 9,
+   "size": [
+    341.7,
+    358.8
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.Ab<br>C longer words longer words longer words longer words longer words longer words<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    273.3
+   ],
+   "figcaption": null,
+   "figcaptionBox": null
+  },
+  "undoAfterLeaving": {
+   "rows": 10,
+   "size": [
+    341.7,
+    399.9
+   ],
+   "quote": "<span>“</span>Whatever it is, the way you tell your story online can make all the difference.Ab<br>C longer words longer words longer words longer words longer words longer words<span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    273.3
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    309.8,
+    300.7,
+    16
+   ]
+  },
+  "quoteEmpty": {
+   "rows": 3,
+   "size": [
+    341.7,
+    123.2
+   ],
+   "quote": "<span>“</span><span>”</span>",
+   "quoteBox": [
+    20.5,
+    36.5,
+    300.7,
+    34.2
+   ],
+   "figcaption": "<figcaption class=\"source\">— Quote Source</figcaption>",
+   "figcaptionBox": [
+    20.5,
+    70.7,
+    300.7,
+    16
+   ]
+  }
+ },
+ "fieldsAfter": {
+  "enterC": [
+   {
+    "label": "Quote",
+    "placeholder": "Add a quote",
+    "box": [
+     22,
+     115,
+     276,
+     66
+    ],
+    "value": "Whatever it is, the way you tell your story online can make all the difference.Ab\nC"
+   },
+   {
+    "label": "Source",
+    "placeholder": "Add a quote source",
+    "box": [
+     22,
+     252,
+     276,
+     22
+    ],
+    "value": "Quote Source"
+   }
+  ],
+  "long": [
+   {
+    "label": "Quote",
+    "placeholder": "Add a quote",
+    "box": [
+     22,
+     115,
+     276,
+     110
+    ],
+    "value": "Whatever it is, the way you tell your story online can make all the difference.Ab\nC longer words longer words longer wor"
+   },
+   {
+    "label": "Source",
+    "placeholder": "Add a quote source",
+    "box": [
+     22,
+     296,
+     276,
+     22
+    ],
+    "value": "Quote Source"
+   }
+  ],
+  "sourceEmpty": [
+   {
+    "label": "Quote",
+    "placeholder": "Add a quote",
+    "box": [
+     22,
+     115,
+     276,
+     110
+    ],
+    "value": "Whatever it is, the way you tell your story online can make all the difference.Ab\nC longer words longer words longer wor"
+   },
+   {
+    "label": "Source",
+    "placeholder": "Add a quote source",
+    "box": [
+     22,
+     296,
+     276,
+     22
+    ],
+    "value": ""
+   }
+  ],
+  "undo": [
+   {
+    "label": "Quote",
+    "placeholder": "Add a quote",
+    "box": [
+     22,
+     115,
+     276,
+     110
+    ],
+    "value": "Whatever it is, the way you tell your story online can make all the difference.Ab\nC longer words longer words longer wor"
+   },
+   {
+    "label": "Source",
+    "placeholder": "Add a quote source",
+    "box": [
+     22,
+     296,
+     276,
+     22
+    ],
+    "value": "Quote Source"
+   }
+  ],
+  "quoteEmpty": [
+   {
+    "label": "Quote",
+    "placeholder": "Add a quote",
+    "box": [
+     22,
+     115,
+     276,
+     22
+    ],
+    "value": ""
+   },
+   {
+    "label": "Source",
+    "placeholder": "Add a quote source",
+    "box": [
+     22,
+     209,
+     276,
+     22
+    ],
+    "value": "Quote Source"
+   }
+  ]
+ },
+ "design": {
+  "rows": [
+   "Background @22,67,80,22",
+   "Stroke @22,112,42,22",
+   "Blend Mode @22,159,81,18",
+   "Normal @227,159,49,18",
+   "Blur @22,202,26,22",
+   "Transforms @22,259,182,44",
+   "Opacity @22,310,52,44",
+   "Rotate @22,361,43,44",
+   "Scale @22,412,88,44",
+   "Offset @22,463,88,44",
+   "Skew @22,514,88,44",
+   "Anchor @22,565,49,44",
+   "Effects @22,620,276,44",
+   "Appear @22,677,49,18"
+  ]
+ },
+ "scores": {
+  "note": "Against CAP-T12QUOTE-PREDICTED.json, first round.",
+  "live": "match",
+  "enter": "match",
+  "sourceEmpty": "match",
+  "quoteEmpty": "miss: the block shrinks to 3 rows",
+  "rows": "match: 6 to 7 to 10 and back down",
+  "undo": "match: one Undo after leaving gave the Source back and nothing else",
+  "total": "5 of 6"
+ }
+}

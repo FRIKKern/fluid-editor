@@ -286,10 +286,16 @@ function chartHtml(b) {
   const legend = c.legend && !c.flip ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend"><li><span style="background-color:${pal[0]}"></span>${escapeHtml(c.data[0][1] || '')}</li></ul></figcaption></div>` : '';
   return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
 }
+export const QUOTE_TEXT = { quote: 'Whatever it is, the way you tell your story online can make all the difference.', source: 'Quote Source' };
+export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.source ?? QUOTE_TEXT.source });
 // Five menu types whose content sets the height and follows the width (STANDINS.json). The words and
 // the 12 plain tiles are local; no picture or service is behind them.
 const STANDIN = {
-  quote: () => '<figure class="sqs-quote-block-contents"><blockquote><span>“</span>Whatever it is, the way you tell your story online can make all the difference.<span>”</span></blockquote><figcaption class="source">— Quote Source</figcaption></figure>',
+  // Quote and Source as typed (CAP-T12QUOTE.json): a new line is a <br>, and an empty Source takes the figcaption away.
+  quote: (b) => {
+    const q = quoteOf(b), lines = (t) => escapeHtml(t).replace(/\n/g, '<br>');
+    return `<figure class="sqs-quote-block-contents"><blockquote><span>“</span>${lines(q.quote)}<span>”</span></blockquote>${q.source ? `<figcaption class="source">— ${lines(q.source)}</figcaption>` : ''}</figure>`;
+  },
   chart: (b) => chartHtml(b),
   soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',
   // Aspect Ratio, Crop Images, Show Title and Open Links in New Window (CAP-ROWSINSTAGRAM.json, CAP-ROWSFLICKR.json): a

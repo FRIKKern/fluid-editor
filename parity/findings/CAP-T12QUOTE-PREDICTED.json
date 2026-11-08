@@ -1,0 +1,14 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Quote's Content tab: what typing in its two fields does to the block, predicted before the read. Boxes and styles are read facts and are not predicted.",
+ "how": "A new Quote on the probe page, Edit, Content. Real keys at the end of each field; then Enter and a letter in Quote; Source emptied with Cmd+A and Backspace; Quote emptied the same way; the field left, then the top bar's Undo once.",
+ "predictions": {
+  "live": "Each key shows on the block at once, before the field is left.",
+  "enter": "Enter in Quote puts a line break in the block's quote (a <br>), not a new paragraph.",
+  "sourceEmpty": "An empty Source takes the figcaption away, dash and all.",
+  "quoteEmpty": "An empty Quote leaves an empty blockquote and the block keeps its rows.",
+  "rows": "A quote that wraps to more lines grows the block's rows, as its height follows its content (STANDINS.json).",
+  "undo": "One Undo after the field is left takes back the last field's change only (one step per field edit)."
+ }
+}
