@@ -8,7 +8,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
-import { replayLinkBox } from './lib/link-box-replay.mjs';
+import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -465,7 +465,37 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   lk('a page sets the link and stays open', r.page.href === '/home' && r.page.open && r.page.value === '/home' && r.page.list, r.page);
   lk('a click elsewhere closes', r.outside === true, r.outside);
   // The box a linked Button opens, walked with real keys and presses against the reads. Keys back to it are not read.
-  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs }));
+  for (const name of ['CAP-E7REOPEN', 'CAP-E7REOPEN2', 'CAP-E7REOPEN3', 'CAP-E7REOPEN4', 'CAP-E7SCORE', 'CAP-E7BOX', 'CAP-E7BOX2']) await replayLinkBox(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (read, diffs) => groupCases.push({ name: `E7 ${name} ${read}`, diffs }));
+  // A linked Stack opens the same box, by real presses (CAP-E7BOX2.json): the editor, typed, Enter closes it, then the box,
+  // then a press closes it. And a press on the box's row opens the link in a new tab (read from the browser's tabs there).
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-E7BOX2.json', import.meta.url))).reads;
+    const shape = (id, c) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1, c, 7, c + 6], z: 1, justify: 'center', align: 'center' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'center', align: 'center' } } });
+    const page = (blocks) => evalJs(S, `(async () => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 10, mobile: 24 }, blocks: ${JSON.stringify(blocks)} }] }); await new Promise((r) => setTimeout(r, 150)); return 1; })()`);
+    const lnk = '#block-toolbar [data-tb="link"]';
+    const sees = (read) => { const was = oracleSees(R, read), ours = evalJs(S, SEE); return ['view', 'row', 'focus', 'value', 'list', 'copy'].filter((k) => JSON.stringify(was[k]) !== JSON.stringify(ours[k])).map((k) => `${k}: oracle ${JSON.stringify(was[k])}, ours ${JSON.stringify(ours[k])}`); };
+    page([shape('l', 2), shape('m', 9)]);
+    evalJs(S, `(async () => { fe.select('s', 'l'); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const r = d.querySelector('.fe-block[data-block-id="m"]').getBoundingClientRect(), o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0, shiftKey: true, clientX: r.left + 20, clientY: r.top + 20 }; d.elementFromPoint(r.left + 20, r.top + 20).dispatchEvent(new W.PointerEvent('pointerdown', o)); d.dispatchEvent(new W.PointerEvent('pointerup', o)); await new Promise((res) => setTimeout(res, 120)); return 1; })()`);
+    browser(S, 'click', '#block-toolbar [data-tb="stack"]'); await pause(300);
+    const isStack = evalJs(S, `(() => JSON.stringify(fe.model.sections[0].blocks.some((b) => b.type === 'stack')))()`);
+    groupCases.push({ name: 'E7 Stack: two Shapes stacked', diffs: isStack ? [] : ['no stack'] });
+    browser(S, 'click', lnk); await pause(200);
+    groupCases.push({ name: 'E7 Stack: the editor', diffs: sees('stack editor') });
+    cdp(S, { op: 'presses', keys: [...'a.com/some/path'] }); await pause(150);
+    groupCases.push({ name: 'E7 Stack: typed', diffs: sees('stack typed') });
+    browser(S, 'press', 'Enter'); await pause(200);
+    groupCases.push({ name: 'E7 Stack: Enter closes it', diffs: sees('stack after Enter') });
+    browser(S, 'click', lnk); await pause(200);
+    groupCases.push({ name: 'E7 Stack: reopened, the box', diffs: sees('stack reopened 1') });
+    browser(S, 'click', lnk); await pause(200);
+    groupCases.push({ name: 'E7 Stack: a press closes it', diffs: sees('stack reopened 2') });
+    page([{ id: 'b', type: 'button', label: 'Learn more', href: 'https://a.com/some/path', layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'center', align: 'center' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'center', align: 'center' } } }]);
+    evalJs(S, `(() => { fe.select('s', 'b'); return 1; })()`); await pause(150);
+    browser(S, 'click', lnk); await pause(200);
+    const row = evalJs(S, `(() => { const r = document.querySelector('#link-popover .lk-box-row')?.getBoundingClientRect(); return JSON.stringify(r ? [r.left + r.width / 2, r.top + r.height / 2] : null); })()`);
+    if (row) { mouse(S, 'move', ...row); mouse(S, 'down', ...row); mouse(S, 'up', ...row); await pause(150); }
+    const opened = evalJs(S, `(() => JSON.stringify(window.__opened || []))()`);
+    groupCases.push({ name: 'E7 a press on the row opens the link', diffs: JSON.stringify(opened) === JSON.stringify(['https://a.com/some/path']) ? [] : [JSON.stringify([row, opened])] });
+  }
   // Difference 82: the Undo button lets a block selected with only its toolbar go, Cmd+Z keeps it (CAP-82UNDO.json), by real keys and presses.
   { const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-82UNDO.json', import.meta.url))).reads;
     evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [] }] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`);
@@ -683,6 +713,19 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
   // Let go, the rows follow the text at its real width (CAP-TEXTWIDTH4.json o narrower 20): Escape takes 11 stretched rows to 12.
   { const w = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH4.json', import.meta.url))).reads['o narrower 20 let go']; browser(S, 'press', 'Escape'); await pause(150); const r = read(); groupCases.push({ name: 'R2 narrower 20 let go', diffs: [r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`, r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`].filter(Boolean) }); }
+  // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.
+  { const W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2WIDEFALL.json', import.meta.url))); const garden = W.steps.find((x) => x[0] === 'keysFast')[1];
+    const area = (t) => t.split('/').map(Number);
+    for (const c of ['c1 Line 1 row under', 'c2 Shape far under', 'c3 Shape pushed by the typing', 'c4 Shape lower to the right', 'c5 Shape pushed by 1']) {
+      const was = W.reads[`${c} before`], got = W.reads[`${c} let go`], type = c.includes('Line') ? 'line' : 'shape';
+      const html = `<p>${garden}</p>${c.startsWith('c5') ? '<p><br></p><p><br></p>' : ''}`;
+      const ly = (a) => ({ desktop: { area: area(a), z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } });
+      evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: ${was.section.rows}, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(html)}, layout: ${JSON.stringify(ly(was.stack[0].desktop))} }, { id: 'o', type: '${type}', fill: '#ccc', label: 'o', layout: ${JSON.stringify(ly(was.stack[1].desktop))} }] }] }); await new Promise((r) => setTimeout(r, 150)); fe.select('s', 't'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60);
+      await step(176.34);
+      const r = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.map((x) => x.layout.desktop.area.join('/')), rows: fe.model.sections[0].rows.desktop })`);
+      groupCases.push({ name: `R2 ${c}, widened 3`, diffs: [...got.stack.map((x, k) => r.a[k] !== x.desktop && `${k ? 'other' : 'text'}: oracle ${x.desktop}, ours ${r.a[k]}`), r.rows !== got.section.rows && `rows: oracle ${got.section.rows}, ours ${r.rows}`].filter(Boolean) });
+    }
+  }
   viewport(S, 1600, 1000); await pause(120);
 }
 // X2: which handle drags leave a block selected (HANDLEUP.json, a Text's corner and side: CAP-X2STEPS.json), with the real mouse, a pen and touch.

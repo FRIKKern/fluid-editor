@@ -2458,6 +2458,13 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await pickTile(4); const f4 = flipOf();
   add('Layouts: a Flip X start, off on layout 3\'s rounded divider, back on layout 4', f3.join() === 'rounded,false' && f4.join() === 'wavy,true', JSON.stringify([f3, f4]));
   browser(S, 'press', 'Escape'); await pause(200);
+  // A pick sets the text's alignment both ways (CAP-U10ALIGN-A.json): centred on an even place, left otherwise.
+  await para(); await openLayouts(300);
+  const tileAlign = js(`return JSON.stringify([5, 2].map((n) => getComputedStyle(document.querySelector('[data-layout="' + n + '"] .lo-t')).textAlign).join());`);
+  const alignOf = () => js(`const p = [...document.getElementById('site-frame').contentDocument.querySelectorAll('p')].find((e) => e.textContent.includes('Paragraph words for a probe')); return JSON.stringify([(fe.model.sections[0].blocks.find((b) => b.id === 'probe-p').html.match(/text-align: (\\w+)/) || [])[1] || 'left', p && getComputedStyle(p).textAlign].join(' '));`);
+  const aligned = []; for (const n of [5, 2, 0]) { await pickTile(n); aligned.push(alignOf()); }
+  add('Layouts: picks 5, 2, 0 set the paragraph centred, left, centred; tile 5\'s words centred', aligned.join() === 'center center,left start,center center' && tileAlign === 'center,left', JSON.stringify([aligned, tileAlign]));
+  browser(S, 'press', 'Escape'); await pause(200);
 }
 // U10: the Layouts panel closing and a pick on a section with a look, against CAP-VIEWLAYOUTS.json.
 {
