@@ -122,6 +122,18 @@ export function applyLayout(s, mix, n, base) {
   Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider, dividerStroke: 'none', dividerFlip: undefined, dividerFlipY: undefined });
 }
 
+// Undo onto a layout puts its step again, from the layout it leaves (CAP-U10WALK2.json: from 1 back to 0 gives 9;
+// CAP-U10UNDO.json: from 3 back to 0 gives 10). Redo brings back the state Undo left, so it has none. Read with the
+// Layouts panel open only.
+export function restep(s, mix, prev) {
+  const n = layoutShown(s, mix, null);
+  if (n == null || !mix.list[n].step) return;
+  const L = variant(mix.list[n], prev), { block } = L.step, b = mix.by[block[0]]?.[+block.slice(1)];
+  if (!b) return;
+  b.layout.desktop.area = area(L.places[block][0]);
+  s.rows = { ...s.rows, desktop: L.rows };
+}
+
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
   const fitsAt = (L) => s.rows?.desktop === L.rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === L.places[r + k][0]));

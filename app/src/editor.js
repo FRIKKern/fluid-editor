@@ -11,7 +11,7 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
@@ -181,7 +181,10 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
+  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
+  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
   model = JSON.parse(undoStack.pop());
+  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
   // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.

@@ -2471,20 +2471,21 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Layouts panel: later picks leave it there', js(`return JSON.stringify(document.getElementById('layouts-panel').getBoundingClientRect().top);`) === afterPick);
   browser(S, 'press', 'Escape'); await pause(200);
   // Each pick moves it up to where it would open on the section as it now is, never down (CAP-U10PANELPREDICT.json:
-  // ours' own values; the oracle read 214 and 114 for the two 206 and 106, a named 8 px miss).
+  // ours' own values; the oracle read 214 and 114 for the two 204 and 104, a named 10 px miss. Since rule P the
+  // section is the oracle's own 623.7 after pick 5 here; it was 626.5, which gave 206 and 106).
   const para = async () => { await start(); await change(`(m) => { const s = m.sections[0], t = JSON.parse(JSON.stringify(m.sections.flatMap((x) => x.blocks).find((b) => b.type === 'text'))); t.id = 'probe-p'; t.html = '<p>Paragraph words for a probe</p>'; t.layout.desktop.area = [2, 2, 4, 12]; t.layout.mobile.area = [1, 2, 3, 10]; s.blocks = [t]; s.height = 'medium'; s.rows = { ...s.rows, desktop: 8 }; delete s.theme; delete s.divider; }`); };
   const panelTop = () => js(`return JSON.stringify(Math.round(document.getElementById('layouts-panel').getBoundingClientRect().top));`);
   const pickTile = async (n) => { js(`document.querySelector('[data-layout="${n}"]').scrollIntoView({ block: 'nearest' }); return 'true';`); await pause(200); await real(await centre(`document.querySelector('[data-layout="${n}"]')`)); await pause(400); return panelTop(); };
   await para();
   const walk = [Math.round(await openLayouts(300))];
   for (const n of [1, 5, 2]) walk.push(await pickTile(n));
-  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 206, stays', walk.join() === '248,248,206,206', walk.join());
+  add('Layouts panel: picks 1, 5, 2 on a paragraph: 248, 248, up to 204, stays', walk.join() === '248,248,204,204', walk.join());
   browser(S, 'press', 'Escape'); await pause(200);
   await para();
   const fr = js(`const r = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + 400]);`);
   wheel(S, fr[0], fr[1], 100); await pause(800);
   const scrolled = [Math.round(await openLayouts(250)), await pickTile(5)];
-  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 106', scrolled.join() === '148,106', scrolled.join());
+  add('Layouts panel: scrolled 100, a pick moves it up from 148 to 104', scrolled.join() === '148,104', scrolled.join());
   browser(S, 'press', 'Escape'); await pause(200);
   await para(); await change(`(m) => { m.sections[0].divider = true; }`);
   const withDivider = Math.round(await openLayouts(300));
@@ -2679,6 +2680,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Mark: Redo to a pick that isn\'t the last marks nothing', shut() === false && mark() === '' && now().rows === 9, JSON.stringify([shut(), mark(), now()]));
   await esc(); await open();
   add('Mark: but reopening there marks it', mark() === '0', mark());
+  // Rule P's step on Undo, the other read order (CAP-U10UNDO.json b): pick 0, Undo, Redo, pick 3, Undo, Undo.
+  {
+    const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10UNDO.json', import.meta.url))).reads, got = [];
+    await setup(); await open(); await pick(0); got.push(now().rows);
+    await key('Meta+z'); got.push(now().rows); await key('Meta+Shift+z'); got.push(now().rows);
+    await pick(3); got.push(now().rows); await key('Meta+z'); got.push(now().rows); await key('Meta+z'); got.push(now().rows);
+    const want = ['b pick 0', 'b meta z', 'b meta shift z', 'b pick 3', 'b meta z again', 'b meta z twice'].map((k) => U[k].look.rows);
+    add('Layouts: the step after Undo and Redo, as CAP-U10UNDO.json read', got.join() === want.join(), `${got} want ${want}`);
+    await esc();
+  }
   await setup(); await open(); await pick(0); await key('Meta+z');
   add('Mark: goes with Undo by keyboard', mark() === '', mark());
   await key('Meta+Shift+z');
