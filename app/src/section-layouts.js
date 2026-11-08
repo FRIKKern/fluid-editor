@@ -3,6 +3,7 @@
 import { LAYOUTS } from './section-layouts-data.js';
 import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
 import { dividerEdge } from './render.js';
+import { setStyleProp } from './text-format.js';
 
 const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
 const roleOf = (b) => {
@@ -74,6 +75,18 @@ const area = (v) => v.split('/').map(Number);
 const THEME_TURN = { '': 'dark', white: 'dark', 'white-bold': 'black-bold', light: 'black', 'light-bold': 'bright', 'bright-inverse': 'bright', bright: 'bright-inverse', dark: 'bright', 'dark-bold': 'white-bold', black: 'white', 'black-bold': 'bright' };
 export const layoutTheme = (theme) => THEME_TURN[theme || ''];
 
+// A pick also sets each text block's alignment, both ways: centred when its desktop columns sit evenly around the
+// middle (start line + end line = 28), left otherwise (CAP-U10ALIGN-A.json, 6 of 6 seen; CAP-U10ALIGNPREDICT.json,
+// 41 of 41 predicted in CAP-U10ALIGN-B, C and D). Its own paragraphs and headings; lists, quotes and code not read.
+const centred = (desk) => { const [, c0, , c1] = area(desk); return c0 + c1 === 28; };
+function alignText(b, centre) {
+  if (typeof document === 'undefined' || !b.html) return;
+  const t = document.createElement('template');
+  t.innerHTML = b.html;
+  for (const el of t.content.children) if (/^(P|H[1-4])$/.test(el.tagName)) setStyleProp(el, 'text-align', centre ? 'center' : '');
+  b.html = t.innerHTML;
+}
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
   const L = mix.list[n];
@@ -85,6 +98,7 @@ export function applyLayout(s, mix, n, base) {
       b.layout.desktop.area = area(desk);
       b.layout.mobile.area = area(phone);
       if (r === 'h' && L.tag) b.html = b.html.replace(/<(\/?)h[1-4]/g, `<$1${L.tag}`);
+      if (r === 'h' || r === 'p') alignText(b, centred(desk));
     });
   }
   s.rows = { ...s.rows, desktop: L.rows, mobile: L.phoneRows };
@@ -116,7 +130,7 @@ function tile(mix, n, on, look) {
       const box = `left:${(xOf(c0) * SCALE).toFixed(1)}px;top:${((pad + (r0 - 1) * 41.09) * SCALE).toFixed(1)}px;width:${((xOf(c1) - xOf(c0) - 11) * SCALE).toFixed(1)}px;height:${(((r1 - r0) * 41.09 - 11) * SCALE).toFixed(1)}px`;
       if (r === 'i' || r === 't') parts.push(`<span class="lo-i" style="${box}"></span>`);
       if (r === 'b') parts.push(`<span class="lo-b" style="${box}"><i></i></span>`);
-      if (r === 'h' || r === 'p') parts.push(`<span class="lo-t lo-${L.tag && r === 'h' ? L.tag : r}" style="${box};color:${ink}">${words(b).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`);
+      if (r === 'h' || r === 'p') parts.push(`<span class="lo-t lo-${L.tag && r === 'h' ? L.tag : r}" style="${box};color:${ink}${centred(L.places[r + k][0]) ? ';text-align:center' : ''}">${words(b).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`);
     });
   }
   // A layout with a divider of its own: the tile's bottom is that divider's edge, its line too (CAP-U10TILES.json, the
