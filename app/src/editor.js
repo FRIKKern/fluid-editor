@@ -5316,8 +5316,12 @@ function onSectionClick(e) {
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
-  if (act === 'valign') s.valign = v;
+  // Custom height after a flattening Vertical press starts again at 1 (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json, custom again).
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
+  // (CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5378,6 +5382,8 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (CAP-P3ALIGN2 to 4).
+let panelFlat = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5393,6 +5399,7 @@ function followHeight(input) {
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
   s.customHeight = n;
+  delete s.flat;
   renderSectionDom(s.id);
   if (input.type !== 'range') { heightBefore ??= before; return; }
   // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
@@ -5430,6 +5437,7 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+    delete s.flat;
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
@@ -5678,7 +5686,8 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
+  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
@@ -5797,7 +5806,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();

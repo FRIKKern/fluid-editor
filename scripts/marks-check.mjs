@@ -638,6 +638,32 @@ hLet = hState();
 const PU = JSON.parse(readFileSync(new URL('../parity/findings/CAP-P3UNDO.json', import.meta.url))).reads['panel after NaN typed'].range;
 add('Custom height after NaN, opened again: empty, slider at the middle', hLet.t === PU.field && hLet.r === PU.slider && Math.abs(hLet.min - 12 * hLet.vh) < 0.5, JSON.stringify(hLet));
 
+// P3: a Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change,
+// and the panel opened again then shows S with no slider (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json: the frozen rule, 12 of
+// 12). Each read of the oracle's steps, replayed here, compared in vh and vmax: section min-height, the content
+// wrapper's top and bottom padding; and the panel's pressed Height and its slider and field.
+const pads = (p) => { const v = p.split(' ').map(parseFloat); return [v[0], v.length === 1 ? v[0] : v.length === 2 ? v[0] : v[2]]; };
+const alignRead = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow, s = f.contentDocument.querySelectorAll('main#page .page-section')[1], w = s.querySelector('.content-wrapper'), c = W.getComputedStyle(w), vh = W.innerHeight / 100, vmax = Math.max(W.innerWidth, W.innerHeight) / 100; const on = [...document.querySelectorAll('#section-panel [data-sact="height"][aria-pressed="true"]')].map((b) => b.getAttribute('aria-label')); const r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'); return JSON.stringify({ minVh: parseFloat(W.getComputedStyle(s).minHeight) / vh, pad: [parseFloat(c.paddingTop) / vmax, parseFloat(c.paddingBottom) / vmax], height: on.join('+'), range: r ? r.value + '/' + t.value : null }); })()`);
+const openPanel = async () => { await frameScroll(914); await hoverInSection(300); const p = chromeBox('Open Section Settings'); await pressAt(p[0] + 60, p[1] + 20); await pause(200); };
+for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2']) {
+  const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
+  await fresh(); await openPanel();
+  evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="Vertical center"]').click(); return 'ok'; })()`); await pause(200);
+  for (const [op, a] of F.steps.slice(F.steps.findIndex(([o]) => o === 'panel') + 1)) {
+    if (op === 'pressNamed' && a === 'Undo') { evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300); }
+    else if (op === 'pressNamed') { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${a}"]').click(); return 'ok'; })()`); await pause(200); }
+    else if (op === 'fillRange') await hFill(a);
+    else if (op === 'press' && a === 'Escape') { browser(S, 'press', 'Escape'); await pause(200); }
+    else if (op === 'panel') await openPanel();
+    else if (op === 'read') {
+      const o = F.reads[a], css = o.sectionCss, vh = o.section.frame[1] / 100, vmax = Math.max(...o.section.frame) / 100, r = alignRead();
+      const want = { minVh: parseFloat(css.section.minHeight) / vh, pad: pads(css.wrapper.padding).map((x) => x / vmax), height: o.radios.filter(([l, c]) => c && ['S', 'M', 'L', 'Custom height'].includes(l)).map(([l]) => l).join('+'), range: o.range ? `${o.range.slider}/${o.range.field}` : null };
+      add(`Custom height and alignment, ${name} ${a}`, Math.abs(r.minVh - want.minVh) < 0.05 && r.pad.every((x, i) => Math.abs(x - want.pad[i]) < 0.05) && r.height === want.height && r.range === want.range, JSON.stringify({ ours: r, oracle: want }));
+    }
+  }
+}
+browser(S, 'press', 'Escape'); await pause(200);
+
 // U4: the toolbar's halo, Align Vertically's menu, Pin's field and slider, phones, tips.
 const TB = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARS.json', import.meta.url)));
 const PN = JSON.parse(readFileSync(new URL('../parity/findings/PIN.json', import.meta.url)));
