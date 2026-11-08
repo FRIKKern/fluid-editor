@@ -1,0 +1,13 @@
+{
+  "item": "T12",
+  "question": "When a Bar Chart tilts its labels, pushed before CAP-T12TILT-*.json. Seen (CAP-T12CHARTCELLS3.json headplus shot): New York, Las Vegas, San Francisco in three 123.5px bands all tilt about 6.3 degrees up to the right, each ending at its band's centre. Read: the labels typed as Oslo, Rome, Lima (short), then as three 20-letter labels (long), same block.",
+  "rules": {
+    "A": "tilt only when the widest label does not fit its band (it tips between Oslo's width and San Francisco's): short flat and centred on the band; long tilted more than the seen 6.3 degrees, ending at the band's centre",
+    "B": "always tilted the same, about 6.3 degrees, ending at the band's centre"
+  },
+  "predictions": {
+    "short": { "A": "flat (under 1.5 degrees), centred on the band within 3px", "B": "about 6.3 degrees (within 1.5), right end at the band's centre within 3px" },
+    "long": { "A": "over 8 degrees, right end at the band's centre within 3px", "B": "about 6.3 degrees (within 1.5), right end at the band's centre within 3px" }
+  },
+  "scoring": "angle from the dark pixels' centres in a label's left and right thirds (the method gives 6.2 and 6.5 on the seen shot)"
+}
