@@ -371,6 +371,16 @@ export const RECIPES = {
       ['pick', 0, 'new'], ['pause', 400], ['press', 'ArrowRight'], ['pause', 400], ['press', 'Meta+z'], ['pause', 500], ...R(`${type} Cmd+Z`), ['press', 'Escape'], ['pause', 300]];
     return [['enter'], ['blank'], ['pause', 800], ...ONE('Shape'), ...ONE('Button'), ...ONE('Text')];
   })() },
+  // Difference 79: CAP-Y2KEYS2's set-aside "rows, pushed" reads, retaken at exact gaps. Two new Texts on top of each other,
+  // one grows by typing: does the other move? Typed into the one on top, then the one under it.
+  'CAP-79ONTOP': { page: 'Gestures Probe', question: '79: two new Texts on top of each other at 1/2/3/10; one grows by Enter at exact gaps, then Cmd+Z and Cmd+Shift+Z: where is the other? Typed into the top one, then the one under it. Predicted first.', steps: (() => {
+    const R = (name) => [['read', name, { html: [0, 0], areas: 0, has: ['Bold', 'Write'] }], ['read', `${name}, other`, { html: [0, 1] }]];
+    const TWO = [['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pause', 400]];
+    const GROW = (name) => [['click', 'Write'], ['keys', 'a'], ['pause', 1300], ...FAST(8), ['pause', 1300], ...R(`${name} typed`),
+      ['press', 'Meta+z'], ['pause', 400], ...R(`${name} z`), ['press', 'Meta+Shift+z'], ['pause', 400], ...R(`${name} y`), ...LEAVE, ...R(`${name} left`)];
+    return [['enter'], ...TWO, ...R('start'), ['pick', 0, 'new'], ...GROW('top'),
+      ['exit'], ['enter'], ...TWO, ['pick', 0, 0], ['pause', 300], ['read', 'under, picked', { areas: 0, has: ['Bold', 'Write'] }], ...GROW('under')];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
