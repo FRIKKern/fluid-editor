@@ -2725,6 +2725,17 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add('Layouts: the step after Undo and Redo, as CAP-U10UNDO.json read', got.join() === want.join(), `${got} want ${want}`);
     await esc();
   }
+  // The step with the panel closed, and Undo from 1 onto the start (CAP-U10UNDOCLOSED-A.json, read again in -B alike).
+  {
+    const A = read('CAP-U10UNDOCLOSED-A'), B = read('CAP-U10UNDOCLOSED-B'), got = [];
+    const at = () => got.push(`${now().rows} ${js(`return JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'));`)}`);
+    await setup(); js(`const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks[0].layout.desktop.area = [1, 2, 3, 10]; fe.load(m); return 'true';`); await pause(300);
+    at(); await open(); await pick(1); at(); await pick(0); at(); await esc(); at();
+    const closed = shut();
+    for (const k of ['#undo', '#redo', '#undo', '#undo']) { await press(k); at(); }
+    const want = Object.values(A).map((r) => `${r.look.rows} ${r.areas[0][0]}`), again = Object.values(B).map((r) => `${r.look.rows} ${r.areas[0][0]}`);
+    add('Layouts: the step on Undo with the panel closed, as CAP-U10UNDOCLOSED read twice', closed === true && want.join() === again.join() && got.join() === want.join(), `${closed} ${got} want ${want}`);
+  }
   await setup(); await open(); await pick(0); await key('Meta+z');
   add('Mark: goes with Undo by keyboard', mark() === '', mark());
   await key('Meta+Shift+z');

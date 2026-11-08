@@ -26,8 +26,8 @@ let pass = 0, total = 0;
 const results = [];
 // Summary's content moves between sessions (CAP-X6STEPS.json read 14 rows at 17 columns, CAP-X6DESKROWS.json 11): only its columns there.
 const ROWS_UNBUILT = /^Summary [ew] in /;
-// A one-column pull sets rows from the content as it was before it reflowed, and a far pull from where it had got to: the
-// oracle's timing, not built (CAP-X6DESKROWS.json). The Summary pulls after e 9 moved nothing on the oracle: not compared.
+// A one-column pull sets rows from the content as it was before it reflowed, and a far pull from where it had got to
+// (CAP-X6DESKROWS.json). Read again 2 s later they stay as they were (CAP-X6DESKSETTLE.json, CAP-X6DESKSETTLE2.json): misses, not built. The Summary pulls after e 9 moved nothing on the oracle: not compared.
 const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9', 'CAP-X6DESKROWS Instagram e 7', 'CAP-X6DESKROWS Instagram w far in', 'CAP-X6FLOORS Instagram w far in',
   'CAP-X6PHONEROWS Instagram e 6', 'CAP-X6PHONEROWS Instagram e 5', 'CAP-X6PHONEROWS Instagram e 4', 'CAP-X6PHONEROWS Instagram e back 8',
   // And one the 0.13 give misses: OpenTable runs 0.35 of a row over at 3 columns, where Page Link takes a row at 0.23. Its

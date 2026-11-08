@@ -1,0 +1,210 @@
+{
+  "item": "CAP-X6DESKSETTLE2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "X6: Instagram pulled in by its east handle one column twice on desktop, area and content height at 400 ms and 2 s after each pull.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "Instagram start",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Instagram e 7",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "read",
+      "Instagram e 7 later",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "Instagram e 6",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "read",
+      "Instagram e 6 later",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "Instagram start": {
+      "contentH": 359.4,
+      "areas": [
+        [
+          "1/2/13/10",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Instagram e 7": {
+      "contentH": 315.3,
+      "areas": [
+        [
+          "1/2/10/9",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Instagram e 7 later": {
+      "contentH": 315.3,
+      "areas": [
+        [
+          "1/2/10/9",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Instagram e 6": {
+      "contentH": 271.3,
+      "areas": [
+        [
+          "1/2/8/8",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Instagram e 6 later": {
+      "contentH": 271.3,
+      "areas": [
+        [
+          "1/2/8/8",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Instagram, 359.4 high at 8 columns, 12 rows. One column in: 315.3 high, 9 rows at 400 ms and 2 s later (its height gives 8 with 0.13 of give), as in CAP-X6DESKROWS.json. Two in: 271.3 high, 7 rows, both reads.",
+  "ours": "Ours: 8 rows at 7 columns, 7 at 6. npm run x6-check names CAP-X6DESKROWS.json's Instagram e 7.",
+  "differs": [
+    "Instagram e 7: 9 rows where its height gives 8, and it doesn't settle in 2 s: a miss, named"
+  ]
+}

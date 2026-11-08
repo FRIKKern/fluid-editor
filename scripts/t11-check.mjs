@@ -637,6 +637,14 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
     const bad = TIMES.filter((t) => { const a = atT(mine, t), b = atT(them, t); return Math.abs(a[0] - b[0]) > 0.08 || Math.abs(a[1] - b[1]) > 0.01 || Math.abs(a[2] - b[2]) > 2 || Math.abs(a[3] - b[3]) > 2; }).map((t) => `${t}: ${atT(mine, t).map((x) => Math.round(x * 100) / 100)} vs ${atT(them, t).map((x) => Math.round(x * 100) / 100)}`);
     add(`Design tab, Quote: Appear ${v} plays on the quote as read`, !bad.length, bad.join('; '));
   }
+  // After a pick the row shows its value (CAP-T12APPEARROW.json rowShots, two shots, the mouse off the row): grey fill 3px round,
+  // no line, dark label, the value ending where theirs does in #3e3e3e, a grey chevron centred where theirs is.
+  const RS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12APPEARROW.json', import.meta.url))).rowShots;
+  const row = q(`if (pop.hidden || !pop.querySelector('[data-appear-opt]')) { panel.querySelector('[data-appear]').click(); await sleep(250); } pop.querySelector('[data-appear-opt="Slide Up"]').click(); await sleep(400); const a = panel.querySelector('[data-appear]'), r = a.getBoundingClientRect(), s = getComputedStyle(a), v = a.querySelector('.bp-appear-v'), c = v?.querySelector('svg path'); if (!v || !c) return JSON.stringify({ v: false }); const g = document.createRange(); g.selectNodeContents(v.firstChild); const t = g.getBoundingClientRect(), p = c.getBoundingClientRect(); return JSON.stringify({ v: v.firstChild.textContent, bg: s.backgroundColor, rad: s.borderTopLeftRadius, line: getComputedStyle(a, '::after').content, lab: getComputedStyle(a.firstElementChild).color, vc: getComputedStyle(v).color, cc: getComputedStyle(v.querySelector('svg')).color, vr: r.right - t.right, cx: r.right - (p.left + p.width / 2), cy: p.top + p.height / 2 - r.top });`);
+  const rgb = (a) => `rgb(${a.join(', ')})`, rb = [472, 733, 298, 46];
+  const want = { vr: rb[0] + rb[2] - (RS.value['Slide Up'].box[1] + 1), cx: rb[0] + rb[2] - (RS.chevron.box[0] + RS.chevron.box[1] + 1) / 2, cy: (RS.chevron.box[2] + RS.chevron.box[3] + 1) / 2 - rb[1] };
+  add('Design tab, Quote: after a pick the Appear row shows its value as the oracle\'s does', row.v === 'Slide Up' && row.bg === rgb(RS.fill.color) && row.rad === '3px' && row.line === 'none' && row.lab === rgb(RS.label.darkest) && row.vc === rgb(RS.value.darkest) && row.cc === rgb(RS.chevron.darkest)
+    && near(row.vr, want.vr, 1.5) && near(row.cx, want.cx, 1.5) && near(row.cy, want.cy, 1.5), JSON.stringify({ row, want }));
   await fresh('Text'); q(`document.body.click(); await sleep(150); return 'true';`);
   const tid = q(`return JSON.stringify(fe.model.sections[1].blocks.at(-1).id);`);
   q(`fe.select(fe.model.sections[1].id, '${tid}'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`); tab();

@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 79 changes
-  - X8: 98, a lone widening that leaves a Text short arms the stored rows (R1 4 of 4) ([#462](https://github.com/FRIKKern/fluid-editor/pull/462))
-  - T12: Audio and Pricing Plan panels; Pricing Plan rows by its Elements (CAP-T12PRESS-E) ([#460](https://github.com/FRIKKern/fluid-editor/pull/460))
+- **Today** · 88 changes
+  - T12: Product panel; Audio's Add File Link field out (0005) ([#471](https://github.com/FRIKKern/fluid-editor/pull/471))
+  - R2, A2: single reads again (f3 built), resize scroll round frozen ([#470](https://github.com/FRIKKern/fluid-editor/pull/470))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
