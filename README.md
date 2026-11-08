@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 49 changes
+- **Today** · 50 changes
+  - A2: G3, a text edit that changes no size sets the phone order again (CAP-A2TYPEDNEW 7 of 7 fresh) ([#427](https://github.com/FRIKKern/fluid-editor/pull/427))
   - P3: a Vertical press flattens a Custom height section, read and built (frozen rule 12 of 12) ([#432](https://github.com/FRIKKern/fluid-editor/pull/432))
-  - U9: a wheel on the section's buttons, a press with a block selected, the phone panel's close: read and built ([#431](https://github.com/FRIKKern/fluid-editor/pull/431))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
