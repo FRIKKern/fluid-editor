@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 855,
+  "pass": 866,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 862,
+  "total": 873,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3392,6 +3392,26 @@
       "diffs": []
     },
     {
+      "name": "R2 c1 Line 1 row under, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c2 Shape far under, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c3 Shape pushed by the typing, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c4 Shape lower to the right, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c5 Shape pushed by 1, widened 3",
+      "diffs": []
+    },
+    {
       "name": "X2 Shape south 35 down",
       "diffs": []
     },
@@ -3429,6 +3449,18 @@
     },
     {
       "name": "X2 Text south 160 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 20 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text east 60 right",
       "diffs": []
     },
     {
@@ -3917,6 +3949,18 @@
     },
     {
       "name": "next gesture after a short Text n5",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: a press, 11 px, let go",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: a press, 14 px, let go",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: c 35, 70 px, let go",
       "diffs": []
     }
   ]

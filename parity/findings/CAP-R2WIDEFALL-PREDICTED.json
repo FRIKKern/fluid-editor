@@ -1,0 +1,165 @@
+{
+  "item": "R2",
+  "question": "R2: a Text widened 3 columns falls 2 rows: which blocks below rise? Two candidates, both stated before the read. A: as a typing shrink (moveWithText), every block starting at the new end or lower rises by the fall, whatever its columns; CAP-TEXTWIDTH2.json staying would then be the saved demo section, which a probe page cannot test. B: a block rises only by the rows this text pushed it, at most the fall; it explains CAP-TEXTWIDTH6.json s10 and CAP-TEXTWIDTH2.json both. Scored: the other block and the change of section rows from the before read, held and let go. Text areas are seen (CAP-TEXTWIDTH6.json s5), except c5.",
+  "candidates": {
+    "A": "rise by the fall, as typing does",
+    "B": "rise back by what this text pushed, at most the fall"
+  },
+  "predicted": {
+    "c1 Line 1 row under before": {
+      "placement": {
+        "text": "1/2/9/10",
+        "other": "10/2/11/6"
+      },
+      "note": "placement, not scored"
+    },
+    "c1 Line 1 row under held": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "8/2/9/6",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "10/2/11/6",
+        "rowsChange": 0
+      }
+    },
+    "c1 Line 1 row under let go": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "8/2/9/6",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "10/2/11/6",
+        "rowsChange": 0
+      }
+    },
+    "c2 Shape far under before": {
+      "placement": {
+        "text": "1/2/9/10",
+        "other": "13/2/19/8"
+      },
+      "note": "placement, not scored"
+    },
+    "c2 Shape far under held": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "11/2/17/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "13/2/19/8",
+        "rowsChange": 0
+      }
+    },
+    "c2 Shape far under let go": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "11/2/17/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "13/2/19/8",
+        "rowsChange": 0
+      }
+    },
+    "c3 Shape pushed by the typing before": {
+      "placement": {
+        "text": "1/2/9/10",
+        "other": "19/2/25/8"
+      },
+      "note": "placement, not scored"
+    },
+    "c3 Shape pushed by the typing held": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "17/2/23/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "17/2/23/8",
+        "rowsChange": -2
+      }
+    },
+    "c3 Shape pushed by the typing let go": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "17/2/23/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "17/2/23/8",
+        "rowsChange": -2
+      }
+    },
+    "c4 Shape lower to the right before": {
+      "placement": {
+        "text": "1/2/9/10",
+        "other": "10/14/16/20"
+      },
+      "note": "placement, not scored"
+    },
+    "c4 Shape lower to the right held": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "8/14/14/20",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "10/14/16/20",
+        "rowsChange": 0
+      }
+    },
+    "c4 Shape lower to the right let go": {
+      "A": {
+        "text": "1/2/7/13",
+        "other": "8/14/14/20",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/7/13",
+        "other": "10/14/16/20",
+        "rowsChange": 0
+      }
+    },
+    "c5 Shape pushed by 1 before": {
+      "placement": {
+        "text": "1/2/10/10",
+        "other": "11/2/17/8"
+      },
+      "note": "placement, not scored"
+    },
+    "c5 Shape pushed by 1 held": {
+      "A": {
+        "text": "1/2/8/13",
+        "other": "9/2/15/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/8/13",
+        "other": "10/2/16/8",
+        "rowsChange": -1
+      }
+    },
+    "c5 Shape pushed by 1 let go": {
+      "A": {
+        "text": "1/2/8/13",
+        "other": "9/2/15/8",
+        "rowsChange": -2
+      },
+      "B": {
+        "text": "1/2/8/13",
+        "other": "10/2/16/8",
+        "rowsChange": -1
+      }
+    }
+  }
+}
