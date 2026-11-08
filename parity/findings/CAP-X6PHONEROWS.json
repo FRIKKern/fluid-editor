@@ -3290,5 +3290,13 @@
   "exitSteps": [
     "top Exit",
     "dialog Exit"
-  ]
+  ],
+  "answer": "On a phone a side pull gives a block max(its rows before, ceil((h + 11) / 35 - 0.13)) rows, h being the height its content draws at the new width: rows grow as it narrows and are kept as it widens. Instagram's rows follow its tiles both ways; its tiles go two to a row there (145.4 a column: 3 x width + 60, 1190 at 376.7). Heights by phone columns: Pricing Plan 430.1 at 8, 455.1 at 6 and 7; Newsletter 362.3 at 7 and 8; Menu 980.7, 1003.1, 1077.2 at 8, 7, 6; Page Link 95 at 7 and 8, 113.1 at 5 and 6, 151.1 at 4, 207.2 at 3; RSS the same but 131.3 at 4 and 187.4 at 3; Bandsintown 1011, 1207, then 1319 from 6 down; OpenTable 270 at 4 to 8, 316.1 at 3. Timing: Instagram's rows lag its tiles' reflow during a pull, a row over as it narrows and a row under as it widens. Summary drew 1170 this run (1689 and 1958 before); its one-row south pull showed no change until the next press, then 35 rows.",
+  "ours": "Ours draws these phone heights by width as stand-ins, measurements only, and a side pull takes their rows with the 0.13 of give; Instagram's tiles go two to a row on a phone and its rows follow them both ways. npm run x6-check replays this read: 70 of 70 with 13 named (Summary 3, Instagram's 3 lags, OpenTable at 3 columns and the 5 widening steps it carries into).",
+  "differs": [
+    "OpenTable at 3 columns: 316.1 runs 0.35 of a row over and keeps 9 rows; Page Link at 0.23 over takes a row, so one give can't hold both; ours takes 10, and keeps it as it widens",
+    "Instagram e 5, e 4 and e back 8: the oracle's rows lag its tiles' reflow; ours takes the rows at the snapped width",
+    "Summary: its height moves between runs and its south pull took effect late; not built"
+  ],
+  "score": "Predictions (CAP-X6PHONEROWS-PREDICTED.json): 58 of 70. Refit 1, a give of 0.13 on a phone as on desktop's Instagram: 63 of 70 seen, each step from the oracle's own rows before it. Frozen, on the older phone reads named unbuilt before (CAP-X6PHONEFLOORS.json, CAP-X6FLOORSPHONE.json): 10 of 12 match; Menu's two far pulls to 6 columns took 32 rows there, 31 here."
 }

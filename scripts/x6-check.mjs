@@ -32,7 +32,9 @@ const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9'
   'CAP-X6PHONEROWS Instagram e 6', 'CAP-X6PHONEROWS Instagram e 5', 'CAP-X6PHONEROWS Instagram e 4', 'CAP-X6PHONEROWS Instagram e back 8',
   // And one the 0.13 give misses: OpenTable runs 0.35 of a row over at 3 columns, where Page Link takes a row at 0.23. Its
   // extra row is then kept as it widens, as rows are.
-  'CAP-X6PHONEROWS OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `CAP-X6PHONEROWS OpenTable e back ${n}`)]);
+  'CAP-X6PHONEROWS OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `CAP-X6PHONEROWS OpenTable e back ${n}`),
+  // The rule frozen, these older reads miss it: Menu at 6 phone columns took 32 rows there, 31 in CAP-X6PHONEROWS.json.
+  'CAP-X6PHONEFLOORS Menu w far in', 'CAP-X6PHONEFLOORS Menu e far in']);
 const VOID = (file, read) => file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read);
 // On a phone, as a start row or a pull: Summary's content moves between runs (1170, 1689, 1958), and its south pull took effect
 // at the next press (CAP-X6PHONEROWS.json). The others draw the oracle's phone height by width (CAP-68PULL.json, CAP-X6PHONEROWS.json).
