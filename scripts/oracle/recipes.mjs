@@ -491,6 +491,45 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
   })() },
+  'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DRAG = (k, px) => [['drag', 0, k, 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (k, text) => [['pick', 0, k], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TWICE = (n, k) => [...READ(`${n} before`), ...TYPE(k, 'hello'), ...READ(`${n} typed once`), ...TYPE(k, ' world'), ...READ(`${n} typed twice`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Line'), ...ADD('Text'), ...DRAG('new', 41), ...TWICE('k1 t2 again, Line above, Text dragged down', 'new')],
+      [...ADD('Text'), ...DRAG('new', 41), ...TWICE('k2 Text alone, dragged down', 0)],
+      [...ADD('Text'), ...DRAG('new', 41), ...DRAG('new', -41), ...TWICE('k3 Text alone, dragged down and back', 0)],
+      [...ADD('Text'), ...DRAG('new', 41), ...ADD('Line'), ...DRAG('new', 164), ...TWICE('k4 Text dragged down, Line below', 0)],
+      [...ADD('Line'), ...ADD('Text'), ...TWICE('k5 Line and Text, no drag', 'new')]
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-X2UNREAD': { page: 'Gestures Probe', question: 'X2: the parts CAP-X2EDGES left unread, each twice: a corner press with no move (se, ne), a top corner pulled down 60 (ne, nw), a top corner pulled up 10, 20, 40 and 50 px (ne; ours puts the line at 30, predicted first), and a drag from under the text after Write and one Escape. Setup as in CAP-X2EDGES. No Meta+c, x or v.', steps: (() => {
+    const BIG = (n) => [['add', 0, 'Text'], ['pause', 800], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 's', 0, 160, `${n} s`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e1`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e2`], ['press', 'Escape']];
+    const END = [['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['blank']];
+    const corner = (n, part, dx, dy) => [...BIG(n), ['select', 0, 'new'], ['read', `${n} before`, { areas: 0, block: [0, 'new'] }],
+      ['handleDrag', 0, 'new', part, dx, dy, `${n} pull`], ['read', n, { areas: 0, block: [0, 'new'] }], ...END];
+    const has = { stack: 0, section: 0, has: ['Write', 'Bold'] };
+    const under = (n) => [['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['drag', 0, 0, 's', 0, 164], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['click', 'Write'], ['press', 'Escape'], ['read', `${n} Write and Escape`, has],
+      ['drag', 0, 0, [0.3, 0.7], 58.78, 0], ['read', `${n} dragged under the text`, has], ...END];
+    const cases = [];
+    for (const r of ['r1', 'r2']) {
+      cases.push(corner(`${r} se 0,0`, 'se', 0, 0), corner(`${r} ne 0,0`, 'ne', 0, 0));
+      cases.push(corner(`${r} ne 0,60`, 'ne', 0, 60), corner(`${r} nw 0,60`, 'nw', 0, 60));
+      for (const up of [10, 20, 40, 50]) cases.push(corner(`${r} ne 0,-${up}`, 'ne', 0, -up));
+      cases.push(under(`${r} under`));
+    }
+    return [['enter'], ['blank'], ...cases.flat()];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

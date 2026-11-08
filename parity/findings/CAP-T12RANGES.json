@@ -1,0 +1,54 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "The limits of two stand-in ranges the panel reads did not hold: Zola Items to Display and Summary Number of Items.",
+ "how": "Run f71 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, the tab by a named press, then the inputs with the row name as aria-label read (type, min, max, step, value). Nothing else was pressed. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "zola": {
+  "tab": "Content",
+  "inputs": [
+   {
+    "type": "text",
+    "min": "",
+    "max": "",
+    "step": "",
+    "value": "4",
+    "inputmode": ""
+   },
+   {
+    "type": "range",
+    "min": "1",
+    "max": "12",
+    "step": "1",
+    "value": "4",
+    "inputmode": ""
+   }
+  ],
+  "block": "3 / 2 / 19 / 10"
+ },
+ "summary": {
+  "tab": "Design",
+  "inputs": [
+   {
+    "type": "text",
+    "min": "",
+    "max": "",
+    "step": "",
+    "value": "3",
+    "inputmode": ""
+   },
+   {
+    "type": "range",
+    "min": "1",
+    "max": "30",
+    "step": "1",
+    "value": "3",
+    "inputmode": ""
+   }
+  ],
+  "block": "1 / 2 / 12 / 20"
+ },
+ "facts": [
+  "Zola Items to Display: a range 1 to 12, step 1, at 4, with a text field beside it reading 4.",
+  "Summary Number of Items: a range 1 to 30, step 1, at 3, with a text field reading 3."
+ ]
+}

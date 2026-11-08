@@ -1,0 +1,2005 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Press reads, batch B: what each in-scope row of Summary, Summary (Size and Spacing), Archive changes on the block.",
+ "how": "Run f70 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then each step by a named press with an on-top check (a switch by its aria-label, a button by its label, a field by Cmd+A, Backspace and keys then Tab, a menu by its row then an option). The block (area, size, every visible leaf box) is read before and after each step. No row that makes something outside the block, opens a service, or reaches a store or payments was pressed. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "blocks": {
+  "Summary": {
+   "note": "Design, one run (f70, second Summary run; the first run's block reads were overwritten by a probe slip, its log agrees on every row change except the count). Number of Items typed 5: the after read was taken before the rows moved (12); the next read shows 20 rows (the lost first run read 23: the sample items differ between runs, so their heights do too). Left, Center, Right Aligned: rows stay. Title off 18 rows, on 20; Featured Image off 6, on 20; Excerpt off 16, on 20. Metadata Position lists Above Title, Below Title, Below Content; Above Title picked: rows stay. Layout menu lists Wall, Carousel, List, Grid; Carousel picked: 5 rows.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 12 / 20",
+    "size": [
+     1047.0625,
+     441.03125
+    ],
+    "leaves": [
+     "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "type": "Number of Items",
+      "value": "5"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       441.03125
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       791
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,791 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Center Aligned"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       791
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,791 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 65.2,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 417.8,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 828.3,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 753.5,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 497.2,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Right Aligned"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 65.2,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 417.8,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 828.3,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 753.5,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 497.2,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 130.3,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 466.6,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 918.5,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 769.1,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 625.4,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Left Aligned"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 130.3,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 466.6,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 918.5,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 769.1,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 625.4,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 19 / 20",
+      "size": [
+       1047.0625,
+       728.6875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,324,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,324,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,221,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,350,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,571,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,433,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,654,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,728.7 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 19 / 20",
+      "size": [
+       1047.0625,
+       728.6875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,324,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,324,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,221,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,350,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,571,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,433,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,654,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,728.7 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Featured Image"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 7 / 20",
+      "size": [
+       1047.0625,
+       266
+      ],
+      "leaves": [
+       "A | summary-title-link | Elit Condimentum |  | 0,-2,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,34,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,-2,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,34,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,-2,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,34,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 369,141,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 369,177,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,161,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 0,197,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,266 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Featured Image"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 7 / 20",
+      "size": [
+       1047.0625,
+       266
+      ],
+      "leaves": [
+       "A | summary-title-link | Elit Condimentum |  | 0,-2,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,34,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,-2,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,34,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,-2,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,34,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 369,141,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 369,177,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,161,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 0,197,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,266 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Excerpt"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 17 / 20",
+      "size": [
+       1047.0625,
+       657
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,307,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,526,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 0,410,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,629,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,657 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Excerpt"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 17 / 20",
+      "size": [
+       1047.0625,
+       657
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,307,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,526,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 0,410,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,629,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,657 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "Below Content",
+      "from": "Below Content"
+     },
+     "note": {
+      "opts": [
+       "Above Title",
+       "Below Title",
+       "Below Content"
+      ],
+      "pick": "Above Title"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "Wall",
+      "from": "Wall"
+     },
+     "note": {
+      "opts": [
+       "Wall",
+       "Carousel",
+       "List",
+       "Grid"
+      ],
+      "pick": "Carousel"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 21 / 20",
+      "size": [
+       1047.0625,
+       810.875
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0,322,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 369,322,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 369,358,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 738,219,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 738,255,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,384,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 738,603,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 738,639,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,467,309,206 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 369,686,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 369,722,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,810.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 6 / 20",
+      "size": [
+       1047.0625,
+       396.65625
+      ],
+      "leaves": [
+       "SPAN | summary-carousel-pager-prev previous sqs-disabled |  |  | 1005.1,0,16,16.6 | 16px/16px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | summary-carousel-pager-next next |  |  | 1031.1,0,16,16.6 | 16px/16px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 0.1,31.6,334.9,223.3 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 0.1,267.9,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 0.1,303.9,334.9,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 356.1,31.6,334.9,223.3 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 356.1,267.9,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 356.1,303.9,334.9,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 712.2,31.6,334.9,223.3 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Cursus Amet |  | 712.2,267.9,128.5,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Sed purus sem, scelerisque ac rhoncus eget, porttitor nec od |  | 712.2,303.9,334.9,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 1068.2,31.6,334.9,223.3 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Pellentesque Risus Ridiculus |  | 1068.2,267.9,277.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Vivamus pellentesque vitae neque at vestibulum. Donec effici |  | 1068.2,303.9,334.9,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 1424.2,31.6,334.9,223.3 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 1424.2,267.9,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 1424.2,303.9,334.9,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,396.7 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     1166,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Carousel @99,104,155,22",
+     "Number of Items @22,208,252,22",
+     "Items per Row @22,285,252,22",
+     "Aspect Ratio @0,373,320,16",
+     "3:2 Standard @22,402,83,18",
+     "Text @0,456,320,16",
+     "S @18,478,71,32",
+     "M @89,478,71,32",
+     "L @160,478,71,32",
+     "XL @231,478,71,32",
+     "Header Text @0,593,320,16",
+     "Elements @0,676,320,16",
+     "Title @22,703,28,22",
+     "Featured Image @22,748,105,22",
+     "Excerpt @22,793,51,22",
+     "Metadata Position @0,849,320,16",
+     "Above Title @22,878,74,18",
+     "Background @22,932,80,22",
+     "Stroke @22,977,42,22",
+     "Blend Mode @22,1024,81,18",
+     "Normal @227,1024,49,18",
+     "Blur @22,1067,26,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "INPUT|text|Number of Items||5||||280,208,12,22",
+     "INPUT|range|Number of Items||5||||22,230,276,44",
+     "INPUT|text|Items per Row||3||||280,285,12,22",
+     "INPUT|range|Items per Row||3||||22,307,276,44",
+     "DIV|||||||3:2 Standard|11,388,298,46",
+     "BUTTON|submit||||||S|18,478,71,32",
+     "BUTTON|submit||||||M|89,478,71,32",
+     "BUTTON|submit||||||L|160,478,71,32",
+     "BUTTON|submit||||||XL|231,478,71,32",
+     "BUTTON|submit|Left Aligned||||||18,522,95,32",
+     "BUTTON|submit|Center Aligned||||||113,522,95,32",
+     "BUTTON|submit|Right Aligned||||||207,522,95,32",
+     "TEXTAREA|textarea|Header Text||||||22,620,276,22",
+     "TEXTAREA|textarea|||||||11,609,276,0",
+     "INPUT|checkbox|Title|||on|||284,708,12,12",
+     "INPUT|checkbox|Featured Image|||on|||284,753,12,12",
+     "INPUT|checkbox|Excerpt|||on|||284,798,12,12",
+     "DIV|||||||Above Title|11,864,298,46",
+     "INPUT|checkbox|Background||||||272,937,12,12",
+     "DIV|||||||Blend ModeNormal|11,1010,298,46",
+     "INPUT|checkbox|Blur||||||272,1072,12,12"
+    ]
+   }
+  },
+  "Summary (Size and Spacing)": {
+   "note": "A new Summary, Design, Navigate to Size and Spacing: a view titled Size and Spacing with Back, Column Width and Gutter Width, each in px (in the step's note). Nothing changed there.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 12 / 20",
+    "size": [
+     1047.0625,
+     441.03125
+    ],
+    "leaves": [
+     "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Porta |  | 0,322,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Etiam Ultricies |  | 369,322,139.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Donec id justo non metus auctor commodo ut quis enim. Mauris |  | 369,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Vulputate Commodo Ligula |  | 738,322,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 738,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "nav": "Navigate to Size and Spacing"
+     },
+     "note": {
+      "view": {
+       "box": [
+        1166,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Back @33,18,32,14",
+        "Size and Spacing @103,15,114,22",
+        "Column Width @22,65,221,22",
+        "px @276,65,16,22",
+        "Gutter Width @22,142,227,22",
+        "px @276,142,16,22"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||BackSize and Spacing|0,-2,320,55",
+        "BUTTON|button||||||Back|11,3,54,46",
+        "INPUT|text|Column Width||270||||249,65,27,22",
+        "INPUT|range|Column Width||270||||22,87,276,44",
+        "INPUT|text|Gutter Width||60||||255,142,21,22",
+        "INPUT|range|Gutter Width||60||||22,164,276,44"
+       ]
+      },
+      "looks": [
+       "BUTTON | button |  |  |  | 11,2.5,54.2,46 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(242, 242, 242) | 3px | none | -0.14px | ",
+       "SPAN |  |  | Back |  | 33,17.5,32.2,14 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "LABEL |  |  | Column Width |  | 22,65,221,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text | Column Width | 270 |  | 249,65,27,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 4px | none | normal | false",
+       "SPAN |  |  | px |  | 276,65,16,22 | 14px/22px 400 | rgb(49, 49, 49) | rgba(0, 0, 0, 0) | 0px none rgb(49, 49, 49) | 0px | none | normal | ",
+       "INPUT | range | Column Width | 270 |  | 22,86.5,276,44 | 12px/22px 400 | rgba(0, 0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgba(0, 0, 0, 0) | 0px | none | normal | false",
+       "LABEL |  |  | Gutter Width |  | 22,142,227,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "INPUT | text | Gutter Width | 60 |  | 255,142,21,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 4px | none | normal | false",
+       "SPAN |  |  | px |  | 276,142,16,22 | 14px/22px 400 | rgb(49, 49, 49) | rgba(0, 0, 0, 0) | 0px none rgb(49, 49, 49) | 0px | none | normal | ",
+       "INPUT | range | Gutter Width | 60 |  | 22,163.5,276,44 | 12px/22px 400 | rgba(0, 0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgba(0, 0, 0, 0) | 0px | none | normal | false"
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       441.03125
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,322,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Etiam Ultricies |  | 369,322,139.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Donec id justo non metus auctor commodo ut quis enim. Mauris |  | 369,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 738,322,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 738,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       441.03125
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Porta |  | 0,322,52.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Praesent id libero id metus varius consectetur ac eget diam. |  | 0,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Etiam Ultricies |  | 369,322,139.9,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Donec id justo non metus auctor commodo ut quis enim. Mauris |  | 369,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,309 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 738,322,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 738,358,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,441 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     1166,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Back @33,18,32,14",
+     "Size and Spacing @103,15,114,22",
+     "Column Width @22,65,221,22",
+     "px @276,65,16,22",
+     "Gutter Width @22,142,227,22",
+     "px @276,142,16,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||BackSize and Spacing|0,-2,320,55",
+     "BUTTON|button||||||Back|11,3,54,46",
+     "INPUT|text|Column Width||270||||249,65,27,22",
+     "INPUT|range|Column Width||270||||22,87,276,44",
+     "INPUT|text|Gutter Width||60||||255,142,21,22",
+     "INPUT|range|Gutter Width||60||||22,164,276,44"
+    ]
+   }
+  },
+  "Archive": {
+   "note": "Content: Dates ascending is disabled (its press changed nothing); Item date off 16 rows (from 21), on 21; Group count on and off: rows stay. Group by lists Month, Year, Author, Category, Tag; Year picked: 17 rows. Design: Columns (two radios, values false and true) and Alignment left, center, right: rows stay at 17. Layout menu lists Index, List, Drop down; List picked: 1 row.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 22 / 10",
+    "size": [
+     459.25,
+     851.96875
+    ],
+    "leaves": [
+     "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Dates ascending"
+     },
+     "note": {
+      "was": false,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Dates ascending"
+     },
+     "note": {
+      "was": false,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Item date"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 17 / 10",
+      "size": [
+       459.25,
+       671.953125
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,87.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,154.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,208.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,275.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,329.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,362.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,430,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,483.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,551,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,604.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,672 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Item date"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 17 / 10",
+      "size": [
+       459.25,
+       671.953125
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,87.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,154.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,208.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,275.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,329.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,362.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,430,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,483.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,551,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,604.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,672 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Group count"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 2 |  | 157.8,-1,33.2,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 165.1,209.6,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 2 |  | 115.5,352.9,33.2,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 190.5,563.5,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 136.6,706.8,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "sw": "Group count"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 2 |  | 157.8,-1,33.2,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 165.1,209.6,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 2 |  | 115.5,352.9,33.2,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 190.5,563.5,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-group-count | 1 |  | 136.6,706.8,27.5,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Content",
+      "menu": "Month",
+      "from": "Month"
+     },
+     "note": {
+      "opts": [
+       "Month",
+       "Year",
+       "Author",
+       "Category",
+       "Tag"
+      ],
+      "pick": "Year"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radio": "Columns",
+      "value": "false"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,-1,54.1,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,276.8,53.9,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,554.5,53.9,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radio": "Columns",
+      "value": "true"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,-1,54.1,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,276.8,53.9,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,554.5,53.9,32 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radio": "Alignment",
+      "value": "center"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radio": "Alignment",
+      "value": "right"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radio": "Alignment",
+      "value": "left"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "Index",
+      "from": "Index"
+     },
+     "note": {
+      "opts": [
+       "Index",
+       "List",
+       "Drop down"
+      ],
+      "pick": "List"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 18 / 10",
+      "size": [
+       459.25,
+       698.890625
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,188.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,210.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,277.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,331.5,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,353.9,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,398.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,421.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,465.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,488.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 0,555.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,609.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,631.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,698.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 2 / 10",
+      "size": [
+       459.25,
+       44.8125
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2026 |  | 0,-1,38.6,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2025 |  | 0,21.4,38.5,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | 2024 |  | 259.6,-1,38.5,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     578,
+     150,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Animation @153,19,67,18",
+     "Layout @22,66,276,44",
+     "List @99,159,155,22",
+     "Columns @22,230,59,44",
+     "Alignment @22,281,69,44",
+     "Appearance @22,353,276,44",
+     "Background @22,408,80,22",
+     "Stroke @22,453,42,22",
+     "Blend Mode @22,500,81,18",
+     "Normal @227,500,49,18",
+     "Blur @22,543,26,22",
+     "Transforms @22,617,182,44",
+     "Opacity @22,668,52,44",
+     "Rotate @22,719,43,44",
+     "Scale @22,770,88,44",
+     "Offset @22,821,88,44",
+     "Skew @22,872,88,44",
+     "Anchor @22,923,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Animation|||||Animation|153,0,67,55",
+     "BUTTON|submit|||||||119,233,87,38",
+     "BUTTON|submit|||||||209,233,87,38",
+     "BUTTON|submit|||||||119,284,57,38",
+     "BUTTON|submit|||||||179,284,57,38",
+     "BUTTON|submit|||||||238,284,57,38",
+     "INPUT|checkbox|Background||||||272,413,12,12",
+     "DIV|||||||Blend ModeNormal|11,486,298,46",
+     "INPUT|checkbox|Blur||||||272,548,12,12",
+     "BUTTON|submit|More actions||||||260,621,36,36",
+     "INPUT|text|||100%||||127,668,160,44",
+     "BUTTON|submit|||||||116,668,182,11",
+     "BUTTON|submit|||||||116,701,182,11",
+     "BUTTON|submit|||||||116,668,11,44",
+     "BUTTON|submit|||||||254,668,44,44",
+     "BUTTON|submit|Reset to default value||||||291,682,16,16",
+     "INPUT|text|||0°||||127,719,160,44",
+     "BUTTON|submit|||||||116,719,182,11",
+     "BUTTON|submit|||||||116,752,182,11",
+     "BUTTON|submit|||||||116,719,11,44",
+     "BUTTON|submit|||||||254,719,44,44",
+     "BUTTON|submit|Reset to default value||||||291,733,16,16",
+     "INPUT|text|||100%||||127,770,66,44",
+     "BUTTON|submit|||||||116,770,88,11",
+     "BUTTON|submit|||||||116,803,88,11",
+     "BUTTON|submit|||||||116,770,11,44",
+     "BUTTON|submit|||||||160,770,44,44",
+     "BUTTON|submit|Reset to default value||||||197,784,16,16",
+     "INPUT|text|||100%||||221,770,66,44",
+     "BUTTON|submit|||||||210,770,88,11",
+     "BUTTON|submit|||||||210,803,88,11",
+     "BUTTON|submit|||||||210,770,11,44",
+     "BUTTON|submit|||||||254,770,44,44",
+     "BUTTON|submit|Reset to default value||||||291,784,16,16",
+     "INPUT|text|||0px||||127,821,66,44",
+     "BUTTON|submit|||||||116,821,88,11",
+     "BUTTON|submit|||||||116,854,88,11",
+     "BUTTON|submit|||||||116,821,11,44",
+     "BUTTON|submit|||||||160,821,44,44",
+     "BUTTON|submit|Reset to default value||||||197,835,16,16",
+     "INPUT|text|||0px||||221,821,66,44",
+     "BUTTON|submit|||||||210,821,88,11",
+     "BUTTON|submit|||||||210,854,88,11",
+     "BUTTON|submit|||||||210,821,11,44",
+     "BUTTON|submit|||||||254,821,44,44",
+     "BUTTON|submit|Reset to default value||||||291,835,16,16",
+     "INPUT|text|||0°||||127,872,66,44",
+     "BUTTON|submit|||||||116,872,88,11",
+     "BUTTON|submit|||||||116,905,88,11",
+     "BUTTON|submit|||||||116,872,11,44",
+     "BUTTON|submit|||||||160,872,44,44",
+     "BUTTON|submit|Reset to default value||||||197,886,16,16",
+     "INPUT|text|||0°||||221,872,66,44",
+     "BUTTON|submit|||||||210,872,88,11",
+     "BUTTON|submit|||||||210,905,88,11",
+     "BUTTON|submit|||||||210,872,11,44",
+     "BUTTON|submit|||||||254,872,44,44",
+     "BUTTON|submit|Reset to default value||||||291,886,16,16",
+     "BUTTON|submit|Position||||||254,923,44,44"
+    ]
+   }
+  }
+ }
+}

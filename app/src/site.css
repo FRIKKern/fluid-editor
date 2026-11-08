@@ -756,4 +756,6 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .newsletter-form-wrapper--layoutStack.newsletter-form-wrapper--alignRight .newsletter-form-body { align-items: flex-end; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-fields-wrapper { display: block; }
 .newsletter-form-wrapper--layoutStack .newsletter-form .form-item:not(fieldset), .newsletter-form-wrapper--layoutStack .newsletter-form .field { padding: 8px 0; }
+/* Stack with names: the names take one field's width, so they stack too (CAP-T12READS-D.json, stackNames). */
+.newsletter-form-wrapper--layoutStack .newsletter-form fieldset { width: 288px; max-width: 100%; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-button-wrapper { display: block; margin: 0; padding: 8px 0; }
