@@ -1,0 +1,124 @@
+{
+  "item": "U10",
+  "question": "CAP-U10TILEHEIGHTS",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "from": "CAP-U10TILEH.json (one read per list, at opening, each list on a fresh entry from CAP-VIEWLAYOUTS.json's start blocks); h1p2i3b2 from CAP-U10TILEH-B.json, read 'to 0', because CAP-U10TILEH.json read its tiles 8 to 12 before they were drawn (36.8 and 0).",
+  "note": "Every Layouts tile's height in px, by list and place. These replace CAP-VIEWLAYOUTS.json's tile heights: many differ by 4.3 to 8.7 px, others are the same. A read at opening can catch the last tile still drawing (CAP-U10ALIGN-C.json's opening read 139.4 for a tile read 139.8 after).",
+  "heights": {
+    "h1p1i1b1": [
+      118.8,
+      118.8,
+      189.2,
+      200.1,
+      201.4,
+      216.2,
+      231.8
+    ],
+    "i1b1": [
+      118.8,
+      118.8,
+      146.3,
+      170.2,
+      156.4,
+      192.3,
+      173.6
+    ],
+    "p1i1": [
+      118.8,
+      118.8,
+      145.7,
+      161.6,
+      155.8,
+      183.7,
+      165
+    ],
+    "i1": [
+      142.7,
+      164.5,
+      132.6,
+      148.5,
+      164.5,
+      196.4,
+      196.4,
+      196.4,
+      161.2,
+      183.2
+    ],
+    "h1p1b1": [
+      98.1,
+      79.6,
+      103.5,
+      106.4,
+      129.6,
+      161.5
+    ],
+    "h1i2": [
+      100.7,
+      175,
+      210.3,
+      186.4,
+      186.4,
+      195.7,
+      186.4,
+      186.4,
+      252.3,
+      260.3,
+      342.4,
+      342.4,
+      324.1,
+      306.1
+    ],
+    "p1": [
+      115.9,
+      143.2,
+      124.4,
+      118.5,
+      99.9,
+      84
+    ],
+    "h1p2i3b2": [
+      145.9,
+      124.5,
+      213.2,
+      261,
+      257.6,
+      292.1,
+      292.1,
+      436.7,
+      473.4,
+      306,
+      306,
+      485.1,
+      513.5
+    ],
+    "h1p1": [
+      68.4,
+      71.9,
+      73.9,
+      76.7,
+      125.1,
+      139.8
+    ],
+    "h1p2": [
+      98.1,
+      87.8,
+      63,
+      65.1,
+      89.8,
+      97.8,
+      97.8,
+      139.8
+    ],
+    "h1p2b1": [
+      127.7,
+      109.5,
+      92.7,
+      79.6,
+      119.4,
+      106.4,
+      106.4,
+      161.5
+    ]
+  }
+}

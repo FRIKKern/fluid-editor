@@ -1,0 +1,32 @@
+{
+ "item": "T15",
+ "capturedAt": "2026-11-08",
+ "question": "The reads CAP-T6FIELDS.json left unread, predicted before the read: a drag past a bar's end on Scale, Offset and Skew; Undo with the focus left in a field after a drag; thousands commas on Animation's fields. Also T11's Circle and Rounded social borders (difference 96).",
+ "how": "A new Shape on the probe page, Design tab, real mouse on each field's top edge, 0.4 a pixel. Each field is typed near its bar's end first, then dragged 50px past it (20 by the rule). Pair fields: X is dragged right from the top end, Y left from the bottom end.",
+ "predictions": {
+  "past": {
+   "rule": "The drag keeps going past the bar's end; the bar stays full or empty and the value runs on, as typed values do (CAP-T6FIELDS.json readsPast). Only Scale stops, at 0%.",
+   "Scale X from 190%, +50px": "210%",
+   "Scale Y from 10%, -50px": "0%",
+   "Offset X from 990px, +50px": "1,010px",
+   "Offset Y from -990px, -50px": "-1,010px",
+   "Skew X from 55°, +50px": "75°",
+   "Skew Y from -55°, -50px": "-75°"
+  },
+  "undo": {
+   "rule": "After a drag the focus is on the field's input (CAP-T6FIELDS.json). Cmd+Z then undoes the drag as one step and the focus leaves the field.",
+   "value after Cmd+Z": "the value typed before the drag",
+   "focus after Cmd+Z": "not the field's input"
+  },
+  "commas": {
+   "rule": "Animation's fields are the same field as Transforms, so they show thousands commas.",
+   "End Offset X typed 2000": "2,000px",
+   "End Rotate typed 2000": "2,000°"
+  },
+  "social": {
+   "rule": "Every border takes the icon's div to a scale of 1, as Square does (SAMPLE-ROWS.json round 3).",
+   "Circle": "matrix(1, 0, 0, 1, 0, 0)",
+   "Rounded": "matrix(1, 0, 0, 1, 0, 0)"
+  }
+ }
+}

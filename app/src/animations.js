@@ -119,18 +119,21 @@ export function defaultOf(a, key) {
   return key === 'endPasses' && a.action === 'Passes' ? '100%' : d[key];
 }
 
+// A field shows thousands commas: 2000px shows 2,000px (CAP-T15CHEAP.json). The model keeps the bare number.
+export const commas = (v) => String(v).replace(/^(-?)(\d{4,})/, (_, s, d) => s + Number(d).toLocaleString('en-US'));
 // Text fields keep a unit. A bare number takes the field's unit; Offset takes px or %.
 export function typed(raw, cur) {
   // A number typed after the shown value's unit joins it: 0° then 5 is 5° (CAP-L6RESET.json).
-  const m = String(raw).trim().replace(/^(-?[\d.]*)(?:%|px|°|s)(?=[\d.])/, '$1').match(/^(-?\d*\.?\d+)\s*(%|px|°|s)?$/);
+  const m = String(raw).replace(/,/g, '').trim().replace(/^(-?[\d.]*)(?:%|px|°|s)(?=[\d.])/, '$1').match(/^(-?\d*\.?\d+)\s*(%|px|°|s)?$/);
   if (!m) return null;
-  const unit = String(cur).replace(/^-?[\d.]+/, '');
+  const unit = String(cur).replace(/,/g, '').replace(/^-?[\d.]+/, '');
   const u = m[2] && (m[2] === unit || (m[2] === '%' && unit === 'px') || (m[2] === 'px' && unit === '%')) ? m[2] : unit;
   return `${Number(m[1])}${u}`;
 }
 // A drag on a field's edge: 0.4 for each pixel on the transforms, 0.04 on a time.
 export function scrubbed(cur, dx, key) {
-  const n = parseFloat(cur), unit = String(cur).replace(/^-?[\d.]+/, '');
+  cur = String(cur).replace(/,/g, '');
+  const n = parseFloat(cur), unit = cur.replace(/^-?[\d.]+/, '');
   const step = unit === 's' ? 0.04 : key === 'bounce' || key === 'smoothing' ? 0.01 : key === 'iterations' ? 0.1 : 0.4;
   let v = n + dx * step;
   if (key === 'iterations') v = Math.max(1, Math.round(v));

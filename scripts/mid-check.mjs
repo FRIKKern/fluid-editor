@@ -437,6 +437,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   evalJs(S, 'fe.undo()'); await pause(150); want('one undo', last(0), ['2/3/4/9', '4/2/6/10', 3]);
   menu('m', 'Paste'); want('pasted in another section', last(1), ['1/2/3/8', '2/2/4/10', 2]);
   evalJs(S, `(() => { fe.select(null); fe.select('s', 'b'); return 1; })()`); await pause(80); keys('KeyC'); evalJs(S, `fe.select('t', 'm')`); await pause(80); keys('KeyV'); await pause(150); want('Cmd+V on a selected block', last(1), ['2/3/4/9', '4/2/6/10', 3]);
+  // U11: the clip outlasts a reload; back on a page without the source, Cmd+V adds it where it was, or one on (CAP-U11RELOAD.json).
+  goto(S, `${BASE}/index.html?replay`); await pause(1500);
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [${JSON.stringify(sec('s', [bl('l', 'line', [1, 2, 2, 6], [1, 2, 2, 10])]))}] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`); await pause(100);
+  const over = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('section[data-section-id="s"]').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * 0.7, q.top + b.top + 60]); })()`); mouse(S, 'move', over[0], over[1]); await pause(150);
+  keys('KeyV'); await pause(150); want('after a reload, Cmd+V with nothing selected', last(0), ['1/2/3/8', '2/2/4/10', 2]);
+  evalJs(S, `fe.select('s', 'l')`); await pause(80); keys('KeyV'); await pause(150); want('after a reload, Cmd+V on a selected block', last(0), ['2/3/4/9', '4/2/6/10', 3]);
 }
 // E7: the link editor's list, Hidden Navigation and Open link in new tab (LINKBOX.json, CAP-LINK.json).
 { const bl = (id, type, extra) => ({ id, type, label: id, ...extra, layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } });
@@ -472,7 +478,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     const shape = (id, c) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1, c, 7, c + 6], z: 1, justify: 'center', align: 'center' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'center', align: 'center' } } });
     const page = (blocks) => evalJs(S, `(async () => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 10, mobile: 24 }, blocks: ${JSON.stringify(blocks)} }] }); await new Promise((r) => setTimeout(r, 150)); return 1; })()`);
     const lnk = '#block-toolbar [data-tb="link"]';
-    const sees = (read) => { const was = oracleSees(R, read), ours = evalJs(S, SEE); return ['view', 'row', 'focus', 'value', 'list', 'copy'].filter((k) => JSON.stringify(was[k]) !== JSON.stringify(ours[k])).map((k) => `${k}: oracle ${JSON.stringify(was[k])}, ours ${JSON.stringify(ours[k])}`); };
+    const sees = (read) => { const was = oracleSees(R, read), ours = evalJs(S, SEE); return ['view', 'row', 'focus', 'value', 'list', 'copy', 'clear'].filter((k) => JSON.stringify(was[k]) !== JSON.stringify(ours[k])).map((k) => `${k}: oracle ${JSON.stringify(was[k])}, ours ${JSON.stringify(ours[k])}`); };
     page([shape('l', 2), shape('m', 9)]);
     evalJs(S, `(async () => { fe.select('s', 'l'); const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const r = d.querySelector('.fe-block[data-block-id="m"]').getBoundingClientRect(), o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0, shiftKey: true, clientX: r.left + 20, clientY: r.top + 20 }; d.elementFromPoint(r.left + 20, r.top + 20).dispatchEvent(new W.PointerEvent('pointerdown', o)); d.dispatchEvent(new W.PointerEvent('pointerup', o)); await new Promise((res) => setTimeout(res, 120)); return 1; })()`);
     browser(S, 'click', '#block-toolbar [data-tb="stack"]'); await pause(300);

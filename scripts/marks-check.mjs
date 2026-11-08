@@ -1493,9 +1493,11 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   viewport(S, 1600, 1000);
 }
 
-// U10: View Layouts against parity/findings/CAP-VIEWLAYOUTS.json: every pick of every mix.
+// U10: View Layouts against parity/findings/CAP-VIEWLAYOUTS.json: every pick of every mix. Tile heights against
+// CAP-U10TILEHEIGHTS.json alone, read again for every list (CAP-VIEWLAYOUTS.json's tile heights are older).
 {
   const VL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-VIEWLAYOUTS.json', import.meta.url)));
+  const TH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TILEHEIGHTS.json', import.meta.url))).heights;
   const start = async () => { goto(S, `${BASE}/index.html`); await pause(800); evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`); goto(S, `${BASE}/index.html`); await pause(1300); };
   const build = (key) => evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Image');
     const pool = fe.model.sections[0].blocks, of = (t) => JSON.parse(JSON.stringify(pool.find((b) => b.type === t)));
@@ -1518,7 +1520,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       if (Math.abs(g.h - L.h) > 2) errs.push(`${n} height ${g.h}`);
       const st = L.style || {};
       if (g.look.join() !== [st.theme || '', st.height || 'medium', st.divider || ''].join()) errs.push(`${n} look ${g.look}`);
-      if (Math.abs(g.tile - L.tile) > 1 || Math.abs(g.x - mix.listX) > 1) errs.push(`${n} tile ${g.tile},${g.x}`);
+      if (Math.abs(g.tile - TH[key][n]) > 1 || Math.abs(g.x - mix.listX) > 1) errs.push(`${n} tile ${g.tile},${g.x}`);
       for (const r of roles) { const x = g.b.find((v) => v[0] === r), w = L.places[r]; if (!x || x[1] !== w[0] || x[2] !== w[1] || (r[0] === 'h' && x[3] !== L.tag)) errs.push(`${n} ${r} ${x}`); }
     });
     add(`View Layouts ${key}: ${mix.layouts.length} picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
