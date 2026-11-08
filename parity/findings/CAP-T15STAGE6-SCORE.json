@@ -1,0 +1,17 @@
+{
+  "item": "T15",
+  "question": "CAP-T15STAGE6-PREDICTED.json scored on the five reads CAP-T15STAGE6-PRESS, -LOOP, -SCROLL, -APPEAR and -FOLLOW (one read each, Duration 0.4s).",
+  "reads": {
+    "On Press": "change: still; mouse on it: out to Scale 2.25 (D fitted 580), held 780 to 1297 ms, back (D 600)",
+    "Loop": "change: still; mouse on it: out to 2.25 (D 390), back to 1 in one frame, out again (about 400 ms), then held at 2.25 to the end of the 3 s read",
+    "On Scroll": "change: still; mouse on it: at 2.25 (Start 150% squared) in its first moving frame, down to 1 by 965 ms later (D 995 on the way down)",
+    "On Appear": "change: still; mouse on it: at 2.25 in its first moving frame, down to 1 by 382 ms later (D 380)",
+    "Follow": "change: still; mouse on it: still for about 1.2 s, then scale only, up to 1.836 at 2.7 s and down to 1.166 at the read's end (3 s); no move or opacity"
+  },
+  "score": {
+    "A": { "change": "1 of 5 (Follow only)", "mouse": "0 of 5" },
+    "B": { "change": "5 of 5", "mouse plays": "5 of 5", "time 600 ms within 15%": "1 of 4 (On Press 580; Loop 390, On Scroll and On Appear run the other way; Follow not fitted)" }
+  },
+  "built": "read facts, one read each: still after a change on every trigger; the mouse plays On Press as On Hover, a Loop twice in the Duration then held at its End, On Appear and On Scroll from their Start squared as their Preview runs. Follow is not built.",
+  "notRead": "the Loop and the 1.0 times Duration at other Durations; a Ping Pong Loop; when the Loop square goes back on leaving; whether the stage clips a square grown past it; Follow past 3 s"
+}

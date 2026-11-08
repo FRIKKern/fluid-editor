@@ -856,6 +856,27 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   q(`const e = panel.querySelector('[data-afield="duration"]'); e.focus(); e.value = '1s'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(150); e.blur(); return 'true';`);
   const h2 = await hoverRun(4200), d1 = h2 && motion(h2) && fitD(oursPairs(h2)), d1Them = fitD(theirPairs(R('CAP-T15STAGE4').d1));
   add(`Stage square: at Duration 1s it goes out in ${d1Them} ms, as read`, !!d1 && Math.abs(d1 - d1Them) <= 0.1 * d1Them, String(d1));
+
+  // The other triggers (CAP-T15STAGE6-*.json, one read each at Duration 0.4s): still after a change; the mouse on the square
+  // plays it. On Press as On Hover; a Loop twice in the Duration, then at its End; On Appear and On Scroll from their Start.
+  const settle = async () => { mouse(S, 'move', stage[0], stage[1] + 120); await pause(400); };
+  for (const [name, n, tab] of [['On Press', 'PRESS', 'end'], ['Loop', 'LOOP', 'end'], ['On Scroll', 'SCROLL', 'start'], ['On Appear', 'APPEAR', 'start']]) {
+    const T = R(`CAP-T15STAGE6-${n}`);
+    await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger(name); await clickSel(act('blank'));
+    const fill = (k) => q(`const e = panel.querySelector('[data-afield="${tab}:${k}"]'); e.focus(); e.value = '150%'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); return 'true';`);
+    fill('3Y'); await pause(1500); watch(2500); fill('2X'); await pause(2700);
+    const c = motion(frames());
+    add(`Stage square on ${name}: still after Scale X goes to 150%`, c === null && theirs(T.change) === null, JSON.stringify(c));
+    const h = await hoverRun(3000), mine = oursPairs(h), them = theirPairs(T.hover), hm = motion(h), ht = theirs(T.hover);
+    const snaps = (v) => v.filter(([, x], i) => i && x < v[i - 1][1] - 0.5).length;
+    const run = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.001); return m.length ? [Math.round(Math.max(...v.map(([, x]) => x)) * 100) / 100, Math.round(m[0][1] * 100) / 100, m.at(-1)[0] - m[0][0]] : null; };
+    let ok, got;
+    if (n === 'PRESS') { const a1 = fitD(mine), b1 = fitD(them); got = { ...hm, D: a1, theirs: b1 }; ok = !!hm && near(hm.peak, ht.peak, 0.01) && hm.back != null && Math.abs(a1 - b1) <= 0.1 * b1; }
+    else if (n === 'LOOP') { const a1 = fitD(mine), b1 = fitD(them); got = { snaps: snaps(mine), last: mine.at(-1)[1], D: a1, theirs: [snaps(them), them.at(-1)[1], b1] }; ok = !!hm && snaps(mine) === 1 && snaps(them) === 1 && near(mine.at(-1)[1], them.at(-1)[1], 0.01) && Math.abs(a1 - b1) <= 0.1 * b1; }
+    else { const a1 = run(mine), b1 = run(them); got = { ours: a1, theirs: b1 }; ok = !!a1 && near(a1[0], b1[0], 0.01) && near(a1[1], b1[1], 0.05) && Math.abs(a1[2] - b1[2]) <= 0.15 * b1[2]; }
+    add(`Stage square on ${name}: the mouse on it plays it as read`, ok, JSON.stringify(got));
+  }
+  await settle();
 }
 
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
