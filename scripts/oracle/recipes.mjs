@@ -580,14 +580,13 @@ export const RECIPES = {
       ...NEW, ...VIDEO, ...SHAPE, ...resize('s4', 123),
       ...NEW, ...VIDEO, ...SHAPE, ...resize('s5', 246, [['frameTo', 60]])];
   })() },
-  'CAP-RESIZESCROLL3': { page: 'Gestures Probe', question: 'R2: the page scroll after a resize, refit 1 (R3 in CAP-RESIZESCROLLPREDICT.json, pushed first): t1 the Video moved 123 down, then the Shape resized 246; t2 the Video alone resized 450; t3 the Shape resized 120 east; t4 as t1 with the page scrolled 80 first. No Meta+c, x or v.', steps: (() => {
+  'CAP-RESIZESCROLL3': { page: 'Gestures Probe', question: 'R2: the page scroll after a resize, refit 1 (R3 in CAP-RESIZESCROLLPREDICT.json, pushed first): t1 the Video moved 123 down, then the Shape resized 246; t3 the Shape resized 120 east; t4 as t1 with the page scrolled 80 first. No Meta+c, x or v.', steps: (() => {
     const VIDEO = (down) => [['add', 0, 'Video'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 328], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, down], ['press', 'Escape'], ['deselect', 0]];
     const SHAPE = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
     const R = { stack: 0, section: 0, block: [0, 'new'] };
     const resize = (n, part, dx, dy, pre = []) => [...pre, ['select', 0, 'new'], ['read', `${n} before`, R], ['drag', 0, 'new', part, dx, dy], ['read', `${n} after`, R], ['pause', 1500], ['read', `${n} settled`, R], ['press', 'Escape'], ['deselect', 0]];
     const NEW = [['exit'], ['enter'], ['blank']];
     return [['enter'], ['blank'], ...VIDEO(123), ...SHAPE, ...resize('t1', 's', 0, 246),
-      ...NEW, ['add', 0, 'Video'], ['press', 'Escape'], ['deselect', 0], ...resize('t2', 's', 0, 450),
       ...NEW, ...VIDEO(287), ...SHAPE, ...resize('t3', 'e', 120, 0),
       ...NEW, ...VIDEO(123), ...SHAPE, ...resize('t4', 's', 0, 246, [['frameTo', 80]])];
   })() },

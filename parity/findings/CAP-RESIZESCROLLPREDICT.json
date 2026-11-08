@@ -45,16 +45,11 @@
   "refit1": {
     "pushedAt": "2026-11-08T20:42Z",
     "R3": "After a resize, the page scrolls the least it can so the bottom of the section's lowest block is in the frame: scrollY after = max(scrollY before, lowest bottom on the page - 945), rounded down. A move does not do it (CAP-DRAGSCROLL f2 ended with the Video's bottom below the frame). Fitted on round 1 and the seen reads (f1, p1, q1: the Video's bottom at 890.7, no scroll).",
-    "reads": "CAP-RESIZESCROLL3.json: t1 the Video moved 123 down, not 287, then the Shape resized 246; t2 the Video alone resized 450 down (it is the lowest block and ends below the frame); t3 the setup of s1 with the Shape resized 120 to the east, not down; t4 as t1 with the page scrolled 80 first (the Video bottom then in the frame).",
+    "reads": "CAP-RESIZESCROLL3.json: t1 the Video moved 123 down, not 287, then the Shape resized 246; t3 the setup of s1 with the Shape resized 120 to the east, not down; t4 as t1 with the page scrolled 80 first (the Video bottom then in the frame).",
     "predictions": {
       "t1": {
         "R3": "the Video at 4/2/20/10 ends at 1014.1: scroll 69",
         "R2": "233-like rules: 233",
-        "ours": 0
-      },
-      "t2": {
-        "R3": "the Video ends near 1012: scroll by its bottom - 945, about 67",
-        "R2": "0, the section grows",
         "ours": 0
       },
       "t3": {
@@ -68,6 +63,7 @@
         "ours": 80
       }
     },
-    "scoring": "scrollY in after and settled, within 2 px, R3 computed from each case's own reads."
+    "scoring": "scrollY in after and settled, within 2 px, R3 computed from each case's own reads.",
+    "dropped": "t2 taken out before the read: a 450 px pull ends 67 px below the 945 px frame, and the pointer can't leave the frame, so the Video's new bottom can't end below it. A resize that grows the section makes the resized block the lowest, and its bottom then stays in the frame, so R2 and R3 can't be told apart this way."
   }
 }
