@@ -193,6 +193,11 @@ function read(what) {
   if (what.sel) {
     out.sel = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} return JSON.stringify([...d.querySelectorAll(${JSON.stringify(what.sel)})].filter((e) => e.getBoundingClientRect().width > 0).slice(0, 30).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
   }
+  // A section's divider parts: class, computed transform, transform attribute, and a path's first and last points as
+  // numbers (no path strings), to see a flip that the section's context doesn't show until it redraws (U10).
+  if (what.dividerEls !== undefined) {
+    out.dividerEls = evalJs(S, `(() => { ${FRAME} ${cls} const s = d.querySelectorAll('main#page .page-section')[${what.dividerEls}]; if (!s) return JSON.stringify(null); const own = (e) => [...e.classList].some((c) => /divider/i.test(c)); const roots = [...s.querySelectorAll('*')].filter(own); return JSON.stringify([...new Set(roots.flatMap((r) => [r, ...r.querySelectorAll('*')]))].filter((e) => !['STYLE', 'SCRIPT'].includes(e.tagName.toUpperCase())).slice(0, 30).map((e) => { const c = W.getComputedStyle(e), dd = e.getAttribute('d'), nums = dd ? (dd.match(/-?\\d*\\.?\\d+/g) || []).map(Number) : null; return { tag: e.tagName.toLowerCase(), cls: cls(e), transform: c.transform, attr: e.getAttribute('transform'), first: nums && nums.slice(0, 2), last: nums && nums.slice(-2), n: nums && nums.length }; })); })()`);
+  }
   if (what.layers !== undefined) {
     out.layers = evalJs(S, `(() => { ${FRAME} ${round} ${CSS} ${cls} const fe = d.querySelectorAll('main#page .fluid-engine')[${what.layers}]; return JSON.stringify([...fe.children].filter((e) => !e.classList.contains('fe-block') && !e.classList.contains('fe-grid-row') && !e.classList.contains('fe-grid-column') && e.tagName !== 'STYLE').slice(0, 20).map((e) => ({ tag: e.tagName.toLowerCase(), cls: cls(e), box: box(e), css: css(W.getComputedStyle(e)) }))); })()`);
   }

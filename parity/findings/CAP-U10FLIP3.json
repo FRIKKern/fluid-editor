@@ -1,0 +1,656 @@
+{
+  "item": "CAP-U10FLIP3",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: the Flip X switch read in the Divider settings after pick 2, after 2 then 0 (both predicted in CAP-U10FLIPPREDICT.json) and after 0 alone, from a Flip X start, each on a fresh entry",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "click",
+      "Flip X Axis"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 2 flip on",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 2 after",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "click",
+      "Flip X Axis"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 2 then 0 flip on",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 2 then 0 after",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "click",
+      "Flip X Axis"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 0 flip on",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "click",
+      "Divider"
+    ],
+    [
+      "click",
+      "Edit Settings"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "pick 0 after",
+      {
+        "checks": true,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "pick 2 flip on": {
+      "checks": [],
+      "look": {
+        "top": -157,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2 after": {
+      "checks": [
+        {
+          "box": [
+            1279,
+            492,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1530,
+            718,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":false,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2 then 0 flip on": {
+      "checks": [],
+      "look": {
+        "top": -157,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 2 then 0 after": {
+      "checks": [
+        {
+          "box": [
+            1279,
+            492,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1530,
+            718,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":false,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":true,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0 flip on": {
+      "checks": [],
+      "look": {
+        "top": -157,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "pick 0 after": {
+      "checks": [
+        {
+          "box": [
+            1279,
+            492,
+            1,
+            1
+          ],
+          "checked": true,
+          "text": "Fill Screen"
+        },
+        {
+          "box": [
+            1530,
+            718,
+            12,
+            12
+          ],
+          "checked": false,
+          "text": ""
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":false,\"type\":\"wavy\",\"width\":{\"value\":100,\"unit\":\"vw\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"isFlipX\":true,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"solid\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"}}"
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "click [\"Edit Settings\"]: nothing labelled Edit Settings",
+    "click [\"Edit Settings\"]: nothing labelled Edit Settings",
+    "click [\"Edit Settings\"]: nothing labelled Edit Settings"
+  ],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

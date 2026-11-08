@@ -2458,6 +2458,9 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const edgeInk = js(`const p = document.querySelector('[data-layout="3"] .lo-edge path'); return JSON.stringify(p ? getComputedStyle(p).stroke : null);`);
   add('Layouts tiles: 2 and 3 draw their soft and rounded divider edges, 3 outlined dark when picked', edges === '2,3' && edgeInk === 'rgb(14, 14, 14)', JSON.stringify([edges, edgeInk]));
   await pickTile(4); const f4 = flipOf();
+  // Picks 2 then 0 (CAP-U10FLIP3.json): layout 2's soft corners turn it off, layout 0 puts the start's wavy Flip X back.
+  await pickTile(2); const f2 = flipOf(); await pickTile(0); const f0 = flipOf();
+  add('Layouts: a Flip X start, off on layout 2\'s soft corners, back on layout 0', f2.join() === 'soft,false' && f0.join() === 'wavy,true', JSON.stringify([f2, f0]));
   add('Layouts: a Flip X start, off on layout 3\'s rounded divider, back on layout 4', f3.join() === 'rounded,false' && f4.join() === 'wavy,true', JSON.stringify([f3, f4]));
   browser(S, 'press', 'Escape'); await pause(200);
   // A pick sets the text's alignment both ways (CAP-U10ALIGN-A.json): centred on an even place, left otherwise.
