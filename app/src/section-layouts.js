@@ -92,14 +92,22 @@ function alignText(b, centre) {
 // Rule P (CAP-U10ROWSPREDICT.json, 24 of 24 predicted in CAP-U10ROWS-A.json): a layout with a step gives its
 // block one of two spans, and the layout the section shows before the pick decides which. The entry holds the
 // span it was read at; lowAfter lists the layouts after which it is 'by' rows shorter, block and section alike.
-// A section that shows no layout counts as none. Read for the paragraph list and Instagram's pick 2 only.
+// A section that shows no layout counts as none. Read for the paragraph list and Instagram's pick 2.
+// The walks over every pair (CAP-U10STEP-A.json to C, rule S predicted 145 of 164 in CAP-U10STEPPREDICT.json) read
+// the rest as facts: Instagram's pick 3 steps as 2; the heading list's (h1p1) layout 1 has its heading a row shorter
+// after 4; its layout 0 has three spans, so 'grow' gives the rows added to the read one by the layout before, and the
+// blocks in 'push' move down with it. Every other pick there, and every pick of p1i1, is the same whatever came before.
 export function variant(L, prev) {
   if (!L.step) return L;
-  const { read, lowAfter, by, block } = L.step, d = (lowAfter.includes(prev) ? -by : 0) + (read === 'low' ? by : 0);
+  const { read, lowAfter = [], by = 0, block, grow, push = [] } = L.step;
+  const d = grow ? grow[prev] || 0 : (lowAfter.includes(prev) ? -by : 0) + (read === 'low' ? by : 0);
   if (!d) return L;
-  const [r0, c0, r1, c1] = area(L.places[block][0]);
-  return { ...L, rows: L.rows + d, places: { ...L.places, [block]: [`${r0}/${c0}/${r1 + d}/${c1}`, L.places[block][1]] } };
+  const [r0, c0, r1, c1] = area(L.places[block][0]), places = { ...L.places, [block]: [`${r0}/${c0}/${r1 + d}/${c1}`, L.places[block][1]] };
+  for (const k of push) { const [q0, k0, q1, k1] = area(L.places[k][0]); places[k] = [`${q0 + d}/${k0}/${q1 + d}/${k1}`, L.places[k][1]]; }
+  return { ...L, rows: L.rows + d, places };
 }
+// The layouts before that give a step's other spans.
+const others = (st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1]);
 
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
@@ -123,22 +131,39 @@ export function applyLayout(s, mix, n, base) {
 }
 
 // Undo onto a layout puts its step again, from the layout it leaves (CAP-U10WALK2.json: from 1 back to 0 gives 9;
-// CAP-U10UNDO.json: from 3 back to 0 gives 10). Redo brings back the state Undo left, so it has none. Read with the
-// Layouts panel open only.
+// CAP-U10UNDO.json: from 3 back to 0 gives 10), with the Layouts panel open or closed (CAP-U10UNDOCLOSED-A.json and
+// -B.json: from 0 back to 1 gives 13). Redo brings back the state Undo left, so it has none.
 export function restep(s, mix, prev) {
   const n = layoutShown(s, mix, null);
-  if (n == null || !mix.list[n].step) return;
-  const L = variant(mix.list[n], prev), { block } = L.step, b = mix.by[block[0]]?.[+block.slice(1)];
-  if (!b) return;
-  b.layout.desktop.area = area(L.places[block][0]);
+  // An Undo that stays on the same layout (a text edit in it, say) keeps the state as it was: not read.
+  if (n === prev) return;
+  if (n == null) return startStep(s, mix, prev);
+  if (!mix.list[n].step) return;
+  const L = variant(mix.list[n], prev), { block, push = [] } = L.step;
+  if (!mix.by[block[0]]?.[+block.slice(1)]) return;
+  for (const k of [block, ...push]) { const b = mix.by[k[0]]?.[+k.slice(1)]; if (b) b.layout.desktop.area = area(L.places[k][0]); }
   s.rows = { ...s.rows, desktop: L.rows };
+}
+
+// Undo from paragraph layout 1 onto a section that shows no layout: the text ends a row higher and the section has a
+// row less (8 rows to 7, the text 1/2/3/10 to 1/2/2/10: CAP-U10UNDOPAST.json a undo 3, CAP-U10UNDOCLOSED-A.json and
+// -B.json U07). From 0 and 2 it stays (CAP-U10UNDO.json b meta z, CAP-U10UNDOPAST.json a undo 1). Read on that one
+// start only; from 3, 4 and 5 not read.
+const START_STEP = { p1: { lowAfter: [1], by: 1, block: 'p0' } };
+function startStep(s, mix, prev) {
+  const st = START_STEP[mix.key], b = st && mix.by[st.block[0]]?.[+st.block.slice(1)];
+  if (!b || !st.lowAfter.includes(prev)) return;
+  const [r0, c0, r1, c1] = b.layout.desktop.area;
+  if (r1 - st.by <= r0) return;
+  b.layout.desktop.area = [r0, c0, r1 - st.by, c1];
+  s.rows = { ...s.rows, desktop: s.rows.desktop - st.by };
 }
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
   const fitsAt = (L) => s.rows?.desktop === L.rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === L.places[r + k][0]));
-  // Either of a step's two spans.
-  const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && fitsAt(variant(mix.list[n], mix.list[n].step.read === 'high' ? mix.list[n].step.lowAfter[0] : -1))));
+  // Any of a step's spans.
+  const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && others(mix.list[n].step).some((p) => fitsAt(variant(mix.list[n], p)))));
   if (last != null && fits(last)) return last;
   const n = mix.list.findIndex((_, k) => fits(k));
   return n < 0 ? null : n;

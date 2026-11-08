@@ -317,8 +317,8 @@ viewport(S, 1600, 1400);
   const press = async (sel, w = 300) => { const c = at(sel); mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(w); };
   const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
   const state = () => qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify({ sp: b.sp || {}, area: b.layout.desktop.area });`);
-  const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [e.innerText.replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`);
-  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11]]) {
+  const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [(e.tagName === 'TEXTAREA' ? e.value : e.innerText).replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`); // a text box by its value
+  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11], ['Product', 6, 10], ['Menu', 12, 28]]) {
     const R0 = PANELS[name];
     qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
     const first = qs(`return JSON.stringify([...p.querySelectorAll('[data-btab]')].map((t) => [t.textContent, t.classList.contains('is-on')]));`);
@@ -327,8 +327,8 @@ viewport(S, 1600, 1400);
       await press(`[data-btab="${tab}"]`);
       // Centres: the read's boxes and ours differ in height. x only for left-set labels: centred and right-set words move
       // with the panel font. Tab names are the shared tab row's. Donation's Design rows are out (0005): only its note.
-      const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2, +m[4]]; })
-        .filter(([t, , , w]) => w > 1 && !R0.tabs.includes(t) && (name !== 'Donation' || tab !== 'Design' || t.startsWith('Form style'))); // a 1px label is hidden
+      const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2, +m[4], +m[5]]; })
+        .filter(([t, , , w, h]) => w > 1 && h > 0 && !R0.tabs.includes(t) && (name !== 'Donation' || tab !== 'Design' || t.startsWith('Form style'))); // a 1px or 0-high label is hidden
       const same = (o, t) => o.toLowerCase() === t.toLowerCase() || (t.length > 60 && o.startsWith(t));
       const miss = want.filter(([t, x, y]) => !ours.some(([o, ox, oy]) => same(o, t) && (x > 60 || Math.abs(ox - x) <= 1.5) && Math.abs(oy - y) <= 1.5)).map(([t, x, y]) => `${t.slice(0, 24)}@${x},${y} ours ${JSON.stringify(ours.filter(([o]) => same(o, t)).map(([, ox, oy]) => [+ox.toFixed(1), +oy.toFixed(1)]))}`);
       add(`${name} panel, ${tab}: every label at its read place`, !miss.length, miss.join(' | '));
@@ -381,6 +381,35 @@ viewport(S, 1600, 1400);
   const p6 = [];
   for (const k of ['ppTitle', 'ppDesc', 'ppPrice', 'ppBenefits', 'ppButtonOn']) p6.push(await flip(k), await flip(k));
   add('Pricing Plan pulled 8 to 6 columns takes 12 rows; Elements there give 10 12 8 12 9 12 9 12 9 12', JSON.stringify(pulled) === '[1,2,13,8]' && JSON.stringify(p6) === '[10,12,8,12,9,12,9,12,9,12]', JSON.stringify({ pulled, p6 }));
+  // Product: each row keeps its value, one undo step each. Its rows are not modelled (CAP-T12PRESS-E.json): not checked here.
+  placeAndEdit('Product', 6, 10);
+  await press('input[data-sp-set="pdImage"]'); await press('input[data-sp-set="pdDesc"]');
+  const faded = qs(`return JSON.stringify(!!p.querySelector('.bp-sp-new')?.disabled);`);
+  await press('[data-btab="Design"]'); await press('button[data-sp-set="pdCorner"][data-v="each"]'); await press('button[data-sp-set="pdAlign"][data-v="right"]');
+  qs(`const s = p.querySelector('select[data-sp-set="pdRatio"]'); s.value = '1:1'; s.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
+  const pd = state(), shown = qs(`return JSON.stringify(p.querySelector('.bp-sp-selv').textContent);`);
+  await undoOnce(); const pdu = state();
+  add('Product: Elements, Corner, Ratio and Block Alignment keep their values; one undo step each; Create new product is faded', pd.sp.pdImage === false && pd.sp.pdDesc === true && pd.sp.pdCorner === 'each' && pd.sp.pdAlign === 'right' && pd.sp.pdRatio === '1:1' && shown === '1:1' && pdu.sp.pdRatio === undefined && pdu.sp.pdAlign === 'right' && faded, JSON.stringify({ pd, pdu, shown, faded }));
+  // Product's image shape picker and Individual corner radii, as read (CAP-T12READS-E.json).
+  const E = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12READS-E.json', import.meta.url))).blocks;
+  placeAndEdit('Product', 6, 10); await press('[data-btab="Design"]'); await press('[data-sp-pick]');
+  const tiles = qs(`const l = p.querySelector('.bp-sp-shapes'), L0 = l.getBoundingClientRect(), P0 = p.getBoundingClientRect(); return JSON.stringify({ hidden: l.hidden, box: [L0.left - P0.left, L0.width, L0.height].map(Math.round), names: [...l.querySelectorAll('[role=option]')].map((o) => o.getAttribute('aria-label')), on: l.querySelector('.is-on')?.getAttribute('aria-label') });`);
+  const want = E['Product (picker names)'].steps[0].names.map((n) => n.name);
+  await press('.bp-sp-shape[aria-label="Circle"]');
+  const ps = state(), closed = qs(`return JSON.stringify(p.querySelector('.bp-sp-shapes').hidden);`);
+  add("Product's image shape picker: 21 tiles in the read's order, Rectangle on; a pick keeps its value and closes them", !tiles.hidden && JSON.stringify(tiles.names) === JSON.stringify(want) && tiles.on === 'Rectangle' && tiles.box[1] === 276 && tiles.box[2] === 567 && ps.sp.pdShape === 'circle' && closed, JSON.stringify({ tiles, ps, closed }));
+  await press('button[data-sp-set="pdCorner"][data-v="each"]');
+  const R = E['Product (radii)'].steps[1].note.fields.filter((f) => /corner radius/.test(f.aria || '')), four = qs(`const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('.bp-sp-four input')].map((e) => { const r = e.getBoundingClientRect(); return [e.getAttribute('aria-label'), e.value, r.left - P0.left, r.top - P0.top + p.querySelector('.sp-body').scrollTop - 0, r.width, r.height].map((v) => typeof v === 'number' ? Math.round(v * 10) / 10 : v); }));`);
+  const ratioY = qs(`const P0 = p.getBoundingClientRect(), e = p.querySelector('.bp-sp-sel .sp-label').getBoundingClientRect(); return JSON.stringify(e.top + e.height / 2 - P0.top);`);
+  const fourOk = four.length === 4 && four.every((f, i) => f[0] === R[i].aria && f[1] === R[i].value && Math.abs(f[2] - R[i].box[0]) <= 1.5 && Math.abs(f[3] + f[5] / 2 - (R[i].box[1] + R[i].box[3] / 2)) <= 1.5 && Math.abs(f[4] - R[i].box[2]) <= 1.5);
+  add('Product: Individual corner radii shows four fields as read, the rows below 51 lower', fourOk && Math.abs(ratioY - 347) <= 1.5, JSON.stringify({ four, ratioY }));
+  // Menu: the text, Layout and Currency Symbol keep their values, one undo step each.
+  placeAndEdit('Menu', 12, 28);
+  await press('textarea[data-sp-field="mnText"]', 150); await key('Meta+a'); await key('S'); await key('o'); await key('Tab', 400);
+  await press('[data-btab="Design"]');
+  for (const [k, v] of [['mnLayout', 'Centered'], ['mnCurrency', '€ Euro']]) qs(`const s = p.querySelector('select[data-sp-set="${k}"]'); s.value = ${JSON.stringify(v)}; s.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
+  const mn = state(); await undoOnce(); const mnu = state();
+  add("Menu: its text, Layout and Currency Symbol keep their values; one undo step each", mn.sp.mnText === 'So' && mn.sp.mnLayout === 'Centered' && mn.sp.mnCurrency === '€ Euro' && mnu.sp.mnCurrency === undefined && mnu.sp.mnLayout === 'Centered', JSON.stringify({ mn, mnu }));
   if (process.env.SP_SHOT) screenshot(S, process.env.SP_SHOT);
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);

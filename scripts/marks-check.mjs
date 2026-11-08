@@ -1602,6 +1602,23 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // The heading list through the walk with every layout after every other (CAP-U10STEP-A.json): the heading's area, and
+  // the rows as they move from the layout's most common count (ours has longer paragraph words, so its counts differ by
+  // the words, not the step).
+  {
+    const A = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10STEP-A.json', import.meta.url))).reads, errs = [];
+    const run = Object.entries(A).filter(([k]) => / pick \d+$/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0][0]]);
+    const seen = {}; for (const [, n, rows] of run) (seen[n] ||= []).push(rows);
+    const usual = (xs) => +Object.entries(xs.reduce((c, x) => ({ ...c, [x]: (c[x] || 0) + 1 }), {})).sort((a, b) => b[1] - a[1])[0][0];
+    await start(); build('h1p1'); await pause(450);
+    const b = await chromeBtn(); await realClick(b.x, b.y);
+    for (const [k, n, rows, h] of run) {
+      const g = evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks.find((x) => x.id.startsWith('h0')).layout.desktop.area.join('/')]); })()`);
+      if (g[1] !== h || g[0] - VL.mixes.h1p1.layouts[n].rows !== rows - usual(seen[n])) errs.push(`${k} ${g}`);
+    }
+    browser(S, 'press', 'Escape'); await pause(150);
+    add(`View Layouts h1p1: the heading's step through every pair (${run.length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
   evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);
@@ -2725,6 +2742,17 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add('Layouts: the step after Undo and Redo, as CAP-U10UNDO.json read', got.join() === want.join(), `${got} want ${want}`);
     await esc();
   }
+  // The step with the panel closed, and Undo from 1 onto the start (CAP-U10UNDOCLOSED-A.json, read again in -B alike).
+  {
+    const A = read('CAP-U10UNDOCLOSED-A'), B = read('CAP-U10UNDOCLOSED-B'), got = [];
+    const at = () => got.push(`${now().rows} ${js(`return JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'));`)}`);
+    await setup(); js(`const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks[0].layout.desktop.area = [1, 2, 3, 10]; fe.load(m); return 'true';`); await pause(300);
+    at(); await open(); await pick(1); at(); await pick(0); at(); await esc(); at();
+    const closed = shut();
+    for (const k of ['#undo', '#redo', '#undo', '#undo']) { await press(k); at(); }
+    const want = Object.values(A).map((r) => `${r.look.rows} ${r.areas[0][0]}`), again = Object.values(B).map((r) => `${r.look.rows} ${r.areas[0][0]}`);
+    add('Layouts: the step on Undo with the panel closed, as CAP-U10UNDOCLOSED read twice', closed === true && want.join() === again.join() && got.join() === want.join(), `${closed} ${got} want ${want}`);
+  }
   await setup(); await open(); await pick(0); await key('Meta+z');
   add('Mark: goes with Undo by keyboard', mark() === '', mark());
   await key('Meta+Shift+z');
@@ -3490,6 +3518,18 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       browser(S, 'press', 'Escape'); await pause(200);
     }
     add('View Layouts, Instagram: pick 2 after each start as read, and the section height (13 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // Instagram through the walk with every layout after every other (CAP-U10STEP-B.json): rows and areas. Picks 2 and 3
+  // are short after 0 and 1; the rest never step.
+  {
+    const errs = [], run = Object.entries(FIND('CAP-U10STEP-B').reads).filter(([k]) => / pick \d+$/.test(k));
+    alone('Instagram'); await pause(250); await open();
+    for (const [k, r] of run) {
+      const g = pick(+k.split(' ').pop());
+      if (!g || g.rows !== r.look.rows || g.at[0][0] !== r.areas[0][0] || g.at[0][1] !== r.areas[0][1]) errs.push(`${k} ${g && [g.rows, g.at[0]]}`);
+    }
+    browser(S, 'press', 'Escape'); await pause(200);
+    add(`View Layouts, Instagram: every pair as read (${run.length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // Embed and Tag Cloud take Code's list (CAP-U10FAMILYPREDICT.json): each read pick's columns, row starts, rows past the
   // block and look; the block keeps its own height here, so the row ends follow ours.
