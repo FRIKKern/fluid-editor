@@ -1,0 +1,264 @@
+{
+ "item": "U10",
+ "question": "CAP-U10WORDSPREDICT",
+ "frozenAt": "2026-11-08T18:30Z",
+ "words": {
+  "W1": "Paragraph words for a probe",
+  "W2": "Paragraph words for a probe, long enough to wrap onto a second line in a block ten columns wide.",
+  "W4": "Paragraph words for a probe, long enough to fill about four lines in a block ten columns wide. The block holds plain words and nothing else, so its height comes from the words alone. A layout gives it a span, and the span may follow how tall the words stand at the new width."
+ },
+ "rules": {
+  "W": "The paragraph block's low span after a pick is the larger of the layout's least span (7 for layout 1, 1 for the others) and the fewest rows n whose height n x 41.09 - 11 holds the text's height read after the pick; the high span is one more. Fitted on the one-line words (CAP-U10ROWS-A.json, seen).",
+  "K": "The section's rows are the block's desktop end line plus 3, 2, -1, 3, 2, 1 for layouts 0 to 5, whatever the words. Fitted on CAP-U10ROWS-A.json (seen).",
+  "P": "Which of the two spans a pick gives: low after the layouts listed (layout 0: after 1; 1: after 0, 4, 5; 2 to 5: after 1), high after anything else, whatever the words. Built in #442, scored 24 of 24 on one line."
+ },
+ "scoring": "W: the read desktop span (end - start) against W with the read text height and P's state; P: whether the read span is the larger of the two W gives where P says high, per pair of the same layout and words; K: the read rows against the read end line. Counted per read, per rule.",
+ "predictions": {
+  "W1": [
+   {
+    "read": "W1 01 layout 0",
+    "after": "start",
+    "state": "high"
+   },
+   {
+    "read": "W1 02 layout 1",
+    "after": 0,
+    "state": "low"
+   },
+   {
+    "read": "W1 03 layout 0",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W1 04 layout 0",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W1 05 layout 2",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W1 06 layout 1",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W1 07 layout 2",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W1 08 layout 3",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W1 09 layout 1",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W1 10 layout 3",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W1 11 layout 4",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W1 12 layout 1",
+    "after": 4,
+    "state": "low"
+   },
+   {
+    "read": "W1 13 layout 4",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W1 14 layout 5",
+    "after": 4,
+    "state": "high"
+   },
+   {
+    "read": "W1 15 layout 1",
+    "after": 5,
+    "state": "low"
+   },
+   {
+    "read": "W1 16 layout 5",
+    "after": 1,
+    "state": "low"
+   }
+  ],
+  "W2": [
+   {
+    "read": "W2 01 layout 0",
+    "after": "start",
+    "state": "high"
+   },
+   {
+    "read": "W2 02 layout 1",
+    "after": 0,
+    "state": "low"
+   },
+   {
+    "read": "W2 03 layout 0",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W2 04 layout 0",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W2 05 layout 2",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W2 06 layout 1",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W2 07 layout 2",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W2 08 layout 3",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W2 09 layout 1",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W2 10 layout 3",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W2 11 layout 4",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W2 12 layout 1",
+    "after": 4,
+    "state": "low"
+   },
+   {
+    "read": "W2 13 layout 4",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W2 14 layout 5",
+    "after": 4,
+    "state": "high"
+   },
+   {
+    "read": "W2 15 layout 1",
+    "after": 5,
+    "state": "low"
+   },
+   {
+    "read": "W2 16 layout 5",
+    "after": 1,
+    "state": "low"
+   }
+  ],
+  "W4": [
+   {
+    "read": "W4 01 layout 0",
+    "after": "start",
+    "state": "high"
+   },
+   {
+    "read": "W4 02 layout 1",
+    "after": 0,
+    "state": "low"
+   },
+   {
+    "read": "W4 03 layout 0",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W4 04 layout 0",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W4 05 layout 2",
+    "after": 0,
+    "state": "high"
+   },
+   {
+    "read": "W4 06 layout 1",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W4 07 layout 2",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W4 08 layout 3",
+    "after": 2,
+    "state": "high"
+   },
+   {
+    "read": "W4 09 layout 1",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W4 10 layout 3",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W4 11 layout 4",
+    "after": 3,
+    "state": "high"
+   },
+   {
+    "read": "W4 12 layout 1",
+    "after": 4,
+    "state": "low"
+   },
+   {
+    "read": "W4 13 layout 4",
+    "after": 1,
+    "state": "low"
+   },
+   {
+    "read": "W4 14 layout 5",
+    "after": 4,
+    "state": "high"
+   },
+   {
+    "read": "W4 15 layout 1",
+    "after": 5,
+    "state": "low"
+   },
+   {
+    "read": "W4 16 layout 5",
+    "after": 1,
+    "state": "low"
+   }
+  ]
+ }
+}
