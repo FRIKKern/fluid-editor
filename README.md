@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 77 changes
+- **Today** · 78 changes
+  - T12: Audio and Pricing Plan panels; Pricing Plan rows by its Elements (CAP-T12PRESS-E) ([#460](https://github.com/FRIKKern/fluid-editor/pull/460))
   - X2, U10: corner let go short of a drag (CAP-X2LEFT); U10 text mixes read and scored ([#458](https://github.com/FRIKKern/fluid-editor/pull/458))
-  - X6: Menu past its phone floor takes no give (7 of 7 predicted); the phone lags don't settle in 2 s ([#454](https://github.com/FRIKKern/fluid-editor/pull/454))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
