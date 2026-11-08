@@ -1,0 +1,644 @@
+{
+  "item": "CAP-U11FROM-QUOTE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U11: Copy Properties from a Quote: a Grow row on the Quote, Rotate 30 on a Shape; Transforms then Animations copied from the Quote and pasted onto the Shape, each read back by copying from the Shape. One stubClipboard after enter, its marker checked before every step, every text logged.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "stubClipboard"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Grow"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "source",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "30"
+    ],
+    [
+      "read",
+      "target set",
+      {
+        "rows": [
+          "Rotate"
+        ]
+      }
+    ],
+    [
+      "read",
+      "stack",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Transforms"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "copy transforms",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Paste Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Transforms"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "paste transforms",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Transforms"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "target transforms",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      0
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animations"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "copy animations",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Paste Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animations"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "paste animations",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "rightClick",
+      0,
+      "new"
+    ],
+    [
+      "hoverNamed",
+      "Copy Properties"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressNamed",
+      "Animations"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "target animations",
+      {
+        "clip": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "source": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            576,
+            414.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Start blank",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target set": {
+      "rows": {
+        "Rotate": [
+          "30°"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack": {
+      "stack": [
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_669",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "copy transforms": {
+      "clip": {
+        "top": [
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste transforms": {
+      "clip": {
+        "top": [
+          "writeText",
+          "readText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target transforms": {
+      "clip": {
+        "top": [
+          "writeText",
+          "readText",
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "copy animations": {
+      "clip": {
+        "top": [
+          "writeText",
+          "readText",
+          "writeText",
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "paste animations": {
+      "clip": {
+        "top": [
+          "writeText",
+          "readText",
+          "writeText",
+          "writeText",
+          "readText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "target animations": {
+      "clip": {
+        "top": [
+          "writeText",
+          "readText",
+          "writeText",
+          "writeText",
+          "readText",
+          "writeText"
+        ],
+        "frame": [],
+        "frameKind": "object",
+        "topKind": "string",
+        "topTexts": [
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"transforms\",\n  \"value\": {\n    \"transforms\": {\n      \"rotation\": {\n        \"z\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      },\n      \"scale\": {\n        \"x\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        }\n      },\n      \"opacity\": {\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"offset\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"px\"\n        }\n      },\n      \"origin\": {\n        \"x\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        },\n        \"y\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      },\n      \"skew\": {\n        \"x\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        },\n        \"y\": {\n          \"value\": 0,\n          \"unit\": \"deg\"\n        }\n      }\n    }\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ],
+          [
+            "readText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ],
+          [
+            "writeText",
+            "{\n  \"dataType\": \"animations\",\n  \"value\": {\n    \"animations\": [\n      {\n        \"trigger\": \"hover\",\n        \"triggerElement\": \"self\",\n        \"transforms\": [\n          {\n            \"rotation\": {\n              \"z\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            },\n            \"scale\": {\n              \"x\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              },\n              \"y\": {\n                \"value\": 110,\n                \"unit\": \"%\"\n              }\n            },\n            \"opacity\": {\n              \"value\": 100,\n              \"unit\": \"%\"\n            },\n            \"offset\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"px\"\n              }\n            },\n            \"skew\": {\n              \"x\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              },\n              \"y\": {\n                \"value\": 0,\n                \"unit\": \"deg\"\n              }\n            }\n          }\n        ],\n        \"duration\": {\n          \"value\": 0.5,\n          \"unit\": \"s\"\n        },\n        \"delay\": {\n          \"value\": 0,\n          \"unit\": \"s\"\n        },\n        \"ease\": \"spring\",\n        \"customEase\": \"0, 0, 1, 1\",\n        \"bounce\": 0.3,\n        \"alternate\": false,\n        \"threshold\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"appearPoint\": \"top\",\n        \"replay\": false,\n        \"iterations\": 1,\n        \"rangeStart\": {\n          \"mode\": \"entry\",\n          \"value\": {\n            \"value\": 0,\n            \"unit\": \"%\"\n          }\n        },\n        \"rangeEnd\": {\n          \"mode\": \"cover\",\n          \"value\": {\n            \"value\": 50,\n            \"unit\": \"%\"\n          }\n        },\n        \"invert\": false,\n        \"radius\": {\n          \"value\": 100,\n          \"unit\": \"%\"\n        },\n        \"smoothing\": 1,\n        \"snapBack\": true,\n        \"action\": \"scrolls\",\n        \"insetTop\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"insetBottom\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"startPoint\": {\n          \"value\": 0,\n          \"unit\": \"%\"\n        },\n        \"endPoint\": {\n          \"value\": 50,\n          \"unit\": \"%\"\n        }\n      }\n    ]\n  }\n}"
+          ]
+        ],
+        "frameTexts": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": []
+}
