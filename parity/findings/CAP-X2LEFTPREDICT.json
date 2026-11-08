@@ -1,0 +1,30 @@
+{
+  "item": "X2",
+  "question": "CAP-X2LEFTPREDICT",
+  "frozenAt": "2026-11-08T18:30Z",
+  "reads": "CAP-X2LEFT.json, each case twice (r1, r2), setup as in CAP-X2UNREAD.json.",
+  "rule": "Ours (#453): a Text's corner let go is not selected when it is a bottom corner, when it did not move, or when it ends more than 5 px above where it was pressed (inferred between level and 10 above). Short of a drag (10 px) nothing resizes.",
+  "predictions": {
+    "sw 0,0": {
+      "selected": false,
+      "desktop": "unchanged"
+    },
+    "nw 0,0": {
+      "selected": false,
+      "desktop": "unchanged"
+    },
+    "ne 5,0": {
+      "selected": true,
+      "desktop": "unchanged"
+    },
+    "ne 9,0": {
+      "selected": true,
+      "desktop": "unchanged"
+    },
+    "nw 0,-5": {
+      "selected": true,
+      "desktop": "unchanged"
+    }
+  },
+  "scoring": "selected: the read's Write and handles after the release, per read; desktop: the area against the before read."
+}
