@@ -986,6 +986,9 @@ function onDown(e) {
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
+    // After one Escape a drag from the text opens the editor again and moves nothing; a click there opens nothing
+    // (CAP-TEXTPRESS a10, CAP-TEXTPRESS3 r1 and r2; CAP-ESC2.json). The press redrew the section, so look the block up again.
+    escWords: !wasSelected && sel?.sid === sid && sel.bid === bid && !sel.more?.length && B(sid, bid)?.type === 'text' && onWords(blockEl(bid) || blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -996,6 +999,7 @@ function onMove(e) {
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
     if (gesture.onWords) return;
+    if (gesture.escWords) { if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10) gesture.escDrag = true; return; }
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -1034,7 +1038,7 @@ function onUp(e) {
     // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
     // A press with no move is not read.
     if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
-    if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
+    if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
   const g = gesture;
