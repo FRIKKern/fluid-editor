@@ -876,6 +876,27 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     else { const a1 = run(mine), b1 = run(them); got = { ours: a1, theirs: b1 }; ok = !!a1 && near(a1[0], b1[0], 0.01) && near(a1[1], b1[1], 0.05) && Math.abs(a1[2] - b1[2]) <= 0.15 * b1[2]; }
     add(`Stage square on ${name}: the mouse on it plays it as read`, ok, JSON.stringify(got));
   }
+  // A second read (CAP-T15STAGE7-*.json): Loop and On Appear at Duration 1.2s run in the Duration; a Ping Pong Loop goes out
+  // and straight back on its ease, once; the stage clips the square (held shot: 70 of its 81 px show).
+  const setup = async (name, tab, more = async () => {}) => {
+    await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger(name); await clickSel(act('blank'));
+    for (const k of ['3Y', '2X']) { q(`const e = panel.querySelector('[data-afield="${tab}:${k}"]'); e.focus(); e.value = '150%'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); e.blur(); return 'true';`); await pause(300); }
+    await clickSel(`panel.querySelector('[data-anim="tab"][data-v="Timing"]')`, 260); await more();
+  };
+  const duration = async (v) => { q(`const e = panel.querySelector('[data-afield="duration"]'); e.focus(); e.value = '${v}'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(150); e.blur(); return 'true';`); await pause(300); };
+  const snapsOf = (v) => v.filter(([, x], i) => i && x < v[i - 1][1] - 0.5).length;
+  await setup('Loop', 'end', () => duration('1.2s'));
+  { const mine = oursPairs(await hoverRun(3200)), them = theirPairs(R('CAP-T15STAGE7-LOOP12').hover), a1 = fitD(mine), b1 = fitD(them);
+    add(`Stage square on Loop at 1.2s: out in ${b1} ms, twice, as read`, snapsOf(mine) === 1 && snapsOf(them) === 1 && Math.abs(a1 - b1) <= 0.1 * b1, JSON.stringify([a1, snapsOf(mine)]));
+    const clip = q(`const st = panel.querySelector('.an-stage'), r = st.getBoundingClientRect(), b = st.querySelector('.an-sq').getBoundingClientRect(); return JSON.stringify([getComputedStyle(st).overflow, Math.round(b.height), Math.round(r.height)]);`);
+    add('Stage square: grown past the stage, it is cut to the stage', clip[0] === 'hidden' && clip[1] > clip[2] && clip[2] === 70, JSON.stringify(clip)); }
+  await setup('On Appear', 'start', () => duration('1.2s'));
+  { const run = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.001); return m.length ? m.at(-1)[0] - m[0][0] : null; };
+    const mine = oursPairs(await hoverRun(2500)), them = theirPairs(R('CAP-T15STAGE7-APPEAR12').hover), a1 = run(mine), b1 = run(them);
+    add(`Stage square on On Appear at 1.2s: back to rest in ${b1} ms, as read`, a1 != null && Math.abs(a1 - b1) <= 0.15 * b1 && near(mine.find(([, x]) => x !== 1)[1], 2.25, 0.05), String(a1)); }
+  await setup('Loop', 'end', async () => { await clickSel(`panel.querySelector('.an-sel')`); await clickSel(`document.querySelector('[data-an-opt="Ping Pong"]')`); });
+  { const mine = oursPairs(await hoverRun(2500)), them = theirPairs(R('CAP-T15STAGE7-PINGPONG').hover), ok = (v) => snapsOf(v) === 0 && near(Math.max(...v.map(([, x]) => x)), 2.25, 0.01) && near(v.at(-1)[1], 1, 0.001);
+    add('Stage square on a Ping Pong Loop: out and back on its ease, once, then at rest', ok(mine) && ok(them), JSON.stringify([snapsOf(mine), mine.at(-1)[1]])); }
   await settle();
 }
 

@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 70 changes
-  - T12: Icon Thickness more, Newsletter Stack with names and the empty Description line; 0005 names the ruled-out rows ([#452](https://github.com/FRIKKern/fluid-editor/pull/452))
-  - U9: Edit Section's panel keeps to its section's content box while scrolling ([#447](https://github.com/FRIKKern/fluid-editor/pull/447))
+- **Today** · 73 changes
+  - T12: panels for Zola, Search Field and Donation ([#456](https://github.com/FRIKKern/fluid-editor/pull/456))
+  - T15: stage square at a second Duration, Ping Pong, and the stage's clip ([#455](https://github.com/FRIKKern/fluid-editor/pull/455))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

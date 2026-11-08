@@ -1,0 +1,15 @@
+{
+  "item": "T15",
+  "question": "The stage square's time at a second setting, pushed before CAP-T15STAGE7-*.json. Same steps as CAP-T15STAGE6 (Scale X and Y 150% on the first tab, the mouse onto the square), with Duration 1.2s on Loop and On Appear; On Scroll has no Duration row, so it is read again as it was; a Loop with Type Ping Pong at 0.4s.",
+  "rules": {
+    "A": "ours as built (#451): a Loop runs out twice in the Duration, then stays at its End; On Appear goes from its Start to rest in the Duration; On Scroll from its Start to its End in 1000 ms; a Ping Pong Loop as a Continuous one",
+    "B": "On Hover's 1.5 times the Duration on Loop and On Appear; a Ping Pong Loop goes out and back"
+  },
+  "predictions": {
+    "Loop 1.2s": { "A": "out in 1200 ms (fitted D), twice, then at 2.25", "B": "out in 1800 ms" },
+    "On Appear 1.2s": { "A": "2.25 down to 1, D 1200", "B": "D 1800" },
+    "On Scroll again": { "A": "2.25 down to 1, D 1000", "B": "D 1000" },
+    "Loop Ping Pong 0.4s": { "A": "out (D 400), back to 1 in one frame, out again, then at 2.25", "B": "out and back on its ease, not in one frame" }
+  },
+  "scoring": "a time holds when the fitted D is within 10%; the Ping Pong guess holds on its shape (a one-frame drop or not, where it ends)"
+}

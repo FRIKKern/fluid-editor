@@ -1,6 +1,6 @@
 {
-  "pass": 380,
-  "total": 380,
+  "pass": 384,
+  "total": 384,
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -1520,6 +1520,22 @@
     },
     {
       "what": "Stage square on On Appear: the mouse on it plays it as read",
+      "ok": true
+    },
+    {
+      "what": "Stage square on Loop at 1.2s: out in 1200 ms, twice, as read",
+      "ok": true
+    },
+    {
+      "what": "Stage square: grown past the stage, it is cut to the stage",
+      "ok": true
+    },
+    {
+      "what": "Stage square on On Appear at 1.2s: back to rest in 1128 ms, as read",
+      "ok": true
+    },
+    {
+      "what": "Stage square on a Ping Pong Loop: out and back on its ease, once, then at rest",
       "ok": true
     }
   ]

@@ -37,6 +37,7 @@ import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
+import { standinPanelOf } from './standin-panels.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -574,7 +575,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -989,7 +990,7 @@ function onDown(e) {
   pressFresh = !sel;
   // The block is selected on let go, or when a drag starts, not on the press (CAP-U9FADE4D.json, CAP-SELECTLETGO.json).
   const pick = onKid ? null : keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid };
-  const r = blk.getBoundingClientRect();
+  const r = (blockEl(bid) || blk).getBoundingClientRect(); // After one Escape the press redrew the section: blk is gone (CAP-X2UNREAD under)
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
@@ -1042,9 +1043,11 @@ function onUp(e) {
     gesture = null;
     if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
-    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
-    // A press with no move is not read.
-    if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
+    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json), nor pressed
+    // with no move, and neither is a top corner pressed with no move (CAP-X2UNREAD.json se and ne 0,0, twice each).
+    // Read on se and ne only; sw and nw are inferred. A top corner moved short of a drag isn't read.
+    const corner = g.resizeDir || '', still = e.clientX === g.x0 && e.clientY === g.y0;
+    if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (/^s/.test(corner) || still || g.y0 - e.clientY > LET_GO_ABOVE)) { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1075,7 +1078,9 @@ function onUp(e) {
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
-const LET_GO_ABOVE = 30; // a Text's top corners: level with the old top stays selected, 60 above does not
+// A Text's top corners: level with the old top stays selected (CAP-X2EDGES.json), 10, 20, 40, 50 and 60 above do not
+// (CAP-X2UNREAD.json, twice each). The line is between 0 and 10: 5 is inferred.
+const LET_GO_ABOVE = 5;
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1783,7 +1788,8 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
-    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() } : null;
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
+    : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -1794,7 +1800,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' && !standinPanelOf(b) ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -2173,7 +2179,7 @@ blockPanel.addEventListener('mouseover', (e) => {
 // A Loop's square stays at its End until the mouse leaves the stage (inferred: the read after leaving found it at rest).
 blockPanel.addEventListener('mouseout', (e) => {
   const st = e.target.closest?.('.an-stage');
-  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop') releasePose(st.querySelector('.an-sq'));
+  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop' && animRows()[anim.i].type !== 'Ping Pong') releasePose(st.querySelector('.an-sq'));
 });
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
@@ -2692,6 +2698,32 @@ blockPanel.addEventListener('change', (e) => {
   // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone. A press
   // that left the field waits for its click: the redraw would take the switch or pick from under it.
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
+});
+// A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
+function setStandinValue(key, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  b.sp = { ...b.sp, [key]: v };
+  commit(before, `${b.label} ${key} changed`);
+}
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('input[data-sp-set], input[data-sp-field], input[data-sp-range]');
+  if (!t || !sel) return;
+  if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
+  if (t.dataset.spRange) return setStandinValue(t.dataset.spRange, Number(t.value));
+  const f = t.dataset.spField;
+  if (t.dataset.min == null) return setStandinValue(f, t.value);
+  const n = Math.round(parseFloat(t.value));
+  if (Number.isFinite(n)) setStandinValue(f, Math.max(Number(t.dataset.min), Math.min(Number(t.dataset.max), n))); else renderBlockPanel();
+});
+blockPanel.addEventListener('input', (e) => {
+  const r = e.target.closest('input[data-sp-range]');
+  const f = r && blockPanel.querySelector(`input[data-sp-field="${r.dataset.spRange}"]`);
+  if (f) f.value = r.value;
+  if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
+});
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-sp-set]');
+  if (t && sel) setStandinValue(t.dataset.spSet, t.dataset.v);
 });
 // Newsletter's Show Name Field, Layout and Alignment: one undo step each, after the step of a field just left.
 function setNewsletter(key, v) {
