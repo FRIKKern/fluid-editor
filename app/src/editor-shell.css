@@ -2152,3 +2152,27 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-sp-hcode + .bp-sp-hcode { margin-top: 0; }
 /* Product's look rows end on Blur, with the rule 11px above Transforms (CAP-T12PANELS-A.json). */
 .bp-sp-design:has(.bp-sp-balign) + .bp-look-rows + .bp-thead { margin-top: 11px; }
+/* Summary and Archive (CAP-T12PANELS-B.json, -C.json): a value row with its menu, faded when it needs a collection. */
+.bp-sp-dsel { position: relative; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: calc(100% + 22px); height: 46px; margin: -1px -11px 0; padding: 0 11px; border: 0; border-bottom: 1px solid #e7e7e7; background: none; color: #b7b7b7; font: inherit; font-size: 14px; line-height: 18px; text-align: left; }
+.bp-sp-dsel svg { width: 16px; height: 16px; color: #666; }
+.bp-sp-vsel { color: #0e0e0e; cursor: pointer; }
+.bp-sp-vsel select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-dsel + .bp-sp-cap { margin-top: 22px; }
+.bp-sp-mnote + .bp-sp-dsel { margin-top: -1px; }
+.bp-sp-layout + .bp-sp-range { margin-top: 38px; }
+.bp-sp-range + .bp-sp-cap { margin-top: 21.5px; }
+.bp-sp-erow + .bp-sp-cap:has(+ .bp-sp-vsel) { margin-top: 22.5px; }
+.bp-sp-design:has(> .bp-sp-view:last-child) + .bp-look-rows { margin-top: 10.5px; }
+.bp-sp-vsel + .bp-sp-view { margin-top: 32.5px; }
+.bp-sp-erow.is-off .sp-label { color: #b7b7b7; }
+.bp-sp-box + .bp-sp-rule, .bp-sp-boxsel + .bp-sp-rule { margin-top: 33px; }
+.bp-sp-phead + .bp-sp-box { margin-top: 11px; }
+.bp-sp-boxsel { display: flex; align-items: center; justify-content: space-between; height: 44px; margin-top: 7px; }
+.bp-sp-bsv { position: relative; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: 182px; height: 44px; padding: 0 11px 0 12px; border: 1px solid #e7e7e7; border-radius: 2px; color: #0e0e0e; font-size: 14px; line-height: 22px; }
+.bp-sp-bsv svg { width: 16px; height: 16px; }
+.bp-sp-bsv select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-head + .bp-sp-layout { margin-top: 16px; }
+.bp-sp-layout + .bp-sp-seg { margin-top: 16px; }
+.bp-sp-seg .bp-sp-opt svg { display: block; margin: auto; }
+/* With no Corner row (a shape other than Rectangle), Ratio sits 11px under the picker (CAP-T12READS-F.json). */
+.bp-sp-pickw + .bp-sp-sel { margin-top: 11px; }

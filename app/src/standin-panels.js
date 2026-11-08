@@ -33,7 +33,7 @@ const when = (test, row) => (v) => (test(v) ? row(v) : '');
 const cap = (label) => () => `<div class="bp-sp-cap">${label}</div>`;
 const erow = (key, label, def) => (v) => toggle(key, label, def)(v).replace('class="sp-row bp-sp-row"', 'class="sp-row bp-sp-erow"');
 const ALIGN_ICONS = { left: '<path d="M6 5v14M19 12H10M13 9l-3 3 3 3"/>', center: '<path d="M12 5v14M3 12h6M6 9l3 3-3 3M21 12h-6M18 9l-3 3 3 3"/>', right: '<path d="M18 5v14M5 12h9M11 9l3 3-3 3"/>' };
-const icons = (key, label, opts, def) => (v) => `<div class="bp-sp-icons" role="radiogroup" aria-label="${label}">${opts.map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? def) === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? def) === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</div>`;
+const icons = (key, label, opts, def) => (v) => `<div class="bp-sp-icons" role="radiogroup" aria-label="${label}">${opts.map((o) => { const [val, l, d] = Array.isArray(o) ? o : [o, o, ALIGN_ICONS[o]]; return `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? def) === val ? ' is-on' : ''}" aria-checked="${(v[key] ?? def) === val}" aria-label="${l}" data-sp-set="${key}" data-v="${val}">${pi(d)}</button>`; }).join('')}</div>`;
 const darkOut = (text) => () => `<button type="button" class="bp-sp-dark" ${OUT}>${text}</button>`;
 // Product's rows, in the same older look: a black head, a bordered box out, the image shape picker, Corner, Ratio,
 // a Focal Point that waits for an image, Block Alignment.
@@ -58,10 +58,18 @@ const focal = () => () => `<button type="button" class="bp-sp-focal" disabled>${
 const MENU_TEXT = 'MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle';
 const code = (key, label, def) => (v) => `<div class="bp-sp-code"><textarea aria-label="${label}" data-sp-field="${key}" spellcheck="false">${esc(v[key] ?? def)}</textarea></div>`;
 const LAYOUT_ICON = '<path d="M5 7h3M5 12h3M5 17h3M11 7h8M11 12h8M11 17h8"/>';
-const layout = (key, opts, def) => (v) => `<label class="bp-sp-layout"><span class="bp-sp-ltile">${pi(LAYOUT_ICON)}</span><span class="bp-sp-lname">${esc(v[key] ?? def)}</span>${pi('<path d="M7 10l5 5 5-5"/>')}<select aria-label="Layout" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
+const layout = (key, opts, def, icon = LAYOUT_ICON) => (v) => `<label class="bp-sp-layout"><span class="bp-sp-ltile">${pi(icon)}</span><span class="bp-sp-lname">${esc(v[key] ?? def)}</span>${pi('<path d="M7 10l5 5 5-5"/>')}<select aria-label="Layout" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
 const hhead = (t) => () => `<h4 class="bp-sp-hhead">${t}</h4>`;
 const hpara = (html) => () => `<p class="bp-sp-hpara">${html}</p>`;
 const hcode = (text) => () => `<div class="bp-sp-hcode"><pre>${esc(text)}</pre></div>`;
+// Summary's and Archive's rows: a value with its menu, faded when it needs a collection (0005); a labelled menu in a box.
+const dsel = (text) => () => `<button type="button" class="bp-sp-dsel" ${OUT}><span>${text}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</button>`;
+const vsel = (key, opts, def) => (v) => `<label class="bp-sp-dsel bp-sp-vsel"><span>${esc(v[key] ?? def)}</span>${pi('<path d="M7 10l5 5 5-5"/>')}<select aria-label="${opts.label}" data-sp-set="${key}">${opts.list.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
+const boxsel = (key, label, opts, def) => (v) => `<label class="bp-sp-boxsel"><span class="sp-label">${label}</span><span class="bp-sp-bsv"><span>${esc(v[key] ?? def)}</span>${pi('<path d="M7 10l5 5 5-5"/>')}<select aria-label="${label}" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></span></label>`;
+const segi = (key, label, opts, def) => (v) => `<div class="bp-sp-seg"><span class="sp-label">${label}</span><div class="bp-sp-segs" role="radiogroup" aria-label="${label}">${opts.map(([val, l, d]) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? def) === val ? ' is-on' : ''}" aria-checked="${(v[key] ?? def) === val}" aria-label="${l}" data-sp-set="${key}" data-v="${val}">${pi(d)}</button>`).join('')}</div></div>`;
+const toggleOff = (label) => () => `<div class="sp-row bp-sp-erow is-off"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" disabled><span aria-hidden="true"></span></label></div>`;
+const TEXT_ALIGN = [['left', 'Left Aligned', '<path d="M5 7h14M5 11h9M5 15h14M5 19h9"/>'], ['center', 'Center Aligned', '<path d="M5 7h14M7.5 11h9M5 15h14M7.5 19h9"/>'], ['right', 'Right Aligned', '<path d="M5 7h14M10 11h9M5 15h14M10 19h9"/>']];
+const WALL_ICON = '<path d="M6 5h12v14H6zM12 5v14M12 12h6"/>', INDEX_ICON = '<path d="M6 6h12v5H6zM6 13h12v5H6z"/>';
 const balign = (key, label) => (v) => `<div class="sp-row bp-sp-erow bp-sp-balign"><span class="sp-label">${label}</span><span class="bp-sp-bicons" role="radiogroup" aria-label="${label}">${['left', 'center', 'right'].map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? 'left') === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? 'left') === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</span></div>`;
 
 // Per block: its tabs (Animation is the shared list), its Content rows, and its Design rows before the shared ones.
@@ -107,11 +115,23 @@ export const STANDIN_PANELS = {
       hhead('Menu Items'), hpara('To add an item to your menu, type in the<br>following format. Separate multiple menu items<br>with 2 spaces. Options can be added to an item<br>by using the “+” format on a new line. Both<br>prices and descriptions are optional.'), hcode('Title of Menu Item\nDescription of food item.\n$10'), hcode('Another Menu Item\nA different description.\n$20\n+ Option\n+ Another Option'),
       hhead('Multiple Menu Pages'), hpara('Menu blocks can support multi-page menus<br>(lunch, dinner, etc). Menu pages will be rendered<br>as tabs. To create a menu page within a block,<br>type:'), hcode('Lunch\n========\nOptional menu description')],
   },
+  Summary: {
+    tabs: ['Content', 'Design'],
+    // Its collection menus need a collection (0005): faded. Its rows are the fixes lane's (resize) and move by presses on the
+    // oracle with no rule found (CAP-T12PRESS-B.json): named. Size and Spacing opens a view of its own: drawn, not built.
+    content: [note(`Display content from other pages on your site,<br>such as blog posts, products, events, or videos.<br>${link('Learn More')}`, ' bp-sp-mnote'), dsel('There are no Collection Pages'), cap('Primary Metadata'), dsel('No metadata found'), cap('Secondary Metadata'), dsel('No metadata found')],
+    design: [layout('smLayout', ['Wall', 'Carousel', 'List', 'Grid'], 'Wall', WALL_ICON), range('smItems', 'Number of Items', 3, 1, 30), cap('Text'), icons('smAlign', 'Text', TEXT_ALIGN, 'left'), cap('Elements'), erow('smTitle', 'Title', true), erow('smImage', 'Featured Image', true), erow('smExcerpt', 'Excerpt', true), cap('Metadata Position'), vsel('smMeta', { label: 'Metadata Position', list: ['Above Title', 'Below Title', 'Below Content'] }, 'Below Content'), view('Size and Spacing')], look: true,
+  },
+  Archive: {
+    // Collection needs a collection (0005). Dates ascending is disabled as read. Rows: named (CAP-T12PRESS-B.json).
+    content: [phead('Collection'), box('<span>No collections found</span>'), rule(), phead('Organization'), boxsel('arGroup', 'Group by', ['Month', 'Year', 'Author', 'Category', 'Tag'], 'Month'), rule(), phead('Elements'), toggleOff('Dates ascending'), erow('arDate', 'Item date', true), erow('arCount', 'Group count', false)],
+    design: [head('Layout'), layout('arLayout', ['Index', 'List', 'Drop down'], 'Index', INDEX_ICON), segi('arColumns', 'Columns', [['false', 'One column', '<path d="M6 7h12M6 10.3h12M6 13.6h12M6 17h12"/>'], ['true', 'Two columns', '<path d="M5 7h6M5 10.3h6M5 13.6h6M5 17h6M13 7h6M13 10.3h6M13 13.6h6M13 17h6"/>']], 'true'), segi('arAlign', 'Alignment', ['left', 'center', 'right'].map((o) => [o, o, ALIGN_ICONS[o]]), 'left'), rule(), head('Appearance')], look: true, transforms: true,
+  },
   Product: {
     // Create new product makes a product in the store (0005). Its rows follow neither the switches nor its content box by the
     // frozen rule (CAP-T12PRESS-A.json, -E.json): the switches and Ratio keep its rows (named misses).
     content: [phead('Product'), newOut('Create new product'), phead('Elements'), erow('pdImage', 'Image', true), erow('pdTitle', 'Title', true), erow('pdPrice', 'Price', true), erow('pdDesc', 'Description', false), erow('pdCart', 'Add to Cart Button', false), erow('pdQuick', 'Product Quick View', false), note('On hover, a button will appear that lets<br>customers dynamically access product details<br>without leaving the page.', ' bp-sp-qnote')],
-    design: [phead('Image'), picker('pdShape'), corner('pdCorner', 'pdRadius'), select('pdRatio', 'Ratio', ['1:1', '3:2', '2:3', '4:3', '3:4', '16:9', 'Original'], 'Original'), focal(), balign('pdAlign', 'Block Alignment')], look: true, transforms: true,
+    design: [phead('Image'), picker('pdShape'), when((v) => (v.pdShape ?? 'rectangle') === 'rectangle', corner('pdCorner', 'pdRadius')), select('pdRatio', 'Ratio', ['1:1', '3:2', '2:3', '4:3', '3:4', '16:9', 'Original'], 'Original'), focal(), balign('pdAlign', 'Block Alignment')], look: true, transforms: true,
   },
 };
 export const standinPanelOf = (b) => (b.type === 'shape' && !b.standin && STANDIN_PANELS[b.label] ? b.label : null);
