@@ -1,0 +1,34 @@
+{
+  "item": "X6",
+  "capturedAt": "2026-11-08",
+  "question": "X6, Summary on desktop: does a side pull take its rows from the content's height before the pull? Predictions pushed before the read of CAP-X6SUMMARYWALK.json.",
+  "setup": "Blocks Probe, unsaved, a new section, desktop. A new Summary (18 columns, 2 to 20, 11 rows). Pulled 176.34 px in from the west (3 columns, to 15), then by its east handle: in to 14 and 13, out to 14, in to 13, 12, 11 and 10, in from the west to 9, then out from the east to 10 and 11. Its area and content height read 400 ms after each pull; the height is read live, as it moves between sessions (CAP-X6DESKSETTLE.json).",
+  "rule": "P: a side pull of Summary on desktop gives max(rows before, ceil((h + 11) / 41.09 - 0.02)), h being its content's height read just before the pull, at the width it had then; rows are never given back. Seen: 9 of 9 in CAP-X6DESKSETTLE.json and 9 of 9 in CAP-X6DESKROWS.json. Ours today takes h at the new width.",
+  "predictions": [
+    {
+      "case": "every pull",
+      "predict": "rows = max(rows before, ceil((h before + 11) / 41.09 - 0.02)), h before from the read before it"
+    },
+    {
+      "case": "w 3 columns to 15",
+      "predict": "from the start height (about 427 to 530): 11 to 14 rows, not more"
+    },
+    {
+      "case": "e in 14 to 13",
+      "predict": "rows stay as at 14 (from 14's height, about 400 to 500), though 13's content is about 1200 high; ours today takes about 30"
+    },
+    {
+      "case": "e out 13 to 14",
+      "predict": "rows jump to ceil((h at 13 + 11) / 41.09 - 0.02), about 30, on a widening pull"
+    },
+    {
+      "case": "e out 9 to 10",
+      "predict": "rows jump to ceil((h at 9 + 11) / 41.09 - 0.02), about 60, on a widening pull"
+    },
+    {
+      "case": "columns",
+      "predict": "each pull lands one column (three for the first) as pulled; the floor is 9 columns, so none stops short"
+    }
+  ],
+  "score": "Counted on the read's pulls: a pull matches when its rows equal P's from the read before it and its columns are as pulled. One round, up to two refits, then frozen."
+}

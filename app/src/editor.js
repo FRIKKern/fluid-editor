@@ -1504,7 +1504,15 @@ function updateResize(e) {
     need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskNeed(held, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) {
+    // A Summary takes the rows of its content's height before the pull, at the width it was pressed at, so it widens into
+    // the rows of its narrower content (CAP-X6SUMMARYWALK.json: P, 9 of 11 predicted, the 2 misses pulls that moved nothing).
+    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen).
+    const [, o0, , o1] = g.orig;
+    const past = held.label === 'Summary' && (g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols);
+    const cols = held.label === 'Summary' && !past ? o1 - o0 : c1 - c0;
+    need = Math.max(need, Math.ceil((deskNeed(held, cols) + m.rg) / m.pitch - 0.02));
+  }
   else if (side && bp === 'mobile' && held.phoneHeight) {
     // A pointer past the floor, where it would snap under it, takes the rows with no give: Menu 31.09 rows high is 31 at
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).

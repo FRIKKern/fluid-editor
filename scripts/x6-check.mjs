@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE', 'CAP-X6SUMMARYWALK']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
@@ -27,8 +27,9 @@ const results = [];
 // Summary's content moves between sessions (CAP-X6STEPS.json read 14 rows at 17 columns, CAP-X6DESKROWS.json 11): only its columns there.
 const ROWS_UNBUILT = /^Summary [ew] in /;
 // A one-column pull sets rows from the content as it was before it reflowed, and a far pull from where it had got to
-// (CAP-X6DESKROWS.json). Read again 2 s later they stay as they were (CAP-X6DESKSETTLE.json, CAP-X6DESKSETTLE2.json): misses, not built. The Summary pulls after e 9 moved nothing on the oracle: not compared.
-const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9', 'CAP-X6DESKROWS Instagram e 7', 'CAP-X6DESKROWS Instagram w far in', 'CAP-X6FLOORS Instagram w far in',
+// (CAP-X6DESKROWS.json). Read again 2 s later they stay as they were (CAP-X6DESKSETTLE.json, CAP-X6DESKSETTLE2.json). Summary's is built
+// (CAP-X6SUMMARYWALK.json); Instagram's stay misses, named. The Summary pulls after e 9 moved nothing on the oracle: not compared.
+const LAG = new Set(['CAP-X6DESKROWS Instagram e 7', 'CAP-X6DESKROWS Instagram w far in', 'CAP-X6FLOORS Instagram w far in',
   'CAP-X6PHONEROWS Instagram e 6', 'CAP-X6PHONEROWS Instagram e 5', 'CAP-X6PHONEROWS Instagram e 4', 'CAP-X6PHONEROWS Instagram e back 8',
   // And one the 0.13 give misses: OpenTable runs 0.35 of a row over at 3 columns, where Page Link takes a row at 0.23. Its
   // extra row is then kept as it widens, as rows are.
@@ -36,7 +37,9 @@ const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9'
   // Read again 2 s later, they don't settle to ours (CAP-X6FARSETTLE.json): misses. Instagram e 4 read 18 rows there, ours, 19 here.
   ...['Instagram e 5', 'Instagram e back 8', 'OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `OpenTable e back ${n}`)].flatMap((r) => [`CAP-X6FARSETTLE ${r}`, `CAP-X6FARSETTLE ${r} later`])]);
 // Held, the oracle's area doesn't move until it is let go (CAP-X6FARSETTLE.json): only the let-go read is compared.
-const VOID = (file, read) => (file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read)) || (file === 'CAP-X6FARSETTLE' && / held /.test(read));
+// Summary's widening pulls from 9 columns moved nothing on the oracle, there and in CAP-X6SUMMARYWALK.json: not compared. That walk's
+// rows come from its session's heights (530 at 18 columns, 427 in CAP-X6DESKROWS.json, which ours draws): its columns are compared.
+const VOID = (file, read) => (file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read)) || (file === 'CAP-X6SUMMARYWALK' && /^e out to 1[01]$/.test(read)) || (file === 'CAP-X6FARSETTLE' && / held /.test(read));
 // On a phone, as a start row or a pull: Summary's content moves between runs (1170, 1689, 1958), and its south pull took effect
 // at the next press (CAP-X6PHONEROWS.json). The others draw the oracle's phone height by width (CAP-68PULL.json, CAP-X6PHONEROWS.json).
 const PHONE_ROWS_UNBUILT = /^Summary /;
@@ -64,7 +67,7 @@ for (const file of FILES) {
       const want = pick?.split('/').map(Number), have = area();
       if (!want || VOID(file, step[1])) continue;
       off ??= want[0] - have[0];
-      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
+      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || file === 'CAP-X6SUMMARYWALK' || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
       const ok = named ? want[1] === have[1] && want[3] === have[3] : w === have.join('/');
       total++; if (ok) pass++; else console.log(`DIFF ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`);
       if (named && w !== have.join('/')) { known++; console.log(`known, rows: ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`); }

@@ -1,9 +1,9 @@
 {
   "check": "pulls per type against the oracle",
   "tolerance": 0,
-  "pass": 621,
-  "total": 621,
-  "known": 40,
+  "pass": 631,
+  "total": 631,
+  "known": 47,
   "results": [
     {
       "file": "CAP-X6PULLS",
@@ -3108,6 +3108,56 @@
     {
       "file": "CAP-X6FARSETTLE",
       "read": "OpenTable e past floor later",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "w in to 15",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 14",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 13",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e out to 14",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 13 again",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 12",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 11",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "e in to 10",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYWALK",
+      "read": "w in to 9",
       "ok": true
     }
   ]
