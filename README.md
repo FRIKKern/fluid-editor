@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 30 changes
+- **Today** · 31 changes
+  - E7: the link-box replay stubs the clipboard before Copy, and stops if the stub is gone ([#413](https://github.com/FRIKKern/fluid-editor/pull/413))
   - P3: undo and the number after NaN, read on the oracle ([#412](https://github.com/FRIKKern/fluid-editor/pull/412))
-  - U10: Flip X after layouts 2 and 0 read, both predictions held (CAP-U10FLIP3.json) ([#411](https://github.com/FRIKKern/fluid-editor/pull/411))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
