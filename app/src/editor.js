@@ -6728,6 +6728,9 @@ function openSubmenu(it) {
   arrangeMenu.style.left = `${r.right - st.left + 4}px`;
   arrangeMenu.style.top = `${r.top - st.top}px`;
   arrangeMenu.hidden = false;
+  // The row whose submenu is open stays lit while the pointer is on the submenu (CAP-U11LIT.json).
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
+  it.classList.add('is-sub');
   return true;
 }
 // A hover opens a row's submenu, as on the oracle.
@@ -6735,6 +6738,7 @@ contextMenu.addEventListener('mouseover', (e) => {
   const it = e.target.closest('button[data-cm]');
   if (!it || !sel || (!it.disabled && openSubmenu(it))) return;
   arrangeMenu.hidden = true;
+  contextMenu.querySelectorAll('.is-sub').forEach((x) => x.classList.remove('is-sub'));
 });
 arrangeMenu.addEventListener('mousedown', (e) => e.preventDefault());
 arrangeMenu.addEventListener('click', (e) => {
