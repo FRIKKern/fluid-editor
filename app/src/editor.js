@@ -2742,8 +2742,9 @@ function setStandinValue(key, v) {
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
-  const t = e.target.closest('input[data-sp-set], input[data-sp-field], input[data-sp-range]');
+  const t = e.target.closest('input[data-sp-set], select[data-sp-set], input[data-sp-field], input[data-sp-range]');
   if (!t || !sel) return;
+  if (t.tagName === 'SELECT') return setStandinValue(t.dataset.spSet, t.value);
   if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
   if (t.dataset.spRange) return setStandinValue(t.dataset.spRange, Number(t.value));
   const f = t.dataset.spField;
