@@ -1060,6 +1060,9 @@ function onUp(e) {
   endGesture();
   renderSectionDom(g.sid);
   if (g.type === 'gresize') stored = storedRows(g);
+  // 98, candidate R1 under test (CAP-98SPLIT-PREDICTED.json): a lone Text made wider and left short arms the
+  // stored rows too, worked out at the next layout gesture, so a block added since counts (CAP-98.json).
+  else if (g.type === 'resize' && !g.members && b.type === 'text' && g.target[3] - g.target[1] > g.orig[3] - g.orig[1]) stored = { sid: g.sid, bp, lone: b.id };
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1169,8 +1172,11 @@ function storedRows(g) {
   return { sid: g.sid, bp, areas };
 }
 function showStored() {
-  const t = stored, shift = new Map();
+  let t = stored;
+  const shift = new Map();
   stored = null;
+  if (t.lone) t = t.bp === bp && S(t.sid) && B(t.sid, t.lone) ? storedRows({ sid: t.sid, kept: new Map([[t.lone, true]]) }) : null;
+  if (!t) return shift;
   const s = t.bp === bp ? S(t.sid) : null;
   if (!s) return shift;
   for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
