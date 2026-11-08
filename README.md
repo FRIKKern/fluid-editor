@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - R2: resize scroll follows the block last moved during a page scroll (R5); A2 stopped-phone move frozen ([#480](https://github.com/FRIKKern/fluid-editor/pull/480))
   - T12: OpenTable, Scheduling and Tock panels; Podcast and Size and Spacing views ([#477](https://github.com/FRIKKern/fluid-editor/pull/477))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
