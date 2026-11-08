@@ -276,7 +276,15 @@ function chartHtml(b) {
   const max = Math.max(1, ...all.flat()), step = 10 ** Math.floor(Math.log10(max)), top = (Math.floor(max / step) + 1) * step;
   const L = 80, R = 450.5, T = 16, B = 184, y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, rows.length);
   const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
-  const axis = c.type === 'Pie Chart' ? '' : ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/><text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
+  // A Bar Chart's lines (CAP-T12CHARTCELLS3.json headplus shot, CAP-T12CHARTCELLS.json P1 shot, by pixel): a faint grid at each
+  // value and each band's edge, from 3 above the top value down to the baseline; the axis, the baseline and 5px ticks past them
+  // twice as dark. The right edge's line is under the dialog in both shots (inferred).
+  const up = y(ticks.at(-1)) - 3, ln = (d, k) => `<path d="${d}" class="fe-chart-rule fe-chart-${k}"/>`;
+  const lines = c.type !== 'Bar Chart' ? ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/>`).join('')
+    : ln(`M${L - 5} ${B}H${R}`, 'axis') + ln(`M${L} ${up}V${B + 4}`, 'axis')
+      + ticks.filter((t) => t > 0).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
+      + rows.map((_, n) => { const x = L + band * (n + 1); return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
+  const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (n, k = 0) => pal[(c.flip ? n : k) % pal.length];
   let marks = '';
   // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch).
