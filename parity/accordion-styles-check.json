@@ -1,7 +1,7 @@
 {
  "check": "accordion Icon, Title, Description, Dividers, grip",
- "pass": 63,
- "total": 63,
+ "pass": 67,
+ "total": 67,
  "results": [
   {
    "what": "Rows on Design",
@@ -61,6 +61,22 @@
   },
   {
    "what": "Icon Size 20 draws at 20",
+   "ok": true
+  },
+  {
+   "what": "Icon Thickness more: field and steppers as read, from M 3px",
+   "ok": true
+  },
+  {
+   "what": "Icon Thickness more: Increment stops at 10px, lines 10 thick and centred",
+   "ok": true
+  },
+  {
+   "what": "Icon Thickness more: Decrement stops at 1px, buttons stay on, lines as read",
+   "ok": true
+  },
+  {
+   "what": "Icon Thickness more: each press is one undo step",
    "ok": true
   },
   {

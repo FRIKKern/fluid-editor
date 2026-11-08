@@ -3820,6 +3820,9 @@ function setAccordion(change, label, before = JSON.stringify(model)) {
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-acc]');
   const s = e.target.closest('button[data-acc-set]');
+  const st = e.target.closest('button[data-acc-step]');
+  // A step stays within the limits; at a limit the button stays on and the value stays (CAP-T12READS-D.json).
+  if (st && sel) { const k = st.dataset.accStep; setAccordion((b) => { b[k] = Math.max(Number(st.dataset.min), Math.min(Number(st.dataset.max), accCustomFrom(b, k) + Number(st.dataset.v))); }, `${k} ${st.dataset.v > 0 ? 'up' : 'down'}`); return; }
   if ((!a && !s) || !sel) return;
   if (s) {
     const k = s.dataset.accSet, v = s.dataset.v;
@@ -3858,6 +3861,7 @@ function accCustomFrom(b, k) {
   if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
   if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
   if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
+  if (k === 'iconThickness') return typeof b.iconThickness === 'number' ? b.iconThickness : ACCORDION_LINE[b.iconThickness || 'S'];
   if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
   return pad(b.rowPadding, (n) => [n, 0, n, 0]);
 }

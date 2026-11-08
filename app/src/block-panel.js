@@ -158,11 +158,13 @@ function accordionContentHtml(c, open) {
     + '<button type="button" class="bp-acc-add" data-acc="add">Add Item</button>';
 }
 // Design tab of an accordion, in the oracle's order (parity/findings/ACCORDIONSTYLES.json). Icon
-// Thickness's more button stays dim; Background, Stroke, Blend Mode and Blur are the rows every block has.
+// Background, Stroke, Blend Mode and Blur are the rows every block has.
 const smlRow = (cap, key, cur, more = true) => `<div class="bp-cap bp-cap-seg">${cap}</div><div class="bp-sml" role="radiogroup" aria-label="${cap}">${['S', 'M', 'L'].map((k) => `<button type="button" role="radio" class="bp-mode${cur === k ? ' is-on' : ''}" aria-checked="${cur === k}" data-acc-set="${key}" data-v="${k}">${k}</button>`).join('')}${more ? `<button type="button" role="radio" class="bp-mode${cur === 'custom' ? ' is-on' : ''}" aria-checked="${cur === 'custom'}" aria-label="More ${cap}" data-acc-set="${key}" data-v="custom">···</button>` : `<button type="button" class="bp-mode" disabled data-unbuilt title="Not built yet" aria-label="More ${cap}">···</button>`}</div>`;
 const smlOf = (v, def) => (typeof v === 'number' || Array.isArray(v) ? 'custom' : v || def);
 // A value with a range beside it (a more button's row), or a label and field over the range.
 const accInline = (key, v, unit, min, max) => `<div class="bp-acc-inline"><input type="range" aria-label="${key} range" data-acc-range="${key}" data-unit="${unit}" min="${min}" max="${max}" step="1" value="${v}"><input type="text" aria-label="${key}" data-acc-field="${key}" data-unit="${unit}" data-min="${min}" data-max="${max}" value="${v}${unit}"></div>`;
+// Icon Thickness's more: a px field with Decrement and Increment, no range (CAP-T12READS-D.json, iconThickness).
+const accStep = (key, v, min, max) => `<div class="bp-acc-step"><input type="text" aria-label="${key}" data-acc-field="${key}" data-unit="px" data-min="${min}" data-max="${max}" value="${v}px">${[['-1', 'Decrement', 'M5 12h14'], ['1', 'Increment', 'M12 5v14M5 12h14']].map(([d, l, path]) => `<button type="button" class="bp-acc-stepbtn" data-acc-step="${key}" data-v="${d}" data-min="${min}" data-max="${max}" aria-label="${l}">${pi(`<path d="${path}"/>`)}</button>`).join('')}</div>`;
 const accLabelled = (label, key, v, unit, min, max, step = 1) => `<div class="bp-acc-labelled"><div class="bp-acc-labelled-head"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-acc-field="${key}" data-unit="${unit}" data-min="${min}" data-max="${max}" value="${v}${unit}"></div><input type="range" aria-label="${label}" data-acc-range="${key}" data-unit="${unit}" min="${min}" max="${max}" step="${step}" value="${v}"></div>`;
 const accPads = (key, v, prefix = '') => ['Top', 'Right', 'Bottom', 'Left'].map((n, i) => accLabelled(`${prefix}Padding ${n}`, `${key}:${i}`, v[i], 'px', 0, 50)).join('');
 const ALIGN_ICON = { left: '<path d="M4 6h16M4 12h10M4 18h13"/>', center: '<path d="M4 6h16M7 12h10M5.5 18h13"/>', right: '<path d="M4 6h16M10 12h10M7 18h13"/>' };
@@ -188,13 +190,13 @@ function accordionDesignHtml(c, open, d) {
       + accLabelled('Opacity', 'dividerOpacity', c.dividerOpacity ?? 1, '', 0, 1, 0.01) + '</div>';
   }
   const nav = (act, label, v) => `<button type="button" class="sp-row bp-rowbtn" data-acc="${act}" aria-label="Navigate to ${label}"><span class="sp-label">${label}</span><span class="bp-chip-v">${v}${CHEV_R}</span></button>`;
-  const iconSz = smlOf(c.iconSize, 'S'), rowPad = smlOf(c.rowPadding, 'M');
+  const iconSz = smlOf(c.iconSize, 'S'), iconTh = smlOf(c.iconThickness, 'S'), rowPad = smlOf(c.rowPadding, 'M');
   return `<div class="bp-acc-view"><div class="bp-cap bp-cap-seg">Text</div>${nav('title', 'Title', ACCORDION_STYLES[c.titleStyle || 'h4'])}${nav('desc', 'Description', ACCORDION_STYLES[c.descStyle || 'p2'])}<div class="bp-cap bp-cap-seg bp-cap-after">Design</div>`
     + sw('expandFirst', c.expandFirst, 'Expand first item') + sw('multiple', c.multiple, 'Allow multiple open items')
     + nav('dividers', 'Dividers', c.dividers !== false ? 'On' : 'Off')
     + `<button type="button" class="sp-row bp-rowbtn bp-acc-iconrow" data-acc-menu="icon" aria-haspopup="listbox" aria-label="Icon"><span class="sp-label">Icon</span><span class="bp-chip-v">${c.icon === 'arrow' ? 'Arrow' : 'Plus'}</span></button>`
     + smlRow('Icon Size', 'iconSize', iconSz) + (iconSz === 'custom' ? accInline('iconSize', c.iconSize, 'px', 10, 40) : '')
-    + smlRow('Icon Thickness', 'iconThickness', c.iconThickness || 'S', false)
+    + smlRow('Icon Thickness', 'iconThickness', iconTh) + (iconTh === 'custom' ? accStep('iconThickness', c.iconThickness, 1, 10) : '')
     + `<div class="bp-cap bp-cap-seg">Icon Placement</div><div class="bp-modes bp-modes-2" role="radiogroup" aria-label="Icon Placement">${[['left', c.iconLeft], ['right', !c.iconLeft]].map(([k, on]) => `<button type="button" role="radio" class="bp-mode${on ? ' is-on' : ''}" aria-checked="${!!on}" aria-label="${k}" data-acc-set="iconLeft" data-v="${k}">${k === 'left' ? '←' : '→'}</button>`).join('')}</div>`
     + smlRow('Row Padding', 'rowPadding', rowPad) + (rowPad === 'custom' ? accPads('rowPadding', c.rowPadding, 'Accordion Item ') : '')
     + row2('Background', `<label class="sp-switch"><input type="checkbox" data-design="background" aria-label="Background" ${d.background ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
