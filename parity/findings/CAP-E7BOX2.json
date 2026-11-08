@@ -1,0 +1,1707 @@
+{
+  "item": "CAP-E7BOX2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "E7: a Stack's link editor step by step; a linked Button's Copy 3 s on; a press on the box's row (a coordinate press, last)",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "fresh load",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      600,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      240,
+      280
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "click",
+      "Stack Blocks"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "click",
+      "Open link editor popover"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "stack editor",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "shot",
+      "stack-editor"
+    ],
+    [
+      "keysFast",
+      "a.com/some/path"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "stack typed",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "stack after Enter",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "click",
+      "Open link editor popover"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "stack reopened 1",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "click",
+      "Open link editor popover"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "stack reopened 2",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "shot",
+      "stack-reopened"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "click",
+      "Open link editor popover"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "a.com/some/path"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "click",
+      "Open link editor popover"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "box",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "click",
+      "Copy"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "read",
+      "copy, 3 s later",
+      {
+        "controls": true,
+        "focused": true
+      }
+    ],
+    [
+      "clickAt",
+      268,
+      318
+    ],
+    [
+      "pause",
+      1500
+    ]
+  ],
+  "reads": {
+    "fresh load": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    },
+    "stack editor": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            34.5,
+            307.2,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "",
+          "box": [
+            34.5,
+            346.2,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Services/services",
+          "box": [
+            37,
+            445,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "About/about",
+          "box": [
+            37,
+            506,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Contact/contact",
+          "box": [
+            37,
+            567,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Gestures Probe/gestures-probe",
+          "box": [
+            37,
+            677,
+            257,
+            61
+          ]
+        },
+        {
+          "role": "option",
+          "label": "Blocks Probe/blocks-probe",
+          "box": [
+            37,
+            738,
+            257,
+            61
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          34.5,
+          346.2,
+          276,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack typed": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "URL",
+          "box": [
+            34.5,
+            307.2,
+            96,
+            28
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "Enter link, search, or add files",
+          "value": "a.com/some/path",
+          "box": [
+            34.5,
+            346.2,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear selected page",
+          "box": [
+            270.5,
+            350.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "a.com/some/path",
+        "box": [
+          34.5,
+          346.2,
+          276,
+          44
+        ],
+        "outline": "rgb(14, 14, 14) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack after Enter": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "button",
+        "label": "Open link editor popover",
+        "value": "",
+        "box": [
+          153.1,
+          242.2,
+          36,
+          36
+        ],
+        "outline": "rgb(62, 62, 62) solid 2px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack reopened 1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "<https>a.com/some/path",
+          "box": [
+            28.5,
+            285.2,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            28.5,
+            351.2,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            79,
+            351.2,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            229.8,
+            351.2,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "button",
+        "label": "<https>a.com/some/path",
+        "value": "",
+        "box": [
+          28.5,
+          285.2,
+          288,
+          66
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "stack reopened 2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            153.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Stack Options",
+          "box": [
+            193.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            233.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            273.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            313.1,
+            242.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "button",
+        "label": "Open link editor popover",
+        "value": "",
+        "box": [
+          153.1,
+          242.2,
+          36,
+          36
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "box": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Primary",
+          "box": [
+            153.1,
+            242.2,
+            96.7,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            249.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            289.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            329.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            369.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "<https>a.com/some/path",
+          "box": [
+            123.8,
+            285.2,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            123.8,
+            351.2,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            174.3,
+            351.2,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            325.1,
+            351.2,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "button",
+        "label": "<https>a.com/some/path",
+        "value": "",
+        "box": [
+          123.8,
+          285.2,
+          288,
+          66
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "copy, 3 s later": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            219.6,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Primary",
+          "box": [
+            153.1,
+            242.2,
+            96.7,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open link editor popover",
+          "box": [
+            249.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            289.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            329.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            369.8,
+            242.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "<https>a.com/some/path",
+          "box": [
+            123.8,
+            285.2,
+            288,
+            66
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            123.8,
+            351.2,
+            28.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Copy",
+          "box": [
+            174.3,
+            351.2,
+            35.6,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove Link",
+          "box": [
+            325.1,
+            351.2,
+            86.7,
+            55
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "button",
+        "label": "<https>a.com/some/path",
+        "value": "",
+        "box": [
+          123.8,
+          285.2,
+          288,
+          66
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "rowPress": {
+    "read": "After the last step (clickAt 268, 318, the centre of the box's row, a coordinate press), Chrome had a second tab at <https>a.com/some/path, read from its tab list (the DevTools /json/list), and the evals went to that tab. Closed by its id, then the editor tab left by Exit Without Saving; a fresh load of Gestures Probe read sections [] and Save clean.",
+    "note": "An earlier run with the row press in the middle lost its reads the same way (the evals followed the new tab); its page was put back the same way and read clean."
+  }
+}

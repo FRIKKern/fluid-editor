@@ -1,0 +1,60 @@
+{
+  "item": "E7",
+  "note": "What ours does, written before the read (E7's inferred parts). A new Button with the typed link a.com/some/path, its box reopened from the toolbar's link button. box: the row, Edit, Copy and Remove Link are on screen. link: the Button's own link on the canvas. A Stack: two Shapes stacked, a link typed and Enter, then its link button pressed again.",
+  "capturedAt": "2026-11-08T06:05:29.833307Z",
+  "predicted": {
+    "copy": {
+      "box": true,
+      "link": "<https>a.com/some/path",
+      "onScreen": "nothing new: no note, no tip",
+      "focused": "Copy"
+    },
+    "row press": {
+      "box": true,
+      "link": "<https>a.com/some/path",
+      "focused": "the row",
+      "note": "nothing opens"
+    },
+    "remove link": {
+      "box": false,
+      "link": null,
+      "editor": false,
+      "save": "changed"
+    },
+    "reopened after remove": {
+      "box": false,
+      "editor": "URL, the field empty and focused, the page list showing"
+    },
+    "stack reopened": {
+      "box": false,
+      "editor": "URL, the field holding <https>a.com/some/path"
+    }
+  },
+  "notRead": "what Copy puts on the clipboard (a headless clipboard), Remove Link's undo count",
+  "predicted2": {
+    "note": "Added before the second run (CAP-E7BOX2), after CAP-E7BOX read Copy and Remove Link. Ours, as built now.",
+    "copy, 3 s later": {
+      "copyLabel": "Copy",
+      "box": true
+    },
+    "stack editor": {
+      "editor": "URL, the field focused and empty"
+    },
+    "stack typed": {
+      "editor": true,
+      "field": "a.com/some/path"
+    },
+    "stack after Enter": {
+      "editor": true,
+      "field": "<https>a.com/some/path",
+      "focused": "the field"
+    },
+    "stack reopened": {
+      "note": "a press with the editor open only closes it, so this reads no editor; then a second press opens the editor with the link in the field, not the box"
+    },
+    "row press": {
+      "box": true,
+      "newTab": false
+    }
+  }
+}
