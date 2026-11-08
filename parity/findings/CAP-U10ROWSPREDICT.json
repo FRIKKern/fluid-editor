@@ -1,0 +1,254 @@
+{
+ "item": "U10",
+ "question": "CAP-U10ROWSPREDICT",
+ "frozenAt": "2026-11-08T14:00Z",
+ "rules": {
+  "P": "Paragraph (the same words as CAP-U10ROWSEQ.json): each layout has a low and a high count (rows 9/10, 13/14, 8/9, 7/8, 7/8, 5/6 for layouts 0 to 5), the difference being one more row in the block itself. Every layout but 1 takes its low count right after layout 1 and its high count after anything else; layout 1 takes its low count after 0, 4 and 5 and its high count after the start, 1, 2 and 3. Only the previous pick counts. Fitted on CAP-U10ROWSEQ.json and CAP-U10ALIGN-A.json (seen).",
+  "I": "Instagram: pick 2 gives the block 12 rows (16 in the section) when it takes the section from a dark theme back to none (picks 1, 3 and 4 are dark), and 19 (23) otherwise. Every other pick as CAP-U10FADED-A.json. Fitted on CAP-U10FADED-A.json and CAP-U10SHARE-INSTAGRAM.json (seen).",
+  "M": "Code + Map: picks 4 and 5 leave the section with no height class and none of its padding, so its height is rows x 41.1 + 127.5 (211.2 less than medium, which is 6.6vmax on each side at 1600 wide); any other pick puts medium back. Fitted on CAP-U10FADED-C.json and CAP-U10FADED-D.json (seen)."
+ },
+ "scoring": "P: rows and the block desktop area per read. I: rows and desktop area. M: height class, and for picks 4 and 5 the height within 1 px.",
+ "predictions": {
+  "A": [
+   {
+    "read": "A01 layout 3",
+    "after": "start",
+    "rows": 8,
+    "desktop": "3/3/5/13"
+   },
+   {
+    "read": "A02 layout 0",
+    "after": 3,
+    "rows": 10,
+    "desktop": "5/7/7/21"
+   },
+   {
+    "read": "A03 layout 2",
+    "after": 0,
+    "rows": 9,
+    "desktop": "8/15/10/25"
+   },
+   {
+    "read": "A04 layout 4",
+    "after": 2,
+    "rows": 8,
+    "desktop": "4/9/6/19"
+   },
+   {
+    "read": "A05 layout 0",
+    "after": 4,
+    "rows": 10,
+    "desktop": "5/7/7/21"
+   },
+   {
+    "read": "A06 layout 3",
+    "after": 0,
+    "rows": 8,
+    "desktop": "3/3/5/13"
+   },
+   {
+    "read": "A07 layout 5",
+    "after": 3,
+    "rows": 6,
+    "desktop": "3/10/5/18"
+   },
+   {
+    "read": "A08 layout 2",
+    "after": 5,
+    "rows": 9,
+    "desktop": "8/15/10/25"
+   },
+   {
+    "read": "A09 layout 5",
+    "after": 2,
+    "rows": 6,
+    "desktop": "3/10/5/18"
+   },
+   {
+    "read": "A10 layout 3",
+    "after": 5,
+    "rows": 8,
+    "desktop": "3/3/5/13"
+   },
+   {
+    "read": "A11 layout 4",
+    "after": 3,
+    "rows": 8,
+    "desktop": "4/9/6/19"
+   },
+   {
+    "read": "A12 layout 2",
+    "after": 4,
+    "rows": 9,
+    "desktop": "8/15/10/25"
+   },
+   {
+    "read": "A13 layout 0",
+    "after": 2,
+    "rows": 10,
+    "desktop": "5/7/7/21"
+   },
+   {
+    "read": "A14 layout 4",
+    "after": 0,
+    "rows": 8,
+    "desktop": "4/9/6/19"
+   },
+   {
+    "read": "A15 layout 5",
+    "after": 4,
+    "rows": 6,
+    "desktop": "3/10/5/18"
+   },
+   {
+    "read": "A16 layout 0",
+    "after": 5,
+    "rows": 10,
+    "desktop": "5/7/7/21"
+   },
+   {
+    "read": "A17 layout 1",
+    "after": 0,
+    "rows": 13,
+    "desktop": "4/6/11/22"
+   },
+   {
+    "read": "A18 layout 0",
+    "after": 1,
+    "rows": 9,
+    "desktop": "5/7/6/21"
+   },
+   {
+    "read": "A19 layout 0",
+    "after": 0,
+    "rows": 10,
+    "desktop": "5/7/7/21"
+   },
+   {
+    "read": "A20 layout 1",
+    "after": 0,
+    "rows": 13,
+    "desktop": "4/6/11/22"
+   },
+   {
+    "read": "A21 layout 2",
+    "after": 1,
+    "rows": 8,
+    "desktop": "8/15/9/25"
+   },
+   {
+    "read": "A22 layout 1",
+    "after": 2,
+    "rows": 14,
+    "desktop": "4/6/12/22"
+   },
+   {
+    "read": "A23 layout 1",
+    "after": 1,
+    "rows": 14,
+    "desktop": "4/6/12/22"
+   },
+   {
+    "read": "A24 layout 3",
+    "after": 1,
+    "rows": 7,
+    "desktop": "3/3/4/13"
+   }
+  ],
+  "B": [
+   {
+    "read": "Ba1 layout 0",
+    "rows": 29,
+    "desktop": "3/3/28/25"
+   },
+   {
+    "read": "Ba2 layout 2",
+    "rows": 23,
+    "desktop": "3/3/22/19"
+   },
+   {
+    "read": "Ba3 layout 4",
+    "rows": 16,
+    "desktop": "2/8/16/20"
+   },
+   {
+    "read": "Ba4 layout 2",
+    "rows": 16,
+    "desktop": "3/3/15/19"
+   },
+   {
+    "read": "Ba5 layout 0",
+    "rows": 29,
+    "desktop": "3/3/28/25"
+   },
+   {
+    "read": "Ba6 layout 2",
+    "rows": 23,
+    "desktop": "3/3/22/19"
+   },
+   {
+    "read": "Bb1 layout 1",
+    "rows": 29,
+    "desktop": "3/3/28/25"
+   },
+   {
+    "read": "Bb2 layout 2",
+    "rows": 16,
+    "desktop": "3/3/15/19"
+   },
+   {
+    "read": "Bb3 layout 3",
+    "rows": 23,
+    "desktop": "3/9/22/25"
+   },
+   {
+    "read": "Bb4 layout 2",
+    "rows": 16,
+    "desktop": "3/3/15/19"
+   },
+   {
+    "read": "Bc1 layout 0",
+    "rows": 29,
+    "desktop": "3/3/28/25"
+   },
+   {
+    "read": "Bc2 layout 1",
+    "rows": 29,
+    "desktop": "3/3/28/25"
+   },
+   {
+    "read": "Bc3 layout 2",
+    "rows": 16,
+    "desktop": "3/3/15/19"
+   }
+  ],
+  "C": [
+   {
+    "read": "C1 layout 4",
+    "ht": "",
+    "h": 1072.8,
+    "rows": 23
+   },
+   {
+    "read": "C2 layout 5",
+    "ht": "",
+    "h": 1031.7,
+    "rows": 22
+   },
+   {
+    "read": "C3 layout 7",
+    "ht": "medium"
+   },
+   {
+    "read": "C4 layout 4",
+    "ht": "",
+    "h": 1072.8,
+    "rows": 23
+   },
+   {
+    "read": "C5 layout 6",
+    "ht": "medium"
+   }
+  ]
+ }
+}
