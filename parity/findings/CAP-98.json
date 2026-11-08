@@ -1,0 +1,330 @@
+{
+  "item": "CAP-98",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "98: which step adds the Shape's row, setup a of CAP-SHORTPULL on Blocks Probe: read after the Text is widened, after the Shape is added, after Escape, right after the 705,41 move and after Escape.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "shape added",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "read",
+      "moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ]
+  ],
+  "reads": {
+    "text widened": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          775.6
+        ],
+        "rows": 10,
+        "rowSizes": "36.6x4 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "shape added": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          775.6
+        ],
+        "rows": 10,
+        "rowSizes": "36.6x4 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "shape escaped": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          775.6
+        ],
+        "rows": 10,
+        "rowSizes": "36.6x4 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "moved": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/9/20",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "moved escaped": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/9/20",
+          "3/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "named": "Difference 98 comes with the move, not the landing: X8. On the oracle the new Shape lands at 1/2/7/8 and keeps it after Escape, as ours does. The 705,41 move takes it to 2/14/9/20 on the oracle and 2/14/8/20 on ours, so the Shape is 7 rows after the move there and stays 6 here. It holds after Escape. On the same move the Text grows from 1/2/5/12 to 1/2/6/12 and the section from 10 to 11 rows, on both. Read twice (CAP-98-AGAIN.json, the same 5 reads).",
+  "score": "CAP-98-PREDICTED.json, ours as is on main daca915: 3 of 5 on each read. Misses: moved, moved escaped (the Shape's end row, 9 on the oracle, 8 on ours)."
+}
