@@ -185,10 +185,12 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
-  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
-  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
+  // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
+  // CAP-P3UNDO2.json; the buttons CAP-P3ALIGN.json, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json). Redo is not read.
   const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
   if (shown.length === 2) heightShown = [secSid(), ...shown];
+  if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -5316,12 +5318,13 @@ function onSectionClick(e) {
   // A row's more button shows its sliders and takes no undo step, as read (CAP-ARTSHUFFLE.json).
   if (act === 'artSeg' && v === 'more') { if (s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  segShown = null;
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  // Custom height after a flattening Vertical press starts again at 1 (CAP-P3ALIGN2.json, CAP-P3ALIGN4.json, custom again).
+  // Custom height after a flattening Vertical press starts again at 1 (difference 104, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json).
   if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
   // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
-  // (CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
   // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
   if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
@@ -5384,8 +5387,10 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
-// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (CAP-P3ALIGN2 to 4).
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (104, CAP-P3ALIGN2 to 4).
 let panelFlat = null;
+// The Height and Alignment buttons the open panel showed before an Undo (99): [sid, { height, valign }].
+let segShown = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5396,7 +5401,7 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
-  heightShown = null;
+  heightShown = segShown = null;
   if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
@@ -5712,6 +5717,7 @@ function renderSectionPanel() {
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
+  if (segShown?.[0] === s.id) for (const [a, v] of Object.entries(segShown[1])) for (const b of sectionPanel.querySelectorAll(`[data-sact="${a}"]`)) { b.classList.toggle('is-on', b.dataset.v === v); b.setAttribute('aria-pressed', String(b.dataset.v === v)); }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5826,7 +5832,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; segShown = null; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
