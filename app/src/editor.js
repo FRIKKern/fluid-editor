@@ -989,7 +989,7 @@ function onDown(e) {
   pressFresh = !sel;
   // The block is selected on let go, or when a drag starts, not on the press (CAP-U9FADE4D.json, CAP-SELECTLETGO.json).
   const pick = onKid ? null : keep ? { sid, bid, more: [sel.bid, ...sel.more].filter((x) => x !== bid) } : { sid, bid };
-  const r = blk.getBoundingClientRect();
+  const r = (blockEl(bid) || blk).getBoundingClientRect(); // After one Escape the press redrew the section: blk is gone (CAP-X2UNREAD under)
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
@@ -1042,9 +1042,11 @@ function onUp(e) {
     gesture = null;
     if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
-    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
-    // A press with no move is not read.
-    if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
+    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json), nor pressed
+    // with no move, and neither is a top corner pressed with no move (CAP-X2UNREAD.json se and ne 0,0, twice each).
+    // Read on se and ne only; sw and nw are inferred. A top corner moved short of a drag isn't read.
+    const corner = g.resizeDir || '', still = e.clientX === g.x0 && e.clientY === g.y0;
+    if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (/^s/.test(corner) || still || g.y0 - e.clientY > LET_GO_ABOVE)) { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1075,7 +1077,9 @@ function onUp(e) {
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
-const LET_GO_ABOVE = 30; // a Text's top corners: level with the old top stays selected, 60 above does not
+// A Text's top corners: level with the old top stays selected (CAP-X2EDGES.json), 10, 20, 40, 50 and 60 above do not
+// (CAP-X2UNREAD.json, twice each). The line is between 0 and 10: 5 is inferred.
+const LET_GO_ABOVE = 5;
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
