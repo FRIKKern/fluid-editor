@@ -268,15 +268,15 @@ export function playTile(square, a) {
 }
 
 // The editor's stage square when the mouse comes onto it (CAP-T15STAGE3.json, CAP-T15STAGE6-*.json): every pose's scale is
-// squared. Hover and Press go out in 1.5 times the Duration, hold and come back; a Loop runs out twice in the Duration and
-// stays at the End until the mouse leaves; On Appear and On Scroll go from their Start as their Preview does. Follow's play
-// ran past its 3 s read and is not drawn.
+// squared. Hover and Press go out in 1.5 times the Duration, hold and come back; a Continuous Loop runs out twice in the
+// Duration and stays at the End until the mouse leaves, a Ping Pong one out and back once (CAP-T15STAGE7-*.json); On Appear
+// and On Scroll go from their Start as their Preview does. Follow's play is read (CAP-T15STAGE7-FOLLOW6.json), not drawn.
 export function playStage(square, a) {
   if (a.trigger === 'follow') return;
   const t = JSON.parse(JSON.stringify(a));
   for (const k of ['start', 'end']) if (t[k]) { t[k][2] = `${parseFloat(t[k][2]) ** 2 / 100}%`; t[k][3] = `${parseFloat(t[k][3]) ** 2 / 100}%`; }
   if (t.trigger === 'hover' || t.trigger === 'press') { playPreview(square, { ...t, duration: `${seconds(t) * 1.5 / 1000}s` }); return; }
-  if (t.trigger === 'loop') {
+  if (t.trigger === 'loop' && t.type !== 'Ping Pong') {
     clear(square);
     const s = stateOf(square), run = (n) => morph(square, numbers(t.end), t, seconds(t), () => { if (n > 1) { s.pose = { ...REST_N }; write(square, s); run(n - 1); } });
     run(2);
