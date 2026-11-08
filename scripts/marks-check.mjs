@@ -617,11 +617,26 @@ let hLet = hState();
 add('Custom height let go: stays', hLet.r === PF['slider let go'].range.slider && hLet.t === '25' && Math.abs(hLet.min - 25 * hLet.vh) < 0.5, JSON.stringify(hLet));
 evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
 hLet = hState();
-add('Custom height slider: one undo step', hLet.t === '50' && hLet.r === '50' && Math.abs(hLet.min - 50 * hLet.vh) < 0.5, JSON.stringify(hLet));
+// As read (CAP-P3UNDO2.json): a step per move while held, so Undo walks back 68, then 50 (difference 100). Until
+// 2026-11-08 this case held ours' own one step on let go, which the oracle doesn't have. The panel keeps showing
+// 25 meanwhile (difference 99).
+add('Custom height slider: a step per move while held', hLet.t === '25' && hLet.r === '25' && Math.abs(hLet.min - 68 * hLet.vh) < 0.5, JSON.stringify(hLet));
+evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+hLet = hState();
+add('Custom height slider: the next undo step', hLet.t === '25' && Math.abs(hLet.min - 50 * hLet.vh) < 0.5, JSON.stringify(hLet));
 await hFill('12'); await hFill('30');
 evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
 hLet = hState();
-add('Custom height field: one undo step each', hLet.t === '12', JSON.stringify(hLet));
+// One step per Enter (CAP-P3UNDO.json, CAP-P3UNDO2.json): the section goes back to 12, the panel still shows 30 (99).
+add('Custom height field: one undo step each', hLet.t === '30' && hLet.r === '30' && Math.abs(hLet.min - 12 * hLet.vh) < 0.5, JSON.stringify(hLet));
+// After NaN, the panel opened again shows an empty field and the slider at 51, the height kept (101, one reading).
+await hFill('abc');
+browser(S, 'press', 'Escape'); await pause(200);
+await frameScroll(914); await hoverInSection(300);
+const pc2 = chromeBox('Open Section Settings'); await pressAt(pc2[0] + 60, pc2[1] + 20); await pause(200);
+hLet = hState();
+const PU = JSON.parse(readFileSync(new URL('../parity/findings/CAP-P3UNDO.json', import.meta.url))).reads['panel after NaN typed'].range;
+add('Custom height after NaN, opened again: empty, slider at the middle', hLet.t === PU.field && hLet.r === PU.slider && Math.abs(hLet.min - 12 * hLet.vh) < 0.5, JSON.stringify(hLet));
 
 // U4: the toolbar's halo, Align Vertically's menu, Pin's field and slider, phones, tips.
 const TB = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARS.json', import.meta.url)));

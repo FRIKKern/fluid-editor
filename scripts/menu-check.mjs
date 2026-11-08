@@ -1,6 +1,7 @@
 // The block menu by tile, against parity/findings/CAP-MENUS.json: each of the 37 tiles alone in a section has
 // Copy Properties and Paste Properties or not, as read, and a grey Arrange; with a second block Arrange opens, and
-// on the top block Move forward and Move to front are grey. Writes parity/menu-check.json.
+// on the top block Move forward and Move to front are grey, and Arrange's row stays lit while its submenu is open
+// (CAP-U11LIT.json). Writes parity/menu-check.json.
 // FLUID_SURFACE=cdp:<port> npm run menu-check.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
@@ -32,8 +33,11 @@ const menuOn = (tiles, n) => evalJs(S, `(async () => {
   const cm = document.getElementById('context-menu'), menu = rows(cm), h = Math.round(cm.getBoundingClientRect().height * 10) / 10, arr = cm.querySelector('[data-cm="arrange"]');
   arr.dispatchEvent(new MouseEvent('mouseover', { bubbles: true })); await sleep(60);
   const am = document.getElementById('arrange-menu'), arrange = !am.hidden && am.getAttribute('aria-label') === 'Arrange' ? rows(am) : null;
+  const bg = () => getComputedStyle(arr).backgroundColor, lit = bg();
+  cm.querySelector('[data-cm="duplicate"]').dispatchEvent(new MouseEvent('mouseover', { bubbles: true })); await sleep(60);
+  const after = bg();
   cm.hidden = true; am.hidden = true;
-  return JSON.stringify({ menu, arrange, h });
+  return JSON.stringify({ menu, arrange, h, lit, after });
 })()`);
 
 // 83 and 84: every tile alone in its section.
@@ -57,6 +61,7 @@ const top = menuOn(['Text', 'Image'], 1), bottom = menuOn(['Text', 'Image'], 0);
 add('84: Arrange opens on a block that shares its section', top.menu.includes('Arrange') && !!top.arrange, JSON.stringify(top.menu));
 const read = F.types.Image.menu.rows.find((r) => r.name === 'Arrange').rows.map((r) => r.name + (r.greyed ? ' (grey)' : ''));
 add('85: on the newest block Move forward and Move to front grey', JSON.stringify(top.arrange) === JSON.stringify(read), `${JSON.stringify(top.arrange)}, oracle ${JSON.stringify(read)}`);
+add('U11: Arrange stays lit while its submenu is open, then not on Duplicate', top.lit === 'rgb(242, 242, 242)' && top.after === 'rgba(0, 0, 0, 0)', `${top.lit}, then ${top.after} (CAP-U11LIT.json)`);
 add('85 inferred: on the bottom block Move backward and Move to back grey', JSON.stringify(bottom.arrange) === JSON.stringify(['Move forward', 'Move to front', 'Move backward (grey)', 'Move to back (grey)']), JSON.stringify(bottom.arrange));
 
 writeFileSync(new URL('../parity/menu-check.json', import.meta.url), `${JSON.stringify({ pass, total, results }, null, 1)}\n`);

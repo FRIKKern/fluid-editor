@@ -269,21 +269,24 @@ export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink
 // (the oracle draws on a canvas, so its marks aren't read; a flipped chart's colour per bar is inferred). With Flip on, the
 // legend went away though Show Legend was on (one read).
 function chartHtml(b) {
-  const c = chartOf(b), pal = CHART_PALETTES[c.palette], rows = c.data.slice(1).map(([l, v]) => [l, Number(v) || 0]);
-  const max = Math.max(1, ...rows.map(([, v]) => v)), step = 10 ** Math.floor(Math.log10(max)), top = (Math.floor(max / step) + 1) * step;
+  // A series added from the + (CAP-T12CHARTCELLS3.json) is drawn beside the first: bars side by side in each label's band, a
+  // line each, a legend item each, in the palette's order (the oracle's canvas marks aren't read; inferred from its picture).
+  const c = chartOf(b), pal = CHART_PALETTES[c.palette], names = c.data[0].slice(1), ns = Math.max(1, names.length);
+  const all = c.data.slice(1).map((r) => Array.from({ length: ns }, (_, k) => Number(r[k + 1]) || 0)), rows = c.data.slice(1).map((r, n) => [r[0], all[n][0]]);
+  const max = Math.max(1, ...all.flat()), step = 10 ** Math.floor(Math.log10(max)), top = (Math.floor(max / step) + 1) * step;
   const L = 80, R = 450.5, T = 16, B = 184, y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, rows.length);
   const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
   const axis = c.type === 'Pie Chart' ? '' : ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/><text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
-  const colour = (n) => pal[(c.flip ? n : 0) % pal.length];
+  const colour = (n, k = 0) => pal[(c.flip ? n : k) % pal.length];
   let marks = '';
-  if (c.type === 'Bar Chart') marks = rows.map(([, v], n) => `<rect x="${L + band * n + band * 0.055}" y="${y(v)}" width="${band * 0.89}" height="${B - y(v)}" fill="${colour(n)}" class="fe-chart-bar"/>`).join('');
-  else if (c.type === 'Line Chart') { const pts = rows.map(([, v], n) => `${L + band * (n + 0.5)},${y(v)}`); marks = `<polyline points="${pts.join(' ')}" fill="none" stroke="${pal[0]}" stroke-width="2"/>${pts.map((p, n) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(n)}"/>`).join('')}`; }
+  if (c.type === 'Bar Chart') marks = all.map((vs, n) => vs.map((v, k) => `<rect x="${L + band * n + band * 0.055 + (band * 0.89 * k) / ns}" y="${y(v)}" width="${(band * 0.89) / ns}" height="${B - y(v)}" fill="${colour(n, k)}" class="fe-chart-bar"/>`).join('')).join('');
+  else if (c.type === 'Line Chart') marks = Array.from({ length: ns }, (_, k) => { const pts = all.map((vs, n) => `${L + band * (n + 0.5)},${y(vs[k])}`); return `<polyline points="${pts.join(' ')}" fill="none" stroke="${pal[k % pal.length]}" stroke-width="2"/>${pts.map((p, n) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(n, k)}"/>`).join('')}`; }).join('');
   else {
     const sum = rows.reduce((a, [, v]) => a + v, 0) || 1;
     let a = -Math.PI / 2;
     marks = rows.map(([, v], n) => { const a1 = a + (2 * Math.PI * v) / sum, big = a1 - a > Math.PI ? 1 : 0, p = (t) => `${229.5 + 100 * Math.cos(t)} ${114.5 + 100 * Math.sin(t)}`, d = `M229.5 114.5L${p(a)}A100 100 0 ${big} 1 ${p(a1)}Z`; a = a1; return `<path d="${d}" fill="${pal[n % pal.length]}"/>`; }).join('');
   }
-  const legend = c.legend && !c.flip ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend"><li><span style="background-color:${pal[0]}"></span>${escapeHtml(c.data[0][1] || '')}</li></ul></figcaption></div>` : '';
+  const legend = c.legend && !c.flip ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend">${Array.from({ length: ns }, (_, k) => `<li><span style="background-color:${pal[k % pal.length]}"></span>${escapeHtml(c.data[0][k + 1] || '')}</li>`).join('')}</ul></figcaption></div>` : '';
   return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
 }
 export const QUOTE_TEXT = { quote: 'Whatever it is, the way you tell your story online can make all the difference.', source: 'Quote Source' };
