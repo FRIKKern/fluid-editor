@@ -5,7 +5,7 @@
  "counts": {
   "unread": 39,
   "namedNotOurs": 218,
-  "oursOnly": 502,
+  "oursOnly": 506,
   "proseOnlyOracle": 47,
   "proseOnlyOurs": 16,
   "tabs": 26,
@@ -406,7 +406,6 @@
     "matched": 15,
     "common": 0,
     "oursOff": [
-     "Post-Submit",
      "Squarespace",
      "Other Storage Options"
     ]
@@ -557,7 +556,9 @@
     "help": 0,
     "matched": 10,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Update"
+    ]
    },
    "Code": {
     "oracleTabs": [
@@ -4751,6 +4752,34 @@
    ]
   },
   {
+   "where": "Chart > Data",
+   "name": "Add a series",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart > Data",
+   "name": "Add a row",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Add a series",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Add a row",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Code > Content",
    "name": "Expand",
    "kinds": [
@@ -6647,20 +6676,12 @@
    "name": "Add a new animation"
   },
   {
-   "where": "Newsletter > Content",
-   "name": "Post-Submit"
-  },
-  {
    "where": "Newsletter > Storage",
    "name": "Squarespace"
   },
   {
    "where": "Newsletter > Storage",
    "name": "Other Storage Options"
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Post-Submit"
   },
   {
    "where": "Newsletter phone > Storage",
@@ -6681,6 +6702,14 @@
   {
    "where": "Map phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Chart > Import / Export",
+   "name": "Update"
+  },
+  {
+   "where": "Chart phone > Import / Export",
+   "name": "Update"
   },
   {
    "where": "Code phone > Animation",
