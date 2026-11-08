@@ -1,0 +1,16 @@
+{
+ "item": "T15",
+ "capturedAt": "2026-11-08",
+ "question": "Does the importer find each block's Design rule (<style class=\"transform-vars\">) on the demo page, and which blocks carry values off their default?",
+ "how": "scripts/oracle-import.mjs on the demo page in the editor's site frame, not in edit mode, with the new read. The files it wrote were put back: the import gave the same model with no Design values.",
+ "reads": {
+  "blocks": 64,
+  "withRule": 56,
+  "withRuleByKind": { "text": 19, "button": 2, "shape": 35 },
+  "withoutRule": "the 8 footer blocks (7 text, 1 social links): the published footer writes no Design rule",
+  "offDefault": 0,
+  "phonePart": 0
+ },
+ "format": "Each rule has the same form as the 111 saved rules in fixtures/design.json; npm run check reads all 111 through the importer's designOf and renders them back the same, 1 of them with values off their default.",
+ "notRead": "A block with values off their default on the trial site: none is saved, and Save is off limits. Blur Element, a blur amount and a Background color in a published rule: no page has one."
+}
