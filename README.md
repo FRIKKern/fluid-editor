@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 25 changes
+- **Today** · 26 changes
+  - A2: a delete moves blocks below only by the uncovered rows it held ([#409](https://github.com/FRIKKern/fluid-editor/pull/409))
   - X2: a Text's corner let go, the unread edges built as read ([#408](https://github.com/FRIKKern/fluid-editor/pull/408))
-  - T15: every Blend Mode and a blend over another block, read: 16 of 16 and 1 of 1 as predicted ([#407](https://github.com/FRIKKern/fluid-editor/pull/407))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
