@@ -2097,3 +2097,82 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-sp-up + .bp-sp-head { margin-top: 24px; }
 .bp-sp-row + .bp-sp-rule { margin-top: 10.5px; }
 .bp-sp-design:has(> .bp-sp-rule:last-child) + .bp-thead { margin-top: -4px; border-top: 0; }
+.bp-sp-phead { height: 16px; margin: 22px -22px 0; padding: 0 22px; font-size: 14px; line-height: 16px; font-weight: 500; color: #000; }
+.bp-sp > .bp-sp-phead:first-child { margin-top: 14px; }
+.bp-sp-phead + .bp-sp-erow { margin-top: 0; }
+.bp-sp-new { display: flex; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; width: calc(100% + 10px); height: 55px; margin: 11px -5px 0; border: 1px solid #e7e7e7; background: none; color: #0e0e0e; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: .75px; text-transform: uppercase; }
+.bp-sp-qnote { margin: 2px -11px 0; padding: 0 11px; }
+.bp-sp-pick { display: flex; align-items: center; justify-content: center; position: relative; box-sizing: border-box; width: 100%; height: 103px; margin-top: 11px; border: 0; border-radius: 4px; background: #f2f2f2; color: #666; }
+.bp-sp-pick > span { width: 47px; height: 47px; border-radius: 4px; background: #666; }
+.bp-sp-pick > svg:last-child { position: absolute; right: 16px; top: 40.5px; }
+.bp-sp-corner { display: flex; justify-content: space-between; height: 44px; margin-top: 6px; }
+.bp-sp-csegs { display: flex; box-sizing: border-box; width: 88px; padding: 3px; border-radius: 4px; background: #f2f2f2; }
+.bp-sp-csegs .bp-sp-opt { display: flex; align-items: center; justify-content: center; }
+.bp-sp-corner input { box-sizing: border-box; width: 182px; height: 44px; padding: 0 11px; border: 0; border-radius: 4px; background: #f2f2f2; color: #0e0e0e; font: inherit; font-size: 14px; outline: none; }
+.bp-sp-sel { position: relative; margin-top: 17px; cursor: pointer; }
+.bp-sp-selv { display: flex; align-items: center; gap: 2px; color: #3e3e3e; font-size: 14px; }
+.bp-sp-selv svg { width: 16px; height: 16px; }
+.bp-sp-sel select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-focal { display: flex; align-items: center; justify-content: center; gap: 11px; box-sizing: border-box; width: 100%; height: 44px; margin-top: 11px; border: 1px solid #e7e7e7; background: none; color: #b7b7b7; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: .75px; text-transform: uppercase; }
+.bp-sp-balign { margin: 11px 0 0; padding: 0; }
+.bp-sp-bicons { display: flex; gap: 6px; }
+.bp-sp-bicons .bp-sp-opt { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 3px; color: #0e0e0e; }
+.bp-sp-bicons .bp-sp-opt.is-on { background: #ebebeb; }
+.bp-sp-pickw { position: relative; }
+.bp-sp-pick { cursor: pointer; }
+.bp-sp-pick > svg:first-child { width: 47px; height: 47px; fill: #666; }
+.bp-sp-shapes { position: fixed; z-index: 50; box-sizing: border-box; display: grid; grid-template-columns: repeat(3, 77px); grid-auto-rows: 77px; column-gap: 6.5px; row-gap: 1px; width: 276px; height: 567px; padding: 11px 13px; border-radius: 4px; background: #fff; box-shadow: 0 2px 12px rgba(0, 0, 0, .16); overflow-y: auto; }
+.bp-sp-shapes[hidden] { display: none; }
+.bp-sp-shape { display: grid; place-items: center; border: 1px solid transparent; border-radius: 4px; background: none; cursor: pointer; }
+.bp-sp-shape:hover { background: #f2f2f2; }
+.bp-sp-shape.is-on { border-color: #0e0e0e; }
+.bp-sp-shape svg { fill: #666; }
+.bp-sp-four { display: flex; justify-content: flex-end; gap: 2px; margin-top: 7px; }
+.bp-sp-each { position: relative; box-sizing: border-box; width: 44px; height: 44px; padding: 0 6px; border-radius: 4px; background: #f2f2f2; }
+.bp-sp-each input { width: 32px; height: 44px; padding: 0; border: 0; background: none; color: #0e0e0e; font: inherit; font-size: 14px; text-align: center; outline: none; }
+.bp-sp-each::before { content: ""; position: absolute; width: 5px; height: 5px; border: 0 solid #666; }
+.bp-sp-each.is-0::before { top: 4px; left: 4px; border-width: 1px 0 0 1px; border-top-left-radius: 3px; }
+.bp-sp-each.is-1::before { top: 4px; right: 4px; border-width: 1px 1px 0 0; border-top-right-radius: 3px; }
+.bp-sp-each.is-2::before { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; border-bottom-right-radius: 3px; }
+.bp-sp-each.is-3::before { bottom: 4px; left: 4px; border-width: 0 0 1px 1px; border-bottom-left-radius: 3px; }
+.bp-sp-mnote { margin: 14px -22px 0; padding: 0 22px; white-space: nowrap; }
+.bp-sp-code { margin-top: 17px; padding: 11px; border-radius: 2px; background: #f2f2f2; }
+.bp-sp-code textarea { display: block; box-sizing: border-box; width: 100%; min-height: 44px; padding: 0; border: 0; background: none; color: #0e0e0e; font: 14px/22px monospace; resize: none; outline: none; field-sizing: content; overflow: hidden; }
+.bp-sp-layout { position: relative; display: flex; align-items: center; height: 88px; margin-top: 8px; padding: 0 11px; border-radius: 4px; background: #f2f2f2; cursor: pointer; }
+.bp-sp-ltile { display: grid; place-items: center; width: 55px; height: 55px; border-radius: 2px; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .08); }
+.bp-sp-lname { flex: 1; margin-left: 11px; font-size: 14px; line-height: 22px; color: #0e0e0e; }
+.bp-sp-layout select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-layout + .bp-sp-sel { margin-top: 38px; }
+.bp-sp-hhead { margin: 18px 0 0; font-size: 16px; line-height: 20px; font-weight: 500; color: #0e0e0e; }
+.bp-sp-hcode + .bp-sp-hhead { margin-top: 23px; }
+.bp-sp-hpara { margin: 6.5px 0 0; white-space: nowrap; color: #666; font-size: 12px; line-height: 22px; }
+.bp-sp-help > .bp-sp-hpara:first-child { margin-top: 13px; }
+.bp-sp-hcode { margin: 14.5px 0 0; padding: 11px; background: #f2f2f2; }
+.bp-sp-hcode pre { margin: 0; color: #3e3e3e; font: 14px/22px monospace; }
+.bp-sp-hcode + .bp-sp-hcode { margin-top: 0; }
+/* Product's look rows end on Blur, with the rule 11px above Transforms (CAP-T12PANELS-A.json). */
+.bp-sp-design:has(.bp-sp-balign) + .bp-look-rows + .bp-thead { margin-top: 11px; }
+/* Summary and Archive (CAP-T12PANELS-B.json, -C.json): a value row with its menu, faded when it needs a collection. */
+.bp-sp-dsel { position: relative; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: calc(100% + 22px); height: 46px; margin: -1px -11px 0; padding: 0 11px; border: 0; border-bottom: 1px solid #e7e7e7; background: none; color: #b7b7b7; font: inherit; font-size: 14px; line-height: 18px; text-align: left; }
+.bp-sp-dsel svg { width: 16px; height: 16px; color: #666; }
+.bp-sp-vsel { color: #0e0e0e; cursor: pointer; }
+.bp-sp-vsel select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-dsel + .bp-sp-cap { margin-top: 22px; }
+.bp-sp-mnote + .bp-sp-dsel { margin-top: -1px; }
+.bp-sp-layout + .bp-sp-range { margin-top: 38px; }
+.bp-sp-range + .bp-sp-cap { margin-top: 21.5px; }
+.bp-sp-erow + .bp-sp-cap:has(+ .bp-sp-vsel) { margin-top: 22.5px; }
+.bp-sp-design:has(> .bp-sp-view:last-child) + .bp-look-rows { margin-top: 10.5px; }
+.bp-sp-vsel + .bp-sp-view { margin-top: 32.5px; }
+.bp-sp-erow.is-off .sp-label { color: #b7b7b7; }
+.bp-sp-box + .bp-sp-rule, .bp-sp-boxsel + .bp-sp-rule { margin-top: 33px; }
+.bp-sp-phead + .bp-sp-box { margin-top: 11px; }
+.bp-sp-boxsel { display: flex; align-items: center; justify-content: space-between; height: 44px; margin-top: 7px; }
+.bp-sp-bsv { position: relative; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: 182px; height: 44px; padding: 0 11px 0 12px; border: 1px solid #e7e7e7; border-radius: 2px; color: #0e0e0e; font-size: 14px; line-height: 22px; }
+.bp-sp-bsv svg { width: 16px; height: 16px; }
+.bp-sp-bsv select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.bp-sp-head + .bp-sp-layout { margin-top: 16px; }
+.bp-sp-layout + .bp-sp-seg { margin-top: 16px; }
+.bp-sp-seg .bp-sp-opt svg { display: block; margin: auto; }
+/* With no Corner row (a shape other than Rectangle), Ratio sits 11px under the picker (CAP-T12READS-F.json). */
+.bp-sp-pickw + .bp-sp-sel { margin-top: 11px; }
