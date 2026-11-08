@@ -37,7 +37,7 @@ import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { standinPanelOf } from './standin-panels.js';
+import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -1471,7 +1471,7 @@ function updateResize(e) {
     need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskNeed(held, c1 - c0) + m.rg) / m.pitch - 0.02));
   else if (side && bp === 'mobile' && held.phoneHeight) need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - 0.13));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
@@ -2700,9 +2700,17 @@ blockPanel.addEventListener('change', (e) => {
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
+// A Pricing Plan's Elements switches move its rows on desktop by the content they leave, by the frozen rows rule of
+// CAP-T12NEWSLETTER.json (20 of 20 steps at 8 and 6 columns, CAP-T12PRESS-A.json and -E.json). Phone: not read, rows stay.
 function setStandinValue(key, v) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
+  const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
+  const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
+  if (all !== undefined) {
+    const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
+    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+  }
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
@@ -5037,6 +5045,8 @@ const DESK_HEIGHT = {
   Scheduling: [[0, 680]],
 };
 const deskHeight = (label, cols) => DESK_HEIGHT[label]?.find(([c]) => cols >= c)?.[1];
+// A Pricing Plan with Elements off: less its parts (CAP-T12PRESS-E.json: 6 columns take 12 rows with all on, 8 with no Description).
+const deskNeed = (b, cols) => (b.label === 'Pricing Plan' && standinPanelOf(b) ? planHeight(b, deskHeight(b.label, cols)) : deskHeight(b.label, cols));
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],
