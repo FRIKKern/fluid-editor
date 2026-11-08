@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 28 changes
+- **Today** · 29 changes
+  - U10: Flip X after layouts 2 and 0 read, both predictions held (CAP-U10FLIP3.json) ([#411](https://github.com/FRIKKern/fluid-editor/pull/411))
   - U11: the oracle's Copy and Paste Properties use the system clipboard; X8: 98's two untested rules ([#410](https://github.com/FRIKKern/fluid-editor/pull/410))
-  - T15: the importer reads each block's Design rule, keeping values off their default ([#406](https://github.com/FRIKKern/fluid-editor/pull/406))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
