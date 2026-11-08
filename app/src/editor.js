@@ -1020,6 +1020,9 @@ function onUp(e) {
     gesture = null;
     if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
+    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
+    // A press with no move is not read.
+    if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1039,14 +1042,17 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
-  // A Text let go off its south-east corner, right of its old right side, is not selected; off its east side it is
-  // (CAP-X2STEPS.json: se 20, 40, 60, 80 and 60 again right, e 60). Left, up, down and the other corners are not read.
-  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && g.dir === 'se' && e.clientX - g.right0 > LET_GO_RIGHT) select(null);
+  // A Text let go off a bottom corner is not selected, whichever way it was pulled: se 5 to 80 right, 60 left, up and
+  // down, sw 60 left and down. Off a top corner it stays level with the old top (ne 60 right, nw 60 left) and is not
+  // selected 60 above it (ne, nw 60 up). Off its east side it stays (CAP-X2STEPS.json, CAP-X2EDGES.json).
+  // Not read: a top corner pulled down, between level and 60 above, and touch.
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
-const LET_GO_RIGHT = 10; // a Text's south-east corner: 20 did, under 20 is not read
+const LET_GO_ABOVE = 30; // a Text's top corners: level with the old top stays selected, 60 above does not
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1317,7 +1323,7 @@ function startResize(e, dir) {
   if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   const q0 = blockEl(held.id).getBoundingClientRect();
   gesture.bottom0 = q0.bottom;
-  gesture.right0 = q0.right;
+  gesture.top0 = q0.top;
   // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
   if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
