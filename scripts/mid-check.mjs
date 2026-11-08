@@ -713,6 +713,19 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
   // Let go, the rows follow the text at its real width (CAP-TEXTWIDTH4.json o narrower 20): Escape takes 11 stretched rows to 12.
   { const w = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH4.json', import.meta.url))).reads['o narrower 20 let go']; browser(S, 'press', 'Escape'); await pause(150); const r = read(); groupCases.push({ name: 'R2 narrower 20 let go', diffs: [r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`, r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`].filter(Boolean) }); }
+  // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.
+  { const W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2WIDEFALL.json', import.meta.url))); const garden = W.steps.find((x) => x[0] === 'keysFast')[1];
+    const area = (t) => t.split('/').map(Number);
+    for (const c of ['c1 Line 1 row under', 'c2 Shape far under', 'c3 Shape pushed by the typing', 'c4 Shape lower to the right', 'c5 Shape pushed by 1']) {
+      const was = W.reads[`${c} before`], got = W.reads[`${c} let go`], type = c.includes('Line') ? 'line' : 'shape';
+      const html = `<p>${garden}</p>${c.startsWith('c5') ? '<p><br></p><p><br></p>' : ''}`;
+      const ly = (a) => ({ desktop: { area: area(a), z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } });
+      evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: ${was.section.rows}, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(html)}, layout: ${JSON.stringify(ly(was.stack[0].desktop))} }, { id: 'o', type: '${type}', fill: '#ccc', label: 'o', layout: ${JSON.stringify(ly(was.stack[1].desktop))} }] }] }); await new Promise((r) => setTimeout(r, 150)); fe.select('s', 't'); await new Promise((r) => setTimeout(r, 150)); return 1; })()`); await pause(60);
+      await step(176.34);
+      const r = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.map((x) => x.layout.desktop.area.join('/')), rows: fe.model.sections[0].rows.desktop })`);
+      groupCases.push({ name: `R2 ${c}, widened 3`, diffs: [...got.stack.map((x, k) => r.a[k] !== x.desktop && `${k ? 'other' : 'text'}: oracle ${x.desktop}, ours ${r.a[k]}`), r.rows !== got.section.rows && `rows: oracle ${got.section.rows}, ours ${r.rows}`].filter(Boolean) });
+    }
+  }
   viewport(S, 1600, 1000); await pause(120);
 }
 // X2: which handle drags leave a block selected (HANDLEUP.json, a Text's corner and side: CAP-X2STEPS.json), with the real mouse, a pen and touch.

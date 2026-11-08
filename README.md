@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 12 changes
-  - U12: differences 90, 91, 92 and 96 built as read ([#390](https://github.com/FRIKKern/fluid-editor/pull/390))
-  - T10: an empty Embed's status box as read (95) ([#392](https://github.com/FRIKKern/fluid-editor/pull/392))
+- **Today** · 15 changes
+  - X2: the right margin mirror, refit 1 read, held back for the 6 wide conflict ([#397](https://github.com/FRIKKern/fluid-editor/pull/397))
+  - R2: a widening fall moves the blocks below as a typing shrink does ([#396](https://github.com/FRIKKern/fluid-editor/pull/396))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

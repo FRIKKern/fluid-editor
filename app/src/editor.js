@@ -1058,13 +1058,15 @@ function fitTextRows(s, b, g) {
   // An Instagram post follows its width, both ways (STANDINS.json).
   const lost = b.type !== 'text' ? span - Math.max(2, need) : narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
-  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
-  const before = lowest();
+  // A Text that falls on widening moves the blocks below as a shrink by typing does, and the section gives up rows as its
+  // lowest block rises (CAP-R2WIDEFALL.json: 1 row under, 4 under, pushed by the typing, lower to the right; alone, 12 go
+  // to 8 in CAP-TEXTWIDTH.json). Not built: on the saved demo section the blocks below stay (CAP-TEXTWIDTH2.json).
+  const fall = lost > 0 && !narrowing;
+  if (fall && b.type === 'text') moveWithText(s, b, a, -lost);
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
   a[2] -= lost;
-  // The section gives up rows only as its lowest block rises (CAP-TEXTWIDTH2.json: 18 rows stay
-  // with other blocks lower down; alone, 12 go to 8).
-  if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
-  else { s.rows[bp] = g.rows0; growRows(s); }
+  if (fall && b.type !== 'text') s.rows[bp] -= before - lowest();
+  else if (!fall) { s.rows[bp] = g.rows0; growRows(s); }
   renderSectionDom(s.id);
 }
 
