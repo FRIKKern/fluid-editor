@@ -1,0 +1,1354 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "T12 Newsletter: its panel (Content, Design, Storage) and the block it draws, at add and after each panel edit, on the probe page; never saved (Exit Without Saving, the page read 0 blocks after).",
+ "how": "A new Newsletter on the probe page from the menu (10 columns), Edit, then each tab; then in a second run Show Name Field on and off, Design Layout and Alignment, and real keys in Title, Description, Disclaimer and Button Text (Cmd+A and Backspace to empty a field). Every press had an on-top check. Left by Exit, then Exit Without Saving; the page read 0 blocks after.",
+ "pitch": "row gap 11, pitch 41.094 at this width (8 rows draw 317.75)",
+ "block": {
+  "area": "1/2/9/12",
+  "size": [
+   576.8125,
+   317.75
+  ],
+  "boxes": [
+   {
+    "tag": "DIV",
+    "cls": "newsletter-form-wrapper newsletter-form-wrapper--layoutFloat newsletter-form",
+    "box": [
+     0,
+     0,
+     576.8,
+     276
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "0px",
+    "margin": "0px",
+    "display": "block",
+    "align": "start"
+   },
+   {
+    "tag": "HEADER",
+    "cls": "",
+    "box": [
+     43.3,
+     0,
+     490.3,
+     110.3
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "0px",
+    "margin": "0px 43.2656px",
+    "display": "block",
+    "align": "center"
+   },
+   {
+    "tag": "H2",
+    "cls": "",
+    "text": "Subscribe",
+    "box": [
+     43.3,
+     0,
+     490.3,
+     49.4
+    ],
+    "font": "Poppins 41.2px/49.44px 400",
+    "padding": "0px",
+    "margin": "0px 0px 16px",
+    "display": "block",
+    "align": "center"
+   },
+   {
+    "tag": "P",
+    "cls": "",
+    "text": "Sign up with your email address to receive news and updates.",
+    "box": [
+     43.3,
+     65.4,
+     490.3,
+     44.8
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "0px",
+    "margin": "16px 0px",
+    "display": "block",
+    "align": "center"
+   },
+   {
+    "tag": "DIV",
+    "cls": "form-fields",
+    "box": [
+     74.5,
+     142.3,
+     288,
+     82
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "0px",
+    "margin": "16px 0px 0px",
+    "display": "inline-block",
+    "align": "center"
+   },
+   {
+    "tag": "DIV",
+    "cls": "form-item field email required",
+    "box": [
+     74.5,
+     142.3,
+     288,
+     82
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "8px 4px",
+    "margin": "0px",
+    "display": "inline-block",
+    "align": "center"
+   },
+   {
+    "tag": "INPUT",
+    "cls": "field-element",
+    "box": [
+     78.5,
+     150.3,
+     280,
+     66
+    ],
+    "font": "Poppins 16px/19.2px 400",
+    "padding": "22.4px 32px",
+    "margin": "0px",
+    "display": "inline-block",
+    "align": "start"
+   },
+   {
+    "tag": "DIV",
+    "cls": "submit-wrapper",
+    "box": [
+     366.8,
+     143.3,
+     135.4,
+     80
+    ],
+    "font": "Poppins 16px/22.4px 400",
+    "padding": "8px 4px",
+    "margin": "16px 0px 0px",
+    "display": "inline-block",
+    "align": "center"
+   },
+   {
+    "tag": "BUTTON",
+    "cls": "newsletter-form-button sqs-system-button sqs-edi",
+    "box": [
+     370.8,
+     151.3,
+     127.4,
+     64
+    ],
+    "font": "Poppins 16px/19.2px 500",
+    "padding": "22.4px 32px",
+    "margin": "0px",
+    "display": "inline-block",
+    "align": "center"
+   },
+   {
+    "tag": "P",
+    "cls": "",
+    "text": "We respect your privacy.",
+    "box": [
+     0,
+     256.2,
+     576.8,
+     19.7
+    ],
+    "font": "Poppins 14.08px/19.712px 400",
+    "padding": "0px",
+    "margin": "16px 0px 0px",
+    "display": "block",
+    "align": "center"
+   }
+  ],
+  "notes": [
+   "The title is an H2 at 41.2px/49.44px: Heading 3 size on this site, 1.2 high.",
+   "The email field and the button are inline blocks a space (4.3px) apart, both vertical-align middle; each field box is 288 wide with 8px 4px padding (8px 4px 8px 0 aligned left, 8px 0 8px 4px right).",
+   "Input: white, 1px rgba(0,0,0,.12) edge, 22.4px 32px padding, 16px/19.2px. Placeholder grey read from the screenshot only: darkest pixel 178 on white.",
+   "Button: black pill, radius 300, 22.4px 32px padding, 500, 16px/19.2px, .32px letter spacing.",
+   "Disclaimer: 14.08px/19.712px, margin 16px 0 0."
+  ]
+ },
+ "reads": [
+  {
+   "step": "start",
+   "did": "added: 10 columns by 8 rows",
+   "rows": 8,
+   "area": "1/2/9/12",
+   "form": [
+    0,
+    275.953
+   ],
+   "block": 317.75,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      150.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      151.3,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      256.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "nameOn",
+   "did": "Show Name Field on",
+   "rows": 14,
+   "area": "1/2/15/12",
+   "form": [
+    0,
+    535.906
+   ],
+   "block": 564.313,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "FIELDSET",
+     [
+      0,
+      142.3,
+      576.8,
+      164
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      148.4,
+      150.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      148.4,
+      232.2,
+      280,
+      66
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      148.4,
+      314.2,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      224.7,
+      412.2,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      516.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "description": "[Sign up with your email address to receive news and updates.]",
+   "button": "Sign Up"
+  },
+  {
+   "step": "nameOff",
+   "did": "Show Name Field off",
+   "rows": 7,
+   "area": "1/2/8/12",
+   "form": [
+    0,
+    275.953
+   ],
+   "block": 276.656,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      150.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      151.3,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      256.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "stack",
+   "did": "Design, Layout Stack",
+   "rows": 9,
+   "area": "1/2/10/12",
+   "form": [
+    0,
+    355.938
+   ],
+   "block": 358.844,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      144.4,
+      150.3,
+      288,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      224.7,
+      232.2,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      336.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "stackLeft",
+   "did": "Alignment left (Stack)",
+   "rows": 9,
+   "area": "1/2/10/12",
+   "form": [
+    0,
+    333.531
+   ],
+   "block": 358.844,
+   "boxes": [
+    [
+     "H2",
+     [
+      0,
+      0,
+      576.8,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      65.4,
+      576.8,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      0,
+      127.8,
+      288,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      0,
+      209.8,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      313.8,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "floatLeft",
+   "did": "Layout Float (left)",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    253.547
+   ],
+   "block": 253.547,
+   "boxes": [
+    [
+     "H2",
+     [
+      0,
+      0,
+      576.8,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      65.4,
+      576.8,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      0,
+      127.8,
+      284,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      292.3,
+      128.8,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      233.8,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "floatRight",
+   "did": "Alignment right",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    253.547
+   ],
+   "block": 253.547,
+   "boxes": [
+    [
+     "H2",
+     [
+      0,
+      0,
+      576.8,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      65.4,
+      576.8,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      157.1,
+      127.8,
+      284,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      449.4,
+      128.8,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      233.8,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "back",
+   "did": "Alignment center",
+   "rows": 7,
+   "area": "1/2/8/12",
+   "form": [
+    0,
+    275.953
+   ],
+   "block": 276.656,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      150.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      151.3,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      256.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "titleEmpty",
+   "did": "Content, Title: Cmd+A, Backspace",
+   "rows": 5,
+   "area": "1/2/6/12",
+   "form": [
+    16,
+    210.516
+   ],
+   "block": 226.516,
+   "boxes": [
+    [
+     "P",
+     [
+      43.3,
+      16,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      100.8,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      101.8,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      206.8,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "titleHi",
+   "did": "Title: keys H, i",
+   "rows": 7,
+   "area": "1/2/8/12",
+   "form": [
+    0,
+    275.953
+   ],
+   "block": 276.656,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      44.8
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      150.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      151.3,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      256.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Sign up with your email address to receive news and updates.]"
+  },
+  {
+   "step": "descEmpty",
+   "did": "Description: Cmd+A, Backspace",
+   "rows": 5,
+   "area": "1/2/6/12",
+   "form": [
+    0,
+    215.141
+   ],
+   "block": 215.141,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      89.4,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      90.4,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      195.4,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": ""
+  },
+  {
+   "step": "descTwo",
+   "did": "Description: keys A b Enter C d",
+   "rows": 8,
+   "area": "1/2/9/12",
+   "form": [
+    0,
+    291.953
+   ],
+   "block": 317.75,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      103.8,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      166.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      167.3,
+      127.4,
+      64
+     ]
+    ],
+    [
+     "P",
+     [
+      0,
+      272.2,
+      576.8,
+      19.7
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Ab][Cd]"
+  },
+  {
+   "step": "discEmpty",
+   "did": "Disclaimer: Cmd+A, Backspace",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    256.234
+   ],
+   "block": 256.234,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      103.8,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      166.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      167.3,
+      127.4,
+      64
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Ab][Cd]"
+  },
+  {
+   "step": "btnEmpty",
+   "did": "Button Text: Cmd+A, Backspace",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    256.234
+   ],
+   "block": 256.234,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      103.8,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      78.5,
+      166.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      370.8,
+      167.3,
+      127.4,
+      64
+     ]
+    ]
+   ],
+   "button": "Sign Up",
+   "description": "[Ab][Cd]"
+  },
+  {
+   "step": "btnGo",
+   "did": "Button Text: keys G o",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    256.234
+   ],
+   "block": 256.234,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      103.8,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      98.7,
+      166.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      390.9,
+      167.3,
+      87.2,
+      64
+     ]
+    ]
+   ],
+   "button": "Go",
+   "description": "[Ab][Cd]"
+  },
+  {
+   "step": "blurred",
+   "did": "the field left",
+   "rows": 6,
+   "area": "1/2/7/12",
+   "form": [
+    0,
+    256.234
+   ],
+   "block": 256.234,
+   "boxes": [
+    [
+     "H2",
+     [
+      43.3,
+      0,
+      490.3,
+      49.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      65.4,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "P",
+     [
+      43.3,
+      103.8,
+      490.3,
+      22.4
+     ]
+    ],
+    [
+     "INPUT",
+     [
+      98.7,
+      166.3,
+      280,
+      66
+     ]
+    ],
+    [
+     "BUTTON",
+     [
+      390.9,
+      167.3,
+      87.2,
+      64
+     ]
+    ]
+   ],
+   "button": "Go",
+   "description": "[Ab][Cd]"
+  }
+ ],
+ "rowRule": "Seen only (no predictions pushed): Quote refit 1 (CAP-T12QUOTEROWS.json) fits all 15 changes: rows grow to ceil(x - 0.02) when content grows, and drop to floor(x + 0.02) when it shrinks below the rows, x = (content + 11) / 41.094. The add keeps 8 rows over 6.98 until the first edit.",
+ "panel": {
+  "tabs": [
+   "Content",
+   "Design",
+   "Storage"
+  ],
+  "content": [
+   {
+    "scrollTop": 0,
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Storage @153,19,52,18",
+     "Learn More. @158,93,68,16",
+     "Form Name @22,134,105,16",
+     "Title @0,198,320,16",
+     "Description @22,281,276,16",
+     "Sign up with your email address to receive news and updates. @33,322,254,44",
+     "Disclaimer @22,440,276,16",
+     "We respect your privacy. @33,481,254,22",
+     "Button Text @0,610,320,16",
+     "Show Name Field @22,704,115,22",
+     "Post-Submit @22,771,81,22"
+    ],
+    "controls": [
+     "INPUT|text|Form Name|Enter a name|Newsletter Form||||127,120,149,44",
+     "INPUT|text|Title|Enter a title|Subscribe||||22,214,276,44",
+     "INPUT|text|Button Text|Sign Up|Sign Up||||22,626,276,44",
+     "INPUT|checkbox|Show Name Field||||||272,709,12,12",
+     "BUTTON|submit|Navigate to Post-Submit||||||282,774,16,16"
+    ],
+    "looks": [
+     "A |  |  | Learn More. |  | 158,93,67.5,16 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 1px solid rgb(121, 121, 121) | 0px | none | normal | ",
+     "LABEL |  |  | Form Name |  | 22,134,104.9,16 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "INPUT | text | Form Name | Newsletter Form | Enter a name | 126.9,120,149.1,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "LABEL |  |  | Title |  | 0,198,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "INPUT | text | Title | Subscribe | Enter a title | 22,214,276,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "LABEL |  |  | Description |  | 22,281,276,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "P |  |  | Sign up with your email address to receive news an |  | 33,322.1,254,44 | 14px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+     "LABEL |  |  | Disclaimer |  | 22,440,276,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "P |  |  | We respect your privacy. |  | 33,481.1,254,22 | 14px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+     "LABEL |  |  | Button Text |  | 0,610,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "INPUT | text | Button Text | Sign Up | Sign Up | 22,626,276,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "P |  |  | Show Name Field |  | 22,704,115.5,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "SPAN |  |  |  |  | 22,726,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+     "INPUT | checkbox | Show Name Field |  |  | 272,708.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+     "P |  |  | Post-Submit |  | 22,771,81.5,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "SPAN |  |  |  |  | 22,793,254,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+     "BUTTON | submit | Navigate to Post-Submit |  |  | 282,774,16,16 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | "
+    ]
+   },
+   {
+    "scrollTop": 325,
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Storage @153,19,52,18",
+     "Learn More. @158,-232,68,16",
+     "Form Name @22,-191,105,16",
+     "Title @0,-127,320,16",
+     "Description @22,-44,276,16",
+     "Sign up with your email address to receive news and updates. @33,-3,254,44",
+     "Disclaimer @22,115,276,16",
+     "We respect your privacy. @33,156,254,22",
+     "Button Text @0,285,320,16",
+     "Show Name Field @22,379,115,22",
+     "Post-Submit @22,446,81,22"
+    ],
+    "controls": [
+     "INPUT|text|Form Name|Enter a name|Newsletter Form||||127,-205,149,44",
+     "INPUT|text|Title|Enter a title|Subscribe||||22,-111,276,44",
+     "INPUT|text|Button Text|Sign Up|Sign Up||||22,301,276,44",
+     "INPUT|checkbox|Show Name Field||||||272,384,12,12",
+     "BUTTON|submit|Navigate to Post-Submit||||||282,449,16,16"
+    ],
+    "looks": [
+     "A |  |  | Learn More. |  | 158,-232,67.5,16 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 1px solid rgb(121, 121, 121) | 0px | none | normal | ",
+     "LABEL |  |  | Form Name |  | 22,-191,104.9,16 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "INPUT | text | Form Name | Newsletter Form | Enter a name | 126.9,-205,149.1,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "LABEL |  |  | Title |  | 0,-127,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "INPUT | text | Title | Subscribe | Enter a title | 22,-111,276,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "LABEL |  |  | Description |  | 22,-44,276,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "P |  |  | Sign up with your email address to receive news an |  | 33,-2.9,254,44 | 14px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+     "LABEL |  |  | Disclaimer |  | 22,115,276,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "P |  |  | We respect your privacy. |  | 33,156.1,254,22 | 14px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+     "LABEL |  |  | Button Text |  | 0,285,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+     "INPUT | text | Button Text | Sign Up | Sign Up | 22,301,276,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+     "P |  |  | Show Name Field |  | 22,379,115.5,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "SPAN |  |  |  |  | 22,401,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+     "INPUT | checkbox | Show Name Field |  |  | 272,383.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+     "P |  |  | Post-Submit |  | 22,446,81.5,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+     "SPAN |  |  |  |  | 22,468,254,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+     "BUTTON | submit | Navigate to Post-Submit |  |  | 282,449,16,16 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | "
+    ]
+   }
+  ],
+  "rules": [
+   "DIV | css-1gwg4md |  |  | 22,53,53,2 | rgb(14, 14, 14) | bt 1px solid rgb(14, 14, 14) | bb 1px solid rgb(14, 14, 14) | 0px | 0px | none | rgb(62, 62, 62)",
+   "DIV | css-1lc45kv |  |  | 0,54,320,1 | rgb(231, 231, 231) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 0px | none | rgb(62, 62, 62)",
+   "A |  |  | Learn More. | 158,93,67.5,16 | rgba(0, 0, 0, 0) | bt 0px none rgb(102, 102, 102) | bb 1px solid rgb(121, 121, 121) | 0px | 0px | none | rgb(102, 102, 102)",
+   "svg | css-jyqz8p |  |  | 276,131,22,22 | rgba(0, 0, 0, 0) | bt 0px none rgb(183, 183, 183) | bb 0px none rgb(183, 183, 183) | 0px | 0px | none | rgb(183, 183, 183)",
+   "DIV | css-1ew546u |  |  | 17,164,286,1 | rgb(231, 231, 231) | bt 0px none rgb(14, 14, 14) | bb 0px none rgb(14, 14, 14) | 0px | 0px | none | rgb(14, 14, 14)",
+   "DIV | css-1ew546u |  |  | 17,258,286,1 | rgb(231, 231, 231) | bt 0px none rgb(14, 14, 14) | bb 0px none rgb(14, 14, 14) | 0px | 0px | none | rgb(14, 14, 14)",
+   "DIV | css-1gtsz86 |  | Sign up with your email addres | 22,308,276,110 | rgb(249, 249, 249) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0.1px 11px | 0px | none | rgb(62, 62, 62)",
+   "DIV | tiptap.ProseMirror | true | Sign up with your email addres | 33,322.1,254,44 | rgba(0, 0, 0, 0) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 0px | none | rgb(62, 62, 62)",
+   "DIV | css-1gtsz86 |  | We respect your privacy. | 22,467,276,110 | rgb(249, 249, 249) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0.1px 11px | 0px | none | rgb(62, 62, 62)",
+   "DIV | tiptap.ProseMirror | true | We respect your privacy. | 33,481.1,254,22 | rgba(0, 0, 0, 0) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 0px | none | rgb(62, 62, 62)",
+   "DIV | css-1ew546u |  |  | 17,670,286,1 | rgb(231, 231, 231) | bt 0px none rgb(14, 14, 14) | bb 0px none rgb(14, 14, 14) | 0px | 0px | none | rgb(14, 14, 14)",
+   "DIV |  |  | Show Name Field | 22,693,276,45 | rgba(0, 0, 0, 0) | bt 0px none rgb(62, 62, 62) | bb 1px solid rgba(0, 0, 0, 0) | 0px | 0px | none | rgb(62, 62, 62)",
+   "LABEL | css-ufyl68 |  |  | 270,706.5,28,16 | rgb(102, 102, 102) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 9999px | none | rgb(62, 62, 62)",
+   "DIV | css-10ykvck |  |  | 17,737,286,1 | rgb(231, 231, 231) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 0px | none | rgb(62, 62, 62)",
+   "DIV |  |  | Post-Submit | 22,760,276,45 | rgba(0, 0, 0, 0) | bt 0px none rgb(62, 62, 62) | bb 1px solid rgba(0, 0, 0, 0) | 0px | 0px | none | rgb(62, 62, 62)",
+   "DIV | css-10ykvck |  |  | 17,804,286,1 | rgb(231, 231, 231) | bt 0px none rgb(62, 62, 62) | bb 0px none rgb(62, 62, 62) | 0px | 0px | none | rgb(62, 62, 62)"
+  ],
+  "design": {
+   "text": [
+    "Content @22,19,53,18",
+    "Design @91,19,46,18",
+    "Storage @153,19,52,18",
+    "Layout @0,77,320,16",
+    "Stack @18,99,142,32",
+    "Float @160,99,142,32",
+    "Alignment @0,159,320,16",
+    "Background @22,230,80,22",
+    "Stroke @22,275,42,22",
+    "Blend Mode @22,322,81,18",
+    "Normal @227,322,49,18",
+    "Blur @22,365,26,22"
+   ],
+   "controls": [
+    "BUTTON|submit||||||Stack|18,99,142,32",
+    "BUTTON|submit||||||Float|160,99,142,32",
+    "BUTTON|submit|alignLeft||||||18,181,95,32",
+    "BUTTON|submit|alignCenter||||||113,181,95,32",
+    "BUTTON|submit|alignRight||||||207,181,95,32",
+    "INPUT|checkbox|Background||||||272,235,12,12",
+    "DIV|||||||Blend ModeNormal|11,308,298,46",
+    "INPUT|checkbox|Blur||||||272,370,12,12"
+   ],
+   "looks": [
+    "LABEL |  |  | Layout |  | 0,77,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+    "BUTTON | radio |  | layoutStack |  | 18,99,142,32 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 2px | none | -0.14px | false",
+    "BUTTON | radio |  | layoutFloat |  | 160,99,142,32 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 2px | none | -0.14px | true",
+    "LABEL |  |  | Alignment |  | 0,159,320,16 | 11px/16px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | uppercase | 0.75px | ",
+    "BUTTON | radio | alignLeft | alignLeft |  | 18,181,94.7,32 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 2px | none | -0.14px | false",
+    "BUTTON | radio | alignCenter | alignCenter |  | 112.7,181,94.7,32 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 2px | none | -0.14px | true",
+    "BUTTON | radio | alignRight | alignRight |  | 207.3,181,94.7,32 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 2px | none | -0.14px | false",
+    "P |  |  | Background |  | 22,230,80.4,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  |  |  | 22,252,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+    "INPUT | checkbox | Background |  |  | 272,234.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+    "LABEL |  |  | Stroke |  | 22,275,42.2,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  | Blend Mode |  | 22,322,80.6,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  |  |  | 22,342,183.1,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+    "SPAN |  |  | Normal |  | 227.1,322,48.9,18 | 14px/normal 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+    "P |  |  | Blur |  | 22,365,26.3,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  |  |  | 22,387,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+    "INPUT | checkbox | Blur |  |  | 272,369.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false"
+   ]
+  },
+  "storage": {
+   "text": [
+    "Content @22,19,53,18",
+    "Design @91,19,46,18",
+    "Storage @153,19,52,18",
+    "Learn more @22,66,65,16",
+    "Squarespace @22,120,232,22",
+    "Confirmation Email Off @22,142,232,16",
+    "Other Storage Options @22,203,149,22"
+   ],
+   "controls": [
+    "BUTTON|submit||||||SquarespaceConfirmation Email |22,109,276,61",
+    "BUTTON|submit|Navigate to Other Storage Options||||||282,206,16,16"
+   ],
+   "looks": [
+    "A |  |  | Learn more |  | 22,66,65,16 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 1px solid rgb(121, 121, 121) | 0px | none | normal | ",
+    "BUTTON | submit |  |  |  | 22,109,276,61 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+    "LABEL |  |  | Squarespace |  | 22,120,232,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  | Confirmation Email Off |  | 22,142,232,16 | 12px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "P |  |  | Other Storage Options |  | 22,203,148.7,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+    "SPAN |  |  |  |  | 22,225,254,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+    "BUTTON | submit | Navigate to Other Storage Options |  |  | 282,206,16,16 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | "
+   ]
+  },
+  "editors": {
+   "description": "a rich editor (one <p> per line) in a 276 by 110 box, background rgb(249,249,249), text at 11px left and 14px top, 14px/22px rgb(62,62,62); Enter makes a new paragraph",
+   "afterEnter": "ProseMirror height 58 with two lines: 14px between paragraphs"
+  }
+ },
+ "notRead": [
+  "Undo and redo of each edit",
+  "The phone view",
+  "Stack with Show Name Field",
+  "An empty line inside Description or Disclaimer on the block",
+  "Form Name emptied",
+  "Learn More, the Form Name tip, Post-Submit, and the Storage rows (read only: form storage)",
+  "Which tab Edit opens on (each run pressed Content first)"
+ ]
+}

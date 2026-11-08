@@ -1,33 +1,33 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 413,
+ "matched": 427,
  "counts": {
   "unread": 39,
-  "namedNotOurs": 242,
-  "oursOnly": 549,
-  "proseOnlyOracle": 51,
+  "namedNotOurs": 218,
+  "oursOnly": 502,
+  "proseOnlyOracle": 47,
   "proseOnlyOurs": 16,
-  "tabs": 28,
+  "tabs": 26,
   "toolbar": 0,
   "bars": 12,
   "kinds": 4,
-  "oursOff": 67
+  "oursOff": 73
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 81,
+  "controls": 72,
   "headings": 32,
-  "outside": 17,
+  "outside": 15,
   "states": 10,
   "byKind": {
-   "button": 14,
+   "button": 13,
    "slider": 1,
-   "choice": 18,
-   "switch": 26,
-   "field": 11,
+   "choice": 16,
+   "switch": 25,
+   "field": 8,
    "menu": 8,
-   "area": 3
+   "area": 1
   },
   "tiles": {
    "Text": {
@@ -388,37 +388,28 @@
     "oursOff": []
    },
    "Newsletter": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Storage"
     ],
     "oursTabs": [
+     "Content",
      "Design",
-     "Animation"
+     "Storage"
     ],
-    "control": [
-     "Form Name (field)",
-     "Title (field)",
-     "Description (area)",
-     "Disclaimer (area)",
-     "Button Text (field)",
-     "Show Name Field (switch)",
-     "Post-Submit (button)",
-     "Layout (choice)",
-     "Alignment (choice)"
-    ],
+    "control": [],
     "heading": [],
-    "outside": [
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": [
+     "Post-Submit",
      "Squarespace",
      "Other Storage Options"
-    ],
-    "state": [],
-    "help": 2,
-    "matched": 0,
-    "common": 4,
-    "oursOff": []
+    ]
    },
    "Quote": {
     "oracleTabs": [
@@ -2052,174 +2043,6 @@
    "name": "Background",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Form Name",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Description",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Disclaimer",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Button Text",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Show Name Field",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter > Content",
-   "name": "Post-Submit",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Layout",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter > Storage",
-   "name": "Squarespace",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Storage",
-   "name": "Other Storage Options",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Form Name",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Description",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Disclaimer",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Button Text",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Show Name Field",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Post-Submit",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Layout",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Storage",
-   "name": "Squarespace",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Storage",
-   "name": "Other Storage Options",
-   "kinds": [
-    "button"
    ]
   },
   {
@@ -4421,309 +4244,6 @@
    ]
   },
   {
-   "where": "Newsletter > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Newsletter phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Newsletter phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
    "where": "Quote > Design",
    "name": "More actions",
    "kinds": [
@@ -6446,22 +5966,6 @@
    "name": "Display content from other pages on your site, such as blog posts, products, eve"
   },
   {
-   "where": "Newsletter > Content",
-   "name": "Add a sign-up to your site to begin collecting mailing list subscribers."
-  },
-  {
-   "where": "Newsletter > Storage",
-   "name": "about how we handle your customers’ personal information."
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Add a sign-up to your site to begin collecting mailing list subscribers."
-  },
-  {
-   "where": "Newsletter phone > Storage",
-   "name": "about how we handle your customers’ personal information."
-  },
-  {
    "where": "Map > Content",
    "name": "Your use of Google Maps is subject to the Google Maps/Google Earth and the Googl"
   },
@@ -6789,30 +6293,6 @@
    "oracle": [
     "Content",
     "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Newsletter",
-   "oracle": [
-    "Content",
-    "Design",
-    "Storage"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Newsletter phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Storage"
    ],
    "ours": [
     "Design",
@@ -7165,6 +6645,30 @@
   {
    "where": "Product phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Newsletter > Content",
+   "name": "Post-Submit"
+  },
+  {
+   "where": "Newsletter > Storage",
+   "name": "Squarespace"
+  },
+  {
+   "where": "Newsletter > Storage",
+   "name": "Other Storage Options"
+  },
+  {
+   "where": "Newsletter phone > Content",
+   "name": "Post-Submit"
+  },
+  {
+   "where": "Newsletter phone > Storage",
+   "name": "Squarespace"
+  },
+  {
+   "where": "Newsletter phone > Storage",
+   "name": "Other Storage Options"
   },
   {
    "where": "Quote phone > Animation",

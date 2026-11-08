@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -569,7 +569,7 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' ? 'Content' : 'Design'; updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' ? 'Content' : 'Design'; updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -1766,9 +1766,11 @@ function renderBlockPanel() {
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
-    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) } : null;
+    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b) } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
+  if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
   if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
@@ -1776,7 +1778,7 @@ function renderBlockPanel() {
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
   if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
-  const shape = b.type === 'shape' && b.standin !== 'quote' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
+  const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
   const kidBox = parentStack(sel.sid, sel.bid) ? blockEl(sel.bid)?.getBoundingClientRect() : null;
@@ -2621,29 +2623,48 @@ function setFormRows(b, s, need) {
   renderSectionDom(sel.sid);
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
-// Quote's fields (CAP-T12QUOTE.json): each key shows on the block at once, the rows follow the content both ways, and
-// a field's edit is one undo step when the field is left.
-let quoteBefore = null;
-blockPanel.addEventListener('input', (e) => {
-  const t = e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]');
-  if (!t || !sel) return;
-  const b = B(sel.sid, sel.bid);
-  quoteBefore ??= JSON.stringify(model);
-  // Refit 1, seen only (CAP-T12QUOTEROWS.json): content that grows takes the rows up to hold it; content that shrinks
-  // past a row lets them go down to the whole rows it fills, so 6 rows at 4.93 go to 4, and 4 rows stay at 3.27. Seen 7 of
-  // 8; the miss: Source emptied at 8.69 keeps 9 rows on the oracle, 8 here.
+// Quote's fields (CAP-T12QUOTE.json) and Newsletter's (CAP-T12NEWSLETTER.json): each key shows on the block at once, the
+// rows follow the content both ways, and a field's edit is one undo step when the field is left.
+const STANDIN_FIELDS = 'textarea[data-content="quote"], textarea[data-content="source"], [data-content^="nl"]';
+// Refit 1, seen only (CAP-T12QUOTEROWS.json): content that grows takes the rows up to hold it; content that shrinks past a
+// row lets them go down to the whole rows it fills, so 6 rows at 4.93 go to 4, and 4 rows stay at 3.27. Seen 7 of 8 on
+// Quote; the miss: Source emptied at 8.69 keeps 9 rows on the oracle, 8 here. Newsletter's 15 reads, also seen (no
+// predictions were pushed for them), all fit: its Title, Description, Disclaimer, Show Name Field, Layout and Alignment.
+function refitStandin(b, change) {
   const x0 = contentRows(b, formPitch(b), false, false, true), rows = lay(b).area[2] - lay(b).area[0];
-  b[t.dataset.content] = t.value;
+  change();
   renderSectionDom(sel.sid);
   const x = contentRows(b, formPitch(b), false, false, true), up = Math.max(1, Math.ceil(x - 0.02));
   setFormRows(b, S(sel.sid), x > x0 ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+}
+let quoteBefore = null;
+blockPanel.addEventListener('input', (e) => {
+  const t = e.target.closest(STANDIN_FIELDS);
+  if (!t || !sel) return;
+  const b = B(sel.sid, sel.bid);
+  quoteBefore ??= JSON.stringify(model);
+  refitStandin(b, () => { b[t.dataset.content] = t.value; });
 });
 blockPanel.addEventListener('change', (e) => {
-  if (!e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]') || quoteBefore == null) return;
-  const before = quoteBefore;
+  if (!e.target.closest(STANDIN_FIELDS) || quoteBefore == null) return;
+  const before = quoteBefore, name = B(sel.sid, sel.bid)?.standin === 'newsletter' ? 'Newsletter' : 'Quote';
   quoteBefore = null;
   // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone.
-  setTimeout(() => commit(before, 'Quote changed'));
+  setTimeout(() => commit(before, `${name} changed`));
+});
+// Newsletter's Show Name Field, Layout and Alignment: one undo step each.
+function setNewsletter(key, v) {
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  refitStandin(b, () => { if (v) b[key] = v; else delete b[key]; });
+  commit(before, 'Newsletter changed');
+}
+blockPanel.addEventListener('change', (e) => {
+  const t = e.target.closest('input[data-nl-set]');
+  if (t && sel) setNewsletter(t.dataset.nlSet, t.checked);
+});
+blockPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('button[data-nl-set]');
+  if (t && sel) setNewsletter(t.dataset.nlSet, t.dataset.v);
 });
 // What a form's rows answer to: the form or its message, and any padding and stroke round it.
 function formHeight(b) {
@@ -4911,7 +4932,7 @@ function renderPanel() {
 // the oracle gives it (parity/findings/T13.json). On phones it is full content width, and its
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
-const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
+const STANDIN_TYPES = ['Quote', 'Newsletter', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
 // On a phone a block draws its content's height, not its rows. These stand-ins hold the height the oracle's block draws at the
 // phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
 const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
