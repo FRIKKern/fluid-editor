@@ -520,19 +520,24 @@ const quoteContentHtml = (c) => [['quote', 'Quote', 'Add a quote'], ['source', '
   .map(([k, l, ph]) => `<div class="bp-qf"><label class="bp-soccap" for="bp-q-${k}">${l}</label><textarea id="bp-q-${k}" class="bp-qta" rows="1" aria-label="${l}" placeholder="${ph}" data-content="${k}" spellcheck="false">${esc(c[k])}</textarea></div>`).join('');
 // Newsletter's tabs (CAP-T12NEWSLETTER.json). Title, Description, Disclaimer, Button Text and Show Name Field change the
 // block; Form Name is kept. Description and Disclaimer are plain fields here: a new line makes a paragraph on the block.
-// Learn More, the Form Name tip, Post-Submit and the Storage rows are shown as the oracle shows them, and not built.
+// The Form Name tip, Require First and Last Name and Post-Submit as CAP-T12NLPOST.json read them. Learn More and the
+// Storage rows are out of scope (0005): a link out, and form storage.
 const nlCap = (k, label) => `<label class="bp-nl-cap" for="bp-nl-${k}">${label}</label>`;
 const nlLine = (k, label, ph, v) => `<div class="bp-nl-f">${nlCap(k, label)}<input id="bp-nl-${k}" class="bp-nl-in" type="text" aria-label="${label}" placeholder="${ph}" data-content="${k}" value="${esc(v)}" autocomplete="off" spellcheck="false"></div>`;
 const nlArea = (k, label, v) => `${nlCap(k, label)}<div class="bp-nl-box"><textarea id="bp-nl-${k}" class="bp-nl-ta" aria-label="${label}" data-content="${k}" spellcheck="false">${esc(v)}</textarea></div>`;
-const nlRow = (label, ctl, nav) => `<div class="sp-row bp-nl-row"><span class="sp-label">${label}</span>${nav ? `<button type="button" class="bp-nl-go" aria-label="Navigate to ${label}" disabled data-unbuilt title="Not built yet">${pi('<path d="M9 6l6 6-6 6"/>')}</button>` : ctl}</div>`;
+const nlRow = (label, ctl, nav, cls = '') => `<div class="sp-row bp-nl-row${cls}"><span class="sp-label">${label}</span>${nav ? `<button type="button" class="bp-nl-go" aria-label="Navigate to ${label}"${nav === true ? ' disabled data-unbuilt title="Not built yet"' : ` data-ff="${nav}"`}>${pi('<path d="M9 6l6 6-6 6"/>')}</button>` : ctl}</div>`;
+const nlSwitch = (k, label, on) => `<label class="sp-switch"><input type="checkbox" aria-label="${label}" data-nl-set="${k}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label>`;
+// The Form Name tip shows on hover, above the ? (CAP-T12NLPOST.json, tip).
+const NL_TIP = 'Use a descriptive name to identify form submissions. The name also appears in the title of the Lightbox version of this form.';
 const NL_HELP = '<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M8.8 8.9a2.2 2.2 0 1 1 3.1 2c-.6.3-.9.8-.9 1.4v.4" stroke-linecap="round"/><circle cx="11" cy="15.2" r=".4" fill="currentColor"/></svg>';
 function newsletterContentHtml(c) {
   return `<p class="bp-nl-note">Add a sign-up to your site to begin collecting mailing list subscribers. <span class="bp-nl-u" data-unbuilt title="Not built yet">Learn More.</span></p>`
-    + `<div class="bp-nl-name"><label for="bp-nl-nlFormName">Form Name</label><input id="bp-nl-nlFormName" type="text" aria-label="Form Name" placeholder="Enter a name" data-content="nlFormName" value="${esc(c.nlFormName)}" autocomplete="off" spellcheck="false"><button type="button" class="bp-nl-help" aria-label="Form Name help" disabled data-unbuilt title="Not built yet">${NL_HELP}</button></div>`
+    + `<div class="bp-nl-name"><label for="bp-nl-nlFormName">Form Name</label><input id="bp-nl-nlFormName" type="text" aria-label="Form Name" placeholder="Enter a name" data-content="nlFormName" value="${esc(c.nlFormName)}" autocomplete="off" spellcheck="false"><button type="button" class="bp-nl-help" aria-label="Form Name help" data-tip="${NL_TIP}" data-tip-above>${NL_HELP}</button></div>`
     + nlLine('nlTitle', 'Title', 'Enter a title', c.nlTitle) + nlArea('nlDesc', 'Description', c.nlDesc) + nlArea('nlDisc', 'Disclaimer', c.nlDisc)
     + nlLine('nlButton', 'Button Text', 'Sign Up', c.nlButton)
-    + nlRow('Show Name Field', `<label class="sp-switch"><input type="checkbox" aria-label="Show Name Field" data-nl-set="nlName"${c.nlName ? ' checked' : ''}><span aria-hidden="true"></span></label>`)
-    + nlRow('Post-Submit', '', true);
+    + nlRow('Show Name Field', nlSwitch('nlName', 'Show Name Field', c.nlName))
+    + (c.nlName ? nlRow('Require First Name', nlSwitch('nlReqFirst', 'Require First Name', c.nlReqFirst), false, ' bp-nl-req') + nlRow('Require Last Name', nlSwitch('nlReqLast', 'Require Last Name', c.nlReqLast), false, ' bp-nl-req') : '')
+    + nlRow('Post-Submit', '', 'post');
 }
 const NL_ALIGN = [['left', 'alignLeft', '<path d="M5 5v14M19 12H9M13 8l-4 4 4 4"/>'], ['center', 'alignCenter', '<path d="M12 5v14M4 12h5M6.5 9.5L9 12l-2.5 2.5M20 12h-5M17.5 9.5L15 12l2.5 2.5"/>'], ['right', 'alignRight', '<path d="M19 5v14M5 12h10M11 8l4 4-4 4"/>']];
 function newsletterDesignHtml(c) {
@@ -560,7 +565,7 @@ function mapDesignHtml(c, pairs) {
 export function blockPanelHtml(d, tab, content = null, open = null, shape = null, image = null, stack = null, button = null, kid = null) {
   if (image && open?.startsWith('image-shape:')) return imageShapeHtml(image.shapeId, open.slice(12));
   if (image && open === 'image-fx') return effectPanelHtml(image);
-  if (content?.kind === 'form' && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
+  if ((content?.kind === 'form' || content?.kind === 'newsletter') && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
   const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;

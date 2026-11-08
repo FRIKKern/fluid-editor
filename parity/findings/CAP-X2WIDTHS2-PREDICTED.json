@@ -1,0 +1,959 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-08",
+  "question": "X2, refit 1 of the right margin mirror: what makes HOLD.json's 6 wide follow the left edge rule while 1, 2, 7, 10, 11, 12 and 13 wide mirror in 1px walks? A: 12 wide pressed in the middle, 1px walk (the press point). B: 12 wide pressed in the middle, the coarse hold and moves of HOLD.json's sweep (the path). C: 6 wide pressed 20px in from its left, 1px walk (the width). D: 7 wide, 1px walk out to -1100 (the old walks stopped at -280). E: 6 wide, HOLD.json's coarse sweep again (seen in HOLD.json, read again as a check, scored but marked seen). Gestures Probe, unsaved, one block per enter.",
+  "from": "Our code in this commit (editor.js updateMove: the mirror for every lone block on the right margin track, the multiple-of-3 gate of round 1 dropped after its control, CAP-X2WIDTHS.json 12 wide, mirrored). Walks as snap-check walks, coarse holds as oracle-capture's hold and move (6 moves to the first point, then one move each); scratch predictor. Ours on the long walk shows an 8 wide ring from -547 to -549: that is what our code does, kept as predicted.",
+  "rule": "A lone block on the right margin track steps left by its right edge, at -51, -136, -194, -253 and every 58.8 after (frame 1600), whatever its width, press point or path.",
+  "hit": "Walks: each leg (xBack, xHome) within 1px per step with the same areas, as snap-check scores. Coarse: each ring read equal. A start not on line 27 is a setup miss, named, not scored. E is seen (HOLD.json), counted apart.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      352.68,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "A w12 middle walk start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0.5,
+        0.5
+      ],
+      300,
+      0,
+      [
+        0,
+        0
+      ]
+    ],
+    [
+      "read",
+      "A w12 middle walk",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      352.68,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "B w12 middle coarse start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      "middle",
+      -30,
+      12
+    ],
+    [
+      "ring",
+      "B -30"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "B -60"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "B -100"
+    ],
+    [
+      "move",
+      -140,
+      12
+    ],
+    [
+      "ring",
+      "B -140"
+    ],
+    [
+      "move",
+      -300,
+      12
+    ],
+    [
+      "ring",
+      "B -300"
+    ],
+    [
+      "move",
+      -1000,
+      12
+    ],
+    [
+      "ring",
+      "B -1000"
+    ],
+    [
+      "move",
+      -1100,
+      12
+    ],
+    [
+      "ring",
+      "B -1100"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1200,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "C w6 walk start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      300,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "C w6 walk",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1500,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      80,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "D w7 long walk start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "walk",
+      0,
+      "new",
+      [
+        0,
+        0.5
+      ],
+      1100,
+      0,
+      [
+        20,
+        0
+      ]
+    ],
+    [
+      "read",
+      "D w7 long walk",
+      {
+        "walk": true,
+        "areas": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      1200,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "E w6 middle coarse start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      "middle",
+      -30,
+      12
+    ],
+    [
+      "ring",
+      "E -30"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "E -60"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "E -100"
+    ],
+    [
+      "move",
+      -140,
+      12
+    ],
+    [
+      "ring",
+      "E -140"
+    ],
+    [
+      "move",
+      -300,
+      12
+    ],
+    [
+      "ring",
+      "E -300"
+    ],
+    [
+      "move",
+      -1000,
+      12
+    ],
+    [
+      "ring",
+      "E -1000"
+    ],
+    [
+      "move",
+      -1100,
+      12
+    ],
+    [
+      "ring",
+      "E -1100"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "predicted": {
+    "A w12 middle walk": {
+      "start": "1 / 15 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 13 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 12 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 11 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 12 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 13 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 15 / 7 / 27"
+        ]
+      ]
+    },
+    "B w12 middle coarse": {
+      "start": "1 / 15 / 7 / 27",
+      "rings": [
+        [
+          -30,
+          12,
+          "1 / 15 / 7 / 27"
+        ],
+        [
+          -60,
+          12,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -100,
+          12,
+          "1 / 14 / 7 / 26"
+        ],
+        [
+          -140,
+          12,
+          "1 / 13 / 7 / 25"
+        ],
+        [
+          -300,
+          12,
+          "1 / 11 / 7 / 23"
+        ],
+        [
+          -1000,
+          12,
+          "1 / 1 / 7 / 13"
+        ],
+        [
+          -1100,
+          12,
+          "1 / 1 / 7 / 13"
+        ]
+      ]
+    },
+    "C w6 walk": {
+      "start": "1 / 21 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 17 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 21 / 7 / 27"
+        ]
+      ]
+    },
+    "D w7 long walk": {
+      "start": "1 / 20 / 7 / 27",
+      "xBack": [
+        [
+          -51,
+          "1 / 19 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 18 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 17 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 16 / 7 / 23"
+        ],
+        [
+          -312,
+          "1 / 15 / 7 / 22"
+        ],
+        [
+          -371,
+          "1 / 14 / 7 / 21"
+        ],
+        [
+          -429,
+          "1 / 13 / 7 / 20"
+        ],
+        [
+          -488,
+          "1 / 12 / 7 / 19"
+        ],
+        [
+          -547,
+          "1 / 11 / 7 / 18"
+        ],
+        [
+          -550,
+          "1 / 10 / 7 / 18"
+        ],
+        [
+          -609,
+          "1 / 10 / 7 / 17"
+        ],
+        [
+          -665,
+          "1 / 9 / 7 / 16"
+        ],
+        [
+          -723,
+          "1 / 8 / 7 / 15"
+        ],
+        [
+          -782,
+          "1 / 7 / 7 / 14"
+        ],
+        [
+          -841,
+          "1 / 6 / 7 / 13"
+        ],
+        [
+          -900,
+          "1 / 5 / 7 / 12"
+        ],
+        [
+          -958,
+          "1 / 4 / 7 / 11"
+        ],
+        [
+          -1017,
+          "1 / 3 / 7 / 10"
+        ],
+        [
+          -1076,
+          "1 / 2 / 7 / 9"
+        ]
+      ],
+      "xHome": [
+        [
+          -1075,
+          "1 / 3 / 7 / 10"
+        ],
+        [
+          -1016,
+          "1 / 4 / 7 / 11"
+        ],
+        [
+          -957,
+          "1 / 5 / 7 / 12"
+        ],
+        [
+          -899,
+          "1 / 6 / 7 / 13"
+        ],
+        [
+          -840,
+          "1 / 7 / 7 / 14"
+        ],
+        [
+          -781,
+          "1 / 8 / 7 / 15"
+        ],
+        [
+          -722,
+          "1 / 9 / 7 / 16"
+        ],
+        [
+          -664,
+          "1 / 10 / 7 / 17"
+        ],
+        [
+          -608,
+          "1 / 10 / 7 / 18"
+        ],
+        [
+          -549,
+          "1 / 11 / 7 / 18"
+        ],
+        [
+          -546,
+          "1 / 12 / 7 / 19"
+        ],
+        [
+          -487,
+          "1 / 13 / 7 / 20"
+        ],
+        [
+          -428,
+          "1 / 14 / 7 / 21"
+        ],
+        [
+          -370,
+          "1 / 15 / 7 / 22"
+        ],
+        [
+          -311,
+          "1 / 16 / 7 / 23"
+        ],
+        [
+          -252,
+          "1 / 17 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 18 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 19 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 20 / 7 / 27"
+        ]
+      ]
+    },
+    "E w6 middle coarse": {
+      "start": "1 / 21 / 7 / 27",
+      "rings": [
+        [
+          -30,
+          12,
+          "1 / 21 / 7 / 27"
+        ],
+        [
+          -60,
+          12,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -100,
+          12,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -140,
+          12,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -300,
+          12,
+          "1 / 17 / 7 / 23"
+        ],
+        [
+          -1000,
+          12,
+          "1 / 5 / 7 / 11"
+        ],
+        [
+          -1100,
+          12,
+          "1 / 3 / 7 / 9"
+        ]
+      ]
+    }
+  }
+}

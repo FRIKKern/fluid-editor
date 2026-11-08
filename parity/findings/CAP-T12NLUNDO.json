@@ -1,0 +1,25 @@
+{
+  "item": "T12",
+  "capturedAt": "2026-11-08",
+  "question": "Newsletter's undo, scored against CAP-T12NLUNDO-PREDICTED.json (pushed before the read).",
+  "how": "Run f65 on the oracle, the steps of the predictions file in order, top-bar Undo and Redo, rows from the block's grid area, the fields read from the panel.",
+  "reads": [
+    { "step": "titleHi", "rows": 7, "title": "Hi" },
+    { "step": "undo1", "rows": 6, "title": "", "note": "the Title field reads empty" },
+    { "step": "redo1", "rows": 7, "title": "Hi" },
+    { "step": "nameOn", "rows": 14 },
+    { "step": "undoName", "rows": 7, "nameField": false },
+    { "step": "stack", "rows": 9 },
+    { "step": "undoStack", "rows": 7, "layout": "Float" },
+    { "step": "discEmpty", "rows": 7, "disclaimer": "" },
+    { "step": "btnGo", "rows": 7, "button": "Go" },
+    { "step": "undoA", "rows": 7, "button": "Sign Up", "disclaimer": "" },
+    { "step": "undoB", "rows": 7, "disclaimer": "We respect your privacy." }
+  ],
+  "score": "4 of 6 predictions hit: redo1, undoName, undoStack, undoB.",
+  "misses": [
+    "undo1: predicted Subscribe and 8 rows, read an empty Title and 6 rows. The emptying and the typing of one visit to the field were two undo steps on the oracle; ours makes one. Why it split (a pause in typing, or the field passing through empty) is not read.",
+    "undoA: predicted 6 rows, read 7. The 6 was a slip in writing the prediction: the step before (discEmpty) reads 7 on the oracle and gives 7 in ours too, and ours gives 7 here. Button Text's emptying and typing undid in one press, as predicted."
+  ],
+  "seenOnly": "All six undo and redo reads fit rows = ceil(x - 0.02), x = (content + 11) / 41.094, the rows the content needs, whatever they were before the step. Not built and not scored: it needs a round of its own."
+}

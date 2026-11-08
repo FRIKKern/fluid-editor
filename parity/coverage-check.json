@@ -1,11 +1,11 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 427,
+ "matched": 429,
  "counts": {
   "unread": 39,
-  "namedNotOurs": 218,
-  "oursOnly": 502,
+  "namedNotOurs": 214,
+  "oursOnly": 506,
   "proseOnlyOracle": 47,
   "proseOnlyOurs": 16,
   "tabs": 26,
@@ -16,12 +16,12 @@
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 72,
-  "headings": 32,
+  "controls": 71,
+  "headings": 31,
   "outside": 15,
   "states": 10,
   "byKind": {
-   "button": 13,
+   "button": 12,
    "slider": 1,
    "choice": 16,
    "switch": 25,
@@ -406,7 +406,6 @@
     "matched": 15,
     "common": 0,
     "oursOff": [
-     "Post-Submit",
      "Squarespace",
      "Other Storage Options"
     ]
@@ -422,16 +421,12 @@
      "Design",
      "Animation"
     ],
-    "control": [
-     "Appear (button)"
-    ],
-    "heading": [
-     "Effects"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [],
     "help": 0,
-    "matched": 17,
+    "matched": 19,
     "common": 0,
     "oursOff": []
    },
@@ -557,7 +552,9 @@
     "help": 0,
     "matched": 10,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "Update"
+    ]
    },
    "Code": {
     "oracleTabs": [
@@ -2043,30 +2040,6 @@
    "name": "Background",
    "kinds": [
     "switch"
-   ]
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Effects",
-   "kinds": []
-  },
-  {
-   "where": "Quote > Design",
-   "name": "Appear",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Effects",
-   "kinds": []
-  },
-  {
-   "where": "Quote phone > Design",
-   "name": "Appear",
-   "kinds": [
-    "button"
    ]
   },
   {
@@ -4751,6 +4724,34 @@
    ]
   },
   {
+   "where": "Chart > Data",
+   "name": "Add a series",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart > Data",
+   "name": "Add a row",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Add a series",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Chart phone > Data",
+   "name": "Add a row",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Code > Content",
    "name": "Expand",
    "kinds": [
@@ -6647,20 +6648,12 @@
    "name": "Add a new animation"
   },
   {
-   "where": "Newsletter > Content",
-   "name": "Post-Submit"
-  },
-  {
    "where": "Newsletter > Storage",
    "name": "Squarespace"
   },
   {
    "where": "Newsletter > Storage",
    "name": "Other Storage Options"
-  },
-  {
-   "where": "Newsletter phone > Content",
-   "name": "Post-Submit"
   },
   {
    "where": "Newsletter phone > Storage",
@@ -6681,6 +6674,14 @@
   {
    "where": "Map phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Chart > Import / Export",
+   "name": "Update"
+  },
+  {
+   "where": "Chart phone > Import / Export",
+   "name": "Update"
   },
   {
    "where": "Code phone > Animation",

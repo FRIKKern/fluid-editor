@@ -1,6 +1,6 @@
 {
-  "pass": 367,
-  "total": 367,
+  "pass": 372,
+  "total": 372,
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -1468,6 +1468,26 @@
     },
     {
       "what": "A right press on a group leaves that block; the paste goes to it",
+      "ok": true
+    },
+    {
+      "what": "Stage square: still after Scale X goes to 150% on On Hover",
+      "ok": true
+    },
+    {
+      "what": "Stage square: still while Preview plays the block",
+      "ok": true
+    },
+    {
+      "what": "Stage square: the mouse on it plays it once, to Scale X 2.25 and back, out in 600 ms at Duration 0.4s",
+      "ok": true
+    },
+    {
+      "what": "Stage square: resting on it, it does not play again",
+      "ok": true
+    },
+    {
+      "what": "Stage square: at Duration 1s it goes out in 1495 ms, as read",
       "ok": true
     }
   ]

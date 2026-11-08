@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 58 changes
-  - X2: after Write and one Escape, a drag from the text opens the editor again (CAP-TEXTPRESS3, read twice fresh) ([#441](https://github.com/FRIKKern/fluid-editor/pull/441))
-  - T12: tab names in every panel sit where the oracle's do, the rest in rgb(102) ([#440](https://github.com/FRIKKern/fluid-editor/pull/440))
+- **Today** · 62 changes
+  - X2: right margin mirror, refit 2 frozen at 12 of 20, not built ([#444](https://github.com/FRIKKern/fluid-editor/pull/444))
+  - T12: Newsletter's tip, Require rows, Post-Submit, phone; undo scored 4 of 6 ([#437](https://github.com/FRIKKern/fluid-editor/pull/437))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

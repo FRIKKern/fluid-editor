@@ -1,0 +1,15 @@
+{
+  "item": "T15",
+  "question": "Refit 1 of the stage square's time by Duration, pushed before CAP-T15STAGE5.json.",
+  "round1": "Scored as committed in CAP-T15STAGE4-PREDICTED.json (time to within 0.5% of the peak, 15%): A 0 of 2, B 1 of 2 (Duration 1s: 1267 ms against 1500, 15.5% off), C 1 of 2 (Duration 0.2s: 267 against 400). That measure stops early on an ease-out, at about 0.83 of its length.",
+  "refit": "Rule B kept; the time is now measured as D in a least-squares fit of p(t) = 1 - (1 - (t - ts) / D)^3 to the forward frames, p = (Scale X - 1) / (peak - 1), up to the first frame at the peak (grid: D 100 to 5000 by 5, ts from the first frame -50 to +400 by 2). Seen with this measure: 0.4s 600, 1s 1495, 0.2s 285.",
+  "rules": {
+    "B": "the stage square goes out in 1.5 times the row's Duration, holds 500 ms, comes back in 1.5 times the Duration",
+    "C": "the Duration plus 200 ms (for contrast)"
+  },
+  "predictions": {
+    "Duration 2s": { "B": 3000, "C": 2200 },
+    "Duration 0.6s": { "B": 900, "C": 800 }
+  },
+  "scoring": "a guess holds when the fitted D is within 10% of it; the hold (first frame back down minus ts + D) is reported, not scored"
+}
