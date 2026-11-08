@@ -291,10 +291,11 @@ export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.s
 // Five menu types whose content sets the height and follows the width (STANDINS.json). The words and
 // the 12 plain tiles are local; no picture or service is behind them.
 const STANDIN = {
-  // Quote and Source as typed (CAP-T12QUOTE.json): a new line is a <br>, and an empty Source takes the figcaption away.
+  // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
+  // shows as a space (CAP-T12QUOTEROWS.json). An empty Source takes the figcaption away.
   quote: (b) => {
     const q = quoteOf(b), lines = (t) => escapeHtml(t).replace(/\n/g, '<br>');
-    return `<figure class="sqs-quote-block-contents"><blockquote><span>“</span>${lines(q.quote)}<span>”</span></blockquote>${q.source ? `<figcaption class="source">— ${lines(q.source)}</figcaption>` : ''}</figure>`;
+    return `<figure class="sqs-quote-block-contents"><blockquote><span>“</span>${lines(q.quote)}<span>”</span></blockquote>${q.source ? `<figcaption class="source">— ${escapeHtml(q.source)}</figcaption>` : ''}</figure>`;
   },
   chart: (b) => chartHtml(b),
   soundcloud: () => '<div class="fe-status"><div class="fe-status-title">SoundCloud Block</div><div class="fe-status-message">Enter a SoundCloud track, playlist, or profile URL.</div></div>',

@@ -182,7 +182,7 @@ viewport(S, 1600, 1400);
   add('Quote: a long quote grows the rows to 10, as read', k.quote === T.afterLong.quote && k.rows === T.afterLong.rows && L.caps[1].box[1] === L.fields[0].box[1] + L.fields[0].box[3] + 44, `${k.rows} ${L.fields[0].box} ${L.caps[1].box}`);
   await toEnd('Source'); await key('Meta+a'); await key('Backspace', 400);
   k = blk();
-  add('Quote: an empty Source takes the figcaption, 9 rows', k.figcaption === T.sourceEmpty.figcaption && k.rows === T.sourceEmpty.rows, JSON.stringify(k));
+  add('Quote: an empty Source takes the figcaption, 9 rows (named miss: 8)', k.figcaption === T.sourceEmpty.figcaption && k.rows === T.sourceEmpty.rows, JSON.stringify(k));
   qs(`document.activeElement.blur(); await sleep(250); return 'true';`);
   const u = qs(`const b = document.getElementById('undo'), r = b.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
   mouse(S, 'move', u[0], u[1]); await pause(60); mouse(S, 'down', u[0], u[1], { buttons: 1 }); await pause(40); mouse(S, 'up', u[0], u[1]); await pause(400);
@@ -191,6 +191,19 @@ viewport(S, 1600, 1400);
   await toEnd('Quote'); await key('Meta+a'); await key('Backspace', 400);
   k = blk();
   add('Quote: an empty Quote, 3 rows, as read', k.quote === T.quoteEmpty.quote && k.rows === T.quoteEmpty.rows, JSON.stringify(k));
+  // Rows from the content (CAP-T12QUOTEROWS.json, refit 1, seen): up as it grows, down to whole rows as it shrinks.
+  const QR = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12QUOTEROWS.json', import.meta.url))).reads;
+  await toEnd('Source'); for (let n = 0; n < 5; n++) { await key('Enter', 60); await key('x', 200); }
+  k = blk();
+  add('Quote: Enter in Source is a plain newline, no rows', k.figcaption === `<figcaption class="source">${QR.sourceText.afterFiveEnters}</figcaption>` && k.rows === QR.sourceUp[4].rows, JSON.stringify(k));
+  for (let n = 0; n < 10; n++) await key('Backspace', 60);
+  await toEnd('Quote'); await key('A', 250);
+  const up = [blk().rows];
+  for (const ch of ['B', 'C', 'D']) { await key('Enter', 60); await key(ch, 300); up.push(blk().rows); }
+  const down = [];
+  for (let n = 0; n < 3; n++) { await key('Backspace', 60); await key('Backspace', 300); down.push(blk().rows); }
+  const want = [QR.quoteA, ...QR.quoteUp].map((r) => r.rows).join() + ' ' + QR.quoteDown.map((r) => r.rows).join();
+  add('Quote: rows grow 3,5,5,6 and shrink 4,4,4, as read (seen)', `${up.join()} ${down.join()}` === want, `${up.join()} ${down.join()} wants ${want}`);
   if (process.env.QUOTE_SHOT) screenshot(S, process.env.QUOTE_SHOT);
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
