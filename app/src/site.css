@@ -645,6 +645,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .sqs-embed-container .sqs-blockStatus, .sqs-code-container .sqs-blockStatus, .sqs-block-markdown .sqs-blockStatus, .removed-script, .sqs-block-video-placeholder--empty, .fluid-image-component-empty-state-node { display: none; }
 .sqs-block-code .sqs-code-container > :first-child, .sqs-block-markdown .sqs-block-content > :first-child { margin-top: 0; } /* the first paragraph sits at the top of the block (CAP-T10PULL.json) */
 .sqs-block-code .sqs-code-container > :last-child, .sqs-block-markdown .sqs-block-content > :last-child { margin-bottom: 0; }
+/* A rule: 75% of the block, centred, 1 tall, its line one pixel of #ccc at its bottom; 168.1 in 224.1 and 282.5 in 376.7 (CAP-93MDEMBED.json, CAP-93HR.json). */
+.sqs-block-markdown hr { box-sizing: content-box; width: 75%; height: 0; margin: 8px auto; border: 0; border-bottom: 1px solid rgb(204, 204, 204); }
 /* What a quote holds doesn't push out of it: a nested quote of 60.8 takes 2 rows (CAP-T10MD.json). Inferred for a Code block in Markdown mode. */
 .sqs-block-code .sqs-code-container blockquote > :first-child, .sqs-block-markdown blockquote > :first-child { margin-top: 0; }
 .sqs-block-code .sqs-code-container blockquote > :last-child, .sqs-block-markdown blockquote > :last-child { margin-bottom: 0; }
