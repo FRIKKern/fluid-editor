@@ -279,7 +279,9 @@ function chartHtml(b) {
   const axis = c.type === 'Pie Chart' ? '' : ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/><text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (n, k = 0) => pal[(c.flip ? n : k) % pal.length];
   let marks = '';
-  if (c.type === 'Bar Chart') marks = all.map((vs, n) => vs.map((v, k) => `<rect x="${L + band * n + band * 0.055 + (band * 0.89 * k) / ns}" y="${y(v)}" width="${(band * 0.89) / ns}" height="${B - y(v)}" fill="${colour(n, k)}" class="fe-chart-bar"/>`).join('')).join('');
+  // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch).
+  const bar = (n, k, v) => { const x = L + band * n + band * 0.055 + (band * 0.89 * k) / ns, w = (band * 0.89) / ns; return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(n, k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B}H${x + w}" stroke="${colour(n, k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
+  if (c.type === 'Bar Chart') marks = all.map((vs, n) => vs.map((v, k) => bar(n, k, v)).join('')).join('');
   else if (c.type === 'Line Chart') marks = Array.from({ length: ns }, (_, k) => { const pts = all.map((vs, n) => `${L + band * (n + 0.5)},${y(vs[k])}`); return `<polyline points="${pts.join(' ')}" fill="none" stroke="${pal[k % pal.length]}" stroke-width="2"/>${pts.map((p, n) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(n, k)}"/>`).join('')}`; }).join('');
   else {
     const sum = rows.reduce((a, [, v]) => a + v, 0) || 1;

@@ -228,6 +228,8 @@ export function dialogHtml(b, tab, pages = []) {
   const cw = d.w - 66;
   const rows = d.tabs ? d.rows[tab] : d.rows;
   const tabs = d.tabs ? `<div class="dl-tabs" role="tablist">${d.tabs.map((t) => `<button type="button" role="tab" class="dl-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-dl-tab="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : '<div class="dl-rule"></div>';
-  const end = Math.max(...rows.map((r) => r.y + (r.k === 'pages' ? 49.5 * pages.length : r.k === 'grid' ? 44 * (dialogValue(b, r.key).length + 1) + 2 : r.h ?? 44)));
+  // Under Chart's grid the panel runs on 79 more than the 34 every dialog ends with: the row + then scrolls it 42 to its end (CAP-T12CHARTCELLS2.json),
+  // and before it the panel stops 2 short of scrolling. Nothing shows there; the 79 is inferred from the scroll.
+  const end = Math.max(...rows.map((r) => r.y + (r.k === 'pages' ? 49.5 * pages.length : r.k === 'grid' ? 44 * (dialogValue(b, r.key).length + 1) + 2 + 79 : r.h ?? 44)));
   return `<div class="dl-title" style="width:${cw}px">${esc(d.title)}</div>${tabs}${rows.map((r) => rowHtml(r, cw, b, pages)).join('')}<div class="dl-end" style="top:${end + 33}px"></div>`;
 }
