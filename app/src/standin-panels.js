@@ -27,7 +27,7 @@ const tile = () => () => `<div class="bp-sp-tile" ${OUT}></div>`;
 const pair = (key, opts, def) => (v) => seg(key, 'Audio Source', opts, def)(v).replace('class="bp-sp-seg"', 'class="bp-sp-seg is-wide"');
 const upload = (text) => () => `<button type="button" class="bp-sp-up" ${OUT}>${pi('<path d="M12 20V6M6 12l6-6 6 6M5 4h14"/>')}<span>${text}</span></button>`;
 const side = (key, label) => (v) => `<div class="bp-sp-side"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></div>`;
-const view = (label) => () => `<button type="button" class="bp-sp-view" aria-label="Navigate to ${label}" data-unbuilt title="Not built yet"><span class="sp-label">${label}</span>${pi('<path d="M10 7l5 5-5 5"/>')}</button>`;
+const view = (label) => () => `<button type="button" class="bp-sp-view" aria-label="Navigate to ${label}" data-sp-view="${label}"><span class="sp-label">${label}</span>${pi('<path d="M10 7l5 5-5 5"/>')}</button>`;
 const when = (test, row) => (v) => (test(v) ? row(v) : '');
 // The older panel look Pricing Plan and Product keep: uppercase captions, rows with a rule under each.
 const cap = (label) => () => `<div class="bp-sp-cap">${label}</div>`;
@@ -70,6 +70,24 @@ const segi = (key, label, opts, def) => (v) => `<div class="bp-sp-seg"><span cla
 const toggleOff = (label) => () => `<div class="sp-row bp-sp-erow is-off"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" disabled><span aria-hidden="true"></span></label></div>`;
 const TEXT_ALIGN = [['left', 'Left Aligned', '<path d="M5 7h14M5 11h9M5 15h14M5 19h9"/>'], ['center', 'Center Aligned', '<path d="M5 7h14M7.5 11h9M5 15h14M7.5 19h9"/>'], ['right', 'Right Aligned', '<path d="M5 7h14M10 11h9M5 15h14M10 19h9"/>']];
 const WALL_ICON = '<path d="M6 5h12v14H6zM12 5v14M12 12h6"/>', INDEX_ICON = '<path d="M6 6h12v5H6zM6 13h12v5H6z"/>';
+// OpenTable, Scheduling and Tock: every row needs an outside account (0005), drawn and faded. Their pictures are plain grey
+// boxes of our own at the read's place (inferred from the read's screenshots).
+const lookup = (label) => () => `<div class="bp-sp-lbox"><input type="text" aria-label="${label}" ${OUT}></div>`;
+const selOut = (label, value) => () => `<div class="bp-sp-boxsel"><span class="sp-label">${label}</span><span class="bp-sp-bsv is-out" ${OUT}><span>${value}</span>${pi('<path d="M7 10l5 5 5-5"/>')}</span></div>`;
+const promo = (pic, title, text, go, have) => () => `<div class="bp-sp-promo${pic}"><div class="bp-sp-promopic"></div><p class="bp-sp-ptitle">${title}</p><p class="bp-sp-ptext">${text}</p><button type="button" class="bp-sp-pgo" ${OUT}>${go}</button><button type="button" class="bp-sp-phave" ${OUT}><span>${have}</span></button></div>`;
+// The views a row opens (CAP-T12READS-G.json): a field under its label; a field to the right of its label; a range in px.
+const lf = (key, label, ph = '') => (v) => `<label class="bp-sp-lf"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}"${ph ? ` placeholder="${ph}"` : ''} autocomplete="off" spellcheck="false"></span></label>`;
+const lta = (key, label, cls, ph = '') => (v) => `<label class="bp-sp-lf ${cls}"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><textarea aria-label="${label}" data-sp-field="${key}"${ph ? ` placeholder="${ph}"` : ''} spellcheck="false">${esc(v[key] ?? '')}</textarea></span></label>`;
+const bare = (key, label) => (v) => `<span class="bp-sp-lfbox bp-sp-bare"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></span>`;
+const sf = (key, label) => (v) => `<label class="bp-sp-sf"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></span></label>`;
+const ssw = (key, label) => (v) => `<div class="bp-sp-sf"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-sp-set="${key}"${v[key] ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`;
+const rpx = (key, label, def, min, max, step) => (v) => `<div class="bp-sp-range bp-sp-rpx"><div class="bp-sp-rhead"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-sp-field="${key}" data-min="${min}" data-max="${max}" value="${v[key] ?? def}"><span class="bp-sp-px">px</span></div><input type="range" aria-label="${label}" data-sp-range="${key}" min="${min}" max="${max}" step="${step}" value="${v[key] ?? def}" style="--p:${(((v[key] ?? def) - min) / (max - min)) * 100}%"></div>`;
+const VIEWS = {
+  Podcast: [note(`These fields become tags for your podcasts RSS<br>feed. Squarespace uses Apple Podcasts<br>standard format. ${link('Learn more')}`, ' bp-sp-mnote bp-sp-vnote'), lf('pcTitle', 'Title'), lf('pcSubtitle', 'Subtitle'), lta('pcSummary', 'Summary', 'is-sum'), lta('pcNotes', 'Episode notes', 'is-notes', 'Write here...'), rule(),
+    boxsel('pcType', 'Episode type', ['Full (default)', 'Trailer', 'Bonus'], 'Full (default)'), sf('pcSeason', 'Season number'), sf('pcEpisode', 'Episode number'), sf('pcDuration', 'Duration'), ssw('pcExplicit', 'Explicit content'), rule(),
+    sf('pcSize', 'File size'), boxsel('pcMime', 'Mime type', ['audio/mpeg (.mp3)', 'Other'], 'Other'), bare('pcMimeOther', 'Mime type'), rule(), lf('pcAnalytics', 'Podcast analytics URL', 'https://')],
+  'Size and Spacing': [rpx('smColumn', 'Column Width', 270, 50, 600, 10), rpx('smGutter', 'Gutter Width', 60, 0, 100, 1)],
+};
 const balign = (key, label) => (v) => `<div class="sp-row bp-sp-erow bp-sp-balign"><span class="sp-label">${label}</span><span class="bp-sp-bicons" role="radiogroup" aria-label="${label}">${['left', 'center', 'right'].map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? 'left') === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? 'left') === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</span></div>`;
 
 // Per block: its tabs (Animation is the shared list), its Content rows, and its Design rows before the shared ones.
@@ -96,7 +114,7 @@ export const STANDIN_PANELS = {
   },
   Audio: {
     // Upload File would put a file on the site, Add File Link's field loads an outside file (both 0005): the choice keeps its value.
-    // Podcast opens a view of its own: drawn, not built.
+    // Podcast opens a view of its own (VIEWS below).
     content: [pair('auSource', [['embedded', 'Upload File'], ['external', 'Add File Link']], 'embedded'), upload('Upload File'), head('Elements'), side('auTitle', 'Title'), side('auArtist', 'Artist'), toggle('auDownload', 'Download Link'), rule(), head('Metadata'), view('Podcast')],
     // Classic hides the Color row (CAP-T12PRESS-D.json).
     design: [head('Appearance'), seg('auStyle', 'Style', [['legacy', 'Classic'], ['minimal', 'Minimal']], 'minimal'), when((v) => (v.auStyle ?? 'minimal') !== 'legacy', seg('auColor', 'Color', [['dark', 'Dark'], ['light', 'Light']], 'dark')), rule()], transforms: true,
@@ -118,7 +136,7 @@ export const STANDIN_PANELS = {
   Summary: {
     tabs: ['Content', 'Design'],
     // Its collection menus need a collection (0005): faded. Its rows are the fixes lane's (resize) and move by presses on the
-    // oracle with no rule found (CAP-T12PRESS-B.json): named. Size and Spacing opens a view of its own: drawn, not built.
+    // oracle with no rule found (CAP-T12PRESS-B.json): named. Size and Spacing opens a view of its own (VIEWS below).
     content: [note(`Display content from other pages on your site,<br>such as blog posts, products, events, or videos.<br>${link('Learn More')}`, ' bp-sp-mnote'), dsel('There are no Collection Pages'), cap('Primary Metadata'), dsel('No metadata found'), cap('Secondary Metadata'), dsel('No metadata found')],
     design: [layout('smLayout', ['Wall', 'Carousel', 'List', 'Grid'], 'Wall', WALL_ICON), range('smItems', 'Number of Items', 3, 1, 30), cap('Text'), icons('smAlign', 'Text', TEXT_ALIGN, 'left'), cap('Elements'), erow('smTitle', 'Title', true), erow('smImage', 'Featured Image', true), erow('smExcerpt', 'Excerpt', true), cap('Metadata Position'), vsel('smMeta', { label: 'Metadata Position', list: ['Above Title', 'Below Title', 'Below Content'] }, 'Below Content'), view('Size and Spacing')], look: true,
   },
@@ -126,6 +144,19 @@ export const STANDIN_PANELS = {
     // Collection needs a collection (0005). Dates ascending is disabled as read. Rows: named (CAP-T12PRESS-B.json).
     content: [phead('Collection'), box('<span>No collections found</span>'), rule(), phead('Organization'), boxsel('arGroup', 'Group by', ['Month', 'Year', 'Author', 'Category', 'Tag'], 'Month'), rule(), phead('Elements'), toggleOff('Dates ascending'), erow('arDate', 'Item date', true), erow('arCount', 'Group count', false)],
     design: [head('Layout'), layout('arLayout', ['Index', 'List', 'Drop down'], 'Index', INDEX_ICON), segi('arColumns', 'Columns', [['false', 'One column', '<path d="M6 7h12M6 10.3h12M6 13.6h12M6 17h12"/>'], ['true', 'Two columns', '<path d="M5 7h6M5 10.3h6M5 13.6h6M5 17h6M13 7h6M13 10.3h6M13 13.6h6M13 17h6"/>']], 'true'), segi('arAlign', 'Alignment', ['left', 'center', 'right'].map((o) => [o, o, ALIGN_ICONS[o]]), 'left'), rule(), head('Appearance')], look: true, transforms: true,
+  },
+  OpenTable: {
+    content: [head('OpenTable Restaurant ID'), lookup('OpenTable Restaurant ID'), rule(), head('Localization'), selOut('Domain', 'US and Canada - opentable.com'), selOut('Language', 'English'), rule(), head('Hide Elements'), toggleOff('Title'), toggleOff('Icons')],
+    design: [], transforms: true,
+  },
+  Scheduling: {
+    tabs: ['Content'],
+    content: [promo(' is-sched', 'Get started with Acuity Scheduling', 'Allow visitors to directly book appointments', 'Set up', 'Add existing schedule')],
+  },
+  Tock: {
+    // No tabs: the panel is the promo alone.
+    tabs: ['Content'], bare: true,
+    content: [promo(' is-tock', 'Join Tock', 'The reservation platform built for hospitality. Restaurants, bars, wineries, and hotels (F&amp;B) thrive with Tock.', 'Learn more', 'Already a customer')],
   },
   Product: {
     // Create new product makes a product in the store (0005). Its rows follow neither the switches nor its content box by the
@@ -139,3 +170,5 @@ export const standinTabs = (name) => STANDIN_PANELS[name].tabs || ['Content', 'D
 export const standinContentHtml = (c) => `<div class="bp-sp">${STANDIN_PANELS[c.name].content.map((r) => r(c.values)).join('')}</div>`;
 export const standinHelpHtml = (c) => `<div class="bp-sp bp-sp-help">${STANDIN_PANELS[c.name].help.map((r) => r(c.values)).join('')}</div>`;
 export const standinDesignHtml = (c) => `<div class="bp-sp bp-sp-design">${STANDIN_PANELS[c.name].design.map((r) => r(c.values)).join('')}</div>`;
+export const standinViewHtml = (c, label) => `<div class="bp-ishape-head"><button type="button" class="bp-back bp-fx-back" data-sp-view="back">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>${label}</span></div><div class="sp-body"><div class="bp-sp bp-sp-v">${VIEWS[label].map((r) => r(c.values)).join('')}</div></div>`;
+export const standinHasView = (label) => !!VIEWS[label];
