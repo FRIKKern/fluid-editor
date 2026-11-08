@@ -1,0 +1,154 @@
+{
+  "item": "T15",
+  "kind": "prediction",
+  "note": "Predictions before the read (CAP-T15BLEND.json). A new white Shape on Gestures Probe, its section (181, 100, 247) as read in CAP-89MULTIPLY.json. Rule: the block's mix-blend-mode is the mode's CSS name and blends with everything painted under it in the section, nothing isolated: each pixel is the CSS compositing formula of white over what lies under. Ours does this today. Pass: computed mix-blend-mode equal, and each channel within 3 of the predicted pixel at the shape's middle.",
+  "modes": {
+    "Normal": {
+      "css": "normal",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    },
+    "Multiply": {
+      "css": "multiply",
+      "pixel": [
+        181,
+        100,
+        247
+      ]
+    },
+    "Screen": {
+      "css": "screen",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    },
+    "Overlay": {
+      "css": "overlay",
+      "pixel": [
+        255,
+        200,
+        255
+      ]
+    },
+    "Darken": {
+      "css": "darken",
+      "pixel": [
+        181,
+        100,
+        247
+      ]
+    },
+    "Lighten": {
+      "css": "lighten",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    },
+    "Color Dodge": {
+      "css": "color-dodge",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    },
+    "Color Burn": {
+      "css": "color-burn",
+      "pixel": [
+        181,
+        100,
+        247
+      ]
+    },
+    "Hard Light": {
+      "css": "hard-light",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    },
+    "Soft Light": {
+      "css": "soft-light",
+      "pixel": [
+        215,
+        160,
+        251
+      ]
+    },
+    "Difference": {
+      "css": "difference",
+      "pixel": [
+        74,
+        155,
+        8
+      ]
+    },
+    "Exclusion": {
+      "css": "exclusion",
+      "pixel": [
+        74,
+        155,
+        8
+      ]
+    },
+    "Hue": {
+      "css": "hue",
+      "pixel": [
+        140,
+        140,
+        140
+      ]
+    },
+    "Saturation": {
+      "css": "saturation",
+      "pixel": [
+        140,
+        140,
+        140
+      ]
+    },
+    "Color": {
+      "css": "color",
+      "pixel": [
+        140,
+        140,
+        140
+      ]
+    },
+    "Luminosity": {
+      "css": "luminosity",
+      "pixel": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "overBlock": {
+    "setup": "a second new white Shape dragged to half cover the first, the second on Difference",
+    "overlap": [
+      0,
+      0,
+      0
+    ],
+    "topOnly": [
+      74,
+      155,
+      8
+    ],
+    "bottomOnly": [
+      255,
+      255,
+      255
+    ],
+    "why": "Difference of white over white is black: the top Shape blends with the Shape under it, not only with the section."
+  }
+}

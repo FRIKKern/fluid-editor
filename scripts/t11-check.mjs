@@ -85,7 +85,7 @@ for (const [name, v] of [['Square', 'square'], ['Circle', 'circle'], ['Rounded',
   r = soc();
   add(`${name}: S is 28, gap 8, radius ${F.social.radius[name]}`, near(r.first[2], 28) && r.gap === '8px' && r.radius === F.social.radius[name] && r.cls.includes(`social-icons-shape-${v}`) && r.cls.includes('social-icons-style-knockout'), `${r.first} ${r.gap} ${r.radius} ${r.cls}`);
   add(`${name}: svg fills the link, mask cut`, nearAll(r.svg, [0, 0, 28, 28]) && r.mask, `${r.svg} ${r.mask}`);
-  if (v === 'square') add('Square: a scale of 1 (96)', r.turn === 'matrix(1, 0, 0, 1, 0, 0)', r.turn); // SAMPLE-ROWS.json round 3
+  add(`${name}: a scale of 1, as read (96)`, r.turn === 'matrix(1, 0, 0, 1, 0, 0)', r.turn); // Square: SAMPLE-ROWS.json round 3; Circle, Rounded: CAP-T15CHEAP.json
 }
 for (const z of ['XS', 'M', 'L', 'XL']) {
   await set('iconSize', z);

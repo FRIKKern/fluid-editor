@@ -1,0 +1,332 @@
+{
+ "item": "T15",
+ "capturedAt": "2026-11-08",
+ "question": "The reads CAP-T6FIELDS.json left unread: a drag past a bar's end on Scale, Offset and Skew; Undo with the focus left in a field after a drag; thousands commas on Animation's fields. Also T11's Circle and Rounded social borders (difference 96). Predicted first in CAP-T15CHEAP-PREDICTED.json.",
+ "how": "A new Shape on the probe page (a new Social Links block for social), Design tab, real mouse on each field's top edge, 0.4 a pixel. Each field typed near its bar's end, then dragged 50px past it, read at 20 and 40px, held, and let go. Every press had an on-top check. Left by Exit, then Exit Without Saving; the page read 1 block after a reload.",
+ "past": {
+  "rule": "A drag stops at the bar's ends: Scale 0 and 200%, Offset -1,000 and 1,000px, Skew -60 and 60°. The focus is on the input after, caret at the end.",
+  "reads": {
+   "Scale X from 190, +50px": {
+    "typed": "190%",
+    "path": [
+     [
+      20,
+      "198%"
+     ],
+     [
+      40,
+      "200%"
+     ]
+    ],
+    "held": "200%",
+    "heldBar": [
+     0,
+     88
+    ],
+    "after": "200%",
+    "focus": {
+     "tag": "INPUT",
+     "value": "200%",
+     "caret": 4
+    }
+   },
+   "Scale Y from 10, -50px": {
+    "typed": "10%",
+    "path": [
+     [
+      -20,
+      "2%"
+     ],
+     [
+      -40,
+      "0%"
+     ]
+    ],
+    "held": "0%",
+    "heldBar": [
+     -88,
+     88
+    ],
+    "after": "0%",
+    "focus": {
+     "tag": "INPUT",
+     "value": "0%",
+     "caret": 2
+    }
+   },
+   "Offset X from 990, +50px": {
+    "typed": "990px",
+    "path": [
+     [
+      20,
+      "998px"
+     ],
+     [
+      40,
+      "1,000px"
+     ]
+    ],
+    "held": "1,000px",
+    "heldBar": [
+     0,
+     88
+    ],
+    "after": "1,000px",
+    "focus": {
+     "tag": "INPUT",
+     "value": "1,000px",
+     "caret": 7
+    }
+   },
+   "Offset Y from -990, -50px": {
+    "typed": "-990px",
+    "path": [
+     [
+      -20,
+      "-998px"
+     ],
+     [
+      -40,
+      "-1,000px"
+     ]
+    ],
+    "held": "-1,000px",
+    "heldBar": [
+     -88,
+     88
+    ],
+    "after": "-1,000px",
+    "focus": {
+     "tag": "INPUT",
+     "value": "-1,000px",
+     "caret": 8
+    }
+   },
+   "Skew X from 55, +50px": {
+    "typed": "55°",
+    "path": [
+     [
+      20,
+      "60°"
+     ],
+     [
+      40,
+      "60°"
+     ]
+    ],
+    "held": "60°",
+    "heldBar": [
+     0,
+     88
+    ],
+    "after": "60°",
+    "focus": {
+     "tag": "INPUT",
+     "value": "60°",
+     "caret": 3
+    }
+   },
+   "Skew Y from -55, -50px": {
+    "typed": "-55°",
+    "path": [
+     [
+      -20,
+      "-60°"
+     ],
+     [
+      -40,
+      "-60°"
+     ]
+    ],
+    "held": "-60°",
+    "heldBar": [
+     -88,
+     88
+    ],
+    "after": "-60°",
+    "focus": {
+     "tag": "INPUT",
+     "value": "-60°",
+     "caret": 4
+    }
+   }
+  }
+ },
+ "undo": {
+  "field": "Rotate",
+  "typed": "10°",
+  "drag": {
+   "path": [
+    [
+     20,
+     "18°"
+    ],
+    [
+     40,
+     "26°"
+    ]
+   ],
+   "held": "30°",
+   "after": "30°",
+   "focus": {
+    "tag": "INPUT",
+    "value": "30°",
+    "caret": 3
+   }
+  },
+  "afterCmdZ": {
+   "value": "10°",
+   "focus": {
+    "tag": "INPUT",
+    "value": "10°",
+    "caret": 3
+   }
+  },
+  "afterSecondCmdZ": {
+   "value": "0°",
+   "focus": {
+    "tag": "INPUT",
+    "value": "0°",
+    "caret": 2
+   }
+  },
+  "rule": "Cmd+Z is the page's undo: the drag goes as one step, then the typing. The field keeps the focus, caret at the end.",
+  "notRead": "The block's transform after each Cmd+Z: the read picked another block. Cmd+Z with typing not yet taken."
+ },
+ "commas": {
+  "tab": "End, after the hover-1 tile",
+  "before": [
+   "100%",
+   "0°",
+   "110%",
+   "110%",
+   "0px",
+   "0px",
+   "0°",
+   "0°"
+  ],
+  "End Offset X typed 2000": "2,000px",
+  "End Rotate typed 2000": "2,000°",
+  "after": [
+   "100%",
+   "2,000°",
+   "110%",
+   "110%",
+   "2,000px",
+   "0px",
+   "0°",
+   "0°"
+  ]
+ },
+ "social": {
+  "controls": [
+   {
+    "label": "None",
+    "value": "icon-only",
+    "on": true
+   },
+   {
+    "label": "Square",
+    "value": "real-square",
+    "on": false
+   },
+   {
+    "label": "Circle",
+    "value": "round",
+    "on": false
+   },
+   {
+    "label": "Rounded",
+    "value": "square",
+    "on": false
+   }
+  ],
+  "None": {
+   "classes": [
+    "social-icons-style-regular"
+   ],
+   "link": [
+    20,
+    20
+   ],
+   "iconDiv": {
+    "transform": "matrix(2, 0, 0, 2, 0, 0)",
+    "position": "absolute"
+   },
+   "svg": [
+    -10,
+    -10,
+    40,
+    40
+   ]
+  },
+  "Square": {
+   "classes": [
+    "social-icons-shape-square",
+    "social-icons-style-knockout"
+   ],
+   "link": [
+    28,
+    28
+   ],
+   "iconDiv": {
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "position": "absolute"
+   },
+   "svg": [
+    0,
+    0,
+    28,
+    28
+   ]
+  },
+  "Circle": {
+   "classes": [
+    "social-icons-shape-circle",
+    "social-icons-style-knockout"
+   ],
+   "link": [
+    28,
+    28
+   ],
+   "iconDiv": {
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "position": "absolute"
+   },
+   "svg": [
+    0,
+    0,
+    28,
+    28
+   ]
+  },
+  "Rounded": {
+   "classes": [
+    "social-icons-shape-rounded",
+    "social-icons-style-knockout"
+   ],
+   "link": [
+    28,
+    28
+   ],
+   "iconDiv": {
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "position": "absolute"
+   },
+   "svg": [
+    0,
+    0,
+    28,
+    28
+   ]
+  },
+  "rule": "Every border (Square, Circle, Rounded) takes the knockout style and the icon's div to scale 1, with a 28px link; None keeps scale 2 and a 20px link."
+ },
+ "scores": {
+  "note": "Against CAP-T15CHEAP-PREDICTED.json, first round.",
+  "past": "1 of 6: only Scale Y (0%). The drag stops at every end; the prediction had it run on.",
+  "undo": "1 of 2: the value went back as predicted; the focus stayed, not predicted.",
+  "commas": "2 of 2",
+  "social": "2 of 2"
+ }
+}

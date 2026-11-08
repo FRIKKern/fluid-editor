@@ -381,6 +381,55 @@ export const RECIPES = {
     return [['enter'], ...TWO, ...R('start'), ['pick', 0, 'new'], ...GROW('top'),
       ['exit'], ['enter'], ...TWO, ['pick', 0, 0], ['pause', 300], ['read', 'under, picked', { areas: 0, has: ['Bold', 'Write'] }], ...GROW('under')];
   })() },
+  'CAP-R2WIDEFALL': { page: 'Gestures Probe', question: 'R2: a Text widened 3 columns falls 2 rows: which blocks below rise? Placed after the typing (1 row under, far under, lower to the right), pushed by the typing (CAP-TEXTWIDTH6.json s10 again), pushed by 1 then falling 2. Predicted first: rise by the fall as a typing shrink, or back up only by what the text pushed.', steps: (() => {
+    const GARDEN = "A garden keeps its own time, and the paths that cross it follow the slope of the hill more than any plan drawn at a desk. Rain moves the gravel, roots lift the stones, and each spring the beds sit a little lower than they did before. The gate at the far end opens onto a lane that runs past two farms and an old mill, and after that the road climbs through birch and pine until the valley is out of sight. A garden keeps its own time, and the paths that cross it follow the slope of the hill more than any plan drawn at a desk. Rain moves the gravel, roots lift the stones, and each spring the beds sit a little lower than they did before. Nobody who walks there in the morning hurries, and the light comes in low across the wet grass.";
+    const READ = (name) => [['read', name, { stack: 0, section: 0, textH: [0, 0] }]];
+    const TYPED = [['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', GARDEN], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const PLACE = (type, dx, dy) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const WIDEN = (name) => [...READ(`${name} before`), ['pick', 0, 0], ['drag', 0, 0, 'e', 176.34, 0], ...READ(`${name} held`), ['press', 'Escape'], ['deselect', 0], ...READ(`${name} let go`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    return [['enter'], ['blank'], ...TYPED, ...PLACE('Line', 0, 370), ...WIDEN('c1 Line 1 row under'),
+      ...NEW, ...TYPED, ...PLACE('Shape', 0, 500), ...WIDEN('c2 Shape far under'),
+      ...NEW, ...PLACE('Shape', 0, 500), ...TYPED, ...WIDEN('c3 Shape pushed by the typing'),
+      ...NEW, ...TYPED, ...PLACE('Shape', 705.4, 370), ...WIDEN('c4 Shape lower to the right'),
+      ...NEW, ...TYPED, ...PLACE('Shape', 0, 370), ['pick', 0, 0], ['click', 'Write'], ['press', 'Meta+ArrowDown'], ...FAST(2), ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ...WIDEN('c5 Shape pushed by 1')];
+  })() },
+  'CAP-R2WIDEDROP': { page: 'Gestures Probe', question: 'R2: which widening drops keep their rows until let go? A short Text widened 1 to 6 columns (CAP-TEXTWIDTH7.json f4, f3, f7 again), held at 1 and 4 with a read while the pointer is down, and the lorem Text widened 1 (CAP-TEXTWIDTH4.json m again), held, and moved a column right first. Predicted first: ours falls at the drop every time.', steps: (() => {
+    const T3 = "Short note about the mill road and the birch trees above it.";
+    const LOREM = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore";
+    const READ = (name) => [['read', name, { stack: 0, section: 0, textH: [0, 0] }]];
+    const TYPED = (text) => [['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LETGO = (name) => [['press', 'Escape'], ['deselect', 0], ...READ(`${name} let go`)];
+    const WIDEN = (name, cols) => [['pick', 0, 0], ['drag', 0, 0, 'e', 58.78 * cols, 0], ...READ(`${name} held`), ...LETGO(name)];
+    const HOLD = (name, cols) => [['hold', 0, 0, 'e', 58.78 * cols, 0], ...READ(`${name} pointer down`), ['release'], ...READ(`${name} held`), ...LETGO(name)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      ...[1, 2, 3, 4, 5, 6].map((k) => [...TYPED(T3), ...WIDEN(`a${k} T3 wider ${k}`, k)]),
+      [...TYPED(T3), ...HOLD('a7 T3 hold wider 1', 1)],
+      [...TYPED(T3), ...HOLD('a8 T3 hold wider 4', 4)],
+      [...TYPED(LOREM), ...WIDEN('b1 lorem wider 1', 1)],
+      [...TYPED(LOREM), ...HOLD('b2 lorem hold wider 1', 1)],
+      [...TYPED(LOREM), ['drag', 0, 0, 'middle', 58.78, 0], ['press', 'Escape'], ['deselect', 0], ...READ('b3 lorem moved right'), ...WIDEN('b3 lorem moved, wider 1', 1)],
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2DELETE': { page: 'Gestures Probe', question: 'A2: a block taken away when the phone has overlap. Candidate D, predicted first from our code: each block below rises by the rows the gone block held above its top that no other block covers. The older rule moved them by its height, no higher than its start. Shape, Button, Code and Line as in CAP-A2ROUND2 f2; then a phone resize, a delete, a read.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const BASE = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Button'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 472, 0], ['press', 'Escape'], ['deselect', 0],
+      ['add', 0, 'Code'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 574], ['press', 'Escape'], ['deselect', 0]];
+    const TALL = (k, px) => [['view', 'Mobile'], ['select', 0, k], ['drag', 0, k, 's', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const GONE = (view, k, name) => [['view', view], ['select', 0, k], ['press', 'Delete'], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop'], ...READ(name)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...BASE, ...TALL(1, 35), ['view', 'Desktop'], ...READ('d1 Code one row taller, before'), ...GONE('Desktop', 1, 'd1 Code gone')],
+      [...BASE, ...TALL(0, 105), ['view', 'Desktop'], ...READ('d2 Shape over part of Code, before'), ...GONE('Desktop', 1, 'd2 Code gone')],
+      [...BASE, ...TALL(0, 105), ...READ('d3 Shape over part of Code, before'), ...GONE('Mobile', 1, 'd3 Code gone on the phone')],
+      [...BASE, ...READ('d4 no overlap, before'), ...GONE('Desktop', 1, 'd4 Code gone')],
+      [...BASE, ...TALL(0, 245), ['view', 'Desktop'], ...READ('d5 Shape over Code, before'), ...GONE('Desktop', 1, 'd5 Code gone')],
+      [...BASE, ...TALL(1, 280), ['view', 'Desktop'], ...READ('d6 Code over Line, before'), ...GONE('Desktop', 2, 'd6 Line gone')],
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

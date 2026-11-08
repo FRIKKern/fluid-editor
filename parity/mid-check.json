@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 855,
+  "pass": 893,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 862,
+  "total": 900,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2676,6 +2676,14 @@
       "diffs": []
     },
     {
+      "name": "Y4 after a reload, Cmd+V with nothing selected",
+      "diffs": []
+    },
+    {
+      "name": "Y4 after a reload, Cmd+V on a selected block",
+      "diffs": []
+    },
+    {
       "name": "E7 the list groups",
       "diffs": []
     },
@@ -2997,6 +3005,58 @@
     },
     {
       "name": "E7 CAP-E7SCORE a short typed link, on the row",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX box",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX copy",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX remove link",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX reopened after remove",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX2 box",
+      "diffs": []
+    },
+    {
+      "name": "E7 CAP-E7BOX2 copy, 3 s later",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: two Shapes stacked",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: the editor",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: typed",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: Enter closes it",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: reopened, the box",
+      "diffs": []
+    },
+    {
+      "name": "E7 Stack: a press closes it",
+      "diffs": []
+    },
+    {
+      "name": "E7 a press on the row opens the link",
       "diffs": []
     },
     {
@@ -3392,6 +3452,26 @@
       "diffs": []
     },
     {
+      "name": "R2 c1 Line 1 row under, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c2 Shape far under, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c3 Shape pushed by the typing, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c4 Shape lower to the right, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 c5 Shape pushed by 1, widened 3",
+      "diffs": []
+    },
+    {
       "name": "X2 Shape south 35 down",
       "diffs": []
     },
@@ -3429,6 +3509,66 @@
     },
     {
       "name": "X2 Text south 160 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 20 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 5 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 10 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 15 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 60 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 60 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text south-west 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text south-west 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-west 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-west 60 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text east 60 right",
       "diffs": []
     },
     {
@@ -3917,6 +4057,18 @@
     },
     {
       "name": "next gesture after a short Text n5",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: a press, 11 px, let go",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: a press, 14 px, let go",
+      "diffs": []
+    },
+    {
+      "name": "selected on let go: c 35, 70 px, let go",
       "diffs": []
     }
   ]

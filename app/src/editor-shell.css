@@ -680,7 +680,7 @@ body.is-preview #section-chrome, body.is-preview #block-toolbar, body.is-preview
 .lk-row { display: flex; align-items: center; gap: 8px; margin-top: 11px; height: 44px; background: #f2f2f2; border-radius: 3px; padding: 0 8px 0 11px; }
 .lk-row input, .lk-row textarea { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; color: #0e0e0e; }
 .lk-clear { border: 0; background: none; font-size: 18px; color: #6f6f6f; cursor: pointer; }
-.lk-clear[hidden] { display: none; }
+.lk-clear[hidden], .lk-input:placeholder-shown + .lk-clear { display: none; } /* an empty field shows no × (CAP-E7BOX2.json, CAP-E7REOPEN2.json) */
 .lk-newtab { display: flex; align-items: center; justify-content: space-between; width: 170px; height: 44px; margin-top: 7px; color: #0e0e0e; }
 .lk-box { appearance: none; position: relative; width: 28px; height: 14px; margin: 0; border-radius: 7px; background: #6f6f6f; cursor: pointer; }
 .lk-box::after { content: ''; position: absolute; left: 2px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fff; }
@@ -1895,7 +1895,7 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .code-modal-box.is-md .bp-code { flex: 0 0 498px; }
 .link-popover.is-md { z-index: 100001; width: 328px; min-height: 0; padding: 0 26px 27px; }
 .link-popover.is-md .lk-head { height: 54px; padding-top: 26px; }
-.link-popover.is-md .lk-newtab, .link-popover.is-md .lk-input:placeholder-shown + .lk-clear { display: none; }
+.link-popover.is-md .lk-newtab { display: none; }
 .link-popover.is-md .lk-pages { left: 26px; margin-top: 7px; }
 .link-popover.is-md .lk-page { width: 257px; margin-left: 2px; }
 .link-popover.is-summary { height: 131px; padding: 0; }

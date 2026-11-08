@@ -1,0 +1,294 @@
+{
+  "item": "A2",
+  "question": "A2: a block taken away when the phone has overlap. D (ours, from our code at this commit): each block below rises by the rows the gone block held above its top that no other block covers; fitted on CAP-A2ROUND2 f2 and f3 (seen). Older: by its height, no higher than its start. Scored: the phone area of each block left, by z, on the 6 gone reads; d4 has no overlap and both give the same.",
+  "predicted": {
+    "d1 Code one row taller, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/14/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d1 Code gone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "7/2/8/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "8/2/10/10"
+        }
+      ],
+      "older": {
+        "2": "7/2/9/10",
+        "4": "7/2/8/10"
+      }
+    },
+    "d2 Shape over part of Code, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/10/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d2 Code gone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/10/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "10/2/11/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "11/2/13/10"
+        }
+      ],
+      "older": {
+        "2": "8/2/10/10",
+        "4": "7/2/8/10"
+      }
+    },
+    "d3 Shape over part of Code, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/10/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d3 Code gone on the phone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/10/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "10/2/11/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "11/2/13/10"
+        }
+      ],
+      "older": {
+        "2": "8/2/10/10",
+        "4": "7/2/8/10"
+      }
+    },
+    "d4 no overlap, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d4 Code gone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "7/2/8/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "8/2/10/10"
+        }
+      ],
+      "older": {
+        "2": "8/2/10/10",
+        "4": "7/2/8/10"
+      }
+    },
+    "d5 Shape over Code, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/14/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d5 Code gone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/14/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "older": {
+        "2": "8/2/10/10",
+        "4": "7/2/8/10"
+      }
+    },
+    "d6 Code over Line, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/21/10"
+        },
+        {
+          "z": 4,
+          "desktop": "15/2/16/6",
+          "phone": "13/2/14/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "d6 Line gone": {
+      "D": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/21/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "14/2/16/10"
+        }
+      ],
+      "older": {
+        "2": "13/2/15/10",
+        "3": "7/2/21/10"
+      }
+    }
+  }
+}

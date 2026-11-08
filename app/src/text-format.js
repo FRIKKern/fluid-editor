@@ -465,7 +465,7 @@ export function toggleWrap(doc, root, sel, kind) {
 
 // The oracle writes the formatting properties first and white-space last, with no trailing
 // semicolon, after any data-indent attribute: style="margin-left: 40px; white-space: pre-wrap".
-function setStyleProp(el, prop, value) {
+export function setStyleProp(el, prop, value) {
   const props = { 'margin-left': el.style.marginLeft, 'text-align': el.style.textAlign, [prop]: value };
   const parts = Object.entries(props).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`);
   el.removeAttribute('style');

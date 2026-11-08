@@ -34,7 +34,7 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
@@ -153,8 +153,15 @@ function phoneFollowsMove(s, was) {
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
-// A drag leaves the focus in Animation's field, and a focused field keeps the panel from redrawing.
-const leaveAnimField = () => { if (document.activeElement?.matches?.('#block-panel [data-afield]')) document.activeElement.blur(); };
+// A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
+// value undone, keeps the focus and puts the caret at its end (CAP-T15CHEAP.json, read on Design; inferred on Animation's fields).
+const leaveField = () => {
+  const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
+  if (!f) return null;
+  f.blur();
+  return f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+};
+const backToField = (q) => { if (q) caretAtEnd(blockPanel.querySelector(q)); };
 function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
@@ -166,7 +173,7 @@ function undo(button = false) {
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
   stored = null;
-  leaveAnimField();
+  const held = leaveField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
@@ -174,7 +181,7 @@ function undo(button = false) {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed || bare) select(null);
+  if (ed || bare) select(null); else backToField(held);
 }
 function redo() {
   const ed = editing;
@@ -182,7 +189,7 @@ function redo() {
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
   stored = null;
-  leaveAnimField();
+  const held = leaveField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
   model = JSON.parse(redoStack.pop());
@@ -192,7 +199,7 @@ function redo() {
   if (ed) { select(null); return; }
   // A block that comes back comes back selected (CAP-Y2KEYS.json).
   const back = model.sections.flatMap((o) => o.blocks.filter((x) => !had.has(x.id)).map((x) => ({ sid: o.id, bid: x.id })));
-  if (back.length === 1) select(back[0]);
+  if (back.length === 1) select(back[0]); else backToField(held);
 }
 
 // ---------- rendering ----------
@@ -1014,6 +1021,9 @@ function onUp(e) {
     gesture = null;
     if (g.pick) select(g.pick);
     if (pressFresh) { pressFresh = false; placeChrome(); }
+    // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
+    // A press with no move is not read.
+    if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
     if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1033,14 +1043,17 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
-  // A Text let go off its south-east corner, right of its old right side, is not selected; off its east side it is
-  // (CAP-X2STEPS.json: se 20, 40, 60, 80 and 60 again right, e 60). Left, up, down and the other corners are not read.
-  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && g.dir === 'se' && e.clientX - g.right0 > LET_GO_RIGHT) select(null);
+  // A Text let go off a bottom corner is not selected, whichever way it was pulled: se 5 to 80 right, 60 left, up and
+  // down, sw 60 left and down. Off a top corner it stays level with the old top (ne 60 right, nw 60 left) and is not
+  // selected 60 above it (ne, nw 60 up). Off its east side it stays (CAP-X2STEPS.json, CAP-X2EDGES.json).
+  // Not read: a top corner pulled down, between level and 60 above, and touch.
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
-const LET_GO_RIGHT = 10; // a Text's south-east corner: 20 did, under 20 is not read
+const LET_GO_ABOVE = 30; // a Text's top corners: level with the old top stays selected, 60 above does not
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1059,13 +1072,15 @@ function fitTextRows(s, b, g) {
   // An Instagram post follows its width, both ways (STANDINS.json).
   const lost = b.type !== 'text' ? span - Math.max(2, need) : narrowing ? span - Math.max(g.orig[2] - g.orig[0], need) : need < g.need0 ? Math.min(span - 1, Math.ceil((g.height0 - textHeight(b)) / m.pitch)) : 0;
   if (!lost) return;
-  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2]));
-  const before = lowest();
+  // A Text that falls on widening moves the blocks below as a shrink by typing does, and the section gives up rows as its
+  // lowest block rises (CAP-R2WIDEFALL.json: 1 row under, 4 under, pushed by the typing, lower to the right; alone, 12 go
+  // to 8 in CAP-TEXTWIDTH.json). Not built: on the saved demo section the blocks below stay (CAP-TEXTWIDTH2.json).
+  const fall = lost > 0 && !narrowing;
+  if (fall && b.type === 'text') moveWithText(s, b, a, -lost);
+  const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
   a[2] -= lost;
-  // The section gives up rows only as its lowest block rises (CAP-TEXTWIDTH2.json: 18 rows stay
-  // with other blocks lower down; alone, 12 go to 8).
-  if (lost > 0 && !narrowing) s.rows[bp] -= before - lowest();
-  else { s.rows[bp] = g.rows0; growRows(s); }
+  if (fall && b.type !== 'text') s.rows[bp] -= before - lowest();
+  else if (!fall) { s.rows[bp] = g.rows0; growRows(s); }
   renderSectionDom(s.id);
 }
 
@@ -1309,7 +1324,7 @@ function startResize(e, dir) {
   if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
   const q0 = blockEl(held.id).getBoundingClientRect();
   gesture.bottom0 = q0.bottom;
-  gesture.right0 = q0.right;
+  gesture.top0 = q0.top;
   // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
   if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
@@ -2042,12 +2057,15 @@ blockPanel.addEventListener('pointerdown', (e) => {
       shown(v, CORNER_RANGE, v !== 0);
     } else if (key) {
       const v = scrubbed(start, dx, key), pose = /:(\d)/.exec(key);
-      input.value = v;
+      input.value = commas(v);
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
       shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start.replace(/,/g, '')) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). Inferred: a value typed
+      // past an end is not pulled back by the drag, which only moves it toward the bar.
+      const f = DESIGN_FIELDS.find((x) => x[0] === dk), s0 = parseFloat(start.replace(/,/g, '')), [lo, hi] = designRange(dk) || [f[3], f[4]];
+      const v = Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), Math.round((s0 + dx * 0.4) * 10) / 10)), bag = designBag(bp);
       input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
@@ -2061,7 +2079,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
     if (!moved) return;
     box.classList.remove('is-scrub');
     if (corner) { commit(before, 'Corner'); renderBlockPanel(); caretAtEnd(blockPanel.querySelector('[data-shape="radius"]')); return; }
-    if (dk) { input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+    // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
+    if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
     animPlay = 'square';
     renderBlockPanel();
@@ -3208,7 +3227,7 @@ document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contain
 function setButton(change, label) {
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
-  if (!b || (b.type !== 'button' && b.type !== 'image')) return;
+  if (!b || (b.type !== 'button' && b.type !== 'image' && b.type !== 'stack')) return; // a Stack keeps its link too (CAP-E7BOX2.json)
   const before = JSON.stringify(model);
   change(b);
   renderSectionDom(sel.sid);
@@ -3847,7 +3866,10 @@ async function readPicture(file) {
   return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
-blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]')) e.stopPropagation(); });
+// Cmd+Z in a transform field with nothing typed in it is the page's: the last step goes and the focus stays (CAP-T15CHEAP.json).
+// Not read: with typing not yet taken, so the field keeps it.
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && e.target.matches('input[data-afield], input[type="text"][data-design]') && e.target.value === e.target.defaultValue;
+blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation(); });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');
@@ -3913,7 +3935,20 @@ function onLinkAction(act, el) {
     openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height), { href, newTab: !!postOf(b).newTab, apply: (v) => setPost('href', v, v ? 'Link set' : 'Link removed'), setNewTab: (on) => { if (on !== !!postOf(B(sel.sid, sel.bid)).newTab) setPost('newTab', on, 'Link new tab'); } });
     return;
   }
-  if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
+  // In the toolbar's box, Copy reads Link Copied for a while and the focus stays on the row; Remove Link turns the box
+  // into the empty editor, its field focused and the pages listed (CAP-E7BOX.json, CAP-E7BOX2.json: Link Copied at 0.8 s,
+  // Copy again by 3 s; 2 s is inferred between them).
+  if (act === 'copy') {
+    navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied');
+    if (el?.dataset.linkBox === 'copy') { el.textContent = 'Link Copied'; setTimeout(() => { if (el.isConnected) el.textContent = 'Copy'; }, 2000); return; }
+    updateUi(); return;
+  }
+  if (act === 'remove' && el?.dataset.linkBox === 'remove') {
+    setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed');
+    linkPop.hidden = false; linkPop.classList.remove('is-box', 'tip-held');
+    drawLinkPop('url', '', false); showLinkList(true); linkPop.querySelector('.lk-input')?.focus(); markLinkBar();
+    return;
+  }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit: the panel is redrawn while the editor is open, so the place is read once.
   const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
@@ -3973,7 +4008,7 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
   if (fromBar) { markLinkBar(); setTbTip(null); }
-  if (fromBar && b.type === 'button' && b.href) { drawLinkBox(b); return; }
+  if (fromBar && (b.type === 'button' || b.type === 'stack') && b.href) { drawLinkBox(b); return; } // a linked Stack opens the same box (CAP-E7BOX2.json)
   const href = target ? target.href : b.href;
   drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
 }
@@ -4088,7 +4123,8 @@ linkPop.addEventListener('click', (e) => {
     } else onLinkAction(act, boxAct);
     return;
   }
-  if (e.target.closest('.lk-box-row')) return;
+  // A press on the box's row opens the link in a new tab (CAP-E7BOX2.json, read from the browser's tabs). Inferred for an email or a number.
+  if (e.target.closest('.lk-box-row')) { const b = B(sel.sid, sel.bid); if (b?.href) window.open(b.href, '_blank', 'noopener'); return; }
   const mdAct = e.target.closest('[data-md-link]');
   if (mdAct) {
     const t = linkTarget, act = mdAct.dataset.mdLink;
@@ -4943,11 +4979,15 @@ function duplicateBlock(sid, bid) {
 
 // Copy and Paste of blocks (U11). The oracle's clipboard did not reach the page in the probe, so
 // the place is ours: the same grid area in any section, one row and one column on while that
-// area is taken, at the bottom of the phone layout. Ours keeps the copy in memory.
-let blockClip = null;
+// area is taken, at the bottom of the phone layout.
+// The clip outlasts leaving the page and coming back, as on the oracle (CAP-U11RELOAD.json): ours keeps it in the browser.
+// The oracle's read held its clip in the capture tool, not the real clipboard: that a real clipboard keeps it is inferred.
+const CLIP_KEY = 'fe-block-clip';
+let blockClip = (() => { try { return JSON.parse(localStorage.getItem(CLIP_KEY)); } catch { return null; } })();
 let transformClip = null;
 function copyBlocks() {
   blockClip = [sel.bid, ...(sel.more || [])].map((id) => JSON.parse(JSON.stringify(B(sel.sid, id))));
+  try { localStorage.setItem(CLIP_KEY, JSON.stringify(blockClip)); } catch {}
 }
 function pasteBlocks(sid) {
   const s = S(sid);

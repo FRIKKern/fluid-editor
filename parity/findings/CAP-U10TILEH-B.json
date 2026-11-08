@@ -1,0 +1,1145 @@
+{
+  "item": "CAP-U10TILEH-B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: the 13 tile heights of the heading, two paragraphs, three images and two buttons list, each part of the list scrolled into view (CAP-U10TILEH.json read 5 tiles before they were drawn)",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "open",
+      {
+        "tileNames": true,
+        "tiles": true,
+        "look": 0
+      }
+    ],
+    [
+      "listTo",
+      4
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 4",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "listTo",
+      7
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 7",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "listTo",
+      9
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 9",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "listTo",
+      11
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 11",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "listTo",
+      12
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 12",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "listTo",
+      0
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "to 0",
+      {
+        "tileNames": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "open": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.1
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          470.1
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          0
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          0
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          0
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          0
+        ]
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 8,
+        "ctx": "[\"divider\"]"
+      },
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            489.9,
+            ""
+          ],
+          [
+            "2",
+            630.4,
+            ""
+          ],
+          [
+            "3",
+            859.6,
+            ""
+          ],
+          [
+            "4",
+            1136.6,
+            ""
+          ],
+          [
+            "5",
+            1410.4,
+            ""
+          ],
+          [
+            "6",
+            1727.3,
+            ""
+          ],
+          [
+            "7",
+            2046.5,
+            ""
+          ],
+          [
+            "8",
+            2499.1,
+            ""
+          ],
+          [
+            "9",
+            2987.9,
+            ""
+          ],
+          [
+            "10",
+            3310,
+            ""
+          ],
+          [
+            "11",
+            3326,
+            ""
+          ],
+          [
+            "12",
+            3342,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 4": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 7": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 9": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 11": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 12": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "to 0": {
+      "tileNames": [
+        [
+          "layout-suggestion-slice-0",
+          "Section editor form",
+          null,
+          "",
+          283,
+          145.9
+        ],
+        [
+          "layout-suggestion-slice-1",
+          "Section editor form",
+          null,
+          "",
+          283,
+          124.5
+        ],
+        [
+          "layout-suggestion-slice-2",
+          "Section editor form",
+          null,
+          "",
+          283,
+          213.2
+        ],
+        [
+          "layout-suggestion-slice-3",
+          "Section editor form",
+          null,
+          "",
+          283,
+          261
+        ],
+        [
+          "layout-suggestion-slice-4",
+          "Section editor form",
+          null,
+          "",
+          283,
+          257.6
+        ],
+        [
+          "layout-suggestion-slice-5",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-6",
+          "Section editor form",
+          null,
+          "",
+          283,
+          292.1
+        ],
+        [
+          "layout-suggestion-slice-7",
+          "Section editor form",
+          null,
+          "",
+          283,
+          436.7
+        ],
+        [
+          "layout-suggestion-slice-8",
+          "Section editor form",
+          null,
+          "",
+          283,
+          473.4
+        ],
+        [
+          "layout-suggestion-slice-9",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-10",
+          "Section editor form",
+          null,
+          "",
+          283,
+          306
+        ],
+        [
+          "layout-suggestion-slice-11",
+          "Section editor form",
+          null,
+          "",
+          283,
+          485.1
+        ],
+        [
+          "layout-suggestion-slice-12",
+          "Section editor form",
+          null,
+          "",
+          283,
+          513.5
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

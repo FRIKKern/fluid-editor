@@ -1,7 +1,7 @@
 // The Animation tab of the block Edit panel (T15, parity/findings/ANIMFLOW.json): the list of
 // triggers, the picker with its trigger menu and six presets, and the editor with its tabs. Boxes
 // as measured on a 320 by 500 panel. Icons are our own (O2).
-import { TRIGGERS, triggerName, PRESETS, TABS, OPTIONS, poseKey, hasPoseNote, rowDetail, defaultOf, easeGlyph, REST } from './animations.js';
+import { TRIGGERS, triggerName, PRESETS, TABS, OPTIONS, poseKey, hasPoseNote, rowDetail, defaultOf, easeGlyph, REST, commas } from './animations.js';
 import { escapeHtml as esc } from './render.js';
 
 const svg = (d, s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -59,7 +59,7 @@ export const POSE_RANGE = [[0, 100], [-360, 360], [0, 200], [0, 200], [-1000, 10
 
 const field = (key, value, reset, extra = '') => {
   const pose = /:(\d)/.exec(key);
-  return `<span class="an-box sc-box${extra}" data-field="${key}">${pose ? barHtml(value, POSE_RANGE[pose[1]]) : ''}<input type="text" data-afield="${key}" value="${esc(value)}" autocomplete="off" spellcheck="false">${HITS}${extra.includes('is-axis') ? `<b class="an-axis">${key.endsWith('X') ? 'X' : 'Y'}</b>` : ARROWS}${resetBtn(`data-anim="reset" data-key="${key}"`, reset)}</span>`;
+  return `<span class="an-box sc-box${extra}" data-field="${key}">${pose ? barHtml(value, POSE_RANGE[pose[1]]) : ''}<input type="text" data-afield="${key}" value="${esc(commas(value))}" autocomplete="off" spellcheck="false">${HITS}${extra.includes('is-axis') ? `<b class="an-axis">${key.endsWith('X') ? 'X' : 'Y'}</b>` : ARROWS}${resetBtn(`data-anim="reset" data-key="${key}"`, reset)}</span>`;
 };
 const line = (label, control) => `<div class="an-f"><span class="an-l">${label}</span>${control}</div>`;
 const select = (key, value, glyph = '') => `<button type="button" class="an-sel" data-anim="sel" data-key="${key}" aria-haspopup="listbox">${glyph}<span>${esc(value)}</span>${CHEVRON}</button>`;
