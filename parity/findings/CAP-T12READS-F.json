@@ -1,0 +1,2058 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "What a pick in Product's image shape picker does, unsaved, on a probe page; and the frozen rows rule scored on Menu's press reads.",
+ "how": "Run f75 on the oracle: Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and Product, Edit, Design; the image picker pressed by its box after an on-top check (unnamed, as in CAP-T12READS-E.json); the tile labelled Circle pressed (named, on-top check); the block and panel read before and after; a dump of the panel. Clip and mask values read only by kind (their first 12 characters), not copied. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "unnamedPresses": [
+  "Product's image picker, by its box"
+ ],
+ "block": {
+  "start": {
+   "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+   "area": "1 / 2 / 11 / 8",
+   "size": [
+    341.6875,
+    399.9375
+   ],
+   "leaves": [
+    "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+    "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+    "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+    "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+    "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+    "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+    "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+   ]
+  },
+  "steps": [
+   {
+    "step": {
+     "tab": "Design",
+     "boxbtn": [
+      0,
+      104,
+      320,
+      103
+     ],
+     "label": "image picker (unnamed)"
+    },
+    "note": {
+     "view": {
+      "box": [
+       461,
+       301,
+       320,
+       500
+      ],
+      "text": [
+       "Content @22,19,53,18",
+       "Design @91,19,46,18",
+       "Animation @153,19,67,18",
+       "Image @0,77,320,16",
+       "Ratio @22,287,34,18",
+       "Original @224,287,52,18",
+       "Focal Point @134,341,85,22",
+       "Block Alignment @22,396,108,22",
+       "Background @22,441,80,22",
+       "Stroke @22,486,42,22",
+       "Blend Mode @22,533,81,18",
+       "Normal @227,533,49,18",
+       "Blur @22,576,26,22",
+       "Transforms @22,633,182,44",
+       "Opacity @22,684,52,44",
+       "Rotate @22,735,43,44",
+       "Scale @22,786,88,44",
+       "Offset @22,837,88,44",
+       "Skew @22,888,88,44",
+       "Anchor @22,939,49,44"
+      ],
+      "c": [
+       "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+       "BUTTON|button|Content|||||Content|22,0,53,55",
+       "BUTTON|button|Design|||||Design|91,0,46,55",
+       "BUTTON|button|Animation|||||Animation|153,0,67,55",
+       "BUTTON|submit|||||||0,104,320,103",
+       "INPUT|text|||0px||||127,213,160,44",
+       "BUTTON|submit|||||||116,213,182,11",
+       "BUTTON|submit|||||||116,246,182,11",
+       "BUTTON|submit|||||||116,213,11,44",
+       "BUTTON|submit|||||||254,213,44,44",
+       "BUTTON|submit|Reset to default value||||||291,227,16,16",
+       "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+       "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+       "DIV|||||||RatioOriginal|11,273,298,46",
+       "BUTTON|submit|||||off|Focal Point|22,330,276,44",
+       "INPUT|checkbox|Background||||||272,446,12,12",
+       "DIV|||||||Blend ModeNormal|11,519,298,46",
+       "INPUT|checkbox|Blur||||||272,581,12,12",
+       "BUTTON|submit|More actions||||||260,637,36,36",
+       "INPUT|text|||100%||||127,684,160,44",
+       "BUTTON|submit|||||||116,684,182,11",
+       "BUTTON|submit|||||||116,717,182,11",
+       "BUTTON|submit|||||||116,684,11,44",
+       "BUTTON|submit|||||||254,684,44,44",
+       "BUTTON|submit|Reset to default value||||||291,698,16,16",
+       "INPUT|text|||0°||||127,735,160,44",
+       "BUTTON|submit|||||||116,735,182,11",
+       "BUTTON|submit|||||||116,768,182,11",
+       "BUTTON|submit|||||||116,735,11,44",
+       "BUTTON|submit|||||||254,735,44,44",
+       "BUTTON|submit|Reset to default value||||||291,749,16,16",
+       "INPUT|text|||100%||||127,786,66,44",
+       "BUTTON|submit|||||||116,786,88,11",
+       "BUTTON|submit|||||||116,819,88,11",
+       "BUTTON|submit|||||||116,786,11,44",
+       "BUTTON|submit|||||||160,786,44,44",
+       "BUTTON|submit|Reset to default value||||||197,800,16,16",
+       "INPUT|text|||100%||||221,786,66,44",
+       "BUTTON|submit|||||||210,786,88,11",
+       "BUTTON|submit|||||||210,819,88,11",
+       "BUTTON|submit|||||||210,786,11,44",
+       "BUTTON|submit|||||||254,786,44,44",
+       "BUTTON|submit|Reset to default value||||||291,800,16,16",
+       "INPUT|text|||0px||||127,837,66,44",
+       "BUTTON|submit|||||||116,837,88,11",
+       "BUTTON|submit|||||||116,870,88,11",
+       "BUTTON|submit|||||||116,837,11,44",
+       "BUTTON|submit|||||||160,837,44,44",
+       "BUTTON|submit|Reset to default value||||||197,851,16,16",
+       "INPUT|text|||0px||||221,837,66,44",
+       "BUTTON|submit|||||||210,837,88,11",
+       "BUTTON|submit|||||||210,870,88,11",
+       "BUTTON|submit|||||||210,837,11,44",
+       "BUTTON|submit|||||||254,837,44,44",
+       "BUTTON|submit|Reset to default value||||||291,851,16,16",
+       "INPUT|text|||0°||||127,888,66,44",
+       "BUTTON|submit|||||||116,888,88,11",
+       "BUTTON|submit|||||||116,921,88,11",
+       "BUTTON|submit|||||||116,888,11,44",
+       "BUTTON|submit|||||||160,888,44,44",
+       "BUTTON|submit|Reset to default value||||||197,902,16,16",
+       "INPUT|text|||0°||||221,888,66,44",
+       "BUTTON|submit|||||||210,888,88,11",
+       "BUTTON|submit|||||||210,921,88,11",
+       "BUTTON|submit|||||||210,888,11,44",
+       "BUTTON|submit|||||||254,888,44,44",
+       "BUTTON|submit|Reset to default value||||||291,902,16,16",
+       "BUTTON|submit|Position||||||254,939,44,44"
+      ]
+     },
+     "looks": [
+      "BUTTON | tab | Content | 0 |  | 22,0,52.8,55 | 14px/22px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "SPAN |  |  | Content |  | 22,18.5,52.8,18 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | -0.14px | ",
+      "BUTTON | tab | Design | 1 |  | 90.8,0,46,55 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  | Design |  | 90.8,18.5,46,18 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+      "BUTTON | tab | Animation | 2 |  | 152.8,0,67.5,55 | 14px/22px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "SPAN |  |  | Animation |  | 152.8,18.5,67.5,18 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | -0.14px | ",
+      "LABEL |  |  | Image |  | 0,77,320,16 | 14px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 0,104,320,103 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "INPUT | text |  | 0px |  | 127,213,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,213,182,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,246,182,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,213,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,213,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,227,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "BUTTON | radio | Uniform corner radii | true |  | 25,216,41,38 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 2px | none | -0.14px | true",
+      "BUTTON | radio | Individual corner radii | option-custom |  | 66,216,41,38 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 2px | none | -0.14px | false",
+      "SPAN |  |  | Ratio |  | 22,287,33.8,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  |  |  | 22,307,179.7,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "SPAN |  |  | Original |  | 223.7,287,52.3,18 | 14px/normal 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 22,330,276,44 | 12px/22px 500 | rgb(183, 183, 183) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 0px | uppercase | 0.5px | ",
+      "SPAN |  |  | Focal Point |  | 133.8,341,85.3,22 | 12px/22px 500 | rgb(183, 183, 183) | rgba(0, 0, 0, 0) | 0px none rgb(183, 183, 183) | 0px | uppercase | 0.5px | ",
+      "LABEL |  |  | Block Alignment |  | 22,396,108.3,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "P |  |  | Background |  | 22,441,80.4,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  |  |  | 22,463,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "INPUT | checkbox | Background |  |  | 272,445.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+      "LABEL |  |  | Stroke |  | 22,486,42.2,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  | Blend Mode |  | 22,533,80.6,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  |  |  | 22,553,183.1,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "SPAN |  |  | Normal |  | 227.1,533,48.9,18 | 14px/normal 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "P |  |  | Blur |  | 22,576,26.3,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "SPAN |  |  |  |  | 22,598,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+      "INPUT | checkbox | Blur |  |  | 272,580.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+      "SPAN |  |  | Transforms |  | 22,633,182,44 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+      "BUTTON | combobox | More actions |  |  | 259.5,637,36,36 | 12px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 6px | none | normal | ",
+      "INPUT | text |  | 100% |  | 127,684,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,684,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,717,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,684,11,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,684,44,44 | 14px/16px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,698,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 0° |  | 127,735,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,735,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,768,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,735,11,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,735,44,44 | 14px/16px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,749,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 100% |  | 127,786,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,786,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,819,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,786,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 160,786,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 197,800,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 100% |  | 221,786,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 210,786,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,819,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,786,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,786,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,800,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 0px |  | 127,837,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,837,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,870,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,837,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 160,837,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 197,851,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 0px |  | 221,837,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 210,837,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,870,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,837,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,837,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,851,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 0° |  | 127,888,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 116,888,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,921,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 116,888,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 160,888,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 197,902,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "INPUT | text |  | 0° |  | 221,888,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | submit |  |  |  | 210,888,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,921,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 210,888,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+      "BUTTON | submit |  |  |  | 254,888,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+      "BUTTON | submit | Reset to default value |  |  | 291,902,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+      "BUTTON | submit | Position |  |  | 254,939,44,44 | 14px/16px 400 | rgb(14, 14, 14) | rgb(242, 242, 242) | 0px none rgb(14, 14, 14) | 6px | none | normal | "
+     ],
+     "opts": [],
+     "pops": [
+      {
+       "role": "dialog",
+       "aria": null,
+       "box": [
+        483,
+        405,
+        276,
+        567
+       ],
+       "text": ""
+      },
+      {
+       "role": "listbox",
+       "aria": null,
+       "box": [
+        499,
+        416,
+        250,
+        545
+       ],
+       "text": ""
+      }
+     ],
+     "optsRead": [
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Rectangle",
+       "sel": null,
+       "title": "Rectangle",
+       "alt": null,
+       "data": "data-shape-name=rectangle",
+       "box": [
+        0,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        17,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        17,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        1,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Circle",
+       "sel": null,
+       "title": "Circle",
+       "alt": null,
+       "data": "data-shape-name=circle",
+       "box": [
+        84,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        17,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "circle",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        17,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        1,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Diamond",
+       "sel": null,
+       "title": "Diamond",
+       "alt": null,
+       "data": "data-shape-name=diamond",
+       "box": [
+        167,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        17,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        185,
+        17,
+        42,
+        42
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        1,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Rabbet",
+       "sel": null,
+       "title": "Rabbet",
+       "alt": null,
+       "data": "data-shape-name=rabbet",
+       "box": [
+        0,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        95,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        95,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        79,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Eight Sided Shield",
+       "sel": null,
+       "title": "Eight Sided Shield",
+       "alt": null,
+       "data": "data-shape-name=eight-sided-shield",
+       "box": [
+        84,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        95,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        95,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        79,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "TV",
+       "sel": null,
+       "title": "TV",
+       "alt": null,
+       "data": "data-shape-name=tv",
+       "box": [
+        167,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        95,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        185,
+        95,
+        42,
+        42
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        79,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Octagon",
+       "sel": null,
+       "title": "Octagon",
+       "alt": null,
+       "data": "data-shape-name=octagon",
+       "box": [
+        0,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        157,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Rounded Pentagon",
+       "sel": null,
+       "title": "Rounded Pentagon",
+       "alt": null,
+       "data": "data-shape-name=rounded-pentagon",
+       "box": [
+        84,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        157,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Open Book",
+       "sel": null,
+       "title": "Open Book",
+       "alt": null,
+       "data": "data-shape-name=open-book",
+       "box": [
+        167,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        185,
+        173,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        157,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Four Petal Flower",
+       "sel": null,
+       "title": "Four Petal Flower",
+       "alt": null,
+       "data": "data-shape-name=four-petal-flower",
+       "box": [
+        0,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        251,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        252,
+        43,
+        42
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        235,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Flower",
+       "sel": null,
+       "title": "Flower",
+       "alt": null,
+       "data": "data-shape-name=flower",
+       "box": [
+        84,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        251,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        251,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        235,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Horizontal Stacked Circles",
+       "sel": null,
+       "title": "Horizontal Stacked Circles",
+       "alt": null,
+       "data": "data-shape-name=horizontal-stacked-circles",
+       "box": [
+        167,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        251,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        258,
+        43,
+        28
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        235,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Wide Vertical Stacked Pills",
+       "sel": null,
+       "title": "Wide Vertical Stacked Pills",
+       "alt": null,
+       "data": "data-shape-name=wide-vertical-stacked-pills",
+       "box": [
+        0,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        329,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        336,
+        43,
+        28
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        313,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Horizontal Right Leaning Oval",
+       "sel": null,
+       "title": "Horizontal Right Leaning Oval",
+       "alt": null,
+       "data": "data-shape-name=horizontal-right-leaning-oval",
+       "box": [
+        84,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        329,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "ellipse",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        97,
+        331,
+        51,
+        39
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        313,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Wide Horizontal Stacked Pills",
+       "sel": null,
+       "title": "Wide Horizontal Stacked Pills",
+       "alt": null,
+       "data": "data-shape-name=wide-horizontal-stacked-pills",
+       "box": [
+        167,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        329,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        336,
+        43,
+        28
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        313,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Wide Eight Sided Shield",
+       "sel": null,
+       "title": "Wide Eight Sided Shield",
+       "alt": null,
+       "data": "data-shape-name=wide-eight-sided-shield",
+       "box": [
+        0,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        407,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        414,
+        43,
+        28
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        391,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Egg",
+       "sel": null,
+       "title": "Egg",
+       "alt": null,
+       "data": "data-shape-name=egg",
+       "box": [
+        84,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        407,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        108,
+        407,
+        28,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        391,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Narrow Horizontal Stacked Pills",
+       "sel": null,
+       "title": "Narrow Horizontal Stacked Pills",
+       "alt": null,
+       "data": "data-shape-name=narrow-horizontal-stacked-pills",
+       "box": [
+        167,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        407,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        192,
+        407,
+        28,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        391,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Arched Window",
+       "sel": null,
+       "title": "Arched Window",
+       "alt": null,
+       "data": "data-shape-name=arched-window",
+       "box": [
+        0,
+        468,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        17,
+        485,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        24,
+        485,
+        28,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        1,
+        469,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Pointed Window",
+       "sel": null,
+       "title": "Pointed Window",
+       "alt": null,
+       "data": "data-shape-name=pointed-window",
+       "box": [
+        84,
+        468,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        101,
+        485,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        108,
+        485,
+        28,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        85,
+        469,
+        75,
+        75
+       ]
+      },
+      {
+       "tag": "LABEL",
+       "role": null,
+       "aria": "Award",
+       "sel": null,
+       "title": "Award",
+       "alt": null,
+       "data": "data-shape-name=award",
+       "box": [
+        167,
+        468,
+        77,
+        77
+       ]
+      },
+      {
+       "tag": "svg",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        184,
+        485,
+        43,
+        43
+       ]
+      },
+      {
+       "tag": "path",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        192,
+        485,
+        28,
+        43
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "role": null,
+       "aria": null,
+       "sel": null,
+       "title": null,
+       "alt": null,
+       "data": "",
+       "box": [
+        168,
+        469,
+        75,
+        75
+       ]
+      }
+     ]
+    },
+    "before": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    },
+    "after": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    }
+   },
+   {
+    "step": {
+     "tab": "Design",
+     "pop": "Circle"
+    },
+    "note": {
+     "view": {
+      "box": [
+       461,
+       301,
+       320,
+       500
+      ],
+      "text": [
+       "Content @22,19,53,18",
+       "Design @91,19,46,18",
+       "Animation @153,19,67,18",
+       "Image @0,77,320,16",
+       "Ratio @22,231,34,18",
+       "Original @224,231,52,18",
+       "Focal Point @134,285,85,22",
+       "Block Alignment @22,340,108,22",
+       "Background @22,385,80,22",
+       "Stroke @22,430,42,22",
+       "Blend Mode @22,477,81,18",
+       "Normal @227,477,49,18",
+       "Blur @22,520,26,22",
+       "Transforms @22,577,182,44",
+       "Opacity @22,628,52,44",
+       "Rotate @22,679,43,44",
+       "Scale @22,730,88,44",
+       "Offset @22,781,88,44",
+       "Skew @22,832,88,44",
+       "Anchor @22,883,49,44"
+      ],
+      "c": [
+       "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+       "BUTTON|button|Content|||||Content|22,0,53,55",
+       "BUTTON|button|Design|||||Design|91,0,46,55",
+       "BUTTON|button|Animation|||||Animation|153,0,67,55",
+       "BUTTON|submit|||||||0,104,320,103",
+       "DIV|||||||RatioOriginal|11,217,298,46",
+       "BUTTON|submit|||||off|Focal Point|22,274,276,44",
+       "INPUT|checkbox|Background||||||272,390,12,12",
+       "DIV|||||||Blend ModeNormal|11,463,298,46",
+       "INPUT|checkbox|Blur||||||272,525,12,12",
+       "BUTTON|submit|More actions||||||260,581,36,36",
+       "INPUT|text|||100%||||127,628,160,44",
+       "BUTTON|submit|||||||116,628,182,11",
+       "BUTTON|submit|||||||116,661,182,11",
+       "BUTTON|submit|||||||116,628,11,44",
+       "BUTTON|submit|||||||254,628,44,44",
+       "BUTTON|submit|Reset to default value||||||291,642,16,16",
+       "INPUT|text|||0°||||127,679,160,44",
+       "BUTTON|submit|||||||116,679,182,11",
+       "BUTTON|submit|||||||116,712,182,11",
+       "BUTTON|submit|||||||116,679,11,44",
+       "BUTTON|submit|||||||254,679,44,44",
+       "BUTTON|submit|Reset to default value||||||291,693,16,16",
+       "INPUT|text|||100%||||127,730,66,44",
+       "BUTTON|submit|||||||116,730,88,11",
+       "BUTTON|submit|||||||116,763,88,11",
+       "BUTTON|submit|||||||116,730,11,44",
+       "BUTTON|submit|||||||160,730,44,44",
+       "BUTTON|submit|Reset to default value||||||197,744,16,16",
+       "INPUT|text|||100%||||221,730,66,44",
+       "BUTTON|submit|||||||210,730,88,11",
+       "BUTTON|submit|||||||210,763,88,11",
+       "BUTTON|submit|||||||210,730,11,44",
+       "BUTTON|submit|||||||254,730,44,44",
+       "BUTTON|submit|Reset to default value||||||291,744,16,16",
+       "INPUT|text|||0px||||127,781,66,44",
+       "BUTTON|submit|||||||116,781,88,11",
+       "BUTTON|submit|||||||116,814,88,11",
+       "BUTTON|submit|||||||116,781,11,44",
+       "BUTTON|submit|||||||160,781,44,44",
+       "BUTTON|submit|Reset to default value||||||197,795,16,16",
+       "INPUT|text|||0px||||221,781,66,44",
+       "BUTTON|submit|||||||210,781,88,11",
+       "BUTTON|submit|||||||210,814,88,11",
+       "BUTTON|submit|||||||210,781,11,44",
+       "BUTTON|submit|||||||254,781,44,44",
+       "BUTTON|submit|Reset to default value||||||291,795,16,16",
+       "INPUT|text|||0°||||127,832,66,44",
+       "BUTTON|submit|||||||116,832,88,11",
+       "BUTTON|submit|||||||116,865,88,11",
+       "BUTTON|submit|||||||116,832,11,44",
+       "BUTTON|submit|||||||160,832,44,44",
+       "BUTTON|submit|Reset to default value||||||197,846,16,16",
+       "INPUT|text|||0°||||221,832,66,44",
+       "BUTTON|submit|||||||210,832,88,11",
+       "BUTTON|submit|||||||210,865,88,11",
+       "BUTTON|submit|||||||210,832,11,44",
+       "BUTTON|submit|||||||254,832,44,44",
+       "BUTTON|submit|Reset to default value||||||291,846,16,16",
+       "BUTTON|submit|Position||||||254,883,44,44"
+      ]
+     },
+     "pops": 0,
+     "clip": [
+      {
+       "cls": "form-input-effects-highlight form-field-highlight-single-tra",
+       "clip": "none",
+       "mask": "linear-gradi",
+       "radius": "0px"
+      }
+     ]
+    },
+    "before": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    },
+    "after": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    }
+   },
+   {
+    "step": {
+     "tab": "Design",
+     "dump": true
+    },
+    "note": {
+     "text": "Content\nDesign\nAnimation\nImage\n\nRatio\n\nOriginal\nFOCAL POINT\nBlock Alignment\n\nBackground\n\nStroke\n\nBlend Mode\n\nNormal\n\nBlur\n\nTransforms\nOpacity\nRotate\nScale\nOffset\nSkew\nAnchor",
+     "fields": [
+      {
+       "tag": "INPUT",
+       "type": "checkbox",
+       "aria": "Background",
+       "ph": "",
+       "value": "",
+       "box": [
+        272,
+        389.5,
+        12,
+        12
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "checkbox",
+       "aria": "Blur",
+       "ph": "",
+       "value": "",
+       "box": [
+        272,
+        524.5,
+        12,
+        12
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "100%",
+       "box": [
+        127,
+        628,
+        160,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "0°",
+       "box": [
+        127,
+        679,
+        160,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "100%",
+       "box": [
+        127,
+        730,
+        66,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "100%",
+       "box": [
+        221,
+        730,
+        66,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "0px",
+       "box": [
+        127,
+        781,
+        66,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "0px",
+       "box": [
+        221,
+        781,
+        66,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "0°",
+       "box": [
+        127,
+        832,
+        66,
+        44
+       ]
+      },
+      {
+       "tag": "INPUT",
+       "type": "text",
+       "aria": null,
+       "ph": "",
+       "value": "0°",
+       "box": [
+        221,
+        832,
+        66,
+        44
+       ]
+      }
+     ],
+     "view": {
+      "box": [
+       461,
+       301,
+       320,
+       500
+      ],
+      "text": [
+       "Content @22,19,53,18",
+       "Design @91,19,46,18",
+       "Animation @153,19,67,18",
+       "Image @0,77,320,16",
+       "Ratio @22,231,34,18",
+       "Original @224,231,52,18",
+       "Focal Point @134,285,85,22",
+       "Block Alignment @22,340,108,22",
+       "Background @22,385,80,22",
+       "Stroke @22,430,42,22",
+       "Blend Mode @22,477,81,18",
+       "Normal @227,477,49,18",
+       "Blur @22,520,26,22",
+       "Transforms @22,577,182,44",
+       "Opacity @22,628,52,44",
+       "Rotate @22,679,43,44",
+       "Scale @22,730,88,44",
+       "Offset @22,781,88,44",
+       "Skew @22,832,88,44",
+       "Anchor @22,883,49,44"
+      ],
+      "c": [
+       "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+       "BUTTON|button|Content|||||Content|22,0,53,55",
+       "BUTTON|button|Design|||||Design|91,0,46,55",
+       "BUTTON|button|Animation|||||Animation|153,0,67,55",
+       "BUTTON|submit|||||||0,104,320,103",
+       "DIV|||||||RatioOriginal|11,217,298,46",
+       "BUTTON|submit|||||off|Focal Point|22,274,276,44",
+       "INPUT|checkbox|Background||||||272,390,12,12",
+       "DIV|||||||Blend ModeNormal|11,463,298,46",
+       "INPUT|checkbox|Blur||||||272,525,12,12",
+       "BUTTON|submit|More actions||||||260,581,36,36",
+       "INPUT|text|||100%||||127,628,160,44",
+       "BUTTON|submit|||||||116,628,182,11",
+       "BUTTON|submit|||||||116,661,182,11",
+       "BUTTON|submit|||||||116,628,11,44",
+       "BUTTON|submit|||||||254,628,44,44",
+       "BUTTON|submit|Reset to default value||||||291,642,16,16",
+       "INPUT|text|||0°||||127,679,160,44",
+       "BUTTON|submit|||||||116,679,182,11",
+       "BUTTON|submit|||||||116,712,182,11",
+       "BUTTON|submit|||||||116,679,11,44",
+       "BUTTON|submit|||||||254,679,44,44",
+       "BUTTON|submit|Reset to default value||||||291,693,16,16",
+       "INPUT|text|||100%||||127,730,66,44",
+       "BUTTON|submit|||||||116,730,88,11",
+       "BUTTON|submit|||||||116,763,88,11",
+       "BUTTON|submit|||||||116,730,11,44",
+       "BUTTON|submit|||||||160,730,44,44",
+       "BUTTON|submit|Reset to default value||||||197,744,16,16",
+       "INPUT|text|||100%||||221,730,66,44",
+       "BUTTON|submit|||||||210,730,88,11",
+       "BUTTON|submit|||||||210,763,88,11",
+       "BUTTON|submit|||||||210,730,11,44",
+       "BUTTON|submit|||||||254,730,44,44",
+       "BUTTON|submit|Reset to default value||||||291,744,16,16",
+       "INPUT|text|||0px||||127,781,66,44",
+       "BUTTON|submit|||||||116,781,88,11",
+       "BUTTON|submit|||||||116,814,88,11",
+       "BUTTON|submit|||||||116,781,11,44",
+       "BUTTON|submit|||||||160,781,44,44",
+       "BUTTON|submit|Reset to default value||||||197,795,16,16",
+       "INPUT|text|||0px||||221,781,66,44",
+       "BUTTON|submit|||||||210,781,88,11",
+       "BUTTON|submit|||||||210,814,88,11",
+       "BUTTON|submit|||||||210,781,11,44",
+       "BUTTON|submit|||||||254,781,44,44",
+       "BUTTON|submit|Reset to default value||||||291,795,16,16",
+       "INPUT|text|||0°||||127,832,66,44",
+       "BUTTON|submit|||||||116,832,88,11",
+       "BUTTON|submit|||||||116,865,88,11",
+       "BUTTON|submit|||||||116,832,11,44",
+       "BUTTON|submit|||||||160,832,44,44",
+       "BUTTON|submit|Reset to default value||||||197,846,16,16",
+       "INPUT|text|||0°||||221,832,66,44",
+       "BUTTON|submit|||||||210,832,88,11",
+       "BUTTON|submit|||||||210,865,88,11",
+       "BUTTON|submit|||||||210,832,11,44",
+       "BUTTON|submit|||||||254,832,44,44",
+       "BUTTON|submit|Reset to default value||||||291,846,16,16",
+       "BUTTON|submit|Position||||||254,883,44,44"
+      ]
+     }
+    },
+    "before": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    },
+    "after": {
+     "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+     "area": "1 / 2 / 11 / 8",
+     "size": [
+      341.6875,
+      399.9375
+     ],
+     "leaves": [
+      "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+      "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+      "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+      "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+     ]
+    }
+   }
+  ],
+  "view": {
+   "box": [
+    461,
+    301,
+    320,
+    500
+   ],
+   "text": [
+    "Content @22,19,53,18",
+    "Design @91,19,46,18",
+    "Animation @153,19,67,18",
+    "Image @0,77,320,16",
+    "Ratio @22,231,34,18",
+    "Original @224,231,52,18",
+    "Focal Point @134,285,85,22",
+    "Block Alignment @22,340,108,22",
+    "Background @22,385,80,22",
+    "Stroke @22,430,42,22",
+    "Blend Mode @22,477,81,18",
+    "Normal @227,477,49,18",
+    "Blur @22,520,26,22",
+    "Transforms @22,577,182,44",
+    "Opacity @22,628,52,44",
+    "Rotate @22,679,43,44",
+    "Scale @22,730,88,44",
+    "Offset @22,781,88,44",
+    "Skew @22,832,88,44",
+    "Anchor @22,883,49,44"
+   ],
+   "c": [
+    "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+    "BUTTON|button|Content|||||Content|22,0,53,55",
+    "BUTTON|button|Design|||||Design|91,0,46,55",
+    "BUTTON|button|Animation|||||Animation|153,0,67,55",
+    "BUTTON|submit|||||||0,104,320,103",
+    "DIV|||||||RatioOriginal|11,217,298,46",
+    "BUTTON|submit|||||off|Focal Point|22,274,276,44",
+    "INPUT|checkbox|Background||||||272,390,12,12",
+    "DIV|||||||Blend ModeNormal|11,463,298,46",
+    "INPUT|checkbox|Blur||||||272,525,12,12",
+    "BUTTON|submit|More actions||||||260,581,36,36",
+    "INPUT|text|||100%||||127,628,160,44",
+    "BUTTON|submit|||||||116,628,182,11",
+    "BUTTON|submit|||||||116,661,182,11",
+    "BUTTON|submit|||||||116,628,11,44",
+    "BUTTON|submit|||||||254,628,44,44",
+    "BUTTON|submit|Reset to default value||||||291,642,16,16",
+    "INPUT|text|||0°||||127,679,160,44",
+    "BUTTON|submit|||||||116,679,182,11",
+    "BUTTON|submit|||||||116,712,182,11",
+    "BUTTON|submit|||||||116,679,11,44",
+    "BUTTON|submit|||||||254,679,44,44",
+    "BUTTON|submit|Reset to default value||||||291,693,16,16",
+    "INPUT|text|||100%||||127,730,66,44",
+    "BUTTON|submit|||||||116,730,88,11",
+    "BUTTON|submit|||||||116,763,88,11",
+    "BUTTON|submit|||||||116,730,11,44",
+    "BUTTON|submit|||||||160,730,44,44",
+    "BUTTON|submit|Reset to default value||||||197,744,16,16",
+    "INPUT|text|||100%||||221,730,66,44",
+    "BUTTON|submit|||||||210,730,88,11",
+    "BUTTON|submit|||||||210,763,88,11",
+    "BUTTON|submit|||||||210,730,11,44",
+    "BUTTON|submit|||||||254,730,44,44",
+    "BUTTON|submit|Reset to default value||||||291,744,16,16",
+    "INPUT|text|||0px||||127,781,66,44",
+    "BUTTON|submit|||||||116,781,88,11",
+    "BUTTON|submit|||||||116,814,88,11",
+    "BUTTON|submit|||||||116,781,11,44",
+    "BUTTON|submit|||||||160,781,44,44",
+    "BUTTON|submit|Reset to default value||||||197,795,16,16",
+    "INPUT|text|||0px||||221,781,66,44",
+    "BUTTON|submit|||||||210,781,88,11",
+    "BUTTON|submit|||||||210,814,88,11",
+    "BUTTON|submit|||||||210,781,11,44",
+    "BUTTON|submit|||||||254,781,44,44",
+    "BUTTON|submit|Reset to default value||||||291,795,16,16",
+    "INPUT|text|||0°||||127,832,66,44",
+    "BUTTON|submit|||||||116,832,88,11",
+    "BUTTON|submit|||||||116,865,88,11",
+    "BUTTON|submit|||||||116,832,11,44",
+    "BUTTON|submit|||||||160,832,44,44",
+    "BUTTON|submit|Reset to default value||||||197,846,16,16",
+    "INPUT|text|||0°||||221,832,66,44",
+    "BUTTON|submit|||||||210,832,88,11",
+    "BUTTON|submit|||||||210,865,88,11",
+    "BUTTON|submit|||||||210,832,11,44",
+    "BUTTON|submit|||||||254,832,44,44",
+    "BUTTON|submit|Reset to default value||||||291,846,16,16",
+    "BUTTON|submit|Position||||||254,883,44,44"
+   ]
+  }
+ },
+ "facts": [
+  "Picking Circle closes the tiles (no listbox open after) and the picker then shows a circle.",
+  "The Corner row (Uniform and Individual corner radii, the radius field) is gone with Circle picked: Ratio moves from panel y 287 to 231 (56 up), and every row under it the same.",
+  "The block does not change: rows 10 at 6 columns, size 341.7 by 399.9 and every leaf the same before and after; no element of the block has a clip-path. The empty image placeholder is all the block draws there.",
+  "Scored, with no oracle (the reads of CAP-T12PRESS-C.json): the frozen rows rule of CAP-T12NEWSLETTER.json, with content the lowest leaf box, on Menu's three presses gets 0 of 3. Typed text: content 178.9, rule 4 rows, read 7. Centered: 340.6, rule 9, read 10. Euro: content the same, rule 8 (it shrinks 10 to floor), read 10. Not built: Menu's rows stay a named miss."
+ ]
+}
