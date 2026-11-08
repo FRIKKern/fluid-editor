@@ -1,5 +1,5 @@
 // X6: pulls on each type against the oracle's reads: the steps of parity/findings/CAP-X6PULLS.json, CAP-X6AGAIN.json,
-// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json, CAP-X6PHONEFLOORS.json, CAP-68PULL.json, CAP-X6SUMMARYPHONE.json and CAP-X6DESKROWS.json run on our editor, each area compared. One block in a new
+// CAP-X6ONEROW.json, CAP-X6STEPS.json, CAP-X6FLOORS.json, CAP-X6FLOORSPHONE.json, CAP-X6PHONEFLOORS.json, CAP-68PULL.json, CAP-X6SUMMARYPHONE.json, CAP-X6DESKROWS.json and CAP-X6PHONEROWS.json run on our editor, each area compared. One block in a new
 // section below another, a real press at the block's corner or side, as the oracle's was, so a one-row block's overlapping handles
 // decide the same. Rows are compared from the block's start, as the oracle's section sometimes had others above. Writes parity/x6-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run x6-check.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
@@ -28,11 +28,17 @@ const results = [];
 const ROWS_UNBUILT = /^Summary [ew] in /;
 // A one-column pull sets rows from the content as it was before it reflowed, and a far pull from where it had got to: the
 // oracle's timing, not built (CAP-X6DESKROWS.json). The Summary pulls after e 9 moved nothing on the oracle: not compared.
-const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9', 'CAP-X6DESKROWS Instagram e 7', 'CAP-X6DESKROWS Instagram w far in', 'CAP-X6FLOORS Instagram w far in']);
+const LAG = new Set(['CAP-X6DESKROWS Summary e 13', 'CAP-X6DESKROWS Summary e 9', 'CAP-X6DESKROWS Instagram e 7', 'CAP-X6DESKROWS Instagram w far in', 'CAP-X6FLOORS Instagram w far in',
+  'CAP-X6PHONEROWS Instagram e 6', 'CAP-X6PHONEROWS Instagram e 5', 'CAP-X6PHONEROWS Instagram e 4', 'CAP-X6PHONEROWS Instagram e back 8',
+  // And one the 0.13 give misses: OpenTable runs 0.35 of a row over at 3 columns, where Page Link takes a row at 0.23. Its
+  // extra row is then kept as it widens, as rows are.
+  'CAP-X6PHONEROWS OpenTable e 3', ...[4, 5, 6, 7, 8].map((n) => `CAP-X6PHONEROWS OpenTable e back ${n}`),
+  // The rule frozen, these older reads miss it: Menu at 6 phone columns took 32 rows there, 31 in CAP-X6PHONEROWS.json.
+  'CAP-X6PHONEFLOORS Menu w far in', 'CAP-X6PHONEFLOORS Menu e far in']);
 const VOID = (file, read) => file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/.test(read);
-// On a phone, as a start row or a pull. Scheduling, Calendar, Archive, SoundCloud and Flickr draw the oracle's phone height now (CAP-68PULL.json).
-// Pricing Plan's start and south pull too, but its content gets taller as it narrows, and that height isn't read.
-const PHONE_ROWS_UNBUILT = /^(Summary|Pricing Plan|Newsletter|Instagram|Bandsintown|Menu|Page Link|RSS|OpenTable) /;
+// On a phone, as a start row or a pull: Summary's content moves between runs (1170, 1689, 1958), and its south pull took effect
+// at the next press (CAP-X6PHONEROWS.json). The others draw the oracle's phone height by width (CAP-68PULL.json, CAP-X6PHONEROWS.json).
+const PHONE_ROWS_UNBUILT = /^Summary /;
 let known = 0;
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
@@ -49,7 +55,7 @@ for (const file of FILES) {
       const all = (F.reads[step[1]]?.areas || []).map((a) => a[view === 'mobile' ? 1 : 0]), changed = all.filter((a) => !seen.includes(a));
       const same = (a) => last && a.split('/')[0] === last.split('/')[0] && a.split('/')[1] === last.split('/')[1];
       const isNew = (a) => !seen.some((b) => b.split('/').slice(0, 2).join() === a.split('/').slice(0, 2).join());
-      const pick = file !== 'CAP-X6DESKROWS' || all.length < 2 ? all[0] : (last ? changed.find(same) : changed.find(isNew)) ?? changed[0] ?? all.find((a) => a === last) ?? all[0];
+      const pick = !['CAP-X6DESKROWS', 'CAP-X6PHONEROWS'].includes(file) || all.length < 2 ? all[0] : (last ? changed.find(same) : changed.find(isNew)) ?? changed[0] ?? all.find((a) => a === last) ?? all[0];
       seen = all; last = pick;
       const want = pick?.split('/').map(Number), have = area();
       if (!want || VOID(file, step[1])) continue;

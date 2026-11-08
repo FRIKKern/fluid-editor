@@ -1,0 +1,1212 @@
+{
+  "item": "CAP-X6FLICKRPHONE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "X6: Flickr's tiles on the phone and on desktop, after 15 s each: the boxes of its pictures, links and content elements",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Flickr"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      15000
+    ],
+    [
+      "read",
+      "Flickr desktop",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-block-flickr img"
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      15000
+    ],
+    [
+      "read",
+      "Flickr phone",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ],
+        "frameEls": ".sqs-block-flickr img"
+      }
+    ],
+    [
+      "read",
+      "Flickr phone links",
+      {
+        "frameEls": ".sqs-block-flickr a"
+      }
+    ],
+    [
+      "read",
+      "Flickr phone parts",
+      {
+        "frameEls": ".sqs-block-flickr .sqs-block-content *"
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pressNamed",
+      "Remove"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "Flickr desktop": {
+      "frameEls": [
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            282.6,
+            100,
+            133.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            219.9,
+            282.6,
+            100,
+            133.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            339.8,
+            282.6,
+            100,
+            133.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            459.6,
+            282.6,
+            100,
+            133.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            100.1,
+            419,
+            100,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            219.9,
+            419,
+            100,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            339.8,
+            419,
+            100,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            459.6,
+            419,
+            100,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            75.1,
+            538.9,
+            150,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            194.9,
+            538.9,
+            150,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            314.8,
+            538.9,
+            150,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            434.6,
+            538.9,
+            150,
+            100
+          ]
+        }
+      ],
+      "contentH": 359.4,
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Flickr phone": {
+      "frameEls": [
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            176,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            176,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            374.4,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            374.4,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            567.2,
+            999,
+            267,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            765.5,
+            999,
+            267,
+            178
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            586.7,
+            1197.3,
+            150,
+            100
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            785,
+            1197.3,
+            150,
+            100
+          ]
+        }
+      ],
+      "contentH": 1190,
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Flickr phone links": {
+      "frameEls": [
+        {
+          "tag": "a",
+          "label": "Vulputate Commodo Ligula",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Elit Condimentum",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Aenean eu leo Quam",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Cursus Amet",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Pellentesque Risus Ridiculus",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Porta",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Etiam Ultricies",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Vulputate Commodo Ligula",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Elit Condimentum",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            999,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Aenean eu leo Quam",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            999,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Cursus Amet",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            1197.3,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Pellentesque Risus Ridiculus",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            1197.3,
+            178.3,
+            178.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Flickr phone parts": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            376.7,
+            1190
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            612.7,
+            206.7,
+            374.7,
+            0
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            616.9,
+            211,
+            366.2,
+            131.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            639.9,
+            234,
+            286.2,
+            19.8
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "This is an example. To display your Flic",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "all",
+          "box": [
+            639.9,
+            264.8,
+            286.2,
+            54.5
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            376.7,
+            1190
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            396.7,
+            0
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Vulputate Commodo Ligula",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            176,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            205.7,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Elit Condimentum",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            205.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            176,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            404,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Aenean eu leo Quam",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            374.4,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            404,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Cursus Amet",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            404,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            374.4,
+            178,
+            237.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Pellentesque Risus Ridiculus",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            602.4,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Porta",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            602.4,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Etiam Ultricies",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            800.7,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            198.3,
+            198.3
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "a",
+          "label": "Vulputate Commodo Ligula",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            178.3,
+            178.3
+          ]
+        },
+        {
+          "tag": "img",
+          "label": "",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            810,
+            800.7,
+            178,
+            178
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "<img src=\"<url>",
+          "expanded": null,
+          "checked": null,
+          "opacity": "1",
+          "pointer": "none",
+          "box": [
+            611.7,
+            999,
+            198.3,
+            198.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "On a phone Flickr's 12 tiles go two to a row, 178.3 square with 20 between, in 6 rows: 1190 high at 376.7 wide. On desktop four to a row. Both as predicted, 2 of 2.",
+  "ours": "Ours draws Flickr's stand-in tiles two to a row on a phone, 178.35 square, and four on desktop: the same.",
+  "differs": []
+}
