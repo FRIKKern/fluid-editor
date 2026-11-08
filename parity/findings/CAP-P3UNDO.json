@@ -1,0 +1,826 @@
+{
+  "item": "CAP-P3UNDO",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "P3, its two inferred parts on Blocks Probe: one undo step for a field change on Enter and for a slider pull on let go, and the number shown when the panel opens again after NaN.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "20"
+    ],
+    [
+      "read",
+      "typed 20",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "40"
+    ],
+    [
+      "read",
+      "typed 40",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo 1",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo 2",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel again",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "clickAt",
+      1538,
+      534
+    ],
+    [
+      "fillRange",
+      "50"
+    ],
+    [
+      "read",
+      "typed 50",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "holdAt",
+      1397,
+      526
+    ],
+    [
+      "moveAt",
+      1440,
+      526
+    ],
+    [
+      "moveAt",
+      1340,
+      526
+    ],
+    [
+      "releaseAt"
+    ],
+    [
+      "read",
+      "slider let go",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "undo after slider",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel again 2",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "typeAt",
+      1542,
+      526,
+      "abc"
+    ],
+    [
+      "read",
+      "real keys abc",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel after NaN keys",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "fillRange",
+      "abc"
+    ],
+    [
+      "read",
+      "typed abc",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "panel after NaN typed",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true
+      }
+    ]
+  ],
+  "reads": {
+    "custom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          462
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "typed 20": {
+      "range": {
+        "slider": "20",
+        "field": "20",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          462
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 520.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          520.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "typed 40": {
+      "range": {
+        "slider": "40",
+        "field": "40",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 584.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          584.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "undo 1": {
+      "range": {
+        "slider": "40",
+        "field": "40",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 520.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          520.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "undo 2": {
+      "range": {
+        "slider": "40",
+        "field": "40",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "panel again": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          496
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 459.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "typed 50": {
+      "range": {
+        "slider": "50",
+        "field": "50",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 616.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          616.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "slider let go": {
+      "range": {
+        "slider": "25",
+        "field": "25",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 536.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          536.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "undo after slider": {
+      "range": {
+        "slider": "25",
+        "field": "25",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "panel again 2": {
+      "range": {
+        "slider": "68",
+        "field": "68",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          574
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "real keys abc": {
+      "range": {
+        "slider": "68",
+        "field": "68",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          574
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "panel after NaN keys": {
+      "range": {
+        "slider": "68",
+        "field": "68",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          574
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "typed abc": {
+      "range": {
+        "slider": "51",
+        "field": "NaN",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          574
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "panel after NaN typed": {
+      "range": {
+        "slider": "51",
+        "field": "",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          574
+        ]
+      },
+      "sections": [
+        {
+          "id": "028dd9",
+          "classes": "background-width--full-bleed section-height--custom content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 674
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          674
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
