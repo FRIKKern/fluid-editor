@@ -1,0 +1,16 @@
+{
+  "item": "T15",
+  "question": "The stage square on the five other triggers, pushed before CAP-T15STAGE6-*.json. Each: Start blank on that trigger, then Scale X and Y to 150% on the first tab (End; Start for On Appear and On Scroll; Range for Follow), then the mouse onto the square, then Preview.",
+  "rules": {
+    "A": "ours as built: after a change the square plays the row (End's scale squared), on every trigger but Follow; the mouse on the square does nothing; Preview leaves the square still",
+    "B": "On Hover's read carries over: a change leaves the square still; the mouse on the square plays it, out in 1.5 times the Duration (0.4s: 600 ms)"
+  },
+  "predictions": {
+    "On Press": { "A": { "change": "plays, peak Scale 2.25, out in 400 ms, holds, back", "hover": "still" }, "B": { "change": "still", "hover": "plays, out in 600 ms" } },
+    "Loop": { "A": { "change": "plays, peak Scale 2.25, out in 400 ms", "hover": "still" }, "B": { "change": "still", "hover": "plays, out in 600 ms" } },
+    "On Scroll": { "A": { "change": "plays from Scale 1.5 to 1 in 1000 ms", "hover": "still" }, "B": { "change": "still", "hover": "plays, out in 600 ms" } },
+    "On Appear": { "A": { "change": "plays from Scale 1.5 to 1 in 400 ms", "hover": "still" }, "B": { "change": "still", "hover": "plays, out in 600 ms" } },
+    "Follow": { "A": { "change": "still", "hover": "still" }, "B": { "change": "still", "hover": "plays, out in 600 ms" } }
+  },
+  "scoring": "per trigger, a rule holds on change and on hover when still or plays matches; a play's time holds within 15% (fitted as in CAP-T15STAGE5-PREDICTED.json). Preview is read, not scored."
+}

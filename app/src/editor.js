@@ -34,7 +34,7 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
@@ -1745,7 +1745,7 @@ let anim = { ...ANIM_LIST };
 let animClip = null; // copied rows
 let animPosed = null; // the block held in the pose of the End, Start or Range tab
 let animPlaying = false;
-let animPlay = null; // after the next draw: 'tiles' or 'square'
+let animPlay = null; // after the next draw: 'tiles'
 let embedData = false;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 let accGrew = false; // an edit in the item view on show made the block grow
@@ -1987,7 +1987,6 @@ function syncAnimView(b) {
   const play = animPlay;
   animPlay = null;
   if (play === 'tiles' && b) blockPanel.querySelectorAll('.an-tile[data-anim-tile]').forEach((t) => { const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile); if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id)); });
-  if (play === 'square' && a) { const q = blockPanel.querySelector('.an-stage .an-sq'); if (q) playTile(q, a); }
 }
 function animRowsOf(b) { return (b.animations || []).map((a) => rowOn(a, bp)); }
 function animRows() { return animRowsOf(B(sel.sid, sel.bid)); }
@@ -2077,10 +2076,8 @@ function animWrite(a, key, v) {
   if (key === 'ease' && v === 'Spring') a.bounce ??= '0.3';
   if (key === 'ease' && v === 'Custom') a.custom ??= '0, 0, 1, 1';
 }
-// After a change the stage square stays still on an On Hover row; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE3.json).
-const squareAfterChange = () => animRows()[anim.i]?.trigger !== 'hover';
+// After a change the stage square stays still, on every trigger; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE6-*.json).
 function animSet(key, v) {
-  if (squareAfterChange()) animPlay = 'square';
   animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
@@ -2159,7 +2156,6 @@ blockPanel.addEventListener('pointerdown', (e) => {
     // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
     if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
-    if (squareAfterChange()) animPlay = 'square';
     renderBlockPanel();
     caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
@@ -2168,11 +2164,16 @@ blockPanel.addEventListener('pointerdown', (e) => {
 });
 blockPanel.addEventListener('mouseover', (e) => {
   const st = e.target.closest?.('.an-stage');
-  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), { ...a, duration: `${(parseFloat(a.duration) || 0.4) * 1.5}s` }); return; } // once each time the mouse comes onto it, at 1.5 times the Duration (CAP-T15STAGE4.json, CAP-T15STAGE5.json)
+  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a) playStage(st.querySelector('.an-sq'), a); return; } // once each time the mouse comes onto it (CAP-T15STAGE3.json, CAP-T15STAGE6-*.json)
   const t = e.target.closest?.('.an-tile[data-anim-tile]');
   if (!t || t.contains(e.relatedTarget)) return;
   const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
   if (p) playTile(t.querySelector('.an-sq'), newAnimation(anim.trigger, p.id));
+});
+// A Loop's square stays at its End until the mouse leaves the stage (inferred: the read after leaving found it at rest).
+blockPanel.addEventListener('mouseout', (e) => {
+  const st = e.target.closest?.('.an-stage');
+  if (st && !st.contains(e.relatedTarget) && animRows()[anim.i]?.trigger === 'loop') releasePose(st.querySelector('.an-sq'));
 });
 let panelMoved = null; // the block whose panel was dragged; it stays where it was dropped
 function placeBlockPanel() {
