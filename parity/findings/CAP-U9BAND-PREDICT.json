@@ -1,0 +1,37 @@
+{
+  "item": "CAP-U9BAND-PREDICT",
+  "question": "Difference 52 (U9's scroll band), refit 1, written and pushed before the read. Two setups not read before: D, window 1600 by 900, section 2 at Custom 100; E, window 1600 by 1300, section 1 at Custom 60. Gestures Probe, empty sections, walks as in CAP-U9SCROLL3.",
+  "rule": "While Edit Section's panel is open and the page scrolls, its top (window coordinates) is the last top, pushed to stay within a band that moves with the page: low = the section's content box top + 1, high = the content box bottom + 1 - 476 (the content box is the section less its padding, the box that holds the grid). A push from below that would put the panel's bottom past the window (top above H - 476, rounded) does not happen: it stays. Then it is held at 0. It closes once high is above -421 in the window, and stays closed scrolling back. Refit on CAP-U9SCROLL2, CAP-U9SCROLL3, CAP-U9CLOSE and CAP-U9TALL2: seen, 2110 of 2110 steps within 1 px.",
+  "inputs": "The oracle's content box taken to be ours (Gate A matches the section CSS): D 845 tall, content box from + 103.6, 637.75 tall; E 747 tall, content box from + 118.6, 509.75 tall.",
+  "predictions": [
+    {
+      "case": "D: band, from the section's top",
+      "predict": "low + 104.6, high + 266.4 (162 wide)"
+    },
+    {
+      "case": "D: below",
+      "predict": "scrolled up, the panel stops following once low - scroll passes 424 (H - 476), and stays there"
+    },
+    {
+      "case": "D: close",
+      "predict": "at the first step where the section's top + 266.4 - scroll is below -421; stays closed back"
+    },
+    {
+      "case": "E: band, from the section's top",
+      "predict": "low + 119.6, high + 153.4 (34 wide)"
+    },
+    {
+      "case": "E: below",
+      "predict": "stops following once low - scroll passes 824"
+    },
+    {
+      "case": "E: close",
+      "predict": "at the first step where the section's top + 153.4 - scroll is below -421; stays closed back"
+    },
+    {
+      "case": "every step",
+      "predict": "each walk step's panel top within 1 px of the rule run from the open read"
+    }
+  ],
+  "score": "Counted per walk step within 1 px, and per case above."
+}
