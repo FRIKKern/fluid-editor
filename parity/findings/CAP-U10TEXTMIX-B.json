@@ -1,0 +1,2693 @@
+{
+  "item": "CAP-U10TEXTMIX-B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: a Text block holding a list, then one holding a quote, each through the 16 picks of CAP-U10WORDS.json. No Meta+c, x or v; nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<ul><li><p>List item one</p></li><li><p>List item two</p></li></ul>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "L 00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "L open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 01 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 02 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 03 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 04 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 05 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 06 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 07 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 08 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 09 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 10 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 11 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 12 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 13 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 14 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 15 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "L 16 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<blockquote><p>Quote words for a probe</p></blockquote>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q 00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Q open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 01 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 02 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 03 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 04 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 05 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 06 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 07 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 08 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 09 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 10 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 11 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 12 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 13 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 14 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 15 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "Q 16 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "L 00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/3/10",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">List item one</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">List item two</p></li></ul>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            467.8,
+            ""
+          ],
+          [
+            "2",
+            619.8,
+            ""
+          ],
+          [
+            "3",
+            796.2,
+            ""
+          ],
+          [
+            "4",
+            975.2,
+            ""
+          ],
+          [
+            "5",
+            1119.6,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 01 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/11/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/11/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 02 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 03 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 865.6,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/9/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/9/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 04 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/11/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/11/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 05 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 996.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "5/2/13/26",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "5/2/13/26",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 06 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 07 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 996.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "5/2/13/26",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "5/2/13/26",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 08 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.906,
+        "edge": "curve",
+        "h": 1010.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "4/2/12/26",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "4/2/12/26",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 09 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 10 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.906,
+        "edge": "curve",
+        "h": 1010.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "4/2/12/26",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "4/2/12/26",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 11 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "3/6/11/22",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "3/6/11/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 12 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 13 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "3/6/11/22",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "3/6/11/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 14 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "3/3/11/25",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "3/3/11/25",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 15 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "L 16 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 185.1,
+      "aligns": [
+        [
+          "3/3/11/25",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 251.5,
+      "areas": [
+        [
+          "3/3/11/25",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/3/10",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words for a probe</p></blockquote>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            467.8,
+            ""
+          ],
+          [
+            "2",
+            619.8,
+            ""
+          ],
+          [
+            "3",
+            774.5,
+            ""
+          ],
+          [
+            "4",
+            932,
+            ""
+          ],
+          [
+            "5",
+            1054.8,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 01 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/11/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/11/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 02 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 03 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 865.6,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/9/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/9/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 04 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "5/1/11/27",
+          null
+        ]
+      ],
+      "contentH": 187,
+      "areas": [
+        [
+          "5/1/11/27",
+          "2/1/9/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 05 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "5/2/10/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "5/2/10/26",
+          "2/1/8/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 06 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 07 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "5/2/10/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "5/2/10/26",
+          "2/1/8/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 08 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "4/2/9/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "4/2/9/26",
+          "2/1/8/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 09 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 10 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "4/2/9/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "4/2/9/26",
+          "2/1/8/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 11 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "3/6/8/22",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "3/6/8/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 12 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 13 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "3/6/8/22",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "3/6/8/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 14 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "3/3/8/25",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "3/3/8/25",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 15 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "4/1/12/27",
+          null
+        ]
+      ],
+      "contentH": 247,
+      "areas": [
+        [
+          "4/1/12/27",
+          "1/1/10/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q 16 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 76,
+      "aligns": [
+        [
+          "3/3/8/25",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 140,
+      "areas": [
+        [
+          "3/3/8/25",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

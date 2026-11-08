@@ -530,6 +530,42 @@ export const RECIPES = {
     }
     return [['enter'], ['blank'], ...cases.flat()];
   })() },
+  'CAP-X2LEFT': { page: 'Gestures Probe', question: 'X2: the leftovers of CAP-X2UNREAD, each twice: sw and nw pressed with no move, and a top corner moved short of a drag (ne 5 and 9 px right, nw 5 px up). Setup as in CAP-X2UNREAD (predicted first in CAP-X2LEFTPREDICT.json). No Meta+c, x or v.', steps: (() => {
+    const BIG = (n) => [['add', 0, 'Text'], ['pause', 800], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 's', 0, 160, `${n} s`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e1`], ['press', 'Escape'],
+      ['select', 0, 'new'], ['handleDrag', 0, 'new', 'e', 70, 0, `${n} e2`], ['press', 'Escape']];
+    const END = [['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['blank']];
+    const corner = (n, part, dx, dy) => [...BIG(n), ['select', 0, 'new'], ['read', `${n} before`, { areas: 0, block: [0, 'new'] }],
+      ['handleDrag', 0, 'new', part, dx, dy, `${n} pull`], ['read', n, { areas: 0, block: [0, 'new'] }], ...END];
+    const cases = [];
+    for (const r of ['r1', 'r2']) cases.push(corner(`${r} sw 0,0`, 'sw', 0, 0), corner(`${r} nw 0,0`, 'nw', 0, 0), corner(`${r} ne 5,0`, 'ne', 5, 0), corner(`${r} ne 9,0`, 'ne', 9, 0), corner(`${r} nw 0,-5`, 'nw', 0, -5));
+    return [['enter'], ['blank'], ...cases.flat()];
+  })() },
+  ...(() => {
+    // U10's text mixes: each from a fresh section, the Layouts panel opened on it, then picks read for rows, areas,
+    // text height and every text line's alignment (predicted first in CAP-U10TEXTMIXPREDICT.json, K and P frozen).
+    const READ = (name) => [['moveAt', 800, 28], ['pause', 700], ['read', name, { look: 0, areas: 0, aligns: 0, textH: [0, 0], contentH: [0, 0] }]];
+    const OPEN = [['moveAt', 800, 28], ['pause', 600], ['frameTo', 0], ['moveAt', 800, 300], ['pause', 900], ['pressEl', '[data-test="toolbar-layout-switcher"]'], ['moveAt', 800, 28], ['pause', 1200]];
+    const TEXT = (html) => [['add', 0, 'Text'], ['editText', 0, 'new'], ['pasteHere', 0, 'new', html], ['press', 'Escape'], ['press', 'Escape']];
+    const run = (n, htmls, picks, first) => [...(first ? [] : [['exit'], ['enter']]), ['blank'], ...htmls.flatMap(TEXT), ['moveAt', 800, 28], ['pause', 600],
+      ['read', `${n} 00 start`, { look: 0, areas: 0, aligns: 0, html: [0, 0] }], ...OPEN, ['read', `${n} open`, { tiles: true }],
+      ...picks.flatMap((L, k) => [['pressLayout', L], ...READ(`${n} ${String(k + 1).padStart(2, '0')} layout ${L}`)]), ['press', 'Escape'], ['pause', 500]];
+    const P16 = [0, 1, 0, 0, 2, 1, 2, 3, 1, 3, 4, 1, 4, 5, 1, 5];
+    const H = '<h2>Heading words for a probe</h2>', W = '<p>Paragraph words for a probe</p>';
+    const LIST = '<ul><li><p>List item one</p></li><li><p>List item two</p></li></ul>', QUOTE = '<blockquote><p>Quote words for a probe</p></blockquote>', CODE = '<pre><code>code words for a probe</code></pre>';
+    const recipe = (q, runs) => ({ page: 'Blocks Probe', question: `U10: ${q} No Meta+c, x or v; nothing saved.`, steps: [['window', 1600, 1000], ['enter'], ...runs.flat()] });
+    return {
+      'CAP-U10TEXTMIX-A': recipe('the two full-width headings CAP-U10ALIGN-B and C left unread (h1p1 pick 3, h1p2 pick 4), each picked twice, with every pick between.', [
+        run('H1', [H, W], [3, 0, 1, 2, 3, 4, 5, 3], true), run('H2', [H, W, W], [4, 0, 1, 2, 3, 4, 5, 6, 7, 4])]),
+      // A's full-width headings had no text container on all 4 reads: again, read from anywhere in the block.
+      'CAP-U10TEXTMIX-A2': recipe('the full-width headings again (CAP-U10TEXTMIX-A.json read no text container there): h1p1 pick 3 and h1p2 pick 4, each twice, lines read from anywhere in the block.', [
+        run('F1', [H, W], [3, 0, 3], true), run('F2', [H, W, W], [4, 0, 4])]),
+      'CAP-U10TEXTMIX-D': recipe('a Text block holding one heading alone, through the 16 picks of CAP-U10WORDS.json, to compare with the list and quote of CAP-U10TEXTMIX-B.json.', [run('D', [H], P16, true)]),
+      'CAP-U10TEXTMIX-B': recipe('a Text block holding a list, then one holding a quote, each through the 16 picks of CAP-U10WORDS.json.', [run('L', [LIST], P16, true), run('Q', [QUOTE], P16)]),
+      'CAP-U10TEXTMIX-C': recipe('a Text block holding code, then one holding a paragraph, a list, a quote and code, each through the 16 picks of CAP-U10WORDS.json.', [run('C', [CODE], P16, true), run('M', [W + LIST + QUOTE + CODE], P16)]),
+    };
+  })(),
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
