@@ -1,0 +1,42 @@
+{
+  "item": "X6",
+  "capturedAt": "2026-11-08",
+  "question": "X6, Menu pulled in to its 6-column floor on a phone, with the pointer stopping at the floor or going past it; and whether the timing lags of CAP-X6PHONEROWS.json settle after 2 s. Predictions pushed before the read of CAP-X6FARSETTLE.json.",
+  "setup": "Blocks Probe, unsaved, a new section. Menu added on desktop and viewed on the phone at 8 columns (28 rows, 1/2/29/10). Each pull is undone before the next. Pulls of 96 px (2 columns, the pointer stops at the floor) and 150 px (3.1 columns, past it) from each side; a pull to 7 columns then 200 px more; a 300 px pull read while held and let go. Then Instagram and OpenTable pulled in one column at a time to their floors and out again, each step read at 400 ms and again 2 s later. Then a new OpenTable pulled 500 px in one pull.",
+  "rule": "Refit (the phone rule's last refit, CAP-X6PHONEROWS.json): a side pull on a phone gives max(rows before, ceil((h + 11) / 35 - g)), h the content's height at the landed width. g is 0.13 when the pointer stops at or above the floor, and 0.02 (no give) when the pointer goes past the floor, so the snapped width would be under it. Menu at 6 columns is 1077.2 high: 31.09 rows, so 31 at the floor and 32 past it (CAP-X6PHONEFLOORS.json's two far pulls read 32; CAP-X6PHONEROWS.json's step to 6 read 31).",
+  "predictions": [
+    {
+      "case": "Menu e to floor (96 px)",
+      "predict": "1/2/32/8, 31 rows"
+    },
+    {
+      "case": "Menu e past floor (150 px)",
+      "predict": "1/2/33/8, 32 rows"
+    },
+    {
+      "case": "Menu w past floor (150 px)",
+      "predict": "1/4/33/10, 32 rows"
+    },
+    {
+      "case": "Menu w to floor (96 px)",
+      "predict": "1/4/32/10, 31 rows"
+    },
+    {
+      "case": "Menu e 7 then 200 px past floor",
+      "predict": "e 7 1/2/30/9 (29 rows), then 1/2/33/8, 32 rows"
+    },
+    {
+      "case": "Menu let go past floor (300 px)",
+      "predict": "1/2/33/8, 32 rows"
+    },
+    {
+      "case": "OpenTable e past floor (500 px)",
+      "predict": "1/2/11/5, 10 rows (316.1 high: 9.35 rows)"
+    },
+    {
+      "case": "later reads (2 s)",
+      "predict": "not predicted: the question for the lead is whether they settle to ours, ceil((h + 11) / 35 - 0.13) for Instagram, and max(rows before, that) for OpenTable"
+    }
+  ],
+  "score": "Counted on the seven Menu and OpenTable far cases above, at their 400 ms reads. The rule is frozen with this file: whatever the count, it stands, and misses are named."
+}
