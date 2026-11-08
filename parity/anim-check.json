@@ -1,6 +1,6 @@
 {
-  "pass": 345,
-  "total": 345,
+  "pass": 358,
+  "total": 358,
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -339,6 +339,18 @@
       "ok": true
     },
     {
+      "what": "End Offset X typed 2000 shows 2,000px, as read",
+      "ok": true
+    },
+    {
+      "what": "End Rotate typed 2000 shows 2,000°, as read",
+      "ok": true
+    },
+    {
+      "what": "A drag from 2,000px goes on to 2,008px",
+      "ok": true
+    },
+    {
       "what": "40px on Duration is 2.1s, as read",
       "ok": true
     },
@@ -376,6 +388,46 @@
     },
     {
       "what": "Design: Enter keeps the focus, Reset can be pressed",
+      "ok": true
+    },
+    {
+      "what": "Design sx: 190 dragged 50px stops at 200, as read",
+      "ok": true
+    },
+    {
+      "what": "Design sy: 10 dragged -50px stops at 0, as read",
+      "ok": true
+    },
+    {
+      "what": "Design tx: 990 dragged 50px stops at 1000, as read",
+      "ok": true
+    },
+    {
+      "what": "Design ty: -990 dragged -50px stops at -1000, as read",
+      "ok": true
+    },
+    {
+      "what": "Design kx: 55 dragged 50px stops at 60, as read",
+      "ok": true
+    },
+    {
+      "what": "Design ky: -55 dragged -50px stops at -60, as read",
+      "ok": true
+    },
+    {
+      "what": "Design Offset Y shows -1,000px",
+      "ok": true
+    },
+    {
+      "what": "Design Rotate 10 dragged 50px is 30°, focused",
+      "ok": true
+    },
+    {
+      "what": "Cmd+Z in the field: 10°, the focus stays, caret 3, as read",
+      "ok": true
+    },
+    {
+      "what": "A second Cmd+Z: the value before the typing, focus stays, as read",
       "ok": true
     },
     {
