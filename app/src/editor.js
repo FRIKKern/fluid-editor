@@ -18,7 +18,7 @@ import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBloc
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
-import { anchorPopHtml, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
+import { anchorPopHtml, APPEAR, anchorText, blockPanelHtml, blockPanelPosition, CODE_PANEL_WIDTH, codeModalHtml, mdModalHtml, mdLinkSummaryHtml, linkBoxHtml, shapePickerHtml, shapeColorHtml, mapStylesHtml, DESIGN_FIELDS, designText, designRange, PAD_PCT, linkPopoverHtml, linkPopoverPosition, pinPopoverHtml, pinRangeValue , blendValue } from './block-panel.js';
 import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
@@ -154,7 +154,9 @@ function phoneFollowsMove(s, was) {
     }
     return gone.length > 0;
   }
-  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
+  const typed = same.some(([b, o]) => b.html !== o.html);
+  return (s.phoneFollows && (changed('desktop', (a) => a) || typed) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
@@ -183,10 +185,12 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
-  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
-  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
+  // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
+  // CAP-P3UNDO2.json; the buttons CAP-P3ALIGN.json, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json). Redo is not read.
   const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
   if (shown.length === 2) heightShown = [secSid(), ...shown];
+  if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -2416,6 +2420,14 @@ blockPanel.addEventListener('change', (e) => {
   e.stopImmediatePropagation();
   setShape((b) => { if (f.checked) b[f.dataset.imageSet] = true; else delete b[f.dataset.imageSet]; }, `${f.dataset.imageSet} ${f.checked ? 'on' : 'off'}`);
 }, true);
+// A Quote's Appear (CAP-DESIGNTAB-EFFECTS2.json): its list over the row, Site Default 20 above the row's top.
+blockPanel.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-appear]');
+  if (!a || !sel) return;
+  if (shapeUi?.kind === 'appear') { closeShapePop(); return; }
+  shapeUi = { kind: 'appear', bid: sel.bid, custom: null, rect: a.getBoundingClientRect() };
+  renderShapePop();
+});
 blockPanel.addEventListener('click', (e) => {
   const a = e.target.closest('[data-image-sel]');
   if (!a || !sel) return;
@@ -3036,7 +3048,7 @@ function renderShapePop() {
   if (shapeUi.section) { renderSectionPop(); return; }
   const b = B(sel.sid, sel.bid), P = blockPanel.getBoundingClientRect(), { kind } = shapeUi;
   blockPanel.querySelector('.bp-anchor')?.setAttribute('aria-expanded', String(kind === 'anchor'));
-  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
+  shapePop.className = kind === 'editmenu' ? 'is-editmenu' : kind === 'fxmenu' ? 'is-fxmenu' : kind === 'appear' ? 'is-appear' : kind === 'accmenu' ? 'is-accmenu' : kind === 'ffmenu' ? 'is-ffmenu' : kind === 'animopts' || kind === 'imagesel' ? 'is-animopts' : kind === 'style' ? 'is-style' : kind === 'more' ? 'is-more' : kind === 'mapstyle' ? 'is-mapstyle' : 'is-color';
   if (kind === 'anchor') {
     const { ox, oy } = designFor(b, bp), btn = blockPanel.querySelector('[data-shape-act="anchor"]')?.getBoundingClientRect();
     shapePop.className = 'is-anchor';
@@ -3059,6 +3071,12 @@ function renderShapePop() {
     // Interaction (IMAGEEFFECT.json): a list over its row, the current one on the row with a check.
     shapePop.innerHTML = EFFECTS[b.effect.kind].groups.flatMap(([, rows]) => rows).find((r) => r[2] === shapeUi.key)[3].map((o) => `<button type="button" role="option" class="${o === b.effect[shapeUi.key] ? 'is-cur' : ''}" data-fx-opt="${o}">${o}${o === b.effect[shapeUi.key] ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 12l4 4 8-9"/></svg>' : ''}</button>`).join('');
     shapePop.style.cssText = `left:${P.left + 11}px;top:${shapeUi.rect.top - 5}px`;
+  } else if (kind === 'appear') {
+    // What a pick does on the page is not read: it is kept on the block.
+    const cur = b.appear || APPEAR[0];
+    shapePop.innerHTML = APPEAR.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" aria-selected="${o === cur}" data-appear-opt="${o}">${o}</button>`).join('');
+    const top = shapeUi.rect.top - 25;
+    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list past the window's foot scrolls (not read)
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
     const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];
@@ -3153,6 +3171,13 @@ shapePop.addEventListener('click', (e) => {
     const { key } = shapeUi, v = fxo.dataset.fxOpt;
     closeShapePop();
     if (B(sel.sid, sel.bid).effect[key] !== v) setEffect((b) => { b.effect[key] = v; }, `image effect ${key} ${v}`);
+    return;
+  }
+  const apo = e.target.closest('[data-appear-opt]');
+  if (apo) {
+    const v = apo.dataset.appearOpt;
+    closeShapePop();
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`);
     return;
   }
   const io = e.target.closest('[data-image-opt]');
@@ -3331,7 +3356,7 @@ shapePop.addEventListener('pointerdown', (e) => {
 });
 for (const t of ['mousedown']) shapePop.addEventListener(t, (e) => e.stopPropagation());
 shapePop.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') closeShapePop(); });
-document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel]')) closeShapePop(); }, true);
+document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contains(e.target) && !e.target.closest('[data-shape-act], [data-acc-menu], [data-ff-menu], [data-sp-color], [data-image-sel], [data-appear]')) closeShapePop(); }, true);
 // Button and image Content tabs: the text and the link (parity/findings/BUTTONEDIT.json). The
 // text is one undo step when the field is left; each link change is one step.
 function setButton(change, label) {
@@ -5321,10 +5346,15 @@ function onSectionClick(e) {
   // A row's more button shows its sliders and takes no undo step, as read (CAP-ARTSHUFFLE.json).
   if (act === 'artSeg' && v === 'more') { if (s.bgArt) s.bgArt = { ...s.bgArt, set: artSeg(s.bgArt.name, s.bgArt.set || {}, btn.dataset.k, v) }; redraw(); return; }
   if (act === 'gap' && v === 'custom') { customGap = true; renderPanel(); if (editSid) renderSectionPanel(); return; }
+  segShown = null;
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
-  if (act === 'height') { s.height = v; s.customHeight = v === 'custom' ? (s.customHeight ?? 1) : undefined; }
-  if (act === 'valign') s.valign = v;
+  // Custom height after a flattening Vertical press starts again at 1 (difference 104, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json).
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
+  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
+  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5385,6 +5415,10 @@ let heightBefore = null;
 // After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
 // CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
 const heightNaN = new Map();
+// A flat section's panel, opened again, shows S checked and no slider; the open panel keeps Custom (104, CAP-P3ALIGN2 to 4).
+let panelFlat = null;
+// The Height and Alignment buttons the open panel showed before an Undo (99): [sid, { height, valign }].
+let segShown = null;
 // What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
 let heightShown = null;
 function showHeight(n) {
@@ -5395,11 +5429,12 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
-  heightShown = null;
+  heightShown = segShown = null;
   if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
   const before = JSON.stringify(model);
   s.customHeight = n;
+  delete s.flat;
   renderSectionDom(s.id);
   if (input.type !== 'range') { heightBefore ??= before; return; }
   // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
@@ -5437,6 +5472,7 @@ function onSectionChange(e) {
     if (input.checked) s.divider = true; else { delete s.divider; for (const k of ['dividerStroke', 'dividerThickness', 'dividerShape', 'dividerWidth', 'dividerHeight', 'dividerFlip', 'dividerFlipY', 'dividerAlign', 'dividerColor']) delete s[k]; }
   } else if (act === 'fill') {
     if (input.checked) { s.height = 'medium'; delete s.customHeight; } else { s.height = 'custom'; delete s.customHeight; }
+    delete s.flat;
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
@@ -5703,11 +5739,13 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
+  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
+  if (segShown?.[0] === s.id) for (const [a, v] of Object.entries(segShown[1])) for (const b of sectionPanel.querySelectorAll(`[data-sact="${a}"]`)) { b.classList.toggle('is-on', b.dataset.v === v); b.setAttribute('aria-pressed', String(b.dataset.v === v)); }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5822,7 +5860,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; segShown = null; panelFlat = S(sid).flat ? sid : null; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();

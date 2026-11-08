@@ -745,7 +745,7 @@ export function renderSection(s, model) {
     s.divider ? 'has-section-divider' : '',
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
-  const vars = [s.height === 'custom' ? `--custom-height: ${s.customHeight ?? 0};` : '', s.divider && dividerBand(s) !== 6 ? `--divider-h: ${dividerBand(s)}vw;` : ''].filter(Boolean).join(' ');
+  const vars = [s.height === 'custom' ? `--custom-height: ${s.flat ? 0 : s.customHeight ?? 0};` : '', s.divider && dividerBand(s) !== 6 ? `--divider-h: ${dividerBand(s)}vw;` : ''].filter(Boolean).join(' ');
   const style = vars ? ` style="${vars}"` : '';
   return `<section class="${cls}"${s.anchor ? ` id="${escapeHtml(s.anchor)}"` : ''} data-section-id="${s.id}" data-section-theme="${themeName}"${style}><div class="section-background"${s.divider && dividerClip(s) ? ` style="clip-path: ${dividerClip(s)};"` : ''}>${bgMedia(s)}</div>${s.divider ? dividerSvg(s) : ''}<div class="content-wrapper"><div class="content"><style data-fe-css>${sectionCss(s)}</style><div class="fluid-engine fe-${s.id}">${s.blocks.map((b) => renderBlock(b, model)).join('')}</div></div></div></section>`;
 }
