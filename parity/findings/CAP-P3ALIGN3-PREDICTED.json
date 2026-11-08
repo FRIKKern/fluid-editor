@@ -1,0 +1,255 @@
+{
+  "item": "P3",
+  "capturedAt": "2026-11-08",
+  "question": "P3, refit 1 of the alignment rule (round 1, CAP-P3ALIGN2: 6 of 10). New values and a section that had Vertical presses at M before Custom. Blocks Probe, new blank section, frame 1600 x 945, named presses only, unsaved. Predictions pushed before the read.",
+  "from": "CAP-P3ALIGN2.json with its sectionCss, and CAP-P3ALIGN.json. C = 456.4, the blank section with min-height 0 and wrapper padding 0.",
+  "rule": {
+    "Custom height press": "as a field change to 1.",
+    "field change to N": "min-height N vh; wrapper padding 1.6N on each edge at center; at top 0 on top and 3.2N below; at bottom 3.2N on top and 0 below (bottom mirrored from top, inferred). h = C + 3.2N while N vh is below C.",
+    "Vertical press while Custom, fresh section": "min-height 0, wrapper padding 0: h = C at any alignment.",
+    "Vertical press while Custom, after Vertical presses at S, M or L": "C + 64 at top or bottom, C at center (CAP-P3ALIGN, one read; history, guessed).",
+    "panel opened again after a Vertical press while Custom": "S checked, no slider.",
+    "M": "as read before: 667.6 at center, 731.6 at top or bottom."
+  },
+  "hit": "Section height within 0.5 px (sections[0].h). Panel reads: which Height radio is checked, and slider/field (null for no slider).",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "25"
+    ],
+    [
+      "read",
+      "25 center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "25 bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "15"
+    ],
+    [
+      "read",
+      "15 bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "15 top",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "reopened",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "M top",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical center"
+    ],
+    [
+      "read",
+      "M center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "M top again",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom after M",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "custom after M bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "fillRange",
+      "5"
+    ],
+    [
+      "read",
+      "5 bottom after M",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ]
+  ],
+  "predictions": {
+    "25 center": {
+      "h": 536.4
+    },
+    "25 bottom": {
+      "h": 456.4
+    },
+    "15 bottom": {
+      "h": 504.4
+    },
+    "15 top": {
+      "h": 456.4
+    },
+    "reopened": {
+      "h": 456.4,
+      "height": "S",
+      "range": null
+    },
+    "M top": {
+      "h": 731.6
+    },
+    "M center": {
+      "h": 667.6
+    },
+    "M top again": {
+      "h": 731.6
+    },
+    "custom after M": {
+      "h": 459.6
+    },
+    "custom after M bottom": {
+      "h": 520.4
+    },
+    "5 bottom after M": {
+      "h": 472.4
+    }
+  },
+  "notPredicted": [
+    "custom (459.6, already read)"
+  ]
+}
