@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 16 changes
+- **Today** · 17 changes
+  - E7: Copy, Remove Link, the row press and a Stack's Link, built as read ([#399](https://github.com/FRIKKern/fluid-editor/pull/399))
   - U10: a pick sets each text block's alignment (41 of 41 predicted) ([#398](https://github.com/FRIKKern/fluid-editor/pull/398))
-  - X2: the right margin mirror, refit 1 read, held back for the 6 wide conflict ([#397](https://github.com/FRIKKern/fluid-editor/pull/397))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
