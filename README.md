@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 91 changes
+- **Today** · 92 changes
+  - X2: oracle-capture refuses a read label used twice (CAP-X2RESIZED lost its Markdown that way) ([#475](https://github.com/FRIKKern/fluid-editor/pull/475))
   - X2: right margin mirror built as a read table, 6 wide keeps the left edge rule ([#474](https://github.com/FRIKKern/fluid-editor/pull/474))
-  - U10: the step on other lists, read through every pair; rule S 145 of 164 ([#473](https://github.com/FRIKKern/fluid-editor/pull/473))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
