@@ -662,7 +662,8 @@ function contentRows(b, m, normalizing = false, widthPull = false, exact = false
     // A Quote's padding sits around its content box and still takes rows (CAP-75QUOTE.json).
     const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
-    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - 0.02));
+    // An Instagram runs over by up to 0.13 of a row before it takes another: more than 0.106, less than 0.16 (CAP-X6DESKROWS.json).
+    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - (b.standin === 'instagram' ? 0.13 : 0.02)));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
@@ -1431,7 +1432,18 @@ function updateResize(e) {
   // Guard: a target cannot be shorter than the content at the width the block has now.
   // A stand-in on a phone takes at least the rows of the height it drew at the press, on a side pull too, and keeps them as it
   // narrows; one whose content grows as it narrows, like a Quote, takes that (CAP-X6PHONEFLOORS.json).
-  const need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
+  let need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
+  // On desktop a side pull gives these stand-ins the rows of the oracle's content at the new width and never gives rows back.
+  // An Instagram follows its tiles both ways: its rows at the snapped width (CAP-X6DESKROWS.json).
+  const side = bp === 'desktop' && /^[ew]$/.test(g.dir);
+  if (side && held.standin === 'instagram') {
+    // Held, it is out of the flow: measured now, the grid's rows aren't the ones its content stretched at the press.
+    const { width, height } = el.style;
+    Object.assign(el.style, { width: `${m.colEnd[c1 - 2] - m.colStart[c0 - 1]}px`, height: '' });
+    need = contentRows(held, measure(fe));
+    Object.assign(el.style, { width, height });
+    r1 = r0 + need;
+  } else if (side && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
@@ -4854,6 +4866,17 @@ const STANDIN_TYPES = ['Quote', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; /
 // phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
 const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
 const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
+// The height the oracle's content draws on desktop at each width in columns, [least columns, height], widest first: measurements
+// only (CAP-X6DESKROWS.json). Summary's moves between sessions (CAP-X6STEPS.json read 14 rows at 17 columns, this 11), and its
+// height past 18 columns is unread, so 18's stands.
+const DESK_HEIGHT = {
+  'Pricing Plan': [[17, 380.1], [10, 405.1], [7, 430.1], [0, 455.1]],
+  Newsletter: [[11, 253.5], [8, 276], [0, 371.9]],
+  Bandsintown: [[15, 423], [13, 535], [11, 731], [8, 815], [7, 927], [6, 1151], [0, 1319]],
+  Summary: [[18, 427], [17, 407], [16, 431], [15, 411], [14, 391], [13, 735], [12, 699], [11, 680], [10, 659], [9, 1624], [0, 1332]],
+  Scheduling: [[0, 680]],
+};
+const deskHeight = (label, cols) => DESK_HEIGHT[label]?.find(([c]) => cols >= c)?.[1];
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],

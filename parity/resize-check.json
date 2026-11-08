@@ -1,6 +1,6 @@
 {
   "check": "block types resize as on the oracle",
-  "pass": 135,
+  "pass": 136,
   "total": 143,
   "named": [
     "Summary se 2,1",
@@ -9,8 +9,7 @@
     "Zola s 0,-2",
     "Zola e -2,0",
     "Bandsintown se 2,1",
-    "Bandsintown s 0,-2",
-    "Bandsintown e -2,0"
+    "Bandsintown s 0,-2"
   ],
   "results": [
     {
@@ -550,9 +549,7 @@
     },
     {
       "what": "Bandsintown e -2,0",
-      "ok": false,
-      "named": true,
-      "outOfScope": "0005"
+      "ok": true
     },
     {
       "what": "Fill picture se +2 +1",

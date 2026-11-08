@@ -1,0 +1,30 @@
+{
+ "item": "X6",
+ "capturedAt": "2026-11-08",
+ "question": "X6, desktop rows of Summary, Pricing Plan, Newsletter, Instagram, Bandsintown and Scheduling as they are pulled narrower and wider. Predictions pushed before the read of CAP-X6DESKROWS.json.",
+ "setup": "Blocks Probe, unsaved, a new section. Each type is added, pulled in by its east handle one column (58.78 px) at a time to its floor, then out one column at a time to 24 columns, reading its area and its content's height at each step. Then a new one is pulled far in from the west.",
+ "rule": "After each side pull a block's rows are ceil((h + 11) / 41.1 - 0.02), h being its content's height read at that step: rows follow the content both ways, growing as it narrows and giving rows back as it widens. The pitch 41.1 and gap 11 are the desktop grid's (CAP-T10PULL.json pulls).",
+ "predictions": [
+  {
+   "case": "every step of every type",
+   "predict": "rows = ceil((contentH + 11) / 41.1 - 0.02)"
+  },
+  {
+   "case": "Summary",
+   "predict": "rows grow as it narrows (11 at 18 columns, 14 at 17, 33 at 8, as CAP-X6FLOORS.json and CAP-X6STEPS.json read) and give rows back as it widens past 17"
+  },
+  {
+   "case": "Instagram",
+   "predict": "rows go down as it narrows and up as it widens; at 4 columns the west and east pulls have the same content height, so the same rows"
+  },
+  {
+   "case": "Scheduling",
+   "predict": "rows go down as it widens past 8 columns"
+  },
+  {
+   "case": "Bandsintown, Newsletter, Pricing Plan",
+   "predict": "rows grow as each narrows and give rows back as each widens"
+  }
+ ],
+ "score": "Counted on the read's steps: a step matches when its rows equal the rule's rows from its own content height."
+}
