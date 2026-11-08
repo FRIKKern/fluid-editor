@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, browser, drag, mouse } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { lookJs } from './lib/sample-look.mjs';
 
 const FULL = process.argv.includes('--full');
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -955,6 +956,19 @@ for (const n of 'ABCDE') {
   id = await freshMd(); await setMd(''); browser(S, 'click', mdBtn('Bulleted List')); await pause(300);
   const p = partsOf(id, 'p'), want = R['bullet empty'];
   add('94 Bulleted List on empty: the text "* "', mdBlock(id) === want.htmlOf && p.length === 1 && p[0].color === 'rgb(0, 0, 0)' && nearBox(p[0].box, oracleBox(want.inside, 'p')), JSON.stringify([mdBlock(id), p]));
+}
+// 95: an empty Embed's status box as read (CAP-93MDEMBED.json, embed empty): its words 379.3 wide in 459.3, so Rotate 50
+// moves the content box as on the oracle (SAMPLE-ROWS.json, Embed Rotate, round 3, read by the same reader).
+{
+  const E = read('CAP-93MDEMBED').reads['embed empty'].inside, base = E.find((e) => e.cls.startsWith('fluid-engine-block-contents')).box;
+  const rel = (cls) => { const b = E.find((e) => e.cls.split(' ').includes(cls)).box; return [b[0] - base[0], b[1] - base[1], b[2], b[3]]; };
+  const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); fe.setBp('desktop'); const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = []; fe.load(next); await sleep(250); fe.addBlock(s.id, 'Embed'); await sleep(400); fe.select(null); await sleep(100); return JSON.stringify(fe.model.sections[1].blocks.at(-1).id); })()`);
+  const parts = evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, b = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]'), B = b.getBoundingClientRect(); return JSON.stringify(Object.fromEntries(['sqs-blockStatus-box', 'sqs-blockStatus-box-title', 'sqs-blockStatus-box-message'].map((c) => { const e = b.querySelector('.' + c), q = e.getBoundingClientRect(), s = W.getComputedStyle(e); return [c, { box: [q.left - B.left, q.top - B.top, q.width, q.height], css: [s.color, s.backgroundColor, s.borderTopWidth + ' ' + s.borderTopStyle + ' ' + s.borderTopColor, s.borderTopLeftRadius, s.boxShadow, s.fontSize] }]; }))); })()`);
+  const okPart = (c) => nearBox(parts[c].box, rel(c));
+  add('95 Empty Embed: box, title, message as read', ['sqs-blockStatus-box', 'sqs-blockStatus-box-title', 'sqs-blockStatus-box-message'].every(okPart) && parts['sqs-blockStatus-box'].css.join() === ['rgb(62, 62, 62)', 'rgb(255, 255, 255)', '1px solid rgb(208, 208, 208)', '0px', 'none', '16px'].join() && parts['sqs-blockStatus-box-message'].css[5] === '11px', JSON.stringify(parts));
+  evalJs(S, `(async () => { const m = JSON.parse(JSON.stringify(fe.model)), b = m.sections[1].blocks.at(-1); b.design = { ...(b.design || {}), rotate: 50 }; fe.load(m); await new Promise((r) => setTimeout(r, 400)); fe.select(null); return 'true'; })()`);
+  const want = JSON.parse(readFileSync(new URL('../parity/findings/SAMPLE-ROWS.json', import.meta.url))).picks.find((p) => p.tile === 'Embed' && p.name === 'Rotate').round3.oracle.d1, got = evalJs(S, lookJs('site-frame', id));
+  add('95 Rotate 50: the content box moves as read', ['w', 'h', 'cl', 'ct', 'cr', 'cb'].every((k) => Math.abs(got[k] - want[k][1]) <= 1), JSON.stringify([got, want]));
 }
 console.log(`Code and embed: ${pass} of ${total} checks match`);
 if (FULL) writeFileSync(new URL('../parity/code-check.json', import.meta.url), JSON.stringify({ check: 'code and embed panels', pass, total, results }, null, 2) + '\n');
