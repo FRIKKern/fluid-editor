@@ -2039,6 +2039,14 @@ function animStopPreview() {
   const el = sel && blockEl(sel.bid);
   if (el) releasePose(el);
 }
+// A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
+// agree): its slow-starting run first shows at 844 ms, so it starts about 170 ms after the press; not if the editor has changed by then.
+let stageOpenTimer = 0;
+function stageOnOpen() {
+  clearTimeout(stageOpenTimer);
+  const sq = blockPanel.querySelector('.an-stage .an-sq'), at = anim.i;
+  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 170);
+}
 function animAction(el) {
   if (el.dataset.anim !== 'play') animStopPreview();
   const act = el.dataset.anim, i = el.dataset.i == null ? null : Number(el.dataset.i), rows = animRows();
@@ -2055,7 +2063,7 @@ function animAction(el) {
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
-  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; }
+  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; renderBlockPanel(); stageOnOpen(); return; }
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
