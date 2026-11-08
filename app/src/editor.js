@@ -1460,7 +1460,13 @@ function updateResize(e) {
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
   } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
-  else if (side && bp === 'mobile' && held.phoneHeight) need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - 0.13));
+  else if (side && bp === 'mobile' && held.phoneHeight) {
+    // A pointer past the floor, where it would snap under it, takes the rows with no give: Menu 31.09 rows high is 31 at
+    // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
+    const [, o0, , o1] = g.orig;
+    const past = g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols;
+    need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
+  }
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
