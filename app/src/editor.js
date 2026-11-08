@@ -34,7 +34,7 @@ import { dotPopHtml, dotPopTop, fromColor, DOT_POP_HEIGHT } from './site-palette
 import { rowValue } from './theme-rows.js';
 import { PRESETS as PALETTE_PRESETS } from './theme-rows-data.js';
 import { demoModel } from './demo.js';
-import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
+import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
@@ -153,8 +153,15 @@ function phoneFollowsMove(s, was) {
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
 }
 
-// A drag leaves the focus in Animation's field, and a focused field keeps the panel from redrawing.
-const leaveAnimField = () => { if (document.activeElement?.matches?.('#block-panel [data-afield]')) document.activeElement.blur(); };
+// A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
+// value undone, keeps the focus and puts the caret at its end (CAP-T15CHEAP.json, read on Design; inferred on Animation's fields).
+const leaveField = () => {
+  const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
+  if (!f) return null;
+  f.blur();
+  return f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+};
+const backToField = (q) => { if (q) caretAtEnd(blockPanel.querySelector(q)); };
 function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
@@ -166,7 +173,7 @@ function undo(button = false) {
   if (!undoStack.length) { if (ed) select(null); return; }
   unsettled = null;
   stored = null;
-  leaveAnimField();
+  const held = leaveField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
@@ -174,7 +181,7 @@ function undo(button = false) {
   note('Undo');
   renderAll();
   syncLayouts();
-  if (ed || bare) select(null);
+  if (ed || bare) select(null); else backToField(held);
 }
 function redo() {
   const ed = editing;
@@ -182,7 +189,7 @@ function redo() {
   if (!redoStack.length) { if (ed) select(null); return; }
   unsettled = null;
   stored = null;
-  leaveAnimField();
+  const held = leaveField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
   model = JSON.parse(redoStack.pop());
@@ -192,7 +199,7 @@ function redo() {
   if (ed) { select(null); return; }
   // A block that comes back comes back selected (CAP-Y2KEYS.json).
   const back = model.sections.flatMap((o) => o.blocks.filter((x) => !had.has(x.id)).map((x) => ({ sid: o.id, bid: x.id })));
-  if (back.length === 1) select(back[0]);
+  if (back.length === 1) select(back[0]); else backToField(held);
 }
 
 // ---------- rendering ----------
@@ -2030,12 +2037,15 @@ blockPanel.addEventListener('pointerdown', (e) => {
       shown(v, CORNER_RANGE, v !== 0);
     } else if (key) {
       const v = scrubbed(start, dx, key), pose = /:(\d)/.exec(key);
-      input.value = v;
+      input.value = commas(v);
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
       shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      const f = DESIGN_FIELDS.find((x) => x[0] === dk), v = Math.min(f[4], Math.max(f[3], Math.round((parseFloat(start.replace(/,/g, '')) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). Inferred: a value typed
+      // past an end is not pulled back by the drag, which only moves it toward the bar.
+      const f = DESIGN_FIELDS.find((x) => x[0] === dk), s0 = parseFloat(start.replace(/,/g, '')), [lo, hi] = designRange(dk) || [f[3], f[4]];
+      const v = Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), Math.round((s0 + dx * 0.4) * 10) / 10)), bag = designBag(bp);
       input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
@@ -2049,7 +2059,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
     if (!moved) return;
     box.classList.remove('is-scrub');
     if (corner) { commit(before, 'Corner'); renderBlockPanel(); caretAtEnd(blockPanel.querySelector('[data-shape="radius"]')); return; }
-    if (dk) { input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+    // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
+    if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
     animPlay = 'square';
     renderBlockPanel();
@@ -3835,7 +3846,10 @@ async function readPicture(file) {
   return { src: c.toDataURL('image/webp', 0.85), aspect: bmp.width / bmp.height };
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
-blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]')) e.stopPropagation(); });
+// Cmd+Z in a transform field with nothing typed in it is the page's: the last step goes and the focus stays (CAP-T15CHEAP.json).
+// Not read: with typing not yet taken, so the field keeps it.
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && e.target.matches('input[data-afield], input[type="text"][data-design]') && e.target.value === e.target.defaultValue;
+blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation(); });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');

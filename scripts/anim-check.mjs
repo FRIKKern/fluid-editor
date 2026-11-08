@@ -220,6 +220,13 @@ await drag(`panel.querySelectorAll('.an-box')[2].querySelector('.sc-r')`, 20);
 add('20px on Scale goes on from its value', fieldsNow()[2] === '118%', fieldsNow());
 q(`fe.undo(); await sleep(220); return 'true';`);
 add('One undo for a drag', fieldsNow()[2] === '110%', fieldsNow());
+// Animation's fields show thousands commas; the model keeps the bare number, and a drag goes on from it (CAP-T15CHEAP.json).
+await typeInto(4, '2000');
+add('End Offset X typed 2000 shows 2,000px, as read', fieldsNow()[4] === '2,000px', fieldsNow());
+await typeInto(1, '2000');
+add('End Rotate typed 2000 shows 2,000°, as read', fieldsNow()[1] === '2,000°', fieldsNow());
+await drag(`panel.querySelectorAll('.an-box')[4].querySelector('.sc-r')`, 20);
+add('A drag from 2,000px goes on to 2,008px', fieldsNow()[4] === '2,008px', fieldsNow());
 await clickTab('Timing');
 await drag(`panel.querySelectorAll('.an-box')[1].querySelector('.sc-r')`, 40);
 add('40px on Duration is 2.1s, as read', fieldsNow().includes(F.scrub.duration40px[1]), fieldsNow());
@@ -247,6 +254,28 @@ add('Design: typed without Enter, no Reset', rs.opacity === '0' && rs.pointer ==
 browser(S, 'press', 'Enter'); await pause(300);
 rs = resetState(dIn);
 add('Design: Enter keeps the focus, Reset can be pressed', rs.focused && rs.opacity === '1' && rs.pointer === 'auto' && rs.onTop, JSON.stringify(rs));
+// A drag stops at the bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json past).
+const setD = (k, text) => q(`const e = panel.querySelector('input[data-design="${k}"]'); e.focus(); e.value = ${JSON.stringify(text)}; e.dispatchEvent(new Event('change', { bubbles: true })); e.blur(); await sleep(220); return 'true';`);
+const dFocused = (k) => q(`return JSON.stringify(document.activeElement === panel.querySelector('input[data-design="${k}"]'));`);
+for (const [k, from, dx, want] of [['sx', '190', 50, '200'], ['sy', '10', -50, '0'], ['tx', '990', 50, '1000'], ['ty', '-990', -50, '-1000'], ['kx', '55', 50, '60'], ['ky', '-55', -50, '-60']]) {
+  setD(k, from);
+  await drag(`${dbox(k)}.querySelector('.sc-r')`, dx);
+  add(`Design ${k}: ${from} dragged ${dx}px stops at ${want}, as read`, dv(k) === want && dFocused(k), `${dv(k)} focused ${dFocused(k)}`);
+}
+add('Design Offset Y shows -1,000px', q(`return JSON.stringify(panel.querySelector('input[data-design="ty"]').value);`) === '-1,000px', '');
+// Cmd+Z with the focus left in the field after a drag: the value goes back, the focus stays, caret at the end (CAP-T15CHEAP.json undo).
+const rot0 = dv('rotate');
+setD('rotate', '10');
+await drag(`${dbox('rotate')}.querySelector('.sc-l')`, 50); // from the left edge, so the pointer stays over the panel
+const rf = () => q(`const e = panel.querySelector('input[data-design="rotate"]'); return JSON.stringify({ v: e.value, focused: document.activeElement === e, caret: e.selectionStart });`);
+let u = rf();
+add('Design Rotate 10 dragged 50px is 30°, focused', u.v === '30°' && u.focused, JSON.stringify(u));
+browser(S, 'press', 'Meta+z'); await pause(250);
+u = rf();
+add('Cmd+Z in the field: 10°, the focus stays, caret 3, as read', u.v === '10°' && u.focused && u.caret === 3, JSON.stringify(u));
+browser(S, 'press', 'Meta+z'); await pause(250);
+u = rf();
+add('A second Cmd+Z: the value before the typing, focus stays, as read', u.v === `${rot0}°` && u.focused, JSON.stringify(u));
 
 // The other triggers' Timing rows.
 await fresh();
