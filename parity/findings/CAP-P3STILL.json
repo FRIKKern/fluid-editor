@@ -1,0 +1,625 @@
+{
+  "item": "CAP-P3STILL",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "P3: the Edit Section panel's top at CAP-P3PANEL's heights, typed with fillStill (no scroll: the field must be fully on screen; scroll and tops logged before and after each). Run 1 of 2. Blocks Probe, new blank section, Custom height by name, frame 945, unsaved.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "50",
+      "fill 50"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "50",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "75",
+      "fill 75"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "75",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "100",
+      "fill 100"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "100",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "110",
+      "fill 110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "125",
+      "fill 125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "150",
+      "fill 150"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "150",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "200",
+      "fill 200"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "200",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "300",
+      "fill 300"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "300",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "400",
+      "fill 400"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "400",
+      {
+        "panelState": true
+      }
+    ]
+  ],
+  "reads": {
+    "50": {
+      "panelState": {
+        "range": true,
+        "value": "50",
+        "field": "50",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1249,
+        "sectionTop": 0,
+        "sectionH": 616.4,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "75": {
+      "panelState": {
+        "range": true,
+        "value": "75",
+        "field": "75",
+        "panel": {
+          "box": [
+            1258,
+            256,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1342,
+        "sectionTop": 0,
+        "sectionH": 708.8,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "100": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "100",
+        "panel": {
+          "box": [
+            1258,
+            334,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1578,
+        "sectionTop": 0,
+        "sectionH": 945,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            480,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            579,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "150": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "150",
+        "panel": {
+          "box": [
+            1258,
+            579,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2050,
+        "sectionTop": 0,
+        "sectionH": 1417.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "200": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "200",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 2523,
+        "sectionTop": 0,
+        "sectionH": 1890,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "300": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "300",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 3468,
+        "sectionTop": 0,
+        "sectionH": 2835,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "400": {
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 4413,
+        "sectionTop": 0,
+        "sectionH": 3780,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "custom": {
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1092,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fill 50": {
+      "before": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 75": {
+      "before": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 521,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 201,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 100": {
+      "before": {
+        "fieldTop": 521,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 201,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 599,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 279,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 110": {
+      "before": {
+        "fieldTop": 599,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 279,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 745,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 425,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 125": {
+      "before": {
+        "fieldTop": 745,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 425,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 844,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 524,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 150": {
+      "before": {
+        "fieldTop": 844,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 524,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 844,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 524,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 200": {
+      "before": {
+        "fieldTop": 844,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 524,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "fill 300": {
+      "before": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 515,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 195,
+        "scrolled": [],
+        "pageY": 0
+      }
+    }
+  },
+  "errors": [
+    "fillStill [\"400\",\"fill 400\"]: js_error: TypeError: Cannot read properties of null (reading 'getBoundingClientRect')"
+  ],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
