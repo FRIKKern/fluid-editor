@@ -318,13 +318,15 @@ viewport(S, 1600, 1400);
   const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
   const state = () => qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify({ sp: b.sp || {}, area: b.layout.desktop.area });`);
   const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [(e.tagName === 'TEXTAREA' ? e.value : e.innerText).replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`); // a text box by its value
-  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11], ['Product', 6, 10], ['Menu', 12, 28]]) {
+  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11], ['Product', 6, 10], ['Menu', 12, 28], ['Summary', 18, 11], ['Archive', 8, 21], ['OpenTable', 8, 8], ['Scheduling', 8, 17], ['Tock', 18, 2]]) {
     const R0 = PANELS[name];
     qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
     const first = qs(`return JSON.stringify([...p.querySelectorAll('[data-btab]')].map((t) => [t.textContent, t.classList.contains('is-on')]));`);
-    add(`${name} panel: tabs as read, opens on Content`, JSON.stringify(first.map(([t]) => t)) === JSON.stringify(R0.tabs) && first[0][1], JSON.stringify(first));
+    // Tock's panel has no tab row: the read names its one view (only).
+    if (name === 'Tock') add('Tock panel: no tab row, as read', !first.length && !!qs(`return JSON.stringify(!!p.querySelector('.bp-sp-promo.is-tock'));`), JSON.stringify(first));
+    else add(`${name} panel: tabs as read, opens on Content`, JSON.stringify(first.map(([t]) => t)) === JSON.stringify(R0.tabs) && first[0][1], JSON.stringify(first));
     for (const tab of R0.tabs.filter((t) => t !== 'Animation')) {
-      await press(`[data-btab="${tab}"]`);
+      if (tab !== '(only)') await press(`[data-btab="${tab}"]`);
       // Centres: the read's boxes and ours differ in height. x only for left-set labels: centred and right-set words move
       // with the panel font. Tab names are the shared tab row's. Donation's Design rows are out (0005): only its note.
       const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2, +m[4], +m[5]]; })
@@ -398,9 +400,15 @@ viewport(S, 1600, 1400);
   await press('.bp-sp-shape[aria-label="Circle"]');
   const ps = state(), closed = qs(`return JSON.stringify(p.querySelector('.bp-sp-shapes').hidden);`);
   add("Product's image shape picker: 21 tiles in the read's order, Rectangle on; a pick keeps its value and closes them", !tiles.hidden && JSON.stringify(tiles.names) === JSON.stringify(want) && tiles.on === 'Rectangle' && tiles.box[1] === 276 && tiles.box[2] === 567 && ps.sp.pdShape === 'circle' && closed, JSON.stringify({ tiles, ps, closed }));
+  // A pick other than Rectangle takes the Corner row away: Ratio 56 higher; the block and its rows stay (CAP-T12READS-F.json).
+  const RF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12READS-F.json', import.meta.url))).block.steps[1];
+  const ratioAt = () => qs(`const P0 = p.getBoundingClientRect(), e = p.querySelector('.bp-sp-sel .sp-label').getBoundingClientRect(); return JSON.stringify(e.top + e.height / 2 - P0.top);`);
+  const rc = ratioAt(), corner = qs(`return JSON.stringify(!!p.querySelector('.bp-sp-corner'));`), rr = RF.note.view.text.find((t) => t.startsWith('Ratio @')).match(/@[\d.]+,([\d.]+),[\d.]+,([\d.]+)/);
+  add('Product: Circle takes the Corner row away, Ratio as read; the rows stay', !corner && Math.abs(rc - (+rr[1] + +rr[2] / 2)) <= 1.5 && ps.area[2] - ps.area[0] === 10, JSON.stringify({ rc, corner, area: ps.area }));
+  await press('[data-sp-pick]'); await press('.bp-sp-shape[aria-label="Rectangle"]');
   await press('button[data-sp-set="pdCorner"][data-v="each"]');
   const R = E['Product (radii)'].steps[1].note.fields.filter((f) => /corner radius/.test(f.aria || '')), four = qs(`const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('.bp-sp-four input')].map((e) => { const r = e.getBoundingClientRect(); return [e.getAttribute('aria-label'), e.value, r.left - P0.left, r.top - P0.top + p.querySelector('.sp-body').scrollTop - 0, r.width, r.height].map((v) => typeof v === 'number' ? Math.round(v * 10) / 10 : v); }));`);
-  const ratioY = qs(`const P0 = p.getBoundingClientRect(), e = p.querySelector('.bp-sp-sel .sp-label').getBoundingClientRect(); return JSON.stringify(e.top + e.height / 2 - P0.top);`);
+  const ratioY = ratioAt();
   const fourOk = four.length === 4 && four.every((f, i) => f[0] === R[i].aria && f[1] === R[i].value && Math.abs(f[2] - R[i].box[0]) <= 1.5 && Math.abs(f[3] + f[5] / 2 - (R[i].box[1] + R[i].box[3] / 2)) <= 1.5 && Math.abs(f[4] - R[i].box[2]) <= 1.5);
   add('Product: Individual corner radii shows four fields as read, the rows below 51 lower', fourOk && Math.abs(ratioY - 347) <= 1.5, JSON.stringify({ four, ratioY }));
   // Menu: the text, Layout and Currency Symbol keep their values, one undo step each.
@@ -410,6 +418,45 @@ viewport(S, 1600, 1400);
   for (const [k, v] of [['mnLayout', 'Centered'], ['mnCurrency', '€ Euro']]) qs(`const s = p.querySelector('select[data-sp-set="${k}"]'); s.value = ${JSON.stringify(v)}; s.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
   const mn = state(); await undoOnce(); const mnu = state();
   add("Menu: its text, Layout and Currency Symbol keep their values; one undo step each", mn.sp.mnText === 'So' && mn.sp.mnLayout === 'Centered' && mn.sp.mnCurrency === '€ Euro' && mnu.sp.mnCurrency === undefined && mnu.sp.mnLayout === 'Centered', JSON.stringify({ mn, mnu }));
+  const pick = (k, v) => qs(`const s = p.querySelector('select[data-sp-set="${k}"]'); s.value = ${JSON.stringify(v)}; s.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
+  // The views a row opens, against CAP-T12READS-G.json: every label at its read place (Back is the shared view head's),
+  // each field keeping its value as one undo step, and Back returning to the tab.
+  const G = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12READS-G.json', import.meta.url)));
+  for (const [name, span, rows, tab, label, read] of [['Audio', 6, 3, 'Content', 'Podcast', G.podcast.dump.view0], ['Summary', 18, 11, 'Design', 'Size and Spacing', G.sizeSpacing.dump.view0]]) {
+    placeAndEdit(name, span, rows); await press(`[data-btab="${tab}"]`); await press(`[data-sp-view="${label}"]`);
+    qs('p.scrollTop = 0; await sleep(50); return "1";');
+    const ours = labels(), want = read.text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].trim(), +m[2], +m[3] + +m[5] / 2]; }).filter(([t]) => t !== 'Back');
+    const miss = want.filter(([t, x, y]) => !ours.some(([o, ox, oy]) => o === t && (x > 60 || Math.abs(ox - x) <= 1.5) && Math.abs(oy - y) <= 1.5)).map(([t, x, y]) => `${t}@${x},${y} ours ${JSON.stringify(ours.filter(([o]) => o === t).map(([, ox, oy]) => [+ox.toFixed(1), +oy.toFixed(1)]))}`);
+    add(`${name}'s ${label} view: every label at its read place`, !miss.length, miss.join(' | '));
+  }
+  // Size and Spacing is open: Column Width typed, Gutter Width by its range; then Back.
+  await press('input[data-sp-field="smColumn"]', 150); await key('Meta+a'); for (const c of '320') await key(c); await key('Tab', 400);
+  qs(`const r = p.querySelector('input[data-sp-range="smGutter"]'); r.value = 25; r.dispatchEvent(new Event('input', { bubbles: true })); r.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return '1';`);
+  const ss = state(); await undoOnce(); const ssu = state(); await press('[data-sp-view="back"]');
+  const backTo = qs(`return JSON.stringify(!!p.querySelector('[data-sp-view="Size and Spacing"]') && p.querySelector('[data-btab].is-on')?.textContent);`);
+  add('Summary: Size and Spacing keeps Column Width and Gutter Width; one undo step each; Back returns to Design', ss.sp.smColumn === 320 && ss.sp.smGutter === 25 && ssu.sp.smGutter === undefined && ssu.sp.smColumn === 320 && backTo === 'Design', JSON.stringify({ ss, ssu, backTo }));
+  placeAndEdit('Audio', 6, 3); await press('[data-sp-view="Podcast"]');
+  await press('input[data-sp-field="pcTitle"]', 150); await key('S'); await key('o'); await key('Tab', 400);
+  pick('pcType', 'Bonus'); await press('input[data-sp-set="pcExplicit"]');
+  const pc = state(); await undoOnce(); const pcu = state();
+  add("Audio: Podcast's Title, Episode type and Explicit content keep their values; one undo step each; rows stay 3", pc.sp.pcTitle === 'So' && pc.sp.pcType === 'Bonus' && pc.sp.pcExplicit === true && pcu.sp.pcExplicit === undefined && pcu.sp.pcType === 'Bonus' && pc.area[2] === 4, JSON.stringify({ pc, pcu }));
+  // Summary and Archive: values only. Their rows move with presses on the oracle with no rule found (named, CAP-T12PRESS-B.json).
+  placeAndEdit('Summary', 18, 11);
+  const smFaded = qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-dsel:not(.bp-sp-vsel)')].map((e) => e.disabled));`);
+  await press('[data-btab="Design"]');
+  pick('smLayout', 'List');
+  await press('input[data-sp-field="smItems"]', 150); await key('Meta+a'); await key('7'); await key('Tab', 400);
+  await press('button[data-sp-set="smAlign"][data-v="center"]'); await press('input[data-sp-set="smTitle"]');
+  pick('smMeta', 'Above Title');
+  const sm = state(); await undoOnce(); const smu = state();
+  add('Summary: Layout, Number of Items, Text, Title and Metadata Position keep their values; one undo step each; its collection menus are faded', sm.sp.smLayout === 'List' && sm.sp.smItems === 7 && sm.sp.smAlign === 'center' && sm.sp.smTitle === false && sm.sp.smMeta === 'Above Title' && smu.sp.smMeta === undefined && smu.sp.smTitle === false && JSON.stringify(smFaded) === '[true,true,true]', JSON.stringify({ sm, smu, smFaded }));
+  placeAndEdit('Archive', 8, 21);
+  pick('arGroup', 'Year'); await press('input[data-sp-set="arDate"]'); await press('input[data-sp-set="arCount"]');
+  const off = qs(`return JSON.stringify([...p.querySelectorAll('input')].find((i) => i.getAttribute('aria-label') === 'Dates ascending').disabled);`);
+  await press('[data-btab="Design"]');
+  pick('arLayout', 'List'); await press('button[data-sp-set="arColumns"][data-v="false"]'); await press('button[data-sp-set="arAlign"][data-v="center"]');
+  const ar = state(); await undoOnce(); const aru = state();
+  add('Archive: Group by, Item date, Group count, Layout, Columns and Alignment keep their values; one undo step each; Dates ascending is off', ar.sp.arGroup === 'Year' && ar.sp.arDate === false && ar.sp.arCount === true && ar.sp.arLayout === 'List' && ar.sp.arColumns === 'false' && ar.sp.arAlign === 'center' && aru.sp.arAlign === undefined && aru.sp.arColumns === 'false' && off, JSON.stringify({ ar, aru, off }));
   if (process.env.SP_SHOT) screenshot(S, process.env.SP_SHOT);
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);

@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 911,
+  "pass": 942,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -8,9 +8,13 @@
     "hold from the right margin track -70,12",
     "hold from the right margin track -80,12",
     "hold from the right margin track -90,12",
+    "hold CAP-X2WIDTHS3 H -30",
+    "hold CAP-X2WIDTHS3 H -60",
+    "hold CAP-X2RESIZED R6 -30",
+    "hold CAP-X2RESIZED R6 -60",
     "R2 wider 5"
   ],
-  "total": 918,
+  "total": 953,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2344,6 +2348,189 @@
     },
     {
       "name": "hold text resize n, the content holds it 0,120",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -60",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -1000",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS2 B -1100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -30",
+      "diffs": [
+        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -60",
+      "diffs": [
+        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -1000",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 H -1100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -60",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -1000",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2WIDTHS3 J -1100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -30",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -60",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -600",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED N4 -1000",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -30",
+      "diffs": [
+        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -60",
+      "diffs": [
+        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
+      ],
+      "known": true
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -100",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -140",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -300",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -600",
+      "diffs": [],
+      "known": false
+    },
+    {
+      "name": "hold CAP-X2RESIZED R6 -1000",
       "diffs": [],
       "known": false
     },

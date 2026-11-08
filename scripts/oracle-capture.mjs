@@ -43,6 +43,8 @@ let pageTitle = recipe.page || opt('page') || (fromSteps ? null : DEMO);
 const READS_ONLY = new Set(['enter', 'exit', 'toPage', 'pause', 'read', 'shot', 'view', 'window', 'frame', 'unframe', 'listen', 'hover', 'hoverBlock', 'tipDelay', 'tipRead']);
 const refuse = (why) => { console.error(`oracle-capture refused, nothing ran: ${why}`); process.exit(2); };
 if (!pageTitle && recipe.steps[0]?.[0] !== 'toPage') refuse('--steps needs --page or toPage as its first step.');
+// A read label is written once: a second read or ring with the same label overwrote the first (CAP-X2RESIZED.json's Markdown).
+{ const seen = new Set(); for (const [op, label] of recipe.steps) if ((op === 'read' || op === 'ring') && seen.has(label)) refuse(`the label "${label}" is used twice: each read needs its own.`); else if (op === 'read' || op === 'ring') seen.add(label); }
 {
   let page = pageTitle;
   for (const [op, ...a] of recipe.steps) {
@@ -226,7 +228,11 @@ function read(what) {
 const pagePath = pageTitle ? pathOf(pageTitle) : null;
 // enter opens the page from the page list. If it times out the tab has hung, which happens now and then after leaving the editor: open a new tab in the same Chrome and close the old one.
 { const here = evalJs(S, 'JSON.stringify(location.href)'); if (/^http/.test(here)) { goto(S, new URL(here).origin + '/config/pages'); await pause(6000); } }
-const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads: {}, errors: [] };
+// Any other step that writes a read: a label an earlier step took is refused, and that step's error says so.
+let stepNo = -1;
+const readOwner = {};
+const reads = new Proxy({}, { set: (t, k, v) => { if (k in t && readOwner[k] !== stepNo) throw new Error(`the label "${String(k)}" was read by step ${readOwner[k]}: not written again`); t[k] = v; readOwner[k] = stepNo; return true; } });
+const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
 const panelAt = (sel, n) => { const r = evalJs(S, `(() => { const e = [...document.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0 && !x.closest('#sqs-site-frame'))[${n}]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!r) throw new Error(`nothing at ${sel} ${n}`); return r; };
 // A tip: the small dark box with the buttons' words, in either document.
@@ -667,6 +673,7 @@ const stubMarked = () => evalJs(S, `(() => { const f = document.getElementById('
 let stubbed = false;
 try {
   for (const [op, ...a] of recipe.steps) {
+    stepNo++;
     if (!STEPS[op]) throw new Error(`no step ${op}`);
     console.log(op, JSON.stringify(a).slice(0, 80));
     if (stubbed && op !== 'exit' && !stubMarked()) { finding.errors.push(`stopped before ${op}: the clipboard stub's marker is gone`); console.log('  error:', finding.errors.at(-1)); break; }
