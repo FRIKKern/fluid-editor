@@ -621,6 +621,15 @@ export const RECIPES = {
       ...ADD('Video'), R('h1 add video'), ['drag', 0, 'new', 'middle', 531, 0], ['press', 'Escape'], ['deselect', 0], R('h1 video moved'),
       ['exit'], ['enter'], ['blank'], ...STOP, ...ADD('Video'), R('h4 add video'), ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], R('h4 video moved down')];
   })() },
+  'CAP-STOPMOVE3': { page: 'Gestures Probe', question: 'A2: a move on a phone stopped by overlap, refit 2 (M3 in CAP-STOPMOVEPREDICT.json, pushed first): k1 as g3 with the Line moved to columns 12 to 16 first; k2 as g3 with the Line moved a row down first. No Meta+c, x or v.', steps: (() => {
+    const ADD = (t) => [['add', 0, t], ['press', 'Escape'], ['deselect', 0]];
+    const STOP = [...ADD('Text'), ...ADD('Image'), ['drag', 0, 'new', 'middle', 0, 123], ['press', 'Escape'], ['deselect', 0],
+      ['view', 'Mobile'], ['select', 0, 0], ['drag', 0, 0, 's', 0, 140], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop']];
+    const R = (n) => ['read', n, { stack: 0 }];
+    const k = (n, dx, dy) => [...STOP, ...ADD('Line'), ['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0], R(`${n} line moved`),
+      ...ADD('Video'), R(`${n} add video`), ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], R(`${n} video moved down`)];
+    return [['enter'], ['blank'], ...k('k1', 587.8, 0), ['exit'], ['enter'], ['blank'], ...k('k2', 0, 41)];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
