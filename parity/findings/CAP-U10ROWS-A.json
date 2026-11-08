@@ -1,0 +1,2738 @@
+{
+  "item": "CAP-U10ROWS-A",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: what a layout rows depend on. A paragraph through 24 picks in an order that reaches pairs not read before; Instagram pick 2 after picks 0, 1, 3, 4 and after 0 then 1; Code + Map picks 4, 5, 7, 4, 6 with the section classes. Rows, block areas, text and content heights after each pick (predicted in CAP-U10ROWSPREDICT.json)",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A01 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A02 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A03 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A04 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A05 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A06 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A07 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A08 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A09 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A10 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A11 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A12 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A13 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A14 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A15 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A16 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A17 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A18 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A19 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A20 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A21 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A22 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A23 layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A24 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Ba before",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba1 layout 0",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba2 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba3 layout 4",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba4 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba5 layout 0",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Ba6 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Bb before",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bb1 layout 1",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bb2 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bb3 layout 3",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bb4 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "Bc before",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bc1 layout 0",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bc2 layout 1",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Bc3 layout 2",
+      {
+        "stack": 0,
+        "look": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "C before",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      "new"
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C1 layout 4",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C2 layout 5",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "pressLayout",
+      7
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C3 layout 7",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C4 layout 4",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "pressLayout",
+      6
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C5 layout 6",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "A00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A01 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/3/5/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A02 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A03 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "8/15/10/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A04 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "4/9/6/19",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A05 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A06 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/3/5/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A07 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/10/5/18",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A08 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "8/15/10/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A09 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/10/5/18",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A10 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/3/5/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A11 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "4/9/6/19",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A12 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "8/15/10/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A13 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A14 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "4/9/6/19",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A15 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/10/5/18",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A16 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A17 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A18 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A19 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A20 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A21 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A22 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A23 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A24 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.869,
+        "edge": "curve",
+        "h": 722.5,
+        "rows": 7,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "3/3/4/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba before": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 359.4,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "1/2/13/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba1 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1530.5,
+        "rows": 29,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 976.6,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "3/3/28/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba2 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1226.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "3/3/15/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba3 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 996.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 535.8,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "2/8/16/20",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba4 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1284,
+        "rows": 23,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "3/3/22/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba5 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1530.5,
+        "rows": 29,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 976.6,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "3/3/28/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Ba6 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1226.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_2727",
+          "type": "modelsync",
+          "desktop": "3/3/15/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bb before": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 359.4,
+      "stack": [
+        {
+          "id": "_6290",
+          "type": "modelsync",
+          "desktop": "1/2/13/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bb1 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.942,
+        "edge": "curve",
+        "h": 1626.5,
+        "rows": 29,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "contentH": 976.6,
+      "stack": [
+        {
+          "id": "_6290",
+          "type": "modelsync",
+          "desktop": "3/3/28/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bb2 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1226.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_6290",
+          "type": "modelsync",
+          "desktop": "3/3/15/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bb3 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.931,
+        "edge": "curve",
+        "h": 1380,
+        "rows": 23,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_6290",
+          "type": "modelsync",
+          "desktop": "3/9/22/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bb4 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1284,
+        "rows": 23,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_6290",
+          "type": "modelsync",
+          "desktop": "3/3/22/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bc before": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 359.4,
+      "stack": [
+        {
+          "id": "_9743",
+          "type": "modelsync",
+          "desktop": "1/2/13/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bc1 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1530.5,
+        "rows": 29,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 976.6,
+      "stack": [
+        {
+          "id": "_9743",
+          "type": "modelsync",
+          "desktop": "3/3/28/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bc2 layout 1": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.942,
+        "edge": "curve",
+        "h": 1626.5,
+        "rows": 29,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "contentH": 976.6,
+      "stack": [
+        {
+          "id": "_9743",
+          "type": "modelsync",
+          "desktop": "3/3/28/25",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Bc3 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1226.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "contentH": 712.1,
+      "stack": [
+        {
+          "id": "_9743",
+          "type": "modelsync",
+          "desktop": "3/3/15/19",
+          "phone": "2/2/36/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C before": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 12,
+          "blocks": [
+            "67_420",
+            "67_778"
+          ],
+          "h": 832
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/13/10",
+          "phone": "1/2/13/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "1/2/7/6",
+          "phone": "13/2/19/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C1 layout 4": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle",
+          "rows": 23,
+          "blocks": [
+            "67_420",
+            "67_778"
+          ],
+          "h": 1072.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1072.8,
+        "rows": 23,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/1/24/14",
+          "phone": "1/2/16/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "12/15/14/24",
+          "phone": "16/2/18/9",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C2 layout 5": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle",
+          "rows": 22,
+          "blocks": [
+            "67_778",
+            "67_420"
+          ],
+          "h": 1031.7
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1031.7,
+        "rows": 22,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "3/2/5/11",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/14/23/27",
+          "phone": "3/2/18/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C3 layout 7": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle section-height--medium",
+          "rows": 21,
+          "blocks": [
+            "67_420",
+            "67_778"
+          ],
+          "h": 1201.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1201.8,
+        "rows": 21,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/22/14",
+          "phone": "1/2/15/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "1/15/3/24",
+          "phone": "15/2/17/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C4 layout 4": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle",
+          "rows": 23,
+          "blocks": [
+            "67_420",
+            "67_778"
+          ],
+          "h": 1072.8
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1072.8,
+        "rows": 23,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/1/24/14",
+          "phone": "1/2/16/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "12/15/14/24",
+          "phone": "16/2/18/9",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C5 layout 6": {
+      "sections": [
+        {
+          "id": "9e171a",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle section-height--medium",
+          "rows": 18,
+          "blocks": [
+            "67_778",
+            "67_420"
+          ],
+          "h": 1078.5
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1078.5,
+        "rows": 18,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_778",
+          "type": "csr",
+          "desktop": "1/10/3/17",
+          "phone": "2/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/18/19/26",
+          "phone": "6/2/20/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Paragraph (the words of CAP-U10ROWSEQ.json): each layout gives the block one of two spans, one row apart, and only the pick before decides which; the text's own height stays 22.4 px through all 24 picks. Instagram: pick 2 gives the block 12 rows (16 in the section) after picks 0 and 1 and 19 (23) after the start, 3 and 4; its content is 712.1 px tall either way, so after 0 and 1 the content is taller than the block and the section grows to 1226.3. Code + Map: picks 4 and 5 remove the section-height class and the section's padding with it; picks 7 and 6 put medium back.",
+  "ours": "One table per list, read with CAP-VIEWLAYOUTS.json's start words. Map mixes' picks 4 and 5: no height class, as read.",
+  "differs": "The spans' dependence on the pick before and on the words: named, not built. Instagram pick 2 after picks 0 and 1: ours 23 rows."
+}
