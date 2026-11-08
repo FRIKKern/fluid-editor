@@ -512,7 +512,7 @@ await fresh(); await hoverBar(800, 20); await pause(300);
   evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600); await frameScroll(0); await hoverInSection(400, 800);
   const pb = chromeBox('Open Section Settings'); await pressAt(pb[0] + 40, pb[1] + 20);
   await frameScroll(4000); await pause(200); const openPhone = !!panelRect();
-  add('phone: not read, so the panel stays open', openPhone);
+  add('phone: closed once its section has left the canvas (CAP-U9REST2.json)', !openPhone);
   browser(S, 'press', 'Escape'); await pause(150);
   evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(400); await frameScroll(0); await hoverBar(800, 20); await pause(300);
 }
