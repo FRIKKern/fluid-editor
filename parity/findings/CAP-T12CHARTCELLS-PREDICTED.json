@@ -64,5 +64,16 @@
         "result": "the data becomes the box's: the Data tab lists Ef 40; Update grey again"
       }
     ]
+  },
+  "round3": {
+    "note": "Before the third read (CAP-T12CHARTCELLS3.json). The second read missed the + after Population: the row + had scrolled the panel 42 px first. P7 read: the row + adds a row whose value is 0, not empty. So P8 as pushed (empty cells) is kept and scored, and P8b, from that read, is added.",
+    "predictions": [
+      {
+        "id": "P8b",
+        "step": "press the + after Population on a fresh Chart, type Cd, Tab",
+        "grid": "a second series column, the focus in its name cell, each row's value 0",
+        "csv": "Label,Population,Cd\nNew York,150,0\nLas Vegas,250,0\nSan Francisco,150,0"
+      }
+    ]
   }
 }
