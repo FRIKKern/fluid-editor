@@ -1,0 +1,1139 @@
+{
+  "item": "CAP-U10TEXTMIX-A2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "U10: the full-width headings again (CAP-U10TEXTMIX-A.json read no text container there): h1p1 pick 3 and h1p2 pick 4, each twice, lines read from anywhere in the block. No Meta+c, x or v; nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "F1 00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "F1 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F1 01 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F1 02 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F1 03 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "F2 00 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "F2 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F2 01 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F2 02 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F2 03 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "F1 00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/5/10",
+          [
+            [
+              "H2",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "1/2/3/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h2>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F1 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            412.4,
+            ""
+          ],
+          [
+            "2",
+            500.4,
+            ""
+          ],
+          [
+            "3",
+            591.8,
+            ""
+          ],
+          [
+            "4",
+            699.7,
+            ""
+          ],
+          [
+            "5",
+            844,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F1 01 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/13",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 93,
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/13",
+          "8/3/10/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F1 02 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 50.3,
+      "aligns": [
+        [
+          "1/9/4/19",
+          [
+            [
+              "H3",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "4/10/6/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 50.3,
+      "areas": [
+        [
+          "1/9/4/19",
+          "3/2/6/10"
+        ],
+        [
+          "4/10/6/18",
+          "7/3/9/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F1 03 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/13",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 93,
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/13",
+          "8/3/10/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F2 00 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 3,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/5/10",
+          [
+            [
+              "H2",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "1/2/3/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "1/2/3/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h2>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ],
+        [
+          "1/2/3/10",
+          "5/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F2 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            442.1,
+            ""
+          ],
+          [
+            "2",
+            545.9,
+            ""
+          ],
+          [
+            "3",
+            624.9,
+            ""
+          ],
+          [
+            "4",
+            706,
+            ""
+          ],
+          [
+            "5",
+            813.7,
+            ""
+          ],
+          [
+            "6",
+            944.2,
+            ""
+          ],
+          [
+            "7",
+            1059.4,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F2 01 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 626.5,
+        "rows": 7,
+        "blocks": 3,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/12",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "6/3/8/12",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 93,
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/12",
+          "8/3/10/9"
+        ],
+        [
+          "6/3/8/12",
+          "10/3/12/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F2 02 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 3,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 135.7,
+      "aligns": [
+        [
+          "1/8/6/20",
+          [
+            [
+              "H2",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "6/10/8/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "8/10/10/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 135.7,
+      "areas": [
+        [
+          "1/8/6/20",
+          "3/2/7/10"
+        ],
+        [
+          "6/10/8/18",
+          "8/3/10/9"
+        ],
+        [
+          "8/10/10/18",
+          "10/3/12/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F2 03 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 626.5,
+        "rows": 7,
+        "blocks": 3,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": null,
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/12",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "6/3/8/12",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 93,
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/12",
+          "8/3/10/9"
+        ],
+        [
+          "6/3/8/12",
+          "10/3/12/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
