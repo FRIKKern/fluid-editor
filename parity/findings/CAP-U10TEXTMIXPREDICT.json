@@ -1,0 +1,592 @@
+{
+  "item": "U10",
+  "question": "CAP-U10TEXTMIXPREDICT",
+  "frozenAt": "2026-11-08T18:30Z",
+  "reads": "CAP-U10TEXTMIX-A.json (H1: h1p1, H2: h1p2), CAP-U10TEXTMIX-B.json (L: a list, Q: a quote), CAP-U10TEXTMIX-C.json (C: code, M: a paragraph, a list, a quote and code), one Text block each in L, Q, C and M, from a fresh section.",
+  "rules": {
+    "K": "Chrome's, frozen (CAP-U10WORDSPREDICT.json, 48 of 48): the section's rows are the block's desktop end line plus 3, 2, -1, 3, 2, 1 for layouts 0 to 5, whatever the words. Applied to L, Q, C and M.",
+    "P": "Chrome's, frozen (#442): a pick gives the low span after the layouts listed (layout 0: after 1; 1: after 0, 4, 5; 2 to 5: after 1) and the high span after anything else, the start included. Applied to L, Q, C and M.",
+    "A": "Chrome's alignment rule, frozen (CAP-U10ALIGNPREDICT.json, 41 of 41): a pick centres a text block when its desktop columns sit evenly around the middle (start line + end line = 28), left otherwise. Predicted here for every line in the block: paragraphs, headings, list items, quotes and code. Ours sets it on the block's top-level paragraphs and headings only.",
+    "T": "Ours: a Text block not starting with a heading takes the paragraph list, 6 tiles; L, Q, C and M open with 6."
+  },
+  "scoring": "K: per pick, read rows against the read end line. P: per layout and run, the read span in the high state is more than in the low state (pairs). A: per pick and line, the read computed text-align against the rule on the read desktop area (the full-width headings H1 03 and 08, H2 05 and 10 are the open question). T: tile count at opening. No refit.",
+  "predictions": {
+    "H1": {
+      "picks": [
+        {
+          "read": "H1 01 layout 3",
+          "layout": 3
+        },
+        {
+          "read": "H1 02 layout 0",
+          "layout": 0
+        },
+        {
+          "read": "H1 03 layout 1",
+          "layout": 1
+        },
+        {
+          "read": "H1 04 layout 2",
+          "layout": 2
+        },
+        {
+          "read": "H1 05 layout 3",
+          "layout": 3
+        },
+        {
+          "read": "H1 06 layout 4",
+          "layout": 4
+        },
+        {
+          "read": "H1 07 layout 5",
+          "layout": 5
+        },
+        {
+          "read": "H1 08 layout 3",
+          "layout": 3
+        }
+      ],
+      "fullWidth": {
+        "reads": [
+          "H1 01 layout 3",
+          "H1 08 layout 3"
+        ],
+        "heading": "center"
+      }
+    },
+    "H2": {
+      "picks": [
+        {
+          "read": "H2 01 layout 4",
+          "layout": 4
+        },
+        {
+          "read": "H2 02 layout 0",
+          "layout": 0
+        },
+        {
+          "read": "H2 03 layout 1",
+          "layout": 1
+        },
+        {
+          "read": "H2 04 layout 2",
+          "layout": 2
+        },
+        {
+          "read": "H2 05 layout 3",
+          "layout": 3
+        },
+        {
+          "read": "H2 06 layout 4",
+          "layout": 4
+        },
+        {
+          "read": "H2 07 layout 5",
+          "layout": 5
+        },
+        {
+          "read": "H2 08 layout 6",
+          "layout": 6
+        },
+        {
+          "read": "H2 09 layout 7",
+          "layout": 7
+        },
+        {
+          "read": "H2 10 layout 4",
+          "layout": 4
+        }
+      ],
+      "fullWidth": {
+        "reads": [
+          "H2 01 layout 4",
+          "H2 10 layout 4"
+        ],
+        "heading": "center"
+      }
+    },
+    "L": {
+      "tiles": 6,
+      "picks": [
+        {
+          "read": "L 01 layout 0",
+          "layout": 0,
+          "after": "start",
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "L 02 layout 1",
+          "layout": 1,
+          "after": 0,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 03 layout 0",
+          "layout": 0,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "L 04 layout 0",
+          "layout": 0,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "L 05 layout 2",
+          "layout": 2,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "L 06 layout 1",
+          "layout": 1,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 07 layout 2",
+          "layout": 2,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "L 08 layout 3",
+          "layout": 3,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "L 09 layout 1",
+          "layout": 1,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 10 layout 3",
+          "layout": 3,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "L 11 layout 4",
+          "layout": 4,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 12 layout 1",
+          "layout": 1,
+          "after": 4,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 13 layout 4",
+          "layout": 4,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 14 layout 5",
+          "layout": 5,
+          "after": 4,
+          "state": "high",
+          "rows": "end line + 1"
+        },
+        {
+          "read": "L 15 layout 1",
+          "layout": 1,
+          "after": 5,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "L 16 layout 5",
+          "layout": 5,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 1"
+        }
+      ]
+    },
+    "Q": {
+      "tiles": 6,
+      "picks": [
+        {
+          "read": "Q 01 layout 0",
+          "layout": 0,
+          "after": "start",
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "Q 02 layout 1",
+          "layout": 1,
+          "after": 0,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 03 layout 0",
+          "layout": 0,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "Q 04 layout 0",
+          "layout": 0,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "Q 05 layout 2",
+          "layout": 2,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "Q 06 layout 1",
+          "layout": 1,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 07 layout 2",
+          "layout": 2,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "Q 08 layout 3",
+          "layout": 3,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "Q 09 layout 1",
+          "layout": 1,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 10 layout 3",
+          "layout": 3,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "Q 11 layout 4",
+          "layout": 4,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 12 layout 1",
+          "layout": 1,
+          "after": 4,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 13 layout 4",
+          "layout": 4,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 14 layout 5",
+          "layout": 5,
+          "after": 4,
+          "state": "high",
+          "rows": "end line + 1"
+        },
+        {
+          "read": "Q 15 layout 1",
+          "layout": 1,
+          "after": 5,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "Q 16 layout 5",
+          "layout": 5,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 1"
+        }
+      ]
+    },
+    "C": {
+      "tiles": 6,
+      "picks": [
+        {
+          "read": "C 01 layout 0",
+          "layout": 0,
+          "after": "start",
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "C 02 layout 1",
+          "layout": 1,
+          "after": 0,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 03 layout 0",
+          "layout": 0,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "C 04 layout 0",
+          "layout": 0,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "C 05 layout 2",
+          "layout": 2,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "C 06 layout 1",
+          "layout": 1,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 07 layout 2",
+          "layout": 2,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "C 08 layout 3",
+          "layout": 3,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "C 09 layout 1",
+          "layout": 1,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 10 layout 3",
+          "layout": 3,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "C 11 layout 4",
+          "layout": 4,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 12 layout 1",
+          "layout": 1,
+          "after": 4,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 13 layout 4",
+          "layout": 4,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 14 layout 5",
+          "layout": 5,
+          "after": 4,
+          "state": "high",
+          "rows": "end line + 1"
+        },
+        {
+          "read": "C 15 layout 1",
+          "layout": 1,
+          "after": 5,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "C 16 layout 5",
+          "layout": 5,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 1"
+        }
+      ]
+    },
+    "M": {
+      "tiles": 6,
+      "picks": [
+        {
+          "read": "M 01 layout 0",
+          "layout": 0,
+          "after": "start",
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "M 02 layout 1",
+          "layout": 1,
+          "after": 0,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 03 layout 0",
+          "layout": 0,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "M 04 layout 0",
+          "layout": 0,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "M 05 layout 2",
+          "layout": 2,
+          "after": 0,
+          "state": "high",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "M 06 layout 1",
+          "layout": 1,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 07 layout 2",
+          "layout": 2,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + -1"
+        },
+        {
+          "read": "M 08 layout 3",
+          "layout": 3,
+          "after": 2,
+          "state": "high",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "M 09 layout 1",
+          "layout": 1,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 10 layout 3",
+          "layout": 3,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 3"
+        },
+        {
+          "read": "M 11 layout 4",
+          "layout": 4,
+          "after": 3,
+          "state": "high",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 12 layout 1",
+          "layout": 1,
+          "after": 4,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 13 layout 4",
+          "layout": 4,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 14 layout 5",
+          "layout": 5,
+          "after": 4,
+          "state": "high",
+          "rows": "end line + 1"
+        },
+        {
+          "read": "M 15 layout 1",
+          "layout": 1,
+          "after": 5,
+          "state": "low",
+          "rows": "end line + 2"
+        },
+        {
+          "read": "M 16 layout 5",
+          "layout": 5,
+          "after": 1,
+          "state": "low",
+          "rows": "end line + 1"
+        }
+      ]
+    }
+  },
+  "later": {
+    "pushedAt": "2026-11-08T19:05Z",
+    "after": "CAP-U10TEXTMIX-A, B and C were read; A2 and D not yet.",
+    "D": {
+      "ours": "A heading alone: ours has no list for it, so View Layouts is off.",
+      "H": "Fitted on L and Q (seen): a list or a quote alone is laid out as a heading, so a heading alone is on with 6 tiles and takes the same desktop areas and rows as L and Q pick for pick (layout 0: 5/1/11/27 high, 5/1/9/27 low; 1: 4/1/12/27; 2: 5/2/13/26; 3: 4/2/12/26; 4: 3/6/11/22; 5: 3/3/11/25, end lines and rows as the words' height sets them), and its tag goes to h1 at layouts 2 to 5."
+    }
+  },
+  "scored": {
+    "K": "42 of 64: C and M 32 of 32; L and Q 10 of 32 (they hold only at layout 0, since a list or a quote alone is laid out as a heading alone, not the paragraph list).",
+    "P": "28 of 48 pairs: C and M 24 of 24; L and Q 4 of 24 (layout 0 steps, 1 to 5 have one span).",
+    "A": "Every line read on a text block agrees, 160 of 160 (A and B 64, C 96), list items and quote paragraphs included. The open question missed 4 of 4: the full-width heading (H1 01 and 08, H2 01 and 10) is no longer a Text but a Scrolling block, its words as h1, three times, text-align start (block kinds read in A2, 4 of 4, and D, 8 of 8).",
+    "T": "6 tiles 4 of 4; the paragraph list 2 of 4 (C and M yes, L and Q no).",
+    "D": "ours (off) 0 of 1. H (fitted on L and Q, seen): 16 of 16 picks give the same start line and columns as L and Q, full width at layouts 0 and 1, and h1 at 2 to 5."
+  }
+}

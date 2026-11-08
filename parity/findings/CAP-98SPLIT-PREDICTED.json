@@ -1,0 +1,250 @@
+{
+  "item": "X8",
+  "capturedAt": "2026-11-08",
+  "question": "98: which rule adds the moved Shape's row in CAP-98.json? R1: a lone Text made wider and left short arms the stored rows as a group drop does, so the next layout gesture grows a block across L by d and moves a block below L by d. R2: the moved block keeps its pixel height when the stretched rows relax. Split: a Shape B moved down and right before the widening, so it sits below L in rows that never stretch; a Shape A added after the widening across L, as in CAP-98, and not moved; then B dragged 1 row down. Blocks Probe, unsaved.",
+  "from": "R1: our code in this commit (editor.js: a lone Text widened and left short stores its rows, worked out at the next layout gesture), seen on CAP-98.json 2 of 2 reads. R2: our code on main 4a6b458, as is: here it is R2's answer, as A is not moved and B lies only in rows that never stretch. Both replayed with neworder-check's replay of these steps. In that replay A takes phone place 2 and pushes B to 3, so the move presses block 2.",
+  "predicted": {
+    "b moved escaped": {
+      "R1": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/8/8",
+          "3/2/9/10"
+        ],
+        [
+          "9/14/15/20",
+          "9/2/15/10"
+        ]
+      ],
+      "R2": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ],
+        [
+          "8/14/14/20",
+          "9/2/15/10"
+        ]
+      ]
+    },
+    "relative": "If the oracle lands blocks elsewhere before the move (read 'a escaped'), each rule counts from there: R1 grows A by 1 at its bottom if it crosses line 5 and moves B 2 rows down; R2 leaves A and moves B 1 row down. The Text goes to 1/2/6/12 under both."
+  },
+  "hit": "Scored on 'b moved' and 'b moved escaped': A's and B's desktop areas, 4 per rule. The Text is the same under both, and isn't scored. A setup miss, named and not scored: the Text not left at 1/2/5/12 by the widening, A not across line 5, or the move pressing a block other than B.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "text written",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      705,
+      330
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "b placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "a added",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "a escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "middle",
+      0,
+      41
+    ],
+    [
+      "read",
+      "b moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "b moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ]
+  ]
+}

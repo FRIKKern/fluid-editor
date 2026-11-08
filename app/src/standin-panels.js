@@ -22,9 +22,26 @@ const navOut = (label, sub) => () => `<button type="button" class="bp-sp-nav" ar
 const card = (title, text) => () => `<button type="button" class="bp-sp-card" ${OUT}><span><b>${title}</b><em>${text}</em></span>${pi('<path d="M5 12h14M13 6l6 6-6 6"/>')}</button>`;
 const box = (text) => () => `<div class="bp-sp-box">${text}</div>`;
 const tile = () => () => `<div class="bp-sp-tile" ${OUT}></div>`;
+// Audio's rows: a two-way choice the panel's width, a faded upload box, side fields, a row that opens a view not built.
+const pair = (key, opts, def) => (v) => seg(key, 'Audio Source', opts, def)(v).replace('class="bp-sp-seg"', 'class="bp-sp-seg is-wide"');
+const upload = (text) => () => `<button type="button" class="bp-sp-up" ${OUT}>${pi('<path d="M12 20V6M6 12l6-6 6 6M5 4h14"/>')}<span>${text}</span></button>`;
+const side = (key, label) => (v) => `<div class="bp-sp-side"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></div>`;
+const view = (label) => () => `<button type="button" class="bp-sp-view" aria-label="Navigate to ${label}" data-unbuilt title="Not built yet"><span class="sp-label">${label}</span>${pi('<path d="M10 7l5 5-5 5"/>')}</button>`;
+const when = (test, row) => (v) => (test(v) ? row(v) : '');
+// The older panel look Pricing Plan and Product keep: uppercase captions, rows with a rule under each.
+const cap = (label) => () => `<div class="bp-sp-cap">${label}</div>`;
+const erow = (key, label, def) => (v) => toggle(key, label, def)(v).replace('class="sp-row bp-sp-row"', 'class="sp-row bp-sp-erow"');
+const ALIGN_ICONS = { left: '<path d="M6 5v14M19 12H10M13 9l-3 3 3 3"/>', center: '<path d="M12 5v14M3 12h6M6 9l3 3-3 3M21 12h-6M18 9l-3 3 3 3"/>', right: '<path d="M18 5v14M5 12h9M11 9l3 3-3 3"/>' };
+const icons = (key, label, opts, def) => (v) => `<div class="bp-sp-icons" role="radiogroup" aria-label="${label}">${opts.map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? def) === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? def) === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</div>`;
+const darkOut = (text) => () => `<button type="button" class="bp-sp-dark" ${OUT}>${text}</button>`;
 
 // Per block: its tabs (Animation is the shared list), its Content rows, and its Design rows before the shared ones.
 // look: the shared Appearance rows follow (with an Appearance head); transforms: the Transforms rows follow.
+// Pricing Plan's content by its Elements (CAP-T12PRESS-A.json at 8 columns, CAP-T12PRESS-E.json at 6): each part takes its own
+// height, and only the Description wraps with the width, by what the whole content gains (DESK_HEIGHT in editor.js).
+export const PLAN_PARTS = [['ppTitle', 'Title', 46], ['ppDesc', 'Description', 97], ['ppPrice', 'Price', 90.7], ['ppBenefits', 'Benefits', 96.8], ['ppButtonOn', 'Button', 88.6]];
+// The content height with parts off, from the whole height at this width (all on).
+export const planHeight = (b, all) => all - PLAN_PARTS.filter(([k]) => (b.sp || {})[k] === false).reduce((n, [k, , h]) => n + (k === 'ppDesc' ? h + all - 430.1 : h), 0);
 export const STANDIN_PANELS = {
   Zola: {
     content: [note(`Enter your Zola registry name to display items<br>from your registry. ${link('Learn more')}<br>Sign up for a Zola registry ${link('here')}.`), field('zolaName', 'Registry Name', 'johnandjane', true), range('zolaItems', 'Items to Display', 4, 1, 12)],
@@ -39,6 +56,18 @@ export const STANDIN_PANELS = {
     content: [card('Set Up Payment Processor', 'This is required to start<br>receiving donations.'), navOut('Funds', 'General Fund'), field('donLabel', 'Fund Dropdown Label', 'Contribute to'), note('The dropdown label is shown when there is<br>more than one fund attached to this block.', ' bp-sp-wnote'), field('donButton', 'Button Text', 'Donate')],
     // Form style reaches every form on the site (0005, like T9's Form Style): its rows are left out.
     design: [tile(), note('Form style affects all forms on your site.', ' bp-sp-fnote')],
+  },
+  Audio: {
+    // Upload File would put a file on the site (0005); Add File Link keeps its value, its field is not read (CAP-T12PRESS-D.json).
+    // Podcast opens a view of its own: drawn, not built.
+    content: [pair('auSource', [['embedded', 'Upload File'], ['external', 'Add File Link']], 'embedded'), upload('Upload File'), head('Elements'), side('auTitle', 'Title'), side('auArtist', 'Artist'), toggle('auDownload', 'Download Link'), rule(), head('Metadata'), view('Podcast')],
+    // Classic hides the Color row (CAP-T12PRESS-D.json).
+    design: [head('Appearance'), seg('auStyle', 'Style', [['legacy', 'Classic'], ['minimal', 'Minimal']], 'minimal'), when((v) => (v.auStyle ?? 'minimal') !== 'legacy', seg('auColor', 'Color', [['dark', 'Dark'], ['light', 'Light']], 'dark')), rule()], transforms: true,
+  },
+  'Pricing Plan': {
+    tabs: ['Content', 'Design'],
+    content: [cap('Pricing Plan'), note(`Use pricing plans to sell your digital products. To<br>use this block, create at least one pricing plan.<br>${link('Learn more')}.`, ' bp-sp-pnote'), darkOut('Get started')],
+    design: [cap('Alignment'), icons('ppAlign', 'Alignment', ['left', 'center', 'right'], 'left'), cap('Elements'), ...PLAN_PARTS.map(([k, l]) => erow(k, l, true)), field('ppButton', 'Button Text', 'Sign Up')],
   },
 };
 export const standinPanelOf = (b) => (b.type === 'shape' && !b.standin && STANDIN_PANELS[b.label] ? b.label : null);
