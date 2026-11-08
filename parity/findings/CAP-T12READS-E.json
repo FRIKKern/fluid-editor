@@ -1,0 +1,2566 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Product's image picker and Individual corner radii; the full texts of Menu's, Summary's and Archive's panels.",
+ "how": "Run f73 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then the steps: a dump reads the panel's innerText and every visible field's label, value and box. Product's image picker is an unnamed button (0,104,320,103 in the panel): pressed by that box after a check that it is on top (an unnamed press, listed here); nothing picked, nothing uploaded, closed by Exit Without Saving and a fresh page. Individual corner radii is a named press. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "unnamedPresses": [
+  "Product's image picker, by its box"
+ ],
+ "blocks": {
+  "Product (pick)": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 11 / 8",
+    "size": [
+     341.6875,
+     399.9375
+    ],
+    "leaves": [
+     "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+     "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nAnimation\nImage\n\nRatio\n\nOriginal\nFOCAL POINT\nBlock Alignment\n\nBackground\n\nStroke\n\nBlend Mode\n\nNormal\n\nBlur\n\nTransforms\nOpacity\nRotate\nScale\nOffset\nSkew\nAnchor",
+      "fields": [
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         127,
+         213,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Background",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         445.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Blur",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         580.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         684,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         735,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         786,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         221,
+         786,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         127,
+         837,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         221,
+         837,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         888,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         221,
+         888,
+         66,
+         44
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        461,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Image @0,77,320,16",
+        "Ratio @22,287,34,18",
+        "Original @224,287,52,18",
+        "Focal Point @134,341,85,22",
+        "Block Alignment @22,396,108,22",
+        "Background @22,441,80,22",
+        "Stroke @22,486,42,22",
+        "Blend Mode @22,533,81,18",
+        "Normal @227,533,49,18",
+        "Blur @22,576,26,22",
+        "Transforms @22,633,182,44",
+        "Opacity @22,684,52,44",
+        "Rotate @22,735,43,44",
+        "Scale @22,786,88,44",
+        "Offset @22,837,88,44",
+        "Skew @22,888,88,44",
+        "Anchor @22,939,49,44"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Animation|||||Animation|153,0,67,55",
+        "BUTTON|submit|||||||0,104,320,103",
+        "INPUT|text|||0px||||127,213,160,44",
+        "BUTTON|submit|||||||116,213,182,11",
+        "BUTTON|submit|||||||116,246,182,11",
+        "BUTTON|submit|||||||116,213,11,44",
+        "BUTTON|submit|||||||254,213,44,44",
+        "BUTTON|submit|Reset to default value||||||291,227,16,16",
+        "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+        "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+        "DIV|||||||RatioOriginal|11,273,298,46",
+        "BUTTON|submit|||||off|Focal Point|22,330,276,44",
+        "INPUT|checkbox|Background||||||272,446,12,12",
+        "DIV|||||||Blend ModeNormal|11,519,298,46",
+        "INPUT|checkbox|Blur||||||272,581,12,12",
+        "BUTTON|submit|More actions||||||260,637,36,36",
+        "INPUT|text|||100%||||127,684,160,44",
+        "BUTTON|submit|||||||116,684,182,11",
+        "BUTTON|submit|||||||116,717,182,11",
+        "BUTTON|submit|||||||116,684,11,44",
+        "BUTTON|submit|||||||254,684,44,44",
+        "BUTTON|submit|Reset to default value||||||291,698,16,16",
+        "INPUT|text|||0°||||127,735,160,44",
+        "BUTTON|submit|||||||116,735,182,11",
+        "BUTTON|submit|||||||116,768,182,11",
+        "BUTTON|submit|||||||116,735,11,44",
+        "BUTTON|submit|||||||254,735,44,44",
+        "BUTTON|submit|Reset to default value||||||291,749,16,16",
+        "INPUT|text|||100%||||127,786,66,44",
+        "BUTTON|submit|||||||116,786,88,11",
+        "BUTTON|submit|||||||116,819,88,11",
+        "BUTTON|submit|||||||116,786,11,44",
+        "BUTTON|submit|||||||160,786,44,44",
+        "BUTTON|submit|Reset to default value||||||197,800,16,16",
+        "INPUT|text|||100%||||221,786,66,44",
+        "BUTTON|submit|||||||210,786,88,11",
+        "BUTTON|submit|||||||210,819,88,11",
+        "BUTTON|submit|||||||210,786,11,44",
+        "BUTTON|submit|||||||254,786,44,44",
+        "BUTTON|submit|Reset to default value||||||291,800,16,16",
+        "INPUT|text|||0px||||127,837,66,44",
+        "BUTTON|submit|||||||116,837,88,11",
+        "BUTTON|submit|||||||116,870,88,11",
+        "BUTTON|submit|||||||116,837,11,44",
+        "BUTTON|submit|||||||160,837,44,44",
+        "BUTTON|submit|Reset to default value||||||197,851,16,16",
+        "INPUT|text|||0px||||221,837,66,44",
+        "BUTTON|submit|||||||210,837,88,11",
+        "BUTTON|submit|||||||210,870,88,11",
+        "BUTTON|submit|||||||210,837,11,44",
+        "BUTTON|submit|||||||254,837,44,44",
+        "BUTTON|submit|Reset to default value||||||291,851,16,16",
+        "INPUT|text|||0°||||127,888,66,44",
+        "BUTTON|submit|||||||116,888,88,11",
+        "BUTTON|submit|||||||116,921,88,11",
+        "BUTTON|submit|||||||116,888,11,44",
+        "BUTTON|submit|||||||160,888,44,44",
+        "BUTTON|submit|Reset to default value||||||197,902,16,16",
+        "INPUT|text|||0°||||221,888,66,44",
+        "BUTTON|submit|||||||210,888,88,11",
+        "BUTTON|submit|||||||210,921,88,11",
+        "BUTTON|submit|||||||210,888,11,44",
+        "BUTTON|submit|||||||254,888,44,44",
+        "BUTTON|submit|Reset to default value||||||291,902,16,16",
+        "BUTTON|submit|Position||||||254,939,44,44"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "boxbtn": [
+       0,
+       104,
+       320,
+       103
+      ],
+      "label": "image picker (unnamed)"
+     },
+     "note": {
+      "view": {
+       "box": [
+        461,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Image @0,77,320,16",
+        "Ratio @22,287,34,18",
+        "Original @224,287,52,18",
+        "Focal Point @134,341,85,22",
+        "Block Alignment @22,396,108,22",
+        "Background @22,441,80,22",
+        "Stroke @22,486,42,22",
+        "Blend Mode @22,533,81,18",
+        "Normal @227,533,49,18",
+        "Blur @22,576,26,22",
+        "Transforms @22,633,182,44",
+        "Opacity @22,684,52,44",
+        "Rotate @22,735,43,44",
+        "Scale @22,786,88,44",
+        "Offset @22,837,88,44",
+        "Skew @22,888,88,44",
+        "Anchor @22,939,49,44"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Animation|||||Animation|153,0,67,55",
+        "BUTTON|submit|||||||0,104,320,103",
+        "INPUT|text|||0px||||127,213,160,44",
+        "BUTTON|submit|||||||116,213,182,11",
+        "BUTTON|submit|||||||116,246,182,11",
+        "BUTTON|submit|||||||116,213,11,44",
+        "BUTTON|submit|||||||254,213,44,44",
+        "BUTTON|submit|Reset to default value||||||291,227,16,16",
+        "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+        "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+        "DIV|||||||RatioOriginal|11,273,298,46",
+        "BUTTON|submit|||||off|Focal Point|22,330,276,44",
+        "INPUT|checkbox|Background||||||272,446,12,12",
+        "DIV|||||||Blend ModeNormal|11,519,298,46",
+        "INPUT|checkbox|Blur||||||272,581,12,12",
+        "BUTTON|submit|More actions||||||260,637,36,36",
+        "INPUT|text|||100%||||127,684,160,44",
+        "BUTTON|submit|||||||116,684,182,11",
+        "BUTTON|submit|||||||116,717,182,11",
+        "BUTTON|submit|||||||116,684,11,44",
+        "BUTTON|submit|||||||254,684,44,44",
+        "BUTTON|submit|Reset to default value||||||291,698,16,16",
+        "INPUT|text|||0°||||127,735,160,44",
+        "BUTTON|submit|||||||116,735,182,11",
+        "BUTTON|submit|||||||116,768,182,11",
+        "BUTTON|submit|||||||116,735,11,44",
+        "BUTTON|submit|||||||254,735,44,44",
+        "BUTTON|submit|Reset to default value||||||291,749,16,16",
+        "INPUT|text|||100%||||127,786,66,44",
+        "BUTTON|submit|||||||116,786,88,11",
+        "BUTTON|submit|||||||116,819,88,11",
+        "BUTTON|submit|||||||116,786,11,44",
+        "BUTTON|submit|||||||160,786,44,44",
+        "BUTTON|submit|Reset to default value||||||197,800,16,16",
+        "INPUT|text|||100%||||221,786,66,44",
+        "BUTTON|submit|||||||210,786,88,11",
+        "BUTTON|submit|||||||210,819,88,11",
+        "BUTTON|submit|||||||210,786,11,44",
+        "BUTTON|submit|||||||254,786,44,44",
+        "BUTTON|submit|Reset to default value||||||291,800,16,16",
+        "INPUT|text|||0px||||127,837,66,44",
+        "BUTTON|submit|||||||116,837,88,11",
+        "BUTTON|submit|||||||116,870,88,11",
+        "BUTTON|submit|||||||116,837,11,44",
+        "BUTTON|submit|||||||160,837,44,44",
+        "BUTTON|submit|Reset to default value||||||197,851,16,16",
+        "INPUT|text|||0px||||221,837,66,44",
+        "BUTTON|submit|||||||210,837,88,11",
+        "BUTTON|submit|||||||210,870,88,11",
+        "BUTTON|submit|||||||210,837,11,44",
+        "BUTTON|submit|||||||254,837,44,44",
+        "BUTTON|submit|Reset to default value||||||291,851,16,16",
+        "INPUT|text|||0°||||127,888,66,44",
+        "BUTTON|submit|||||||116,888,88,11",
+        "BUTTON|submit|||||||116,921,88,11",
+        "BUTTON|submit|||||||116,888,11,44",
+        "BUTTON|submit|||||||160,888,44,44",
+        "BUTTON|submit|Reset to default value||||||197,902,16,16",
+        "INPUT|text|||0°||||221,888,66,44",
+        "BUTTON|submit|||||||210,888,88,11",
+        "BUTTON|submit|||||||210,921,88,11",
+        "BUTTON|submit|||||||210,888,11,44",
+        "BUTTON|submit|||||||254,888,44,44",
+        "BUTTON|submit|Reset to default value||||||291,902,16,16",
+        "BUTTON|submit|Position||||||254,939,44,44"
+       ]
+      },
+      "looks": [
+       "BUTTON | tab | Content | 0 |  | 22,0,52.8,55 | 14px/22px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "SPAN |  |  | Content |  | 22,18.5,52.8,18 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | -0.14px | ",
+       "BUTTON | tab | Design | 1 |  | 90.8,0,46,55 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  | Design |  | 90.8,18.5,46,18 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "BUTTON | tab | Animation | 2 |  | 152.8,0,67.5,55 | 14px/22px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "SPAN |  |  | Animation |  | 152.8,18.5,67.5,18 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | -0.14px | ",
+       "LABEL |  |  | Image |  | 0,77,320,16 | 14px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0) | 0px none rgb(0, 0, 0) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 0,104,320,103 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "INPUT | text |  | 0px |  | 127,213,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,213,182,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,246,182,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,213,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,213,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,227,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "BUTTON | radio | Uniform corner radii | true |  | 25,216,41,38 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 2px | none | -0.14px | true",
+       "BUTTON | radio | Individual corner radii | option-custom |  | 66,216,41,38 | 14px/22px 500 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 2px | none | -0.14px | false",
+       "SPAN |  |  | Ratio |  | 22,287,33.8,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  |  |  | 22,307,179.7,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "SPAN |  |  | Original |  | 223.7,287,52.3,18 | 14px/normal 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 22,330,276,44 | 12px/22px 500 | rgb(183, 183, 183) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 0px | uppercase | 0.5px | ",
+       "SPAN |  |  | Focal Point |  | 133.8,341,85.3,22 | 12px/22px 500 | rgb(183, 183, 183) | rgba(0, 0, 0, 0) | 0px none rgb(183, 183, 183) | 0px | uppercase | 0.5px | ",
+       "LABEL |  |  | Block Alignment |  | 22,396,108.3,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "P |  |  | Background |  | 22,441,80.4,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  |  |  | 22,463,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "INPUT | checkbox | Background |  |  | 272,445.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+       "LABEL |  |  | Stroke |  | 22,486,42.2,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  | Blend Mode |  | 22,533,80.6,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  |  |  | 22,553,183.1,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "SPAN |  |  | Normal |  | 227.1,533,48.9,18 | 14px/normal 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "P |  |  | Blur |  | 22,576,26.3,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "SPAN |  |  |  |  | 22,598,242,0 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 0px none rgb(102, 102, 102) | 0px | none | normal | ",
+       "INPUT | checkbox | Blur |  |  | 272,580.5,12,12 | 12px/22px 400 | rgb(62, 62, 62) | rgb(255, 255, 255) | 0px none rgb(62, 62, 62) | 9999px | none | normal | false",
+       "SPAN |  |  | Transforms |  | 22,633,182,44 | 14px/22px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+       "BUTTON | combobox | More actions |  |  | 259.5,637,36,36 | 12px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 6px | none | normal | ",
+       "INPUT | text |  | 100% |  | 127,684,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,684,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,717,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,684,11,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,684,44,44 | 14px/16px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,698,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 0° |  | 127,735,160,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,735,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,768,182,11 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,735,11,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,735,44,44 | 14px/16px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,749,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 100% |  | 127,786,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,786,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,819,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,786,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 160,786,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 197,800,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 100% |  | 221,786,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 210,786,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,819,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,786,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,786,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,800,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 0px |  | 127,837,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,837,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,870,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,837,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 160,837,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 197,851,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 0px |  | 221,837,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 210,837,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,870,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,837,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,837,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,851,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 0° |  | 127,888,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 116,888,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,921,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 116,888,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 160,888,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 197,902,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "INPUT | text |  | 0° |  | 221,888,66,44 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+       "BUTTON | submit |  |  |  | 210,888,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,921,88,11 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 210,888,11,44 | 12px/22px 400 | rgb(62, 62, 62) | rgba(0, 0, 0, 0) | 0px none rgb(62, 62, 62) | 0px | none | normal | ",
+       "BUTTON | submit |  |  |  | 254,888,44,44 | 12px/22px 400 | rgb(148, 148, 148) | rgba(0, 0, 0, 0) | 0px none rgb(148, 148, 148) | 0px | none | normal | ",
+       "BUTTON | submit | Reset to default value |  |  | 291,902,16,16 | 14px/14px 500 | rgb(255, 255, 255) | rgb(14, 14, 14) | 1px solid rgb(14, 14, 14) | 4px | none | -0.14px | ",
+       "BUTTON | submit | Position |  |  | 254,939,44,44 | 14px/16px 400 | rgb(14, 14, 14) | rgb(242, 242, 242) | 0px none rgb(14, 14, 14) | 6px | none | normal | "
+      ],
+      "opts": [],
+      "pops": [
+       {
+        "role": "dialog",
+        "aria": null,
+        "box": [
+         483,
+         405,
+         276,
+         567
+        ],
+        "text": ""
+       },
+       {
+        "role": "listbox",
+        "aria": null,
+        "box": [
+         499,
+         416,
+         250,
+         545
+        ],
+        "text": ""
+       }
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "view": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Animation @153,19,67,18",
+     "Image @0,77,320,16",
+     "Ratio @22,287,34,18",
+     "Original @224,287,52,18",
+     "Focal Point @134,341,85,22",
+     "Block Alignment @22,396,108,22",
+     "Background @22,441,80,22",
+     "Stroke @22,486,42,22",
+     "Blend Mode @22,533,81,18",
+     "Normal @227,533,49,18",
+     "Blur @22,576,26,22",
+     "Transforms @22,633,182,44",
+     "Opacity @22,684,52,44",
+     "Rotate @22,735,43,44",
+     "Scale @22,786,88,44",
+     "Offset @22,837,88,44",
+     "Skew @22,888,88,44",
+     "Anchor @22,939,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Animation|||||Animation|153,0,67,55",
+     "BUTTON|submit|||||||0,104,320,103",
+     "INPUT|text|||0px||||127,213,160,44",
+     "BUTTON|submit|||||||116,213,182,11",
+     "BUTTON|submit|||||||116,246,182,11",
+     "BUTTON|submit|||||||116,213,11,44",
+     "BUTTON|submit|||||||254,213,44,44",
+     "BUTTON|submit|Reset to default value||||||291,227,16,16",
+     "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+     "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+     "DIV|||||||RatioOriginal|11,273,298,46",
+     "BUTTON|submit|||||off|Focal Point|22,330,276,44",
+     "INPUT|checkbox|Background||||||272,446,12,12",
+     "DIV|||||||Blend ModeNormal|11,519,298,46",
+     "INPUT|checkbox|Blur||||||272,581,12,12",
+     "BUTTON|submit|More actions||||||260,637,36,36",
+     "INPUT|text|||100%||||127,684,160,44",
+     "BUTTON|submit|||||||116,684,182,11",
+     "BUTTON|submit|||||||116,717,182,11",
+     "BUTTON|submit|||||||116,684,11,44",
+     "BUTTON|submit|||||||254,684,44,44",
+     "BUTTON|submit|Reset to default value||||||291,698,16,16",
+     "INPUT|text|||0°||||127,735,160,44",
+     "BUTTON|submit|||||||116,735,182,11",
+     "BUTTON|submit|||||||116,768,182,11",
+     "BUTTON|submit|||||||116,735,11,44",
+     "BUTTON|submit|||||||254,735,44,44",
+     "BUTTON|submit|Reset to default value||||||291,749,16,16",
+     "INPUT|text|||100%||||127,786,66,44",
+     "BUTTON|submit|||||||116,786,88,11",
+     "BUTTON|submit|||||||116,819,88,11",
+     "BUTTON|submit|||||||116,786,11,44",
+     "BUTTON|submit|||||||160,786,44,44",
+     "BUTTON|submit|Reset to default value||||||197,800,16,16",
+     "INPUT|text|||100%||||221,786,66,44",
+     "BUTTON|submit|||||||210,786,88,11",
+     "BUTTON|submit|||||||210,819,88,11",
+     "BUTTON|submit|||||||210,786,11,44",
+     "BUTTON|submit|||||||254,786,44,44",
+     "BUTTON|submit|Reset to default value||||||291,800,16,16",
+     "INPUT|text|||0px||||127,837,66,44",
+     "BUTTON|submit|||||||116,837,88,11",
+     "BUTTON|submit|||||||116,870,88,11",
+     "BUTTON|submit|||||||116,837,11,44",
+     "BUTTON|submit|||||||160,837,44,44",
+     "BUTTON|submit|Reset to default value||||||197,851,16,16",
+     "INPUT|text|||0px||||221,837,66,44",
+     "BUTTON|submit|||||||210,837,88,11",
+     "BUTTON|submit|||||||210,870,88,11",
+     "BUTTON|submit|||||||210,837,11,44",
+     "BUTTON|submit|||||||254,837,44,44",
+     "BUTTON|submit|Reset to default value||||||291,851,16,16",
+     "INPUT|text|||0°||||127,888,66,44",
+     "BUTTON|submit|||||||116,888,88,11",
+     "BUTTON|submit|||||||116,921,88,11",
+     "BUTTON|submit|||||||116,888,11,44",
+     "BUTTON|submit|||||||160,888,44,44",
+     "BUTTON|submit|Reset to default value||||||197,902,16,16",
+     "INPUT|text|||0°||||221,888,66,44",
+     "BUTTON|submit|||||||210,888,88,11",
+     "BUTTON|submit|||||||210,921,88,11",
+     "BUTTON|submit|||||||210,888,11,44",
+     "BUTTON|submit|||||||254,888,44,44",
+     "BUTTON|submit|Reset to default value||||||291,902,16,16",
+     "BUTTON|submit|Position||||||254,939,44,44"
+    ]
+   }
+  },
+  "Product (radii)": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 11 / 8",
+    "size": [
+     341.6875,
+     399.9375
+    ],
+    "leaves": [
+     "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+     "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+     "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "btn": "Individual corner radii"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nAnimation\nImage\n\nRatio\n\nOriginal\nFOCAL POINT\nBlock Alignment\n\nBackground\n\nStroke\n\nBlend Mode\n\nNormal\n\nBlur\n\nTransforms\nOpacity\nRotate\nScale\nOffset\nSkew\nAnchor",
+      "fields": [
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         127,
+         213,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": "Top left corner radius",
+        "ph": "",
+        "value": "0",
+        "box": [
+         122,
+         264,
+         32,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": "Top right corner radius",
+        "ph": "",
+        "value": "0",
+        "box": [
+         168,
+         264,
+         32,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": "Bottom right corner radius",
+        "ph": "",
+        "value": "0",
+        "box": [
+         214,
+         264,
+         32,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": "Bottom left corner radius",
+        "ph": "",
+        "value": "0",
+        "box": [
+         260,
+         264,
+         32,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Background",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         496.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Blur",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         631.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         735,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         786,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         837,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         221,
+         837,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         127,
+         888,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         221,
+         888,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         939,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         221,
+         939,
+         66,
+         44
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        461,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Image @0,77,320,16",
+        "Ratio @22,338,34,18",
+        "Original @224,338,52,18",
+        "Focal Point @134,392,85,22",
+        "Block Alignment @22,447,108,22",
+        "Background @22,492,80,22",
+        "Stroke @22,537,42,22",
+        "Blend Mode @22,584,81,18",
+        "Normal @227,584,49,18",
+        "Blur @22,627,26,22",
+        "Transforms @22,684,182,44",
+        "Opacity @22,735,52,44",
+        "Rotate @22,786,43,44",
+        "Scale @22,837,88,44",
+        "Offset @22,888,88,44",
+        "Skew @22,939,88,44",
+        "Anchor @22,990,49,44"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Animation|||||Animation|153,0,67,55",
+        "BUTTON|submit|||||||0,104,320,103",
+        "INPUT|text|||0px||||127,213,160,44",
+        "BUTTON|submit|||||||116,213,182,11",
+        "BUTTON|submit|||||||116,246,182,11",
+        "BUTTON|submit|||||||116,213,11,44",
+        "BUTTON|submit|||||||254,213,44,44",
+        "BUTTON|submit|Reset to default value||||||291,227,16,16",
+        "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+        "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+        "INPUT|text|Top left corner radius||0||||122,264,32,44",
+        "BUTTON|submit|||||||116,264,44,11",
+        "BUTTON|submit|||||||116,297,44,11",
+        "BUTTON|submit|||||||116,264,11,44",
+        "BUTTON|submit|||||||116,264,44,44",
+        "BUTTON|submit|Reset to default value||||||153,278,16,16",
+        "INPUT|text|Top right corner radius||0||||168,264,32,44",
+        "BUTTON|submit|||||||162,264,44,11",
+        "BUTTON|submit|||||||162,297,44,11",
+        "BUTTON|submit|||||||162,264,11,44",
+        "BUTTON|submit|||||||162,264,44,44",
+        "BUTTON|submit|Reset to default value||||||199,278,16,16",
+        "INPUT|text|Bottom right corner radius||0||||214,264,32,44",
+        "BUTTON|submit|||||||208,264,44,11",
+        "BUTTON|submit|||||||208,297,44,11",
+        "BUTTON|submit|||||||208,264,11,44",
+        "BUTTON|submit|||||||208,264,44,44",
+        "BUTTON|submit|Reset to default value||||||245,278,16,16",
+        "INPUT|text|Bottom left corner radius||0||||260,264,32,44",
+        "BUTTON|submit|||||||254,264,44,11",
+        "BUTTON|submit|||||||254,297,44,11",
+        "BUTTON|submit|||||||254,264,11,44",
+        "BUTTON|submit|||||||254,264,44,44",
+        "BUTTON|submit|Reset to default value||||||291,278,16,16",
+        "DIV|||||||RatioOriginal|11,324,298,46",
+        "BUTTON|submit|||||off|Focal Point|22,381,276,44",
+        "INPUT|checkbox|Background||||||272,497,12,12",
+        "DIV|||||||Blend ModeNormal|11,570,298,46",
+        "INPUT|checkbox|Blur||||||272,632,12,12",
+        "BUTTON|submit|More actions||||||260,688,36,36",
+        "INPUT|text|||100%||||127,735,160,44",
+        "BUTTON|submit|||||||116,735,182,11",
+        "BUTTON|submit|||||||116,768,182,11",
+        "BUTTON|submit|||||||116,735,11,44",
+        "BUTTON|submit|||||||254,735,44,44",
+        "BUTTON|submit|Reset to default value||||||291,749,16,16",
+        "INPUT|text|||0°||||127,786,160,44",
+        "BUTTON|submit|||||||116,786,182,11",
+        "BUTTON|submit|||||||116,819,182,11",
+        "BUTTON|submit|||||||116,786,11,44",
+        "BUTTON|submit|||||||254,786,44,44",
+        "BUTTON|submit|Reset to default value||||||291,800,16,16",
+        "INPUT|text|||100%||||127,837,66,44",
+        "BUTTON|submit|||||||116,837,88,11",
+        "BUTTON|submit|||||||116,870,88,11",
+        "BUTTON|submit|||||||116,837,11,44",
+        "BUTTON|submit|||||||160,837,44,44",
+        "BUTTON|submit|Reset to default value||||||197,851,16,16",
+        "INPUT|text|||100%||||221,837,66,44",
+        "BUTTON|submit|||||||210,837,88,11",
+        "BUTTON|submit|||||||210,870,88,11",
+        "BUTTON|submit|||||||210,837,11,44",
+        "BUTTON|submit|||||||254,837,44,44",
+        "BUTTON|submit|Reset to default value||||||291,851,16,16",
+        "INPUT|text|||0px||||127,888,66,44",
+        "BUTTON|submit|||||||116,888,88,11",
+        "BUTTON|submit|||||||116,921,88,11",
+        "BUTTON|submit|||||||116,888,11,44",
+        "BUTTON|submit|||||||160,888,44,44",
+        "BUTTON|submit|Reset to default value||||||197,902,16,16",
+        "INPUT|text|||0px||||221,888,66,44",
+        "BUTTON|submit|||||||210,888,88,11",
+        "BUTTON|submit|||||||210,921,88,11",
+        "BUTTON|submit|||||||210,888,11,44",
+        "BUTTON|submit|||||||254,888,44,44",
+        "BUTTON|submit|Reset to default value||||||291,902,16,16",
+        "INPUT|text|||0°||||127,939,66,44",
+        "BUTTON|submit|||||||116,939,88,11",
+        "BUTTON|submit|||||||116,972,88,11",
+        "BUTTON|submit|||||||116,939,11,44",
+        "BUTTON|submit|||||||160,939,44,44",
+        "BUTTON|submit|Reset to default value||||||197,953,16,16",
+        "INPUT|text|||0°||||221,939,66,44",
+        "BUTTON|submit|||||||210,939,88,11",
+        "BUTTON|submit|||||||210,972,88,11",
+        "BUTTON|submit|||||||210,939,11,44",
+        "BUTTON|submit|||||||254,939,44,44",
+        "BUTTON|submit|Reset to default value||||||291,953,16,16",
+        "BUTTON|submit|Position||||||254,990,44,44"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "view": {
+    "box": [
+     461,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Animation @153,19,67,18",
+     "Image @0,77,320,16",
+     "Ratio @22,338,34,18",
+     "Original @224,338,52,18",
+     "Focal Point @134,392,85,22",
+     "Block Alignment @22,447,108,22",
+     "Background @22,492,80,22",
+     "Stroke @22,537,42,22",
+     "Blend Mode @22,584,81,18",
+     "Normal @227,584,49,18",
+     "Blur @22,627,26,22",
+     "Transforms @22,684,182,44",
+     "Opacity @22,735,52,44",
+     "Rotate @22,786,43,44",
+     "Scale @22,837,88,44",
+     "Offset @22,888,88,44",
+     "Skew @22,939,88,44",
+     "Anchor @22,990,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Animation|||||Animation|153,0,67,55",
+     "BUTTON|submit|||||||0,104,320,103",
+     "INPUT|text|||0px||||127,213,160,44",
+     "BUTTON|submit|||||||116,213,182,11",
+     "BUTTON|submit|||||||116,246,182,11",
+     "BUTTON|submit|||||||116,213,11,44",
+     "BUTTON|submit|||||||254,213,44,44",
+     "BUTTON|submit|Reset to default value||||||291,227,16,16",
+     "BUTTON|submit|Uniform corner radii||||||25,216,41,38",
+     "BUTTON|submit|Individual corner radii||||||66,216,41,38",
+     "INPUT|text|Top left corner radius||0||||122,264,32,44",
+     "BUTTON|submit|||||||116,264,44,11",
+     "BUTTON|submit|||||||116,297,44,11",
+     "BUTTON|submit|||||||116,264,11,44",
+     "BUTTON|submit|||||||116,264,44,44",
+     "BUTTON|submit|Reset to default value||||||153,278,16,16",
+     "INPUT|text|Top right corner radius||0||||168,264,32,44",
+     "BUTTON|submit|||||||162,264,44,11",
+     "BUTTON|submit|||||||162,297,44,11",
+     "BUTTON|submit|||||||162,264,11,44",
+     "BUTTON|submit|||||||162,264,44,44",
+     "BUTTON|submit|Reset to default value||||||199,278,16,16",
+     "INPUT|text|Bottom right corner radius||0||||214,264,32,44",
+     "BUTTON|submit|||||||208,264,44,11",
+     "BUTTON|submit|||||||208,297,44,11",
+     "BUTTON|submit|||||||208,264,11,44",
+     "BUTTON|submit|||||||208,264,44,44",
+     "BUTTON|submit|Reset to default value||||||245,278,16,16",
+     "INPUT|text|Bottom left corner radius||0||||260,264,32,44",
+     "BUTTON|submit|||||||254,264,44,11",
+     "BUTTON|submit|||||||254,297,44,11",
+     "BUTTON|submit|||||||254,264,11,44",
+     "BUTTON|submit|||||||254,264,44,44",
+     "BUTTON|submit|Reset to default value||||||291,278,16,16",
+     "DIV|||||||RatioOriginal|11,324,298,46",
+     "BUTTON|submit|||||off|Focal Point|22,381,276,44",
+     "INPUT|checkbox|Background||||||272,497,12,12",
+     "DIV|||||||Blend ModeNormal|11,570,298,46",
+     "INPUT|checkbox|Blur||||||272,632,12,12",
+     "BUTTON|submit|More actions||||||260,688,36,36",
+     "INPUT|text|||100%||||127,735,160,44",
+     "BUTTON|submit|||||||116,735,182,11",
+     "BUTTON|submit|||||||116,768,182,11",
+     "BUTTON|submit|||||||116,735,11,44",
+     "BUTTON|submit|||||||254,735,44,44",
+     "BUTTON|submit|Reset to default value||||||291,749,16,16",
+     "INPUT|text|||0°||||127,786,160,44",
+     "BUTTON|submit|||||||116,786,182,11",
+     "BUTTON|submit|||||||116,819,182,11",
+     "BUTTON|submit|||||||116,786,11,44",
+     "BUTTON|submit|||||||254,786,44,44",
+     "BUTTON|submit|Reset to default value||||||291,800,16,16",
+     "INPUT|text|||100%||||127,837,66,44",
+     "BUTTON|submit|||||||116,837,88,11",
+     "BUTTON|submit|||||||116,870,88,11",
+     "BUTTON|submit|||||||116,837,11,44",
+     "BUTTON|submit|||||||160,837,44,44",
+     "BUTTON|submit|Reset to default value||||||197,851,16,16",
+     "INPUT|text|||100%||||221,837,66,44",
+     "BUTTON|submit|||||||210,837,88,11",
+     "BUTTON|submit|||||||210,870,88,11",
+     "BUTTON|submit|||||||210,837,11,44",
+     "BUTTON|submit|||||||254,837,44,44",
+     "BUTTON|submit|Reset to default value||||||291,851,16,16",
+     "INPUT|text|||0px||||127,888,66,44",
+     "BUTTON|submit|||||||116,888,88,11",
+     "BUTTON|submit|||||||116,921,88,11",
+     "BUTTON|submit|||||||116,888,11,44",
+     "BUTTON|submit|||||||160,888,44,44",
+     "BUTTON|submit|Reset to default value||||||197,902,16,16",
+     "INPUT|text|||0px||||221,888,66,44",
+     "BUTTON|submit|||||||210,888,88,11",
+     "BUTTON|submit|||||||210,921,88,11",
+     "BUTTON|submit|||||||210,888,11,44",
+     "BUTTON|submit|||||||254,888,44,44",
+     "BUTTON|submit|Reset to default value||||||291,902,16,16",
+     "INPUT|text|||0°||||127,939,66,44",
+     "BUTTON|submit|||||||116,939,88,11",
+     "BUTTON|submit|||||||116,972,88,11",
+     "BUTTON|submit|||||||116,939,11,44",
+     "BUTTON|submit|||||||160,939,44,44",
+     "BUTTON|submit|Reset to default value||||||197,953,16,16",
+     "INPUT|text|||0°||||221,939,66,44",
+     "BUTTON|submit|||||||210,939,88,11",
+     "BUTTON|submit|||||||210,972,88,11",
+     "BUTTON|submit|||||||210,939,11,44",
+     "BUTTON|submit|||||||254,939,44,44",
+     "BUTTON|submit|Reset to default value||||||291,953,16,16",
+     "BUTTON|submit|Position||||||254,990,44,44"
+    ]
+   }
+  },
+  "Menu (full)": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 29 / 14",
+    "size": [
+     694.375,
+     1139.625
+    ],
+    "leaves": [
+     "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nFormatting Help\nAdd your menu items, descriptions, and prices. When you follow the format patterns below, your text will transform into different menu sections.",
+      "fields": [
+       {
+        "tag": "TEXTAREA",
+        "type": "textarea",
+        "aria": "Menu text",
+        "ph": "",
+        "value": "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle",
+        "box": [
+         33,
+         153,
+         254,
+         1188
+        ]
+       },
+       {
+        "tag": "TEXTAREA",
+        "type": "textarea",
+        "aria": null,
+        "ph": "",
+        "value": "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle",
+        "box": [
+         22,
+         142,
+         254,
+         0
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        814,
+        55,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Formatting Help @153,19,106,18",
+        "Add your menu items, descriptions, and prices. When you follow the for @0,77,320,48",
+        "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie  @33,153,254,1188",
+        "MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie  @22,142,254,0"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignFormatting Help|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Formatting Help|||||Formatting Help|153,0,106,55",
+        "TEXTAREA|textarea|Menu text||MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle|||MEALS\n=========\n\nSandwiches\n--|33,153,254,1188",
+        "TEXTAREA|textarea|||MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle|||MEALS\n=========\n\nSandwiches\n--|22,142,254,0"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nFormatting Help\n\nMulti-Column\n\nCurrency Symbol\n\n$ Dollar",
+      "fields": [],
+      "view": {
+       "box": [
+        814,
+        55,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Formatting Help @153,19,106,18",
+        "Multi-Column @99,104,155,22",
+        "Currency Symbol @22,210,114,18",
+        "$ Dollar @226,210,50,18"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignFormatting Help|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Formatting Help|||||Formatting Help|153,0,106,55",
+        "DIV|||||||Currency Symbol$ Dollar|11,196,298,46"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Formatting Help",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nFormatting Help\nUse the formatting shown below to create your menu. Learn More.\n\nMenu Sections\n\nSections define groups of items on your menu. Section descriptions are optional.\n\nSection\n-------\nOptional section description\n\nMenu Items\n\nTo add an item to your menu, type in the following format. Separate multiple menu items with 2 spaces. Options can be added to an item by using the “+” format on a new line. Both prices and descriptions are optional.\n\nTitle of Menu Item\nDescription of food item.\n$10\n\nAnother Menu Item\nA different description.\n$20\n+ Option\n+ Another Option\n\nMultiple Menu Pages\n\nMenu blocks can support multi-page menus (lunch, dinner, etc). Menu pages will be rendered as tabs. To create a menu page within a block, type:\n\nLunch\n========\nOptional menu description",
+      "fields": [],
+      "view": {
+       "box": [
+        814,
+        55,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Formatting Help @153,19,106,18",
+        "Learn More. @60,102,68,15",
+        "Menu Sections @22,138,113,20",
+        "Sections define groups of items on your menu. Section descriptions are @22,168,263,37",
+        "Section\n-------\nOptional section description @33,237,236,60",
+        "Menu Items @22,334,90,20",
+        "To add an item to your menu, type in the following format. Separate mu @22,364,268,103",
+        "Title of Menu Item\nDescription of food item.\n$10 @33,499,211,60",
+        "Another Menu Item\nA different description.\n$20\n+ Option\n+ Another Opti @33,587,202,104",
+        "Multiple Menu Pages @22,728,160,20",
+        "Menu blocks can support multi-page menus (lunch, dinner, etc). Menu pa @22,758,274,81",
+        "Lunch\n========\nOptional menu description @33,871,211,60"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignFormatting Help|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Formatting Help|||||Formatting Help|153,0,106,55"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "view": {
+    "box": [
+     814,
+     55,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Formatting Help @153,19,106,18",
+     "Learn More. @60,102,68,15",
+     "Menu Sections @22,138,113,20",
+     "Sections define groups of items on your menu. Section descriptions are @22,168,263,37",
+     "Section\n-------\nOptional section description @33,237,236,60",
+     "Menu Items @22,334,90,20",
+     "To add an item to your menu, type in the following format. Separate mu @22,364,268,103",
+     "Title of Menu Item\nDescription of food item.\n$10 @33,499,211,60",
+     "Another Menu Item\nA different description.\n$20\n+ Option\n+ Another Opti @33,587,202,104",
+     "Multiple Menu Pages @22,728,160,20",
+     "Menu blocks can support multi-page menus (lunch, dinner, etc). Menu pa @22,758,274,81",
+     "Lunch\n========\nOptional menu description @33,871,211,60"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignFormatting Help|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Formatting Help|||||Formatting Help|153,0,106,55"
+    ]
+   }
+  },
+  "Summary (full)": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 12 / 20",
+    "size": [
+     1047.0625,
+     530
+    ],
+    "leaves": [
+     "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Vulputate Commodo Ligula |  | 0,425,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 0,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Elit Condimentum |  | 369,425,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 369,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | summary-title-link | Aenean eu leo Quam |  | 738,425,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 738,461,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,530 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nDisplay content from other pages on your site, such as blog posts, products, events, or videos. Learn More\n\nThere are no Collection Pages\n\nPRIMARY METADATA\n\nNo metadata found\n\nSECONDARY METADATA\n\nNo metadata found",
+      "fields": [],
+      "view": {
+       "box": [
+        1166,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Learn More @22,109,65,16",
+        "There are no Collection Pages @22,138,198,18",
+        "Primary Metadata @0,192,320,16",
+        "No metadata found @22,221,128,18",
+        "Secondary Metadata @0,275,320,16",
+        "No metadata found @22,304,128,18"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "DIV|||||||There are no Collection Pages|11,124,298,46",
+        "DIV|||||||No metadata found|11,207,298,46",
+        "DIV|||||||No metadata found|11,290,298,46"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       530
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 0,425,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 0,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 369,425,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 369,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 738,425,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 738,461,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,530 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       530
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 0,425,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 0,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 369,425,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 369,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 738,425,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 738,461,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,530 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\n\nWall\n\nNumber of Items\nTEXT\nELEMENTS\n\nTitle\n\nFeatured Image\n\nExcerpt\n\nMETADATA POSITION\n\nBelow Content\n\nSize and Spacing\n\nBackground\n\nStroke\n\nBlend Mode\n\nNormal\n\nBlur",
+      "fields": [
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": "Number of Items",
+        "ph": "",
+        "value": "3",
+        "box": [
+         280,
+         208,
+         12,
+         22
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "range",
+        "aria": "Number of Items",
+        "ph": "",
+        "value": "3",
+        "box": [
+         22,
+         229.5,
+         276,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Title",
+        "ph": "",
+        "value": "",
+        "box": [
+         284,
+         409.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Featured Image",
+        "ph": "",
+        "value": "",
+        "box": [
+         284,
+         454.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Excerpt",
+        "ph": "",
+        "value": "",
+        "box": [
+         284,
+         499.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Background",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         716.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Blur",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         851.5,
+         12,
+         12
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        1166,
+        301,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Wall @99,104,155,22",
+        "Number of Items @22,208,252,22",
+        "Text @0,296,320,16",
+        "Elements @0,378,320,16",
+        "Title @22,405,28,22",
+        "Featured Image @22,450,105,22",
+        "Excerpt @22,495,51,22",
+        "Metadata Position @0,551,320,16",
+        "Below Content @22,580,97,18",
+        "Size and Spacing @22,656,114,22",
+        "Background @22,712,80,22",
+        "Stroke @22,757,42,22",
+        "Blend Mode @22,804,81,18",
+        "Normal @227,804,49,18",
+        "Blur @22,847,26,22"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "INPUT|text|Number of Items||3||||280,208,12,22",
+        "INPUT|range|Number of Items||3||||22,230,276,44",
+        "BUTTON|submit|Left Aligned||||||18,318,95,32",
+        "BUTTON|submit|Center Aligned||||||113,318,95,32",
+        "BUTTON|submit|Right Aligned||||||207,318,95,32",
+        "INPUT|checkbox|Title|||on|||284,410,12,12",
+        "INPUT|checkbox|Featured Image|||on|||284,455,12,12",
+        "INPUT|checkbox|Excerpt|||on|||284,500,12,12",
+        "DIV|||||||Below Content|11,566,298,46",
+        "BUTTON|submit|Navigate to Size and Spacing||||||282,659,16,16",
+        "INPUT|checkbox|Background||||||272,717,12,12",
+        "DIV|||||||Blend ModeNormal|11,790,298,46",
+        "INPUT|checkbox|Blur||||||272,852,12,12"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       530
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 0,425,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 0,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 369,425,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 369,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 738,425,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 738,461,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,530 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-summary-v2 summary-block summary-v2-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 12 / 20",
+      "size": [
+       1047.0625,
+       530
+      ],
+      "leaves": [
+       "IMG | summary-thumbnail-image loaded |  |  | 0,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Vulputate Commodo Ligula |  | 0,425,275.6,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Commodo cursus magna, vel scelerisque nisl consectetur et. D |  | 0,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 369,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Elit Condimentum |  | 369,425,178.7,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves |  | 369,461,309,58.8 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "IMG | summary-thumbnail-image loaded |  |  | 738,0,309,412 | 13px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | summary-title-link | Aenean eu leo Quam |  | 738,425,211.4,28 | 20px/24px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "P |  | Quisque iaculis facilisis lacinia. Mauris euismod pellentesq |  | 738,461,309,39.2 | 14px/19.6px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,1047.1,530 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "view": {
+    "box": [
+     1166,
+     301,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Wall @99,104,155,22",
+     "Number of Items @22,208,252,22",
+     "Text @0,296,320,16",
+     "Elements @0,378,320,16",
+     "Title @22,405,28,22",
+     "Featured Image @22,450,105,22",
+     "Excerpt @22,495,51,22",
+     "Metadata Position @0,551,320,16",
+     "Below Content @22,580,97,18",
+     "Size and Spacing @22,656,114,22",
+     "Background @22,712,80,22",
+     "Stroke @22,757,42,22",
+     "Blend Mode @22,804,81,18",
+     "Normal @227,804,49,18",
+     "Blur @22,847,26,22"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesign|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "INPUT|text|Number of Items||3||||280,208,12,22",
+     "INPUT|range|Number of Items||3||||22,230,276,44",
+     "BUTTON|submit|Left Aligned||||||18,318,95,32",
+     "BUTTON|submit|Center Aligned||||||113,318,95,32",
+     "BUTTON|submit|Right Aligned||||||207,318,95,32",
+     "INPUT|checkbox|Title|||on|||284,410,12,12",
+     "INPUT|checkbox|Featured Image|||on|||284,455,12,12",
+     "INPUT|checkbox|Excerpt|||on|||284,500,12,12",
+     "DIV|||||||Below Content|11,566,298,46",
+     "BUTTON|submit|Navigate to Size and Spacing||||||282,659,16,16",
+     "INPUT|checkbox|Background||||||272,717,12,12",
+     "DIV|||||||Blend ModeNormal|11,790,298,46",
+     "INPUT|checkbox|Blur||||||272,852,12,12"
+    ]
+   }
+  },
+  "Archive (full)": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 22 / 10",
+    "size": [
+     459.25,
+     851.96875
+    ],
+    "leaves": [
+     "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nAnimation\nCollection\n\nNo collections found\n\nOrganization\nGroup by\nMonth\nElements\n\nDates ascending\n\nItem date\n\nGroup count",
+      "fields": [
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "month",
+        "box": [
+         115,
+         248,
+         1,
+         1
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Dates ascending",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         380.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Item date",
+        "ph": "",
+        "value": "",
+        "box": [
+         284,
+         425.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Group count",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         470.5,
+         12,
+         12
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        578,
+        150,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Collection @0,77,320,16",
+        "No collections found @38,126,244,22",
+        "Organization @0,226,320,16",
+        "Group by @22,249,62,44",
+        "Month @128,260,133,22",
+        "Elements @0,349,320,16",
+        "Dates ascending @22,376,111,22",
+        "Item date @22,421,63,22",
+        "Group count @22,466,83,22"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Animation|||||Animation|153,0,67,55",
+        "INPUT|text|||month||||115,248,1,1",
+        "BUTTON|submit||||||Month|116,249,182,44",
+        "INPUT|checkbox|Dates ascending||||off||272,381,12,12",
+        "INPUT|checkbox|Item date|||on|||284,426,12,12",
+        "INPUT|checkbox|Group count||||||272,471,12,12"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "dump": true
+     },
+     "note": {
+      "text": "Content\nDesign\nAnimation\nLayout\n\nIndex\n\nColumns\nAlignment\nAppearance\n\nBackground\n\nStroke\n\nBlend Mode\n\nNormal\n\nBlur\n\nTransforms\nOpacity\nRotate\nScale\nOffset\nSkew\nAnchor",
+      "fields": [
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Background",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         412.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "aria": "Blur",
+        "ph": "",
+        "value": "",
+        "box": [
+         272,
+         547.5,
+         12,
+         12
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         668,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         719,
+         160,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         127,
+         770,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "100%",
+        "box": [
+         221,
+         770,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         127,
+         821,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0px",
+        "box": [
+         221,
+         821,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         127,
+         872,
+         66,
+         44
+        ]
+       },
+       {
+        "tag": "INPUT",
+        "type": "text",
+        "aria": null,
+        "ph": "",
+        "value": "0°",
+        "box": [
+         221,
+         872,
+         66,
+         44
+        ]
+       }
+      ],
+      "view": {
+       "box": [
+        578,
+        150,
+        320,
+        500
+       ],
+       "text": [
+        "Content @22,19,53,18",
+        "Design @91,19,46,18",
+        "Animation @153,19,67,18",
+        "Layout @22,66,276,44",
+        "Index @99,159,155,22",
+        "Columns @22,230,59,44",
+        "Alignment @22,281,69,44",
+        "Appearance @22,353,276,44",
+        "Background @22,408,80,22",
+        "Stroke @22,453,42,22",
+        "Blend Mode @22,500,81,18",
+        "Normal @227,500,49,18",
+        "Blur @22,543,26,22",
+        "Transforms @22,617,182,44",
+        "Opacity @22,668,52,44",
+        "Rotate @22,719,43,44",
+        "Scale @22,770,88,44",
+        "Offset @22,821,88,44",
+        "Skew @22,872,88,44",
+        "Anchor @22,923,49,44"
+       ],
+       "c": [
+        "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+        "BUTTON|button|Content|||||Content|22,0,53,55",
+        "BUTTON|button|Design|||||Design|91,0,46,55",
+        "BUTTON|button|Animation|||||Animation|153,0,67,55",
+        "BUTTON|submit|||||||119,233,87,38",
+        "BUTTON|submit|||||||209,233,87,38",
+        "BUTTON|submit|||||||119,284,57,38",
+        "BUTTON|submit|||||||179,284,57,38",
+        "BUTTON|submit|||||||238,284,57,38",
+        "INPUT|checkbox|Background||||||272,413,12,12",
+        "DIV|||||||Blend ModeNormal|11,486,298,46",
+        "INPUT|checkbox|Blur||||||272,548,12,12",
+        "BUTTON|submit|More actions||||||260,621,36,36",
+        "INPUT|text|||100%||||127,668,160,44",
+        "BUTTON|submit|||||||116,668,182,11",
+        "BUTTON|submit|||||||116,701,182,11",
+        "BUTTON|submit|||||||116,668,11,44",
+        "BUTTON|submit|||||||254,668,44,44",
+        "BUTTON|submit|Reset to default value||||||291,682,16,16",
+        "INPUT|text|||0°||||127,719,160,44",
+        "BUTTON|submit|||||||116,719,182,11",
+        "BUTTON|submit|||||||116,752,182,11",
+        "BUTTON|submit|||||||116,719,11,44",
+        "BUTTON|submit|||||||254,719,44,44",
+        "BUTTON|submit|Reset to default value||||||291,733,16,16",
+        "INPUT|text|||100%||||127,770,66,44",
+        "BUTTON|submit|||||||116,770,88,11",
+        "BUTTON|submit|||||||116,803,88,11",
+        "BUTTON|submit|||||||116,770,11,44",
+        "BUTTON|submit|||||||160,770,44,44",
+        "BUTTON|submit|Reset to default value||||||197,784,16,16",
+        "INPUT|text|||100%||||221,770,66,44",
+        "BUTTON|submit|||||||210,770,88,11",
+        "BUTTON|submit|||||||210,803,88,11",
+        "BUTTON|submit|||||||210,770,11,44",
+        "BUTTON|submit|||||||254,770,44,44",
+        "BUTTON|submit|Reset to default value||||||291,784,16,16",
+        "INPUT|text|||0px||||127,821,66,44",
+        "BUTTON|submit|||||||116,821,88,11",
+        "BUTTON|submit|||||||116,854,88,11",
+        "BUTTON|submit|||||||116,821,11,44",
+        "BUTTON|submit|||||||160,821,44,44",
+        "BUTTON|submit|Reset to default value||||||197,835,16,16",
+        "INPUT|text|||0px||||221,821,66,44",
+        "BUTTON|submit|||||||210,821,88,11",
+        "BUTTON|submit|||||||210,854,88,11",
+        "BUTTON|submit|||||||210,821,11,44",
+        "BUTTON|submit|||||||254,821,44,44",
+        "BUTTON|submit|Reset to default value||||||291,835,16,16",
+        "INPUT|text|||0°||||127,872,66,44",
+        "BUTTON|submit|||||||116,872,88,11",
+        "BUTTON|submit|||||||116,905,88,11",
+        "BUTTON|submit|||||||116,872,11,44",
+        "BUTTON|submit|||||||160,872,44,44",
+        "BUTTON|submit|Reset to default value||||||197,886,16,16",
+        "INPUT|text|||0°||||221,872,66,44",
+        "BUTTON|submit|||||||210,872,88,11",
+        "BUTTON|submit|||||||210,905,88,11",
+        "BUTTON|submit|||||||210,872,11,44",
+        "BUTTON|submit|||||||254,872,44,44",
+        "BUTTON|submit|Reset to default value||||||291,886,16,16",
+        "BUTTON|submit|Position||||||254,923,44,44"
+       ]
+      }
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-archive sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 22 / 10",
+      "size": [
+       459.25,
+       851.96875
+      ],
+      "leaves": [
+       "DIV | sqs-blockStatus-box-title | Archive Block |  | 97,28.3,300,19.8 | 12px/19.8px 500 | rgb(62, 62, 62) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | January 2026 |  | 0,0,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Aenean eu leo Quam |  | 0,53.8,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan  5, 2026 |  | 0,76.2,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Cursus Amet |  | 0,121,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Jan 28, 2026 |  | 0,143.4,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | February 2026 |  | 0,210.6,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Pellentesque Risus Ridiculus |  | 0,264.3,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Feb 12, 2026 |  | 0,286.7,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | April 2025 |  | 0,353.9,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Porta |  | 0,407.7,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 17, 2025 |  | 0,430.1,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Elit Condimentum |  | 0,474.9,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Apr 22, 2025 |  | 0,497.3,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | September 2025 |  | 0,564.5,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Etiam Ultricies |  | 0,618.2,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Sep 26, 2025 |  | 0,640.6,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-group-name-link | March 2024 |  | 0,707.8,459.3,31.4 | 22.4px/31.36px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "A | archive-item-link | Vulputate Commodo Ligula |  | 0,761.6,454.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | archive-item-date-after | Mar 11, 2024 |  | 0,784,459.3,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,852 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "view": {
+    "box": [
+     578,
+     150,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Animation @153,19,67,18",
+     "Layout @22,66,276,44",
+     "Index @99,159,155,22",
+     "Columns @22,230,59,44",
+     "Alignment @22,281,69,44",
+     "Appearance @22,353,276,44",
+     "Background @22,408,80,22",
+     "Stroke @22,453,42,22",
+     "Blend Mode @22,500,81,18",
+     "Normal @227,500,49,18",
+     "Blur @22,543,26,22",
+     "Transforms @22,617,182,44",
+     "Opacity @22,668,52,44",
+     "Rotate @22,719,43,44",
+     "Scale @22,770,88,44",
+     "Offset @22,821,88,44",
+     "Skew @22,872,88,44",
+     "Anchor @22,923,49,44"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignAnimation|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Animation|||||Animation|153,0,67,55",
+     "BUTTON|submit|||||||119,233,87,38",
+     "BUTTON|submit|||||||209,233,87,38",
+     "BUTTON|submit|||||||119,284,57,38",
+     "BUTTON|submit|||||||179,284,57,38",
+     "BUTTON|submit|||||||238,284,57,38",
+     "INPUT|checkbox|Background||||||272,413,12,12",
+     "DIV|||||||Blend ModeNormal|11,486,298,46",
+     "INPUT|checkbox|Blur||||||272,548,12,12",
+     "BUTTON|submit|More actions||||||260,621,36,36",
+     "INPUT|text|||100%||||127,668,160,44",
+     "BUTTON|submit|||||||116,668,182,11",
+     "BUTTON|submit|||||||116,701,182,11",
+     "BUTTON|submit|||||||116,668,11,44",
+     "BUTTON|submit|||||||254,668,44,44",
+     "BUTTON|submit|Reset to default value||||||291,682,16,16",
+     "INPUT|text|||0°||||127,719,160,44",
+     "BUTTON|submit|||||||116,719,182,11",
+     "BUTTON|submit|||||||116,752,182,11",
+     "BUTTON|submit|||||||116,719,11,44",
+     "BUTTON|submit|||||||254,719,44,44",
+     "BUTTON|submit|Reset to default value||||||291,733,16,16",
+     "INPUT|text|||100%||||127,770,66,44",
+     "BUTTON|submit|||||||116,770,88,11",
+     "BUTTON|submit|||||||116,803,88,11",
+     "BUTTON|submit|||||||116,770,11,44",
+     "BUTTON|submit|||||||160,770,44,44",
+     "BUTTON|submit|Reset to default value||||||197,784,16,16",
+     "INPUT|text|||100%||||221,770,66,44",
+     "BUTTON|submit|||||||210,770,88,11",
+     "BUTTON|submit|||||||210,803,88,11",
+     "BUTTON|submit|||||||210,770,11,44",
+     "BUTTON|submit|||||||254,770,44,44",
+     "BUTTON|submit|Reset to default value||||||291,784,16,16",
+     "INPUT|text|||0px||||127,821,66,44",
+     "BUTTON|submit|||||||116,821,88,11",
+     "BUTTON|submit|||||||116,854,88,11",
+     "BUTTON|submit|||||||116,821,11,44",
+     "BUTTON|submit|||||||160,821,44,44",
+     "BUTTON|submit|Reset to default value||||||197,835,16,16",
+     "INPUT|text|||0px||||221,821,66,44",
+     "BUTTON|submit|||||||210,821,88,11",
+     "BUTTON|submit|||||||210,854,88,11",
+     "BUTTON|submit|||||||210,821,11,44",
+     "BUTTON|submit|||||||254,821,44,44",
+     "BUTTON|submit|Reset to default value||||||291,835,16,16",
+     "INPUT|text|||0°||||127,872,66,44",
+     "BUTTON|submit|||||||116,872,88,11",
+     "BUTTON|submit|||||||116,905,88,11",
+     "BUTTON|submit|||||||116,872,11,44",
+     "BUTTON|submit|||||||160,872,44,44",
+     "BUTTON|submit|Reset to default value||||||197,886,16,16",
+     "INPUT|text|||0°||||221,872,66,44",
+     "BUTTON|submit|||||||210,872,88,11",
+     "BUTTON|submit|||||||210,905,88,11",
+     "BUTTON|submit|||||||210,872,11,44",
+     "BUTTON|submit|||||||254,872,44,44",
+     "BUTTON|submit|Reset to default value||||||291,886,16,16",
+     "BUTTON|submit|Position||||||254,923,44,44"
+    ]
+   }
+  }
+ },
+ "facts": [
+  "Product's image picker opens a popup (a dialog 276 by 567 at the picker's left, over the panel, holding a listbox 250 by 545): 21 tiles of image shapes, 3 to a row, the first (a square) outlined as picked. Its options carry no text; their names were not read. Nothing was picked.",
+  "Individual corner radii: the uniform field keeps 0px, and a row of four fields appears under it (panel y 264, 44 high, each 32 wide at x 122, 168, 214 and 260), labelled Top left, Top right, Bottom right and Bottom left corner radius, each reading 0, with a corner mark. The rows below move down 51. The block's rows stay (10 at 6 columns).",
+  "Menu's Content: the note, then one textarea (panel 33,153, 254 by 1188) holding the sample menu of 601 characters, in full in the blocks' steps.",
+  "Menu's Formatting Help, Summary's Content and Archive's panels: full texts in the blocks' steps. Summary's Number of Items is a text field and a range, both reading 3. Archive's Group by holds month."
+ ]
+}
