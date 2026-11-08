@@ -1,0 +1,218 @@
+{
+ "item": "A2",
+ "question": "A2 and R2: the Text's desktop area after its second edit (the 'typed twice' reads), by candidate. D: a Text moved by hand loses its spare row at its second edit (k1 to k4). L: only with a one-row Line above it (k1). T: only when the phone order changes in that edit; our code turns the order in k1 only, so T predicts as L. ours: our code at this commit, every block, no shrink anywhere. A read hits a rule when the Text's desktop area is the one given.",
+ "textZ": {
+  "k1": 2,
+  "k2": 1,
+  "k3": 1,
+  "k4": 1,
+  "k5": 2
+ },
+ "predicted": {
+  "k1 t2 again, Line above, Text dragged down before": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k1 t2 again, Line above, Text dragged down typed once": {
+   "ours": [
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k1 t2 again, Line above, Text dragged down typed twice": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "D": "2/2/3/10",
+   "L": "2/2/3/10",
+   "T": "2/2/3/10"
+  },
+  "k2 Text alone, dragged down before": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k2 Text alone, dragged down typed once": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k2 Text alone, dragged down typed twice": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "D": "2/2/3/10",
+   "L": "2/2/4/10",
+   "T": "2/2/4/10"
+  },
+  "k3 Text alone, dragged down and back before": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k3 Text alone, dragged down and back typed once": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k3 Text alone, dragged down and back typed twice": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "D": "1/2/2/10",
+   "L": "1/2/3/10",
+   "T": "1/2/3/10"
+  },
+  "k4 Text dragged down, Line below before": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "5/2/6/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k4 Text dragged down, Line below typed once": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "5/2/6/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k4 Text dragged down, Line below typed twice": {
+   "ours": [
+    {
+     "z": 1,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "5/2/6/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "D": "2/2/3/10",
+   "L": "2/2/4/10",
+   "T": "2/2/4/10"
+  },
+  "k5 Line and Text, no drag before": {
+   "ours": [
+    {
+     "z": 2,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k5 Line and Text, no drag typed once": {
+   "ours": [
+    {
+     "z": 2,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "note": "all three rules: the Text keeps its area here; not scored"
+  },
+  "k5 Line and Text, no drag typed twice": {
+   "ours": [
+    {
+     "z": 2,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "D": "1/2/3/10",
+   "L": "1/2/3/10",
+   "T": "1/2/3/10"
+  }
+ }
+}

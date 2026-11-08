@@ -1,0 +1,34 @@
+{
+  "item": "T12",
+  "capturedAt": "2026-11-08",
+  "question": "Newsletter's panel parts left unread by CAP-T12NEWSLETTER.json: the Form Name tip, the rows Show Name Field adds, the Post-Submit view, and the block in the phone view.",
+  "how": "Probe page, a new Newsletter at 10 columns by 8 rows, Edit, Content (runs f65 and f66 on the oracle's own Chrome, read only, left by Exit Without Saving; the page read 0 blocks after). Panel boxes are relative to the panel's box at 696,301; that box sits 2px below the panel's top edge, so add 2 to compare with ours, whose box is the outer edge (the header reads at y -2, and Back at 11,3 where FORMFIELDS.json read 11,5).",
+  "tip": {
+    "trigger": "pointer on the ? at the end of the Form Name row (22 by 22, #b7b7b7). It shows at once and stays after a press; it goes when the pointer leaves.",
+    "text": "Use a descriptive name to identify form submissions. The name also appears in the title of the Lightbox version of this form.",
+    "box": "320 by 88, #0e0e0e, radius 3, padding 11px 16px, text white 14px/22px, three lines of 288; no arrow",
+    "place": "centered on the ?, its bottom 11px above the ?'s top: page 823,333 for a ? at 972,432",
+    "ours": "the bar tip with an above variant: 320 wide, wrapping, 11px above, centered; measured at -149,-99 from the ?, as read"
+  },
+  "names": {
+    "note": "Show Name Field on adds two rows under it, switches off: Require First Name and Require Last Name. Each row is 45 tall with its rule, no gap between them; Post-Submit follows 22px lower.",
+    "rows": { "Show Name Field": [22, 691, 276, 45], "Require First Name": [22, 736, 276, 45], "Require Last Name": [22, 781, 276, 45], "Post-Submit": [22, 848, 276, 45] },
+    "switches": "28 by 16 at x 270; on #45a57a, off #666",
+    "notRead": "What either Require switch changes on the block: the fieldset carries the class required whatever the switches say. Ours keeps the two settings, one undo step each, and draws nothing new."
+  },
+  "post": {
+    "open": "the row's arrow, Navigate to Post-Submit (16 by 16 at 282,862). The block doesn't change while the view is open (8 rows). Back returns to Content.",
+    "message": ["Back @11,3,54,46", "Post-Submit (title) @119,15,82,22", "After Submission @0,75,320,16", "segments 22,95.4,276,36 #f2f2f2: Message and Redirect, each 136 by 32 at x 24 and 160", "Message @0,142.4,320,16", "box 22,162.8,276,110 #f9f9f9, Thank you! at 33,176.9", "This message displays after users submit a form. @11,274.8,298,16", "HTML @0,312.8,320,16", "code box 22,333.2,276,154 #f2f2f2, gutter 31.4, Add placeholder #888", "HTML to be rendered in addition to the Post-Submit Message. @11,489.2,298,32"],
+    "redirect": ["Redirect Url @0,153.4,320,16", "Attach link 22,175.4,276,44, white, 1px #e7e7e7, radius 6, 12px uppercase", "Add a URL to redirect the user after they submit the form. @11,221.4,298,32"],
+    "same": "With 2 added, every box is the form's Edit Post-Submit view (FORMFIELDS.json, postSubmit) except: the title reads Post-Submit, and there are no Alignment and Position rows, so HTML follows the note.",
+    "ours": "the form's view with those two changes. Ours' form view sits 1.6 to 3.2px lower than both reads from the segments to the HTML caption (101 for 99.4 on the segments, 147 for 144.4 on Message); that is the form's (T9) and is left as it is."
+  },
+  "phone": {
+    "how": "the phone view, block 8 columns wide (376.7), with names and then names off in the phone view",
+    "noNames": { "rows": 11, "area": "1/2/12/10", "block": 374, "form": 362.3, "boxes": { "header": [28.3, 0, 320.2, 99.5], "h2": "32.2px/38.64px", "fieldsWrapper": [44.3, 131.5, 288, 82], "button": [120.6, 229.4, 135.4, 80], "disclaimer": [0, 341.4, 376.7, 20.9] } },
+    "names": { "rows": 8, "area": "1/2/9/10", "block": 526.3, "form": 526.3, "boxes": { "fieldset": [0, 131.5, 376.7, 164], "first": [44.3, 131.5, 288, 82], "last": [44.3, 213.4, 288, 82], "email": [44.3, 295.4, 288, 82], "button": [120.6, 393.4, 135.4, 80], "disclaimer": [0, 505.4, 376.7, 20.9] } },
+    "font": "The disclaimer is 14.92px/20.888px on the phone and 14.08px/19.712px on the desktop: both are Small text's size (Site Styles' small value .9), so ours sizes it with Small text's rule.",
+    "wrap": "On the phone the fields and the button no longer fit one line, so each sits on its own, centered, 16px apart; the names stack one above the other. Ours draws every box above as read.",
+    "rows": "Seen, not built: with names on the block was 8 rows tall in the grid and drew 526.3 (the block grows past its rows on the phone); names off in the phone view took the phone rows to 11, up, while the content shrank (x = (362.3 + 11) / 35 = 10.67). By its code ours keeps 8 there (not run), as refit 1 raises rows only when content grows. The desktop rows stayed 14 after that phone change: a phone edit leaves the desktop rows, as ours' refit touches only the view's own rows (from the code, not run)."
+  }
+}

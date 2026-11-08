@@ -1783,12 +1783,12 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
-    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b) } : null;
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
+  if ((b.type !== 'form' && b.standin !== 'newsletter') || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
@@ -1803,7 +1803,7 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
   if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
@@ -2679,15 +2679,22 @@ blockPanel.addEventListener('input', (e) => {
   quoteBefore ??= JSON.stringify(model);
   refitStandin(b, () => { b[t.dataset.content] = t.value; });
 });
+let standinFlush = null, panelPress = false;
+blockPanel.addEventListener('pointerdown', () => { panelPress = true; }, true);
+window.addEventListener('pointerup', () => { panelPress = false; }, true);
 blockPanel.addEventListener('change', (e) => {
   if (!e.target.closest(STANDIN_FIELDS) || quoteBefore == null) return;
   const before = quoteBefore, name = B(sel.sid, sel.bid)?.standin === 'newsletter' ? 'Newsletter' : 'Quote';
   quoteBefore = null;
-  // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone.
-  setTimeout(() => commit(before, `${name} changed`));
+  const go = () => { if (standinFlush !== go) return; standinFlush = null; commit(before, `${name} changed`); };
+  standinFlush = go;
+  // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone. A press
+  // that left the field waits for its click: the redraw would take the switch or pick from under it.
+  if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
-// Newsletter's Show Name Field, Layout and Alignment: one undo step each.
+// Newsletter's Show Name Field, Layout and Alignment: one undo step each, after the step of a field just left.
 function setNewsletter(key, v) {
+  standinFlush?.();
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   refitStandin(b, () => { if (v) b[key] = v; else delete b[key]; });
   commit(before, 'Newsletter changed');
@@ -2741,9 +2748,9 @@ function formDesignStep(b, change) {
 }
 // A delete fits at once: its reads found no rule to build (FORMFIELDS.json, lightbox.deleteThenOn).
 function setForm(change, label, deleted = false) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
-  b.fields ||= [];
-  if (!deleted) formStep(b);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), form = b.type === 'form'; // or Newsletter's Post-Submit
+  if (form) b.fields ||= [];
+  if (!deleted && form) formStep(b);
   change(b);
   renderSectionDom(sel.sid);
   if (deleted && !formView(b, bp).lightbox) { fitForm(b, S(sel.sid)); b.formH = { ...b.formH, [bp]: formHeight(b) }; }
@@ -2839,7 +2846,7 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
-    formStep(b);
+    if (b.type === 'form') formStep(b);
     b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
@@ -4069,8 +4076,8 @@ function siteLinkGroups() {
 }
 function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
-  // A form's redirect (FORMFIELDS.json, postSubmit): the same link menu, read as far as its list.
-  if (b.type === 'form') {
+  // A form's redirect (FORMFIELDS.json, postSubmit), and Newsletter's: the same link menu, read as far as its list.
+  if (b.type === 'form' || b.standin === 'newsletter') {
     const href = postOf(b).href;
     if (act === 'copy') { navigator.clipboard?.writeText(href).catch(() => {}); note('Link copied'); updateUi(); return; }
     if (act === 'remove') { closeLinkPopover(); setPost('href', '', 'Link removed'); return; }
@@ -6986,12 +6993,15 @@ function showBarTip(btn) {
   const closing = preview && btn.id === 'preview';
   const keys = closing ? '' : btn.dataset.tipKeys;
   barTip.replaceChildren(closing ? 'Close' : btn.dataset.tip);
+  barTip.classList.toggle('is-above', btn.hasAttribute('data-tip-above'));
   for (const k of keys ? keys.split(' ') : []) { const el = document.createElement('kbd'); el.textContent = k; barTip.append(el); }
   barTip.hidden = false;
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
   barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  // Newsletter's Form Name tip wraps at 288px and sits 11px above its ? (CAP-T12NLPOST.json, tip).
+  if (btn.hasAttribute('data-tip-above')) barTip.style.top = `${q.top - 11 - barTip.getBoundingClientRect().height}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
 // appear about 517 ms after the pointer gets on the button, by the page's own clock, at full opacity with no fade (CAP-U4TIPS.json).
@@ -7006,7 +7016,7 @@ function setTbTip(btn) {
 // An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
 blockPanel.addEventListener('pointerover', (e) => { const btn = e.target.closest('[data-tip]'); if (btn) showBarTip(btn); });
 blockPanel.addEventListener('pointerout', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
-blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
+blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]:not([data-tip-above])')) barTip.hidden = true; }); // the Form Name tip stays on a press
 toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.

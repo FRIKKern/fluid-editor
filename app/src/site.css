@@ -49,7 +49,7 @@ body {
   h3, .newsletter-form-header-title { font-size: calc((var(--heading-3-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   h4 { font-size: calc((var(--heading-4-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
   .sqsrte-large { font-size: calc((var(--large-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
-  .sqsrte-small { font-size: calc((var(--small-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
+  .sqsrte-small, .newsletter-form-footnote { font-size: calc((var(--small-text-size-value) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
 @media screen and (min-width: 768px), screen and (orientation: landscape) {
   body { font-size: min(calc((var(--normal-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--normal-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--normal-text-size-value) * 1rem))); }
@@ -58,7 +58,7 @@ body {
   h3, .newsletter-form-header-title { font-size: min(calc((var(--heading-3-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-3-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-3-size-value) * 1rem))); }
   h4 { font-size: min(calc((var(--heading-4-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--heading-4-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--heading-4-size-value) * 1rem))); }
   .sqsrte-large { font-size: min(calc((var(--large-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--large-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--large-text-size-value) * 1rem))); }
-  .sqsrte-small { font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); }
+  .sqsrte-small, .newsletter-form-footnote { font-size: min(calc((var(--small-text-size-value) - 1) * 1.2vw + 1rem), max(calc((var(--small-text-size-value) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--small-text-size-value) * 1rem))); }
 }
 h1, h2, h3, h4 { margin: 2rem 0; font-weight: 400; letter-spacing: var(--heading-font-letter-spacing); }
 h1 { line-height: calc(var(--heading-font-line-height) * (1 + (1 - var(--heading-1-size-value)) / 25)); }
@@ -748,7 +748,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .newsletter-form .field-element::placeholder { color: rgba(0, 0, 0, .3); }
 .newsletter-form-button { display: inline-block; padding: 22.4px 32px; border: 0; border-radius: 300px; background: #000; color: #fff; font: inherit; font-size: 16px; line-height: 19.2px; font-weight: 500; letter-spacing: .02em; white-space: nowrap; }
 .page-section .newsletter-form-button { background: var(--button-bg); color: var(--button-ink); }
-.newsletter-form-footnote { font-size: .88rem; line-height: 1.4; }
+/* The disclaimer takes Small text's size: 14.08px on the desktop, 14.92px on the phone (CAP-T12NLPOST.json, phone). */
+.newsletter-form-footnote { line-height: 1.4; }
 .newsletter-form-footnote p { margin: 16px 0 0; white-space: pre-wrap; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-body { display: flex; flex-direction: column; align-items: center; }
 .newsletter-form-wrapper--layoutStack.newsletter-form-wrapper--alignLeft .newsletter-form-body { align-items: flex-start; }

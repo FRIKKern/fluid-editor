@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 60 changes
-  - T15: the stage square plays when the mouse comes onto it, at 1.5 times the Duration ([#443](https://github.com/FRIKKern/fluid-editor/pull/443))
-  - U10: rule P built, a layout's span set by the layout before it; Instagram pick 2; the step on Undo ([#442](https://github.com/FRIKKern/fluid-editor/pull/442))
+- **Today** · 63 changes
+  - A2: the second-edit shrink split one change per read (CAP-TEXTSHRINK); nothing built ([#445](https://github.com/FRIKKern/fluid-editor/pull/445))
+  - X2: right margin mirror, refit 2 frozen at 12 of 20, not built ([#444](https://github.com/FRIKKern/fluid-editor/pull/444))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
