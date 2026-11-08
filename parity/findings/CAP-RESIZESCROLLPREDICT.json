@@ -67,5 +67,22 @@
     "dropped": "t2 taken out before the read: a 450 px pull ends 67 px below the 945 px frame, and the pointer can't leave the frame, so the Video's new bottom can't end below it. A resize that grows the section makes the resized block the lowest, and its bottom then stays in the frame, so R2 and R3 can't be told apart this way.",
     "scored": "R3 1 of 3: t4 held (80, no change); t1 did not scroll (R3 69) and t3, an east resize, did not scroll (R3 233). Frozen here, after refit 1."
   },
-  "frozen": "R 3 of 5, R2 4 of 5 (round 1); R3 1 of 3 (refit 1). Nothing built. What the reads show: the 233 comes in every setup where the Video had first been moved 287 down with the page scrolling under it (CAP-DRAGSCROLL f2: 44), and only after a south resize. It does not come with the Video moved 123 (t1), after an east resize (t3), or with the Shape alone (s2). It is the same 233 whatever the Shape's place, size or the scroll before, which is the Video's bottom (1178.5) at the 945 px frame's bottom. Inferred, not tested: a scroll left over from that move. A second refit would need that rule, and it is not pushed."
+  "frozen": "R 3 of 5, R2 4 of 5 (round 1); R3 1 of 3 (refit 1). Nothing built. What the reads show: the 233 comes in every setup where the Video had first been moved 287 down with the page scrolling under it (CAP-DRAGSCROLL f2: 44), and only after a south resize. It does not come with the Video moved 123 (t1), after an east resize (t3), or with the Shape alone (s2). It is the same 233 whatever the Shape's place, size or the scroll before, which is the Video's bottom (1178.5) at the 945 px frame's bottom. Inferred, not tested: a scroll left over from that move. A second refit would need that rule, and it is not pushed.",
+  "refit2": {
+    "pushedAt": "2026-11-08T21:31Z",
+    "R5": "After a south resize the page scrolls so the bottom of the block last moved while the page scrolled under it sits at the frame's bottom (945 px): scrollY after = that block's bottom on the page - 945, if more than the scroll before. With no such block, no scroll. Fitted on all reads so far (seen): the Video moved 287 scrolled the page 44 in every 233 setup, the Video moved 123 (t1) did not, and an east resize (t3) is not a south one.",
+    "reads": "CAP-RESIZESCROLL4.json: v1 a Video resized, never moved, then a Shape resized south; v2 a tall Shape moved 287 down (the page should scroll under it, read in 'v2 moved'), then a new Shape resized south.",
+    "predictions": {
+      "v1": {
+        "R5": "no scroll",
+        "ours": "no scroll"
+      },
+      "v2": {
+        "R5": "if 'v2 moved' shows the page scrolled: the moved Shape's bottom on the page - 945; if it did not scroll, no scroll and the case does not test R5",
+        "ours": "no scroll"
+      }
+    },
+    "note": "The last refit; frozen after this round.",
+    "scored": "R5 2 of 2: v1 no scroll; v2 the Shape moved 287 scrolled the page 44 under it, and the new Shape's south resize then scrolled to 233, the moved Shape's bottom (1178.5) at the frame's bottom. Frozen; built."
+  }
 }
