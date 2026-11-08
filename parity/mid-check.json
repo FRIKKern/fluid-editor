@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 879,
+  "pass": 881,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 886,
+  "total": 888,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2673,6 +2673,14 @@
     },
     {
       "name": "Y4 Cmd+V on a selected block",
+      "diffs": []
+    },
+    {
+      "name": "Y4 after a reload, Cmd+V with nothing selected",
+      "diffs": []
+    },
+    {
+      "name": "Y4 after a reload, Cmd+V on a selected block",
       "diffs": []
     },
     {

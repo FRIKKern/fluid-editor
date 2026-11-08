@@ -437,6 +437,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   evalJs(S, 'fe.undo()'); await pause(150); want('one undo', last(0), ['2/3/4/9', '4/2/6/10', 3]);
   menu('m', 'Paste'); want('pasted in another section', last(1), ['1/2/3/8', '2/2/4/10', 2]);
   evalJs(S, `(() => { fe.select(null); fe.select('s', 'b'); return 1; })()`); await pause(80); keys('KeyC'); evalJs(S, `fe.select('t', 'm')`); await pause(80); keys('KeyV'); await pause(150); want('Cmd+V on a selected block', last(1), ['2/3/4/9', '4/2/6/10', 3]);
+  // U11: the clip outlasts a reload; back on a page without the source, Cmd+V adds it where it was, or one on (CAP-U11RELOAD.json).
+  goto(S, `${BASE}/index.html?replay`); await pause(1500);
+  evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [${JSON.stringify(sec('s', [bl('l', 'line', [1, 2, 2, 6], [1, 2, 2, 10])]))}] }); await new Promise((r) => setTimeout(r, 200)); return 1; })()`); await pause(100);
+  const over = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), b = f.contentDocument.querySelector('section[data-section-id="s"]').getBoundingClientRect(); return JSON.stringify([q.left + b.left + b.width * 0.7, q.top + b.top + 60]); })()`); mouse(S, 'move', over[0], over[1]); await pause(150);
+  keys('KeyV'); await pause(150); want('after a reload, Cmd+V with nothing selected', last(0), ['1/2/3/8', '2/2/4/10', 2]);
+  evalJs(S, `fe.select('s', 'l')`); await pause(80); keys('KeyV'); await pause(150); want('after a reload, Cmd+V on a selected block', last(0), ['2/3/4/9', '4/2/6/10', 3]);
 }
 // E7: the link editor's list, Hidden Navigation and Open link in new tab (LINKBOX.json, CAP-LINK.json).
 { const bl = (id, type, extra) => ({ id, type, label: id, ...extra, layout: { desktop: { area: [1, 2, 3, 8], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } });
