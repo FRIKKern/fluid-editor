@@ -3320,6 +3320,30 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
   viewport(S, 1600, 1000); await pause(300);
 }
+// U9: Edit Section's panel while the page scrolls keeps to its section's content box (CAP-U9BAND.json, refit 1): the oracle's
+// E and D walks replayed step for step, from the opening (in the band, seen). D's three 40 px jumps (11 steps) are the oracle's and stay missed.
+{
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U9BAND.json', import.meta.url))).reads;
+  for (const [tag, H, k, ch, want] of [['E', 1300, 1, 60, 270], ['D', 900, 2, 100, 259]]) {
+    viewport(S, 1600, H); goto(S, `${BASE}/index.html`); await pause(1500);
+    evalJs(S, `(async () => { const sec = (i) => ({ id: 'u9b' + i, theme: '', height: i === ${k} ? 'custom' : 'medium', customHeight: ${ch}, valign: 'middle', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 8 }, blocks: [] });
+      fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [0, 1, 2, 3, 4, 5].map(sec) }); await new Promise((r) => setTimeout(r, 400)); return 'true'; })()`);
+    const o = R[`${tag} open`].panelBox;
+    const geo = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), b = f.getBoundingClientRect(), q = f.contentDocument.querySelectorAll('.page-section')[${k}].getBoundingClientRect(); return JSON.stringify([b.top + q.top + f.contentWindow.scrollY, b.left + q.left + q.width / 2, b.top + q.top]); })()`);
+    const shift = geo()[0] - (o.secTop + o.scrollY);
+    const to = async (y) => { evalJs(S, `(() => { document.querySelector('iframe').contentWindow.scrollTo(0, ${y}); return 'true'; })()`); await pause(80); };
+    await to(o.scrollY + shift);
+    const g = geo(); mouse(S, 'move', g[1], g[2] + 60); await pause(500);
+    const e = evalJs(S, `(() => { const b = [...document.querySelectorAll('#section-chrome [aria-label="Open Section Settings"]')].find((x) => x.getBoundingClientRect().width > 0); const q = b.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
+    mouse(S, 'move', e[0], e[1]); await pause(150); mouse(S, 'down', e[0], e[1], { buttons: 1 }); mouse(S, 'up', e[0], e[1]); await pause(900);
+    const top = () => evalJs(S, `(() => { const p = document.getElementById('section-panel'); return JSON.stringify(p && !p.hidden && p.getBoundingClientRect().width > 0 ? Math.round(p.getBoundingClientRect().top) : null); })()`);
+    const t0 = top(); let ok = 0, n = 0; const miss = [];
+    for (const w of ['down', 'up', 'down by 5', 'up by 5', 'to close', 'back']) for (const r of R[`${tag} ${w}`].seen) { await to(r[0] + shift); const t = top(); n++; if ((t === null && r[1] === null) || (t !== null && r[1] !== null && Math.abs(t - r[1]) <= 1)) ok++; else miss.push([w, r[0], r[1], t]); }
+    add(`the panel's scroll band, walk ${tag}: opens at ${o.box[1]}, ${want} of ${n} steps as the oracle`, Math.abs(t0 - o.box[1]) <= 1 && ok >= want, JSON.stringify({ t0, ok, miss: miss.slice(0, 4) }));
+    browser(S, 'press', 'Escape'); await pause(300);
+  }
+  viewport(S, 1600, 1000); await pause(300);
+}
 // U10: View Layouts for one block alone, all 33 types as read (CAP-U10TYPES1.json to 3), every pick of the 15 types
 // read in full (CAP-U10PICK-*.json, CAP-U10FADED-*.json), a shared list for an unread type, and the mixes.
 {

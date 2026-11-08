@@ -110,6 +110,17 @@ const panelInside = (secTop, secBottom) => Math.max(secBottom + 1 - 476, secTop 
 // without the hold comes from its own band (difference 52, no rule yet), and ours from ours, so ours closes later.
 export const PANEL_CLOSES_AT = -421;
 export const sectionPanelGone = ({ secTop, secBottom }) => Math.max(secTop, panelInside(secTop, secBottom)) < PANEL_CLOSES_AT;
+// While the page scrolls, Edit Section's open panel keeps its last top, pushed to stay in a band that moves with the page:
+// low is the section's content box top + 1, high its bottom + 1 - 476 (the content box is the section less its padding).
+// A push from below that would put the panel's bottom past the window doesn't happen: it stays. It is held at 0, and
+// closes once high is above -421 in the window. Refit 1 (CAP-U9BAND-PREDICT.json): seen 2110 of 2110 steps within 1 px
+// (CAP-U9SCROLL2, -SCROLL3, -CLOSE, -TALL2); fresh 529 of 540 (CAP-U9BAND.json), the misses three 40 px jumps on one walk.
+export const PANEL_BAND_CLOSES_AT = -421;
+export function sectionPanelScrolled({ prev, H, low, high }) {
+  let p = Math.max(prev, low);
+  if (Math.round(p) > H - 476 && low > prev) p = prev;
+  return Math.round(Math.max(Math.min(p, high), 0));
+}
 export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   let p;
   if (prev != null) p = Math.max(prev, Math.min(edit - 3, H - 476));
