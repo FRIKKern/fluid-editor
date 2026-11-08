@@ -1,0 +1,223 @@
+{
+  "item": "A2",
+  "question": "A2: a new block on a phone that stopped following. G (ours, from our code at this commit): stopped by overlap from a phone resize, with the overlap still there, the new block goes before the first block at its desktop place that fits inside it, else last below every block, moving none; stopped by a hand move, the older size rule. Fitted on CAP-A2ROUND1 b1, b4, CAP-A2ROUND2 f1 and m1 (seen). Older: the size rule everywhere (main before this). n3 and n5 give the same under both: controls. Scored: the phone area of every block, by z, on the 5 add reads.",
+  "predicted": {
+    "n1 Text over Image, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "n1 add button": {
+      "G": [
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10"
+        },
+        {
+          "z": 3,
+          "desktop": "1/2/3/8",
+          "phone": "9/2/11/10"
+        }
+      ],
+      "older": {
+        "1": "1/2/7/10",
+        "2": "5/2/11/10",
+        "3": "7/2/9/10"
+      }
+    },
+    "n2 Text over Image, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "n2 add shape": {
+      "G": [
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10"
+        },
+        {
+          "z": 3,
+          "desktop": "1/2/7/8",
+          "phone": "9/2/15/10"
+        }
+      ],
+      "older": {
+        "1": "1/2/7/10",
+        "2": "9/2/15/10",
+        "3": "7/2/13/10"
+      }
+    },
+    "n3 Text over Image, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "n3 add video": {
+      "G": [
+        {
+          "z": 3,
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10"
+        },
+        {
+          "z": 1,
+          "desktop": "1/2/3/10",
+          "phone": "9/2/15/10"
+        },
+        {
+          "z": 2,
+          "desktop": "4/2/10/8",
+          "phone": "11/2/17/10"
+        }
+      ],
+      "older": {
+        "1": "9/2/15/10",
+        "2": "11/2/17/10",
+        "3": "1/2/9/10"
+      }
+    },
+    "n4 Shape over the rest, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/15/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "13/2/15/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "n4 add text": {
+      "G": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/15/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "7/2/13/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "13/2/15/10"
+        },
+        {
+          "z": 4,
+          "desktop": "1/2/3/10",
+          "phone": "15/2/17/10"
+        }
+      ],
+      "older": {
+        "1": "1/2/15/10",
+        "2": "15/2/17/10",
+        "3": "9/2/15/10",
+        "4": "15/2/17/10"
+      }
+    },
+    "n5 Code moved onto Button, before": {
+      "placement": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "10/2/16/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "13/2/15/10"
+        }
+      ],
+      "note": "placement, not scored"
+    },
+    "n5 add text": {
+      "G": [
+        {
+          "z": 1,
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10"
+        },
+        {
+          "z": 4,
+          "desktop": "1/2/3/10",
+          "phone": "7/2/9/10"
+        },
+        {
+          "z": 3,
+          "desktop": "8/2/14/6",
+          "phone": "12/2/18/10"
+        },
+        {
+          "z": 2,
+          "desktop": "1/10/3/16",
+          "phone": "15/2/17/10"
+        }
+      ],
+      "older": {
+        "1": "1/2/7/10",
+        "2": "15/2/17/10",
+        "3": "12/2/18/10",
+        "4": "7/2/9/10"
+      }
+    }
+  }
+}

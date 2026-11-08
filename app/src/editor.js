@@ -14,7 +14,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelT
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
+import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
@@ -147,7 +147,11 @@ function phoneFollowsMove(s, was) {
   const gone = was.blocks.filter((o) => !s.blocks.some((b) => b.id === o.id)).map((o) => o.layout.mobile.area);
   closeUp(s, gone);
   if (bp === 'mobile') {
-    if (!gone.length && (changed('mobile', (a) => a.slice(0, 2)) || phoneOverlaps(s))) s.phoneFollows = false;
+    // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
+    if (!gone.length && s.phoneFollows !== false) {
+      const moved = changed('mobile', (a) => a.slice(0, 2));
+      if (moved || phoneOverlaps(s)) { s.phoneFollows = false; s.phoneStop = moved ? 'move' : 'overlap'; }
+    }
     return gone.length > 0;
   }
   return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
@@ -4931,7 +4935,7 @@ function addBlock(sid, name) {
   // size, and the blocks after it move down by its height.
   const stack = [...s.blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
   const row = landingRow(s);
-  const slot = s.phoneFollows ? 0 : newBlockSlot(stack, w, h, [row, 2]);
+  const slot = s.phoneFollows ? 0 : s.phoneFollows === false && s.phoneStop === 'overlap' && phoneOverlaps(s) ? stoppedSlot(stack, w, h, [row, 2]) : newBlockSlot(stack, w, h, [row, 2]);
   const mobileEnd = slot ? Math.max(...stack.slice(0, slot).map((b) => b.layout.mobile.area[2])) : 1;
   const phoneH = PHONE_ROWS[name] ?? h;
   const at = NEW_ALIGN[name] ?? 'flex-start';
