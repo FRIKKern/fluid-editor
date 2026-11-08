@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 56 changes
-  - X6: phone rows as they narrow, Flickr's phone tiles (63 of 70 seen, 58 predicted) ([#433](https://github.com/FRIKKern/fluid-editor/pull/433))
-  - P3: fillStill, a fill with no scroll; the panel past a height read twice with it, the runs still disagree, named ([#439](https://github.com/FRIKKern/fluid-editor/pull/439))
+- **Today** · 66 changes
+  - T12: panel reads of the 12 plain stand-ins, Icon Thickness and Newsletter reads; form-check stored ([#449](https://github.com/FRIKKern/fluid-editor/pull/449))
+  - T12: Chart + is a 12px cross, two series' bars 2.5 apart; T15 names its 2 reads ([#448](https://github.com/FRIKKern/fluid-editor/pull/448))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed

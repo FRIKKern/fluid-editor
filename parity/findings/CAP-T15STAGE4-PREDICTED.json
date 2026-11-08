@@ -1,0 +1,15 @@
+{
+  "item": "T15",
+  "question": "How long the stage square takes to go out (and back) when the mouse comes onto the stage, by the row's Duration. Seen once: Duration 0.4s (Out) plays out in about 600 ms (CAP-T15STAGE3.json), held 500 ms, back in about 600 ms.",
+  "pushedBefore": "CAP-T15STAGE4.json",
+  "rules": {
+    "A": "a fixed 600 ms, whatever the Duration",
+    "B": "1.5 times the Duration",
+    "C": "the Duration plus 200 ms"
+  },
+  "predictions": {
+    "Duration 1s": { "A": 600, "B": 1500, "C": 1200 },
+    "Duration 0.2s": { "A": 600, "B": 300, "C": 400 }
+  },
+  "scoring": "a rule's guess holds when the time from the first frame that moves to the first frame within 0.5% of the peak, plus one frame, is within 15% of it"
+}

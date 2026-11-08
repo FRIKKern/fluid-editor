@@ -759,6 +759,17 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     groupCases.push({ name: `X2 selected Text, a drag ${name}`, diffs: [(got.a !== 5) !== moved && `oracle moved ${moved}, ours column ${got.a}`, got.open === moved && `oracle editor ${!moved}, ours ${got.open}`].filter(Boolean) });
     browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
+  // After Write and one Escape: a drag from the text opens the editor again and the block stays (CAP-TEXTPRESS a10,
+  // CAP-TEXTPRESS3 r1 and r2); a click there opens nothing (CAP-ESC2.json).
+  for (const [name, dx, open] of [['a drag', 118, true], ['a click', 0, false]]) {
+    await load('text', '<p>Some text</p>'); evalJs(S, `fe.edit('s', 'k')`); await pause(80); browser(S, 'press', 'Escape'); await pause(80);
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.bottom - 4]); })()`);
+    if (dx) cdp(S, { op: 'drag', from: p, to: [p[0] + dx, p[1]], steps: 12, holdMs: 200 }); else { mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); }
+    await pause(200);
+    const got = evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks[0].layout.desktop.area[1], open: !document.getElementById('text-bar').hidden })`);
+    groupCases.push({ name: `X2 after Write and one Escape, ${name} on the text`, diffs: [got.a !== 5 && `oracle stays, ours column ${got.a}`, got.open !== open && `oracle editor ${open}, ours ${got.open}`].filter(Boolean) });
+    browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
+  }
 }
 // X8: Move Forward with a block between the members (CAP-GROUPFORWARD.json): 1, 2, 3 with the first and last selected.
 { const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-GROUPFORWARD.json', import.meta.url))).reads; const bl = (id, c, z) => ({ id, type: 'shape', label: id, fill: '#ccc', layout: { desktop: { area: [1 + z, c, 6 + z, c + 8], z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1 + z, 2, 6 + z, 8], z, justify: 'flex-start', align: 'flex-start' } } });
