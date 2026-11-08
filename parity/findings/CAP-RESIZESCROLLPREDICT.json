@@ -64,6 +64,8 @@
       }
     },
     "scoring": "scrollY in after and settled, within 2 px, R3 computed from each case's own reads.",
-    "dropped": "t2 taken out before the read: a 450 px pull ends 67 px below the 945 px frame, and the pointer can't leave the frame, so the Video's new bottom can't end below it. A resize that grows the section makes the resized block the lowest, and its bottom then stays in the frame, so R2 and R3 can't be told apart this way."
-  }
+    "dropped": "t2 taken out before the read: a 450 px pull ends 67 px below the 945 px frame, and the pointer can't leave the frame, so the Video's new bottom can't end below it. A resize that grows the section makes the resized block the lowest, and its bottom then stays in the frame, so R2 and R3 can't be told apart this way.",
+    "scored": "R3 1 of 3: t4 held (80, no change); t1 did not scroll (R3 69) and t3, an east resize, did not scroll (R3 233). Frozen here, after refit 1."
+  },
+  "frozen": "R 3 of 5, R2 4 of 5 (round 1); R3 1 of 3 (refit 1). Nothing built. What the reads show: the 233 comes in every setup where the Video had first been moved 287 down with the page scrolling under it (CAP-DRAGSCROLL f2: 44), and only after a south resize. It does not come with the Video moved 123 (t1), after an east resize (t3), or with the Shape alone (s2). It is the same 233 whatever the Shape's place, size or the scroll before, which is the Video's bottom (1178.5) at the 945 px frame's bottom. Inferred, not tested: a scroll left over from that move. A second refit would need that rule, and it is not pushed."
 }

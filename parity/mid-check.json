@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 908,
+  "pass": 910,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 915,
+  "total": 917,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3449,6 +3449,14 @@
     },
     {
       "name": "R2 narrower 20 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 one row narrowed by its corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 one row narrowed by its corner, let go",
       "diffs": []
     },
     {
