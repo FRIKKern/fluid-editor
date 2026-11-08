@@ -9,6 +9,7 @@ import { createHash } from 'node:crypto';
 import { evalJs } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { IMAGE_READ, imageContent } from './lib/image-read.mjs';
+import { designOf } from './lib/design-read.mjs';
 
 const args = process.argv.slice(2);
 const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : process.env.ORACLE_SURFACE || 'surface:40';
@@ -27,6 +28,8 @@ const READ = `(() => {
   const vars = {};
   for (const k of ['--heading-1-size-value', '--heading-2-size-value', '--heading-3-size-value', '--heading-4-size-value', '--normal-text-size-value', '--large-text-size-value', '--small-text-size-value', '--maxPageWidth', '--heading-font-line-height', '--body-font-line-height', '--heading-font-letter-spacing', '--body-font-letter-spacing', '--heading-font-font-weight', '--body-font-font-weight', '--sqs-site-gutter', '--sqs-mobile-site-gutter', '--sqs-site-max-width']) vars[k] = root.getPropertyValue(k).trim();
   const pick = (el, props) => { if (!el) return null; const c = W.getComputedStyle(el); return Object.fromEntries(props.map((p) => [p, c[p]])); };
+  // Each block's Design values: its rule in a <style class="transform-vars"> (T15, DESIGN.json).
+  const rules = [...d.querySelectorAll('style.transform-vars')].map((x) => x.textContent.replace(/\\s+/g, ' '));
   const T = ['fontFamily', 'fontSize', 'lineHeight', 'letterSpacing', 'fontWeight', 'marginTop', 'marginBottom', 'color', 'textTransform'];
   const readSection = (s) => {
     const fe = s.querySelector('.fluid-engine');
@@ -35,6 +38,8 @@ const READ = `(() => {
     const blocks = [...fe.querySelectorAll(':scope > .fe-block')].map((b) => {
       const kind = b.querySelector('[data-sqsp-block]')?.dataset.sqspBlock || 'unknown';
       const out = { id: [...b.classList].find((c) => c.startsWith('fe-block-')).slice(9), kind };
+      const rule = rules.find((t) => t.includes('.fe-block-' + out.id + ' {'));
+      if (rule) out.designCss = rule;
       if (kind === 'text') out.html = b.querySelector('.sqs-html-content')?.innerHTML.trim() || '';
       if (kind === 'button') { const a = b.querySelector('a, button'); out.label = a?.textContent.trim(); if (a?.getAttribute('href')) out.href = a.getAttribute('href'); /* no link stays absent: the oracle writes href="" (parity/findings/BUTTONEDIT.json) */ out.style = pick(a, ['backgroundColor', 'color', 'borderRadius', 'fontSize', 'fontFamily', 'fontWeight', 'letterSpacing', 'paddingTop', 'paddingLeft', 'height', 'width']); out.align = W.getComputedStyle(b.querySelector('.sqs-block-content') || b).textAlign; const view = (sys) => { const k = b.querySelector('.sqs-button-block-container-system_' + sys); if (!k) return null; const o = {}; if (!k.classList.contains('sqs-stretched')) o.fit = true; const al = [...k.classList].find((c) => /--(left|right)$/.test(c)); if (al) o.align = al.split('--')[1]; return o; }; const dv = view('desktop'), mv = view('mobile'); if (dv) { if (dv.fit) out.fit = true; if (dv.align) out.halign = dv.align; } if (mv) out.btnMobile = mv; }
       if (kind === 'image') out.image = (${IMAGE_READ})(b, W);
@@ -121,7 +126,8 @@ for (const [where, list] of [['sections', snap.sections], ['footer', snap.footer
         : b.kind === 'scrolling' ? { type: 'scrolling', text: b.text, size: b.size }
         : b.kind === 'form' ? { type: 'form', fields: b.fields, button: b.button }
         : { type: 'shape', fill: '#ccc', radius: '0', label: b.kind };
-      return { id: b.id, ...content, layout: g.layout };
+      const design = designOf(b.designCss);
+      return { id: b.id, ...content, ...(design && { design }), layout: g.layout };
     }),
   });
 }
@@ -134,5 +140,8 @@ else {
   writeFileSync(new URL(`../app/src/pages/${SLUG}.js`, import.meta.url), `${header}export const PAGE = ${JSON.stringify(model, null, 2)};\n`);
 }
 for (const s of [...snap.sections, ...(snap.footer || [])]) for (const b of s.blocks) if (b.image?.phone) console.log(`block ${b.id}: its phone view differs, and only the desktop view is read`);
+for (const s of [...snap.sections, ...(snap.footer || [])]) for (const b of s.blocks) if (b.designCss?.includes('@media')) console.log(`block ${b.id}: its Design rule has a phone part, and only desktop's values are read`);
+const designed = [...snap.sections, ...(snap.footer || [])].flatMap((s) => s.blocks);
+console.log(`Design rules: ${designed.filter((b) => b.designCss).length} of ${designed.length} blocks, ${designed.filter((b) => designOf(b.designCss)).length} with values off their default`);
 console.log(`imported ${model.sections.length} sections, ${model.sections.reduce((n, s) => n + s.blocks.length, 0)} blocks; frame ${snap.frameWidth}px`);
 console.log(JSON.stringify(snap.vars));
