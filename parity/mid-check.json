@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 895,
+  "pass": 903,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 902,
+  "total": 910,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3568,6 +3568,34 @@
       "diffs": []
     },
     {
+      "name": "X2 Text corner pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-west 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 10 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 20 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 40 up",
+      "diffs": []
+    },
+    {
       "name": "X2 Text east 60 right",
       "diffs": []
     },
@@ -3593,6 +3621,10 @@
     },
     {
       "name": "X2 after Write and one Escape, a click on the text",
+      "diffs": []
+    },
+    {
+      "name": "X2 after Write and one Escape, a drag from under the text",
       "diffs": []
     },
     {
