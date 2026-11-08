@@ -1788,6 +1788,8 @@ let animPosed = null; // the block held in the pose of the End, Start or Range t
 let animPlaying = false;
 let animPlay = null; // after the next draw: 'tiles'
 let embedData = false;
+// A stand-in's view (Audio's Podcast, Summary's Size and Spacing), for the block it was opened on.
+let spView = null;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 let accGrew = false; // an edit in the item view on show made the block grow
 let imageView = null; // the image Shape picker's tab, or null
@@ -1808,7 +1810,7 @@ function renderBlockPanel() {
   if (!dialogEl.hidden) { dialogEl.hidden = true; dialogEl.dataset.key = ''; }
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; spView = null; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1826,6 +1828,7 @@ function renderBlockPanel() {
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
+  if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -1845,7 +1848,7 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : spView ? `sp-view:${spView.label}` : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
   if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
@@ -2767,6 +2770,8 @@ blockPanel.addEventListener('input', (e) => {
   if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
 });
 blockPanel.addEventListener('click', (e) => {
+  const sv = e.target.closest('[data-sp-view]');
+  if (sv && sel) { spView = sv.dataset.spView === 'back' ? null : { bid: sel.bid, label: sv.dataset.spView }; renderBlockPanel(); return; }
   // Product's image shape picker opens and closes its tiles; a pick re-draws the panel, which closes them.
   const pick = e.target.closest('[data-sp-pick]');
   // The tiles reach past the panel's foot (CAP-T12READS-E.json: 567 high at the picker's top left), so they sit fixed there.

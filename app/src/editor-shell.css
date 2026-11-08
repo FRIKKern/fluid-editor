@@ -2176,3 +2176,59 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .bp-sp-seg .bp-sp-opt svg { display: block; margin: auto; }
 /* With no Corner row (a shape other than Rectangle), Ratio sits 11px under the picker (CAP-T12READS-F.json). */
 .bp-sp-pickw + .bp-sp-sel { margin-top: 11px; }
+/* OpenTable, Scheduling and Tock (CAP-T12PANELS-A.json to -C.json): every row is out (0005) and drawn faded. */
+.bp-sp-lbox { height: 44px; margin-top: 0; border-radius: 3px; background: #f2f2f2; }
+.bp-sp-lbox input { box-sizing: border-box; width: 100%; height: 44px; padding: 0 11px; border: 0; background: none; font: inherit; font-size: 14px; }
+.bp-sp-lbox + .bp-sp-rule { margin-top: 23px; }
+.bp-sp-boxsel + .bp-sp-boxsel + .bp-sp-rule { margin-top: 23px; }
+.bp-sp-bsv > span { overflow: hidden; max-width: 136px; text-overflow: ellipsis; white-space: nowrap; }
+.bp-sp-bsv.is-out { color: #b7b7b7; }
+.bp-sp-head + .bp-sp-erow { margin-top: 0; }
+.bp-sp-promo { display: flex; flex-direction: column; align-items: center; box-sizing: border-box; margin-top: 3px; border-radius: 6px; }
+.bp-sp-promopic { align-self: stretch; height: 193px; margin: 1px 1px 0; background: #f2f2f2; }
+.bp-sp-promo p { width: 208px; margin: 0; font-size: 14px; line-height: 22px; color: #0e0e0e; }
+.bp-sp-ptitle { margin-top: 22px !important; font-weight: 500; }
+.bp-sp-pgo, .bp-sp-phave { box-sizing: border-box; width: 208px; height: 44px; border: 0; font: inherit; font-size: 12px; line-height: 22px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
+.bp-sp-pgo { margin-top: 17px; background: #0e0e0e; color: #fff; }
+.bp-sp-phave { background: none; color: #0e0e0e; }
+.bp-sp-promo.is-tock { margin: 0; }
+.bp-sp-promo.is-tock .bp-sp-promopic { height: 180px; margin: 0; border-radius: 6px 6px 0 0; }
+.bp-sp-promo.is-tock p, .bp-sp-promo.is-tock button { width: 252px; }
+.bp-sp-promo.is-tock .bp-sp-ptitle { margin-top: 23px !important; }
+.bp-sp-promo.is-tock .bp-sp-ptext { height: 88px; }
+.bp-sp-promo.is-tock .bp-sp-pgo { margin-top: 82px; }
+.sp-body.is-bare { padding: 0; }
+.bp-drag.is-bare { height: 0; }
+/* The views a row opens (CAP-T12READS-G.json): Audio's Podcast, Summary's Size and Spacing. */
+.bp-sp-v > .bp-sp-vnote { margin-top: 12px; }
+.bp-sp-lf { display: block; margin-top: 12px; }
+.bp-sp-lf > .sp-label { display: block; height: 32px; line-height: 32px; }
+.bp-sp-lfbox { display: block; box-sizing: border-box; height: 44px; margin-top: 6px; padding: 0 11px; border-radius: 2px; background: #f2f2f2; }
+.bp-sp-lfbox input, .bp-sp-lfbox textarea { box-sizing: border-box; width: 100%; height: 44px; padding: 0; border: 0; background: none; color: #0e0e0e; font: inherit; font-size: 14px; line-height: 22px; outline: none; resize: none; }
+.bp-sp-lf.is-sum { margin-top: 17px; }
+.bp-sp-lf.is-sum > .sp-label { height: 36px; line-height: 36px; }
+.bp-sp-lf.is-sum .bp-sp-lfbox { height: 110px; margin-top: 0; padding: 11px; }
+.bp-sp-lf.is-sum textarea { height: 88px; }
+.bp-sp-lf.is-notes { margin-top: 11px; }
+.bp-sp-lf.is-notes > .sp-label { height: 22px; line-height: 22px; }
+.bp-sp-lf.is-notes .bp-sp-lfbox { height: 200px; margin-top: 10px; padding: 15px 11px; background: #f7f7f7; }
+.bp-sp-lf.is-notes textarea { height: 170px; }
+.bp-sp-lf textarea::placeholder, .bp-sp-lf input::placeholder { color: #9a9a9a; }
+.bp-sp-v .bp-sp-rule { margin-top: 23px; }
+.bp-sp-v .bp-sp-rule + .bp-sp-boxsel { margin-top: 18px; }
+.bp-sp-v .bp-sp-bsv { width: 135px; padding-left: 11px; }
+.bp-sp-sf { display: flex; align-items: center; justify-content: space-between; height: 44px; margin-top: 7px; }
+.bp-sp-sf > .sp-label { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-sp-sf .bp-sp-lfbox { width: 135px; margin: 0; }
+.bp-sp-v .bp-sp-sf + .bp-sp-rule { margin-top: 22px; }
+.bp-sp-v .bp-sp-rule + .bp-sp-sf { margin-top: 18px; }
+.bp-sp-bare { margin-top: 17px; }
+.bp-sp-bare + .bp-sp-rule { margin-top: 27px !important; }
+.bp-sp-v .bp-sp-rule + .bp-sp-lf { margin-top: 17px; }
+.bp-sp-v > .bp-sp-lf:last-child { margin-bottom: 14px; }
+.bp-sp-v > .bp-sp-rpx:first-child { margin-top: -9px; }
+.bp-sp-rpx .bp-sp-rhead input { flex: 1; width: auto; margin-left: 6px; }
+.bp-sp-px { width: 16px; margin: 0 6px 0 4px; font-size: 14px; color: #0e0e0e; }
+.bp-sp-vnote + .bp-sp-lf { margin-top: 6px; }
+/* OpenTable's Design tab is the transforms alone (CAP-T12PANELS-A.json). */
+.bp-sp-design:empty + .bp-thead { margin-top: -8px; }
