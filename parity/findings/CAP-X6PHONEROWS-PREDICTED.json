@@ -1,0 +1,26 @@
+{
+ "item": "X6",
+ "capturedAt": "2026-11-08",
+ "question": "X6, phone rows of Pricing Plan, Newsletter, Menu, Instagram, Page Link, RSS, Bandsintown, OpenTable and Summary as they are pulled. Predictions pushed before the read of CAP-X6PHONEROWS.json.",
+ "setup": "Blocks Probe, unsaved, a new section. Each type is added on desktop, viewed on the phone, pulled in by its east handle one phone column (48.45 px) at a time to its floor, then out one column at a time to 8 columns, reading its phone area and its content's height at each step. Summary, whose floor is 8 columns, is pulled one row south, then one column in from the east and from the west.",
+ "rule": "On a phone a block draws its content's height (CAP-68PULL.json). A side pull gives it max(its rows before, ceil((h + 11) / 35 - 0.02)) rows, h being its content's height read at that step: rows grow as it narrows and are kept as it widens, as on desktop (CAP-X6DESKROWS.json). Instagram's rows follow its tiles both ways, with the desktop's 0.13 of a row of give. A south pull of one row gives ceil((h + 11) / 35) + 1.",
+ "predictions": [
+  {
+   "case": "every side-pull step but Instagram's",
+   "predict": "rows = max(rows before, ceil((contentH + 11) / 35 - 0.02)); never fewer as it widens"
+  },
+  {
+   "case": "Instagram",
+   "predict": "rows = ceil((contentH + 11) / 35 - 0.13), going down as it narrows and up as it widens"
+  },
+  {
+   "case": "Summary",
+   "predict": "stays 8 columns on the east and west pulls, its rows kept; one row south gives ceil((contentH + 11) / 35) + 1"
+  },
+  {
+   "case": "start rows",
+   "predict": "as ours lands each type today: Pricing Plan 10, Newsletter 8, Menu 28, Instagram 12, Page Link 5, RSS 5, Bandsintown 5, OpenTable 8, Summary 11"
+  }
+ ],
+ "score": "Counted on the read's steps: a step matches when its rows equal the rule's rows from its own content height and the rows before it."
+}

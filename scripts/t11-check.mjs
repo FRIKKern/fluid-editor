@@ -631,6 +631,18 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   add(`Design tab, Text: ${Object.keys(wt.lab).length} labels and ${wt.lines.length} lines where the oracle's are, no Effects`, !mt.length && !ot.ap && !ot.lab.Effects, mt.join('; ') + (ot.ap ? ' Appear shown' : ''));
   await fresh('Shape'); tab();
   add('Design tab, Shape: a chevron after Normal, no Effects', q(`return JSON.stringify(!!panel.querySelector('.bp-blend .bp-chev') && !panel.querySelector('.bp-appear, .bp-effects'));`), 'not');
+  // The tab names, block and section panel alike (CAP-DESIGNTAB-QUOTE.json, CAP-SECTIONTABS.json): text 18.5 below the row's top, the rest in rgb(102).
+  const names = (id) => q(`const p = document.getElementById('${id}'), row = p.querySelector('.sp-tabs').getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('.sp-tab')].map((t) => { const r = t.getBoundingClientRect(), c = getComputedStyle(t), n = (k) => parseFloat(c[k]); const top = r.top + n('paddingTop') + n('borderTopWidth'), bottom = r.bottom - n('paddingBottom') - n('borderBottomWidth'); return [t.textContent, Math.round(((top + bottom) / 2 - row.top) * 10) / 10, c.color]; }));`); // the middle of each name's line
+  const wantTabs = (looks, tabs) => tabs.map((c) => { const sp = looks.find((o) => o.tag === 'span' && o.text === c.label); return [c.label, sp.box[1] + sp.box[3] / 2 - c.box[1], sp.color]; });
+  const tabsOk = (got, want) => got.length > 1 && got.every(([l, y, c]) => { const w = want.find((x) => x[0] === l); return w && near(y, w[1], 0.5) && c === w[2]; });
+  const QT = Q.controls.filter((c) => c.role === 'tab' && c.box[3] === 55), bt = names('block-panel'), bw = wantTabs(Q.looks, QT);
+  add('Tab names, block panel (a Shape\'s): where the oracle\'s sit, and their colours', tabsOk(bt, bw), JSON.stringify(bt));
+  const ST = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SECTIONTABS.json', import.meta.url))).reads.tabs;
+  const spot = q(`fe.select(null); await sleep(150); const f = document.getElementById('site-frame'), sec = f.contentDocument.querySelectorAll('.page-section')[1]; sec.scrollIntoView(); await sleep(250); const r = sec.getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + r.right - 150, o.top + Math.max(r.top, 0) + 60]);`);
+  mouse(S, 'move', spot[0] - 40, spot[1] + 40); await pause(150); mouse(S, 'move', spot[0], spot[1]); await pause(400);
+  q(`document.querySelector('[data-sc="edit"]').click(); await sleep(400); return 'true';`);
+  const st = names('section-panel'), sw = wantTabs(ST.looks, ST.controls.filter((c) => c.role === 'tab'));
+  add('Tab names, section panel: where the oracle\'s sit, and their colours', st.length === sw.length && tabsOk(st, sw), JSON.stringify(st));
 }
 
 writeFileSync(new URL('../parity/t11-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
