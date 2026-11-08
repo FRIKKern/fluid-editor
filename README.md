@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 83 changes
+- **Today** · 84 changes
+  - X6: the desktop lags read again 2 s later stay as they were: misses, named (CAP-X6DESKSETTLE) ([#468](https://github.com/FRIKKern/fluid-editor/pull/468))
   - T12: label tilt round 3 scored; no rule held, frozen ([#467](https://github.com/FRIKKern/fluid-editor/pull/467))
-  - T12, T15: Quote's Appear row after a pick; preset stage and label tilt reads ([#466](https://github.com/FRIKKern/fluid-editor/pull/466))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
