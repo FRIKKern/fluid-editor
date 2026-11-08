@@ -447,6 +447,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2TYPEDNEW': { page: 'Gestures Probe', question: 'A2: does a text edit that changes no size set the phone order again? Candidate T, predicted first from our code: a change to a text\'s HTML on desktop counts as an edit, so the order follows the desktop and turns as after a move. Fitted on CAP-A2TYPED3 y5 (seen). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DOWN = (px) => [['drag', 0, 'new', 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...DOWN(41)];
+    const WRITE = (keys) => [['pick', 0, 'new'], ['click', 'Write'], ...keys, ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => WRITE([['keysFast', text]]);
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...LT, ...READ('t1 before'), ...TYPE('hello'), ...READ('t1 typed')],
+      [...LT, ...TYPE('hello'), ...READ('t2 typed once'), ...TYPE(' world'), ...READ('t2 typed twice')],
+      [...LT, ...READ('t3 before'), ...WRITE([]), ...READ('t3 opened, nothing typed')],
+      [...LT, ...ADD('Text'), ...DOWN(164), ...READ('t4 before'), ...TYPE('hello'), ...READ('t4 lower text typed')],
+      [...LT, ...TYPE('hello'), ...READ('t5 typed'), ...WRITE([['press', 'Meta+a'], ['press', 'Meta+b']]), ...READ('t5 made bold')]
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

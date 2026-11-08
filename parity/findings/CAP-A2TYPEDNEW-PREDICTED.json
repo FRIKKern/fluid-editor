@@ -1,0 +1,248 @@
+{
+ "item": "A2",
+ "question": "A2: a text edit that changes no size. T (ours, from our code at this commit): a change to a text's HTML on desktop counts as an edit, so a following phone sets its order again from the desktop and turns as after a move (a one-row block that starts the phone stack goes last, then first on the next edit). Fitted on CAP-A2TYPED3 y5 (seen). older: our code before T, where only a desktop move or resize sets the order. A read hits when it has the same blocks by z in the same phone order with the same phone rows.",
+ "predicted": {
+  "t1 before": {
+   "placement": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "note": "placement, not scored"
+  },
+  "t1 typed": {
+   "T": [
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  },
+  "t2 typed once": {
+   "T": [
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  },
+  "t2 typed twice": {
+   "T": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  },
+  "t3 before": {
+   "placement": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "note": "placement, not scored"
+  },
+  "t3 opened, nothing typed": {
+   "T": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  },
+  "t4 before": {
+   "placement": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    },
+    {
+     "z": 3,
+     "desktop": "5/2/7/10",
+     "phone": "4/2/6/10"
+    }
+   ],
+   "note": "placement, not scored"
+  },
+  "t4 lower text typed": {
+   "T": [
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 3,
+     "desktop": "5/2/7/10",
+     "phone": "3/2/5/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "5/2/6/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    },
+    {
+     "z": 3,
+     "desktop": "5/2/7/10",
+     "phone": "4/2/6/10"
+    }
+   ]
+  },
+  "t5 typed": {
+   "T": [
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  },
+  "t5 made bold": {
+   "T": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10"
+    }
+   ]
+  }
+ }
+}
