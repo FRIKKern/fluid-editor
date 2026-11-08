@@ -2,7 +2,7 @@
  "item": "T12",
  "capturedAt": "2026-11-08",
  "question": "Product's image picker and Individual corner radii; the full texts of Menu's, Summary's and Archive's panels.",
- "how": "Run f73 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then the steps: a dump reads the panel's innerText and every visible field's label, value and box. Product's image picker is an unnamed button (0,104,320,103 in the panel): pressed by that box after a check that it is on top (an unnamed press, listed here); nothing picked, nothing uploaded, closed by Exit Without Saving and a fresh page. Individual corner radii is a named press. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "how": "Run f73 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then the steps: a dump reads the panel's innerText and every visible field's label, value and box. Product's image picker is an unnamed button (0,104,320,103 in the panel): pressed by that box after a check that it is on top (an unnamed press, listed here); nothing picked, nothing uploaded, closed by Exit Without Saving and a fresh page. Individual corner radii is a named press. Left by Exit Without Saving; the page read 0 blocks at the end. A second run (f74) pressed the picker again the same way and read each tile: a label with its name as aria-label and title.",
  "unnamedPresses": [
   "Product's image picker, by its box"
  ],
@@ -2555,10 +2555,286 @@
      "BUTTON|submit|Position||||||254,923,44,44"
     ]
    }
+  },
+  "Product (picker names)": {
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "boxbtn": [
+       0,
+       104,
+       320,
+       103
+      ],
+      "label": "image picker (unnamed)"
+     },
+     "names": [
+      {
+       "name": "Rectangle",
+       "id": "rectangle",
+       "box": [
+        0,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Circle",
+       "id": "circle",
+       "box": [
+        84,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Diamond",
+       "id": "diamond",
+       "box": [
+        167,
+        0,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Rabbet",
+       "id": "rabbet",
+       "box": [
+        0,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Eight Sided Shield",
+       "id": "eight-sided-shield",
+       "box": [
+        84,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "TV",
+       "id": "tv",
+       "box": [
+        167,
+        78,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Octagon",
+       "id": "octagon",
+       "box": [
+        0,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Rounded Pentagon",
+       "id": "rounded-pentagon",
+       "box": [
+        84,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Open Book",
+       "id": "open-book",
+       "box": [
+        167,
+        156,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Four Petal Flower",
+       "id": "four-petal-flower",
+       "box": [
+        0,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Flower",
+       "id": "flower",
+       "box": [
+        84,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Horizontal Stacked Circles",
+       "id": "horizontal-stacked-circles",
+       "box": [
+        167,
+        234,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Wide Vertical Stacked Pills",
+       "id": "wide-vertical-stacked-pills",
+       "box": [
+        0,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Horizontal Right Leaning Oval",
+       "id": "horizontal-right-leaning-oval",
+       "box": [
+        84,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Wide Horizontal Stacked Pills",
+       "id": "wide-horizontal-stacked-pills",
+       "box": [
+        167,
+        312,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Wide Eight Sided Shield",
+       "id": "wide-eight-sided-shield",
+       "box": [
+        0,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Egg",
+       "id": "egg",
+       "box": [
+        84,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Narrow Horizontal Stacked Pills",
+       "id": "narrow-horizontal-stacked-pills",
+       "box": [
+        167,
+        390,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Arched Window",
+       "id": "arched-window",
+       "box": [
+        0,
+        468,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Pointed Window",
+       "id": "pointed-window",
+       "box": [
+        84,
+        468,
+        77,
+        77
+       ]
+      },
+      {
+       "name": "Award",
+       "id": "award",
+       "box": [
+        167,
+        468,
+        77,
+        77
+       ]
+      }
+     ],
+     "popupBox": [
+      [
+       483,
+       405,
+       276,
+       567
+      ],
+      [
+       499,
+       416,
+       250,
+       545
+      ]
+     ],
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 8",
+      "size": [
+       341.6875,
+       399.9375
+      ],
+      "leaves": [
+       "svg | product-block-action-menu-gr07pt |  |  | 153.8,77.9,34,34 | 16px/22.4px 400 | rgb(14, 14, 14) | rgb(242, 242, 242)",
+       "path |  |  |  | 162.8,86.9,16,16 | 16px/22.4px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "SPAN | fs-unmask | Add a product |  | 124.2,129.9,93.3,18 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0)",
+       "DIV | product-title | Product Name |  | 0,243.8,151,29.5 | 21.04px/29.456px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | product-price | NOK 25.00 |  | 0,277.4,341.7,24.8 | 17.68px/24.752px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,341.7,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ]
   }
  },
  "facts": [
-  "Product's image picker opens a popup (a dialog 276 by 567 at the picker's left, over the panel, holding a listbox 250 by 545): 21 tiles of image shapes, 3 to a row, the first (a square) outlined as picked. Its options carry no text; their names were not read. Nothing was picked.",
+  "Product's image picker opens a popup (a dialog 276 by 567 at the picker's left, over the panel, holding a listbox 250 by 545): 21 tiles of image shapes, 3 to a row, the first (a square) outlined as picked. Its tiles carry no text; each is a label with its name (f74, Product (picker names)), in rows of 3, 77 by 77: Rectangle, Circle, Diamond, Rabbet, Eight Sided Shield, TV, Octagon, Rounded Pentagon, Open Book, Four Petal Flower, Flower, Horizontal Stacked Circles, Wide Vertical Stacked Pills, Horizontal Right Leaning Oval, Wide Horizontal Stacked Pills, Wide Eight Sided Shield, Egg, Narrow Horizontal Stacked Pills, Arched Window, Pointed Window, Award. Nothing was picked.",
   "Individual corner radii: the uniform field keeps 0px, and a row of four fields appears under it (panel y 264, 44 high, each 32 wide at x 122, 168, 214 and 260), labelled Top left, Top right, Bottom right and Bottom left corner radius, each reading 0, with a corner mark. The rows below move down 51. The block's rows stay (10 at 6 columns).",
   "Menu's Content: the note, then one textarea (panel 33,153, 254 by 1188) holding the sample menu of 601 characters, in full in the blocks' steps.",
   "Menu's Formatting Help, Summary's Content and Archive's panels: full texts in the blocks' steps. Summary's Number of Items is a text field and a range, both reading 3. Archive's Group by holds month."
