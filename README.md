@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 68 changes
+- **Today** · 69 changes
+  - U9: Edit Section's panel keeps to its section's content box while scrolling ([#447](https://github.com/FRIKKern/fluid-editor/pull/447))
   - T15: the stage square on the other triggers, read and built ([#451](https://github.com/FRIKKern/fluid-editor/pull/451))
-  - T12: press reads on the stand-in panels, 0005 names the out rows ([#450](https://github.com/FRIKKern/fluid-editor/pull/450))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
