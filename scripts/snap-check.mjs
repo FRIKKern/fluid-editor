@@ -46,7 +46,7 @@ for (const r of F.readings) {
     results.push({ kind: r.kind, section: r.section, block: r.block, leg, ok });
   }
 }
-// From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json.
+// From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json, and X2's reads from the right margin track.
 const WALKS = [
   ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110],
   ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110],
@@ -60,10 +60,27 @@ const WALKS = [
   ['CAP-G4MARGIN6', 'se', 'desktop', [1, 1, 7, 22], 400],
   ['CAP-G4PHONE', 'move', 'mobile', [1, 2, 7, 10], 110],
   ['CAP-G4PHONE', 'se', 'mobile', [1, 2, 7, 10], 110],
+  // From the right margin track, a lone block on desktop: its right edge leads, as far as column 2 (X2's table; 6 wide is in mid-check).
+  ['CAP-X2STEPS', 'w2', 'desktop', [1, 25, 7, 27], 280],
+  ['CAP-X2STEPS', 'w7', 'desktop', [1, 20, 7, 27], 280],
+  ['CAP-X2STEPS', 'w8', 'desktop', [1, 19, 7, 27], 280],
+  ['CAP-X2STEPS', 'w10', 'desktop', [1, 17, 7, 27], 280],
+  ['CAP-X2STEPS', 'w4 on 26', 'desktop', [1, 23, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w2', 'desktop', [1, 25, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w7', 'desktop', [1, 20, 7, 27], 280],
+  ['CAP-X2STEPS3', 'r w10', 'desktop', [1, 17, 7, 27], 280],
+  ['CAP-X2WIDTHS', 'r w1', 'desktop', [1, 26, 7, 27], 280],
+  ['CAP-X2WIDTHS', 'r w11', 'desktop', [1, 16, 7, 27], 280],
+  ['CAP-X2WIDTHS', 'r w13', 'desktop', [1, 14, 7, 27], 280],
+  ['CAP-X2WIDTHS', 'r w12', 'desktop', [1, 15, 7, 27], 280],
+  ['CAP-X2WIDTHS2', 'A w12 middle walk', 'desktop', [1, 15, 7, 27], 300],
+  ['CAP-X2WIDTHS2', 'D w7 long walk', 'desktop', [1, 20, 7, 27], 1100],
+  ['CAP-X2WIDTHS3', 'I w10 long walk', 'desktop', [1, 17, 7, 27], 1200],
+  ['CAP-X2WIDTHS3', 'K w4 long walk', 'desktop', [1, 23, 7, 27], 1300],
 ];
 for (const [file, name, view, area, mx] of WALKS) {
   const R = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads[name].walk;
-  const part = R.part === 'middle' ? null : R.part, phone = view === 'mobile';
+  const part = R.part === 'middle' || Array.isArray(R.part) ? null : R.part, phone = view === 'mobile'; // a point on the block is a move: the step counts from the press (CAP-G4GRAB.json)
   const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const f = document.getElementById('site-frame');
     fe.setBp('desktop');
     fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 12, mobile: 12 }, phoneFollows: false, blocks: [{ id: 'a', type: 'shape', layout: { desktop: { area: ${JSON.stringify(phone ? [1, 2, 7, 8] : area)} }, mobile: { area: ${JSON.stringify(phone ? area : [1, 2, 7, 10])} } }, content: {} }] }] });
