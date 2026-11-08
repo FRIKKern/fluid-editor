@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
 import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -5827,7 +5827,13 @@ function openLayouts(sid) {
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
   // A divider's own height doesn't count: the panel goes by the section above it (CAP-U10READ6.json, 248 at 763.6 with one).
-  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) }), edit: editAt, secTop: fr.top + q.top };
+  let opened = sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) });
+  // It opens no lower than its content box's band (CAP-U10BAND2.json, V: 341, one read, not predicted), and at edit + 49
+  // no higher either, as Edit Section's panel does.
+  const cw = sectionEl(sid).querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+  if (editAt + 49 + 476 <= window.innerHeight - 170) opened = Math.max(opened, fr.top + cw.top + 1);
+  opened = Math.round(Math.min(opened, fr.top + cw.bottom + 1 - 476));
+  layoutsPlace = { top: opened, edit: editAt, secTop: fr.top + q.top };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
@@ -5842,17 +5848,17 @@ function pickMovesLayouts() {
   layoutsPlace.top = layoutsPickTop({ top: layoutsPlace.top, secTop, fresh });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
-// While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
-// (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
-// 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
+// While the page scrolls it keeps to the band of its section's content box, by Edit Section's rule (sectionPanelScrolled),
+// and closes on it: U9's frozen band rule, checked on View Layouts with predictions pushed first, 300 of 300 steps
+// (CAP-U10BAND-PREDICT.json, CAP-U10BAND2.json).
 function placeLayouts() {
   const el = layoutsSid && sectionEl(layoutsSid);
   if (!el) return;
-  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
-  if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
-  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
-  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
-  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
+  const cw = el.querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+  const low = fr.top + cw.top + 1, high = fr.top + cw.bottom + 1 - 476;
+  if (high < PANEL_BAND_CLOSES_AT) { closeLayouts(); return; }
+  layoutsPlace.top = sectionPanelScrolled({ prev: layoutsPlace.top, H: window.innerHeight, low, high });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
 layoutsPanel.addEventListener('click', (e) => {
