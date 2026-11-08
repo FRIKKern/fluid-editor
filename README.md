@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 53 changes
+- **Today** · 54 changes
+  - P3: counts and results in the alignment prediction files (102 to 104); the panel past a height read again, not settled by time, no rule (CAP-P3SETTLE) ([#438](https://github.com/FRIKKern/fluid-editor/pull/438))
   - T12: the shared Design tab's rows where the oracle's are, a Quote's Effects and Appear ([#435](https://github.com/FRIKKern/fluid-editor/pull/435))
-  - P3: numbers 102 to 104; after Undo the panel keeps its Height and Alignment buttons (99) ([#436](https://github.com/FRIKKern/fluid-editor/pull/436))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
