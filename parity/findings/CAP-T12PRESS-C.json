@@ -1,0 +1,237 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Press reads, batch C: what each in-scope row of Menu changes on the block.",
+ "how": "Run f70 on the oracle: per block, Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then each step by a named press with an on-top check (a switch by its aria-label, a button by its label, a field by Cmd+A, Backspace and keys then Tab, a menu by its row then an option). The block (area, size, every visible leaf box) is read before and after each step. No row that makes something outside the block, opens a service, or reaches a store or payments was pressed. Left by Exit Without Saving; the page read 0 blocks at the end.",
+ "blocks": {
+  "Menu": {
+   "note": "Content: the Menu text box (a textarea) replaced by typing 'MAINS' over '=====', a blank line, 'Soup' over '----', a blank line, then TOMATO / Basil and cream / $6, a blank line, BREAD / Sourdough / $3, then Tab. The block then draws no MAINS line (one menu: no menu tabs), the section title Soup (41.2px), and the two items side by side in two columns 323.2 wide, gap 48 (titles 26.08px, descriptions 16px, price with its currency-sign span at the column's right): 7 rows. The price number is a text node beside the currency-sign span, so it is not among the leaves. Design: the layout menu lists Centered, Multi-Column; Centered picked: items stack, full width 694.4, price under the description and centered, 10 rows. Currency Symbol lists $ Dollar, € Euro, £ Pound, ¥ Yen; € Euro picked: only the sign changes (13 wide), rows stay.",
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 29 / 14",
+    "size": [
+     694.375,
+     1139.625
+    ],
+    "leaves": [
+     "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "type": "Menu text",
+      "value": "MAINS\n=====\n\nSoup\n----\n\nTOMATO\nBasil and cream\n$6\n\nBREAD\nSourdough\n$3"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 29 / 14",
+      "size": [
+       694.375,
+       1139.625
+      ],
+      "leaves": [
+       "LABEL | \n          menu-select-labels\n          js-menu-se | MEALS |  | 274.5,3,67.2,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "LABEL | \n          menu-select-labels\n          js-menu-se | DRINKS |  | 346,3,74,16 | 16px/16px 500 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Sandwiches |  | 0,70.4,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 298,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | LE PAYSAN |  | 0,172,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Smoked Turkey, Brie & apple chutney |  | 0,210.9,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.3,171,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SOHO MEDITERRANEAN SANDWICH |  | 371.2,172,323.2,101.7 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Hummus, grilled vegetables & halloumi cheese |  | 371.2,278.7,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 669.2,354.5,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | STEAK SANDWICH |  | 371.2,355.5,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Steak w/ onions, bacon & cheddar |  | 371.2,394.4,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-section-title | Pasta |  | 0,528.8,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GRAMIGNA |  | 0,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | macaroni, pork sausage, swiss chard, black pepper |  | 0,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 294.8,745.1,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | GARGANELLI |  | 0,746.1,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | pasta quills, cream, peas, truffle butter, prosciutto |  | 0,785,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 665.2,629.4,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | SPALLINA |  | 371.2,630.4,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | double ravioli, squacquerone cheese, rabbit, porcini |  | 371.2,669.3,275.2,44.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,1139.6 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 8 / 14",
+      "size": [
+       694.375,
+       276.65625
+      ],
+      "leaves": [
+       "DIV | menu-section-title | Soup |  | 0,16,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 303.1,116.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | TOMATO |  | 0,117.6,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Basil and cream |  | 0,156.5,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 675,116.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | BREAD |  | 371.2,117.6,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Sourdough |  | 371.2,156.5,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,276.7 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "Multi-Column",
+      "from": "Multi-Column"
+     },
+     "note": {
+      "opts": [
+       "Centered",
+       "Multi-Column"
+      ],
+      "pick": "Centered"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 8 / 14",
+      "size": [
+       694.375,
+       276.65625
+      ],
+      "leaves": [
+       "DIV | menu-section-title | Soup |  | 0,16,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 303.1,116.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | TOMATO |  | 0,117.6,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Basil and cream |  | 0,156.5,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 675,116.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | BREAD |  | 371.2,117.6,323.2,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Sourdough |  | 371.2,156.5,275.2,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,276.7 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 14",
+      "size": [
+       694.375,
+       399.9375
+      ],
+      "leaves": [
+       "DIV | menu-section-title | Soup |  | 0,16,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | TOMATO |  | 0,117.6,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Basil and cream |  | 0,156.5,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 337.1,185.9,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | BREAD |  | 0,249.3,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Sourdough |  | 0,288.2,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 337.5,317.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "menu": "$ Dollar",
+      "from": "$ Dollar"
+     },
+     "note": {
+      "opts": [
+       "$ Dollar",
+       "€ Euro",
+       "£ Pound",
+       "¥ Yen"
+      ],
+      "pick": "€ Euro"
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 14",
+      "size": [
+       694.375,
+       399.9375
+      ],
+      "leaves": [
+       "DIV | menu-section-title | Soup |  | 0,16,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | TOMATO |  | 0,117.6,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Basil and cream |  | 0,156.5,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 337.1,185.9,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | BREAD |  | 0,249.3,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Sourdough |  | 0,288.2,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | $ |  | 337.5,317.6,10,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-menu sqs-block menu-block sqs-block-menu sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 11 / 14",
+      "size": [
+       694.375,
+       399.9375
+      ],
+      "leaves": [
+       "DIV | menu-section-title | Soup |  | 0,16,694.4,53.6 | 41.2px/53.56px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | TOMATO |  | 0,117.6,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Basil and cream |  | 0,156.5,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | € |  | 335.6,185.9,13,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-title | BREAD |  | 0,249.3,694.4,33.9 | 26.08px/33.904px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | menu-item-description | Sourdough |  | 0,288.2,694.4,22.4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | currency-sign | € |  | 336,317.6,13,23 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,694.4,399.9 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ],
+   "panelAtEnd": {
+    "box": [
+     814,
+     55,
+     320,
+     500
+    ],
+    "text": [
+     "Content @22,19,53,18",
+     "Design @91,19,46,18",
+     "Formatting Help @153,19,106,18",
+     "Centered @99,104,155,22",
+     "Currency Symbol @22,210,114,18",
+     "€ Euro @233,210,43,18"
+    ],
+    "c": [
+     "DIV||Click and drag to reposition block editor form|||||ContentDesignFormatting Help|0,0,320,55",
+     "BUTTON|button|Content|||||Content|22,0,53,55",
+     "BUTTON|button|Design|||||Design|91,0,46,55",
+     "BUTTON|button|Formatting Help|||||Formatting Help|153,0,106,55",
+     "DIV|||||||Currency Symbol€ Euro|11,196,298,46"
+    ]
+   }
+  }
+ }
+}
