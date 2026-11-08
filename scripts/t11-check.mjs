@@ -624,6 +624,19 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   add('Design tab, Quote: Appear opens its 6 options over the row, Site Default on', l.shown && l.cur === 'Site Default' && l.opts.length === wl.length && wl.every((w, i) => l.opts[i][0] === w[0] && near(l.opts[i][1], w[1], 1) && near(l.opts[i][2], w[2], 1) && near(l.opts[i][3], w[3], 1)), JSON.stringify(l.opts.map((o) => o.slice(0, 3))));
   const pk = q(`if (!pop.querySelector('[data-appear-opt]')) return JSON.stringify(null); pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(200); const b = fe.model.sections[1].blocks.at(-1), a = b.appear; panel.querySelector('[data-appear]').click(); await sleep(200); const cur = pop.querySelector('.is-cur')?.textContent; pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(150); fe.undo(); await sleep(250); return JSON.stringify({ a, cur, after: fe.model.sections[1].blocks.at(-1).appear ?? null });`);
   add('Design tab, Quote: a pick is kept on the block and is one undo step', pk?.a === 'Fade In' && pk.cur === 'Fade In' && pk.after === null, JSON.stringify(pk));
+  // A pick plays its effect once on the quote in the editor (CAP-T12QUOTEAPPEAR4.json, its press time; CAP-T12QUOTEAPPEAR3.json
+  // agrees): opacity and move or scale at 200, 400, 700, 900, 1100 and 1400 ms after the press, as read.
+  const AQ = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12QUOTEAPPEAR4.json', import.meta.url))).reads;
+  const pose = (m, o) => { const v = /matrix\(([^)]+)\)/.exec(m || ''), n = v ? v[1].split(',').map(Number) : [1, 0, 0, 1, 0, 0]; return [Number(o), n[0], n[4], n[5]]; };
+  const atT = (fr, t) => { let best = null; for (const f of fr) if (f[0] <= t) best = f; return best ? best[1] : [1, 1, 0, 0]; };
+  const TIMES = [200, 400, 700, 900, 1100, 1400];
+  const bid = q(`return JSON.stringify(fe.model.sections[1].blocks.at(-1).id);`);
+  for (const v of ['Slide Up', 'Focus In', 'Reveal', 'Fade In', 'None']) {
+    const r = AQ[v], them = r.frames.map(([t, on]) => { const f = on.find((o) => o[0].startsWith('FIGURE')); return [t - r.down, f ? pose(f[1], f[2]) : [1, 1, 0, 0]]; });
+    const mine = q(`if (pop.hidden || !pop.querySelector('[data-appear-opt]')) { panel.querySelector('[data-appear]').click(); await sleep(250); } const o = pop.querySelector('[data-appear-opt="${v}"]'); const out = [], t0 = performance.now(); let on = true; const tick = () => { const f = block('${bid}')?.querySelector('.sqs-quote-block-contents'); if (f) { const c = W.getComputedStyle(f); out.push([Math.round(performance.now() - t0), c.transform, c.opacity]); } if (on) requestAnimationFrame(tick); }; requestAnimationFrame(tick); o.click(); await sleep(1800); on = false; return JSON.stringify(out);`).map(([t, m, o]) => [t, pose(m, o)]);
+    const bad = TIMES.filter((t) => { const a = atT(mine, t), b = atT(them, t); return Math.abs(a[0] - b[0]) > 0.08 || Math.abs(a[1] - b[1]) > 0.01 || Math.abs(a[2] - b[2]) > 2 || Math.abs(a[3] - b[3]) > 2; }).map((t) => `${t}: ${atT(mine, t).map((x) => Math.round(x * 100) / 100)} vs ${atT(them, t).map((x) => Math.round(x * 100) / 100)}`);
+    add(`Design tab, Quote: Appear ${v} plays on the quote as read`, !bad.length, bad.join('; '));
+  }
   await fresh('Text'); q(`document.body.click(); await sleep(150); return 'true';`);
   const tid = q(`return JSON.stringify(fe.model.sections[1].blocks.at(-1).id);`);
   q(`fe.select(fe.model.sections[1].id, '${tid}'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`); tab();
