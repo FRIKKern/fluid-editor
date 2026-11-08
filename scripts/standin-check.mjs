@@ -318,7 +318,7 @@ viewport(S, 1600, 1400);
   const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
   const state = () => qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify({ sp: b.sp || {}, area: b.layout.desktop.area });`);
   const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [e.innerText.replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`);
-  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11]]) {
+  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11], ['Product', 6, 10]]) {
     const R0 = PANELS[name];
     qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
     const first = qs(`return JSON.stringify([...p.querySelectorAll('[data-btab]')].map((t) => [t.textContent, t.classList.contains('is-on')]));`);
@@ -381,6 +381,15 @@ viewport(S, 1600, 1400);
   const p6 = [];
   for (const k of ['ppTitle', 'ppDesc', 'ppPrice', 'ppBenefits', 'ppButtonOn']) p6.push(await flip(k), await flip(k));
   add('Pricing Plan pulled 8 to 6 columns takes 12 rows; Elements there give 10 12 8 12 9 12 9 12 9 12', JSON.stringify(pulled) === '[1,2,13,8]' && JSON.stringify(p6) === '[10,12,8,12,9,12,9,12,9,12]', JSON.stringify({ pulled, p6 }));
+  // Product: each row keeps its value, one undo step each. Its rows are not modelled (CAP-T12PRESS-E.json): not checked here.
+  placeAndEdit('Product', 6, 10);
+  await press('input[data-sp-set="pdImage"]'); await press('input[data-sp-set="pdDesc"]');
+  const faded = qs(`return JSON.stringify(!!p.querySelector('.bp-sp-new')?.disabled);`);
+  await press('[data-btab="Design"]'); await press('button[data-sp-set="pdCorner"][data-v="each"]'); await press('button[data-sp-set="pdAlign"][data-v="right"]');
+  qs(`const s = p.querySelector('select[data-sp-set="pdRatio"]'); s.value = '1:1'; s.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); return 'true';`);
+  const pd = state(), shown = qs(`return JSON.stringify(p.querySelector('.bp-sp-selv').textContent);`);
+  await undoOnce(); const pdu = state();
+  add('Product: Elements, Corner, Ratio and Block Alignment keep their values; one undo step each; Create new product is faded', pd.sp.pdImage === false && pd.sp.pdDesc === true && pd.sp.pdCorner === 'each' && pd.sp.pdAlign === 'right' && pd.sp.pdRatio === '1:1' && shown === '1:1' && pdu.sp.pdRatio === undefined && pdu.sp.pdAlign === 'right' && faded, JSON.stringify({ pd, pdu, shown, faded }));
   if (process.env.SP_SHOT) screenshot(S, process.env.SP_SHOT);
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);
