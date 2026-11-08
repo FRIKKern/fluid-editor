@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 34 changes
+- **Today** · 35 changes
+  - U11: the capture's clipboard guard reads __fxClip, the marker cdp-run's key guard reads ([#418](https://github.com/FRIKKern/fluid-editor/pull/418))
   - U11: the panel and the block menu share one transforms clip, every trigger copies; capture: a guarded clipboard stub ([#417](https://github.com/FRIKKern/fluid-editor/pull/417))
-  - T12: Quote's rows from its content, one round ([#416](https://github.com/FRIKKern/fluid-editor/pull/416))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
