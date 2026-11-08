@@ -297,7 +297,8 @@ function blendRow(cur, open, chev = false) {
 }
 // A Quote's Design tab ends with Effects and an Appear menu (CAP-DESIGNTAB-EFFECTS2.json); Text and Shape have none.
 export const APPEAR = ['Site Default', 'None', 'Fade In', 'Slide Up', 'Focus In', 'Reveal'];
-const effectsRows = () => `<div class="bp-thead bp-effects"><span>Effects</span></div><button type="button" class="bp-appear" data-appear aria-haspopup="listbox"><span>Appear</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
+// After a pick the row shows its value on a grey fill, with a small grey chevron and no line (CAP-T12APPEARROW.json, mouse off the row, two picks).
+const effectsRows = (v) => `<div class="bp-thead bp-effects"><span>Effects</span></div><button type="button" class="bp-appear${v ? ' has-value' : ''}" data-appear aria-haspopup="listbox"><span>Appear</span>${v ? `<span class="bp-appear-v">${v}${CHEV}</span>` : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'}</button>`;
 
 // A Video's is a name and a menu, not one button (CAP-VBLEND.json): the same list, over it and 9 to its left.
 function videoBlendRow(cur) {
@@ -657,7 +658,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + pairs.join('');
     else body = `<div class="bp-look-rows">${appearanceRows(d)}${blendRow(d.blend || 'normal', open === 'blend', true)}${blurRows(d)}</div>`
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
-      + pairs.join('') + (content?.kind === 'quote' ? effectsRows() : '');
+      + pairs.join('') + (content?.kind === 'quote' ? effectsRows(content.appear) : '');
   } else {
     // The Animation tab's list (anim-panel.js); its picker and editor replace the whole panel.
     body = open;

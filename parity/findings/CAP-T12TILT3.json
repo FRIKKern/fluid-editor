@@ -1,0 +1,117 @@
+{
+  "item": "CAP-T12TILT3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "A Bar Chart's labels in three sets (X: Haugesundsby, Oslo, Rome; Z: San Francisco, Kristiansand, Lillehammers; Y: Stavangerfjord, Bergenhalvoya, Haugesundsby), same block: the tilt angle, read from shots; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "fillValue",
+      "New York",
+      "Haugesundsby"
+    ],
+    [
+      "fillValue",
+      "Las Vegas",
+      "Oslo"
+    ],
+    [
+      "fillValue",
+      "San Francisco",
+      "Rome"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "X"
+    ],
+    [
+      "fillValue",
+      "Haugesundsby",
+      "San Francisco"
+    ],
+    [
+      "fillValue",
+      "Oslo",
+      "Kristiansand"
+    ],
+    [
+      "fillValue",
+      "Rome",
+      "Lillehammers"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "Z"
+    ],
+    [
+      "fillValue",
+      "San Francisco",
+      "Stavangerfjord"
+    ],
+    [
+      "fillValue",
+      "Kristiansand",
+      "Bergenhalvoya"
+    ],
+    [
+      "fillValue",
+      "Lillehammers",
+      "Haugesundsby"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "Y"
+    ]
+  ],
+  "reads": {},
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}

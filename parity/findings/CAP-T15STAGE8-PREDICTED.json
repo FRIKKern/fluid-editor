@@ -1,0 +1,12 @@
+{
+  "item": "T15",
+  "question": "The stage square in a preset's editor, pushed before CAP-T15STAGE8-*.json. Grow (On Hover: End Scale 110%, Spring, bounce 0.3, 0.5s) and Float (Loop Ping Pong: End Scale 95%, Offset Y 20%, In Out, 2s), each opened by its tile's Edit button; then Opacity to 50% on End, then the mouse onto the square.",
+  "rules": {
+    "A": "ours as built (#451, #455): the square as on a blank row of its trigger. A change leaves it still. Grow goes out (scale squared, 1.21 at rest of the spring) in 1.5 times 0.5s, holds 500 ms and comes back: about 2000 ms in all. Float goes out and straight back on In Out, 2s each way, then rests: about 4000 ms."
+  },
+  "predictions": {
+    "Grow": { "change": "still", "mouse": "plays, peak scale about 1.21 (a spring may pass it), back to rest about 2000 ms after it starts (within 15%)" },
+    "Float": { "change": "still", "mouse": "plays, smallest scale about 0.9025, back to rest about 4000 ms after it starts (within 15%), once" }
+  },
+  "scoring": "still or plays on each; the run's length from the first moving frame to the last; Float's opacity pose is read, not scored"
+}
