@@ -1441,6 +1441,11 @@ button.bp-more { padding: 0; width: 36px; height: 36px; border: 0; background: n
 .lo-tile.is-on { box-shadow: 0 0 0 1px #0e0e0e; }
 /* A tile whose layout wasn't read (Archive, Scrolling: CAP-U10LIST-*.json) shows, faded, and takes no press. */
 .lo-tile.lo-unbuilt { cursor: default; opacity: 0.4; }
+/* A tile with its own divider: no box line at the bottom; the edge's line stands in for it. */
+.lo-tile.lo-div { box-shadow: none; overflow: visible; }
+.lo-edge { position: absolute; inset: 0; overflow: visible; }
+.lo-edge path { stroke: #e7e7e7; stroke-width: 1px; }
+.lo-tile.is-on .lo-edge path { stroke: #0e0e0e; }
 .lo-i, .lo-b, .lo-t { position: absolute; display: block; }
 .lo-i { background: #fff; }
 .lo-b { display: flex; align-items: center; }

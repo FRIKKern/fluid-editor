@@ -664,11 +664,6 @@
   "errors": [],
   "leftDirty": true,
   "answer": "A pull is kept until the content changes. Pulled from 6 to 10 rows: 3 lines stay at 10, 1 line goes to 7, 12 lines to 12, 1 line to 1. A pull up on 12 lines is refused, as the content needs them. On the phone the panel opens and code changes only the phone's rows, as desktop's change only desktop's: 6 lines 7 rows, 20 lines 22, 2 lines 1. Desktop stays where it was.",
-  "ours": "Same but three steps. Ours keeps desktop and phone apart too.",
-  "differs": [
-    "pulled to 10, 1 line: oracle 7 rows, ours 8",
-    "13 lines after the refused pull: oracle 12, ours 13",
-    "phone, 2 lines from 20: oracle 1 row, ours 3"
-  ],
-  "notCompared": "The phone pull: the test moved ours by rows and the oracle by pixels."
+  "ours": "Same, every read, the phone pull too: code-check pulls by the oracle's own pixels from the handle's middle. On the phone the 2 lines overrun the block's 1 row, its handle sits at their foot, and 164.4 down gives 8 rows, ceil((60.8 + 11) / 35) + 5, as CAP-68PULL.json's rule says.",
+  "differs": []
 }
