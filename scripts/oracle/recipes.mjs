@@ -491,6 +491,22 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
   })() },
+  'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DRAG = (k, px) => [['drag', 0, k, 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (k, text) => [['pick', 0, k], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TWICE = (n, k) => [...READ(`${n} before`), ...TYPE(k, 'hello'), ...READ(`${n} typed once`), ...TYPE(k, ' world'), ...READ(`${n} typed twice`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Line'), ...ADD('Text'), ...DRAG('new', 41), ...TWICE('k1 t2 again, Line above, Text dragged down', 'new')],
+      [...ADD('Text'), ...DRAG('new', 41), ...TWICE('k2 Text alone, dragged down', 0)],
+      [...ADD('Text'), ...DRAG('new', 41), ...DRAG('new', -41), ...TWICE('k3 Text alone, dragged down and back', 0)],
+      [...ADD('Text'), ...DRAG('new', 41), ...ADD('Line'), ...DRAG('new', 164), ...TWICE('k4 Text dragged down, Line below', 0)],
+      [...ADD('Line'), ...ADD('Text'), ...TWICE('k5 Line and Text, no drag', 'new')]
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
