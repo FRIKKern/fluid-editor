@@ -318,7 +318,7 @@ viewport(S, 1600, 1400);
   const key = async (k, w = 120) => { browser(S, 'press', k); await pause(w); };
   const state = () => qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify({ sp: b.sp || {}, area: b.layout.desktop.area });`);
   const labels = () => qs(`p.querySelector('.sp-body').scrollTop = 0; await sleep(50); const P0 = p.getBoundingClientRect(); return JSON.stringify([...p.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); }).map((e) => { const r = e.getBoundingClientRect(); return [e.innerText.replace(/\\s+/g, ' ').trim(), r.left - P0.left, r.top - P0.top + r.height / 2]; }));`);
-  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15]]) {
+  for (const [name, span, rows] of [['Zola', 8, 16], ['Search Field', 8, 8], ['Donation', 6, 15], ['Audio', 6, 3], ['Pricing Plan', 8, 11]]) {
     const R0 = PANELS[name];
     qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: ${JSON.stringify(name)}, layout: { desktop: { area: [1, 2, ${1 + rows}, ${2 + span}], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, ${1 + rows}, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }]; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
     const first = qs(`return JSON.stringify([...p.querySelectorAll('[data-btab]')].map((t) => [t.textContent, t.classList.contains('is-on')]));`);
@@ -327,8 +327,8 @@ viewport(S, 1600, 1400);
       await press(`[data-btab="${tab}"]`);
       // Centres: the read's boxes and ours differ in height. x only for left-set labels: centred and right-set words move
       // with the panel font. Tab names are the shared tab row's. Donation's Design rows are out (0005): only its note.
-      const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2]; })
-        .filter(([t]) => !R0.tabs.includes(t) && (name !== 'Donation' || tab !== 'Design' || t.startsWith('Form style')));
+      const ours = labels(), want = R0.panel[tab][0].text.map((t) => { const m = t.match(/^([\s\S]*) @(-?[\d.]+),(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)/); return [m[1].replace(/\s+/g, ' ').trim(), +m[2], +m[3] + +m[5] / 2, +m[4]]; })
+        .filter(([t, , , w]) => w > 1 && !R0.tabs.includes(t) && (name !== 'Donation' || tab !== 'Design' || t.startsWith('Form style'))); // a 1px label is hidden
       const same = (o, t) => o.toLowerCase() === t.toLowerCase() || (t.length > 60 && o.startsWith(t));
       const miss = want.filter(([t, x, y]) => !ours.some(([o, ox, oy]) => same(o, t) && (x > 60 || Math.abs(ox - x) <= 1.5) && Math.abs(oy - y) <= 1.5)).map(([t, x, y]) => `${t.slice(0, 24)}@${x},${y} ours ${JSON.stringify(ours.filter(([o]) => same(o, t)).map(([, ox, oy]) => [+ox.toFixed(1), +oy.toFixed(1)]))}`);
       add(`${name} panel, ${tab}: every label at its read place`, !miss.length, miss.join(' | '));
@@ -356,6 +356,31 @@ viewport(S, 1600, 1400);
   await press('input[data-sp-field="donButton"]', 150); await key('Meta+a'); await key('G'); await key('o'); await key('Tab', 400);
   const dn = state();
   add('Donation: Button Text keeps Go; payment and Funds rows are faded; rows stay', dn.sp.donButton === 'Go' && dn.area[2] === 16 && qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-card, .bp-sp-nav')].every((e) => e.disabled));`), JSON.stringify(dn));
+  // Audio: every press keeps 3 rows (CAP-T12PRESS-D.json); Classic hides the Color row.
+  placeAndEdit('Audio', 6, 3);
+  await press('input[data-sp-field="auTitle"]', 150); await key('S'); await key('o'); await key('Tab', 400);
+  await press('input[data-sp-set="auDownload"]'); await press('button[data-sp-set="auSource"][data-v="external"]');
+  await press('[data-btab="Design"]'); await press('button[data-sp-set="auStyle"][data-v="legacy"]');
+  const au = state(), color = qs(`return JSON.stringify(!!p.querySelector('[data-sp-set="auColor"]'));`);
+  add('Audio: Title, Download Link, Add File Link and Classic keep their values; Classic hides Color; rows stay 3', au.sp.auTitle === 'So' && au.sp.auDownload === true && au.sp.auSource === 'external' && au.sp.auStyle === 'legacy' && !color && au.area[2] === 4, JSON.stringify({ au, color }));
+  // Pricing Plan's Elements at 8 and 6 columns: the rows as read (CAP-T12PRESS-A.json, -E.json), each switch one undo step.
+  const rowsOf = () => { const a = state().area; return a[2] - a[0]; };
+  const flip = async (k) => { await press(`input[data-sp-set="${k}"]`, 400); return rowsOf(); };
+  placeAndEdit('Pricing Plan', 8, 11); await press('[data-btab="Design"]');
+  const p8 = [];
+  for (const k of ['ppTitle', 'ppDesc', 'ppPrice', 'ppBenefits', 'ppButtonOn']) p8.push(await flip(k), await flip(k));
+  await press('input[data-sp-set="ppDesc"]', 400); await undoOnce(); const pu = state();
+  add('Pricing Plan at 8 columns: Elements off and on give 9 11 8 11 8 11 8 11 8 11 rows; one undo step', JSON.stringify(p8) === '[9,11,8,11,8,11,8,11,8,11]' && pu.sp.ppDesc !== false && pu.area[2] === 12, JSON.stringify({ p8, pu }));
+  await press('button[data-sp-set="ppAlign"][data-v="center"]'); await press('input[data-sp-field="ppButton"]', 150); await key('Meta+a'); await key('G'); await key('o'); await key('Tab', 400);
+  const pa = state();
+  add('Pricing Plan: Alignment and Button Text keep their values, rows stay', pa.sp.ppAlign === 'center' && pa.sp.ppButton === 'Go' && pa.area[2] === 12, JSON.stringify(pa));
+  // Pulled from 8 to 6 columns, it takes 12 rows; the switches there as read.
+  placeAndEdit('Pricing Plan', 8, 11); await key('Escape', 300);
+  const pulled = await pull('e', -2, 0);
+  placeAndEdit('Pricing Plan', 6, 12); await press('[data-btab="Design"]');
+  const p6 = [];
+  for (const k of ['ppTitle', 'ppDesc', 'ppPrice', 'ppBenefits', 'ppButtonOn']) p6.push(await flip(k), await flip(k));
+  add('Pricing Plan pulled 8 to 6 columns takes 12 rows; Elements there give 10 12 8 12 9 12 9 12 9 12', JSON.stringify(pulled) === '[1,2,13,8]' && JSON.stringify(p6) === '[10,12,8,12,9,12,9,12,9,12]', JSON.stringify({ pulled, p6 }));
   if (process.env.SP_SHOT) screenshot(S, process.env.SP_SHOT);
 }
 writeFileSync(new URL('../parity/standin-check.json', import.meta.url), `${JSON.stringify({ check: 'content that follows the width', pass, total, results }, null, 1)}\n`);

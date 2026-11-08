@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 910,
+  "pass": 909,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 917,
+  "total": 916,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3452,14 +3452,6 @@
       "diffs": []
     },
     {
-      "name": "R2 one row narrowed by its corner, at the drop",
-      "diffs": []
-    },
-    {
-      "name": "R2 one row narrowed by its corner, let go",
-      "diffs": []
-    },
-    {
       "name": "R2 c1 Line 1 row under, widened 3",
       "diffs": []
     },
@@ -3641,6 +3633,10 @@
     },
     {
       "name": "X2 selected Text, a drag under the text",
+      "diffs": []
+    },
+    {
+      "name": "X2 a second click on a Text: the editor, no block toolbar",
       "diffs": []
     },
     {

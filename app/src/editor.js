@@ -37,7 +37,7 @@ import { demoModel } from './demo.js';
 import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed, scrubbed, commas, defaultOf, playPreview, holdPose, releasePose, playTile, playStage, bindTriggers, startPageMotion, stopPageMotion, PRESETS } from './animations.js';
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
-import { standinPanelOf } from './standin-panels.js';
+import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -1060,6 +1060,9 @@ function onUp(e) {
   endGesture();
   renderSectionDom(g.sid);
   if (g.type === 'gresize') stored = storedRows(g);
+  // 98, candidate R1 under test (CAP-98SPLIT-PREDICTED.json): a lone Text made wider and left short arms the
+  // stored rows too, worked out at the next layout gesture, so a block added since counts (CAP-98.json).
+  else if (g.type === 'resize' && !g.members && b.type === 'text' && g.target[3] - g.target[1] > g.orig[3] - g.orig[1]) stored = { sid: g.sid, bp, lone: b.id };
   if (g.fits && !/[ns]/.test(g.dir)) {
     fitTextRows(s, b, g);
     if (b.type === 'text' && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1172,8 +1175,11 @@ function storedRows(g) {
   return { sid: g.sid, bp, areas };
 }
 function showStored() {
-  const t = stored, shift = new Map();
+  let t = stored;
+  const shift = new Map();
   stored = null;
+  if (t.lone) t = t.bp === bp && S(t.sid) && B(t.sid, t.lone) ? storedRows({ sid: t.sid, kept: new Map([[t.lone, true]]) }) : null;
+  if (!t) return shift;
   const s = t.bp === bp ? S(t.sid) : null;
   if (!s) return shift;
   for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
@@ -1474,7 +1480,7 @@ function updateResize(e) {
     need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskNeed(held, c1 - c0) + m.rg) / m.pitch - 0.02));
   else if (side && bp === 'mobile' && held.phoneHeight) {
     // A pointer past the floor, where it would snap under it, takes the rows with no give: Menu 31.09 rows high is 31 at
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
@@ -1736,6 +1742,9 @@ function startTextEdit(sid, bid) {
   doc.addEventListener('selectionchange', onTextSelection);
   renderPanel();
   renderTextBar();
+  // select() above showed the block toolbar; writing hides it, so no edge of it shows by the text bar (an oracle shot with
+  // the editor open: nothing but its own shadow above or below the bar).
+  placeToolbar();
 }
 
 // Paste (E5): our own cleanup with the oracle's rules (app/src/paste.js).
@@ -1800,7 +1809,7 @@ function renderBlockPanel() {
     : b.type === 'map' ? { kind: 'map', ...mapOf(b), mapName: b.mapName, mapAddress: b.mapAddress, mapCity: b.mapCity, mapCountry: b.mapCountry }
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
-    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
+    : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
@@ -2713,9 +2722,17 @@ blockPanel.addEventListener('change', (e) => {
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
+// A Pricing Plan's Elements switches move its rows on desktop by the content they leave, by the frozen rows rule of
+// CAP-T12NEWSLETTER.json (20 of 20 steps at 8 and 6 columns, CAP-T12PRESS-A.json and -E.json). Phone: not read, rows stay.
 function setStandinValue(key, v) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
+  const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
+  const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
+  if (all !== undefined) {
+    const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
+    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+  }
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
@@ -5064,6 +5081,8 @@ const DESK_HEIGHT = {
   Scheduling: [[0, 680]],
 };
 const deskHeight = (label, cols) => DESK_HEIGHT[label]?.find(([c]) => cols >= c)?.[1];
+// A Pricing Plan with Elements off: less its parts (CAP-T12PRESS-E.json: 6 columns take 12 rows with all on, 8 with no Description).
+const deskNeed = (b, cols) => (b.label === 'Pricing Plan' && standinPanelOf(b) ? planHeight(b, deskHeight(b.label, cols)) : deskHeight(b.label, cols));
 const ADD_TYPES = [
   ['Text', 8, 2, () => ({ type: 'text', html: '<p style="white-space:pre-wrap;" data-rte-preserve-empty="true"></p>' })],
   ['Image', 6, 6, () => ({ type: 'image', alt: '', empty: true, mode: 'fit' })],

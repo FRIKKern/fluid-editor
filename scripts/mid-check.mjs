@@ -775,6 +775,16 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     groupCases.push({ name: `X2 selected Text, a drag ${name}`, diffs: [(got.a !== 5) !== moved && `oracle moved ${moved}, ours column ${got.a}`, got.open === moved && `oracle editor ${!moved}, ours ${got.open}`].filter(Boolean) });
     browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
   }
+  // A click, then a second click on a Text: the editor opens and the block toolbar hides, so no edge of it shows by the text
+  // bar (an oracle shot with the editor open shows nothing there but the bar's own shadow).
+  {
+    await load('text', '<p>Some text</p>');
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), t = f.contentDocument.querySelector('.sqs-html-content').getBoundingClientRect(); return JSON.stringify([q.left + t.left + 60, q.top + t.top + t.height / 2]); })()`);
+    for (let n = 0; n < 2; n++) { mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400); }
+    const got = evalJs(S, `JSON.stringify({ open: !document.getElementById('text-bar').hidden, tb: !document.getElementById('block-toolbar').hidden })`);
+    groupCases.push({ name: 'X2 a second click on a Text: the editor, no block toolbar', diffs: [!got.open && 'oracle editor open, ours closed', got.tb && 'oracle no block toolbar, ours shows it'].filter(Boolean) });
+    browser(S, 'press', 'Escape'); await pause(60); browser(S, 'press', 'Escape'); await pause(60);
+  }
   // After Write and one Escape: a drag from the text opens the editor again and the block stays (CAP-TEXTPRESS a10,
   // CAP-TEXTPRESS3 r1 and r2); a click there opens nothing (CAP-ESC2.json); from under the text it moves right, closed (CAP-X2UNREAD under).
   for (const [name, dx, open, below = 0] of [['a drag on the text', 118, true], ['a click on the text', 0, false], ['a drag from under the text', 118, false, 30]]) {
