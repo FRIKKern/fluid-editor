@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -11,7 +11,7 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown } from './section-layouts.js';
+import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
@@ -183,7 +183,10 @@ function undo(button = false) {
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
+  // The layout the section shows before Undo sets the step of the one it goes back to (restep, CAP-U10WALK2.json).
+  const left = layoutsSid && S(layoutsSid) && layoutsMix?.list.length ? layoutShown(S(layoutsSid), layoutsMix, null) : null;
   model = JSON.parse(undoStack.pop());
+  if (layoutsSid && S(layoutsSid)?.blocks.length) { const m = openedMix(); if (m) restep(S(layoutsSid), m, left); }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
   // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
@@ -675,7 +678,9 @@ function contentRows(b, m, normalizing = false, widthPull = false, exact = false
     const o = win.getComputedStyle(c.parentElement), h = c.getBoundingClientRect().height + parseFloat(o.paddingTop) + parseFloat(o.paddingBottom);
     if (exact) return (h + m.rg) / m.pitch;
     // An Instagram runs over by up to 0.13 of a row before it takes another: more than 0.106, less than 0.16 (CAP-X6DESKROWS.json).
-    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - (b.standin === 'instagram' ? 0.13 : 0.02)));
+    // A stand-in's phone height the same (CAP-X6PHONEROWS.json: OpenTable keeps 8 rows at 8.03, Menu 31 at 31.09).
+    const give = b.standin === 'instagram' || (b.phoneHeight && bp === 'mobile') ? 0.13 : 0.02;
+    return Math.max(1, widthPull ? Math.ceil(h / m.pitch) : Math.ceil((h + m.rg) / m.pitch - give));
   }
   if (b.type === 'shape' || b.type === 'image' || b.type === 'line' || b.type === 'map') return 1; // free down to 1 row (BLOCKTYPES.json)
   // A form: the least rows that hold it, with no give (FORMFIELDS.json, blockFits).
@@ -988,6 +993,9 @@ function onDown(e) {
   gesture = {
     type: 'pending', sid, bid: blk.dataset.blockId, pointerId: e.pointerId, t0: e.timeStamp, wasSelected, pick,
     onWords: wasSelected && B(sid, bid)?.type === 'text' && onWords(blk, e.clientX, e.clientY),
+    // After one Escape a drag from the text opens the editor again and moves nothing; a click there opens nothing
+    // (CAP-TEXTPRESS a10, CAP-TEXTPRESS3 r1 and r2; CAP-ESC2.json). The press redrew the section, so look the block up again.
+    escWords: !wasSelected && sel?.sid === sid && sel.bid === bid && !sel.more?.length && B(sid, bid)?.type === 'text' && onWords(blockEl(bid) || blk, e.clientX, e.clientY),
     x0: e.clientX, y0: e.clientY, grabX: e.clientX - r.left, grabY: e.clientY - r.top,
     before: JSON.stringify(model),
   };
@@ -998,6 +1006,7 @@ function onMove(e) {
   if (gesture.type === 'pending') {
     gesture.moves = (gesture.moves || 0) + 1;
     if (gesture.onWords) return;
+    if (gesture.escWords) { if (Math.hypot(e.clientX - gesture.x0, e.clientY - gesture.y0) > 10) gesture.escDrag = true; return; }
     // The oracle starts a drag once the pointer has moved more than 10px (11 does, 10 does not).
     // The move that crosses it changes nothing, and a release right after it is no drag: the next
     // move starts the drag (parity/findings/HOLD.json).
@@ -1036,7 +1045,7 @@ function onUp(e) {
     // A Text's bottom corner pulled 5 or 10 px, short of a drag, is not selected either (CAP-X2EDGES.json).
     // A press with no move is not read.
     if (/^(se|sw)$/.test(g.resizeDir || '') && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text' && (e.clientX !== g.x0 || e.clientY !== g.y0)) { select(null); return; }
-    if (g.wasSelected && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
+    if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
   const g = gesture;
@@ -1342,7 +1351,7 @@ function startResize(e, dir) {
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
   if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
     const h = blockEl(held.id).querySelector('.sqs-block-content').getBoundingClientRect().height, rg = gesture.m.rg, pitch = PHONE_ROW + rg;
-    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.02)) };
+    gesture.free = { pitch, rg, need: Math.max(1, Math.ceil((h + rg) / pitch - 0.13)) }; // 0.13 of a row of give (CAP-X6PHONEROWS.json)
     // Held, the block leaves the flow and its rows would close up, the page with them, and the frame's scroll would jump: the grid
     // keeps its height until the gesture ends.
     const fe = feEl(gesture.sid);
@@ -1446,17 +1455,19 @@ function updateResize(e) {
   // A stand-in on a phone takes at least the rows of the height it drew at the press, on a side pull too, and keeps them as it
   // narrows; one whose content grows as it narrows, like a Quote, takes that (CAP-X6PHONEFLOORS.json).
   let need = Math.max(g.free && !g.dir.includes('n') ? g.free.need : 1, contentRows(B(g.sid, g.bid), m, false, /[ew]/.test(g.dir)));
-  // On desktop a side pull gives these stand-ins the rows of the oracle's content at the new width and never gives rows back.
-  // An Instagram follows its tiles both ways: its rows at the snapped width (CAP-X6DESKROWS.json).
-  const side = bp === 'desktop' && /^[ew]$/.test(g.dir);
+  // A side pull gives these stand-ins the rows of the oracle's content at the new width and never gives rows back, on desktop
+  // and on a phone (CAP-X6DESKROWS.json, CAP-X6PHONEROWS.json). An Instagram follows its tiles both ways: its rows at the snapped width.
+  const side = /^[ew]$/.test(g.dir);
   if (side && held.standin === 'instagram') {
-    // Held, it is out of the flow: measured now, the grid's rows aren't the ones its content stretched at the press.
+    // Held, it is out of the flow: measured now, the grid's rows aren't the ones its content stretched at the press. A phone's
+    // grid keeps its height while held, so its rows go by the plain pitch.
     const { width, height } = el.style;
     Object.assign(el.style, { width: `${m.colEnd[c1 - 2] - m.colStart[c0 - 1]}px`, height: '' });
-    need = contentRows(held, measure(fe));
+    need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskHeight(held.label, c1 - c0) + m.rg) / m.pitch - 0.02));
+  else if (side && bp === 'mobile' && held.phoneHeight) need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - 0.13));
   // A Video on a corner pull: the rows its new width takes go on the bottom, whatever the top does (CAP-X6PULLS.json, CAP-X6AGAIN.json).
   if (held.type === 'video' && g.dir.includes('n') && /[ew]/.test(g.dir) && g.orig[2] - g.orig[0] < need) r1 = g.orig[0] + need;
   if (r1 - r0 < need) {
@@ -1772,12 +1783,12 @@ function renderBlockPanel() {
     : b.type === 'form' ? { kind: 'form', formName: b.formName || `${pageTitle()} Form`, button: b.button || 'Send', ...formView(b, bp), highlight: b.highlight || 'none', fihOpen, lightboxBg: shapeColorOf(b, 'lightboxBg'), fields: b.fields || [], post: postOf(b), pages: siteLinkGroups() }
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b) }
-    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b) } : null;
+    : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() } : null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
   if (b.type !== 'social') { socView = null; socErr = ''; } else if (socView?.startsWith('soc-row:') && !socialList()[Number(socView.slice(8))]) socView = null; // undo can take the row away
-  if (b.type !== 'form' || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
+  if ((b.type !== 'form' && b.standin !== 'newsletter') || blockPanel.dataset.bid !== b.id) ffView = null; else if (ffOpen() && !(ffField(b) && (!ffView.startsWith('ff-opt:') || followOf(ffField(b), ffView.split(':')[2]).length))) ffView = 'ff-list'; // undo can take the field away
   showFormPost(b);
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
@@ -1792,7 +1803,7 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, b.type === 'form' && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
   if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
@@ -2066,8 +2077,10 @@ function animWrite(a, key, v) {
   if (key === 'ease' && v === 'Spring') a.bounce ??= '0.3';
   if (key === 'ease' && v === 'Custom') a.custom ??= '0, 0, 1, 1';
 }
+// After a change the stage square stays still on an On Hover row; the mouse on the stage plays it (CAP-T15STAGE2.json, CAP-T15STAGE3.json).
+const squareAfterChange = () => animRows()[anim.i]?.trigger !== 'hover';
 function animSet(key, v) {
-  animPlay = 'square';
+  if (squareAfterChange()) animPlay = 'square';
   animEdit(`Animation ${key}`, (l) => { animPut(l, anim.i, key, v); });
 }
 blockPanel.addEventListener('change', (e) => {
@@ -2146,7 +2159,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     // The drag is one undo step: the change takes the model from before it (CAP-T15CHEAP.json undo).
     if (dk) { rangeDrag = { before, fit: null }; input.focus(); input.dispatchEvent(new Event('change', { bubbles: true })); return; }
     commit(before, `Animation ${key}`);
-    animPlay = 'square';
+    if (squareAfterChange()) animPlay = 'square';
     renderBlockPanel();
     caretAtEnd(blockPanel.querySelector(`input[data-afield="${key}"]`));
   };
@@ -2154,6 +2167,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
   addEventListener('pointerup', up);
 });
 blockPanel.addEventListener('mouseover', (e) => {
+  const st = e.target.closest?.('.an-stage');
+  if (st && !st.contains(e.relatedTarget) && sel) { const a = animRows()[anim.i]; if (a?.trigger === 'hover') playTile(st.querySelector('.an-sq'), { ...a, duration: `${(parseFloat(a.duration) || 0.4) * 1.5}s` }); return; } // once each time the mouse comes onto it, at 1.5 times the Duration (CAP-T15STAGE4.json, CAP-T15STAGE5.json)
   const t = e.target.closest?.('.an-tile[data-anim-tile]');
   if (!t || t.contains(e.relatedTarget)) return;
   const p = PRESETS[anim.trigger].find((x) => x.id === t.dataset.animTile);
@@ -2664,15 +2679,22 @@ blockPanel.addEventListener('input', (e) => {
   quoteBefore ??= JSON.stringify(model);
   refitStandin(b, () => { b[t.dataset.content] = t.value; });
 });
+let standinFlush = null, panelPress = false;
+blockPanel.addEventListener('pointerdown', () => { panelPress = true; }, true);
+window.addEventListener('pointerup', () => { panelPress = false; }, true);
 blockPanel.addEventListener('change', (e) => {
   if (!e.target.closest(STANDIN_FIELDS) || quoteBefore == null) return;
   const before = quoteBefore, name = B(sel.sid, sel.bid)?.standin === 'newsletter' ? 'Newsletter' : 'Quote';
   quoteBefore = null;
-  // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone.
-  setTimeout(() => commit(before, `${name} changed`));
+  const go = () => { if (standinFlush !== go) return; standinFlush = null; commit(before, `${name} changed`); };
+  standinFlush = go;
+  // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone. A press
+  // that left the field waits for its click: the redraw would take the switch or pick from under it.
+  if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
-// Newsletter's Show Name Field, Layout and Alignment: one undo step each.
+// Newsletter's Show Name Field, Layout and Alignment: one undo step each, after the step of a field just left.
 function setNewsletter(key, v) {
+  standinFlush?.();
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   refitStandin(b, () => { if (v) b[key] = v; else delete b[key]; });
   commit(before, 'Newsletter changed');
@@ -2726,9 +2748,9 @@ function formDesignStep(b, change) {
 }
 // A delete fits at once: its reads found no rule to build (FORMFIELDS.json, lightbox.deleteThenOn).
 function setForm(change, label, deleted = false) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
-  b.fields ||= [];
-  if (!deleted) formStep(b);
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), form = b.type === 'form'; // or Newsletter's Post-Submit
+  if (form) b.fields ||= [];
+  if (!deleted && form) formStep(b);
   change(b);
   renderSectionDom(sel.sid);
   if (deleted && !formView(b, bp).lightbox) { fitForm(b, S(sel.sid)); b.formH = { ...b.formH, [bp]: formHeight(b) }; }
@@ -2824,7 +2846,7 @@ blockPanel.addEventListener('input', (e) => {
   if (q && sel) {
     ffBefore ??= JSON.stringify(model);
     const b = B(sel.sid, sel.bid);
-    formStep(b);
+    if (b.type === 'form') formStep(b);
     b.post = { ...b.post, [q.dataset.ffPost]: q.isContentEditable ? cleanMessage(q) : q.value };
     renderSectionDom(sel.sid);
     showFormPost(b);
@@ -4054,8 +4076,8 @@ function siteLinkGroups() {
 }
 function onLinkAction(act, el) {
   const b = B(sel.sid, sel.bid);
-  // A form's redirect (FORMFIELDS.json, postSubmit): the same link menu, read as far as its list.
-  if (b.type === 'form') {
+  // A form's redirect (FORMFIELDS.json, postSubmit), and Newsletter's: the same link menu, read as far as its list.
+  if (b.type === 'form' || b.standin === 'newsletter') {
     const href = postOf(b).href;
     if (act === 'copy') { navigator.clipboard?.writeText(href).catch(() => {}); note('Link copied'); updateUi(); return; }
     if (act === 'remove') { closeLinkPopover(); setPost('href', '', 'Link removed'); return; }
@@ -4965,9 +4987,7 @@ function renderPanel() {
 // place in the stack goes by size (CAP-NEWORDER*.json).
 const pageTitle = () => document.querySelector('.page-name')?.textContent.trim() || 'Page';
 const STANDIN_TYPES = ['Quote', 'Newsletter', 'Chart', 'SoundCloud', 'Flickr', 'Instagram']; // their content follows the width (STANDINS.json)
-// On a phone a block draws its content's height, not its rows. These stand-ins hold the height the oracle's block draws at the
-// phone's 376.7 content width: measurements only, nothing of the content (CAP-68SCHED.json, CAP-68CAL.json, CAP-68ARCH.json, CAP-68PRICE.json).
-const PHONE_HEIGHT = { Scheduling: 688, Calendar: 514, Archive: 851.2, 'Pricing Plan': 430.1 };
+// The stand-ins with a phone height of their own: PHONE_HEIGHTS in render.js.
 const PHONE_ROW = 24; // a phone row's least height, as render.js draws the grid
 // The height the oracle's content draws on desktop at each width in columns, [least columns, height], widest first: measurements
 // only (CAP-X6DESKROWS.json). Summary's moves between sessions (CAP-X6STEPS.json read 14 rows at 17 columns, this 11), and its
@@ -4999,7 +5019,7 @@ const ADD_TYPES = [
   ['Markdown', 4, 6, () => ({ type: 'markdown', text: '' })], // CAP-T10PRE.json
   // Not built yet (T11, T12): a stand-in of the size the oracle gives (parity/findings/U5.json sizes).
   ...Object.entries({ Product: [6, 10], 'Pricing Plan': [8, 11], Donation: [6, 15], Scheduling: [8, 17], Summary: [18, 11], Newsletter: [10, 8], Quote: [6, 6], Audio: [6, 3], Calendar: [12, 18], Menu: [12, 28], Chart: [8, 8], 'Search Field': [8, 8], 'Page Link': [8, 5], 'Tag Cloud': [8, 5], RSS: [8, 5], Archive: [8, 21], Instagram: [8, 12], Tock: [18, 2], SoundCloud: [8, 8], Flickr: [8, 9], OpenTable: [8, 8], Zola: [8, 16], Bandsintown: [8, 5] })
-    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHT[name] ? { phoneHeight: PHONE_HEIGHT[name] } : {}) })]),
+    .map(([name, [w, h]]) => [name, w, h, () => ({ type: 'shape', fill: '#d9d4ca', radius: '0', label: name, ...(STANDIN_TYPES.includes(name) ? { standin: name.toLowerCase() } : {}), ...(PHONE_HEIGHTS[name] ? { phoneHeight: phoneHeightAt(name, 8) } : {}) })]),
 ];
 // A new block whose phone height isn't its desktop height (CAP-TURNTEST.json p6, CAP-X6FLOORSPHONE.json, CAP-T14CONTROL.json, CAP-T14LAND.json, CAP-T14HEIGHTS2.json).
 // Calendar and Pricing Plan too, a rule and not late content: the same rows from 1 s to 111 s (CAP-68CAL.json, CAP-68PRICE.json, CAP-68PULL.json).
@@ -6973,12 +6993,15 @@ function showBarTip(btn) {
   const closing = preview && btn.id === 'preview';
   const keys = closing ? '' : btn.dataset.tipKeys;
   barTip.replaceChildren(closing ? 'Close' : btn.dataset.tip);
+  barTip.classList.toggle('is-above', btn.hasAttribute('data-tip-above'));
   for (const k of keys ? keys.split(' ') : []) { const el = document.createElement('kbd'); el.textContent = k; barTip.append(el); }
   barTip.hidden = false;
   const q = btn.getBoundingClientRect();
   const w = barTip.getBoundingClientRect().width;
   barTip.style.left = `${Math.max(11, Math.min(q.left + q.width / 2 - w / 2, window.innerWidth - 22 - w))}px`;
   barTip.style.top = `${q.bottom + (btn.closest('#block-toolbar, #block-panel') ? 11 : btn.classList.contains('tb-icon') ? 11.5 : 6.5)}px`;
+  // Newsletter's Form Name tip wraps at 288px and sits 11px above its ? (CAP-T12NLPOST.json, tip).
+  if (btn.hasAttribute('data-tip-above')) barTip.style.top = `${q.top - 11 - barTip.getBoundingClientRect().height}px`;
 }
 // The block toolbar's tips (parity/findings/TOOLBARS.json tips): not on an unavailable button. They
 // appear about 517 ms after the pointer gets on the button, by the page's own clock, at full opacity with no fade (CAP-U4TIPS.json).
@@ -6993,7 +7016,7 @@ function setTbTip(btn) {
 // An option's menu button has its tip too (FORMFIELDS.json, followUp.menu).
 blockPanel.addEventListener('pointerover', (e) => { const btn = e.target.closest('[data-tip]'); if (btn) showBarTip(btn); });
 blockPanel.addEventListener('pointerout', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
-blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]')) barTip.hidden = true; });
+blockPanel.addEventListener('pointerdown', (e) => { if (e.target.closest('[data-tip]:not([data-tip-above])')) barTip.hidden = true; }); // the Form Name tip stays on a press
 toolbar.addEventListener('pointerover', (e) => { let btn = e.target.closest('button[data-tip]'); if (btn?.classList.contains('tb-open') && !btn.closest('.tb-vmenu')) btn = null; if (btn !== tbTipBtn) setTbTip(btn); });
 toolbar.addEventListener('pointerleave', () => setTbTip(null));
 // A pick redraws the toolbar and keeps the tip; a block that goes takes the tip with it.

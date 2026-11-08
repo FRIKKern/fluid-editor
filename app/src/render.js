@@ -297,7 +297,7 @@ export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.s
 // Button Text shows Sign Up, and each line of Description or Disclaimer is a paragraph. Show Name Field adds First Name
 // and Last Name. The fields take nothing on the canvas, and nothing is sent.
 export const NEWSLETTER_TEXT = { nlFormName: 'Newsletter Form', nlTitle: 'Subscribe', nlDesc: 'Sign up with your email address to receive news and updates.', nlDisc: 'We respect your privacy.', nlButton: 'Sign Up' };
-export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
+export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlReqFirst: !!b.nlReqFirst, nlReqLast: !!b.nlReqLast, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
 function newsletterHtml(b) {
   const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l)}</p>`).join('') : '');
   const input = (type, label) => `<label class="newsletter-form-field-label title">${label}</label><input class="newsletter-form-field-element field-element" type="${type}" placeholder="${label}" aria-label="${label}" tabindex="-1" readonly>`;
@@ -311,6 +311,23 @@ function newsletterHtml(b) {
 }
 // The menu types whose content sets the height and follows the width (STANDINS.json). The words and
 // the 12 plain tiles are local; no picture or service is behind them.
+// On a phone a block draws its content's height, not its rows. A stand-in holds the height the oracle's block draws there, by
+// its width in phone columns, [least columns, height], widest first: measurements only (CAP-68SCHED.json, CAP-68CAL.json,
+// CAP-68ARCH.json, CAP-68PRICE.json, CAP-X6PHONEROWS.json).
+export const PHONE_HEIGHTS = {
+  Scheduling: [[0, 688]],
+  Calendar: [[0, 514]],
+  Archive: [[0, 851.2]],
+  'Pricing Plan': [[8, 430.1], [0, 455.1]],
+  Newsletter: [[0, 362.3]],
+  Menu: [[8, 980.7], [7, 1003.1], [0, 1077.2]],
+  'Page Link': [[7, 95], [5, 113.1], [4, 151.1], [0, 207.2]],
+  RSS: [[7, 95], [5, 113.1], [4, 131.3], [0, 187.4]],
+  Bandsintown: [[8, 1011], [7, 1207], [0, 1319]],
+  OpenTable: [[4, 270], [0, 316.1]],
+};
+export const phoneHeightAt = (label, cols) => PHONE_HEIGHTS[label]?.find(([c]) => cols >= c)?.[1];
+const phoneCols = (b) => { const a = b.layout?.mobile?.area; return a ? a[3] - a[1] : 8; };
 const STANDIN = {
   // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
   // shows as a space (CAP-T12QUOTEROWS.json). An empty Source takes the figcaption away.
@@ -406,7 +423,7 @@ function blockInner(b, model) {
       // A phone that draws differently has a container of its own, as a button does.
       const box = (sys, inner) => `<div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_${sys}${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${inner}</div>`;
       const desk = drawnIn('desktop'), phone = b.designMobile ? drawnIn('mobile') : desk;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(b.phoneHeight)}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(phoneHeightAt(b.label, phoneCols(b)) ?? b.phoneHeight)}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle

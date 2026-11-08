@@ -291,18 +291,19 @@ function editorHtml(f, n) {
 
 const ALIGN_ICONS = { left: '<path d="M4 6h16M4 10h11M4 14h16M4 18h11"/>', center: '<path d="M4 6h16M7 10h10M4 14h16M7 18h10"/>', right: '<path d="M4 6h16M9 10h11M4 14h16M9 18h11"/>' };
 const POSITION_ICONS = { top: '<path d="M4 4h16M12 21V8M8 12l4-4 4 4"/>', middle: '<path d="M4 12h16M12 2v7M9 6l3 3 3-3M12 22v-7M9 18l3-3 3 3"/>', bottom: '<path d="M4 20h16M12 3v13M8 12l4 4 4-4"/>' };
-function postHtml(p, link) {
+// Newsletter's Post-Submit is the form's without Alignment and Position, under its own title (CAP-T12NLPOST.json).
+function postHtml(p, link, short) {
   const seg = (on, v, t) => `<button type="button" role="radio" aria-checked="${on}" class="bp-ffp-seg${on ? ' is-on' : ''}" data-ff="post-mode:${v}">${t}</button>`;
   const three = (k, cur, icons) => Object.entries(icons).map(([v, d]) => `<button type="button" role="radio" aria-checked="${cur === v}" aria-label="${v[0].toUpperCase()}${v.slice(1)}" class="bp-ffp-pick${cur === v ? ' is-on' : ''}" data-ff="post-${k}:${v}">${ic(d, 22)}</button>`).join('');
   const body = p.redirect
     ? `<div class="bp-ffp-link">${link}</div><div class="bp-ff-note bp-ffp-help">Add a URL to redirect the user after they submit the form.</div>`
-    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><div class="bp-ffp-msg${p.message ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" data-ff-post="message">${messageHtml(p.message) || '<p><br></p>'}</div><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div><div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div>${lookBox('data-ff-post="html"', p.html, 'html', { placeholder: 'Add', label: 'HTML', cls: ' bp-ffp-code' })}<div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
-  return `${head('Edit Post-Submit')}<div class="bp-ff bp-ffp"><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-first">After Submission</div><div class="bp-ffp-segs" role="radiogroup">${seg(!p.redirect, 'message', 'Message')}${seg(p.redirect, 'redirect', 'Redirect')}</div>${body}</div>`;
+    : `<div class="bp-soccap bp-ff-cap bp-ffp-cap">Message</div><div class="bp-ffp-msg${p.message ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" data-ff-post="message">${messageHtml(p.message) || '<p><br></p>'}</div><div class="bp-ff-note bp-ffp-help">This message displays after users submit a form.</div>${short ? '' : `<div class="sp-row bp-ffp-row"><span class="sp-label">Alignment</span><span class="bp-ffp-three" role="radiogroup">${three('align', p.align, ALIGN_ICONS)}</span></div><div class="sp-row bp-ffp-row"><span class="sp-label">Position</span><span class="bp-ffp-three" role="radiogroup">${three('position', p.position, POSITION_ICONS)}</span></div>`}<div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-htmlcap">HTML</div>${lookBox('data-ff-post="html"', p.html, 'html', { placeholder: 'Add', label: 'HTML', cls: ' bp-ffp-code' })}<div class="bp-ff-note bp-ffp-help">HTML to be rendered in addition to the Post-Submit Message.</div>`;
+  return `${head(short ? 'Post-Submit' : 'Edit Post-Submit')}<div class="bp-ff bp-ffp${short ? ' bp-ffp-short' : ''}"><div class="bp-soccap bp-ff-cap bp-ffp-cap bp-ffp-first">After Submission</div><div class="bp-ffp-segs" role="radiogroup">${seg(!p.redirect, 'message', 'Message')}${seg(p.redirect, 'redirect', 'Redirect')}</div>${body}</div>`;
 }
 
 export function formFieldsPanelHtml(c, view, linkField) {
   const fields = c.fields;
-  if (view === 'ff-post') return postHtml(c.post, linkField(c.post.href, c.pages).replace('>Link<', '>Redirect Url<'));
+  if (view === 'ff-post') return postHtml(c.post, linkField(c.post.href, c.pages).replace('>Link<', '>Redirect Url<'), c.kind === 'newsletter');
   if (view === 'ff-add') return addHtml();
   const [v, a, b, k] = (view || '').split(':');
   if (v === 'ff-fuadd') return addHtml('Add Follow-Up', 'fu-tile');
