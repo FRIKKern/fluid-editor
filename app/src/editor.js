@@ -2567,9 +2567,14 @@ blockPanel.addEventListener('input', (e) => {
   if (!t || !sel) return;
   const b = B(sel.sid, sel.bid);
   quoteBefore ??= JSON.stringify(model);
+  // Refit 1, seen only (CAP-T12QUOTEROWS.json): content that grows takes the rows up to hold it; content that shrinks
+  // past a row lets them go down to the whole rows it fills, so 6 rows at 4.93 go to 4, and 4 rows stay at 3.27. Seen 7 of
+  // 8; the miss: Source emptied at 8.69 keeps 9 rows on the oracle, 8 here.
+  const x0 = contentRows(b, formPitch(b), false, false, true), rows = lay(b).area[2] - lay(b).area[0];
   b[t.dataset.content] = t.value;
   renderSectionDom(sel.sid);
-  setFormRows(b, S(sel.sid), contentRows(b, formPitch(b)));
+  const x = contentRows(b, formPitch(b), false, false, true), up = Math.max(1, Math.ceil(x - 0.02));
+  setFormRows(b, S(sel.sid), x > x0 ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
 });
 blockPanel.addEventListener('change', (e) => {
   if (!e.target.closest('textarea[data-content="quote"], textarea[data-content="source"]') || quoteBefore == null) return;

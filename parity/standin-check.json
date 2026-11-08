@@ -1,7 +1,7 @@
 {
  "check": "content that follows the width",
- "pass": 131,
- "total": 132,
+ "pass": 133,
+ "total": 134,
  "results": [
   {
    "what": "Quote at span 6: the block",
@@ -520,8 +520,8 @@
    "ok": true
   },
   {
-   "what": "Quote: an empty Source takes the figcaption, 9 rows",
-   "ok": true
+   "what": "Quote: an empty Source takes the figcaption, 9 rows (named miss: 8)",
+   "ok": false
   },
   {
    "what": "Quote: one Undo after leaving gives the Source back only",
@@ -529,7 +529,15 @@
   },
   {
    "what": "Quote: an empty Quote, 3 rows, as read",
-   "ok": false
+   "ok": true
+  },
+  {
+   "what": "Quote: Enter in Source is a plain newline, no rows",
+   "ok": true
+  },
+  {
+   "what": "Quote: rows grow 3,5,5,6 and shrink 4,4,4, as read (seen)",
+   "ok": true
   }
  ]
 }

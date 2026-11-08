@@ -1,0 +1,155 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "How a Quote picks its rows from its content. Predicted in CAP-T12QUOTEROWS-PREDICTED.json (commit 0d7f509): round to nearest, round up, or grow up and shrink to nearest.",
+ "how": "A new Quote on the probe page at span 6, Edit, Content, real keys, each read 0.9s after its key. Quote emptied (Cmd+A, Backspace); in Source, Enter and x five times, then Backspace twice five times; in Quote, A, then Enter and B, C, D, then Backspace twice three times; then the field left. Every press had an on-top check. Left by Exit, then Exit Without Saving; the page read 0 blocks after.",
+ "reads": {
+  "start": {
+   "rows": 6,
+   "contentHeight": 225.63,
+   "block": 235.56,
+   "x": 5.758
+  },
+  "quoteEmpty": {
+   "rows": 3,
+   "contentHeight": 123.16,
+   "block": 123.16,
+   "x": 3.265
+  },
+  "sourceUp": [
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   }
+  ],
+  "sourceDown": [
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   },
+   {
+    "rows": 3,
+    "contentHeight": 123.16,
+    "block": 123.16,
+    "x": 3.265
+   }
+  ],
+  "sourceText": {
+   "afterFiveEnters": "— Quote Source\nx\nx\nx\nx\nx"
+  },
+  "quoteA": {
+   "rows": 3,
+   "contentHeight": 123.16,
+   "block": 123.16,
+   "x": 3.265
+  },
+  "quoteUp": [
+   {
+    "rows": 5,
+    "contentHeight": 157.31,
+    "block": 194.47,
+    "x": 4.096
+   },
+   {
+    "rows": 5,
+    "contentHeight": 191.47,
+    "block": 194.47,
+    "x": 4.927
+   },
+   {
+    "rows": 6,
+    "contentHeight": 225.63,
+    "block": 235.56,
+    "x": 5.758
+   }
+  ],
+  "quoteDown": [
+   {
+    "rows": 4,
+    "contentHeight": 191.47,
+    "block": 191.47,
+    "x": 4.927
+   },
+   {
+    "rows": 4,
+    "contentHeight": 157.31,
+    "block": 157.31,
+    "x": 4.096
+   },
+   {
+    "rows": 4,
+    "contentHeight": 123.16,
+    "block": 153.38,
+    "x": 3.265
+   }
+  ],
+  "afterLeaving": {
+   "rows": 4,
+   "contentHeight": 123.16,
+   "block": 153.38,
+   "x": 3.265
+  }
+ },
+ "facts": [
+  "Enter in Source puts a plain newline in the figcaption's text, not a <br>: it shows as a space, and the height does not change.",
+  "A Quote grows to hold its content: 3 rows at 3.265, 5 at 4.096, 5 at 4.927, 6 at 5.758.",
+  "Shrinking from 6 rows to content of 4.927 gives 4 rows, and the block runs 38px past them; 4 rows stay at 4.096 and at 3.265. Leaving the field changes nothing."
+ ],
+ "scores": {
+  "note": "First round. The Source steps all missed under every rule: each predicted lines that Source does not make (10 steps). The 6 Quote steps:",
+  "nearest": "3 of 6 (up 4,5,6 vs 5,5,6; down 5,4,3 vs 4,4,4)",
+  "up": "4 of 6 (down 5,5,4 vs 4,4,4)",
+  "growUpShrinkNearest": "4 of 6 (down 5,4,3 vs 4,4,4)"
+ },
+ "refit1": {
+  "rule": "When the content grows, rows = the larger of the rows and ceil(x - 0.02). When it shrinks and ceil(x - 0.02) is under the rows, rows = floor(x + 0.02); otherwise they stay.",
+  "seen": "Seen only, 7 of the 8 grow and shrink steps read so far (x from ours, which has the same boxes): 6 to 7 at 6.59 and 7 to 10 at 9.08 (grow); Quote emptied 10 to 3 and 6 to 3 at 3.27; 6 to 4 at 4.93; 4 stays at 4.10 and at 3.27. Miss: Source emptied after the long quote, 9.08 to 8.69, keeps 9 rows on the oracle; the rule gives 8. Our old rule (round up both ways) gives 4 of 8. Not fitted further: one round was asked for, and no rule tried fits all 8.",
+  "builtOn": "the Quote only"
+ }
+}
