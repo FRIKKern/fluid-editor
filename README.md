@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 51 changes
-  - R2: CAP-TEXTSECOND, rule S rejected at 11 of 13; a new Text keeps its second row in a second edit (read facts) ([#434](https://github.com/FRIKKern/fluid-editor/pull/434))
-  - A2: G3, a text edit that changes no size sets the phone order again (CAP-A2TYPEDNEW 7 of 7 fresh) ([#427](https://github.com/FRIKKern/fluid-editor/pull/427))
+- **Today** · 53 changes
+  - T12: the shared Design tab's rows where the oracle's are, a Quote's Effects and Appear ([#435](https://github.com/FRIKKern/fluid-editor/pull/435))
+  - P3: numbers 102 to 104; after Undo the panel keeps its Height and Alignment buttons (99) ([#436](https://github.com/FRIKKern/fluid-editor/pull/436))
 - **Yesterday** · 92 changes
   - T12: Chart's 14 palettes and the dialog's first focus ([#383](https://github.com/FRIKKern/fluid-editor/pull/383))
 - **This week** · 272 changes, 3 milestones closed
