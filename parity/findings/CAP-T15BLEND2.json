@@ -1,0 +1,226 @@
+{
+  "item": "CAP-T15BLEND2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "T15: a Shape on Difference over another Shape: does it blend with the block under it",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "read",
+      "fresh load",
+      {
+        "sections": true
+      }
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "two",
+      {
+        "zs": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "clickIf",
+      "Blend Mode"
+    ],
+    [
+      "clickIf",
+      "Difference"
+    ],
+    [
+      "read",
+      "top on Difference",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "zs": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "shot",
+      "over"
+    ]
+  ],
+  "reads": {
+    "fresh load": {
+      "sections": [],
+      "path": "/gestures-probe",
+      "save": "clean"
+    },
+    "two": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "7/2/13/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794124455130_659",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "zs": [
+        "1",
+        "2"
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "top on Difference": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "7/2/13/10",
+        "box": [
+          100.1,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794124455130_659",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 8",
+          "mixBlendMode": "difference",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "zs": [
+        "1",
+        "2"
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "pixels": {
+    "over": {
+      "shape": [
+        0,
+        0,
+        0
+      ],
+      "section": [
+        181,
+        100,
+        247
+      ]
+    }
+  },
+  "pixelNote": "Two new Shapes in the same place (z 1 and 2), the top on Difference: the middle and both corners read (0, 0, 0), white less white. It blends with the Shape under it."
+}
