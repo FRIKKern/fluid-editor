@@ -30,5 +30,31 @@
       "editor": "URL, the field holding https://a.com/some/path"
     }
   },
-  "notRead": "what Copy puts on the clipboard (a headless clipboard), Remove Link's undo count"
+  "notRead": "what Copy puts on the clipboard (a headless clipboard), Remove Link's undo count",
+  "predicted2": {
+    "note": "Added before the second run (CAP-E7BOX2), after CAP-E7BOX read Copy and Remove Link. Ours, as built now.",
+    "copy, 3 s later": {
+      "copyLabel": "Copy",
+      "box": true
+    },
+    "stack editor": {
+      "editor": "URL, the field focused and empty"
+    },
+    "stack typed": {
+      "editor": true,
+      "field": "a.com/some/path"
+    },
+    "stack after Enter": {
+      "editor": true,
+      "field": "https://a.com/some/path",
+      "focused": "the field"
+    },
+    "stack reopened": {
+      "note": "a press with the editor open only closes it, so this reads no editor; then a second press opens the editor with the link in the field, not the box"
+    },
+    "row press": {
+      "box": true,
+      "newTab": false
+    }
+  }
 }
