@@ -749,6 +749,9 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     ['Text corner pressed, no move', 'text', 'se', 0, 0, 'mouse', false], ['Text north-east pressed, no move', 'text', 'ne', 0, 0, 'mouse', false],
     ['Text north-east 60 down', 'text', 'ne', 0, 60, 'mouse', true], ['Text north-west 60 down', 'text', 'nw', 0, 60, 'mouse', true],
     ['Text north-east 10 up', 'text', 'ne', 0, -10, 'mouse', false], ['Text north-east 20 up', 'text', 'ne', 0, -20, 'mouse', false], ['Text north-east 40 up', 'text', 'ne', 0, -40, 'mouse', false],
+    // CAP-X2LEFT.json, twice each: sw and nw pressed with no move, a top corner moved short of a drag.
+    ['Text south-west pressed, no move', 'text', 'sw', 0, 0, 'mouse', false], ['Text north-west pressed, no move', 'text', 'nw', 0, 0, 'mouse', false],
+    ['Text north-east 5 right', 'text', 'ne', 5, 0, 'mouse', false], ['Text north-east 9 right', 'text', 'ne', 9, 0, 'mouse', false], ['Text north-west 5 up', 'text', 'nw', 0, -5, 'mouse', false],
 ['Text east 60 right', 'text', 'e', 60, 0, 'mouse', true], ['Shape corner 70, 70 by pen', 'shape', 'se', 70, 70, 'pen', false], ['Shape corner 70, 70 by touch', 'shape', 'se', 70, 70, 'touch', true]]) {
     await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
