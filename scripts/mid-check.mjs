@@ -752,6 +752,25 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   }
   viewport(S, 1600, 1000); await pause(120);
 }
+// R2: after a south resize the page scrolls so the bottom of the block last moved while the page scrolled sits at the frame's
+// bottom, and with no such move it stays (CAP-RESIZESCROLLPREDICT.json R5, CAP-RESIZESCROLL4.json v1 and v2); an east resize stays (CAP-RESIZESCROLL3.json t3).
+{ const lay = (d) => ({ desktop: { area: d, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } });
+  const sec = (id, rows, blocks) => ({ id, theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: rows, mobile: 6 }, blocks });
+  const frameJs = `const f = document.getElementById('site-frame'), w = f.contentWindow, d = f.contentDocument, q = f.getBoundingClientRect();`;
+  const at = (id, dir) => evalJs(S, `(() => { ${frameJs} const r = (${dir ? `d.querySelector('.fe-handle[data-dir="${dir}"]')` : `d.querySelector('.fe-block[data-block-id="${id}"]')`}).getBoundingClientRect(); return JSON.stringify([q.left + r.left + r.width / 2, q.top + r.top + r.height / 2, q.top + w.innerHeight]); })()`);
+  for (const [name, moveFirst, dir] of [['south resize after a move that scrolled', true, 's'], ['south resize, no move before', false, 's'], ['east resize after a move that scrolled', true, 'e']]) {
+    const blocks = [{ id: 'v', type: 'shape', fill: '#999', label: 'v', layout: lay([1, 2, 17, 10]) }, { id: 'k', type: 'shape', fill: '#ccc', label: 'k', layout: lay([1, 12, 7, 18]) }];
+    evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: ${JSON.stringify([sec('s', 16, blocks), sec('n', 8, [])])} }); await new Promise((r) => setTimeout(r, 200)); document.getElementById('site-frame').contentWindow.scrollTo(0, 0); return 1; })()`); await pause(300);
+    if (moveFirst) { const p = at('v'); cdp(S, { op: 'drag', from: [p[0], p[1]], to: [p[0], p[2] - 30], steps: 12, holdMs: 200 }); await pause(500); }
+    evalJs(S, `document.getElementById('site-frame').contentWindow.scrollTo(0, 0)`); evalJs(S, `fe.select('s', 'k')`); await pause(200);
+    const h = at('k', dir); cdp(S, { op: 'drag', from: [h[0], h[1]], to: dir === 's' ? [h[0], h[1] + 246] : [h[0] + 120, h[1]], steps: 12, holdMs: 200 }); await pause(400);
+    const got = evalJs(S, `(() => { ${frameJs} return JSON.stringify({ y: w.scrollY, bottom: d.querySelector('.fe-block[data-block-id="v"]').getBoundingClientRect().bottom, h: w.innerHeight }); })()`);
+    const want = moveFirst && dir === 's' ? 'the moved block at the bottom' : 'no scroll';
+    const ok = want === 'no scroll' ? got.y === 0 : got.y > 0 && Math.abs(got.bottom - got.h) < 1.5;
+    groupCases.push({ name: `R2 ${name}`, diffs: ok ? [] : [`oracle ${want}, ours scroll ${got.y}, moved block's bottom ${got.bottom} in a frame of ${got.h}`] });
+  }
+  evalJs(S, `fe.select(null)`);
+}
 // X2: which handle drags leave a block selected (HANDLEUP.json, a Text's corner and side: CAP-X2STEPS.json), with the real mouse, a pen and touch.
 { const load = async (type, html = '') => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'large', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks: [{ id: 'k', type: '${type}', label: 'k', fill: '#ccc', html: '${html}', layout: { desktop: { area: [1, 5, 7, 11], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(40); };
   const at = (dir) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="${dir}"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
