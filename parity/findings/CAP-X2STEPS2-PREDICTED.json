@@ -1,0 +1,247 @@
+{
+  "item": "CAP-X2STEPS2-PREDICTED",
+  "from": "our code in this commit, run with these steps before any read of CAP-X2STEPS2: a lone block on the right margin track goes left by its right edge (the mirror of the left margin), fitted on CAP-X2STEPS.json (2, 4, 7, 8 and 10 wide; seen, all legs within 1px). First round.",
+  "question": "X2: the first steps from the right margin track on widths and press points not read in CAP-X2STEPS.json. A new Shape, rows 1 to 7, ending on line 27, walked left 1px at a time with the real pointer, pressed 40px up from its bottom and gx from its left (from its right when negative): 3, 5, 6 and 9 wide at gx 50, 6 wide at gx 20, 4 wide at gx -50. One block per enter, so the walk reads the only section's ring. Scored by leg within 1px, as snap-check does; the oracle's first xOut entry at 1 is the ring showing, not a step.",
+  "walks": {
+    "f w3": {
+      "start": "1 / 24 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 23 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 22 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 21 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 20 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 21 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 22 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 23 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 24 / 7 / 27"
+        ]
+      ]
+    },
+    "f w5": {
+      "start": "1 / 22 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 21 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 20 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 19 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 18 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 19 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 20 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 21 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 22 / 7 / 27"
+        ]
+      ]
+    },
+    "f w6": {
+      "start": "1 / 21 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 17 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 21 / 7 / 27"
+        ]
+      ]
+    },
+    "f w9": {
+      "start": "1 / 18 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 17 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 16 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 15 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 14 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 15 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 16 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 17 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 18 / 7 / 27"
+        ]
+      ]
+    },
+    "f w6 press 20": {
+      "start": "1 / 21 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 17 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 18 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 21 / 7 / 27"
+        ]
+      ]
+    },
+    "f w4 press 50 from right": {
+      "start": "1 / 23 / 7 / 27",
+      "xOut": [],
+      "xBack": [
+        [
+          -51,
+          "1 / 22 / 7 / 26"
+        ],
+        [
+          -136,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -194,
+          "1 / 20 / 7 / 24"
+        ],
+        [
+          -253,
+          "1 / 19 / 7 / 23"
+        ]
+      ],
+      "xHome": [
+        [
+          -252,
+          "1 / 20 / 7 / 24"
+        ],
+        [
+          -193,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -135,
+          "1 / 22 / 7 / 26"
+        ],
+        [
+          -50,
+          "1 / 23 / 7 / 27"
+        ]
+      ]
+    }
+  }
+}

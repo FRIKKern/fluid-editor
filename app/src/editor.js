@@ -1032,10 +1032,14 @@ function onUp(e) {
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
+  // A Text let go off its south-east corner, right of its old right side, is not selected; off its east side it is
+  // (CAP-X2STEPS.json: se 20, 40, 60, 80 and 60 again right, e 60). Left, up, down and the other corners are not read.
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && g.dir === 'se' && e.clientX - g.right0 > LET_GO_RIGHT) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
+const LET_GO_RIGHT = 10; // a Text's south-east corner: 20 did, under 20 is not read
 
 // Widening or narrowing a text block that fits its text keeps it fitted: its rows follow the text
 // (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH2.json). One made taller by hand keeps its rows (HANDLEUP.json).
@@ -1302,7 +1306,9 @@ function startResize(e, dir) {
   const held = B(gesture.sid, gesture.bid), span = lay(held).area[2] - lay(held).area[0];
   gesture.fits = (held.type === 'text' || held.standin === 'instagram') && !gesture.members && [contentRows(held, gesture.m), 2].includes(span) && span >= contentRows(held, gesture.m);
   if (gesture.fits) { gesture.need0 = contentRows(held, gesture.m); gesture.height0 = textHeight(held); }
-  gesture.bottom0 = blockEl(held.id).getBoundingClientRect().bottom;
+  const q0 = blockEl(held.id).getBoundingClientRect();
+  gesture.bottom0 = q0.bottom;
+  gesture.right0 = q0.right;
   // On a phone a stand-in's content stretches its rows. A south pull counts from the rows that content needs on the plain
   // pitch, the phone's 24px row (render.js) and its gap, and steps on that pitch: one row down gives ceil((height + gap) / pitch) + 1 (CAP-68PULL.json).
   if (bp === 'mobile' && (held.standin || held.phoneHeight)) {
