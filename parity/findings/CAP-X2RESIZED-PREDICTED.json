@@ -1,0 +1,603 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-08",
+  "question": "X2, one round, no refits: a block from the right margin track mirrors (refit 2's frozen rule: right edge leads, stops at column 2, last step waits) unless it was never resized after it was added, which keeps the left edge rule (ours on main). Inferred from CAP-X2WIDTHS3.json, where the only never-resized block, a 6 wide Shape, followed the left edge rule. Fresh: a never-resized 4 wide Markdown and Code, and a 6 wide Shape widened 1 column and narrowed back. Each is dragged from column 2 to the margin track, pressed 10% in from its left, then held and moved like HOLD.json's sweep. Gestures Probe, unsaved.",
+  "from": "Never resized: our code on main c1abbfc. Resized: refit 2's mirror (CAP-X2WIDTHS3-PREDICTED.json) on top of main, in a scratch copy, not committed. Both from a scratch predictor of oracle-capture's hold and move.",
+  "hit": "Scored: the rings at -100, -140, -300, -600 and -1000, 5 per block, 15 in all. Every one must hit for a build. -30 and -60 are read but not scored: HOLD.json names the 6 wide's odd first 90px. A block that lands at another width is scored against the same rule for that width, from the same code. A start not on line 27 is a setup miss, named.",
+  "predicted": {
+    "N4 markdown": {
+      "rule": "left edge (never resized)",
+      "start": "1 / 23 / 7 / 27",
+      "rings": [
+        [
+          -100,
+          12,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -140,
+          12,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -300,
+          12,
+          "1 / 18 / 7 / 22"
+        ],
+        [
+          -600,
+          12,
+          "1 / 13 / 7 / 17"
+        ],
+        [
+          -1000,
+          12,
+          "1 / 6 / 7 / 10"
+        ]
+      ]
+    },
+    "N4 code": {
+      "rule": "left edge (never resized)",
+      "start": "1 / 23 / 7 / 27",
+      "rings": [
+        [
+          -100,
+          12,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -140,
+          12,
+          "1 / 21 / 7 / 25"
+        ],
+        [
+          -300,
+          12,
+          "1 / 18 / 7 / 22"
+        ],
+        [
+          -600,
+          12,
+          "1 / 13 / 7 / 17"
+        ],
+        [
+          -1000,
+          12,
+          "1 / 6 / 7 / 10"
+        ]
+      ]
+    },
+    "R6 shape": {
+      "rule": "mirror (resized)",
+      "start": "1 / 21 / 7 / 27",
+      "rings": [
+        [
+          -100,
+          12,
+          "1 / 20 / 7 / 26"
+        ],
+        [
+          -140,
+          12,
+          "1 / 19 / 7 / 25"
+        ],
+        [
+          -300,
+          12,
+          "1 / 17 / 7 / 23"
+        ],
+        [
+          -600,
+          12,
+          "1 / 12 / 7 / 18"
+        ],
+        [
+          -1000,
+          12,
+          "1 / 5 / 7 / 11"
+        ]
+      ]
+    }
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Markdown"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1314.38,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "N4 markdown start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      -30,
+      12
+    ],
+    [
+      "ring",
+      "N4 -30"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "N4 -60"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "N4 -100"
+    ],
+    [
+      "move",
+      -140,
+      12
+    ],
+    [
+      "ring",
+      "N4 -140"
+    ],
+    [
+      "move",
+      -300,
+      12
+    ],
+    [
+      "ring",
+      "N4 -300"
+    ],
+    [
+      "move",
+      -600,
+      12
+    ],
+    [
+      "ring",
+      "N4 -600"
+    ],
+    [
+      "move",
+      -1000,
+      12
+    ],
+    [
+      "ring",
+      "N4 -1000"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1314.38,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "N4 code start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      -30,
+      12
+    ],
+    [
+      "ring",
+      "N4 -30"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "N4 -60"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "N4 -100"
+    ],
+    [
+      "move",
+      -140,
+      12
+    ],
+    [
+      "ring",
+      "N4 -140"
+    ],
+    [
+      "move",
+      -300,
+      12
+    ],
+    [
+      "ring",
+      "N4 -300"
+    ],
+    [
+      "move",
+      -600,
+      12
+    ],
+    [
+      "ring",
+      "N4 -600"
+    ],
+    [
+      "move",
+      -1000,
+      12
+    ],
+    [
+      "ring",
+      "N4 -1000"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.82,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R6 shape start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      -30,
+      12
+    ],
+    [
+      "ring",
+      "R6 -30"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "R6 -60"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "R6 -100"
+    ],
+    [
+      "move",
+      -140,
+      12
+    ],
+    [
+      "ring",
+      "R6 -140"
+    ],
+    [
+      "move",
+      -300,
+      12
+    ],
+    [
+      "ring",
+      "R6 -300"
+    ],
+    [
+      "move",
+      -600,
+      12
+    ],
+    [
+      "ring",
+      "R6 -600"
+    ],
+    [
+      "move",
+      -1000,
+      12
+    ],
+    [
+      "ring",
+      "R6 -1000"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ]
+}
