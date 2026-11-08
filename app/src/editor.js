@@ -3196,7 +3196,7 @@ document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contain
 function setButton(change, label) {
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
-  if (!b || (b.type !== 'button' && b.type !== 'image')) return;
+  if (!b || (b.type !== 'button' && b.type !== 'image' && b.type !== 'stack')) return; // a Stack keeps its link too (CAP-E7BOX2.json)
   const before = JSON.stringify(model);
   change(b);
   renderSectionDom(sel.sid);
@@ -3901,7 +3901,20 @@ function onLinkAction(act, el) {
     openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height), { href, newTab: !!postOf(b).newTab, apply: (v) => setPost('href', v, v ? 'Link set' : 'Link removed'), setNewTab: (on) => { if (on !== !!postOf(B(sel.sid, sel.bid)).newTab) setPost('newTab', on, 'Link new tab'); } });
     return;
   }
-  if (act === 'copy') { navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied'); updateUi(); return; }
+  // In the toolbar's box, Copy reads Link Copied for a while and the focus stays on the row; Remove Link turns the box
+  // into the empty editor, its field focused and the pages listed (CAP-E7BOX.json, CAP-E7BOX2.json: Link Copied at 0.8 s,
+  // Copy again by 3 s; 2 s is inferred between them).
+  if (act === 'copy') {
+    navigator.clipboard?.writeText(b.href || '').catch(() => {}); note('Link copied');
+    if (el?.dataset.linkBox === 'copy') { el.textContent = 'Link Copied'; setTimeout(() => { if (el.isConnected) el.textContent = 'Copy'; }, 2000); return; }
+    updateUi(); return;
+  }
+  if (act === 'remove' && el?.dataset.linkBox === 'remove') {
+    setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed');
+    linkPop.hidden = false; linkPop.classList.remove('is-box', 'tip-held');
+    drawLinkPop('url', '', false); showLinkList(true); linkPop.querySelector('.lk-input')?.focus(); markLinkBar();
+    return;
+  }
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit: the panel is redrawn while the editor is open, so the place is read once.
   const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
@@ -3961,7 +3974,7 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkPop.dataset.bid = b.id;
   linkPop.hidden = false;
   if (fromBar) { markLinkBar(); setTbTip(null); }
-  if (fromBar && b.type === 'button' && b.href) { drawLinkBox(b); return; }
+  if (fromBar && (b.type === 'button' || b.type === 'stack') && b.href) { drawLinkBox(b); return; } // a linked Stack opens the same box (CAP-E7BOX2.json)
   const href = target ? target.href : b.href;
   drawLinkPop(linkKind(href), href, target ? target.newTab : !!b.newTab);
 }
@@ -4076,7 +4089,8 @@ linkPop.addEventListener('click', (e) => {
     } else onLinkAction(act, boxAct);
     return;
   }
-  if (e.target.closest('.lk-box-row')) return;
+  // A press on the box's row opens the link in a new tab (CAP-E7BOX2.json, read from the browser's tabs). Inferred for an email or a number.
+  if (e.target.closest('.lk-box-row')) { const b = B(sel.sid, sel.bid); if (b?.href) window.open(b.href, '_blank', 'noopener'); return; }
   const mdAct = e.target.closest('[data-md-link]');
   if (mdAct) {
     const t = linkTarget, act = mdAct.dataset.mdLink;

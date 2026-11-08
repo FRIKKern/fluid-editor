@@ -5,13 +5,13 @@
   "predicted": {
     "copy": {
       "box": true,
-      "link": "https://a.com/some/path",
+      "link": "<https>a.com/some/path",
       "onScreen": "nothing new: no note, no tip",
       "focused": "Copy"
     },
     "row press": {
       "box": true,
-      "link": "https://a.com/some/path",
+      "link": "<https>a.com/some/path",
       "focused": "the row",
       "note": "nothing opens"
     },
@@ -27,7 +27,7 @@
     },
     "stack reopened": {
       "box": false,
-      "editor": "URL, the field holding https://a.com/some/path"
+      "editor": "URL, the field holding <https>a.com/some/path"
     }
   },
   "notRead": "what Copy puts on the clipboard (a headless clipboard), Remove Link's undo count",
@@ -46,7 +46,7 @@
     },
     "stack after Enter": {
       "editor": true,
-      "field": "https://a.com/some/path",
+      "field": "<https>a.com/some/path",
       "focused": "the field"
     },
     "stack reopened": {
