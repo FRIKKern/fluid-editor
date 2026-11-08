@@ -1,0 +1,38 @@
+{
+  "item": "CAP-U9DEMO-PREDICT",
+  "question": "U9's scroll band, frozen rule, a check and not a refit, written and pushed before the read. Does step size or geometry explain SECTIONBAR's open read on demo section 1 (50 px steps: the panel follows 3 px above the button and stops at H - 476)? Gestures Probe, window 1600 by 1000, five empty sections, section 1 at Row Count 16 (shaped like demo section 1: medium, 16 rows). F walks it in 50 px steps, G in 20 px steps, both 250 ms a step.",
+  "rule": "While Edit Section's panel is open and the page scrolls, its top (window coordinates) is the last top, pushed to stay within a band that moves with the page: low = the section's content box top + 1, high = the content box bottom + 1 - 476 (the content box is the section less its padding, the box that holds the grid). A push from below that would put the panel's bottom past the window (top above H - 476, rounded) does not happen: it stays. Then it is held at 0. It closes once high is above -421 in the window, and stays closed scrolling back. Frozen after refit 1 (CAP-U9BAND-PREDICT.json, CAP-U9BAND.json: 529 of 540 fresh).",
+  "inputs": "The oracle's content box taken to be ours for a medium section of 16 rows: 857.7 tall, content box from + 0, 857.7 tall (the same as ours' demo section 1). Ours' 8-row medium section: content box from + 47.4.",
+  "predictions": [
+    {
+      "case": "F and G: content box",
+      "predict": "from the section's top + 0, 857.7 tall, within 1 px"
+    },
+    {
+      "case": "F: band, from the section's top",
+      "predict": "low + 1, high + 382.7 (381.7 wide)"
+    },
+    {
+      "case": "F: below",
+      "predict": "scrolled up in 50 px steps, the panel stops following once low passes 524 (H - 476), and stays at its last top, below 524, not at 524"
+    },
+    {
+      "case": "G: below",
+      "predict": "the same in 20 px steps"
+    },
+    {
+      "case": "F and G: close",
+      "predict": "at the first step where the section's top + 382.7 is above -421 in the window; stays closed scrolling back"
+    },
+    {
+      "case": "F: every step",
+      "predict": "each step within 1 px of the rule, run from the read opening"
+    },
+    {
+      "case": "G: every step",
+      "predict": "each step within 1 px of the rule, run from the read opening"
+    }
+  ],
+  "meaning": "If F stops at 524 and G stays below it, step size explains the old read: its two marks-check cases become named misses (coarse 50 px steps). If the content box is not from + 0, geometry explains it, by that offset.",
+  "score": "Counted per walk step within 1 px, and per case above. The opening top is not scored (a different rule)."
+}
