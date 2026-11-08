@@ -1581,13 +1581,15 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`View Layouts ${key}: ${mix.layouts.length} picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // Rule P on the paragraph list (CAP-U10ROWSPREDICT.json): ours through the three read orders, each from the start:
-  // CAP-U10ROWSEQ.json (rows), CAP-U10ALIGN-A.json and CAP-U10ROWS-A.json (rows and the block's areas). 52 picks.
+  // CAP-U10ROWSEQ.json (rows), CAP-U10ALIGN-A.json, CAP-U10ROWS-A.json and CAP-U10WORDS.json's one-line run (rows and the
+  // block's areas). 68 picks.
   {
     const errs = [];
     const runs = [
       Object.entries(JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWSEQ.json', import.meta.url))).reads).filter(([k]) => /layout/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, null]),
       Object.entries(JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ALIGN-A.json', import.meta.url))).reads).filter(([k]) => /pick/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0]]),
       Object.entries(RA).filter(([k]) => /^A\d\d layout/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0]]),
+      Object.entries(JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url))).reads).filter(([k]) => /^W1 \d\d layout/.test(k)).map(([k, r]) => [k, +k.split(' ').pop(), r.look.rows, r.areas[0]]),
     ];
     for (const run of runs) {
       await start(); build('p1'); await pause(450);

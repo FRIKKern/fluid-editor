@@ -1,0 +1,16 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-08",
+ "question": "Newsletter's undo: how many top-bar Undo presses each panel change takes, and the rows it gives back. Predicted before the read, from ours as built in #426 (one step per field edit once the field is left, one per switch or pick, the rows as they were before the step).",
+ "how": "A new Newsletter on the probe page at 10 columns by 8 rows, Edit, Content. Each step below by real presses and keys; a field is left with blur before an Undo. Rows read from the block's grid area.",
+ "steps": [
+  { "do": "Title: Cmd+A, Backspace, keys H i; leave the field", "then": "rows 7, title Hi" },
+  { "do": "top-bar Undo once", "predict": { "title": "Subscribe", "rows": 8 }, "other": { "rule": "undo refits the rows to the content", "rows": 7 } },
+  { "do": "top-bar Redo once", "predict": { "title": "Hi", "rows": 7 } },
+  { "do": "Show Name Field on (rows 14), then Undo once", "predict": { "nameField": false, "rows": 7 } },
+  { "do": "Design: Layout Stack (rows 9), then Undo once", "predict": { "layout": "Float", "rows": 7 } },
+  { "do": "Content: Disclaimer emptied and left (rows 6); Button Text Cmd+A, Backspace, G o, left", "then": "button Go, rows 6" },
+  { "do": "Undo once", "predict": { "button": "Sign Up", "disclaimer": "", "rows": 6 } },
+  { "do": "Undo again", "predict": { "button": "Sign Up", "disclaimer": "We respect your privacy.", "rows": 7 } }
+ ]
+}

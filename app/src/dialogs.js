@@ -2,6 +2,8 @@
 // Each dialog has the box, title, tabs and rows as read, in px from its top left. Rows that 0005 rules out
 // (an account, a lookup or a collection) are drawn faded and do nothing. The words are the oracle's labels;
 // no picture, font or script of theirs is here.
+// The + in the Chart's grid: a 12px cross, 1.6 thick, its middle 17.2 across and 21.1 down its 35.6 by 44 box (CAP-T12CHARTCELLS3.json headplus shot, by pixel).
+const PLUS = '<svg class="dl-plus-x" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 0v12M0 6h12"/></svg>';
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 // Aspect Ratio's list, with each ratio as height over width. Only 3:2 was read on the block; the rest go by name.
@@ -209,7 +211,7 @@ function rowHtml(r, cw, b, pages) {
       const series = Array.from({ length: n }, (_, k) => [165 + 110 * k, 110]);
       const head = [[33, 132], ...series, [plusAt, 44], ...fill(plusAt + 44)], body = [[33, 110], [55, 110], ...series, [plusAt, 44], ...fill(plusAt + 44)];
       const cell = (y, [x, w], val, extra, at) => `<input type="text" class="dl-cell${extra}" style="top:${y}px;left:${x}px;width:${w}px" value="${esc(val)}" aria-label="Chart Data"${at && !off ? ` data-dl-cell="${at}"` : ' disabled'}>`;
-      const plus = (y, x, what) => (room || what === 'row' ? `<button type="button" class="dl-plus" style="top:${y}px;left:${x}px" data-dl-add="${what}" aria-label="Add a ${what}"${dis}>+</button>` : '');
+      const plus = (y, x, what) => (room || what === 'row' ? `<button type="button" class="dl-plus" style="top:${y}px;left:${x}px" data-dl-add="${what}" aria-label="Add a ${what}"${dis}>${PLUS}+</button>` : '');
       const rowsAt = [...v.slice(1).map((_, n) => 44 * (n + 1)), 44 * v.length + 2];
       const html = head.map((c, k) => cell(0, c, k >= 1 && k <= n ? v[0][k] ?? '' : '', ' is-head', k >= 1 && k <= n && `0,${k}`)).join('') + plus(0, plusAt, 'series')
         + rowsAt.map((y, r) => body.map((c, k) => cell(y, c, k >= 1 && k <= n + 1 ? v[r + 1]?.[k - 1] ?? '' : '', r % 2 && v[r + 1] ? ' is-alt' : '', v[r + 1] && k >= 1 && k <= n + 1 && `${r + 1},${k - 1}`)).join('') + (v[r + 1] ? `<span class="dl-grip" style="top:${y}px"></span>` : plus(y, 55, 'row'))).join('');
