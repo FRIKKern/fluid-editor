@@ -89,10 +89,22 @@ function alignText(b, centre) {
   b.html = t.innerHTML;
 }
 
+// Rule P (CAP-U10ROWSPREDICT.json, 24 of 24 predicted in CAP-U10ROWS-A.json): a layout with a step gives its
+// block one of two spans, and the layout the section shows before the pick decides which. The entry holds the
+// span it was read at; lowAfter lists the layouts after which it is 'by' rows shorter, block and section alike.
+// A section that shows no layout counts as none. Read for the paragraph list and Instagram's pick 2 only.
+export function variant(L, prev) {
+  if (!L.step) return L;
+  const { read, lowAfter, by, block } = L.step, d = (lowAfter.includes(prev) ? -by : 0) + (read === 'low' ? by : 0);
+  if (!d) return L;
+  const [r0, c0, r1, c1] = area(L.places[block][0]);
+  return { ...L, rows: L.rows + d, places: { ...L.places, [block]: [`${r0}/${c0}/${r1 + d}/${c1}`, L.places[block][1]] } };
+}
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
-  const L = mix.list[n];
-  if (L.unbuilt) return;
+  if (mix.list[n].unbuilt) return;
+  const L = variant(mix.list[n], layoutShown(s, mix, null));
   s.blocks = s.blocks.filter((b) => !dropped(b));
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {
@@ -112,7 +124,9 @@ export function applyLayout(s, mix, n, base) {
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
-  const fits = (n) => !mix.list[n].unbuilt && s.rows?.desktop === mix.list[n].rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === mix.list[n].places[r + k][0]));
+  const fitsAt = (L) => s.rows?.desktop === L.rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === L.places[r + k][0]));
+  // Either of a step's two spans.
+  const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && fitsAt(variant(mix.list[n], mix.list[n].step.read === 'high' ? mix.list[n].step.lowAfter[0] : -1))));
   if (last != null && fits(last)) return last;
   const n = mix.list.findIndex((_, k) => fits(k));
   return n < 0 ? null : n;
