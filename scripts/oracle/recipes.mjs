@@ -558,6 +558,10 @@ export const RECIPES = {
     return {
       'CAP-U10TEXTMIX-A': recipe('the two full-width headings CAP-U10ALIGN-B and C left unread (h1p1 pick 3, h1p2 pick 4), each picked twice, with every pick between.', [
         run('H1', [H, W], [3, 0, 1, 2, 3, 4, 5, 3], true), run('H2', [H, W, W], [4, 0, 1, 2, 3, 4, 5, 6, 7, 4])]),
+      // A's full-width headings had no text container on all 4 reads: again, read from anywhere in the block.
+      'CAP-U10TEXTMIX-A2': recipe('the full-width headings again (CAP-U10TEXTMIX-A.json read no text container there): h1p1 pick 3 and h1p2 pick 4, each twice, lines read from anywhere in the block.', [
+        run('F1', [H, W], [3, 0, 3], true), run('F2', [H, W, W], [4, 0, 4])]),
+      'CAP-U10TEXTMIX-D': recipe('a Text block holding one heading alone, through the 16 picks of CAP-U10WORDS.json, to compare with the list and quote of CAP-U10TEXTMIX-B.json.', [run('D', [H], P16, true)]),
       'CAP-U10TEXTMIX-B': recipe('a Text block holding a list, then one holding a quote, each through the 16 picks of CAP-U10WORDS.json.', [run('L', [LIST], P16, true), run('Q', [QUOTE], P16)]),
       'CAP-U10TEXTMIX-C': recipe('a Text block holding code, then one holding a paragraph, a list, a quote and code, each through the 16 picks of CAP-U10WORDS.json.', [run('C', [CODE], P16, true), run('M', [W + LIST + QUOTE + CODE], P16)]),
     };
