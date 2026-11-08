@@ -714,7 +714,8 @@ export function renderSection(s, model) {
   // Section settings (P3, P4, P5): height S/M/L, vertical alignment, content width, background width.
   const cls = [
     'page-section',
-    `section-height--${s.height || 'medium'}`,
+    // Two Map-mix layouts leave a section with no height class at all, and so no padding (CAP-U10ROWS-A.json).
+    s.height === 'none' ? '' : `section-height--${s.height || 'medium'}`,
     `vertical-alignment--${s.valign || 'middle'}`,
     `content-width--${s.contentWidth || 'wide'}`,
     `horizontal-alignment--${s.halign || 'center'}`,
