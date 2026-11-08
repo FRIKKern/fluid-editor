@@ -3279,7 +3279,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   for (const t of TYPES) { alone(t); await pause(250); const b = await btn(); if (!b || b.off === ON.has(t)) wrong.push(`${t} ${b ? (b.off ? 'off' : 'on') : 'none'}`); }
   add(`View Layouts for one block alone: ${TYPES.length} types as read, ${ON.size} on`, TYPES.length === 33 && wrong.length === 0, wrong.join(', '));
   const open = async () => { const b = await btn(); mouse(S, 'move', b.x, b.y); await pause(50); mouse(S, 'down', b.x, b.y, { buttons: 1 }); await pause(30); mouse(S, 'up', b.x, b.y); await pause(400); return evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list li')].map((li) => Math.round(li.getBoundingClientRect().height * 10) / 10))`); };
-  const pick = (n) => evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'); return JSON.stringify({ rows: s.rows.desktop, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.divider ? s.dividerShape : ''], at: s.blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')]) }); })()`);
+  const pick = (n) => evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'); return JSON.stringify({ rows: s.rows.desktop, h: sec.getBoundingClientRect().height, ht: (sec.className.match(/section-height--(\\w+)/) || [])[1] || '', look: [s.theme || '', s.divider ? s.dividerShape : ''], at: s.blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')]) }); })()`);
   const DV = { 'soft-corners': 'soft', rounded: 'rounded' };
   for (const T of ['Code', 'Quote', 'Accordion', 'Video', 'Map']) {
     const P = FIND(`CAP-U10PICK-${T.toUpperCase()}`).reads, L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.map((x) => x[5]);
@@ -3338,7 +3338,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
   add('Embed and Tag Cloud alone: their read picks by Code\'s list', fam.length === 0, fam.join(' | '));
   // A type with one other block (CAP-U10MIX-*.json): on, the tile count, and every pick as read, each block by its
-  // type (CAP-U10MIXPICK-*.json for the picks first built, CAP-U10FADED-C.json and D for the rest; blocks known by id).
+  // type (CAP-U10MIXPICK-*.json for the picks first built, CAP-U10FADED-C.json and D for the rest; blocks known by id),
+  // and the section's height class (none after the Map mixes' picks 4 and 5, CAP-U10ROWS-A.json).
   const pair = (a, b) => evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0].blocks = []; fe.load(m); const sid = fe.model.sections[0].id; fe.addBlock(sid, ${JSON.stringify(a)}); fe.addBlock(sid, ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
   const MIXR = { ...FIND('CAP-U10FADED-C').reads, ...FIND('CAP-U10FADED-D').reads }, idn = (x) => +x.id.split('_').pop();
   for (const [a, b, F, key, added, first] of [['Image', 'Code', 'IMAGE-CODE', 'Code+Image', ['Image', 'Code'], [0, 4]], ['Video', 'Button', 'VIDEO-BUTTON', 'Button+Video', ['Video', 'Button'], [0, 5]], ['Image', 'Quote', 'IMAGE-QUOTE', 'Image+Quote', ['Image', 'Quote'], []], ['Map', 'Button', 'MAP-BUTTON', 'Button+Map', ['Button', 'Map'], []], ['Map', 'Code', 'MAP-CODE', 'Code+Map', ['Map', 'Code'], []]]) {
@@ -3351,7 +3352,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       const r = first.includes(n) ? FIND(`CAP-U10MIXPICK-${F}`).reads[`pick ${n}`] : MIXR[`${key} pick ${n}`], g = pick(n);
       const want = [...r.stack].sort((x, y) => idn(x) - idn(y)).map((x, k) => [added[k].toLowerCase(), x.desktop, x.phone].join(' ')).sort().join();
       const got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [(x.type === 'shape' ? x.label : x.type).toLowerCase(), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
-      if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',') errs.push(`${n} ${got} ${g && g.rows}`);
+      // The height class too; where a pick drops it (the Map mixes' 4 and 5), the section's height within 2px.
+      if (!g || got !== want || g.rows !== r.look.rows || g.look.join() !== ',' || g.ht !== r.look.ht || (r.look.ht === '' && Math.abs(g.h - r.look.h) > 2)) errs.push(`${n} ${got} ${g && [g.rows, g.ht, g.h]}`);
     }
     add(`View Layouts, ${a} + ${b}: all ${L.length} picks as read, each block by its type`, errs.length === 0, errs.slice(0, 3).join(' | '));
     browser(S, 'press', 'Escape'); await pause(200);
