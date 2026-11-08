@@ -3010,6 +3010,20 @@ shapePop.hidden = true;
 document.body.append(shapePop);
 function closeShapePop() { shapeUi = null; shapePop.hidden = true; blockPanel.querySelector('.bp-anchor')?.removeAttribute('aria-expanded'); blockPanel.querySelector('.st-color.is-open')?.classList.remove('is-open'); }
 const MAP_ORDER = [1, 2, 3, 5, 4, 6]; // Original, Grayscale, Satellite, Dark, Light, Blue
+// An Appear pick plays the effect once on the Quote, in the editor (CAP-T12QUOTEAPPEAR3.json, CAP-T12QUOTEAPPEAR4.json, two
+// reads each): the quote stays put about 290 ms after the press, takes the effect's start pose, holds to about 545 ms, then
+// eases to rest in 0.8s on cubic-bezier(0.4, 0, 0.2, 1), opacity from 0. None and Site Default do not move it.
+const APPEAR_FROM = { 'Fade In': 'none', 'Slide Up': 'translateY(20px)', 'Focus In': 'scale(0.92)', Reveal: 'translateX(20px)' };
+function playAppear(bid, v) {
+  const fig = blockEl(bid)?.querySelector('.sqs-quote-block-contents'), from = APPEAR_FROM[v];
+  if (!fig || !from) return;
+  const T = 290 + 255 + 800, at = 290 / T, go = 545 / T;
+  fig.animate([
+    { offset: 0, opacity: 1, transform: 'none' }, { offset: at, opacity: 1, transform: 'none' },
+    { offset: at, opacity: 0, transform: from }, { offset: go, opacity: 0, transform: from, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+    { offset: 1, opacity: 1, transform: 'none' },
+  ], { duration: T });
+}
 function setShape(change, label) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
   change(b);
@@ -3233,7 +3247,7 @@ shapePop.addEventListener('click', (e) => {
   if (apo) {
     const v = apo.dataset.appearOpt;
     closeShapePop();
-    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`);
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
     return;
   }
   const io = e.target.closest('[data-image-opt]');
