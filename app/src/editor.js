@@ -1058,6 +1058,7 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'resize') delete b.asAdded;
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1629,6 +1630,7 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
+    delete b.asAdded; // as a pull does (inferred for the keys)
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
@@ -1737,6 +1739,7 @@ let fxView = null; // the Image Effect panel: 'list', 'settings' or null
 let fxOpen = []; // its settings groups that are open: they all start closed
 const blockPanel = $('block-panel');
 const dialogEl = $('block-dialog');
+dialogEl.addEventListener('scroll', () => dialogEl.style.setProperty('--dl-scroll', `${dialogEl.scrollTop}px`));
 let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
@@ -1829,7 +1832,9 @@ function renderDialog(b) {
   if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
-// read four times (CAP-ROWSFLICKR.json); Instagram's one Aspect Ratio read kept a row more (12 to 8, ours 7).
+// read four times (CAP-ROWSFLICKR.json) and Instagram 13 times (CAP-T12INSTAASPECT-*.json). A new Instagram that nothing has
+// been done to keeps one row over the fit when its first change shrinks the content: 12 to 8 at 3:2, 9 at 4:3, 7 at 16:9.
+// A pull before it took that away (run F); any content change ends it. The rule behind it is not scored: two refits missed.
 // Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
 function setDialogValue(k, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -1837,9 +1842,11 @@ function setDialogValue(k, v) {
   const was = content();
   if (JSON.stringify(v) === JSON.stringify(DIALOG_DEFAULTS[k])) delete b[k]; else b[k] = v;
   renderSectionDom(sel.sid);
-  if (b.standin && content() !== was) {
-    const a = lay(b).area, need = contentRows(b, formPitch(b)); // the pitch with the content out, as it stretches the rows
+  const now = content();
+  if (b.standin && now !== was) {
+    const a = lay(b).area, need = contentRows(b, formPitch(b)) + (b.asAdded && now < was ? 1 : 0); // the pitch with the content out, as it stretches the rows
     setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
+    delete b.asAdded;
   }
   commit(before, `${dialogOf(b).title} changed`);
 }
@@ -1856,6 +1863,8 @@ dialogEl.addEventListener('click', (e) => {
     if (add.dataset.dlAdd === 'row') data.push(['', ...Array(n).fill('0')]); else data.forEach((row, r) => row.push(r ? '0' : ''));
     setDialogValue('chartData', data);
     dialogEl.querySelector(`[data-dl-cell="${add.dataset.dlAdd === 'row' ? `${data.length - 1},0` : `0,${n + 1}`}"]`)?.focus({ preventScroll: true });
+    // The row + scrolls the panel to its end: 42 in the one read (CAP-T12CHARTCELLS2.json, rows 555 to 513). Inferred: to the end.
+    if (add.dataset.dlAdd === 'row') dialogEl.scrollTop = dialogEl.scrollHeight;
     return;
   }
   // Update asks first: Are You Sure?, centred on the button, Confirm focused; Cancel keeps the box's text, Confirm makes it the
@@ -4988,6 +4997,8 @@ function addBlock(sid, name) {
     desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
+  // A new Instagram is marked until a pull or a content change: its first change that shrinks the content keeps a row (CAP-T12INSTAASPECT-*.json).
+  if (block.standin === 'instagram') block.asAdded = true;
   if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;

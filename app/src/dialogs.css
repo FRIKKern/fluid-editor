@@ -6,6 +6,12 @@
 .dl-rule { top: 44px; left: 0; right: 0; height: 1px; background: #e4e4e4; }
 .dl-end { left: 0; width: 1px; height: 1px; }
 .dl-tabs { top: 33px; left: 0; right: 0; display: flex; }
+/* The title and the tabs stay put while the rows scroll under them (CAP-T12CHARTCELLS2.json rowplus shot: the text under the tabs
+   moved up 42, the title and tabs did not). --dl-scroll is the panel's scrollTop; the band 0 to 78 is opaque. */
+.dl-title, .dl-tabs, .dl-rule { transform: translateY(var(--dl-scroll, 0px)); }
+.dl-title { z-index: 3; }
+.dl-tabs { z-index: 2; background: #f6f6f6; box-shadow: 0 -33px 0 #f6f6f6; }
+.dl-rule { z-index: 2; box-shadow: 0 -22px 0 22px #f6f6f6; }
 .dl-tab { flex: 1; height: 45px; padding: 0; border: 0; border-bottom: 1px solid #e4e4e4; background: none; color: #797979; font: inherit; cursor: pointer; }
 .dl-tab.is-on { color: #3e3e3e; border-bottom-color: #3e3e3e; }
 .dl-row.is-out, .dl-row.is-unbuilt { opacity: .45; }
@@ -54,7 +60,8 @@
 /* A focused cell: white, no ring (CAP-T12CHARTCELLS3.json focused: outline none, bg rgb(255, 255, 255)). */
 .dl-cell:focus { outline: none; background: #fff; }
 .dl-grip { left: 41px; width: 6px; height: 12px; margin-top: 16px; background: radial-gradient(circle, #b4b4b4 .8px, transparent 1px) 0 0 / 3px 3px; pointer-events: none; }
-.dl-plus { width: 44px; height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: center; font-size: 24px; line-height: 44px; cursor: pointer; }
+/* The + is a 35.6 by 44 box, its 24px glyph centred (CAP-T12DCHART.json). */
+.dl-plus { width: 35.6px; height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: center; font-size: 24px; line-height: 44px; cursor: pointer; }
 .dl-area textarea { width: 100%; height: 100%; box-sizing: border-box; padding: 11px; border: 0; background: #fff; color: #3e3e3e; font: inherit; resize: vertical; }
 .dl-button button { width: 100%; height: 100%; padding: 11px; border: 0; background: #3e3e3e; color: #fff; font: 500 11px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
 .dl-button button:disabled { opacity: .3; } /* (191, 191, 191) over the panel, read by pixel (CAP-T12CHARTCELLS.json) */

@@ -376,5 +376,34 @@
         }
       }
     }
+  },
+  "round3": {
+    "read": {
+      "F": {
+        "pulled": "11 rows, not the 9 predicted for the start",
+        "3:2": 7,
+        "16:9": 6
+      },
+      "G": "not read: after the pull down (13 rows) no Edit showed, so no Aspect Ratio was picked"
+    },
+    "count as pushed (numbers given for a 9-row start)": {
+      "H0": "2 of 2",
+      "R2a": "2 of 2",
+      "R2b": "1 of 2",
+      "R2c": "2 of 2",
+      "R2d": "2 of 2"
+    },
+    "count with each rule applied to the start as read (11 rows, 2 over the fit)": {
+      "H0": "2 of 2",
+      "R2a": "1 of 2",
+      "R2b": "1 of 2",
+      "R2c": "1 of 2",
+      "R2d": "1 of 2"
+    },
+    "misses": "F 3:2 read 7: R2a, R2c and R2d give 8 from 11 rows; R2b gives 8 as a first content change."
+  },
+  "final": {
+    "stopped": "Two refits used; fitting stops. No refit candidate beat H0 on unseen reads: H0 scored 7 of 9, 5 of 5 and 2 of 2.",
+    "built": "H0 as it was, plus the read facts it misses: a new block that has had nothing done to it since it was added keeps one row over the fit when its first Aspect Ratio change shrinks the content (12 to 8 at 3:2, 9 at 4:3, 7 at 16:9; 4 reads). A pull before it (run F) takes that away. Unscored: what else takes it away, and 2.40 as a first change (inferred 6)."
   }
 }
