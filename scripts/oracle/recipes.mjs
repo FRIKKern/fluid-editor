@@ -413,6 +413,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2DELETE': { page: 'Gestures Probe', question: 'A2: a block taken away when the phone has overlap. Candidate D, predicted first from our code: each block below rises by the rows the gone block held above its top that no other block covers. The older rule moved them by its height, no higher than its start. Shape, Button, Code and Line as in CAP-A2ROUND2 f2; then a phone resize, a delete, a read.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const BASE = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Button'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 472, 0], ['press', 'Escape'], ['deselect', 0],
+      ['add', 0, 'Code'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 574], ['press', 'Escape'], ['deselect', 0]];
+    const TALL = (k, px) => [['view', 'Mobile'], ['select', 0, k], ['drag', 0, k, 's', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const GONE = (view, k, name) => [['view', view], ['select', 0, k], ['press', 'Delete'], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop'], ...READ(name)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...BASE, ...TALL(1, 35), ['view', 'Desktop'], ...READ('d1 Code one row taller, before'), ...GONE('Desktop', 1, 'd1 Code gone')],
+      [...BASE, ...TALL(0, 105), ['view', 'Desktop'], ...READ('d2 Shape over part of Code, before'), ...GONE('Desktop', 1, 'd2 Code gone')],
+      [...BASE, ...TALL(0, 105), ...READ('d3 Shape over part of Code, before'), ...GONE('Mobile', 1, 'd3 Code gone on the phone')],
+      [...BASE, ...READ('d4 no overlap, before'), ...GONE('Desktop', 1, 'd4 Code gone')],
+      [...BASE, ...TALL(0, 245), ['view', 'Desktop'], ...READ('d5 Shape over Code, before'), ...GONE('Desktop', 1, 'd5 Code gone')],
+      [...BASE, ...TALL(1, 280), ['view', 'Desktop'], ...READ('d6 Code over Line, before'), ...GONE('Desktop', 2, 'd6 Line gone')],
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],

@@ -118,13 +118,19 @@ export function followNewBlock(s, block) {
   return layStack(s, old, turned(desktopOrder([...old, block]), old[0]));
 }
 
-// A block taken away: the blocks below move up by its height, but no higher than where it started.
+// A block taken away: each block below it moves up by the rows the gone block held above that block's top which no
+// other block covers, so no higher than where the gone one started, and the gaps above the rest stay. With no
+// overlap that is its height. A tall block over it keeps those rows (CAP-A2ROUND2 f2 and f3).
 export function closeUp(s, gone) {
-  for (const g of [...gone].sort((p, q) => q[0] - p[0])) for (const b of s.blocks) {
-    const a = b.layout.mobile.area;
-    if (a[0] <= g[0]) continue;
-    const at = Math.max(g[0], a[0] - (g[2] - g[0]));
-    b.layout.mobile.area = [at, a[1], at + a[2] - a[0], a[3]];
+  for (const g of [...gone].sort((p, q) => q[0] - p[0])) {
+    const was = s.blocks.map((b) => b.layout.mobile.area);
+    s.blocks.forEach((b, k) => {
+      const a = was[k];
+      if (a[0] <= g[0]) return;
+      let up = 0;
+      for (let row = g[0]; row < Math.min(g[2], a[0]); row++) if (!was.some((o, j) => j !== k && o[0] <= row && row < o[2])) up++;
+      b.layout.mobile.area = [a[0] - up, a[1], a[2] - up, a[3]];
+    });
   }
 }
 
