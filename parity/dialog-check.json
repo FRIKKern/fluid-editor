@@ -1,6 +1,6 @@
 {
- "pass": 96,
- "total": 96,
+ "pass": 94,
+ "total": 102,
  "results": [
   {
    "what": "Calendar: Edit opens its dialog, no toolbar or panel",
@@ -379,12 +379,36 @@
    "ok": true
   },
   {
-   "what": "Chart Update: the CSV becomes the data, four bars",
-   "ok": true
+   "what": "Chart cells: the + row unstriped, a focused cell white with no ring",
+   "ok": false
+  },
+  {
+   "what": "Chart + under the rows: a row of 0s, its label cell focused at 55",
+   "ok": false
+  },
+  {
+   "what": "Chart cell Ab then Tab: the row reads Ab, 0 and its value cell has the focus",
+   "ok": false
+  },
+  {
+   "what": "Chart + after the series: 0s, its name cell focused at 275, the + at 385, two bars a label",
+   "ok": false
+  },
+  {
+   "what": "Chart new series name then Tab: New York's label, its text selected",
+   "ok": false
+  },
+  {
+   "what": "Chart Update: off, on after an edit, Are You Sure? 111 in and 47 above it, Confirm focused, no ring",
+   "ok": false
+  },
+  {
+   "what": "Chart Update: Cancel keeps the data and the box; Confirm takes the box, Update off again",
+   "ok": false
   },
   {
    "what": "Chart: 24 undos, back to the plain chart and 8 rows",
-   "ok": true
+   "ok": false
   }
  ]
 }

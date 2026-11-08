@@ -75,5 +75,24 @@
         "csv": "Label,Population,Cd\nNew York,150,0\nLas Vegas,250,0\nSan Francisco,150,0"
       }
     ]
+  },
+  "score": {
+    "count": "5 of 11",
+    "hit": [
+      "P4",
+      "P5",
+      "P8b",
+      "P9",
+      "P10"
+    ],
+    "miss": {
+      "P1": "not reachable as stated: a press on an empty cell takes no focus (CAP-T12CHARTCELLS.json)",
+      "P2": "not reachable, as P1",
+      "P3": "not reachable, as P1",
+      "P6": "Update asks Are You Sure? first, with Cancel and Confirm (CAP-T12CHARTCELLS.json)",
+      "P7": "the row and the focus as predicted, but its CSV line reads Ab,0, not Ab, (CAP-T12CHARTCELLS2.json)",
+      "P8": "the + adds a series of 0s at once (CAP-T12CHARTCELLS3.json)"
+    },
+    "note": "Read facts, built as read; no rule was fitted, so no refit."
   }
 }
