@@ -5859,13 +5859,7 @@ function openLayouts(sid) {
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
   // A divider's own height doesn't count: the panel goes by the section above it (CAP-U10READ6.json, 248 at 763.6 with one).
-  let opened = sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) });
-  // It opens no lower than its content box's band (CAP-U10BAND2.json, V: 341, one read, not predicted), and at edit + 49
-  // no higher either, as Edit Section's panel does.
-  const cw = sectionEl(sid).querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
-  if (editAt + 49 + 476 <= window.innerHeight - 170) opened = Math.max(opened, fr.top + cw.top + 1);
-  opened = Math.round(Math.min(opened, fr.top + cw.bottom + 1 - 476));
-  layoutsPlace = { top: opened, edit: editAt, secTop: fr.top + q.top };
+  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) }), edit: editAt, secTop: fr.top + q.top };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
