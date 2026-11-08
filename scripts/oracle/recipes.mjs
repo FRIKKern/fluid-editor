@@ -590,6 +590,11 @@ export const RECIPES = {
       ...NEW, ...VIDEO(287), ...SHAPE, ...resize('t3', 'e', 120, 0),
       ...NEW, ...VIDEO(123), ...SHAPE, ...resize('t4', 's', 0, 246, [['frameTo', 80]])];
   })() },
+  'CAP-ONEROWHANDLE': { page: 'Gestures Probe', question: 'R2: which handle is on top at the middle of the east side of a one-row Text (CAP-TEXTWIDTH7 f3 narrowed it from there, and ours presses its south-east corner there): the setup of f3, then the narrowing as a named handle press. No Meta+c, x or v.', steps: [
+    ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+    ['pick', 0, 0], ['drag', 0, 0, 'e', 235.12, 0], ['press', 'Escape'], ['deselect', 0], ['read', 'h1 wider 4 let go', { stack: 0, section: 0, textH: [0, 0] }],
+    ['pick', 0, 0], ['handleDrag', 0, 0, 'e', -235.12, 0, 'h1 east press'], ['read', 'h1 narrower 4 held', { stack: 0, section: 0, textH: [0, 0] }], ['press', 'Escape'], ['deselect', 0], ['read', 'h1 narrower 4 let go', { stack: 0, section: 0, textH: [0, 0] }],
+  ] },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
