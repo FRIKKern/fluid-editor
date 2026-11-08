@@ -755,7 +755,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     if (moveFirst) { const p = at('v'); cdp(S, { op: 'drag', from: [p[0], p[1]], to: [p[0], p[2] - 30], steps: 12, holdMs: 200 }); await pause(500); }
     evalJs(S, `document.getElementById('site-frame').contentWindow.scrollTo(0, 0)`); evalJs(S, `fe.select('s', 'k')`); await pause(200);
     const h = at('k', dir); cdp(S, { op: 'drag', from: [h[0], h[1]], to: dir === 's' ? [h[0], h[1] + 246] : [h[0] + 120, h[1]], steps: 12, holdMs: 200 }); await pause(400);
-    const got = JSON.parse(evalJs(S, `(() => { ${frameJs} return JSON.stringify({ y: w.scrollY, bottom: d.querySelector('.fe-block[data-block-id="v"]').getBoundingClientRect().bottom, h: w.innerHeight }); })()`));
+    const got = evalJs(S, `(() => { ${frameJs} return JSON.stringify({ y: w.scrollY, bottom: d.querySelector('.fe-block[data-block-id="v"]').getBoundingClientRect().bottom, h: w.innerHeight }); })()`);
     const want = moveFirst && dir === 's' ? 'the moved block at the bottom' : 'no scroll';
     const ok = want === 'no scroll' ? got.y === 0 : got.y > 0 && Math.abs(got.bottom - got.h) < 1.5;
     groupCases.push({ name: `R2 ${name}`, diffs: ok ? [] : [`oracle ${want}, ours scroll ${got.y}, moved block's bottom ${got.bottom} in a frame of ${got.h}`] });

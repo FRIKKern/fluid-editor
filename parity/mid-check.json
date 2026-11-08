@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 911,
+  "pass": 914,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -10,7 +10,7 @@
     "hold from the right margin track -90,12",
     "R2 wider 5"
   ],
-  "total": 918,
+  "total": 921,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3477,6 +3477,18 @@
     },
     {
       "name": "R2 c5 Shape pushed by 1, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 south resize after a move that scrolled",
+      "diffs": []
+    },
+    {
+      "name": "R2 south resize, no move before",
+      "diffs": []
+    },
+    {
+      "name": "R2 east resize after a move that scrolled",
       "diffs": []
     },
     {
