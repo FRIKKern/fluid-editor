@@ -3,6 +3,7 @@
 // add(what, ok, detail): ok is null when a run's timing was off and it could not run.
 import { browser, cdp, evalJs, goto, mouse, pause } from './cmux.mjs';
 import { BASE } from './base.mjs';
+import { STUB_JS } from './clip-guard.mjs';
 
 const TRAILING = / class="is-empty( is-editor-empty)?"| is-empty( is-editor-empty)?(?=")| data-placeholder="[^"]*"| class="ProseMirror-trailingBreak"| data-rte-preserve-empty="true"| ?style="white-space: ?pre-wrap;?"/g;
 export const textNorm = (h) => (h == null ? h : h.replace(TRAILING, '').replace(/ data-text-attribute-id="[^"]*"/g, ' data-text-attribute-id="id"').replace(/<(p|h[1-4]|li) +>/g, '<$1>').replace(/(<(p|h[1-4])(?: [^>]*)?>|<code>)<br *\/?>(?=<\/(p|h[1-4]|code)>)/g, '$1').replace(/<(https?)>/g, '$1://'));
@@ -55,6 +56,8 @@ export async function replay(S, finding, add) {
   const sid = () => evalJs(S, `JSON.stringify(fe.model.sections[1].id)`);
   const fresh = async () => {
     goto(S, `${BASE}/index.html`); await pause(1200);
+    // cdp-run sends Meta+c, x and v only with the clipboard stub in place (clip-guard.mjs), never Chrome's own command.
+    evalJs(S, STUB_JS);
     evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 40, mobile: 40 }; fe.load(next); await new Promise((r) => setTimeout(r, 300)); return 1; })()`);
   };
   const ceOf = `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + ${JSON.stringify('__ID__')} + '"] .sqs-html-content')`;
