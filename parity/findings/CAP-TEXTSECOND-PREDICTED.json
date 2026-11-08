@@ -1,0 +1,234 @@
+{
+ "item": "R2",
+ "question": "R2: when a text gives up its spare rows. S (ours, from our code at this commit): a new Text's second row is kept only in the first edit that changes its words; in a later edit the first change fits it to its words. A Text sized by hand on desktop keeps the older rule, where spare rows stay spare in every edit. Opening and typing nothing changes nothing, and an edit that changed no words doesn't count. Fitted on CAP-A2TYPEDNEW t2 and t5 and checked against CAP-TEXTPUSH3 r6, CAP-TEXTPUSH5 t3 and CAP-TEXTPUSH6 v4 (seen). older: our code before S. S and older differ on u1 typed again and u3 typed again; the rest are controls for S's limits. A read hits when every block has the same desktop and phone area.",
+ "predicted": {
+  "u1 typed once": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u1 typed again": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u2 typed once": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u2 opened, nothing typed": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u3 Line below, typed once": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "3/2/4/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "3/2/4/6",
+     "phone": "3/2/4/10"
+    }
+   ]
+  },
+  "u3 typed again": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/2/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "2/2/3/6",
+     "phone": "3/2/4/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "desktop": "3/2/4/6",
+     "phone": "3/2/4/10"
+    }
+   ]
+  },
+  "u4 taller by hand": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u4 typed once": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u4 typed again": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u5 typed, then taller by hand": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u5 typed again": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/5/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u6 opened, nothing typed": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  },
+  "u6 then typed": {
+   "S": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ],
+   "older": [
+    {
+     "z": 1,
+     "desktop": "1/2/3/10",
+     "phone": "1/2/3/10"
+    }
+   ]
+  }
+ }
+}

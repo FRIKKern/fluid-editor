@@ -464,6 +464,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-TEXTSECOND': { page: 'Gestures Probe', question: 'R2: when does a text give up its spare rows? Candidate S, predicted first from our code: spare rows, a new Text\'s second row or rows added by hand, are kept only in the first edit that changes its words; in a later edit the first change fits it to its words; opening and typing nothing changes nothing. Fitted on CAP-A2TYPEDNEW t2 and t5 (seen). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const WRITE = (k, keys) => [['pick', 0, k], ['click', 'Write'], ...keys, ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (k, text) => WRITE(k, [['keysFast', text]]);
+    const TALLER = (k) => [['select', 0, k], ['drag', 0, k, 's', 0, 82], ['press', 'Escape'], ['deselect', 0]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Text'), ...TYPE(0, 'hello'), ...READ('u1 typed once'), ...TYPE(0, ' world'), ...READ('u1 typed again')],
+      [...ADD('Text'), ...TYPE(0, 'hello'), ...READ('u2 typed once'), ...WRITE(0, []), ...READ('u2 opened, nothing typed')],
+      [...ADD('Text'), ...ADD('Line'), ['drag', 0, 'new', 'middle', 0, 82], ['press', 'Escape'], ['deselect', 0], ...TYPE(0, 'hello'), ...READ('u3 Line below, typed once'), ...TYPE(0, ' world'), ...READ('u3 typed again')],
+      [...ADD('Text'), ...TALLER(0), ...READ('u4 taller by hand'), ...TYPE(0, 'hello'), ...READ('u4 typed once'), ...TYPE(0, ' world'), ...READ('u4 typed again')],
+      [...ADD('Text'), ...TYPE(0, 'hello'), ...TALLER(0), ...READ('u5 typed, then taller by hand'), ...TYPE(0, ' world'), ...READ('u5 typed again')],
+      [...ADD('Text'), ...WRITE(0, []), ...READ('u6 opened, nothing typed'), ...TYPE(0, 'hello'), ...READ('u6 then typed')]
+    ];
+    return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-LINK': { question: 'E7: what HTML do a typed link, a page link and Open link in new tab write in a text block?', steps: [
     ['enter'], ['pick', 2, 1], ['click', 'Write'], ['press', 'Meta+a'], ['click', 'Link'], ['read', 'link editor', { controls: true, thin: true }], ['fill', 'Enter link, search, or add files', '/about'], ['press', 'Enter'], ['read', 'typed path, Enter', { html: [2, 1], controls: true }],
     ['click', 'Link'], ['read', 'editor reopened on the link', { html: [2, 1], controls: true }], ['read', 'box before', { checks: true }], ['press', 'Tab'], ['press', 'Tab'], ['press', 'Space'], ['read', 'box ticked by keyboard, editor open', { html: [2, 1], checks: true }], ['press', 'Escape'], ['read', 'editor closed by Escape', { html: [2, 1], checks: true }], ['shot', 'closed'], ['click', 'Link'], ['read', 'editor reopened', { html: [2, 1], checks: true }], ['shot', 'reopened'],
