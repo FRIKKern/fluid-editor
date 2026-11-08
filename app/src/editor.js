@@ -1729,6 +1729,9 @@ function startTextEdit(sid, bid) {
   doc.addEventListener('selectionchange', onTextSelection);
   renderPanel();
   renderTextBar();
+  // select() above showed the block toolbar; writing hides it, so no edge of it shows by the text bar (an oracle shot with
+  // the editor open: nothing but its own shadow above or below the bar).
+  placeToolbar();
 }
 
 // Paste (E5): our own cleanup with the oracle's rules (app/src/paste.js).
