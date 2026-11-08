@@ -285,11 +285,16 @@ export function linkPopoverPosition(panel, attach, stage, height = 167) {
 // Blend Mode (parity/findings/BLEND.json): a button reading Blend Mode and the current mode,
 // opening a list of the 16 CSS blend modes.
 export const blendValue = (label) => label.toLowerCase().replace(/ /g, '-');
-function blendRow(cur, open) {
+// The shared Design tab and a Shape's show a chevron after the mode (CAP-DESIGNTAB-QUOTE.json).
+const CHEV = '<svg class="bp-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>';
+function blendRow(cur, open, chev = false) {
   const name = BLEND_MODES.find((m) => blendValue(m) === cur) || 'Normal';
   const list = open ? `<div class="bp-listbox" role="listbox" aria-label="Blend Mode">${BLEND_MODES.map((m) => `<div role="option" class="bp-option" aria-selected="${m === name}" data-blend="${blendValue(m)}">${m}</div>`).join('')}</div>` : '';
-  return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span></div>${list}</div>`;
+  return `<div class="bp-blend-wrap"><div class="sp-row bp-blend" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="${open}" data-blend-toggle><span class="sp-label">Blend Mode</span><span class="bp-blend-value">${name}</span>${chev ? CHEV : ''}</div>${list}</div>`;
 }
+// A Quote's Design tab ends with Effects and an Appear menu (CAP-DESIGNTAB-EFFECTS2.json); Text and Shape have none.
+export const APPEAR = ['Site Default', 'None', 'Fade In', 'Slide Up', 'Focus In', 'Reveal'];
+const effectsRows = () => `<div class="bp-thead bp-effects"><span>Effects</span></div><button type="button" class="bp-appear" data-appear aria-haspopup="listbox"><span>Appear</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
 
 // A Video's is a name and a menu, not one button (CAP-VBLEND.json): the same list, over it and 9 to its left.
 function videoBlendRow(cur) {
@@ -599,7 +604,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + row('Stretch', `<label class="sp-switch"><input type="checkbox" data-shape="stretch" aria-label="Stretch" ${shape.stretch ? 'checked' : ''}><span aria-hidden="true"></span></label>`)
         + '<div class="bp-thead"><span>Styling</span></div>'
         + row('Color', `<button type="button" class="bp-swatch sh-swatch-btn" data-shape-act="color" aria-label="Color"><i style="background:${esc(shape.color)}"></i></button>`)
-        + blendRow(d.blend || 'normal', open === 'blend')
+        + blendRow(d.blend || 'normal', open === 'blend', true)
         + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
         + blurRows(d)
@@ -634,11 +639,9 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + blurRows(d)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('');
-    else body = appearanceRows(d)
-      + blendRow(d.blend || 'normal', open === 'blend')
-      + blurRows(d)
+    else body = `<div class="bp-look-rows">${appearanceRows(d)}${blendRow(d.blend || 'normal', open === 'blend', true)}${blurRows(d)}</div>`
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
-      + pairs.join('');
+      + pairs.join('') + (content?.kind === 'quote' ? effectsRows() : '');
   } else {
     // The Animation tab's list (anim-panel.js); its picker and editor replace the whole panel.
     body = open;
