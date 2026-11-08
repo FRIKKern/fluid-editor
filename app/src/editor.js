@@ -183,6 +183,10 @@ function undo(button = false) {
   redoStack.push(textRises.get(now) ?? now);
   model = JSON.parse(undoStack.pop());
   note('Undo');
+  // The open section panel keeps the custom height it showed, number and slider, until it opens again; the
+  // section takes the height undone (difference 99, CAP-P3UNDO.json, CAP-P3UNDO2.json). Redo is not read.
+  const shown = sectionPanel.hidden ? [] : [...sectionPanel.querySelectorAll('.sp-custom-height input')].map((e) => e.value);
+  if (shown.length === 2) heightShown = [secSid(), ...shown];
   renderAll();
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
@@ -5295,9 +5299,15 @@ panel.addEventListener('click', (e) => {
 });
 
 // The custom height reads a whole number each time its slider or field changes, and the section follows at
-// once; the undo step comes on let go or Enter (parity/findings/CAP-P3FIELD.json). No number shows NaN with
-// the slider at its middle, and the height stays. The slider stops at 1 to 100, the field keeps what it read.
+// once (parity/findings/CAP-P3FIELD.json). The field's undo step comes on Enter; the slider's on each move
+// while held (difference 100, CAP-P3UNDO2.json). No number shows NaN with the slider at its middle, and the
+// height stays. The slider stops at 1 to 100, the field keeps what it read.
 let heightBefore = null;
+// After NaN, the panel opened again shows an empty field with the slider at its middle (difference 101,
+// CAP-P3UNDO.json, one reading): by section, the height that NaN kept.
+const heightNaN = new Map();
+// What the open panel shows instead of the model, until its field or slider changes or it opens again: [sid, slider, field].
+let heightShown = null;
 function showHeight(n) {
   const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
   if (field.value !== String(n)) field.value = String(n);
@@ -5306,10 +5316,19 @@ function showHeight(n) {
 function followHeight(input) {
   const s = S(secSid()), n = parseInt(input.value, 10);
   showHeight(n);
+  heightShown = null;
+  if (Number.isNaN(n)) heightNaN.set(s.id, s.customHeight); else heightNaN.delete(s.id);
   if (Number.isNaN(n) || n === s.customHeight) return;
-  heightBefore ??= JSON.stringify(model);
+  const before = JSON.stringify(model);
   s.customHeight = n;
   renderSectionDom(s.id);
+  if (input.type !== 'range') { heightBefore ??= before; return; }
+  // A step of its own, with no redraw of the panel under the held slider: it redraws on let go.
+  undoStack.push(before);
+  redoStack.length = 0;
+  note(`Section ${s.id} customHeight set to ${n}`);
+  $('undo').disabled = false;
+  $('redo').disabled = true;
 }
 function settleHeight(shown) {
   const before = heightBefore, sid = secSid();
@@ -5342,6 +5361,7 @@ function onSectionChange(e) {
   } else if (act === 'customHeight') {
     followHeight(input);
     settleHeight(input.value);
+    if (input.type === 'range') updateUi(); // the slider's let go: its steps are in, the panel and Save follow
     return;
   } else {
     const v = Math.round(input.type === 'text' ? parseFloat(input.value) : Number(input.value));
@@ -5589,6 +5609,8 @@ function renderSectionPanel() {
   sectionPanel.innerHTML = sectionPanelHtml(s, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
+  const [range, field] = sectionPanel.querySelectorAll('.sp-custom-height input');
+  if (range && heightShown?.[0] === s.id) { range.value = heightShown[1]; field.value = heightShown[2]; }
 }
 function closeSectionPanel() { if (!editSid) return; settleHeight(''); editSid = null; panelPlace = null; renderSectionPanel(); placeChrome(); }
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): stays open through picks, each one undo step.
@@ -5703,7 +5725,7 @@ chrome.addEventListener('click', (e) => {
   if (!btn || !sid || btn.classList.contains('is-off')) return;
   const act = btn.dataset.sc;
   const k = model.sections.findIndex((x) => x.id === sid);
-  if (act === 'edit') { editSid = sid; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
+  if (act === 'edit') { editSid = sid; heightShown = heightNaN.has(sid) && heightNaN.get(sid) === S(sid).customHeight ? [sid, '', ''] : null; panelPlace = null; sectionTab = 'Design'; customGap = false; secView = null; secMore = {}; filterOpen = tipOpen = false; addMenu.hidden = true; renderSectionPanel(); placeChrome(); return; }
   // Add Block and Layers open over the section's top left (oracle screenshots: the Add Block
   // panel at the Layers box plus 5px, the Layers panel under the Layers button).
   const pill = chrome.querySelector('[data-sc-part="layers"]').getBoundingClientRect(), st = stage.getBoundingClientRect();
