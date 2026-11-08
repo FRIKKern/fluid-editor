@@ -154,7 +154,9 @@ function phoneFollowsMove(s, was) {
     }
     return gone.length > 0;
   }
-  return (s.phoneFollows && changed('desktop', (a) => a) && followDesktopEdit(s)) || gone.length > 0;
+  // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
+  const typed = same.some(([b, o]) => b.html !== o.html);
+  return (s.phoneFollows && (changed('desktop', (a) => a) || typed) && followDesktopEdit(s)) || gone.length > 0;
 }
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
