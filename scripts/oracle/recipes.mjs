@@ -1422,3 +1422,5 @@ export const RECIPES = {
   })() },
 
 };
+// The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
+RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
