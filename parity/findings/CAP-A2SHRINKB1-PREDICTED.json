@@ -1,0 +1,228 @@
+{
+ "item": "A2",
+ "question": "A2 and R2: refit 1 of candidate B (CAP-A2SHRINKB scored B 10 of 11, S2 10 of 11). B1, fitted on CAP-A2SHRINKWHY and CAP-A2SHRINKB (seen): a new Text drops to the rows its content needs, one row here, at a typing that brings the one-phone-row Line from last back to first on the phone, and stays so; a move or nudge that brings it back leaves the Text as it is. S2, to compare: it drops at the Text's second typing. The phone order and areas are ours, from our code on cbab094 replayed with the mouse and keys. Scored: the Text's desktop area on each of the 10 cases, each read twice in CAP-A2SHRINKB1 (the second with \" again\"), only where the two agree; the phone order and areas counted apart.",
+ "cases": {
+  "c1 typed once": [
+   "c1 typed once",
+   "c1 typed once again"
+  ],
+  "c1 then nudged right": [
+   "c1 then nudged right",
+   "c1 then nudged right again"
+  ],
+  "c1 typed twice": [
+   "c1 typed twice",
+   "c1 typed twice again"
+  ],
+  "c1 typed three times": [
+   "c1 typed three times",
+   "c1 typed three times again"
+  ],
+  "c3 beside the Line, moved twice": [
+   "c3 beside the Line, moved twice",
+   "c3 beside the Line, moved twice again"
+  ],
+  "c3 typed once": [
+   "c3 typed once",
+   "c3 typed once again"
+  ],
+  "c3 typed twice": [
+   "c3 typed twice",
+   "c3 typed twice again"
+  ],
+  "c4 moved right twice": [
+   "c4 moved right twice",
+   "c4 moved right twice again"
+  ],
+  "c4 typed once": [
+   "c4 typed once",
+   "c4 typed once again"
+  ],
+  "c4 typed twice": [
+   "c4 typed twice",
+   "c4 typed twice again"
+  ]
+ },
+ "predicted": {
+  "c1 typed once": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B1 desktop": "2/2/4/10",
+     "S2 desktop": "2/2/4/10"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ]
+  },
+  "c1 then nudged right": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B1 desktop": "2/3/4/11",
+     "S2 desktop": "2/3/4/11"
+    }
+   ]
+  },
+  "c1 typed twice": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B1 desktop": "2/3/4/11",
+     "S2 desktop": "2/3/3/11"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ]
+  },
+  "c1 typed three times": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B1 desktop": "2/3/3/11",
+     "S2 desktop": "2/3/3/11"
+    }
+   ]
+  },
+  "c3 beside the Line, moved twice": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B1 desktop": "1/13/3/21",
+     "S2 desktop": "1/13/3/21"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ]
+  },
+  "c3 typed once": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B1 desktop": "1/13/2/21",
+     "S2 desktop": "1/13/3/21"
+    }
+   ]
+  },
+  "c3 typed twice": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B1 desktop": "1/13/2/21",
+     "S2 desktop": "1/13/2/21"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ]
+  },
+  "c4 moved right twice": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B1 desktop": "2/4/4/12",
+     "S2 desktop": "2/4/4/12"
+    }
+   ]
+  },
+  "c4 typed once": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B1 desktop": "2/4/4/12",
+     "S2 desktop": "2/4/4/12"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ]
+  },
+  "c4 typed twice": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B1 desktop": "2/4/3/12",
+     "S2 desktop": "2/4/3/12"
+    }
+   ]
+  }
+ }
+}
