@@ -1096,7 +1096,6 @@ function onUp(e) {
   // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
   // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).
   if (g.type === 'resize' && b.type === 'text' && /^(se|sw|ne|nw)$/.test(g.dir) && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
-  if (g.type === 'resize') delete b.asAdded;
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
@@ -1707,7 +1706,6 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
-    // The keys do not end a new Instagram's kept row as a pull does: Cmd+Down to 13 rows, then 3:2, read 9 (CAP-T12READS-J.json).
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
@@ -1918,9 +1916,10 @@ function renderDialog(b) {
   if (opening) dialogEl.querySelector(DIALOG_FIRST)?.focus({ preventScroll: true });
 }
 // A row's change is one undo step. A gallery row that changes the content's height refits the rows to it, as Flickr
-// read four times (CAP-ROWSFLICKR.json) and Instagram 13 times (CAP-T12INSTAASPECT-*.json). A new Instagram that nothing has
-// been done to keeps one row over the fit when its first change shrinks the content: 12 to 8 at 3:2, 9 at 4:3, 7 at 16:9.
-// A pull before it took that away (run F); any content change ends it. The rule behind it is not scored: two refits missed.
+// read four times (CAP-ROWSFLICKR.json) and Instagram 13 times (CAP-T12INSTAASPECT-*.json).
+// A change that shrinks an Instagram's content drops the rows it lost, rounded up, and one more, never under the fit:
+// max(fit, rows - 1 - ceil(drop / pitch)), new or not, after keys or a pull (CAP-T12INSTAFLOOR-2.json: 5 of 5 unseen, frozen).
+// One that grows the content fits it.
 // Chart's rows only grow: a title over its 8 rows kept them, and a Flip that took 44 off kept 11 (CAP-T12CHARTLOOK.json).
 function setDialogValue(k, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model);
@@ -1930,9 +1929,9 @@ function setDialogValue(k, v) {
   renderSectionDom(sel.sid);
   const now = content();
   if (b.standin && now !== was) {
-    const a = lay(b).area, need = contentRows(b, formPitch(b)) + (b.asAdded && now < was ? 1 : 0); // the pitch with the content out, as it stretches the rows
+    const a = lay(b).area, m = formPitch(b), fit = contentRows(b, m); // the pitch with the content out, as it stretches the rows
+    const need = b.standin === 'instagram' && now < was ? Math.max(fit, a[2] - a[0] - 1 - Math.ceil((was - now) / m.pitch)) : fit;
     setFormRows(b, S(sel.sid), b.standin === 'chart' ? Math.max(need, a[2] - a[0]) : need);
-    delete b.asAdded;
   }
   commit(before, `${dialogOf(b).title} changed`);
 }
@@ -5221,8 +5220,6 @@ function addBlock(sid, name) {
     desktop: { area: [row, 2, row + h, 2 + w], z: zTop('desktop'), justify: at, align: at },
     mobile: { area: [mobileEnd, 2, mobileEnd + phoneH, 10], z: zTop('mobile'), justify: at, align: at },
   } };
-  // A new Instagram is marked until a pull or a content change: its first change that shrinks the content keeps a row (CAP-T12INSTAASPECT-*.json).
-  if (block.standin === 'instagram') block.asAdded = true;
   if (s.phoneFollows) followNewBlock(s, block);
   else for (const b of stack.slice(slot)) {
     const a = b.layout.mobile.area;
