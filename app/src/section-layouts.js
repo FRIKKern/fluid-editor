@@ -5,7 +5,9 @@ import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.j
 import { dividerEdge } from './render.js';
 import { setStyleProp } from './text-format.js';
 
-const words = (b) => String(b.html || '').replace(/<[^>]+>/g, '').trim();
+// A space where a paragraph, heading or list item ends, so a list's items don't run together on its tile.
+const words = (b) => String(b.html || '').replace(/<\/(p|h[1-6]|li)>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const listFirst = (b) => /^\s*<(ul|ol|blockquote)[\s>]/.test(b.html || '');
 const roleOf = (b) => {
   if (b.type === 'image') return 'i';
   if (b.type === 'button') return 'b';
@@ -66,6 +68,9 @@ export function sectionMix(s) {
     if (!r) return null;
     by[r].push(b);
   }
+  // A Text that starts with a list or a quote, alone, is laid out as a heading alone (CAP-U10TEXTMIX-B.json, the same
+  // start lines and columns as -D pick for pick). With other blocks: not read, it stays a paragraph.
+  if (by.p.length === 1 && s.blocks.filter((b) => !dropped(b)).length === 1 && listFirst(by.p[0])) [by.h, by.p] = [by.p, []];
   const key = ['h', 'p', 'i', 'b'].map((r) => (by[r].length ? r + by[r].length : '')).join('');
   return LAYOUTS[key] ? { key, by, list: LAYOUTS[key] } : null;
 }
@@ -79,13 +84,14 @@ export const layoutTheme = (theme) => THEME_TURN[theme || ''];
 
 // A pick also sets each text block's alignment, both ways: centred when its desktop columns sit evenly around the
 // middle (start line + end line = 28), left otherwise (CAP-U10ALIGN-A.json, 6 of 6 seen; CAP-U10ALIGNPREDICT.json,
-// 41 of 41 predicted in CAP-U10ALIGN-B, C and D). Its own paragraphs and headings; lists, quotes and code not read.
+// 41 of 41 predicted in CAP-U10ALIGN-B, C and D). Its paragraphs and headings, those inside list items and quotes too
+// (CAP-U10TEXTMIXPREDICT.json, 160 of 160 lines); the lists, items and quotes themselves keep theirs, and code has none.
 const centred = (desk) => { const [, c0, , c1] = area(desk); return c0 + c1 === 28; };
 function alignText(b, centre) {
   if (typeof document === 'undefined' || !b.html) return;
   const t = document.createElement('template');
   t.innerHTML = b.html;
-  for (const el of t.content.children) if (/^(P|H[1-4])$/.test(el.tagName)) setStyleProp(el, 'text-align', centre ? 'center' : '');
+  for (const el of t.content.querySelectorAll('p, h1, h2, h3, h4')) setStyleProp(el, 'text-align', centre ? 'center' : '');
   b.html = t.innerHTML;
 }
 
@@ -119,7 +125,8 @@ export function applyLayout(s, mix, n, base) {
       const [desk, phone] = L.places[r + k];
       b.layout.desktop.area = area(desk);
       b.layout.mobile.area = area(phone);
-      if (r === 'h' && L.tag) b.html = b.html.replace(/<(\/?)h[1-4]/g, `<$1${L.tag}`);
+      // The tag: a heading's, or every paragraph's in a list or a quote (CAP-U10TEXTMIX-B.json: their P become H1).
+      if (r === 'h' && L.tag) b.html = b.html.replace(listFirst(b) ? /<(\/?)(?:p|h[1-4])(?=[\s>])/g : /<(\/?)h[1-4]/g, `<$1${L.tag}`);
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
     });
   }
