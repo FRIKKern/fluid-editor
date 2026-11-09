@@ -21,7 +21,9 @@
 // page takes only steps that can't write: a recipe with no page may read it, and --steps needs --demo-read-only as well.
 // Every step that acts stops the run if the frame is on another page, before it presses.
 // clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { browser, evalJs, mouse, wheel, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
@@ -46,6 +48,25 @@ const refuse = (why) => { console.error(`oracle-capture refused, nothing ran: ${
 if (!pageTitle && recipe.steps[0]?.[0] !== 'toPage') refuse('--steps needs --page or toPage as its first step.');
 // A read label is written once: a second read or ring with the same label overwrote the first (CAP-X2RESIZED.json's Markdown).
 { const seen = new Set(); for (const [op, label] of recipe.steps) if ((op === 'read' || op === 'ring') && seen.has(label)) refuse(`the label "${label}" is used twice: each read needs its own.`); else if (op === 'read' || op === 'ring') seen.add(label); }
+// A fresh round (check-fresh.mjs): --predictions names the predictions file in parity/findings. It must be committed and
+// pushed before anything opens, and its cases must name two reads each from these steps. The finding records the file's
+// commit, its hash, and when the capture started.
+const startedAt = new Date().toISOString();
+let predictions = null;
+if (opt('predictions')) {
+  const file = opt('predictions').replace(/^.*\//, ''), path = `parity/findings/${file}`, at = new URL(`../${path}`, import.meta.url);
+  const git = (...a) => { try { return execFileSync('git', a, { cwd: new URL('..', import.meta.url).pathname, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return ''; } };
+  if (!existsSync(at)) refuse(`no ${path}.`);
+  if (git('status', '--porcelain', '--', path)) refuse(`${path} has changes not committed: commit and push the predictions first.`);
+  const [commit, committedAt] = git('log', '-1', '--format=%H %cI', '--', path).split(' ');
+  if (!commit) refuse(`${path} is not committed.`);
+  if (!git('branch', '-r', '--contains', commit)) refuse(`${path}'s commit ${commit.slice(0, 7)} is not pushed.`);
+  const text = readFileSync(at, 'utf8'), cases = JSON.parse(text).cases;
+  if (!cases || typeof cases !== 'object' || !Object.keys(cases).length) refuse(`${path} has no cases: list each scored case as "case": ["read label", "second read label"].`);
+  const labels = new Set(recipe.steps.filter(([op]) => op === 'read' || op === 'ring').map(([, l]) => l));
+  for (const [k, v] of Object.entries(cases)) if (!Array.isArray(v) || v.length !== 2 || !v.every((l) => labels.has(l))) refuse(`case "${k}" needs two read labels from --steps.`);
+  predictions = { file, commit, committedAt, sha256: createHash('sha256').update(text).digest('hex') };
+}
 {
   let page = pageTitle;
   for (const [op, ...a] of recipe.steps) {
@@ -237,7 +258,7 @@ const pagePath = pageTitle ? pathOf(pageTitle) : null;
 let stepNo = -1;
 const readOwner = {};
 const reads = new Proxy({}, { set: (t, k, v) => { if (k in t && readOwner[k] !== stepNo) throw new Error(`the label "${String(k)}" was read by step ${readOwner[k]}: not written again`); t[k] = v; readOwner[k] = stepNo; return true; } });
-const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads, errors: [] };
+const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), startedAt, ...(predictions ? { predictions } : {}), engine: engine(S), question: recipe.question, steps: recipe.steps, reads, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
 const panelAt = (sel, n) => { const r = evalJs(S, `(() => { const e = [...document.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0 && !x.closest('#sqs-site-frame'))[${n}]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!r) throw new Error(`nothing at ${sel} ${n}`); return r; };
 // A tip: the small dark box with the buttons' words, in either document.
