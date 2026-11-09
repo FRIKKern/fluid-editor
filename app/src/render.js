@@ -268,6 +268,15 @@ export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink
 // under the picture and the caption 15 under that. The picture is our own drawing of the data, in the palette's colours
 // (the oracle draws on a canvas, so its marks aren't read; a flipped chart's bars take the palette in row order, read with
 // three series in CAP-T12CHARTSERIES.json flip3).
+const NICE_STEPS = [1, 2, 4, 5, 8];
+function lineAxis(vals) {
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  if (!(hi > lo)) { const t = Math.max(1, hi), s = 10 ** Math.floor(Math.log10(t)); return [0, (Math.floor(t / s) + 1) * s, s]; }
+  const u = 10 ** Math.floor(Math.log10(hi - lo)), on = (v, s) => Math.abs(v / s - Math.round(v / s)) < 1e-6;
+  const nice = (s) => { const e = 10 ** Math.floor(Math.log10(s) + 1e-9); return NICE_STEPS.includes(+(s / e).toFixed(6)); };
+  const from = Math.floor(lo / u) * u;
+  for (let to = Math.ceil(hi / u) * u; ; to += u) for (let n = 7; n >= 1; n--) { const s = (to - from) / n; if (nice(s) && on(from, s) && on(to, s)) return [from, to, s]; }
+}
 function chartHtml(b) {
   // A series added from the + (CAP-T12CHARTCELLS3.json) is drawn beside the first: bars side by side in each label's band, a
   // line each, a legend item each, in the palette's order (the oracle's canvas marks aren't read; inferred from its picture).
@@ -280,8 +289,13 @@ function chartHtml(b) {
   // A Line Chart's plot is its own box, wider and taller than a Bar's, its points on the band lines: the first on the axis, the
   // last on the right edge (CAP-T12LINECHART.json line1 and line3 shots, by pixel: 352 by 184 from 48.5, 16.5 in the picture).
   const line = c.type === 'Line Chart', [L, R, T, B] = line ? [48.5, 400.5, 16.5, 200.5] : [80, 450.5, 16, 184];
-  const y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, groups.length), px = (n) => (groups.length > 1 ? L + ((R - L) * n) / (groups.length - 1) : (L + R) / 2);
-  const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
+  // A Line Chart's value axis (CAP-T12YSCALE.json, the rule in CAP-T12YSCALE-REFIT2-PREDICTED.json, frozen at 5 of 9; its line
+  // part predicted 6 of 6 unseen lines): start and end on multiples of u, the power of 10 under the values' range, and the most
+  // even split into at most 7 steps of 1, 2, 4, 5 or 8 times a power of 10 that both ends sit on, the end moving up by u until
+  // one works. Bars keep ours: the frozen rule missed D, H and I and the older bar3 there.
+  const [base, end, by] = line ? lineAxis(all.flat()) : [0, top, step];
+  const y = (v) => B - ((B - T) * (v - base)) / (end - base), band = (R - L) / Math.max(1, groups.length), px = (n) => (groups.length > 1 ? L + ((R - L) * n) / (groups.length - 1) : (L + R) / 2);
+  const ticks = Array.from({ length: Math.round((end - base) / by) + 1 }, (_, n) => +(base + n * by).toPrecision(12));
   // A Bar Chart's lines (CAP-T12CHARTCELLS3.json headplus shot, CAP-T12CHARTCELLS.json P1 shot, by pixel): a faint grid at each
   // value and each band's edge, from 3 above the top value down to the baseline; the axis, the baseline and 5px ticks past them
   // twice as dark. The right edge's line is under the dialog in both shots (inferred).
@@ -289,7 +303,7 @@ function chartHtml(b) {
   // A Line Chart has the same lines, with an upright one at each point after the first (CAP-T12LINECHART.json, by pixel).
   const edges = line ? groups.slice(1).map((_, n) => px(n + 1)) : groups.map((_, n) => L + band * (n + 1));
   const lines = ln(`M${L - 5} ${B}H${R}`, 'axis') + ln(`M${L} ${up}V${B + 4}`, 'axis')
-      + ticks.filter((t) => t > 0).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
+      + ticks.filter((t) => t > base).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
       + edges.map((x) => { return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
   const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${line ? px(n) : L + band * (n + 0.5)}" y="${B + (line ? 19 : 24)}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (k) => pal[k % pal.length];
@@ -562,13 +576,37 @@ export function cornerFor(b, bp) {
 export const phoneOwn = (b, k) => { const v = b.designMobile?.[k]; return !!v && v !== FOLLOW_DESKTOP; };
 // A shape's Color: desktop's is the block's own, a phone's is a Design value like Stroke (CAP-T6LAYOUT.json).
 export const shapeFill = (b, bp) => (bp === 'mobile' && phoneOwn(b, 'color') ? b.designMobile.color : b.color || b.fill);
-function designRule(b, d, phone) {
-  const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+// The editor's frame draws Blur and Background color, and a phone's variables, from style
+// attributes for the view it shows; its transform-vars rule holds desktop's variables alone, with
+// no phone part (CAP-T15WHERE-A.json, -B, -C). A saved page keeps them in its rules: the form a
+// published page gives them is not read. setLiveView is the editor's; export draws with it off.
+let liveView = null;
+export const setLiveView = (bp) => { liveView = bp; };
+const isMoved = (d) => d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+export function liveStyle(b, bp) {
+  const d = designFor(b, bp), block = [], inner = [];
+  // Once a transform value is set, the block's attribute holds every variable (CAP-T15WHERE-A.json, text opacity 50).
+  const edited = (g) => !!g && ['opacity', 'tx', 'ty', 'rotate', 'sx', 'sy', 'kx', 'ky', 'ox', 'oy'].some((k) => k in g);
+  if ((bp === 'mobile' && b.designMobile) || edited(b.design)) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
+  // A Shape's blur is on its contents, a Text's on the block (CAP-T15BLUR.json).
+  if (d.blur) (b.type === 'shape' ? inner : block).push(`${b.type !== 'shape' && d.blurKind !== 'element' ? 'backdrop-filter' : 'filter'}: blur(${d.blurPx ?? 15}px)`);
+  if (d.background) inner.push(`background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}`);
+  // A Text's Stroke and Corner are on its box's attribute too (CAP-T15WHERE-A.json, text stroke, text corner 12); its padding is not.
+  if (b.type === 'text' && (d.stroke || d.background)) {
+    if (d.stroke) inner.push(`border: ${d.strokeSize === 'custom' ? d.strokePx ?? 2 : STROKE_PX[d.strokeSize || 'S']}px ${d.stroke} ${d.strokeColor || 'rgb(0, 0, 0)'}`);
+    inner.push(`border-radius: ${d.corners ? d.corners.map((v) => `${v}px`).join(' ') : `${d.corner || 0}px`}`);
+  }
+  return { block: block.join('; '), inner: inner.join('; ') };
+}
+function designRule(b, d, phone, live = false) {
+  const moved = isMoved(d);
   const off = phone && b.design?.blur;
   const clear = phone && b.design?.background;
   // A Shape's blur is a filter on its contents, not on the block (CAP-T15BLUR.json).
-  const contentsBlur = b.type === 'shape' && (d.blur || off) ? `\n    .fe-block-${b.id} .sqs-block { filter: ${d.blur ? `blur(${d.blurPx ?? 15}px)` : 'none'}; }` : '';
+  const contentsBlur = live ? '' : b.type === 'shape' && (d.blur || off) ? `\n    .fe-block-${b.id} .sqs-block { filter: ${d.blur ? `blur(${d.blurPx ?? 15}px)` : 'none'}; }` : '';
   const imageCorner = phone && b.type === 'image' && (b.designMobile.corners || 'corner' in b.designMobile) ? `\n    .fe-block-${b.id} .fluid-image-container { border-radius: ${cornerFor(b, 'mobile').css || '0'} !important; }` : '';
+  // An Image's phone Corner stays in the rule: where the editor keeps it is not read.
+  if (live && phone) return imageCorner;
   return `${imageCorner}
     .fe-block-${b.id} {
       --opacity: ${d.opacity}%;
@@ -585,12 +623,13 @@ function designRule(b, d, phone) {
 
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
-      transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${contentsBlur}${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+      transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' || live ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
+    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
-export function designCss(b) {
-  const base = designRule(b, designFor(b, 'desktop'), false);
+export function designCss(b, live = false) {
+  const base = designRule(b, designFor(b, 'desktop'), false, live);
+  if (live) { const phone = b.designMobile ? designRule(b, designFor(b, 'mobile'), true, true) : ''; return phone ? `${base}\n    @media (max-width: 767px) {${phone}}\n  ` : base; }
   return b.designMobile ? `${base}\n    @media (max-width: 767px) {${designRule(b, designFor(b, 'mobile'), true)}}\n  ` : base;
 }
 
@@ -646,7 +685,7 @@ export function stackCss(b) {
 
 export const STROKE_PX = { S: 2, M: 6, L: 15 };
 export const STROKE_PAD = { S: '3%', M: '6%', L: '12%' };
-function blendRule(b, g, phone) {
+function blendRule(b, g, phone, live = false) {
   const base = b.design || {};
   // Drop Shadow on a shape (SHAPEDESIGN.json): drop-shadow(2px 2px 3px) on the block contents,
   // in the text color as no color is given.
@@ -663,9 +702,10 @@ function blendRule(b, g, phone) {
   const vAt = `.fe-block-${b.id}`, vBoxed = g.background || g.stroke, vY = g.padY ?? 6, vX = g.padX ?? 6;
   const vPad = !vBoxed ? '0' : g.padFour ? `${g.padT ?? vY}% ${g.padR ?? vX}% ${g.padB ?? vY}% ${g.padL ?? vX}%` : `${vY}% ${vX}%`;
   const video = g.corner || g.corners || vBoxed || phone ? `${vAt} .sqs-block, ${vAt} .sqs-block-content { border-radius: ${radius}; } ${vAt} .intrinsic { border-radius: ${radius}; padding: ${vPad}; background-color: ${g.background && !g.bgClear ? g.bgColor || 'rgb(255, 255, 255)' : 'transparent'}; border: ${g.stroke ? `${g.strokePx ?? 6}px ${g.stroke} ${g.strokeColor || 'rgb(255, 255, 255)'}` : '0'}; }` : '';
-  const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
-    + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
-      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
+  const tl = live && b.type === 'text'; // the frame draws a Text's stroke and corner from its box's attribute (liveStyle)
+  const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? tl ? '' : `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke && !tl ? `${on} { border: 0; }` : '')
+    + (boxed ? `${g.stroke || tl ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
+      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; }${tl ? '' : ` ${on} { border-radius: 0; }`} .fe-block-${b.id} { border-radius: 0; }` : '');
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
   const shadow = drop + (stroke ? ` ${stroke}` : '');
   const m = g.blend && g.blend !== 'normal' ? g.blend : phone && base.blend && base.blend !== 'normal' ? 'normal' : null;
@@ -673,9 +713,9 @@ function blendRule(b, g, phone) {
   if (b.type === 'text') return `${shadow} .fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`.trim();
   return `${shadow} .fe-block-${b.id} { mix-blend-mode: ${m}; }`.trim();
 }
-export function blendCss(b) {
-  const base = blendRule(b, b.design || {}, false);
-  const phone = b.designMobile ? blendRule(b, { ...b.design, ...b.designMobile }, true) : '';
+export function blendCss(b, live = false) {
+  const base = blendRule(b, b.design || {}, false, live);
+  const phone = b.designMobile ? blendRule(b, { ...b.design, ...b.designMobile }, true, live) : '';
   return phone ? `${base} @media (max-width: 767px) { ${phone} }`.trim() : base;
 }
 
@@ -688,11 +728,13 @@ function kidDesign(b, c) {
 }
 
 export function renderBlock(b, model) {
-  const blend = blendCss(b);
-  const design = (b.design || b.designMobile ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
+  const blend = blendCss(b, !!liveView);
+  const designed = b.design || b.designMobile, live = liveView && designed ? liveStyle(b, liveView) : null;
+  const design = (designed ? `<style class="transform-vars">${designCss(b, !!liveView)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   // A block with animations says so on its .sqs-block (ANIMFLOW.json).
-  const inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
-  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${inner}${design}</div>`;
+  let inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
+  if (live?.inner) inner = inner.replace(/^<div /, `<div style="${live.inner}" `);
+  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}"${live?.block ? ` style="${live.block}"` : ''}>${inner}${design}</div>`;
 }
 
 // Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json, CAP-DIVSHAPES.json):
@@ -922,6 +964,11 @@ export function renderFooter(model) {
 }
 
 export function exportHtml(model, siteCss) {
+  const was = liveView;
+  liveView = null;
+  try { return exportPage(model, siteCss); } finally { liveView = was; }
+}
+function exportPage(model, siteCss) {
   return `<!doctype html>
 <html lang="en">
 <head>

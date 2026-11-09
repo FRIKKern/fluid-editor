@@ -14,20 +14,22 @@
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my [grab dx,dy]| pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | dragRow name label n dx [step] (a real drag by the field's top or left strip, value per step) | typeRow label n text (no Enter) | rowValues name [labels] | fillRange value | fillStill value name (no scroll; refuses a field off screen) | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | pressOnly i k [part] (no move) | shiftClick i k [part] | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
-//   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, gridAll: i (every grid number in each block's CSS and attributes), contentH: [i,k], stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, elsIn: [left, top, right, bottom], look: i, tiles: true, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], aligns: i, checks: true, radios: true, sectionCss: i, sel: selector, layers: i, controls: true, thin: true, focused: true, looks: [left, top, right, bottom], rows: [label, ...], barState: true }
+//   read name { stamps: true, codeText: true, where: [i,k] (where each drawn Design value lives), block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, gridAll: i (every grid number in each block's CSS and attributes), contentH: [i,k], stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, elsIn: [left, top, right, bottom], look: i, tiles: true, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], aligns: i, checks: true, radios: true, sectionCss: i, sel: selector, layers: i, controls: true, thin: true, focused: true, looks: [left, top, right, bottom], rows: [label, ...], barState: true }
 // k is a block's place in its section, or "new" for the block `add` made. part is "middle", a handle, or fractions [x, y] of the block.
 // A recipe that changes content names its page ({ page: 'Gestures Probe' }, 0006). Nothing is saved on any page.
 // The page (0006): --steps needs --page or a first toPage, and toPage sets the page a later enter comes back to. The demo
 // page takes only steps that can't write: a recipe with no page may read it, and --steps needs --demo-read-only as well.
 // Every step that acts stops the run if the frame is on another page, before it presses.
 // clickAt is by position: Custom's place moves with the window, so a press on a control goes by name (click label).
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { browser, evalJs, mouse, wheel, cdp, goto, pause, reload, waitFor, engine, viewport } from './lib/cmux.mjs';
 import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock, openAddBlock, addSection, blockIds, escape, select } from './oracle/ui.mjs';
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
 import { STUB_JS } from './lib/clip-guard.mjs';
-import { runSteps } from './oracle/run-steps.mjs';
+import { runSteps, waitUntil } from './oracle/run-steps.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -46,6 +48,25 @@ const refuse = (why) => { console.error(`oracle-capture refused, nothing ran: ${
 if (!pageTitle && recipe.steps[0]?.[0] !== 'toPage') refuse('--steps needs --page or toPage as its first step.');
 // A read label is written once: a second read or ring with the same label overwrote the first (CAP-X2RESIZED.json's Markdown).
 { const seen = new Set(); for (const [op, label] of recipe.steps) if ((op === 'read' || op === 'ring') && seen.has(label)) refuse(`the label "${label}" is used twice: each read needs its own.`); else if (op === 'read' || op === 'ring') seen.add(label); }
+// A fresh round (check-fresh.mjs): --predictions names the predictions file in parity/findings. It must be committed and
+// pushed before anything opens, and its cases must name two reads each from these steps. The finding records the file's
+// commit, its hash, and when the capture started.
+const startedAt = new Date().toISOString();
+let predictions = null;
+if (opt('predictions')) {
+  const file = opt('predictions').replace(/^.*\//, ''), path = `parity/findings/${file}`, at = new URL(`../${path}`, import.meta.url);
+  const git = (...a) => { try { return execFileSync('git', a, { cwd: new URL('..', import.meta.url).pathname, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return ''; } };
+  if (!existsSync(at)) refuse(`no ${path}.`);
+  if (git('status', '--porcelain', '--', path)) refuse(`${path} has changes not committed: commit and push the predictions first.`);
+  const [commit, committedAt] = git('log', '-1', '--format=%H %cI', '--', path).split(' ');
+  if (!commit) refuse(`${path} is not committed.`);
+  if (!git('branch', '-r', '--contains', commit)) refuse(`${path}'s commit ${commit.slice(0, 7)} is not pushed.`);
+  const text = readFileSync(at, 'utf8'), cases = JSON.parse(text).cases;
+  if (!cases || typeof cases !== 'object' || !Object.keys(cases).length) refuse(`${path} has no cases: list each scored case as "case": ["read label", "second read label"].`);
+  const labels = new Set(recipe.steps.filter(([op]) => op === 'read' || op === 'ring').map(([, l]) => l));
+  for (const [k, v] of Object.entries(cases)) if (!Array.isArray(v) || v.length !== 2 || !v.every((l) => labels.has(l))) refuse(`case "${k}" needs two read labels from --steps.`);
+  predictions = { file, commit, committedAt, sha256: createHash('sha256').update(text).digest('hex') };
+}
 {
   let page = pageTitle;
   for (const [op, ...a] of recipe.steps) {
@@ -94,6 +115,11 @@ function read(what) {
   if (what.style) { const [i, k] = what.style; const id = blockId(i, k); out.style = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const all = [b, ...b.querySelectorAll('*')]; const c = (e) => W.getComputedStyle(e); const inl = b.getAttribute('style') || ''; const svg = b.querySelector('svg path, svg rect, svg circle, svg polygon'); const box = b.querySelector('.sqs-shape, .sqs-block-content > *, .sqs-block > *') || b; const q = box.getBoundingClientRect(); return JSON.stringify({ transform: c(b).transform, origin: c(b).transformOrigin, opacity: c(b).opacity, radius: c(box).borderRadius, border: c(box).borderTopWidth + ' ' + c(box).borderTopStyle + ' ' + c(box).borderTopColor, bg: c(box).backgroundColor, fill: svg ? c(svg).fill : null, stroke: svg ? c(svg).stroke + ' ' + c(svg).strokeWidth : null, rx: b.querySelector('svg rect') ? b.querySelector('svg rect').getAttribute('rx') : null, tagName: svg ? svg.tagName : null, inner: [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10], vars: inl.replace(/\\s+/g, ' ').slice(0, 400) }); })()`); }
   // The block's Design rule (<style class="transform-vars">, keyed .fe-block-<id>) and what its parts draw: filter and backdrop-filter (T15).
   if (what.rule) { const [i, k] = what.rule; const id = blockId(i, k); out.rule = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const key = [...b.classList].find((c) => /^fe-block-/.test(c)) || ''; const rules = [...d.querySelectorAll('style.transform-vars')].map((x) => x.textContent.replace(/\\s+/g, ' ').trim()).filter((t) => key && t.includes(key)); const drawn = [b, ...b.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e); return { cls: String(e.className.baseVal ?? e.className).slice(0, 60), filter: c.filter, backdrop: c.backdropFilter || c.webkitBackdropFilter }; }).filter((x) => x.filter !== 'none' || (x.backdrop && x.backdrop !== 'none')); return JSON.stringify({ key, rules, drawn }); })()`); }
+  // Where each drawn Design value lives (T15), no rule text kept: for every part of the block that draws one
+  // (filter, backdrop-filter, a background, a border, corners, opacity, blend), its value, its part, whether the
+  // style attribute holds it, and each matching rule's owner (a <style> by class, or a sheet), @media, and whether
+  // it names this block. Sheets that can't be read are counted.
+  if (what.where) { const [i, k] = what.where; const id = blockId(i, k); out.where = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const key = [...b.classList].find((c) => /^fe-block-/.test(c)) || ''; const props = { filter: 'none', 'backdrop-filter': 'none', 'background-color': 'rgba(0, 0, 0, 0)', 'border-top-width': '0px', 'border-top-left-radius': '0px', opacity: '1', 'mix-blend-mode': 'normal' }; const rules = []; let unread = 0; const walk = (list, media, owner) => { for (const r of list) { if (r.cssRules && !r.selectorText) walk(r.cssRules, r.media ? r.media.mediaText : media, owner); else if (r.selectorText) rules.push({ r, media, owner }); } }; for (const sh of d.styleSheets) { const n = sh.ownerNode; const owner = n && n.tagName === 'STYLE' ? 'style.' + ([...n.classList].join('.') || '(no class)') : 'sheet'; try { walk(sh.cssRules, sh.media && sh.media.mediaText || '', owner); } catch { unread++; } } const part = (e) => e === b ? 'block' : (e.tagName.toLowerCase() + '.' + [...e.classList].filter((c) => !/^[A-Za-z0-9_-]{12,}$/.test(c) || /-/.test(c)).slice(0, 3).join('.')); const drawn = []; for (const e of [b, ...b.querySelectorAll('*')]) { if (e.closest('svg') && e.tagName !== 'svg') continue; const c = W.getComputedStyle(e); for (const [p, none] of Object.entries(props)) { const v = c.getPropertyValue(p); if (!v || v === none || (p === 'border-top-width' && c.borderTopStyle === 'none')) continue; const inl = e.style.getPropertyValue(p); const from = rules.filter((x) => { try { return e.matches(x.r.selectorText) && x.r.style.getPropertyValue(p); } catch { return false; } }).map((x) => ({ owner: x.owner, media: x.media || '', forBlock: !!key && x.r.selectorText.includes(key), value: x.r.style.getPropertyValue(p), important: x.r.style.getPropertyPriority(p) === 'important' })); drawn.push({ part: part(e), prop: p, value: v, inline: inl || '', from }); } } const marks = [b, ...b.querySelectorAll('*')].flatMap((e) => [...e.classList].filter((c) => /background|stroke|blur|border|corner|design/i.test(c)).map((c) => part(e) + ' ' + c)); const inlines = [b, ...b.querySelectorAll('*')].filter((e) => (e.getAttribute('style') || '').trim()).map((e) => ({ part: part(e), props: [...e.style].join(' ') })); return JSON.stringify({ unread, drawn, marks, inlines }); })()`); }
   if (what.range) out.range = evalJs(S, `(() => { const all = [...document.querySelectorAll('input')].filter((e) => !e.closest('#sqs-site-frame')); const r = all.find((e) => e.type === 'range' && e.getBoundingClientRect().width > 0); if (!r) return JSON.stringify(null); const t = all[all.indexOf(r) + 1]; const q = t.getBoundingClientRect(); return JSON.stringify({ slider: r.value, field: t.value, min: r.min, max: r.max, fieldAt: [Math.round(q.left), Math.round(q.top)] }); })()`);
   if (what.controls) out.controls = evalJs(S, `JSON.stringify(${CONTROLS})`);
   // What has the focus, and the look of each thing with text or an icon in a region of the page. Addresses lose their scheme and the site's name (O2).
@@ -237,7 +263,7 @@ const pagePath = pageTitle ? pathOf(pageTitle) : null;
 let stepNo = -1;
 const readOwner = {};
 const reads = new Proxy({}, { set: (t, k, v) => { if (k in t && readOwner[k] !== stepNo) throw new Error(`the label "${String(k)}" was read by step ${readOwner[k]}: not written again`); t[k] = v; readOwner[k] = stepNo; return true; } });
-const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), engine: engine(S), question: recipe.question, steps: recipe.steps, reads, errors: [] };
+const finding = { item: name, oracle: pagePath || pathOf(recipe.steps[0][1]), capturedAt: new Date().toISOString().slice(0, 10), startedAt, ...(predictions ? { predictions } : {}), engine: engine(S), question: recipe.question, steps: recipe.steps, reads, errors: [] };
 const LABEL = (label) => `() => { const L = ${JSON.stringify(label)}; const hits = [...document.querySelectorAll('[aria-label], [title], body *')].filter((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#sqs-site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); }); const onTop = (e) => { const q = e.getBoundingClientRect(); const t = document.elementFromPoint(q.left + q.width / 2, q.top + q.height / 2); return t && (e === t || e.contains(t) || t.contains(e)); }; const hit = hits.filter(onTop).pop() || hits.pop(); return hit && (hit.closest('button, a, label, [role=radio], [role=button], [role=switch], [role=tab], [role=option], [role=menuitem]') || hit); }`;
 const panelAt = (sel, n) => { const r = evalJs(S, `(() => { const e = [...document.querySelectorAll(${JSON.stringify(sel)})].filter((x) => x.getBoundingClientRect().width > 0 && !x.closest('#sqs-site-frame'))[${n}]; if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!r) throw new Error(`nothing at ${sel} ${n}`); return r; };
 // A tip: the small dark box with the buttons' words, in either document.
@@ -319,7 +345,7 @@ const STEPS = {
     if (!ok) { finding.errors.push(`${name}: ${part} handle not on top, not pressed`); return; }
     await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800);
   },
-  panel: (i) => openSectionPanel(i),
+  panel: (i, top) => openSectionPanel(i, top),
   editText: async (i, k) => { point(i, k); await inFrame(() => browser(S, 'dblclick', '#fx-b')); await pause(1000); },
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },
   clickIf: async (label) => { if (tag(LABEL(label))) { browser(S, 'click', '#fx-target'); await pause(1200); } else finding.errors.push(`no ${label}`); },
@@ -746,8 +772,11 @@ try {
   finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
   finding.exitSteps = exitWithoutSaving.steps;
   if (Object.keys(pagesBefore).length) {
-    try { reload(S); await pause(6000); } catch { /* the count below says what is there */ }
-    const after = countPage(), before = after && pagesBefore[after.path];
+    try { reload(S); } catch { /* the wait below says whether the page came back */ }
+    // Wait for the frame to hold a page this run visited, fully loaded; 30 s at most, and then the run fails loudly.
+    const loaded = () => { const c = countPage(), done = (() => { try { return evalJs(S, `(() => JSON.stringify(document.getElementById('sqs-site-frame')?.contentDocument?.readyState ?? null))()`) === 'complete'; } catch { return false; } })(); return c && done && c.path in pagesBefore ? c : null; };
+    const after = await waitUntil(loaded, 30000), before = after && pagesBefore[after.path];
+    if (!after) { finding.errors.push('read-back: the frame did not load a page this run visited within 30 s after the reload; check the page by hand'); console.error(`READ-BACK FAILED: ${finding.errors.at(-1)}`); process.exitCode = 1; }
     finding.readBack = { before: before || pagesBefore, after, same: !!before && JSON.stringify(after) === JSON.stringify(before) };
     console.log(`read-back: ${JSON.stringify(finding.readBack.before)} before, ${JSON.stringify(after)} after${finding.readBack.same ? '' : ': NOT THE SAME, check the page'}`);
   }
