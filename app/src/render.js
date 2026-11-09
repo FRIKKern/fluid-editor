@@ -585,10 +585,17 @@ export const setLiveView = (bp) => { liveView = bp; };
 const isMoved = (d) => d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
 export function liveStyle(b, bp) {
   const d = designFor(b, bp), block = [], inner = [];
-  if (bp === 'mobile' && b.designMobile) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
+  // Once a transform value is set, the block's attribute holds every variable (CAP-T15WHERE-A.json, text opacity 50).
+  const edited = (g) => !!g && ['opacity', 'tx', 'ty', 'rotate', 'sx', 'sy', 'kx', 'ky', 'ox', 'oy'].some((k) => k in g);
+  if ((bp === 'mobile' && b.designMobile) || edited(b.design)) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
   // A Shape's blur is on its contents, a Text's on the block (CAP-T15BLUR.json).
   if (d.blur) (b.type === 'shape' ? inner : block).push(`${b.type !== 'shape' && d.blurKind !== 'element' ? 'backdrop-filter' : 'filter'}: blur(${d.blurPx ?? 15}px)`);
   if (d.background) inner.push(`background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}`);
+  // A Text's Stroke and Corner are on its box's attribute too (CAP-T15WHERE-A.json, text stroke, text corner 12); its padding is not.
+  if (b.type === 'text' && (d.stroke || d.background)) {
+    if (d.stroke) inner.push(`border: ${d.strokeSize === 'custom' ? d.strokePx ?? 2 : STROKE_PX[d.strokeSize || 'S']}px ${d.stroke} ${d.strokeColor || 'rgb(0, 0, 0)'}`);
+    inner.push(`border-radius: ${d.corners ? d.corners.map((v) => `${v}px`).join(' ') : `${d.corner || 0}px`}`);
+  }
   return { block: block.join('; '), inner: inner.join('; ') };
 }
 function designRule(b, d, phone, live = false) {
@@ -678,7 +685,7 @@ export function stackCss(b) {
 
 export const STROKE_PX = { S: 2, M: 6, L: 15 };
 export const STROKE_PAD = { S: '3%', M: '6%', L: '12%' };
-function blendRule(b, g, phone) {
+function blendRule(b, g, phone, live = false) {
   const base = b.design || {};
   // Drop Shadow on a shape (SHAPEDESIGN.json): drop-shadow(2px 2px 3px) on the block contents,
   // in the text color as no color is given.
@@ -695,9 +702,10 @@ function blendRule(b, g, phone) {
   const vAt = `.fe-block-${b.id}`, vBoxed = g.background || g.stroke, vY = g.padY ?? 6, vX = g.padX ?? 6;
   const vPad = !vBoxed ? '0' : g.padFour ? `${g.padT ?? vY}% ${g.padR ?? vX}% ${g.padB ?? vY}% ${g.padL ?? vX}%` : `${vY}% ${vX}%`;
   const video = g.corner || g.corners || vBoxed || phone ? `${vAt} .sqs-block, ${vAt} .sqs-block-content { border-radius: ${radius}; } ${vAt} .intrinsic { border-radius: ${radius}; padding: ${vPad}; background-color: ${g.background && !g.bgClear ? g.bgColor || 'rgb(255, 255, 255)' : 'transparent'}; border: ${g.stroke ? `${g.strokePx ?? 6}px ${g.stroke} ${g.strokeColor || 'rgb(255, 255, 255)'}` : '0'}; }` : '';
-  const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke ? `${on} { border: 0; }` : '')
-    + (boxed ? `${g.stroke ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
-      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; } ${on} { border-radius: 0; } .fe-block-${b.id} { border-radius: 0; }` : '');
+  const tl = live && b.type === 'text'; // the frame draws a Text's stroke and corner from its box's attribute (liveStyle)
+  const stroke = b.type === 'video' ? video : b.type === 'shape' ? '' : (g.stroke ? tl ? '' : `${on} { border: ${w}px ${g.stroke} ${g.strokeColor || 'rgb(0, 0, 0)'}; border-radius: ${b.type === 'stack' ? `${g.corner || 0}px` : radius}; }` : phone && base.stroke && !tl ? `${on} { border: 0; }` : '')
+    + (boxed ? `${g.stroke || tl ? '' : ` ${on} { border-radius: ${radius}; }`} .fe-block-${b.id} { border-radius: ${radius}; } .fe-block-${b.id} ${inner} { padding: ${pad}; }`
+      : phone && b.type !== 'shape' && b.type !== 'stack' && (base.stroke || base.background) ? ` .fe-block-${b.id} ${inner} { padding: 0; }${tl ? '' : ` ${on} { border-radius: 0; }`} .fe-block-${b.id} { border-radius: 0; }` : '');
   const drop = g.shadow ? `.fe-block-${b.id} .sqs-block { filter: drop-shadow(2px 2px 3px); }` : phone && base.shadow ? `.fe-block-${b.id} .sqs-block { filter: none; }` : '';
   const shadow = drop + (stroke ? ` ${stroke}` : '');
   const m = g.blend && g.blend !== 'normal' ? g.blend : phone && base.blend && base.blend !== 'normal' ? 'normal' : null;
@@ -705,9 +713,9 @@ function blendRule(b, g, phone) {
   if (b.type === 'text') return `${shadow} .fe-block-${b.id} { mix-blend-mode: var(--tweak-text-block-blend ); } .fe-block-${b.id} { --tweak-text-block-blend : ${m}; }`.trim();
   return `${shadow} .fe-block-${b.id} { mix-blend-mode: ${m}; }`.trim();
 }
-export function blendCss(b) {
-  const base = blendRule(b, b.design || {}, false);
-  const phone = b.designMobile ? blendRule(b, { ...b.design, ...b.designMobile }, true) : '';
+export function blendCss(b, live = false) {
+  const base = blendRule(b, b.design || {}, false, live);
+  const phone = b.designMobile ? blendRule(b, { ...b.design, ...b.designMobile }, true, live) : '';
   return phone ? `${base} @media (max-width: 767px) { ${phone} }`.trim() : base;
 }
 
@@ -720,7 +728,7 @@ function kidDesign(b, c) {
 }
 
 export function renderBlock(b, model) {
-  const blend = blendCss(b);
+  const blend = blendCss(b, !!liveView);
   const designed = b.design || b.designMobile, live = liveView && designed ? liveStyle(b, liveView) : null;
   const design = (designed ? `<style class="transform-vars">${designCss(b, !!liveView)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   // A block with animations says so on its .sqs-block (ANIMFLOW.json).
