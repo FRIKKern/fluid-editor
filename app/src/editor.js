@@ -1707,7 +1707,7 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
-    delete b.asAdded; // as a pull does (inferred for the keys)
+    // The keys do not end a new Instagram's kept row as a pull does: Cmd+Down to 13 rows, then 3:2, read 9 (CAP-T12READS-J.json).
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
