@@ -566,6 +566,8 @@ function designRule(b, d, phone) {
   const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
   const off = phone && b.design?.blur;
   const clear = phone && b.design?.background;
+  // A Shape's blur is a filter on its contents, not on the block (CAP-T15BLUR.json).
+  const contentsBlur = b.type === 'shape' && (d.blur || off) ? `\n    .fe-block-${b.id} .sqs-block { filter: ${d.blur ? `blur(${d.blurPx ?? 15}px)` : 'none'}; }` : '';
   const imageCorner = phone && b.type === 'image' && (b.designMobile.corners || 'corner' in b.designMobile) ? `\n    .fe-block-${b.id} .fluid-image-container { border-radius: ${cornerFor(b, 'mobile').css || '0'} !important; }` : '';
   return `${imageCorner}
     .fe-block-${b.id} {
@@ -583,8 +585,8 @@ function designRule(b, d, phone) {
 
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
-      transform-origin: var(--origin-x) var(--origin-y);${d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+      transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
+    }${contentsBlur}${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b) {

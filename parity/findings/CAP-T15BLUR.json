@@ -1,0 +1,4641 @@
+{
+  "item": "CAP-T15BLUR",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15: Blur on a new Shape (no Element or Backdrop choice) and a new Text (Element and Backdrop): the panel and what an amount draws at 15, 40 and 100, read twice (runs A and B). Gestures Probe, editor only, unsaved.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "scrollTo",
+      "Blur"
+    ],
+    [
+      "read",
+      "A shape 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      40
+    ],
+    [
+      "read",
+      "A shape 40",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      100
+    ],
+    [
+      "read",
+      "A shape 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "scrollTo",
+      "Blur"
+    ],
+    [
+      "read",
+      "A text backdrop 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Element"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A text element 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      40
+    ],
+    [
+      "read",
+      "A text element 40",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      100
+    ],
+    [
+      "read",
+      "A text element 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Backdrop"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A text backdrop 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "scrollTo",
+      "Blur"
+    ],
+    [
+      "read",
+      "B shape 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      40
+    ],
+    [
+      "read",
+      "B shape 40",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      100
+    ],
+    [
+      "read",
+      "B shape 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "scrollTo",
+      "Blur"
+    ],
+    [
+      "read",
+      "B text backdrop 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Element"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B text element 15",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      40
+    ],
+    [
+      "read",
+      "B text element 40",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      100
+    ],
+    [
+      "read",
+      "B text element 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Backdrop"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B text backdrop 100",
+      {
+        "controls": true,
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "A shape 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199834413_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199834413_438 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            719,
+            612,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A shape 40": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199834413_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199834413_438 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(40px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "40px",
+          "box": [
+            717,
+            612,
+            36,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "40",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A shape 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199834413_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199834413_438 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(100px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            710,
+            612,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A text backdrop 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199893717_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199893717_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794199893717_420 fe-block fluid-engin",
+            "filter": "none",
+            "backdrop": "blur(15px)"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            836,
+            624,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            645.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            717,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            764,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A text element 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199893717_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199893717_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794199893717_420 fe-block fluid-engin",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            836,
+            592,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A text element 40": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199893717_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199893717_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794199893717_420 fe-block fluid-engin",
+            "filter": "blur(40px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "40px",
+          "box": [
+            834,
+            592,
+            36,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "40",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A text element 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199893717_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199893717_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794199893717_420 fe-block fluid-engin",
+            "filter": "blur(100px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            827,
+            592,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A text backdrop 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199893717_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199893717_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794199893717_420 fe-block fluid-engin",
+            "filter": "none",
+            "backdrop": "blur(100px)"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            827,
+            624,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            645.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            717,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            764,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B shape 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199978899_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199978899_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            719,
+            612,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B shape 40": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199978899_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199978899_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(40px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "40px",
+          "box": [
+            717,
+            612,
+            36,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "40",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B shape 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794199978899_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794199978899_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(100px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            372,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            420,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            526.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            571.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            710,
+            612,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            483,
+            633.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            720.5,
+            705,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            752,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            785,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            752,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            752,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B text backdrop 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794200029638_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794200029638_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794200029638_420 fe-block fluid-engin",
+            "filter": "none",
+            "backdrop": "blur(15px)"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            836,
+            624,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            645.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            717,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            764,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B text element 15": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794200029638_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794200029638_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794200029638_420 fe-block fluid-engin",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            836,
+            592,
+            34,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "15",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B text element 40": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794200029638_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794200029638_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794200029638_420 fe-block fluid-engin",
+            "filter": "blur(40px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "40px",
+          "box": [
+            834,
+            592,
+            36,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "40",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B text element 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794200029638_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794200029638_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794200029638_420 fe-block fluid-engin",
+            "filter": "blur(100px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            827,
+            592,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            613.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            685,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            732,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            765,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            732,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            783,
+            182,
+            11
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B text backdrop 100": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794200029638_420",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794200029638_420 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794200029638_420 fe-block fluid-engin",
+            "filter": "none",
+            "backdrop": "blur(100px)"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            543,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "100px",
+          "box": [
+            827,
+            624,
+            43,
+            22
+          ]
+        },
+        {
+          "role": "input:range",
+          "label": "Blur Amount",
+          "value": "100",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "box": [
+            600,
+            645.5,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            717,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            764,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            11,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": []
+}
