@@ -1,0 +1,490 @@
+{
+  "item": "CAP-T15FIELDS3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15: Cmd+Z with typing not yet taken in an Animation field (ours leaves it to the field). Opacity set to 50% (taken), then 25 typed into Rotate with no Enter; Cmd+Z twice, then Enter. Read twice, R3 and R4, on a new Shape each.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "fillRow",
+      "Opacity",
+      0,
+      "50%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "rowValues",
+      "R3 before typing",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "typeRow",
+      "Rotate",
+      0,
+      "25"
+    ],
+    [
+      "rowValues",
+      "R3 typed",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R3 after Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R3 after 2nd Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "rowValues",
+      "R3 after Enter",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "fillRow",
+      "Opacity",
+      0,
+      "50%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "rowValues",
+      "R4 before typing",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "typeRow",
+      "Rotate",
+      0,
+      "25"
+    ],
+    [
+      "rowValues",
+      "R4 typed",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R4 after Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R4 after 2nd Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "rowValues",
+      "R4 after Enter",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R3 before typing": {
+      "Opacity": [
+        "50%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "50%",
+        "caret": 3
+      }
+    },
+    "R3 typed": {
+      "Opacity": [
+        "50%"
+      ],
+      "Rotate": [
+        "25"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "25",
+        "caret": 2
+      }
+    },
+    "R3 after Cmd+Z": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    },
+    "R3 after 2nd Cmd+Z": {
+      "Opacity": null,
+      "Rotate": null,
+      "Scale": null,
+      "Offset": null,
+      "Skew": null,
+      "focus": "BODY"
+    },
+    "R3 after Enter": {
+      "Opacity": null,
+      "Rotate": null,
+      "Scale": null,
+      "Offset": null,
+      "Skew": null,
+      "focus": "BODY"
+    },
+    "R4 before typing": {
+      "Opacity": [
+        "50%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "50%",
+        "caret": 3
+      }
+    },
+    "R4 typed": {
+      "Opacity": [
+        "50%"
+      ],
+      "Rotate": [
+        "25"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "25",
+        "caret": 2
+      }
+    },
+    "R4 after Cmd+Z": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    },
+    "R4 after 2nd Cmd+Z": {
+      "Opacity": null,
+      "Rotate": null,
+      "Scale": null,
+      "Offset": null,
+      "Skew": null,
+      "focus": "BODY"
+    },
+    "R4 after Enter": {
+      "Opacity": null,
+      "Rotate": null,
+      "Scale": null,
+      "Offset": null,
+      "Skew": null,
+      "focus": "BODY"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice (R3, R4), in agreement. Opacity set to 50% (taken), then 25 typed into Rotate with no Enter: Cmd+Z drops the typing (Rotate 0°) and undoes Opacity to 100%, the focus staying in Rotate, caret at its end. A second Cmd+Z removes the animation: the editor's fields are gone, the focus on the page."
+}

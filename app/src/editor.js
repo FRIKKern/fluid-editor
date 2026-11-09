@@ -2215,7 +2215,14 @@ blockPanel.addEventListener('pointerdown', (e) => {
       renderSectionDom(sel.sid);
       shown(v, CORNER_RANGE, v !== 0);
     } else if (key) {
-      const v = scrubbed(start, dx, key), pose = /:(\d)/.exec(key);
+      let v = scrubbed(start, dx, key);
+      const pose = /:(\d)/.exec(key);
+      // A drag stops at its bar's ends, as Design's: Opacity 100%, Scale 0 and 200%, Offset 1,000px, Skew 60°, read twice
+      // (CAP-T15FIELDS2.json); a value typed past an end is not pulled back. Rotate's ends are not read: it runs on.
+      if (pose && pose[1] !== '1') {
+        const [lo, hi] = POSE_RANGE[pose[1]], s0 = parseFloat(String(start).replace(/,/g, '')), n = parseFloat(v), unit = String(v).replace(/^-?[\d.]+/, '');
+        v = `${Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), n))}${unit}`;
+      }
       input.value = commas(v);
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
@@ -4183,8 +4190,13 @@ async function readPicture(file) {
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
 // Cmd+Z in a transform field with nothing typed in it is the page's: the last step goes and the focus stays (CAP-T15CHEAP.json).
 // Not read: with typing not yet taken, so the field keeps it.
-const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && e.target.matches('input[data-afield], input[type="text"][data-design]') && e.target.value === e.target.defaultValue;
-blockPanel.addEventListener('keydown', (e) => { if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation(); });
+// Cmd+Z in an Animation field is the page's undo even with typing not yet taken: the typing goes, the last change is undone,
+// and the field keeps the focus (CAP-T15FIELDS3.json, read twice). Design's fields: only with nothing typed (not read).
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]') || (e.target.matches('input[type="text"][data-design]') && e.target.value === e.target.defaultValue));
+blockPanel.addEventListener('keydown', (e) => {
+  if (pageUndoIn(e) && e.target.matches('input[data-afield]')) e.target.value = e.target.defaultValue;
+  if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation();
+});
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
 
 const linkPop = $('link-popover');

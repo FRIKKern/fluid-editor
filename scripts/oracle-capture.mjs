@@ -11,7 +11,7 @@
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   selectKey shown key (focuses the panel's select showing that option and types a key, which picks the next option starting with it, as oracle-rows does) |
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
-//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my [grab dx,dy]| pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | fillRange value | fillStill value name (no scroll; refuses a field off screen) | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
+//   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my [grab dx,dy]| pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | dragRow name label n dx [step] (a real drag by the field's top or left strip, value per step) | typeRow label n text (no Enter) | rowValues name [labels] | fillRange value | fillStill value name (no scroll; refuses a field off screen) | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
 //   hold i k part dx dy [mods] | holdRaw i k part dx dy | pressOnly i k [part] (no move) | shiftClick i k [part] | move dx dy | release [home] | drag i k part dx dy {pointerType}
 //   touch i k part dx dy {holdMs} | pasteMid i k html | pasteHere i k html (over the selection as it is) | undoWalk name [n] [html] | stamp i k | shot name
 //   read name { stamps: true, codeText: true, block: [i,k], inside: [i,k], html: [i,k], section: i, sectionHandle: i, areas: i, gridAll: i (every grid number in each block's CSS and attributes), contentH: [i,k], stack: i (type, both areas and both z of each block in DOM order), zs: i, hit: [i,k,[[fx,fy],..]], clip: true, sections: true, has: [labels], range: true, rows: [labels], parts: [labels], boxes: [labels], shape: [i,k], reset: [label,n], leaves: [labels], afterBtn: label, gridEls: selector, cursorEls: true, shadowOf: label, btnState: [labels], shadowChain: selector, fullEls: true, panelBox: true or i, panelState: true, kids: [i, k] (a stack's children), linkTexts: [i, k], gradients: true, marker: [i, k], hits: [i, k], htmlOf: selector, frameEls: selector, panelEls: selector, elsIn: [left, top, right, bottom], look: i, tiles: true, panelCss: selector, textBox: [text], radii: [i, k], icon: true, style: [i,k], textH: [i,k], aligns: i, checks: true, radios: true, sectionCss: i, sel: selector, layers: i, controls: true, thin: true, focused: true, looks: [left, top, right, bottom], rows: [label, ...] }
@@ -420,6 +420,38 @@ const STEPS = {
   move: async (dx, dy) => { await inFrame(() => mouse(S, 'move', held.x + dx, held.y + dy, { buttons: 1, mods: held.mods })); held.dx = dx; held.dy = dy; await pause(300); },
   release: async (where) => { await inFrame(async () => { if (where === 'home') { mouse(S, 'move', held.x, held.y, { buttons: 1, mods: held.mods }); await pause(200); } mouse(S, 'up', where === 'home' ? held.x : held.x + held.dx, where === 'home' ? held.y : held.y + held.dy, { mods: held.mods }); }); held = null; await pause(700); },
   // In window pixels, for the editor's own panels. typeAt replaces what a field holds, then presses Enter. holdAt, moveAt, releaseAt keep the button down between reads.
+  // A real drag on a row's field by its drag strip: the top edge, else the left edge, whichever is a button on top. Moves dx in
+  // steps of `step` px (250 ms each), reading the value at each, holds 300 ms, lets go; then the value and the focus.
+  dragRow: async (name, label, n, dx, step = 20) => {
+    const b = evalJs(S, `(() => { const f = ${ROWINPUTS(label)}; const e = f && f[${n}]; if (!e) return 'null'; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect();
+      const pts = [['top', q.left + q.width / 2, q.top + 3], ['left', q.left - 5, q.top + q.height / 2]];
+      for (const [at, x, y] of pts) { const t = document.elementFromPoint(x, y); if (t && t !== e && t.tagName === 'BUTTON' && !t.closest('#sqs-site-frame')) { const r = t.getBoundingClientRect(); return JSON.stringify({ at, x, y, v: e.value, strip: [r.left, r.top, r.width, r.height].map((v) => Math.round(v * 10) / 10) }); } }
+      return JSON.stringify({ at: null, v: e.value }); })()`);
+    if (!b) throw new Error(`dragRow: no field ${label} ${n}`);
+    if (!b.at) throw new Error(`dragRow: no drag strip on top for ${label} ${n}`);
+    const val = () => evalJs(S, `(() => { const f = ${ROWINPUTS(label)}; return JSON.stringify(f && f[${n}] ? f[${n}].value : null); })()`);
+    const path = []; let x = b.x;
+    mouse(S, 'move', b.x, b.y); await pause(250); mouse(S, 'down', b.x, b.y); await pause(200);
+    try {
+      for (let i = 1; i <= Math.ceil(Math.abs(dx) / step); i++) { x = b.x + Math.sign(dx) * Math.min(Math.abs(dx), i * step); mouse(S, 'move', x, b.y, { buttons: 1 }); await pause(250); path.push([Math.round(x - b.x), val()]); }
+      await pause(300);
+    } finally { var heldV = val(); mouse(S, 'up', x, b.y); await pause(600); }
+    const focus = evalJs(S, `(() => { const e = document.activeElement; return JSON.stringify(e && e.tagName === 'INPUT' ? { tag: 'INPUT', value: e.value, caret: e.selectionStart } : e ? e.tagName : null); })()`);
+    finding.reads[name] = { label, n, from: b.v, dx, at: b.at, strip: b.strip, path, held: heldV, after: val(), focus };
+  },
+  // Types into a row's field by a real press on it, with the text selected first, and no Enter: the typing isn't taken yet.
+  typeRow: async (label, n, text) => {
+    const b = evalJs(S, `(() => { const f = ${ROWINPUTS(label)}; const e = f && f[${n}]; if (!e) return 'null'; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2, t = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: t === e || e.contains(t) }); })()`);
+    if (!b) throw new Error(`typeRow: no field ${label} ${n}`);
+    if (!b.onTop) throw new Error(`typeRow: ${label} ${n} not on top, not pressed`);
+    cdp(S, { op: 'drag', from: [b.x, b.y], to: [b.x, b.y], steps: 1, holdMs: 50, mods: [] }); await pause(400);
+    const ok = evalJs(S, `(() => { const f = ${ROWINPUTS(label)}; const e = f && f[${n}]; if (document.activeElement !== e) return JSON.stringify(false); e.select(); return JSON.stringify(true); })()`);
+    if (!ok) throw new Error(`typeRow: ${label} ${n} took no focus`);
+    for (const c of String(text)) browser(S, 'press', c === ' ' ? 'Space' : c);
+    await pause(400);
+  },
+  // The values of rows' fields by label, and the focus.
+  rowValues: (name, labels) => { finding.reads[name] = evalJs(S, `(() => { const out = {}; for (const L of ${JSON.stringify(labels)}) { const f = (${ROWINPUTS('__L__').replace('"__L__"', 'L')}); out[L] = f ? f.map((e) => e.value) : null; } const a = document.activeElement; out.focus = a && a.tagName === 'INPUT' ? { value: a.value, caret: a.selectionStart } : a ? a.tagName : null; return JSON.stringify(out); })()`); },
   typeAt: async (x, y, text) => { cdp(S, { op: 'drag', from: [x, y], to: [x, y], steps: 1, holdMs: 50, mods: [] }); await pause(400); const focus = evalJs(S, `(() => { const a = document.activeElement; if (a && a.select) a.select(); return JSON.stringify(a ? a.tagName : null); })()`); if (focus !== 'INPUT') throw new Error(`typeAt ${x},${y}: no input has focus (${focus})`); for (const c of String(text)) browser(S, 'press', c === ' ' ? 'Space' : c); browser(S, 'press', 'Enter'); await pause(800); },
   // The text field after the panel's slider, found by the slider so it works when the panel has moved.
   // A fill with no scroll (P3, CAP-P3SETTLE.json): fillRange goes through cdp-run's fill and fillRow through scrollIntoView,

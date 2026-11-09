@@ -1,6 +1,6 @@
 {
-  "pass": 388,
-  "total": 388,
+  "pass": 395,
+  "total": 395,
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -347,7 +347,35 @@
       "ok": true
     },
     {
-      "what": "A drag from 2,000px goes on to 2,008px",
+      "what": "A drag on from 2,000px stays at 2,000px (inferred, as Design: not pulled back, not taken further)",
+      "ok": true
+    },
+    {
+      "what": "Animation field 0: 95 dragged 50px stops at 100%, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Animation field 2: 190 dragged 50px stops at 200%, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Animation field 3: 10 dragged -50px stops at 0%, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Animation field 4: 990 dragged 50px stops at 1,000px, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Animation field 5: -990 dragged -50px stops at -1,000px, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Animation field 6: 55 dragged 50px stops at 60°, focused, as read",
+      "ok": true
+    },
+    {
+      "what": "Cmd+Z with 25 typed in Rotate: the typing goes and Opacity 50% is undone, the focus stays, as read",
       "ok": true
     },
     {

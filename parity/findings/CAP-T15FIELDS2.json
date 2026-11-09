@@ -1,0 +1,1837 @@
+{
+  "item": "CAP-T15FIELDS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15, not read before: a drag past a bar's end on Animation's fields (ours runs on), and Cmd+Z with typing not yet taken (ours leaves it to the field). Read twice, R1 and R2, on a new Shape each, Start blank.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R1 editor",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "rowValues",
+      "R1 rows",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "190%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 scale x +50",
+      "Scale",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Scale",
+      1,
+      "10%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 scale y -50",
+      "Scale",
+      1,
+      -50
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "990px"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 offset x +50",
+      "Offset",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Offset",
+      1,
+      "-990px"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 offset y -50",
+      "Offset",
+      1,
+      -50
+    ],
+    [
+      "fillRow",
+      "Skew",
+      0,
+      "55°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 skew x +50",
+      "Skew",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Opacity",
+      0,
+      "95%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 opacity +50",
+      "Opacity",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "10°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "rowValues",
+      "R1 before typing",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "typeRow",
+      "Offset",
+      1,
+      "55"
+    ],
+    [
+      "rowValues",
+      "R1 typed",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R1 after Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R1 after 2nd Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R2 editor",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "rowValues",
+      "R2 rows",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "fillRow",
+      "Scale",
+      0,
+      "190%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 scale x +50",
+      "Scale",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Scale",
+      1,
+      "10%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 scale y -50",
+      "Scale",
+      1,
+      -50
+    ],
+    [
+      "fillRow",
+      "Offset",
+      0,
+      "990px"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 offset x +50",
+      "Offset",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Offset",
+      1,
+      "-990px"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 offset y -50",
+      "Offset",
+      1,
+      -50
+    ],
+    [
+      "fillRow",
+      "Skew",
+      0,
+      "55°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 skew x +50",
+      "Skew",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Opacity",
+      0,
+      "95%"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 opacity +50",
+      "Opacity",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "10°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "rowValues",
+      "R2 before typing",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "typeRow",
+      "Offset",
+      1,
+      "55"
+    ],
+    [
+      "rowValues",
+      "R2 typed",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R2 after Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "rowValues",
+      "R2 after 2nd Cmd+Z",
+      [
+        "Opacity",
+        "Rotate",
+        "Scale",
+        "Offset",
+        "Skew"
+      ]
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R1 editor": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            483,
+            437,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            621,
+            437,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            484,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            517,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            535,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            568,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Preview",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 rows": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": "BODY"
+    },
+    "R1 scale x +50": {
+      "label": "Scale",
+      "n": 0,
+      "from": "190%",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        584,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "198%"
+        ],
+        [
+          40,
+          "200%"
+        ],
+        [
+          50,
+          "200%"
+        ]
+      ],
+      "held": "200%",
+      "after": "200%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "200%",
+        "caret": 4
+      }
+    },
+    "R1 scale y -50": {
+      "label": "Scale",
+      "n": 1,
+      "from": "10%",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        715,
+        584,
+        44,
+        44
+      ],
+      "path": [
+        [
+          -20,
+          "2%"
+        ],
+        [
+          -40,
+          "0%"
+        ],
+        [
+          -50,
+          "0%"
+        ]
+      ],
+      "held": "0%",
+      "after": "0%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "0%",
+        "caret": 2
+      }
+    },
+    "R1 offset x +50": {
+      "label": "Offset",
+      "n": 0,
+      "from": "990px",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        635,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "998px"
+        ],
+        [
+          40,
+          "1,000px"
+        ],
+        [
+          50,
+          "1,000px"
+        ]
+      ],
+      "held": "1,000px",
+      "after": "1,000px",
+      "focus": {
+        "tag": "INPUT",
+        "value": "1,000px",
+        "caret": 7
+      }
+    },
+    "R1 offset y -50": {
+      "label": "Offset",
+      "n": 1,
+      "from": "-990px",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        715,
+        635,
+        44,
+        44
+      ],
+      "path": [
+        [
+          -20,
+          "-998px"
+        ],
+        [
+          -40,
+          "-1,000px"
+        ],
+        [
+          -50,
+          "-1,000px"
+        ]
+      ],
+      "held": "-1,000px",
+      "after": "-1,000px",
+      "focus": {
+        "tag": "INPUT",
+        "value": "-1,000px",
+        "caret": 8
+      }
+    },
+    "R1 skew x +50": {
+      "label": "Skew",
+      "n": 0,
+      "from": "55°",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        686,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "60°"
+        ],
+        [
+          40,
+          "60°"
+        ],
+        [
+          50,
+          "60°"
+        ]
+      ],
+      "held": "60°",
+      "after": "60°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "60°",
+        "caret": 3
+      }
+    },
+    "R1 opacity +50": {
+      "label": "Opacity",
+      "n": 0,
+      "from": "95%",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        577,
+        484,
+        182,
+        11
+      ],
+      "path": [
+        [
+          20,
+          "100%"
+        ],
+        [
+          40,
+          "100%"
+        ],
+        [
+          50,
+          "100%"
+        ]
+      ],
+      "held": "100%",
+      "after": "100%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "100%",
+        "caret": 4
+      }
+    },
+    "R1 before typing": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "10°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "10°",
+        "caret": 3
+      }
+    },
+    "R1 typed": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "10°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "10°",
+        "caret": 3
+      }
+    },
+    "R1 after Cmd+Z": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    },
+    "R1 after 2nd Cmd+Z": {
+      "Opacity": [
+        "95%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    },
+    "R2 editor": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            472,
+            305.5,
+            22,
+            46
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "End",
+          "box": [
+            483,
+            437,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Timing",
+          "box": [
+            621,
+            437,
+            138,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            588,
+            484,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            517,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            484,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            588,
+            535,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            568,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            535,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            586,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            586,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            637,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            637,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            621,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            671,
+            688,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            715,
+            688,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Preview",
+          "box": [
+            461,
+            748,
+            320,
+            55
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 rows": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "100%",
+        "100%"
+      ],
+      "Offset": [
+        "0px",
+        "0px"
+      ],
+      "Skew": [
+        "0°",
+        "0°"
+      ],
+      "focus": "BODY"
+    },
+    "R2 scale x +50": {
+      "label": "Scale",
+      "n": 0,
+      "from": "190%",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        584,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "198%"
+        ],
+        [
+          40,
+          "200%"
+        ],
+        [
+          50,
+          "200%"
+        ]
+      ],
+      "held": "200%",
+      "after": "200%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "200%",
+        "caret": 4
+      }
+    },
+    "R2 scale y -50": {
+      "label": "Scale",
+      "n": 1,
+      "from": "10%",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        715,
+        584,
+        44,
+        44
+      ],
+      "path": [
+        [
+          -20,
+          "2%"
+        ],
+        [
+          -40,
+          "0%"
+        ],
+        [
+          -50,
+          "0%"
+        ]
+      ],
+      "held": "0%",
+      "after": "0%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "0%",
+        "caret": 2
+      }
+    },
+    "R2 offset x +50": {
+      "label": "Offset",
+      "n": 0,
+      "from": "990px",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        635,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "998px"
+        ],
+        [
+          40,
+          "1,000px"
+        ],
+        [
+          50,
+          "1,000px"
+        ]
+      ],
+      "held": "1,000px",
+      "after": "1,000px",
+      "focus": {
+        "tag": "INPUT",
+        "value": "1,000px",
+        "caret": 7
+      }
+    },
+    "R2 offset y -50": {
+      "label": "Offset",
+      "n": 1,
+      "from": "-990px",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        715,
+        635,
+        44,
+        44
+      ],
+      "path": [
+        [
+          -20,
+          "-998px"
+        ],
+        [
+          -40,
+          "-1,000px"
+        ],
+        [
+          -50,
+          "-1,000px"
+        ]
+      ],
+      "held": "-1,000px",
+      "after": "-1,000px",
+      "focus": {
+        "tag": "INPUT",
+        "value": "-1,000px",
+        "caret": 8
+      }
+    },
+    "R2 skew x +50": {
+      "label": "Skew",
+      "n": 0,
+      "from": "55°",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        621,
+        686,
+        44,
+        44
+      ],
+      "path": [
+        [
+          20,
+          "60°"
+        ],
+        [
+          40,
+          "60°"
+        ],
+        [
+          50,
+          "60°"
+        ]
+      ],
+      "held": "60°",
+      "after": "60°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "60°",
+        "caret": 3
+      }
+    },
+    "R2 opacity +50": {
+      "label": "Opacity",
+      "n": 0,
+      "from": "95%",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        577,
+        484,
+        182,
+        11
+      ],
+      "path": [
+        [
+          20,
+          "100%"
+        ],
+        [
+          40,
+          "100%"
+        ],
+        [
+          50,
+          "100%"
+        ]
+      ],
+      "held": "100%",
+      "after": "100%",
+      "focus": {
+        "tag": "INPUT",
+        "value": "100%",
+        "caret": 4
+      }
+    },
+    "R2 before typing": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "10°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "10°",
+        "caret": 3
+      }
+    },
+    "R2 typed": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "10°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "10°",
+        "caret": 3
+      }
+    },
+    "R2 after Cmd+Z": {
+      "Opacity": [
+        "100%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    },
+    "R2 after 2nd Cmd+Z": {
+      "Opacity": [
+        "95%"
+      ],
+      "Rotate": [
+        "0°"
+      ],
+      "Scale": [
+        "200%",
+        "0%"
+      ],
+      "Offset": [
+        "1,000px",
+        "-1,000px"
+      ],
+      "Skew": [
+        "60°",
+        "0°"
+      ],
+      "focus": {
+        "value": "0°",
+        "caret": 2
+      }
+    }
+  },
+  "errors": [
+    "typeRow [\"Offset\",1,\"55\"]: typeRow: Offset 1 not on top, not pressed",
+    "typeRow [\"Offset\",1,\"55\"]: typeRow: Offset 1 not on top, not pressed"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice (R1, R2), in agreement. A real drag by the field's top strip, 50px past an end: Scale X 190% stops at 200%, Scale Y 10% at 0%, Offset X 990px at 1,000px, Offset Y -990px at -1,000px, Skew X 55° at 60°, Opacity 95% at 100%; the focus is on the input after, caret at its end. On the pairs the strip is a 44px button over the input, so the typeRow press (center) was refused as not on top: the Cmd+Z-while-typing read is CAP-T15FIELDS3.json. With the focus left in Rotate after 10° was taken: Cmd+Z took Rotate back to 0° (focus stays, caret 2), a second took Opacity's drag back to 95%."
+}
