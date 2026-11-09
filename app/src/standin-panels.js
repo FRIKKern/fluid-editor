@@ -85,7 +85,7 @@ const rpx = (key, label, def, min, max, step) => (v) => `<div class="bp-sp-range
 const VIEWS = {
   Podcast: [note(`These fields become tags for your podcasts RSS<br>feed. Squarespace uses Apple Podcasts<br>standard format. ${link('Learn more')}`, ' bp-sp-mnote bp-sp-vnote'), lf('pcTitle', 'Title'), lf('pcSubtitle', 'Subtitle'), lta('pcSummary', 'Summary', 'is-sum'), lta('pcNotes', 'Episode notes', 'is-notes', 'Write here...'), rule(),
     boxsel('pcType', 'Episode type', ['Full (default)', 'Trailer', 'Bonus'], 'Full (default)'), sf('pcSeason', 'Season number'), sf('pcEpisode', 'Episode number'), sf('pcDuration', 'Duration'), ssw('pcExplicit', 'Explicit content'), rule(),
-    sf('pcSize', 'File size'), boxsel('pcMime', 'Mime type', ['audio/mpeg (.mp3)', 'Other'], 'Other'), bare('pcMimeOther', 'Mime type'), rule(), lf('pcAnalytics', 'Podcast analytics URL', 'https://')],
+    sf('pcSize', 'File size'), boxsel('pcMime', 'Mime type', ['audio/mpeg (.mp3)', 'Other'], 'Other'), when((v) => (v.pcMime ?? 'Other') === 'Other', bare('pcMimeOther', 'Mime type')), rule(), lf('pcAnalytics', 'Podcast analytics URL', 'https://')],
   'Size and Spacing': [rpx('smColumn', 'Column Width', 270, 50, 600, 10), rpx('smGutter', 'Gutter Width', 60, 0, 100, 1)],
 };
 const balign = (key, label) => (v) => `<div class="sp-row bp-sp-erow bp-sp-balign"><span class="sp-label">${label}</span><span class="bp-sp-bicons" role="radiogroup" aria-label="${label}">${['left', 'center', 'right'].map((o) => `<button type="button" role="radio" class="bp-sp-opt${(v[key] ?? 'left') === o ? ' is-on' : ''}" aria-checked="${(v[key] ?? 'left') === o}" aria-label="${o}" data-sp-set="${key}" data-v="${o}">${pi(ALIGN_ICONS[o])}</button>`).join('')}</span></div>`;

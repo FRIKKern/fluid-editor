@@ -2,16 +2,13 @@
  "item": "T12",
  "capturedAt": "2026-11-09",
  "question": "The cheap T12 reads the open list starred: Accordion (grip drag, Escape and undo, icon on the left, Width more from S), Newsletter (which tab Edit opens, placeholder colours, Require First and Last Name), Pricing Plan at another width and two parts off, Podcast's Mime type with audio/mpeg, a typed Column Width.",
- "how": "Run f78 on the oracle, one block per run: Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then the steps; the block read before and after each step. Named presses with an on-top check: tabs, switches by aria-label, radios by value under their caption, rows by label, menu buttons by their shown value and options by text, text fields under their caption. Keys: Escape and Cmd+Z only. Unnamed presses, each after an on-top check: Width's more button by its box (as in CAP-ACCORDION2.json), Pricing Plan's east handle for a pull. Left each time by Exit Without Saving; the probe page read 0 blocks at the end. Predictions for Pricing Plan were pushed first (CAP-T12PPROWS-PREDICTED.json, c39cf9b).",
+ "how": "Run f78 on the oracle, one block per run: Exit Without Saving, Edit on Blocks Probe, a blank section, Add Block and the block by name, Edit, then the steps; the block read before and after each step. Named presses with an on-top check: tabs, switches by aria-label, radios by value under their caption, rows by label, menu buttons by their shown value and options by text, text fields under their caption. Keys: Escape and Cmd+Z only. Unnamed presses, each after an on-top check: Width's more button by its box (as in CAP-ACCORDION2.json), Pricing Plan's east handle for a pull. Left each time by Exit Without Saving; the probe page read 0 blocks at the end. Predictions for Pricing Plan were pushed first (CAP-T12PPROWS-PREDICTED.json, c39cf9b). Second run (f79, after CAP-T12PPROWS-PREDICTED2.json was pushed at 5f07927): the grip hold again, by the row's button found by its label; the title text's box under each alignment with the icon on the left; Pricing Plan pulled to 12 columns and three parts off at 8. Third run (f80, after CAP-T12PPROWS-PREDICTED3.json at 192f269): Pricing Plan at 15, 8 and 10 columns. Each left by Exit Without Saving; the probe page read 0 blocks after each run. The grip hold is a press and hold on the grip by its box, on top, moved 70 down in 8 steps, read, moved back and let go (order read the same after).",
  "unnamedPresses": [
   "Accordion Width more button, by its box",
-  "Pricing Plan east handle (pulls)"
+  "Pricing Plan east handle (pulls)",
+  "Accordion grip, by its box (on top, cursor move)"
  ],
- "notRead": [
-  "The grip hold: my lookup of the row found nothing, so no press was made.",
-  "Pricing Plan wide: the pull to 12 columns left the block unselected, so Edit and the steps did not run.",
-  "Title alignment with the icon on the left: the boxes read, not the text inside them (text-align)."
- ],
+ "notRead": [],
  "reads": {
   "accordionEsc": {
    "start": {
@@ -5471,6 +5468,2056 @@
      }
     }
    ]
+  },
+  "accordionGrip": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 9 / 10",
+    "size": [
+     459.25,
+     317.75
+    ],
+    "leaves": [
+     "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Content",
+      "hold": "Accordion Item 1",
+      "dx": 17,
+      "dy": 70
+     },
+     "note": {
+      "at": {
+       "x": 595,
+       "y": 391.5,
+       "onTop": true,
+       "top": "svg.[object SVGAnimatedString]",
+       "cursor": "move"
+      },
+      "order0": [],
+      "held": [
+       {
+        "tag": "DIV",
+        "cls": "css-roynbj",
+        "aria": null,
+        "box": [
+         0,
+         61,
+         320,
+         59
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "auto",
+        "pos": "static"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-roynbj",
+        "aria": null,
+        "box": [
+         0,
+         120,
+         320,
+         59
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "0.4",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "auto",
+        "pos": "static"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-roynbj",
+        "aria": null,
+        "box": [
+         0,
+         179,
+         320,
+         59
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "auto",
+        "pos": "static"
+       },
+       {
+        "tag": "BUTTON",
+        "cls": "css-6yzg5p",
+        "aria": null,
+        "box": [
+         22,
+         238,
+         276,
+         44
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "pointer",
+        "z": "auto",
+        "pos": "static"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-1q2fv9h",
+        "aria": null,
+        "box": [
+         166,
+         -207,
+         112,
+         36
+        ],
+        "transform": "matrix(1, 0, 0, 1, -56.1875, 24)",
+        "opacity": "0",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "40002",
+        "pos": "fixed"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-1q2fv9h",
+        "aria": null,
+        "box": [
+         166,
+         672,
+         112,
+         36
+        ],
+        "transform": "matrix(1, 0, 0, 1, -56.1875, 24)",
+        "opacity": "0",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "40002",
+        "pos": "fixed"
+       },
+       {
+        "tag": "DIV",
+        "cls": "",
+        "aria": null,
+        "box": [
+         0,
+         131,
+         320,
+         59
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 70)",
+        "opacity": "1",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "30021",
+        "pos": "fixed"
+       }
+      ],
+      "orderHeld": [],
+      "order1": [],
+      "after": [
+       {
+        "tag": "BUTTON",
+        "cls": "css-6yzg5p",
+        "aria": null,
+        "box": [
+         22,
+         238,
+         276,
+         44
+        ],
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "opacity": "1",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "pointer",
+        "z": "auto",
+        "pos": "static"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-1q2fv9h",
+        "aria": null,
+        "box": [
+         166,
+         -207,
+         112,
+         36
+        ],
+        "transform": "matrix(1, 0, 0, 1, -56.1875, 24)",
+        "opacity": "0",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "40002",
+        "pos": "fixed"
+       },
+       {
+        "tag": "DIV",
+        "cls": "css-1q2fv9h",
+        "aria": null,
+        "box": [
+         166,
+         672,
+         112,
+         36
+        ],
+        "transform": "matrix(1, 0, 0, 1, -56.1875, 24)",
+        "opacity": "0",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)",
+        "cursor": "auto",
+        "z": "40002",
+        "pos": "fixed"
+       }
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ]
+  },
+  "accordionAlign": {
+   "start": {
+    "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+    "area": "1 / 2 / 9 / 10",
+    "size": [
+     459.25,
+     317.75
+    ],
+    "leaves": [
+     "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+     "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+     "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+    ]
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "talign": true
+     },
+     "note": [
+      {
+       "text": "Accordion Item 1",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row",
+       "textBox": [
+        0,
+        216.9
+       ],
+       "spanBox": [
+        0,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 2",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row",
+       "textBox": [
+        0,
+        223.5
+       ],
+       "spanBox": [
+        0,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 3",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row",
+       "textBox": [
+        0,
+        223.9
+       ],
+       "spanBox": [
+        0,
+        445.3
+       ]
+      }
+     ],
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radb": "Icon Placement",
+      "value": "left"
+     },
+     "note": {
+      "list": [
+       [
+        "left",
+        "left",
+        "false"
+       ],
+       [
+        "right",
+        "right",
+        "true"
+       ]
+      ],
+      "after": [
+       [
+        "left",
+        "left",
+        "true"
+       ],
+       [
+        "right",
+        "right",
+        "false"
+       ]
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 0,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 0,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 0,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 445.3,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 451.8,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "talign": true
+     },
+     "note": [
+      {
+       "text": "Accordion Item 1",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        28,
+        216.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 2",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        28,
+        223.5
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 3",
+       "textAlign": "left",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        28,
+        223.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      }
+     ],
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "row": "Title"
+     },
+     "note": null,
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radb": "Alignment",
+      "value": "center"
+     },
+     "note": {
+      "list": [
+       [
+        "left",
+        "left",
+        "true"
+       ],
+       [
+        "center",
+        "center",
+        "false"
+       ],
+       [
+        "right",
+        "right",
+        "false"
+       ]
+      ],
+      "after": [
+       [
+        "left",
+        "left",
+        "false"
+       ],
+       [
+        "center",
+        "center",
+        "true"
+       ],
+       [
+        "right",
+        "right",
+        "false"
+       ]
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "talign": true
+     },
+     "note": [
+      {
+       "text": "Accordion Item 1",
+       "textAlign": "center",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        121.2,
+        216.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 2",
+       "textAlign": "center",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        117.9,
+        223.5
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 3",
+       "textAlign": "center",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        117.7,
+        223.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      }
+     ],
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "radb": "Alignment",
+      "value": "right"
+     },
+     "note": {
+      "list": [
+       [
+        "left",
+        "left",
+        "false"
+       ],
+       [
+        "center",
+        "center",
+        "true"
+       ],
+       [
+        "right",
+        "right",
+        "false"
+       ]
+      ],
+      "after": [
+       [
+        "left",
+        "left",
+        "false"
+       ],
+       [
+        "center",
+        "center",
+        "false"
+       ],
+       [
+        "right",
+        "right",
+        "true"
+       ]
+      ]
+     },
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "talign": true
+     },
+     "note": [
+      {
+       "text": "Accordion Item 1",
+       "textAlign": "right",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        242.4,
+        216.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 2",
+       "textAlign": "right",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        235.7,
+        223.5
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      },
+      {
+       "text": "Accordion Item 3",
+       "textAlign": "right",
+       "parentJustify": "space-between",
+       "parentDir": "row-reverse",
+       "textBox": [
+        235.4,
+        223.9
+       ],
+       "spanBox": [
+        14,
+        445.3
+       ]
+      }
+     ],
+     "before": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     },
+     "after": {
+      "cls": "yui3-widget yui3-block-base sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-website-component sqs-block-accordion accordion-block sqs-block-editable yui3-dd-drop sqs-block-focused sqs-block-editing sqs-edit-dialog-open",
+      "area": "1 / 2 / 9 / 10",
+      "size": [
+       459.25,
+       317.75
+      ],
+      "leaves": [
+       "DIV | accordion-divider accordion-divider--top |  |  | 0,0,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,1,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 1 |  | 14,31,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,50,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,43.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,100,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,101,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 2 |  | 14,131,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,150,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,143.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,200,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "BUTTON | accordion-item__click-target |  |  | 0,201,459.3,99 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "SPAN | accordion-item__title | Accordion Item 3 |  | 14,231,445.3,39 | 26.08px/normal 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | plus__horizontal-line |  |  | 0,250,14,1 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | plus__vertical-line |  |  | 6.5,243.5,1,14 | 26.08px/normal 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | accordion-divider |  |  | 0,300,459.3,1 | 16px/22.4px 400 | rgb(0, 0, 0) | rgb(0, 0, 0)",
+       "DIV | sqs-editing-overlay |  |  | 0,0,459.3,317.8 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)",
+       "DIV | sqs-block-resizing-inner |  |  | 1,1,4,4 | 16px/22.4px 400 | rgb(0, 0, 0) | rgba(0, 0, 0, 0)"
+      ]
+     }
+    }
+   ]
+  },
+  "ppWide12": {
+   "start": {
+    "area": "1 / 2 / 12 / 14",
+    "contentBottom": 405.1
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 14",
+     "contentBottom": 359.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 14",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 14",
+     "contentBottom": 314.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 14",
+     "contentBottom": 308.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 14",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 14",
+     "contentBottom": 359.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 14",
+     "contentBottom": 268.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 14",
+     "contentBottom": 314.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 14",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 14",
+     "contentBottom": 244.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 14",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 14",
+     "contentBottom": 405.1
+    }
+   ]
+  },
+  "ppTriples8": {
+   "start": {
+    "area": "1 / 2 / 12 / 10",
+    "contentBottom": 430.1
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 333.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 287.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 10",
+     "contentBottom": 198.7
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 287.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 10 / 10",
+     "contentBottom": 333.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 10",
+     "contentBottom": 430.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 242.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 196.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 8 / 10",
+     "contentBottom": 242.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 10 / 10",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 10",
+     "contentBottom": 430.1
+    }
+   ]
+  },
+  "ppWide15": {
+   "start": {
+    "area": "1 / 2 / 12 / 17",
+    "contentBottom": 405.1
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 17",
+     "contentBottom": 359.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 17",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 17",
+     "contentBottom": 314.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 17",
+     "contentBottom": 308.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 17",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 17",
+     "contentBottom": 359.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 17",
+     "contentBottom": 268.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 17",
+     "contentBottom": 314.4
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 17",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 17",
+     "contentBottom": 244.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 17",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 17",
+     "contentBottom": 405.1
+    }
+   ]
+  },
+  "ppQuads8": {
+   "start": {
+    "area": "1 / 2 / 12 / 10",
+    "contentBottom": 430.1
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 236.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 190.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 3 / 10",
+     "contentBottom": 99.6
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 190.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 7 / 10",
+     "contentBottom": 236.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 10 / 10",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 10",
+     "contentBottom": 430.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 10",
+     "contentBottom": 341.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 250.8
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 10",
+     "contentBottom": 154
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 8 / 10",
+     "contentBottom": 250.8
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 10 / 10",
+     "contentBottom": 341.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 10",
+     "contentBottom": 430.1
+    }
+   ]
+  },
+  "ppQuads10": {
+   "start": {
+    "area": "1 / 2 / 12 / 12",
+    "contentBottom": 405.1
+   },
+   "steps": [
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 10 / 12",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 7 / 12",
+     "contentBottom": 236.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 5 / 12",
+     "contentBottom": 190.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 2 / 12",
+     "contentBottom": 99.6
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 6 / 12",
+     "contentBottom": 190.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Title"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 7 / 12",
+     "contentBottom": 236.3
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 10 / 12",
+     "contentBottom": 333.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Description"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 12",
+     "contentBottom": 405.1
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 9 / 12",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 6 / 12",
+     "contentBottom": 225.8
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": true,
+      "now": false
+     },
+     "area": "1 / 2 / 3 / 12",
+     "contentBottom": 129
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Benefits"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 7 / 12",
+     "contentBottom": 225.8
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Price"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 9 / 12",
+     "contentBottom": 316.5
+    },
+    {
+     "step": {
+      "tab": "Design",
+      "sw": "Button"
+     },
+     "note": {
+      "was": false,
+      "now": true
+     },
+     "area": "1 / 2 / 12 / 12",
+     "contentBottom": 405.1
+    }
+   ]
   }
  },
  "facts": [
@@ -5480,6 +7527,9 @@
   "Newsletter: Edit opens on Content (aria-selected, the darker colour). The block's placeholders (Email Address, First Name, Last Name) are rgba(0, 0, 0, 0.3) over black text; the panel's rgb(148, 148, 148). Require First Name and Require Last Name change nothing on the block: no required attribute, no mark, every leaf the same.",
   "Pricing Plan, two parts off: the content heights read are ours to 0.1px; the rows: at 8 columns 9, 6, 9, 11, 8, 5, 9, 11; at 6 columns (the pull of -5 landed at 6, 12 rows) singles 10, 12, 8, 12, 9, 12, 9, 12, 9, 12 and pairs 10, 7, 10, 12, 8, 5, 10, 12. Round 1 (CAP-T12PPROWS-PREDICTED.json) scores 12 of 16 unseen on pairs (the 4 misses: the second part off, ours one row higher) and 10 of 10 on singles at 6, which are seen (CAP-T12PRESS-E.json).",
   "Podcast, Mime type audio/mpeg (.mp3): the free field under it goes away.",
-  "Summary, Size and Spacing: a typed Column Width 275 stays 275 in the field while the range reads 280; a typed 45 becomes 50 in both. At 50 the block took 54 rows (Summary's rows are the fixes lane's)."
+  "Summary, Size and Spacing: a typed Column Width 275 stays 275 in the field while the range reads 280; a typed 45 becomes 50 in both. At 50 the block took 54 rows (Summary's rows are the fixes lane's).",
+  "Accordion, grip held 70 down: the held row waits at opacity 0.4 in its new place (item 2 moves up into the first), and a copy with no shadow and no background follows the pointer, opacity 1, fixed, translated by the move. The block on the page keeps its order until release; moved back and let go, the order is as before.",
+  "Accordion, Icon Placement left: the title box starts at 14, 445.3 wide; the text starts at 28 when left, its centre at the block's centre (229.65 of 459.3) when centred, and ends at the block's edge when right. Flex direction row-reverse.",
+  "Pricing Plan, scored against predictions pushed before each read: round 1 at 12 columns 13 of 18; refit 1 at 12 columns 13 of 18, three parts off at 8 columns 11 of 12; refit 2 (frozen) 45 of 46 at 15, 8 and 10 columns. The miss: Benefits off from 5 rows at 8 columns (content 6.37 rows to 4.0), read 5, refit 2 says 2."
  ]
 }

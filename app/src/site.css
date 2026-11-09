@@ -391,6 +391,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 [data-is-open] .arrow-container { transform: rotate(180deg); }
 [data-accordion-title-alignment="center"] .accordion-item__title { text-align: center; padding-left: 28px; }
 [data-accordion-title-alignment="right"] .accordion-item__title { text-align: right; }
+/* Icon on the left (CAP-T12READS-H.json): the gap goes to the title's left; centred text stays on the block's centre. */
+[data-accordion-icon-placement="left"] .accordion-item__title { padding: 0 0 0 14px; }
+[data-accordion-icon-placement="left"][data-accordion-title-alignment="center"] .accordion-item__title { padding: 0 28px 0 14px; }
 [data-accordion-description-alignment="center"] .accordion-item__description { text-align: center; }
 [data-accordion-description-alignment="right"] .accordion-item__description { text-align: right; }
 [data-accordion-description-placement="center"] .accordion-item__description { margin-inline: auto; }

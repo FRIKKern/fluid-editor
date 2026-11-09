@@ -1,7 +1,7 @@
 {
  "check": "content that follows the width",
- "pass": 199,
- "total": 201,
+ "pass": 203,
+ "total": 205,
  "results": [
   {
    "what": "Quote at span 6: the block",
@@ -568,6 +568,10 @@
    "ok": true
   },
   {
+   "what": "Newsletter: Require First and Last Name leave the block as it was; panel placeholders grey 148",
+   "ok": true
+  },
+  {
    "what": "Newsletter: Require First Name is one undo step",
    "ok": true
   },
@@ -760,6 +764,10 @@
    "ok": true
   },
   {
+   "what": "Pricing Plan at 8 columns: two parts off at once give 9 6 9 11 8 5 9 11 rows",
+   "ok": true
+  },
+  {
    "what": "Pricing Plan pulled 8 to 6 columns takes 12 rows; Elements there give 10 12 8 12 9 12 9 12 9 12",
    "ok": true
   },
@@ -796,7 +804,15 @@
    "ok": true
   },
   {
+   "what": "Summary: Column Width typed 275 reads 275 over a range at 280; typed 45 reads 50",
+   "ok": true
+  },
+  {
    "what": "Audio: Podcast's Title, Episode type and Explicit content keep their values; one undo step each; rows stay 3",
+   "ok": true
+  },
+  {
+   "what": "Audio: Mime type audio/mpeg (.mp3) takes away the free field under it",
    "ok": true
   },
   {
