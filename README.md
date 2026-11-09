@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 34 changes
+- **Today** · 35 changes
+  - U10: heading list items take half-size margins and the paragraph's marker at their size (read twice) ([#511](https://github.com/FRIKKern/fluid-editor/pull/511))
   - O1: a failed step ends the capture run ([#510](https://github.com/FRIKKern/fluid-editor/pull/510))
-  - R2: name H's backing in the evidence (fitted on R5's seen reads, 4 fresh reads) ([#509](https://github.com/FRIKKern/fluid-editor/pull/509))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed

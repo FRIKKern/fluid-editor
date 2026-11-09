@@ -1719,6 +1719,37 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add('View Layouts, the heading lists\' full-width heading: Scrolling there, the Text again after, as read', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // List items after a pick (CAP-U10LISTHEADS.json, read twice): a heading item's margins are half its size, and its
+  // marker is the paragraph's at its size; a number's box grows past 40px and moves the centred line. A bullet and a
+  // numbered list alone at layout 4, then Heading 2 to 4 items as loaded (the mixes that make them are not built here).
+  {
+    const H = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10LISTHEADS.json', import.meta.url))).passA;
+    viewport(S, 1600, 1000); // the read's window: the text's place depends on it
+    const errs = [];
+    const items = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, W = d.defaultView; return JSON.stringify([...d.querySelectorAll('.fluid-engine')[0].querySelectorAll('li')].map((li) => { const k = li.firstElementChild, c = W.getComputedStyle(k), b = W.getComputedStyle(k, '::before'), rg = d.createRange(); rg.selectNodeContents(k); const r = [...rg.getClientRects()].find((q) => q.width > 0); return [k.tagName, c.marginTop, c.marginBottom, b.content, b.fontSize, Math.round(parseFloat(b.width) * 10) / 10, b.paddingRight, Math.round(r.left * 10) / 10, Math.round(li.getBoundingClientRect().top * 10) / 10]; })); })()`);
+    const want = (key) => H[key].find((b) => b.lists && b.lists.length).lists[0].items.map((it) => [it.tag, it.css.marginTop, it.css.marginBottom, it.before.content, it.before.fontSize, Math.round(parseFloat(it.before.width) * 10) / 10, it.before.paddingRight, it.textRects[0][0]]);
+    for (const [key, html] of [['A-pick4', '<ul><li><p>Item one</p></li><li><p>Item two</p></li></ul>'], ['B-pick4', '<ol><li><p>Item one</p></li><li><p>Item two</p></li></ol>']]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'h0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const b = await chromeBtn();
+      if (!b || b.off) { errs.push(`${key} button`); continue; }
+      await realClick(b.x, b.y);
+      evalJs(S, `(() => { document.querySelector('[data-layout="4"]').click(); return 'true'; })()`); await pause(300);
+      const got = items(), w = want(key);
+      const gap = Math.round((got[1][8] - got[0][8] - 76) * 10) / 10;
+      if (JSON.stringify(got.map((g) => g.slice(0, 8))) !== JSON.stringify(w) || gap !== 33.2) errs.push(`${key} ${JSON.stringify(got)} want ${JSON.stringify(w)} gap ${gap}`);
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    for (const [tag, key] of [['h2', 'C-pick1'], ['h3', 'C-pick0'], ['h4', 'D-pick2']]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: '<ul><li><${tag}>Item one</${tag}></li><li><${tag}>Item two</${tag}></li></ul>', id: 'h0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const got = items()[0].slice(0, 7), w = want(key)[0].slice(0, 7);
+      if (JSON.stringify(got) !== JSON.stringify(w)) errs.push(`${tag} ${JSON.stringify(got)} want ${JSON.stringify(w)}`);
+    }
+    add('View Layouts: heading list items, half-size margins and the marker at their size, as read', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
   evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);
