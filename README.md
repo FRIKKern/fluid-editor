@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes
+- **Today** · 20 changes
+  - T15: Follow's stage start is 751 ms, the median of 4 reads that vary ([#495](https://github.com/FRIKKern/fluid-editor/pull/495))
   - T12: Line Chart's plot, upright lines and curve; a press on another block closes a dialog ([#494](https://github.com/FRIKKern/fluid-editor/pull/494))
-  - U10: fit pad refit to 33.5px on fresh reads near row boundaries ([#493](https://github.com/FRIKKern/fluid-editor/pull/493))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
