@@ -917,6 +917,12 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     const sum = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.002); return m.length ? { start: m[0][0], end: m.at(-1)[0], min: Math.round(Math.min(...v.map(([, x]) => x)) * 1000) / 1000, last: v.at(-1)[1] } : null; };
     const a1 = sum(mine), b1 = sum(them);
     add(`Stage square: opening Float's editor plays it once, from ${b1.start} ms, down to ${b1.min}, at rest by ${b1.end} ms, as read`, !!a1 && Math.abs(a1.start - b1.start) <= 150 && near(a1.min, b1.min, 0.01) && Math.abs(a1.end - b1.end) <= 0.15 * b1.end && near(a1.last, 1, 0.001), JSON.stringify({ ours: a1, theirs: b1 })); }
+  // Follow on the stage, a table of two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json) at Scale 150% by 150%:
+  // still a while after the mouse comes on (692 and 1230 ms in the reads), up to 1.837 in 1.5 s, down to 0.889, then at rest.
+  await setup('Follow', 'end');
+  { const shape = (v) => { const i = v.findIndex(([, x]) => Math.abs(x - 1) > 0.001); if (i < 1) return null; const t0 = v[i - 1][0], w = v.slice(i - 1).map(([t, x]) => [t - t0, x]); const top = w.reduce((a, b) => (b[1] > a[1] ? b : a)), low = w.filter(([t]) => t > top[0]).reduce((a, b) => (b[1] < a[1] ? b : a), [0, 9]); return { start: t0, peak: Math.round(top[1] * 1000) / 1000, at: top[0], dip: Math.round(low[1] * 1000) / 1000, dipAt: low[0], last: w.at(-1)[1] }; };
+    const mine = shape(oursPairs(await hoverRun(5200))), r1 = shape(theirPairs(R('CAP-T15STAGE6-FOLLOW').hover)), r2 = shape(theirPairs(R('CAP-T15STAGE7-FOLLOW6').hover));
+    add(`Stage square on Follow: still ${r2.start} to ${r1.start} ms, to ${r2.peak} at ${r2.at} ms, down to ${r2.dip}, then at rest, as read`, !!mine && mine.start >= r2.start - 100 && mine.start <= r1.start + 100 && near(mine.peak, r1.peak, 0.02) && near(mine.peak, r2.peak, 0.02) && Math.abs(mine.at - r2.at) <= 100 && Math.abs(mine.at - r1.at) <= 100 && near(mine.dip, r2.dip, 0.02) && Math.abs(mine.dipAt - r2.dipAt) <= 100 && near(mine.last, 1, 0.003), JSON.stringify({ mine, r1, r2 })); }
   await settle();
 }
 
