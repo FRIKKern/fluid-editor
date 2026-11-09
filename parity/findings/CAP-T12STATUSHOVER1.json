@@ -1,0 +1,279 @@
+{
+  "item": "CAP-T12STATUSHOVER1",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Instagram's and Flickr's status box with the mouse on the block, unselected and selected (read 1 of 2); read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Instagram"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Flickr"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "deselect",
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "moveAt",
+      1500,
+      980
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "none",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "ig hover",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "shot",
+      "igh"
+    ],
+    [
+      "hoverBlock",
+      1,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "fl hover",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "shot",
+      "flh"
+    ],
+    [
+      "select",
+      1,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "fl sel hover",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "shot",
+      "flsel"
+    ]
+  ],
+  "reads": {
+    "none": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            -220.8,
+            459.3,
+            482.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            -215.5,
+            380,
+            132.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "ig hover": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            255.2,
+            459.3,
+            482.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            260.5,
+            380,
+            132.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fl hover": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            255.2,
+            459.3,
+            482.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            260.5,
+            380,
+            132.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fl sel hover": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            255.2,
+            459.3,
+            482.1
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            260.5,
+            380,
+            132.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "blank []: click: nothing found for () => [...document.querySelectorAll('a')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => [x.getAttribute",
+    "add [1,\"Flickr\"]: js_error: TypeError: Cannot read properties of undefined (reading 'getBoundingClientRect')",
+    "hoverBlock [1,0]: js_error: TypeError: Cannot read properties of undefined (reading 'querySelectorAll')",
+    "select [1,0]: js_error: TypeError: Cannot read properties of undefined (reading 'querySelectorAll')"
+  ],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

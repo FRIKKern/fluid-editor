@@ -1,0 +1,258 @@
+{
+  "item": "CAP-T12STATUSHOVER4",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Flickr's status box with the mouse on the block, unselected and selected (read 2 of 2); read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Flickr"
+    ],
+    [
+      "pause",
+      1800
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "moveAt",
+      1500,
+      980
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "none",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "hoverBlock",
+      0,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "fl hover",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "shot",
+      "flh"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "fl sel hover",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ],
+    [
+      "shot",
+      "flsel"
+    ],
+    [
+      "moveAt",
+      1500,
+      980
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "fl sel away",
+      {
+        "frameEls": ".sqs-blockStatus, .sqs-blockStatus-box"
+      }
+    ]
+  ],
+  "reads": {
+    "none": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            359.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            304.5,
+            380,
+            131.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fl hover": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            359.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            304.5,
+            380,
+            131.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fl sel hover": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            359.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            304.5,
+            380,
+            131.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "fl sel away": {
+      "frameEls": [
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "none",
+          "box": [
+            100.1,
+            299.2,
+            459.3,
+            359.4
+          ]
+        },
+        {
+          "tag": "div",
+          "label": "Gallery Block\n    \n      \n        This i",
+          "expanded": null,
+          "checked": null,
+          "opacity": "0",
+          "pointer": "all",
+          "box": [
+            174.1,
+            304.5,
+            380,
+            131.3
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
