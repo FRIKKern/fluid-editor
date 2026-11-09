@@ -508,6 +508,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
   })() },
+  'CAP-A2SHRINKWHY': { page: 'Blocks Probe', question: 'A2 and R2: a new Text drops to one row at its second edit with a one-row Line right above it (CAP-A2TYPEDNEW t2, CAP-TEXTSHRINK k1). Is it the Line, any one-row block above, or that block at row 1? Each case changes one thing from k1, which runs last as the control. Read twice (CAP-A2SHRINKWHY2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DOWN = (px) => [['drag', 0, 'new', 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TALLER = (px) => [['select', 0, 'new'], ['drag', 0, 'new', 's', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TWICE = (n) => [...READ(`${n} before`), ...TYPE('hello'), ...READ(`${n} typed once`), ...TYPE(' world'), ...READ(`${n} typed twice`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Shape'), ...TALLER(-206), ...ADD('Text'), ...DOWN(41), ...TWICE('w1 one-row Shape above')],
+      [...ADD('Line'), ...TALLER(41), ...ADD('Text'), ...DOWN(82), ...TWICE('w2 two-row Line above')],
+      [...ADD('Line'), ...DOWN(82), ...ADD('Text'), ...DOWN(123), ...TWICE('w3 Line above, both off row 1')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(82), ...TWICE('w4 Line above, a row between')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(41), ...TWICE('w5 control, k1 again')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
@@ -1424,3 +1441,4 @@ export const RECIPES = {
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
+RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
