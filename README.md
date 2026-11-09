@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 58 changes
-  - T15: the editor's rule keeps its first values until a phone edit; Background on is a class, as read ([#537](https://github.com/FRIKKern/fluid-editor/pull/537))
-  - U10: the step on the other lists, the other full-width headings' turn, Undo onto the start from 3 to 5 ([#514](https://github.com/FRIKKern/fluid-editor/pull/514))
+- **Today** · 60 changes
+  - T12: the Appear row's fill follows the focus; Site Default kept as a value, as read ([#539](https://github.com/FRIKKern/fluid-editor/pull/539))
+  - R2: build rule S, a widened one-line Text keeps its rows at the drop on a low line fraction ([#538](https://github.com/FRIKKern/fluid-editor/pull/538))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
