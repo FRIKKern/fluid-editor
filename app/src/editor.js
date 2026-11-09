@@ -3237,8 +3237,7 @@ function renderShapePop() {
     const cur = b.appear || APPEAR[0];
     shapePop.innerHTML = APPEAR.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" aria-selected="${o === cur}" data-appear-opt="${o}">${o}</button>`).join('');
     // Low in the window, the list moves up and its foot sits 11 above the window's (CAP-T12APPEARLOW.json: 700 tall, row at 623).
-    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:0px;visibility:hidden`;
-    const top = Math.max(8, Math.min(shapeUi.rect.top - 25, innerHeight - 11 - shapePop.offsetHeight));
+    const top = Math.max(8, Math.min(shapeUi.rect.top - 25, innerHeight - 11 - (APPEAR.length * 45 + 11))); // rows 45, padding 5 and 6
     shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list taller than the window scrolls (not read)
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
