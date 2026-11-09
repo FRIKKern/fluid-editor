@@ -274,7 +274,10 @@ function chartHtml(b) {
   const c = chartOf(b), pal = CHART_PALETTES[c.palette], names = c.data[0].slice(1), ns = Math.max(1, names.length);
   const all = c.data.slice(1).map((r) => Array.from({ length: ns }, (_, k) => Number(r[k + 1]) || 0)), rows = c.data.slice(1).map((r, n) => [r[0], all[n][0]]);
   const max = Math.max(1, ...all.flat()), step = 10 ** Math.floor(Math.log10(max)), top = (Math.floor(max / step) + 1) * step;
-  const L = 80, R = 450.5, T = 16, B = 184, y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, rows.length);
+  // Flipped, the axes swap: a band per series under its name, a bar per row in the row's colour (CAP-T12CHARTSERIES.json flip3,
+  // CAP-T12CHARTLEGEND2.json flip2, CAP-T12CHARTASK.json legflip). The flipped chart's ticks every 50 in those shots are not built.
+  const groups = c.flip ? names.map((nm, k) => [nm, all.map((r) => r[k])]) : rows.map(([l], n) => [l, all[n]]), per = Math.max(1, groups[0]?.[1].length ?? 1);
+  const L = 80, R = 450.5, T = 16, B = 184, y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, groups.length);
   const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
   // A Bar Chart's lines (CAP-T12CHARTCELLS3.json headplus shot, CAP-T12CHARTCELLS.json P1 shot, by pixel): a faint grid at each
   // value and each band's edge, from 3 above the top value down to the baseline; the axis, the baseline and 5px ticks past them
@@ -283,15 +286,15 @@ function chartHtml(b) {
   const lines = c.type !== 'Bar Chart' ? ticks.map((t) => `<path d="M${L} ${y(t)}H${R}" class="fe-chart-rule"/>`).join('')
     : ln(`M${L - 5} ${B}H${R}`, 'axis') + ln(`M${L} ${up}V${B + 4}`, 'axis')
       + ticks.filter((t) => t > 0).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
-      + rows.map((_, n) => { const x = L + band * (n + 1); return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
-  const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + rows.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
-  const colour = (n, k = 0) => pal[(c.flip ? n : k) % pal.length];
+      + groups.map((_, n) => { const x = L + band * (n + 1); return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
+  const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${L + band * (n + 0.5)}" y="${B + 24}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
+  const colour = (k) => pal[k % pal.length];
   let marks = '';
   // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch).
   // Two series' bars stand 2.5 apart in the band (the same shot, by pixel; one read).
-  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (ns - 1)) / ns, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(n, k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B}H${x + w}" stroke="${colour(n, k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
-  if (c.type === 'Bar Chart') marks = all.map((vs, n) => vs.map((v, k) => bar(n, k, v)).join('')).join('');
-  else if (c.type === 'Line Chart') marks = Array.from({ length: ns }, (_, k) => { const pts = all.map((vs, n) => `${L + band * (n + 0.5)},${y(vs[k])}`); return `<polyline points="${pts.join(' ')}" fill="none" stroke="${pal[k % pal.length]}" stroke-width="2"/>${pts.map((p, n) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(n, k)}"/>`).join('')}`; }).join('');
+  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (per - 1)) / per, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B}H${x + w}" stroke="${colour(k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
+  if (c.type === 'Bar Chart') marks = groups.map(([, vs], n) => vs.map((v, k) => bar(n, k, v)).join('')).join('');
+  else if (c.type === 'Line Chart') marks = Array.from({ length: per }, (_, k) => { const pts = groups.map(([, vs], n) => `${L + band * (n + 0.5)},${y(vs[k])}`); return `<polyline points="${pts.join(' ')}" fill="none" stroke="${colour(k)}" stroke-width="2"/>${pts.map((p) => `<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="${colour(k)}"/>`).join('')}`; }).join('');
   else {
     const sum = rows.reduce((a, [, v]) => a + v, 0) || 1;
     let a = -Math.PI / 2;

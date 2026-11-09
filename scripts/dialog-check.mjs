@@ -306,6 +306,8 @@ for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   pick('button[data-dl="chartFlip"]');
   p = parts();
   add('Chart flipped, two series: the legend names the rows in row colours', JSON.stringify(p.items.slice(0, 3).map((i) => i.slice(0, 2))) === JSON.stringify([['New York', 'rgb(240, 82, 59)'], ['Las Vegas', 'rgb(247, 180, 19)'], ['San Francisco', 'rgb(36, 128, 196)']]), JSON.stringify(p.items));
+  const swap = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] svg'), ticks = [...g.querySelectorAll('.fe-chart-text')].filter((t) => !/^[0-9]+$/.test(t.textContent)), bars = [...g.querySelectorAll('.fe-chart-bar')]; return JSON.stringify([ticks.map((t) => t.textContent), bars.map((b) => b.getAttribute('fill'))]);`);
+  add('Chart flipped, two series: a band per series under its name, a bar per row in row colours', JSON.stringify(swap) === JSON.stringify([['Population', ''], Array(2).fill(['rgb(240, 82, 59)', 'rgb(247, 180, 19)', 'rgb(36, 128, 196)']).flat()]), JSON.stringify(swap));
   undo();
   // The series + stays past three series: the grid scrolls and the + sits at 505 (CAP-T12PLUSFIND.json: 1057 with the dialog at 552).
   const more = q(`const out = []; for (let k = 0; k < 3; k++) { dl.querySelector('[data-dl-add="series"]')?.click(); await sleep(300); const p = dl.querySelector('[data-dl-add="series"]'); out.push(p ? Math.round(p.getBoundingClientRect().left - dl.getBoundingClientRect().left) : null); } return JSON.stringify(out);`);
