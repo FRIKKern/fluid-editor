@@ -119,7 +119,9 @@ export function variant(L, prev) {
   if (!d) return L;
   const [r0, c0, r1, c1] = area(L.places[block][0]), places = { ...L.places, [block]: [`${r0}/${c0}/${r1 + d}/${c1}`, L.places[block][1]] };
   for (const k of push) { const [q0, k0, q1, k1] = area(L.places[k][0]); places[k] = [`${q0 + d}/${k0}/${q1 + d}/${k1}`, L.places[k][1]]; }
-  return { ...L, rows: L.rows + d, places };
+  // The rows follow the lowest end line: a stepped block above another one changes no rows (CAP-U10WALK-W1A.json, h1p1b1's 1).
+  const low = (p) => Math.max(...Object.values(p).map((v) => area(v[0])[2]));
+  return { ...L, rows: L.rows + low(places) - low(L.places), places };
 }
 // The layouts before that give a step's other spans.
 const others = (st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1]);
