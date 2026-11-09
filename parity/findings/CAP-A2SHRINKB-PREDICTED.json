@@ -1,0 +1,215 @@
+{
+ "item": "A2",
+ "question": "A2 and R2: candidate B, a fresh round. B (from the steady reads of CAP-A2SHRINKWHY and CAP-A2SHRINKWHY2, seen): a new Text drops to the rows its content needs, one row here, at the edit that brings the one-phone-row Line from last back to first on the phone, whichever block that edit changed, and stays so. S2, to compare: it drops at the Text's second typing. The phone order and phone areas are ours, from our code on 10c3d64 replayed with the mouse and keys (ours matches those on all 13 steady reads of the why rounds). Scored: the Text's desktop area on each of the 11 reads, only where both reads (CAP-A2SHRINKB, CAP-A2SHRINKB2) agree; the phone order and areas counted apart.",
+ "predicted": {
+  "b1 typed once": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "2/2/4/10",
+     "S2 desktop": "2/2/4/10"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b1 typed twice": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B desktop": "2/2/3/10",
+     "S2 desktop": "2/2/3/10"
+    }
+   ],
+   "B shrinks here": true
+  },
+  "b1 typed three times": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "2/2/3/10",
+     "S2 desktop": "2/2/3/10"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b2 typed once": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "2/2/4/10",
+     "S2 desktop": "2/2/4/10"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b2 then moved right": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B desktop": "2/3/3/11",
+     "S2 desktop": "2/3/4/11"
+    }
+   ],
+   "B shrinks here": true
+  },
+  "b3 Text beside the Line, before": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B desktop": "1/12/3/20",
+     "S2 desktop": "1/12/3/20"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b3 typed once": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "1/12/3/20",
+     "S2 desktop": "1/12/3/20"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b3 typed twice": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B desktop": "1/12/2/20",
+     "S2 desktop": "1/12/2/20"
+    }
+   ],
+   "B shrinks here": true
+  },
+  "b4 moved right, before": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "2/3/4/11",
+     "S2 desktop": "2/3/4/11"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  },
+  "b4 typed once": {
+   "DOM": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "1/2/2/10",
+     "desktop": "1/2/2/6"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "2/2/4/10",
+     "B desktop": "2/3/3/11",
+     "S2 desktop": "2/3/4/11"
+    }
+   ],
+   "B shrinks here": true
+  },
+  "b4 typed twice": {
+   "DOM": "2,1",
+   "stack": [
+    {
+     "z": 2,
+     "type": "text",
+     "phone": "1/2/3/10",
+     "B desktop": "2/3/3/11",
+     "S2 desktop": "2/3/3/11"
+    },
+    {
+     "z": 1,
+     "type": "line",
+     "phone": "3/2/4/10",
+     "desktop": "1/2/2/6"
+    }
+   ],
+   "B shrinks here": false
+  }
+ }
+}
