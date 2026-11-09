@@ -98,7 +98,10 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     const on = inside ? { bold: markOn(box, sel, 'bold'), italic: markOn(box, sel, 'italic'), underline: markOn(box, sel, 'underline') } : {};
     if (under) on.underline = under.on;
     on.link = !linkPop.hidden || (inside && !sel.isCollapsed && !!fmt.linkAt(box, sel.getRangeAt(0)));
-    bar.innerHTML = messageBarHtml(inside ? fmt.currentStyle(box, sel) : 'p', menu, on, !box.textContent.trim());
+    // Link fades in an empty box and at a caret with no selection, in a box with text too (CAP-T12READS-J.json, three reads).
+    // It still takes a press; with a selection it shows dark (inferred: a selection was not read).
+    const linkOff = !box.textContent.trim() || (!on.link && !(inside && !sel.isCollapsed));
+    bar.innerHTML = messageBarHtml(inside ? fmt.currentStyle(box, sel) : 'p', menu, on, linkOff);
     cutBar(bar, box.dataset.rt);
     bar.hidden = false;
     box.classList.toggle('is-empty', !box.textContent.trim());

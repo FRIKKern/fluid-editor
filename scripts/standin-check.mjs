@@ -260,7 +260,12 @@ viewport(S, 1600, 1400);
   const rts = [];
   for (const l of ['Description', 'Disclaimer']) { await press(`.bp-rt[aria-label="${l}"]`, 400); rts.push(rtBar(l)); }
   add('Newsletter: Description and Disclaimer show the short bar, no Text Style, 54 above the box', rts.every((r) => r.focus && JSON.stringify(r.bar) === '[0,-54,254,44]' && JSON.stringify(r.c) === SHORT), JSON.stringify(rts));
-  await press('.bp-rt[aria-label="Description"]', 200); await key('Meta+a', 200); await press('#msg-bar [data-fmt="bold"]', 400);
+  // Link fades at a caret in a box with text too, rgb(183, 183, 183) (CAP-T12READS-J.json); with a selection it shows dark (inferred).
+  const linkColor = () => qs(`return JSON.stringify(getComputedStyle(document.querySelector('#msg-bar [data-fmt="link"]')).color);`);
+  await press('.bp-rt[aria-label="Description"]', 200); const caretLink = linkColor();
+  await key('Meta+a', 200); const selLink = linkColor();
+  add('Newsletter: Link faded at a caret in a box with text, dark with a selection', caretLink === 'rgb(183, 183, 183)' && selLink !== caretLink, JSON.stringify([caretLink, selLink]));
+  await press('#msg-bar [data-fmt="bold"]', 400);
   const boldOn = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
   await press('#undo', 400);
   const boldOff = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
