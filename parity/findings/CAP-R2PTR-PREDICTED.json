@@ -13,6 +13,11 @@
       "R5": "scroll (233)",
       "se corner": "scroll (233)",
       "H": "no scroll"
+    },
+    "c used twice": {
+      "how": "V a tall Shape moved down while the page scrolls; a new Shape resized s 0,123 (let go over V), the frame scrolled to its top, then s 0,123 again (let go over V). Read in CAP-R2TWICE.json (A4, B4).",
+      "H, remembered until reload (ours)": "scroll both times",
+      "H, used once": "scroll the first time, not the second"
     }
   },
   "seen": "H was made from CAP-R2X2LAST.json and CAP-R2REMEMBER.json (all seen). R5 is frozen; its fresh count on those: se 0 of 2, sw 2 of 2, plain 2 of 2, moved right 0 of 2, second resize 0 of 2."
