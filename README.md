@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 51 changes
+- **Today** · 52 changes
+  - A2: an arrow key after pasted text: the focus stays in the text editor (CAP-A2ARROWWHY) ([#529](https://github.com/FRIKKern/fluid-editor/pull/529))
   - A2: a text edit that turns the one-row Line back gives a new Text's spare rows back (B1, 10 of 10 fresh) ([#527](https://github.com/FRIKKern/fluid-editor/pull/527))
-  - R2: rule S, first round (sub-pixel right line), fresh 13 of 14, not built ([#533](https://github.com/FRIKKern/fluid-editor/pull/533))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
