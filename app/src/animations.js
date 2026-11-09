@@ -274,8 +274,10 @@ export function playTile(square, a) {
 // Follow on the stage: a table, not a model. The two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json), at
 // Scale 150% by 150% with every other setting blank (Attract, Block, Smoothing 1, Radius 100%, Bounce 0.5), aligned where each
 // starts to move and averaged (within 0.02 where both run): the share of the way from rest to the Range pose, its scale squared
-// as on the other triggers, every 100 ms; then at rest. It starts 960 ms after the mouse comes on, the mean of the two reads
-// (692 and 1230 ms). Inferred: the same table for every other setting and for the other Range fields.
+// as on the other triggers, every 100 ms; then at rest. The start is not a read fact: four reads put it 1230, 692, 672 and 811 ms
+// after the mouse comes on (the last two in CAP-T15STAGE8-FOLLOW7.json, -FOLLOW8.json, with the second's steps), so 960, the mean
+// of the first two, stands for a delay that varies. Each read peaks about 1484 ms after its start. Inferred: the same table for
+// every other setting and for the other Range fields.
 const FOLLOW_P = [0, 0.033, 0.083, 0.13, 0.164, 0.189, 0.214, 0.247, 0.295, 0.36, 0.449, 0.527, 0.592, 0.636, 0.661, 0.67, 0.526, 0.304, 0.105, -0.026, -0.085, -0.089, -0.065, -0.035, -0.009, 0.007, 0.012, 0.012, 0.008, 0.004, 0.001, 0];
 function followStage(el, a) {
   const s = stateOf(el), to = numbers(a.end || REST), win = el.ownerDocument.defaultView;

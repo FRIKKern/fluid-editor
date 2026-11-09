@@ -1,0 +1,100 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "Refit 1 of the floor rule (DROP): five new Instagrams, rows changed by keys or a pull, then one pick. Predicted in CAP-T12INSTAFLOOR-PREDICTED2.json, pushed before the read.",
+ "how": "f85 on the oracle, as round 1 (CAP-T12INSTAFLOOR-1.json): Blocks Probe at 1600 by 1000, unsaved, each run left by Exit and Exit Without Saving; keys on the new selected block, Q3 a pull of 123 px on the bottom handle (on top); Edit and Design by name (on top); a key on the focused select, Q2 and Q5 2.40 set by script (not a press). The planned rows before each pick were read as planned.",
+ "notPressed": [
+  "Q2 and Q5: 2.40 Anamorphic Widescreen set by script on the select"
+ ],
+ "runs": {
+  "Q1": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10",
+    "1 / 2 / 16 / 10",
+    "1 / 2 / 17 / 10"
+   ],
+   "pick": "4:3 Four-Three",
+   "how": "key 4",
+   "at": "1 / 2 / 17 / 10",
+   "after": "1 / 2 / 14 / 10",
+   "rows": 13
+  },
+  "Q2": {
+   "before": [
+    "1 / 2 / 14 / 10"
+   ],
+   "pick": "2.40 Anamorphic Widescreen",
+   "how": "set by script",
+   "at": "1 / 2 / 14 / 10",
+   "after": "1 / 2 / 8 / 10",
+   "rows": 7
+  },
+  "Q3": {
+   "before": [
+    "1 / 2 / 16 / 10"
+   ],
+   "pick": "16:9 Widescreen",
+   "how": "key 1",
+   "at": "1 / 2 / 16 / 10",
+   "after": "1 / 2 / 11 / 10",
+   "rows": 10
+  },
+  "Q4": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10",
+    "1 / 2 / 16 / 10",
+    "1 / 2 / 17 / 10",
+    "1 / 2 / 18 / 10"
+   ],
+   "pick": "3:2 Standard",
+   "how": "key 3",
+   "at": "1 / 2 / 18 / 10",
+   "after": "1 / 2 / 14 / 10",
+   "rows": 13
+  },
+  "Q5": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10",
+    "1 / 2 / 16 / 10",
+    "1 / 2 / 17 / 10",
+    "1 / 2 / 18 / 10",
+    "1 / 2 / 19 / 10"
+   ],
+   "pick": "2.40 Anamorphic Widescreen",
+   "how": "set by script",
+   "at": "1 / 2 / 19 / 10",
+   "after": "1 / 2 / 13 / 10",
+   "rows": 12
+  }
+ },
+ "score": {
+  "DROP": {
+   "hit": 5,
+   "of": 5,
+   "miss": []
+  },
+  "FLOOR": {
+   "hit": 0,
+   "of": 5,
+   "miss": [
+    "Q1 12 for 13",
+    "Q2 6 for 7",
+    "Q3 9 for 10",
+    "Q4 12 for 13",
+    "Q5 9 for 12"
+   ]
+  },
+  "ROUND": {
+   "hit": 3,
+   "of": 5,
+   "miss": [
+    "Q4 12 for 13",
+    "Q5 9 for 12"
+   ]
+  }
+ },
+ "frozen": "DROP is frozen after this refit: 5 of 5 unseen. A pick that shrinks the content: max(fit, rows - 1 - ceil(drop / 41.094)); a pick that grows it fits the content; no mark. Read on Instagram only."
+}

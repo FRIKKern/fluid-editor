@@ -1,0 +1,103 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "Round 1 of the floor rule: five new Instagrams, rows changed by keys or a pull, then one Aspect Ratio pick. Predicted in CAP-T12INSTAFLOOR-PREDICTED.json (pushed before the read).",
+ "how": "f84 on the oracle, Blocks Probe at 1600 by 1000, unsaved, each run left by Exit and Exit Without Saving. Keys on the new selected block; P3 a pull of 82 px on the bottom handle (on top). Then Edit and Design by name (on top), and the select focused with a key typed; P4 2.40 set on the select by script (not a press). Rows are the area end minus 1; the planned rows before each pick were read as planned.",
+ "notPressed": [
+  "P4: 2.40 Anamorphic Widescreen set by script on the select"
+ ],
+ "runs": {
+  "P1": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10"
+   ],
+   "pick": "16:9 Widescreen",
+   "how": "key 1",
+   "at": "1 / 2 / 15 / 10",
+   "after": "1 / 2 / 10 / 10",
+   "rows": 9
+  },
+  "P2": {
+   "before": [
+    "1 / 2 / 12 / 10"
+   ],
+   "pick": "4:3 Four-Three",
+   "how": "key 4",
+   "at": "1 / 2 / 12 / 10",
+   "after": "1 / 2 / 9 / 10",
+   "rows": 8
+  },
+  "P3": {
+   "before": [
+    "1 / 2 / 15 / 10"
+   ],
+   "pick": "3:2 Standard",
+   "how": "key 3",
+   "at": "1 / 2 / 15 / 10",
+   "after": "1 / 2 / 11 / 10",
+   "rows": 10
+  },
+  "P4": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10",
+    "1 / 2 / 16 / 10"
+   ],
+   "pick": "2.40 Anamorphic Widescreen",
+   "how": "set by script",
+   "at": "1 / 2 / 16 / 10",
+   "after": "1 / 2 / 10 / 10",
+   "rows": 9
+  },
+  "P5": {
+   "before": [
+    "1 / 2 / 14 / 10",
+    "1 / 2 / 15 / 10"
+   ],
+   "pick": "4:3 Four-Three",
+   "how": "key 4",
+   "at": "1 / 2 / 15 / 10",
+   "after": "1 / 2 / 12 / 10",
+   "rows": 11
+  }
+ },
+ "score": {
+  "FLOOR": {
+   "hit": 3,
+   "of": 5,
+   "miss": [
+    "P1 8 for 9",
+    "P4 7 for 9"
+   ]
+  },
+  "FLOOR_PULL_ENDS": {
+   "hit": 2,
+   "of": 5,
+   "miss": [
+    "P1 8 for 9",
+    "P3 7 for 10",
+    "P4 7 for 9"
+   ]
+  },
+  "ROUND": {
+   "hit": 3,
+   "of": 5,
+   "miss": [
+    "P2 9 for 8",
+    "P4 8 for 9"
+   ]
+  },
+  "OURS": {
+   "hit": 0,
+   "of": 5,
+   "miss": [
+    "P1 7 for 9",
+    "P2 9 for 8",
+    "P3 7 for 10",
+    "P4 6 for 9",
+    "P5 9 for 11"
+   ]
+  }
+ }
+}

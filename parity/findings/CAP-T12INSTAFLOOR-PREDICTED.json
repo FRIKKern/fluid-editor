@@ -1,0 +1,90 @@
+{
+ "item": "T12",
+ "kind": "predictions",
+ "capturedAt": "2026-11-09",
+ "note": "Pushed before the read. Lead ruling: one round for the floor rule, up to two refits, then freeze. Each run: a new Instagram on Blocks Probe (12 rows, span 9, 1600 by 1000, content 359.4 at 1:1), the rows changed first as named, then Edit, Design, and one Aspect Ratio pick (a key typed on the focused select, or 2.40 set by script). Rows are counted as the area end row minus 1. If the rows before the pick read other than planned, each rule is scored from the rows read, with the same formula. Fit = ceil((content + 11) / 41.094 - 0.13), as ours. Contents per aspect as read: 3:2 259.6, 4:3 284.6, 16:9 228.4, 2.40 184.7.",
+ "rules": {
+  "FLOOR": "The rule under test. A block that is new or changed only by keys or a pull keeps a mark; its first pick that shrinks the content gives max(fit, floor(rows x new content / old content)). A pick that grows the content, and every later pick, fits the content. A pull does not end the mark.",
+  "FLOOR_PULL_ENDS": "FLOOR, but a pull ends the mark (then the pick fits). Differs from FLOOR only in P3.",
+  "ROUND": "FLOOR with round instead of floor. Differs in P1, P2 and P4.",
+  "OURS": "Main now: a new block or one changed only by keys gets fit + 1 on its first shrinking pick; a pull ends it."
+ },
+ "seen": "On the reads it came from (CAP-T12INSTAASPECT-A to -F first picks, CAP-T12READS-J both runs): FLOOR 8 of 8, FLOOR_PULL_ENDS 8 of 8, OURS 7 of 8 (misses the Cmd+Down run: 8 for 9), ROUND 3 of 8 (A1, C1, D1, E1, F1 one over). Seen, not scored. Run D's second pick (9 rows at 4:3, then 16:9 read 6 = fit, floor gives 7) is why later picks fit.",
+ "runs": [
+  {
+   "run": "P1",
+   "before": "Cmd+Down twice",
+   "rows": 14,
+   "pick": "16:9 Widescreen",
+   "content": 228.4,
+   "fit": 6,
+   "ratio": 8.9,
+   "predict": {
+    "FLOOR": 8,
+    "FLOOR_PULL_ENDS": 8,
+    "ROUND": 9,
+    "OURS": 7
+   }
+  },
+  {
+   "run": "P2",
+   "before": "Cmd+Up once",
+   "rows": 11,
+   "pick": "4:3 Four-Three",
+   "content": 284.6,
+   "fit": 8,
+   "ratio": 8.71,
+   "predict": {
+    "FLOOR": 8,
+    "FLOOR_PULL_ENDS": 8,
+    "ROUND": 9,
+    "OURS": 9
+   }
+  },
+  {
+   "run": "P3",
+   "before": "a pull down of 82 px on the bottom handle",
+   "rows": 14,
+   "pick": "3:2 Standard",
+   "content": 259.6,
+   "fit": 7,
+   "ratio": 10.11,
+   "predict": {
+    "FLOOR": 10,
+    "FLOOR_PULL_ENDS": 7,
+    "ROUND": 10,
+    "OURS": 7
+   }
+  },
+  {
+   "run": "P4",
+   "before": "Cmd+Down three times",
+   "rows": 15,
+   "pick": "2.40 Anamorphic Widescreen",
+   "content": 184.7,
+   "fit": 5,
+   "ratio": 7.71,
+   "predict": {
+    "FLOOR": 7,
+    "FLOOR_PULL_ENDS": 7,
+    "ROUND": 8,
+    "OURS": 6
+   }
+  },
+  {
+   "run": "P5",
+   "before": "Cmd+Down twice",
+   "rows": 14,
+   "pick": "4:3 Four-Three",
+   "content": 284.6,
+   "fit": 8,
+   "ratio": 11.09,
+   "predict": {
+    "FLOOR": 11,
+    "FLOOR_PULL_ENDS": 11,
+    "ROUND": 11,
+    "OURS": 9
+   }
+  }
+ ]
+}
