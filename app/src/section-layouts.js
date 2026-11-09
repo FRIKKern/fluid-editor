@@ -167,11 +167,14 @@ function startStep(s, mix, prev) {
 }
 
 // A heading alone at layouts 2 to 5 (CAP-U10TEXTMIX-D.json; a list and a quote in -B take the same places): the block's
-// end line follows its words, the fewest rows whose height (rows x pitch - gap) holds its content and about 30px more
-// (25.1 to 36.3 fits every read: a heading 76 tall takes 3 rows, a quote 140 takes 5, a list 251.5 takes 8, and rule
-// P's high one-line paragraph, 22.4, takes 2). The section's rows are that end line plus 'past' (rule K's form).
+// end line follows its words, the fewest rows whose height (rows x pitch - gap) holds its content and 33.5px more.
+// 30 was fitted on the -B and -D reads (25.1 to 36.3 fit them: seen, not scored). Round 1 near row boundaries
+// (CAP-U10PADPREDICT.json) put it at 32.0 or more; refit to 33.5, it held all 8 fresh reads it predicted in
+// CAP-U10PADREFIT1.json, measured on the oracle's own content height (32.0 to 33.6 fits every read). Frozen there.
+// Not built: a heading Text whose first pick is layout 2 ends short there (6 rows for 3 headings, 1 for 5 lines).
+// The section's rows are that end line plus 'past' (rule K's form).
 // contentH(b) is the block's content height as rendered at the new place; m holds the grid's pitch and gap.
-const FIT_PAD = 30;
+const FIT_PAD = 33.5;
 export function fitLayout(s, mix, n, contentH, m) {
   const f = mix.list[n]?.fit, b = f && mix.by[f.block[0]]?.[+f.block.slice(1)];
   if (!b) return;
