@@ -1,0 +1,490 @@
+{
+  "item": "X8",
+  "capturedAt": "2026-11-09",
+  "question": "X8, R1 refit 1 (the first refit; R1's first round was CAP-98SPLIT.json, 4 of 4): when a lone widening's stored rows fire at the next layout gesture, does the section take d rows too, then grow to its blocks? Part B. B: a Shape made short (its south side up 123) and placed right (705,0) before the widening, ending above L, then moved one column (59,0) after it: the Text grows d, the Shape stays, the blocks need 5 rows of 10. Read twice (R1, R2). Gestures Probe, unsaved, one setup per enter.",
+  "from": "Ours as in this commit: editor.js showStored, refit 1 (a lone widening's stored rows add d to the section's rows, then growRows); the group drop's stored rows (frozen) unchanged. Replayed with npm run neworder-check's replay of the R1 steps. asBuilt: R1 before this refit, the same areas with one row less (main).",
+  "hit": "Scored on 'moved' and 'moved escaped': both blocks' desktop and phone areas and the section's rows equal ours'. Each case's two reads must agree. A setup miss, named and not scored: 'text widened' not 1/2/5/12, or in B the Shape not ending on or above line 5 before the move.",
+  "predicted": {
+    "B moved": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/15/4/21",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "1/15/4/21",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "B moved escaped": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/15/4/21",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "1/15/4/21",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "B setup": {
+      "shape shortened": [
+        [
+          "1/2/7/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/4/8",
+          "3/2/9/10"
+        ]
+      ],
+      "shape placed": [
+        [
+          "1/2/7/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/14/4/20",
+          "3/2/9/10"
+        ]
+      ],
+      "text widened": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/14/4/20",
+          "3/2/9/10"
+        ]
+      ],
+      "rows tw": 10
+    }
+  },
+  "cases": {
+    "B moved": [
+      "R1 B moved",
+      "R2 B moved"
+    ],
+    "B moved escaped": [
+      "R1 B moved escaped",
+      "R2 B moved escaped"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -123
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 B shape shortened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 B shape placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 B text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      59,
+      0
+    ],
+    [
+      "read",
+      "R1 B moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 B moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -123
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 B shape shortened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 B shape placed",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 B text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      59,
+      0
+    ],
+    [
+      "read",
+      "R2 B moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 B moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ]
+  ]
+}

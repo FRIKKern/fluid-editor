@@ -508,6 +508,55 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
   })() },
+  'CAP-A2SHRINKWHY': { page: 'Blocks Probe', question: 'A2 and R2: a new Text drops to one row at its second edit with a one-row Line right above it (CAP-A2TYPEDNEW t2, CAP-TEXTSHRINK k1). Is it the Line, any one-row block above, or that block at row 1? Each case changes one thing from k1, which runs last as the control. Read twice (CAP-A2SHRINKWHY2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DOWN = (px) => [['drag', 0, 'new', 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TALLER = (px) => [['select', 0, 'new'], ['drag', 0, 'new', 's', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TWICE = (n) => [...READ(`${n} before`), ...TYPE('hello'), ...READ(`${n} typed once`), ...TYPE(' world'), ...READ(`${n} typed twice`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Shape'), ...TALLER(-206), ...ADD('Text'), ...DOWN(41), ...TWICE('w1 one-row Shape above')],
+      [...ADD('Line'), ...TALLER(41), ...ADD('Text'), ...DOWN(82), ...TWICE('w2 two-row Line above')],
+      [...ADD('Line'), ...DOWN(82), ...ADD('Text'), ...DOWN(123), ...TWICE('w3 Line above, both off row 1')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(82), ...TWICE('w4 Line above, a row between')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(41), ...TWICE('w5 control, k1 again')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2SHRINKB': { page: 'Blocks Probe', question: 'A2 and R2: a fresh round on candidate B, from the steady reads of CAP-A2SHRINKWHY and CAP-A2SHRINKWHY2: a new Text drops to the rows its content needs at the edit that brings the one-phone-row block from last back to first on the phone, whichever block that edit changed. Predicted first (CAP-A2SHRINKB-PREDICTED.json). Read twice (CAP-A2SHRINKB2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...LT, ...TYPE('hello'), ...READ('b1 typed once'), ...TYPE(' world'), ...READ('b1 typed twice'), ...TYPE(' again'), ...READ('b1 typed three times')],
+      [...LT, ...TYPE('hello'), ...READ('b2 typed once'), ...MOVE(59, 0), ...READ('b2 then moved right')],
+      [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...READ('b3 Text beside the Line, before'), ...TYPE('hello'), ...READ('b3 typed once'), ...TYPE(' world'), ...READ('b3 typed twice')],
+      [...LT, ...MOVE(59, 0), ...READ('b4 moved right, before'), ...TYPE('hello'), ...READ('b4 typed once'), ...TYPE(' world'), ...READ('b4 typed twice')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2SHRINKB1': { page: 'Blocks Probe', question: 'A2 and R2: refit 1 of candidate B, a fresh round. B1 (fitted on CAP-A2SHRINKWHY and CAP-A2SHRINKB, seen): a new Text drops to the rows its content needs at a typing that brings the one-phone-row Line from last back to first on the phone; a move that does so leaves it. Predictions pushed first (CAP-A2SHRINKB1-PREDICTED.json). Each case is built twice in this capture, the second time with " again" on its read labels. No Meta+c, x or v.', steps: (() => {
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const NUDGE = [['select', 0, 'new'], ['press', 'ArrowRight'], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const READ = (name) => [['read', `${name}${s}`, { stack: 0, section: 0 }]];
+      return [
+        [...LT, ...TYPE('hello'), ...READ('c1 typed once'), ...NUDGE, ...READ('c1 then nudged right'), ...TYPE(' world'), ...READ('c1 typed twice'), ...TYPE(' again'), ...READ('c1 typed three times')],
+        [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...MOVE(59, 0), ...READ('c3 beside the Line, moved twice'), ...TYPE('hello'), ...READ('c3 typed once'), ...TYPE(' world'), ...READ('c3 typed twice')],
+        [...LT, ...MOVE(59, 0), ...MOVE(59, 0), ...READ('c4 moved right twice'), ...TYPE('hello'), ...READ('c4 typed once'), ...TYPE(' world'), ...READ('c4 typed twice')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
@@ -584,6 +633,74 @@ export const RECIPES = {
     };
   })(),
   // Each single read once more, steps copied from its finding: CAP-A2ROUND1 b3 and x2, CAP-A2ROUND2 f1, CAP-TEXTWIDTH7 f3.
+  'CAP-X6NINETEN': { page: 'Blocks Probe', question: 'X6: what sets 9 or 10 rows after a new Instagram is pulled one column in from the east? In CAP-X6TRAILWHY i2 took 9 in both builds, i1, i3, i4 and i5 took 10, with the same steps. Each case changes one thing: n1 the i2 steps run first in the session; n2 a wait of 5 s before the pull, not 1.2 s; n3 the pull held 1.5 s before the release, read held; n4 the i3 steps, a control. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => [['read', `${n}${s}`, { areas: 0, contentH: [0, 'new'] }]];
+      const ADD = (wait) => [['add', 0, 'Instagram'], ['pause', wait], ['press', 'Escape'], ['select', 0, 'new']];
+      const PULL = [['drag', 0, 'new', 'e', -58.78, 0], ['pause', 400]];
+      return [
+        [...ADD(1200), ...R('n1 start'), ...PULL, ...R('n1 pulled')],
+        [...ADD(5000), ...R('n2 start'), ...PULL, ...R('n2 pulled')],
+        [...ADD(1200), ...R('n3 start'), ['holdRaw', 0, 'new', 'e', 0, 0], ['move', -58.78, 0], ['pause', 1500], ...R('n3 held'), ['release'], ['pause', 400], ...R('n3 pulled')],
+        [...ADD(1200), ...R('n4 start'), ...PULL, ...R('n4 pulled')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-X6NINETEN2': { page: 'Blocks Probe', question: 'X6: CAP-X6NINETEN gave 8, 9, 10 and 11 rows for the same one-column Instagram pull, and its held case never moved. Does the time between the last move and the release set the rows? h1 held 1.5 s at the new width before the release, read held; h2 the same press and moves let go at once. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => [['read', `${n}${s}`, { areas: 0, contentH: [0, 'new'] }]];
+      const ADD = [['add', 0, 'Instagram'], ['pause', 1200], ['press', 'Escape'], ['select', 0, 'new']];
+      const HOLD = [['holdRaw', 0, 'new', 'e', -58.78, 0], ['move', -58.78, 0]];
+      return [
+        [...ADD, ...HOLD, ['pause', 1500], ...R('h1 held 1.5 s'), ['release'], ['pause', 400], ...R('h1 let go')],
+        [...ADD, ...HOLD, ['release'], ['pause', 400], ...R('h2 let go at once')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again'), ...cases(' third')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => READ(`${n}${s}`);
+      const INSTA = [['add', 0, 'Instagram'], ['pause', 1200], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'e', -58.78, 0], ['pause', 400]];
+      const AFTER = (n) => [['pause', 400], ...R(`${n} 400 ms`), ['pause', 2000], ...R(`${n} 2 s`)];
+      const LINE = [['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 826, 0], ['press', 'Escape'], ['deselect', 0]];
+      return [
+        [...LINE, ...INSTA, ...R('i1 pulled'), ['press', 'Escape'], ['select', 0, 1], ['press', 'ArrowDown'], ['press', 'Escape'], ...AFTER('i1 Line nudged')],
+        [...INSTA, ...R('i2 pulled'), ['press', 'Escape'], ['view', 'Mobile'], ['view', 'Desktop'], ...AFTER('i2 Mobile View and back')],
+        [...INSTA, ...R('i3 pulled'), ['press', 'Escape'], ['select', 0, 'new'], ['press', 'Escape'], ...AFTER('i3 selected again')],
+        [...INSTA, ...R('i4 pulled'), ['press', 'ArrowDown'], ['pause', 400], ['press', 'ArrowUp'], ['press', 'Escape'], ...AFTER('i4 nudged down and up')],
+        [...INSTA, ...R('i5 pulled'), ['pause', 6000], ...R('i5 6 s later')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2ARROWWHY': { page: 'Blocks Probe', question: 'A2: after text put in by a paste an arrow key did not move the block (CAP-A2ROUND1 x2, CAP-SINGLEAGAIN x2). Is it the paste, or the double click that opened the text? Reads of what holds focus (the page and the frame) and the selection, then ArrowDown. a1 the x2 steps again; a2 another block selected in between; a3 the paste after Write; a4 a double click and nothing pasted; a5 no text edit. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const LONG = '<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>';
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0]];
+    const CLOSE = [['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const DBL = [['editText', 0, 'new'], ['pasteMid', 0, 'new', LONG], ...CLOSE];
+    const WRITE = [['pick', 0, 'new'], ['click', 'Write'], ['pasteMid', 0, 'new', LONG], ...CLOSE];
+    const DBLONLY = [['editText', 0, 'new'], ...CLOSE];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const FOCUS = (name) => [['read', `${name}${s}`, { stack: 0, focused: true, sel: ':focus' }]];
+      const NUDGE = (n) => [['select', 0, 'new'], ...FOCUS(`${n} selected`), ['press', 'ArrowDown'], ['press', 'Escape'], ['deselect', 0], ['read', `${n} after ArrowDown${s}`, { stack: 0 }]];
+      return [
+        [...LT, ...DBL, ...FOCUS('a1 pasted after a double click'), ...NUDGE('a1')],
+        [...LT, ...DBL, ['select', 0, 1], ['press', 'Escape'], ['deselect', 0], ...NUDGE('a2 another block selected first,')],
+        [...LT, ...WRITE, ...FOCUS('a3 pasted after Write'), ...NUDGE('a3')],
+        [...LT, ...DBLONLY, ...FOCUS('a4 double click, nothing pasted'), ...NUDGE('a4')],
+        [...LT, ...NUDGE('a5 no text edit,')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-SINGLEAGAIN': { page: 'Gestures Probe', question: 'A2 and R2: the single reads once more with the same setup and the same read names (CAP-A2ROUND1 b3 and x2, CAP-A2ROUND2 f1, CAP-TEXTWIDTH7 f3). No Meta+c, x or v.', steps: [['toPage', 'Gestures Probe'], ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Button'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 472, 0], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Code'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 826, 0], ['press', 'Escape'], ['deselect', 0], ['view', 'Mobile'], ['select', 0, 1], ['drag', 0, 1, 's', 0, 280], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop'], ['select', 0, 1], ['press', 'Delete'], ['press', 'Escape'], ['deselect', 0], ['read', 'b3 overlap deleted', {'stack': 0}], ['select', 0, 'new'], ['press', 'ArrowDown'], ['press', 'Escape'], ['deselect', 0], ['read', 'b3 nudged', {'stack': 0}], ['exit'], ['enter'], ['blank'], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], ['editText', 0, 'new'], ['pasteMid', 0, 'new', '<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', 'x2 text long', {'stack': 0}], ['select', 0, 'new'], ['press', 'ArrowDown'], ['press', 'Escape'], ['deselect', 0], ['read', 'x2 nudged', {'stack': 0}], ['exit'], ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Image'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 123], ['press', 'Escape'], ['deselect', 0], ['view', 'Mobile'], ['select', 0, 0], ['drag', 0, 0, 's', 0, 140], ['press', 'Escape'], ['deselect', 0], ['view', 'Desktop'], ['read', 'f1 text over image', {'stack': 0}], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['read', 'f1 add line', {'stack': 0}], ['add', 0, 'Video'], ['press', 'Escape'], ['deselect', 0], ['read', 'f1 add video', {'stack': 0}], ['drag', 0, 'new', 'middle', 531, 0], ['press', 'Escape'], ['deselect', 0], ['read', 'f1 video moved', {'stack': 0}], ['exit'], ['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['drag', 0, 0, 'e', 235.12, 0], ['read', 'f3 T3 wider 4 held', {'stack': 0, 'section': 0, 'textH': [0, 0]}], ['press', 'Escape'], ['deselect', 0], ['read', 'f3 T3 wider 4 let go', {'stack': 0, 'section': 0, 'textH': [0, 0]}], ['pick', 0, 0], ['drag', 0, 0, 'e', -235.12, 0], ['read', 'f3 T3 narrower 4 held', {'stack': 0, 'section': 0, 'textH': [0, 0]}], ['press', 'Escape'], ['deselect', 0], ['read', 'f3 T3 narrower 4 let go', {'stack': 0, 'section': 0, 'textH': [0, 0]}]] },
   'CAP-RESIZESCROLL2': { page: 'Gestures Probe', question: 'R2: the page scroll after a Shape is resized down (233 in CAP-DRAGSCROLL f3, CAP-RESIZESCROLL p3 and q3), against a rule pushed first (CAP-RESIZESCROLLPREDICT.json). s1 the setup again; s2 the Shape alone; s3 the Shape moved 2 rows down first; s4 resized 123 instead of 246; s5 the page scrolled 60 first. No Meta+c, x or v.', steps: (() => {
     const VIDEO = [['add', 0, 'Video'], ['press', 'Escape'], ['deselect', 0], ['select', 0, 'new'], ['drag', 0, 'new', 's', 0, 328], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0]];
@@ -1447,3 +1564,5 @@ export const RECIPES = {
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
+RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
+RECIPES['CAP-A2SHRINKB2'] = { ...RECIPES['CAP-A2SHRINKB'], question: 'A2 and R2: the second read of each CAP-A2SHRINKB case, the same steps, every case built again from a new blank section. A case scores only when both reads agree.' };
