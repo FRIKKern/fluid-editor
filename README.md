@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 47 changes
+- **Today** · 48 changes
+  - T15: a Text's Stroke and Corner, and the variables once set, in style attributes as read ([#531](https://github.com/FRIKKern/fluid-editor/pull/531))
   - R2: the widening drop read by end line and start column (18 of 26 as built, no rule) ([#526](https://github.com/FRIKKern/fluid-editor/pull/526))
-  - A2: check-fresh compares two builds without their block ids, which are new on every build ([#517](https://github.com/FRIKKern/fluid-editor/pull/517))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
