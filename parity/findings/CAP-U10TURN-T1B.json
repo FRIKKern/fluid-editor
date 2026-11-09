@@ -1,0 +1,279 @@
+{
+  "item": "CAP-U10TURN-T1B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "U10 item 3: does the full-width heading turn, and at what size and wave: T1B (T1 heading, paragraph, button at 3; T2 heading, two paragraphs, button at 4; T5 heading, paragraph, image, button at 6), each block's content height; A and B the same steps twice. Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "T1 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0
+      }
+    ],
+    [
+      "read",
+      "T1 layout 3 k0",
+      {
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "T1 layout 3 k1",
+      {
+        "contentH": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "read",
+      "T1 layout 3 k2",
+      {
+        "contentH": [
+          0,
+          2
+        ]
+      }
+    ],
+    [
+      "shot",
+      "T1-layout-3"
+    ]
+  ],
+  "reads": {
+    "T1 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 3,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/13",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "7/3/10/13",
+          null,
+          {
+            "els": [],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-button button-block sqs-block-editable",
+              "DIV sqs-block-website-component-content sqs-block-content",
+              "DIV sqs-block-button-container sqs-block-button-container--center",
+              "A sqs-block-button-element--medium sqs-block-button-element"
+            ]
+          }
+        ]
+      ],
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/13",
+          "8/3/10/9"
+        ],
+        [
+          "7/3/10/13",
+          "11/3/15/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "T1 layout 3 k0": {
+      "contentH": 93,
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "T1 layout 3 k1": {
+      "contentH": 22.4,
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "T1 layout 3 k2": {
+      "contentH": 112.3,
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
