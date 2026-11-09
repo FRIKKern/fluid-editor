@@ -1,0 +1,365 @@
+{
+  "item": "CAP-U10PAD-Q3L",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: Q3L, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADPREDICT.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<blockquote><p>Quote words for a probe that runs on much longer here and keeps on going into a third line of words</p><p>Second line</p><p>Third line</p><p>Fourth line</p></blockquote>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q3L start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Q3L open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q3L layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q3L layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "Q3L start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words for a probe that runs on much longer here and keeps on going into a third line of words</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Second line</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Third line</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Fourth line</p></blockquote>",
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q3L open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            491.8,
+            ""
+          ],
+          [
+            "2",
+            643.8,
+            ""
+          ],
+          [
+            "3",
+            890.9,
+            ""
+          ],
+          [
+            "4",
+            1140.7,
+            ""
+          ],
+          [
+            "5",
+            1376,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q3L layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1366.2,
+        "rows": 25,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 551.8,
+      "aligns": [
+        [
+          "5/2/22/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 615.8,
+      "areas": [
+        [
+          "5/2/22/26",
+          "2/1/27/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q3L layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1242.9,
+        "rows": 22,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 627.8,
+      "aligns": [
+        [
+          "3/6/21/22",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 691.8,
+      "areas": [
+        [
+          "3/6/21/22",
+          "1/2/29/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
