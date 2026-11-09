@@ -1,0 +1,805 @@
+{
+  "item": "U10",
+  "name": "CAP-U10ENDSPREDICT",
+  "question": "End lines and rows of a Text that grows with its height: a list- or quote-first Text with one other Text in the heading list (h1p1), and a three-line code Text and a mixed Text alone in the paragraph list (p1). Fresh mixes on Blocks Probe, each read twice (A and B); only pairs that agree are scored.",
+  "rules": {
+    "E": "Each Text that does not scroll ends at its start line plus the fewest rows n whose height, 41.09 x n - 11, holds its content height plus 33.5px (the frozen fit pad). Where a layout steps a block (rule P: lowAfter, read, grow), the step comes off or onto that fitted span. A heading Text at the heading list's layout 0 keeps its set span plus its step. A block below another with overlapping columns moves down by that block's change, keeping its gap. The section rows change by the change in the lowest end line. Fitted on CAP-U10LF-LHA.json, LPA, QHA, QPA, CAP-U10TEXTMIX-C.json and CAP-U10CD1.json: 124 of 142 seen. Misses (seen): the quote as heading at layouts 2 and 5 ends short (3 and 2 rows); the mixed Text after layout 1 keeps rule P's low span at 0, 2, 3, 4 and 5; the three-line code's first pick at layout 0 takes 1 row, not 2."
+  },
+  "scoring": "Per read pick: each block's desktop area and the section rows, rule E applied to the content heights read there (contentH, b0 and b1), the same steps and the same pick order. The areas and rows given here come from ours' content heights and are not scored: ours measures one-line code at the paragraph list's layout 1 as 22.4px where the oracle read 245.5 (CAP-U10TEXTMIX-C.json), so the layout 1 lines here are likely off for that reason alone. Weak spots put in on purpose: two quotes as heading (EPQ, EPS), a three-line code (ECD), a mixed Text with picks after layout 1 (EMX).",
+  "cases": {
+    "EHL": {
+      "texts": [
+        "<h2>Heading words for a probe</h2>",
+        "<ul><li><p>List item one</p></li><li><p>List item two</p></li><li><p>List item three</p></li></ul>"
+      ],
+      "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "EHQ": {
+      "texts": [
+        "<h2>Heading words for a probe</h2>",
+        "<blockquote><p>Quote words for a probe</p><p>Second quote line here</p></blockquote>"
+      ],
+      "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "EPQ": {
+      "texts": [
+        "<p>Paragraph words for a probe</p>",
+        "<blockquote><p>Quote words for a probe</p><p>Second quote line here</p></blockquote>"
+      ],
+      "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "EPS": {
+      "texts": [
+        "<p>Paragraph words for a probe that runs on to a second line in its narrow column</p>",
+        "<blockquote><p>Quote</p></blockquote>"
+      ],
+      "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "EPL": {
+      "texts": [
+        "<p>Paragraph words for a probe</p>",
+        "<ul><li><p>List item one</p></li><li><p>List item two</p></li><li><p>List item three</p></li></ul>"
+      ],
+      "picks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "ECD": {
+      "texts": [
+        "<pre><code>first line of a longer code sample\nsecond line of it\nthird</code></pre>"
+      ],
+      "picks": [
+        0,
+        2,
+        1,
+        0,
+        3,
+        4
+      ]
+    },
+    "EMX": {
+      "texts": [
+        "<p>Paragraph words</p><ul><li><p>List item one</p></li></ul><blockquote><p>Quote words</p></blockquote>"
+      ],
+      "picks": [
+        0,
+        2,
+        1,
+        0,
+        3,
+        4
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "read": "EHL 01 layout 0",
+      "mix": "h1p1",
+      "after": null,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 50.3,
+          "area": "1/9/2/19"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "2/10/7/18"
+        }
+      },
+      "rows": 6
+    },
+    {
+      "read": "EHL 02 layout 1",
+      "mix": "h1p1",
+      "after": 0,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 135.7,
+          "area": "1/3/6/13"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "1/15/6/23"
+        }
+      },
+      "rows": 5
+    },
+    {
+      "read": "EHL 03 layout 2",
+      "mix": "h1p1",
+      "after": 1,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 76,
+          "area": "1/4/4/24"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "4/10/9/18"
+        }
+      },
+      "rows": 8
+    },
+    {
+      "read": "EHL 04 layout 3",
+      "mix": "h1p1",
+      "after": 2,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 93,
+          "area": "1/1/5/27"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "5/3/10/13"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "EHL 05 layout 4",
+      "mix": "h1p1",
+      "after": 3,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 151.9,
+          "area": "4/3/9/14"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "4/15/9/23"
+        }
+      },
+      "rows": 11
+    },
+    {
+      "read": "EHL 06 layout 5",
+      "mix": "h1p1",
+      "after": 4,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 76,
+          "area": "4/2/7/26"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 151.4,
+          "area": "8/10/13/18"
+        }
+      },
+      "rows": 15
+    },
+    {
+      "read": "EHQ 01 layout 0",
+      "mix": "h1p1",
+      "after": null,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 50.3,
+          "area": "1/9/2/19"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "2/10/8/18"
+        }
+      },
+      "rows": 7
+    },
+    {
+      "read": "EHQ 02 layout 1",
+      "mix": "h1p1",
+      "after": 0,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 135.7,
+          "area": "1/3/6/13"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "1/15/7/23"
+        }
+      },
+      "rows": 6
+    },
+    {
+      "read": "EHQ 03 layout 2",
+      "mix": "h1p1",
+      "after": 1,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 76,
+          "area": "1/4/4/24"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "4/10/10/18"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "EHQ 04 layout 3",
+      "mix": "h1p1",
+      "after": 2,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 93,
+          "area": "1/1/5/27"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "5/3/11/13"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "EHQ 05 layout 4",
+      "mix": "h1p1",
+      "after": 3,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 151.9,
+          "area": "4/3/9/14"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "4/15/10/23"
+        }
+      },
+      "rows": 12
+    },
+    {
+      "read": "EHQ 06 layout 5",
+      "mix": "h1p1",
+      "after": 4,
+      "blocks": {
+        "h0": {
+          "text": "first",
+          "oursContentH": 76,
+          "area": "4/2/7/26"
+        },
+        "p0": {
+          "text": "second",
+          "oursContentH": 162.2,
+          "area": "8/10/14/18"
+        }
+      },
+      "rows": 16
+    },
+    {
+      "read": "EPQ 01 layout 0",
+      "mix": "h1p1",
+      "after": null,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 247,
+          "area": "1/9/9/19"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "9/10/11/18"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "EPQ 02 layout 1",
+      "mix": "h1p1",
+      "after": 0,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 367.4,
+          "area": "1/3/12/13"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "1/15/3/23"
+        }
+      },
+      "rows": 11
+    },
+    {
+      "read": "EPQ 03 layout 2",
+      "mix": "h1p1",
+      "after": 1,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 247.9,
+          "area": "1/4/9/24"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "9/10/11/18"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "EPQ 04 layout 3",
+      "mix": "h1p1",
+      "after": 2,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 93,
+          "area": "1/1/5/27"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "5/3/7/13"
+        }
+      },
+      "rows": 6
+    },
+    {
+      "read": "EPQ 05 layout 4",
+      "mix": "h1p1",
+      "after": 3,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 399.9,
+          "area": "4/3/15/14"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "4/15/6/23"
+        }
+      },
+      "rows": 17
+    },
+    {
+      "read": "EPQ 06 layout 5",
+      "mix": "h1p1",
+      "after": 4,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 247.9,
+          "area": "4/2/12/26"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "13/10/15/18"
+        }
+      },
+      "rows": 17
+    },
+    {
+      "read": "EPS 01 layout 0",
+      "mix": "h1p1",
+      "after": null,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 114.3,
+          "area": "1/9/5/19"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "5/10/8/18"
+        }
+      },
+      "rows": 7
+    },
+    {
+      "read": "EPS 02 layout 1",
+      "mix": "h1p1",
+      "after": 0,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 131.9,
+          "area": "1/3/6/13"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "1/15/4/23"
+        }
+      },
+      "rows": 5
+    },
+    {
+      "read": "EPS 03 layout 2",
+      "mix": "h1p1",
+      "after": 1,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 140,
+          "area": "1/4/6/24"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "6/10/9/18"
+        }
+      },
+      "rows": 8
+    },
+    {
+      "read": "EPS 04 layout 3",
+      "mix": "h1p1",
+      "after": 2,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 93,
+          "area": "1/1/5/27"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "5/3/8/13"
+        }
+      },
+      "rows": 7
+    },
+    {
+      "read": "EPS 05 layout 4",
+      "mix": "h1p1",
+      "after": 3,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 140,
+          "area": "4/3/9/14"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "4/15/7/23"
+        }
+      },
+      "rows": 11
+    },
+    {
+      "read": "EPS 06 layout 5",
+      "mix": "h1p1",
+      "after": 4,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 140,
+          "area": "4/2/9/26"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 44.8,
+          "area": "10/10/13/18"
+        }
+      },
+      "rows": 15
+    },
+    {
+      "read": "EPL 01 layout 0",
+      "mix": "h1p1",
+      "after": null,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 233.4,
+          "area": "1/9/8/19"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "8/10/10/18"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "EPL 02 layout 1",
+      "mix": "h1p1",
+      "after": 0,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 319.6,
+          "area": "1/3/10/13"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "1/15/3/23"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "EPL 03 layout 2",
+      "mix": "h1p1",
+      "after": 1,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 360.7,
+          "area": "1/4/11/24"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "11/10/13/18"
+        }
+      },
+      "rows": 12
+    },
+    {
+      "read": "EPL 04 layout 3",
+      "mix": "h1p1",
+      "after": 2,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 93,
+          "area": "1/1/5/27"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "5/3/7/13"
+        }
+      },
+      "rows": 6
+    },
+    {
+      "read": "EPL 05 layout 4",
+      "mix": "h1p1",
+      "after": 3,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 360.7,
+          "area": "4/3/14/14"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "4/15/6/23"
+        }
+      },
+      "rows": 16
+    },
+    {
+      "read": "EPL 06 layout 5",
+      "mix": "h1p1",
+      "after": 4,
+      "blocks": {
+        "h0": {
+          "text": "second",
+          "oursContentH": 360.7,
+          "area": "4/2/14/26"
+        },
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "15/10/17/18"
+        }
+      },
+      "rows": 19
+    },
+    {
+      "read": "ECD 01 layout 0",
+      "mix": "p1",
+      "after": null,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "5/7/7/21"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "ECD 02 layout 2",
+      "mix": "p1",
+      "after": 0,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "8/15/10/25"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "ECD 03 layout 1",
+      "mix": "p1",
+      "after": 2,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "4/6/6/22"
+        }
+      },
+      "rows": 8
+    },
+    {
+      "read": "ECD 04 layout 0",
+      "mix": "p1",
+      "after": 1,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "5/7/6/21"
+        }
+      },
+      "rows": 9
+    },
+    {
+      "read": "ECD 05 layout 3",
+      "mix": "p1",
+      "after": 0,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "3/3/5/13"
+        }
+      },
+      "rows": 8
+    },
+    {
+      "read": "ECD 06 layout 4",
+      "mix": "p1",
+      "after": 3,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 22.4,
+          "area": "4/9/6/19"
+        }
+      },
+      "rows": 8
+    },
+    {
+      "read": "EMX 01 layout 0",
+      "mix": "p1",
+      "after": null,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "5/7/9/21"
+        }
+      },
+      "rows": 12
+    },
+    {
+      "read": "EMX 02 layout 2",
+      "mix": "p1",
+      "after": 0,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "8/15/12/25"
+        }
+      },
+      "rows": 11
+    },
+    {
+      "read": "EMX 03 layout 1",
+      "mix": "p1",
+      "after": 2,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "4/6/8/22"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "EMX 04 layout 0",
+      "mix": "p1",
+      "after": 1,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "5/7/8/21"
+        }
+      },
+      "rows": 11
+    },
+    {
+      "read": "EMX 05 layout 3",
+      "mix": "p1",
+      "after": 0,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "3/3/7/13"
+        }
+      },
+      "rows": 10
+    },
+    {
+      "read": "EMX 06 layout 4",
+      "mix": "p1",
+      "after": 3,
+      "blocks": {
+        "p0": {
+          "text": "first",
+          "oursContentH": 115.2,
+          "area": "4/9/8/19"
+        }
+      },
+      "rows": 10
+    }
+  ]
+}
