@@ -340,7 +340,7 @@ const STEPS = {
     if (!ok) { finding.errors.push(`${name}: ${part} handle not on top, not pressed`); return; }
     await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [] })); await pause(800);
   },
-  panel: (i) => openSectionPanel(i),
+  panel: (i, top) => openSectionPanel(i, top),
   editText: async (i, k) => { point(i, k); await inFrame(() => browser(S, 'dblclick', '#fx-b')); await pause(1000); },
   click: async (label) => { if (!tag(LABEL(label))) throw new Error(`nothing labelled ${label}`); browser(S, 'click', '#fx-target'); await pause(1200); },
   clickIf: async (label) => { if (tag(LABEL(label))) { browser(S, 'click', '#fx-target'); await pause(1200); } else finding.errors.push(`no ${label}`); },
