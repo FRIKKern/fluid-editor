@@ -297,7 +297,7 @@ function blendRow(cur, open, chev = false) {
 }
 // A Quote's Design tab ends with Effects and an Appear menu (CAP-DESIGNTAB-EFFECTS2.json); Text and Shape have none.
 export const APPEAR = ['Site Default', 'None', 'Fade In', 'Slide Up', 'Focus In', 'Reveal'];
-// After a pick the row shows its value on a grey fill, with a small grey chevron and no line (CAP-T12APPEARROW.json, mouse off the row, two picks).
+// After a pick the row shows its value, with a small grey chevron; the grey fill and no line are the focus's (CAP-T12APPEARROW.json, CAP-T12FILL-A.json, -B).
 const effectsRows = (v) => `<div class="bp-thead bp-effects"><span>Effects</span></div><button type="button" class="bp-appear${v ? ' has-value' : ''}" data-appear aria-haspopup="listbox"><span>Appear</span>${v ? `<span class="bp-appear-v">${v}${CHEV}</span>` : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'}</button>`;
 
 // A Video's is a name and a menu, not one button (CAP-VBLEND.json): the same list, over it and 9 to its left.

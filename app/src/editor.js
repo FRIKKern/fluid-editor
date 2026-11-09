@@ -3417,7 +3417,9 @@ shapePop.addEventListener('click', (e) => {
   if (apo) {
     const v = apo.dataset.appearOpt;
     closeShapePop();
-    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
+    // Site Default picked is shown as a value, and the row keeps the focus (CAP-T12FILL-A.json, -B).
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
+    blockPanel.querySelector('[data-appear]')?.focus();
     return;
   }
   const io = e.target.closest('[data-image-opt]');
