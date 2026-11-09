@@ -1,0 +1,784 @@
+{
+  "item": "CAP-STOPMOVE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-08",
+  "engine": "chrome",
+  "question": "A2: where a block moved on desktop goes on a phone stopped by overlap (CAP-A2ROUND2 f1, read twice), against rule M pushed first (CAP-STOPMOVEPREDICT.json). g1 f1 with no Line; g3 f1 with the Video moved a row down, onto the Image, not right; g4 f1 with a Button added after the Line. No Meta+c, x or v.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      123
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "s",
+      0,
+      140
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "g1 stopped",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g1 add video",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      531,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g1 video moved",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      123
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "s",
+      0,
+      140
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g3 add video",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g3 video moved down",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Image"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      123
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "s",
+      0,
+      140
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g4 add button",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Video"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g4 add video",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      531,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "g4 video moved",
+      {
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "g1 stopped": {
+      "stack": [
+        {
+          "id": "9_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_647",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g1 add video": {
+      "stack": [
+        {
+          "id": "_1054",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "9_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "9/2/15/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_647",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "11/2/17/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g1 video moved": {
+      "stack": [
+        {
+          "id": "9_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_647",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_1054",
+          "type": "csr",
+          "desktop": "1/11/9/19",
+          "phone": "9/2/17/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g3 add video": {
+      "stack": [
+        {
+          "id": "_1214",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "9/2/15/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_629",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "11/2/17/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "7_996",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "17/2/18/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g3 video moved down": {
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_629",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "7_996",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "_1214",
+          "type": "csr",
+          "desktop": "2/2/10/10",
+          "phone": "10/2/18/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g4 add button": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_629",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_1238",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "9/2/11/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "_1020",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "11/2/12/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g4 add video": {
+      "stack": [
+        {
+          "id": "_1474",
+          "type": "csr",
+          "desktop": "1/2/9/10",
+          "phone": "1/2/9/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "9/2/15/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_629",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "11/2/17/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_1238",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "17/2/19/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "_1020",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "19/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "g4 video moved": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_629",
+          "type": "csr",
+          "desktop": "4/2/10/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "_1474",
+          "type": "csr",
+          "desktop": "1/11/9/19",
+          "phone": "9/2/17/10",
+          "z": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "_1238",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "17/2/19/10",
+          "z": [
+            "4",
+            "4"
+          ]
+        },
+        {
+          "id": "_1020",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "19/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

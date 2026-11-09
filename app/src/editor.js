@@ -11,7 +11,7 @@ import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
 import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
-import { sectionMix, applyLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
+import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
 import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
@@ -840,6 +840,7 @@ function autoScroll(g) {
     else if (y >= 0 && y <= EDGE_TOP && y + moved >= 0) dir = -1;
     if (!dir) { g.scrolling = false; return; }
     win.scrollBy(0, dir * SCROLL_STEP);
+    g.pageScrolled = true;
     updateMove(g.lastEvent);
     win.setTimeout(tick, SCROLL_EVERY);
   };
@@ -1084,6 +1085,14 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
+  if (g.type === 'move' && g.pageScrolled) scrolledMove = { sid: g.sid, bid: g.bid };
+  // After a south resize the page scrolls so the bottom of the block last moved while the page scrolled under it sits at the
+  // frame's bottom; with no such block, none (CAP-RESIZESCROLLPREDICT.json R5: 2 of 2 on its refit, the 233 of CAP-DRAGSCROLL f3,
+  // CAP-RESIZESCROLL p3, q3 and CAP-RESIZESCROLL2 s1, s3 to s5). An east resize does not (t3); other south corners inferred.
+  if (g.type === 'resize' && /s/.test(g.dir)) {
+    const q = scrolledMove && blockEl(scrolledMove.bid)?.getBoundingClientRect();
+    if (q && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
+  }
   // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
   // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).
   if (g.type === 'resize' && b.type === 'text' && /^(se|sw|ne|nw)$/.test(g.dir) && g.target[3] - g.target[1] < g.orig[3] - g.orig[1]) unsettled = { sid: s.id, bid: b.id, bp };
@@ -1128,6 +1137,7 @@ function fitTextRows(s, b, g) {
 // Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
 // Time alone does nothing. No undo step of its own. Growing pushes as typing does.
 let unsettled = null;
+let scrolledMove = null; // the block last moved while the page scrolled under it (R5 above)
 function settleTextRows() {
   const u = unsettled;
   unsettled = null;
@@ -1494,7 +1504,15 @@ function updateResize(e) {
     need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskNeed(held, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) {
+    // A Summary takes the rows of its content's height before the pull, at the width it was pressed at, so it widens into
+    // the rows of its narrower content (CAP-X6SUMMARYWALK.json: P, 9 of 11 predicted, the 2 misses pulls that moved nothing).
+    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen).
+    const [, o0, , o1] = g.orig;
+    const past = held.label === 'Summary' && (g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols);
+    const cols = held.label === 'Summary' && !past ? o1 - o0 : c1 - c0;
+    need = Math.max(need, Math.ceil((deskNeed(held, cols) + m.rg) / m.pitch - 0.02));
+  }
   else if (side && bp === 'mobile' && held.phoneHeight) {
     // A pointer past the floor, where it would snap under it, takes the rows with no give: Menu 31.09 rows high is 31 at
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
@@ -1647,7 +1665,12 @@ function onKey(e) {
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
-    else { accordionEscape(); select(null); }
+    else {
+      // A typed accordion field keeps its text: Escape commits it first (CAP-T12READS-H.json).
+      const f = document.activeElement;
+      if (blockPanel.contains(f) && f.matches('[data-content="accTitle"], [data-content="accDescription"]')) f.blur();
+      accordionEscape(); select(null);
+    }
     return;
   }
   // Keys measured on the oracle (parity/findings/KEYS.json, KEYS2.json).
@@ -1788,6 +1811,8 @@ let animPosed = null; // the block held in the pose of the End, Start or Range t
 let animPlaying = false;
 let animPlay = null; // after the next draw: 'tiles'
 let embedData = false;
+// A stand-in's view (Audio's Podcast, Summary's Size and Spacing), for the block it was opened on.
+let spView = null;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
 let accGrew = false; // an edit in the item view on show made the block grow
 let imageView = null; // the image Shape picker's tab, or null
@@ -1808,7 +1833,7 @@ function renderBlockPanel() {
   if (!dialogEl.hidden) { dialogEl.hidden = true; dialogEl.dataset.key = ''; }
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; spView = null; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1826,6 +1851,7 @@ function renderBlockPanel() {
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
+  if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -1845,7 +1871,7 @@ function renderBlockPanel() {
   const button = buttonView ? { style: b.buttonStyle || 'primary', fit: !!buttonView.fit, align: buttonView.align || 'center' } : null;
   const lookWas = blockPanel.dataset.bid === b.id && !blockPanel.hidden ? blockPanel.querySelector('.bp-code.is-look textarea') : null;
   const lookKeep = lookWas && { value: fullOf(lookWas), folds: foldsOf(lookWas), start: lookWas.selectionStart, end: lookWas.selectionEnd, dir: lookWas.selectionDirection, top: lookWas.scrollTop };
-  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
+  blockPanel.innerHTML = blockPanelHtml(designFor(b, bp), designTab, content, (b.type === 'form' || b.standin === 'newsletter') && designTab === 'Content' && ffView ? ffView : b.type === 'social' && designTab === 'Content' && socView ? socView : b.type === 'accordion' && accView ? accView : spView ? `sp-view:${spView.label}` : imageView ? `image-shape:${imageView}` : fxView ? 'image-fx' : designTab === 'Content' && embedData ? 'embed-data' : designTab === 'Animation' ? animListHtml(animRowsOf(b), bp === 'mobile', bp === 'mobile' ? { order: animPhoneOrder(b.animations || []), own: (b.animations || []).map((a) => !!a.phone) } : {}) : (blendOpen ? 'blend' : bstyleOpen ? 'bstyle' : null), shape, image, stack, button, kid);
   // The phone's Transforms head has no More actions (CAP-COVERAGE.json, difference 77).
   if (bp === 'mobile') for (const m of blockPanel.querySelectorAll('.bp-more')) m.remove();
   if (blockPanel.dataset.bid !== b.id || (anim.i != null && !b.animations?.[anim.i]) || (anim.view === 'editor' && anim.i == null)) anim = { ...ANIM_LIST }; // another block, or undo took the row away
@@ -2060,6 +2086,14 @@ function animStopPreview() {
   const el = sel && blockEl(sel.bid);
   if (el) releasePose(el);
 }
+// A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
+// agree): its slow-starting run first shows at 844 ms, so it starts about 170 ms after the press; not if the editor has changed by then.
+let stageOpenTimer = 0;
+function stageOnOpen() {
+  clearTimeout(stageOpenTimer);
+  const sq = blockPanel.querySelector('.an-stage .an-sq'), at = anim.i;
+  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 170);
+}
 function animAction(el) {
   if (el.dataset.anim !== 'play') animStopPreview();
   const act = el.dataset.anim, i = el.dataset.i == null ? null : Number(el.dataset.i), rows = animRows();
@@ -2076,7 +2110,7 @@ function animAction(el) {
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
-  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; }
+  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; renderBlockPanel(); stageOnOpen(); return; }
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
@@ -2736,8 +2770,9 @@ blockPanel.addEventListener('change', (e) => {
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
-// A Pricing Plan's Elements switches move its rows on desktop by the content they leave, by the frozen rows rule of
-// CAP-T12NEWSLETTER.json (20 of 20 steps at 8 and 6 columns, CAP-T12PRESS-A.json and -E.json). Phone: not read, rows stay.
+// A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
+// lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). Phone: not read, rows stay.
 function setStandinValue(key, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
   const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
@@ -2745,7 +2780,7 @@ function setStandinValue(key, v) {
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
     const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - Math.ceil(X(h0) - x + 0.05)) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }
@@ -2767,6 +2802,8 @@ blockPanel.addEventListener('input', (e) => {
   if (r) r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min)) * 100}%`);
 });
 blockPanel.addEventListener('click', (e) => {
+  const sv = e.target.closest('[data-sp-view]');
+  if (sv && sel) { spView = sv.dataset.spView === 'back' ? null : { bid: sel.bid, label: sv.dataset.spView }; renderBlockPanel(); return; }
   // Product's image shape picker opens and closes its tiles; a pick re-draws the panel, which closes them.
   const pick = e.target.closest('[data-sp-pick]');
   // The tiles reach past the panel's foot (CAP-T12READS-E.json: 567 high at the picker's top left), so they sit fixed there.
@@ -3889,6 +3926,7 @@ function fitAccordion(b, s, need) {
 }
 // Escape from an item view whose edit made it grow gives the open item's rows back, to the nearest row, so the rows can
 // stretch. Back doesn't, and neither does Escape with no edit (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json). Read at one length of description.
+// It joins the edit's undo step: one undo takes back the edit and the close together (CAP-T12READS-H.json).
 function accordionEscape() {
   if (!accGrew || !sel || !accView?.startsWith('acc-item:')) return;
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), m = measure(feEl(sel.sid));
@@ -3896,7 +3934,7 @@ function accordionEscape() {
   showAccordionItem(b);
   const need = Math.max(1, Math.round((blockEl(b.id).querySelector('.accordion-items-container').offsetHeight + m.rg) / m.pitch));
   fitAccordion(b, S(sel.sid), need);
-  commit(before, 'Item closed');
+  if (JSON.stringify(model) !== before) { followPhoneRows(before); note('Item closed'); updateUi(); }
 }
 function setAccordion(change, label, before = JSON.stringify(model)) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
@@ -3954,7 +3992,8 @@ blockPanel.addEventListener('change', (e) => {
 function accCustomFrom(b, k) {
   const pad = (v, t) => (Array.isArray(v) ? v : t(ACCORDION_PAD[v || 'M']));
   if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
-  if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
+  // From S (300px) the more range starts at its floor, 25 (CAP-T12READS-H.json).
+  if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : b.descWidth === 'S' ? 25 : ACCORDION_WIDTH[b.descWidth || 'M'];
   if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
   if (k === 'iconThickness') return typeof b.iconThickness === 'number' ? b.iconThickness : ACCORDION_LINE[b.iconThickness || 'S'];
   if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
@@ -3996,10 +4035,23 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : '.bp-acc-row';
   const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
+  // Held (CAP-T12READS-H.json): the row waits in its new place at 0.4, the rows between make room, and a plain copy
+  // follows the pointer; the canvas moves on release.
+  const ghost = row.cloneNode(true), list = row.parentElement;
+  ghost.classList.add('bp-row-ghost');
+  if (getComputedStyle(list).position === 'static') list.style.position = 'relative';
+  Object.assign(ghost.style, { top: `${row.offsetTop}px`, left: `${row.offsetLeft}px`, width: `${row.offsetWidth}px` });
+  list.append(ghost);
   row.classList.add('is-moving');
   g.setPointerCapture(e.pointerId);
-  const move = (ev) => { const dy = ev.clientY - y0; to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h))); row.style.transform = `translateY(${dy}px)`; };
+  const move = (ev) => {
+    const dy = ev.clientY - y0;
+    to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h)));
+    ghost.style.transform = `translateY(${dy}px)`;
+    rows.forEach((r, n) => { r.style.transform = n === from ? `translateY(${(to - from) * h}px)` : n > from && n <= to ? `translateY(${-h}px)` : n < from && n >= to ? `translateY(${h}px)` : ''; });
+  };
   const up = () => {
+    ghost.remove();
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
@@ -5959,6 +6011,12 @@ layoutsPanel.addEventListener('click', (e) => {
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
+  if (mix.list[layoutsPicked].fit) {
+    renderSectionDom(layoutsSid);
+    const fe = feEl(layoutsSid), m = measure(fe);
+    fitLayout(S(layoutsSid), mix, layoutsPicked, (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height ?? 0, { rg: m.rg, pitch: rowFloor(fe) + m.rg });
+  }
   if (sel?.sid === layoutsSid) select(null);
   commit(before, `Layout ${layoutsPicked + 1}`);
   renderAll();
@@ -7300,6 +7358,7 @@ function boot() {
       redoStack.length = 0;
       sel = null;
       stored = null;
+      scrolledMove = null;
       leftRings = null;
       renderAll();
       return true;

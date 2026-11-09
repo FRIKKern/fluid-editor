@@ -1,0 +1,64 @@
+{
+  "item": "A2",
+  "question": "CAP-STOPMOVEPREDICT",
+  "frozenAt": "2026-11-08T21:31Z",
+  "reads": "CAP-STOPMOVE.json: g1, g3, g4, each from f1's setup (CAP-A2ROUND2.json, CAP-SINGLEAGAIN.json f1): a Text, an Image moved 123 down, the Text pulled 140 down on the phone so they overlap and the phone stops.",
+  "seen": "f1, twice: the Video added on the stopped phone went first (the Text fits inside its desktop place, CAP-A2STOPNEW rule G). Moved 531 right on desktop, it went to rows 9 to 17, after the Text and the Image and before the Line, which moved down by its height; the Text and the Image closed up. Moves that changed nothing on a stopped phone: CAP-A2ROUND1 b4 (a Line that was last, moved), b3 (overlap gone), CAP-A2ROUND2 m1 and f4 (stopped by hand).",
+  "rules": {
+    "M": "On a phone stopped by overlap, with the overlap still there, a block moved on desktop is taken out of the phone stack (the blocks under it rise by its height) and put back by rule G at its new desktop place: before the first block there that fits inside it; otherwise right after the blocks whose phone rows overlap, moving the blocks under that down by its height. Stopped by hand, or with the overlap gone, a move changes nothing on the phone.",
+    "ours": "A move on a stopped phone changes nothing there."
+  },
+  "predictions": {
+    "g1": {
+      "M": "order Text, Image, Video: Text 1/2/7/10, Image 3/2/9/10, Video 9/2/17/10",
+      "ours": "Video, Text, Image as added"
+    },
+    "g3": {
+      "M": "the Video at 2/2/10/10 holds the Image: order Text, Video, Image, Line: Text 1/2/7/10, Video 3/2/11/10, Image 11/2/17/10, Line 17/2/18/10",
+      "ours": "Video, Text, Image, Line as added"
+    },
+    "g4": {
+      "M": "order Text, Image, Video, Line, Button: the Video at 9/2/17/10, before both later blocks",
+      "ours": "Video, Text, Image, Line, Button as added"
+    }
+  },
+  "scoring": "Per case, the phone order read after the move, then the phone areas where M gives them. One round, up to two refits, then frozen.",
+  "round1": {
+    "M": "The moved block's place 2 of 3: g1 (Text, Image, Video 9/2/17/10) and g4 (the Video at 9/2/17/10, before the Button and the Line). g3 missed: the Video moved a row down onto the Image went last, 10/2/18/10 after the Line, not before the Image. The whole order in g4 also missed on the Button and the Line, which is an add, not the move: the Button went before the Line by rule G (it holds the Line at its place).",
+    "ours": "0 of 3."
+  },
+  "refit1": {
+    "pushedAt": "2026-11-08T21:38Z",
+    "M2": "On a phone stopped by overlap, a block moved on desktop leaves its phone place (the blocks under it rise by its height) and goes right after the last block in phone order that shares desktop columns with it and starts on a row at or above its own; with none, right after the blocks whose phone rows overlap. The blocks after it move down by its height. Fitted on f1, g1, g3, g4 (seen).",
+    "reads": "CAP-STOPMOVE2.json: h1 as f1, but the Line moved first to columns 12 to 16 (the Video moved right then shares its columns); h4 as g1 (no Line), the Video moved a row down, not right.",
+    "predictions": {
+      "h1": {
+        "M2": "the Line's own move changes nothing (it shares no columns: 9/2/10/10); the Video moved right goes after the Line, last: Text 1/2/7/10, Image 3/2/9/10, Line 9/2/10/10, Video 10/2/18/10",
+        "M": "Video 9/2/17/10 before the Line, Line 17/2/18/10"
+      },
+      "h4": {
+        "M2": "the Video at 2/2/10/10 shares columns with the Text (row 1) and the Image (row 4, below it): it goes right after the Text, its phone rows from 7: 7/2/15/10",
+        "M": "Video 9/2/17/10, after the Image"
+      }
+    },
+    "scored": "M2 0 of 2: h1, the Video went to 9/2/17/10 before the Line, which shares its columns but starts on the same row; h4, the Video went to 9/2/17/10 after the Image, not 7 after the Text. Rule M gave both."
+  },
+  "refit2": {
+    "pushedAt": "2026-11-08T21:42Z",
+    "M3": "On a phone stopped by overlap, a block moved on desktop leaves its phone place (the blocks under it rise by its height) and goes right after the latest, in phone order, of these: the blocks whose phone rows overlap (the overlap that stopped it), and each block that shares desktop columns with it and starts on a row strictly above its own. The blocks after it move down by its height. Fitted on f1, g1, g3, g4, h1, h4 (seen, 6 of 6). The last refit: frozen after this round.",
+    "reads": "CAP-STOPMOVE3.json: k1 as g3 with the Line moved to columns 12 to 16 first (it then shares no columns with the Video); k2 as g3 with the Line moved a row down first, to 2/2/3/6 (the same start row as the moved Video).",
+    "predictions": {
+      "k1": {
+        "M3": "Text 1/2/7/10, Image 3/2/9/10, Video 9/2/17/10, Line 17/2/18/10",
+        "M": "the same"
+      },
+      "k2": {
+        "M3": "the Line's own move changes nothing; then Video 9/2/17/10 before the Line, Line 17/2/18/10",
+        "M": "the same"
+      }
+    },
+    "note": "M and M3 agree on both, so this round tests M3's new part only by its two controls: the Line no longer counts when it shares no columns (k1) or starts on the moved block's row (k2).",
+    "scored": "M3 1 of 2: k1 held (the Video 9/2/17/10, before the Line that shares no columns); k2 missed: with the Line moved to 2/2/3/6, the same start row and column as the moved Video, the Video went after it, 10/2/18/10."
+  },
+  "frozen": "Nothing built. Fresh counts: M 5 of 7 (g1, g4, h1, h4, k1; misses g3, k2), M2 0 of 2, M3 1 of 2. Seen across all 8 reads, the moved block goes right after the latest, in phone order, of the blocks whose phone rows overlap and each block that shares its desktop columns and comes before it in desktop reading order, row first, then column, a tie counting as before (g3 and k2 after the Line; h1 not after a Line on its row but right of it). That is fitted on all 8 and was never pushed, so it is not built. Ours changes nothing on the phone after such a move, 0 of 8."
+}

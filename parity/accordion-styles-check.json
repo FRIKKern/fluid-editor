@@ -1,7 +1,7 @@
 {
  "check": "accordion Icon, Title, Description, Dividers, grip",
- "pass": 67,
- "total": 67,
+ "pass": 72,
+ "total": 72,
  "results": [
   {
    "what": "Rows on Design",
@@ -128,6 +128,10 @@
    "ok": true
   },
   {
+   "what": "Icon left: title text at 28, right edge, centre",
+   "ok": true
+  },
+  {
    "what": "Rows on Description",
    "ok": true
   },
@@ -173,6 +177,10 @@
   },
   {
    "what": "A typed 40% keeps 300",
+   "ok": true
+  },
+  {
+   "what": "Width more from S starts at 25%, still 300 (CAP-T12READS-H.json)",
    "ok": true
   },
   {
@@ -260,6 +268,14 @@
    "ok": true
   },
   {
+   "what": "Grip held: faded row in its new slot, plain copy follows",
+   "ok": true
+  },
+  {
+   "what": "Grip: no copy left after release",
+   "ok": true
+  },
+  {
    "what": "Grip: first below third",
    "ok": true
   },
@@ -269,6 +285,10 @@
   },
   {
    "what": "Grip is one undo step",
+   "ok": true
+  },
+  {
+   "what": "Escape keeps a typed title; one undo takes it and the rows back",
    "ok": true
   }
  ]
