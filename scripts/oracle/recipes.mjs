@@ -1421,6 +1421,29 @@ export const RECIPES = {
     return [...run('A'), ...run('B')];
   })() },
 
+  'CAP-Y2BAR3': { page: 'Gestures Probe', question: "Y2, inferred until now: after the Cmd+Z that pulls the frame's scroll and takes the text bar (CAP-Y2BAR.json), the block is above the frame's view; does scrolling back bring the bar, what is under the pointer there, and does a press on the block's text then bring it? And the toolbar's Undo as that third step, pressed by name with an on-top check: the bar, the edit, the scroll. Read twice (Q1, Q2).", steps: (() => {
+    const R = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'], barState: true, focused: true };
+    const typed = [['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300],
+      ['keysFast', ' longer line of words that runs on past the end of the block'], ['pause', 1300], ['keysFast', ' and then on and on over a second line and more words to fill it'], ['pause', 1300], ['keysFast', ' and then again on and on over a third line and more words to fill'], ['pause', 1300]];
+    const run = (r) => [['window', 1600, 1000],
+      ...typed, ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', `${r} 3 z`, R],
+      ['scrollFrame', 0], ['pause', 600], ['read', `${r} frame back at its top`, { ...R, hit: [0, 'new', [[0.5, 0.5], [0.1, 0.15], [0.9, 0.85]]] }], ['pressFrame', 'main#page .fe-block .sqs-block'], ['read', `${r} pressed in the text`, R], ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['exit'],
+      ...typed, ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', `${r} 2 z`, R], ['pressNamed', 'Undo'], ['read', `${r} toolbar Undo`, R], ['press', 'Escape'], ['pause', 300], ['exit']];
+    return [...run('Q1'), ...run('Q2')];
+  })() },
+  ...(() => {
+    // U9: which pushes double. CAP-U9DEMO's walks F (50 px) and G (20 px) in full, every frame logged, each walk twice, one capture each.
+    const setup = [['window', 1600, 1000], ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400], ['panel', 1], ['pause', 700]];
+    const walk = (r, dy, up, down, back) => [...setup, ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -dy, up, 250, 1], ['scrollTrace', `${r} down`, dy, down, 250, 1], ['scrollTrace', `${r} back`, -dy, back, 250, 1], ['exit']];
+    const q = (r, w) => `U9: which pushes double. CAP-U9DEMO's walk ${w} in full, every frame logged (run ${r}). Two runs of each walk: the same scrolls doubling both times is a trigger by place, others a timing race.`;
+    return { 'CAP-U9DOUBLE-F1': { page: 'Gestures Probe', question: q('F1', 'F (50 px)'), steps: walk('F1', 50, 20, 40, 10) }, 'CAP-U9DOUBLE-F2': { page: 'Gestures Probe', question: q('F2', 'F (50 px)'), steps: walk('F2', 50, 20, 40, 10) },
+      'CAP-U9DOUBLE-G1': { page: 'Gestures Probe', question: q('G1', 'G (20 px)'), steps: walk('G1', 20, 50, 100, 25) }, 'CAP-U9DOUBLE-G2': { page: 'Gestures Probe', question: q('G2', 'G (20 px)'), steps: walk('G2', 20, 50, 100, 25) } };
+  })(),
+  'CAP-U9OPENWALK': { page: 'Gestures Probe', question: "U9: SECTIONBAR's open walk (sy 914 to 114 by 50 on the demo, then back) on Gestures Probe: sections 0 and 1 at Row Count 16, the panel opened on section 1 with its top at the frame's top, 16 steps up and 30 down, every frame logged, in two edits (A, B).", steps: (() => {
+    const run = (r) => [['window', 1600, 1000], ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 0], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400], ['panel', 1], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400],
+      ['panel', 1, 0], ['pause', 700], ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -50, 16, 250, 1], ['scrollTrace', `${r} down`, 50, 30, 250, 1], ['exit']];
+    return [...run('A'), ...run('B')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };

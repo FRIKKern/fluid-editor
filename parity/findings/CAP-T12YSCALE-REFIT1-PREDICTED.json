@@ -1,0 +1,86 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "Refit 1 of the chart value axis rule, predicted before reading sets D, E and F. Round 1 (CAP-T12YSCALE.json) scored 3 of 9.",
+ "how": "Same as round 1: a new Chart on Blocks Probe, the three Population values typed, shots as Bar, Line and flipped Bar, two runs per set.",
+ "rule": {
+  "name": "unit, then the most even steps",
+  "steps": [
+   "u is 10 to the power floor(log10(highest value - lowest value)), from the data even for a bar.",
+   "The axis starts at the lowest value (0 or less for a bar) rounded down to a multiple of u, and ends at the highest rounded up to a multiple of u.",
+   "Try n = 7 down to 1 steps: the step is (end - start) / n, and it must be 1, 2, 4, 5 or 8 times a power of 10, with start and end both multiples of it. The first n that works is used.",
+   "If none works, the end moves up by u and the search runs again."
+  ],
+  "plotHeight": "Not used: flipped and unflipped bars are predicted the same."
+ },
+ "seenScore": "12 of 13 on the charts it was fitted on (round 1 and the four older shots). Miss: bar3 (CAP-T12CHARTSERIES.json) reads 0 to 300 by 100, the rule gives 50.",
+ "predictions": {
+  "D": {
+   "values": [
+    130,
+    170,
+    160
+   ],
+   "line": {
+    "from": 130,
+    "to": 170,
+    "step": 10
+   },
+   "bar": {
+    "from": 0,
+    "to": 200,
+    "step": 40
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 200,
+    "step": 40
+   }
+  },
+  "E": {
+   "values": [
+    3,
+    9,
+    6
+   ],
+   "line": {
+    "from": 3,
+    "to": 9,
+    "step": 1
+   },
+   "bar": {
+    "from": 0,
+    "to": 10,
+    "step": 2
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 10,
+    "step": 2
+   }
+  },
+  "F": {
+   "values": [
+    250,
+    640,
+    410
+   ],
+   "line": {
+    "from": 200,
+    "to": 700,
+    "step": 100
+   },
+   "bar": {
+    "from": 0,
+    "to": 700,
+    "step": 100
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 700,
+    "step": 100
+   }
+  }
+ },
+ "scoring": "Each of the 9 charts scores when start, end and step match the read."
+}
