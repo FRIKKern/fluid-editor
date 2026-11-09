@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 53 changes
+- **Today** · 54 changes
+  - R2: the one-row shrink after a drag is explained by A2's rule B1 (#527) ([#534](https://github.com/FRIKKern/fluid-editor/pull/534))
   - X6: a trailing Instagram pull never catches up (CAP-X6TRAILWHY) ([#530](https://github.com/FRIKKern/fluid-editor/pull/530))
-  - A2: an arrow key after pasted text: the focus stays in the text editor (CAP-A2ARROWWHY) ([#529](https://github.com/FRIKKern/fluid-editor/pull/529))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
