@@ -508,6 +508,55 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...one('r1'), ['exit'], ['enter'], ['blank'], ...one('r2')];
   })() },
+  'CAP-A2SHRINKWHY': { page: 'Blocks Probe', question: 'A2 and R2: a new Text drops to one row at its second edit with a one-row Line right above it (CAP-A2TYPEDNEW t2, CAP-TEXTSHRINK k1). Is it the Line, any one-row block above, or that block at row 1? Each case changes one thing from k1, which runs last as the control. Read twice (CAP-A2SHRINKWHY2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const DOWN = (px) => [['drag', 0, 'new', 'middle', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TALLER = (px) => [['select', 0, 'new'], ['drag', 0, 'new', 's', 0, px], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const TWICE = (n) => [...READ(`${n} before`), ...TYPE('hello'), ...READ(`${n} typed once`), ...TYPE(' world'), ...READ(`${n} typed twice`)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Shape'), ...TALLER(-206), ...ADD('Text'), ...DOWN(41), ...TWICE('w1 one-row Shape above')],
+      [...ADD('Line'), ...TALLER(41), ...ADD('Text'), ...DOWN(82), ...TWICE('w2 two-row Line above')],
+      [...ADD('Line'), ...DOWN(82), ...ADD('Text'), ...DOWN(123), ...TWICE('w3 Line above, both off row 1')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(82), ...TWICE('w4 Line above, a row between')],
+      [...ADD('Line'), ...ADD('Text'), ...DOWN(41), ...TWICE('w5 control, k1 again')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2SHRINKB': { page: 'Blocks Probe', question: 'A2 and R2: a fresh round on candidate B, from the steady reads of CAP-A2SHRINKWHY and CAP-A2SHRINKWHY2: a new Text drops to the rows its content needs at the edit that brings the one-phone-row block from last back to first on the phone, whichever block that edit changed. Predicted first (CAP-A2SHRINKB-PREDICTED.json). Read twice (CAP-A2SHRINKB2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...LT, ...TYPE('hello'), ...READ('b1 typed once'), ...TYPE(' world'), ...READ('b1 typed twice'), ...TYPE(' again'), ...READ('b1 typed three times')],
+      [...LT, ...TYPE('hello'), ...READ('b2 typed once'), ...MOVE(59, 0), ...READ('b2 then moved right')],
+      [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...READ('b3 Text beside the Line, before'), ...TYPE('hello'), ...READ('b3 typed once'), ...TYPE(' world'), ...READ('b3 typed twice')],
+      [...LT, ...MOVE(59, 0), ...READ('b4 moved right, before'), ...TYPE('hello'), ...READ('b4 typed once'), ...TYPE(' world'), ...READ('b4 typed twice')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
+  'CAP-A2SHRINKB1': { page: 'Blocks Probe', question: 'A2 and R2: refit 1 of candidate B, a fresh round. B1 (fitted on CAP-A2SHRINKWHY and CAP-A2SHRINKB, seen): a new Text drops to the rows its content needs at a typing that brings the one-phone-row Line from last back to first on the phone; a move that does so leaves it. Predictions pushed first (CAP-A2SHRINKB1-PREDICTED.json). Each case is built twice in this capture, the second time with " again" on its read labels. No Meta+c, x or v.', steps: (() => {
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const NUDGE = [['select', 0, 'new'], ['press', 'ArrowRight'], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const READ = (name) => [['read', `${name}${s}`, { stack: 0, section: 0 }]];
+      return [
+        [...LT, ...TYPE('hello'), ...READ('c1 typed once'), ...NUDGE, ...READ('c1 then nudged right'), ...TYPE(' world'), ...READ('c1 typed twice'), ...TYPE(' again'), ...READ('c1 typed three times')],
+        [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...MOVE(59, 0), ...READ('c3 beside the Line, moved twice'), ...TYPE('hello'), ...READ('c3 typed once'), ...TYPE(' world'), ...READ('c3 typed twice')],
+        [...LT, ...MOVE(59, 0), ...MOVE(59, 0), ...READ('c4 moved right twice'), ...TYPE('hello'), ...READ('c4 typed once'), ...TYPE(' world'), ...READ('c4 typed twice')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
@@ -1447,3 +1496,5 @@ export const RECIPES = {
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
+RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
+RECIPES['CAP-A2SHRINKB2'] = { ...RECIPES['CAP-A2SHRINKB'], question: 'A2 and R2: the second read of each CAP-A2SHRINKB case, the same steps, every case built again from a new blank section. A case scores only when both reads agree.' };
