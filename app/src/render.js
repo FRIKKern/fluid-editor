@@ -576,13 +576,30 @@ export function cornerFor(b, bp) {
 export const phoneOwn = (b, k) => { const v = b.designMobile?.[k]; return !!v && v !== FOLLOW_DESKTOP; };
 // A shape's Color: desktop's is the block's own, a phone's is a Design value like Stroke (CAP-T6LAYOUT.json).
 export const shapeFill = (b, bp) => (bp === 'mobile' && phoneOwn(b, 'color') ? b.designMobile.color : b.color || b.fill);
-function designRule(b, d, phone) {
-  const moved = d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+// The editor's frame draws Blur and Background color, and a phone's variables, from style
+// attributes for the view it shows; its transform-vars rule holds desktop's variables alone, with
+// no phone part (CAP-T15WHERE-A.json, -B, -C). A saved page keeps them in its rules: the form a
+// published page gives them is not read. setLiveView is the editor's; export draws with it off.
+let liveView = null;
+export const setLiveView = (bp) => { liveView = bp; };
+const isMoved = (d) => d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
+export function liveStyle(b, bp) {
+  const d = designFor(b, bp), block = [], inner = [];
+  if (bp === 'mobile' && b.designMobile) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
+  // A Shape's blur is on its contents, a Text's on the block (CAP-T15BLUR.json).
+  if (d.blur) (b.type === 'shape' ? inner : block).push(`${b.type !== 'shape' && d.blurKind !== 'element' ? 'backdrop-filter' : 'filter'}: blur(${d.blurPx ?? 15}px)`);
+  if (d.background) inner.push(`background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}`);
+  return { block: block.join('; '), inner: inner.join('; ') };
+}
+function designRule(b, d, phone, live = false) {
+  const moved = isMoved(d);
   const off = phone && b.design?.blur;
   const clear = phone && b.design?.background;
   // A Shape's blur is a filter on its contents, not on the block (CAP-T15BLUR.json).
-  const contentsBlur = b.type === 'shape' && (d.blur || off) ? `\n    .fe-block-${b.id} .sqs-block { filter: ${d.blur ? `blur(${d.blurPx ?? 15}px)` : 'none'}; }` : '';
+  const contentsBlur = live ? '' : b.type === 'shape' && (d.blur || off) ? `\n    .fe-block-${b.id} .sqs-block { filter: ${d.blur ? `blur(${d.blurPx ?? 15}px)` : 'none'}; }` : '';
   const imageCorner = phone && b.type === 'image' && (b.designMobile.corners || 'corner' in b.designMobile) ? `\n    .fe-block-${b.id} .fluid-image-container { border-radius: ${cornerFor(b, 'mobile').css || '0'} !important; }` : '';
+  // An Image's phone Corner stays in the rule: where the editor keeps it is not read.
+  if (live && phone) return imageCorner;
   return `${imageCorner}
     .fe-block-${b.id} {
       --opacity: ${d.opacity}%;
@@ -599,12 +616,13 @@ function designRule(b, d, phone) {
 
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
-      transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${contentsBlur}${d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+      transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' || live ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
+    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
-export function designCss(b) {
-  const base = designRule(b, designFor(b, 'desktop'), false);
+export function designCss(b, live = false) {
+  const base = designRule(b, designFor(b, 'desktop'), false, live);
+  if (live) { const phone = b.designMobile ? designRule(b, designFor(b, 'mobile'), true, true) : ''; return phone ? `${base}\n    @media (max-width: 767px) {${phone}}\n  ` : base; }
   return b.designMobile ? `${base}\n    @media (max-width: 767px) {${designRule(b, designFor(b, 'mobile'), true)}}\n  ` : base;
 }
 
@@ -703,10 +721,12 @@ function kidDesign(b, c) {
 
 export function renderBlock(b, model) {
   const blend = blendCss(b);
-  const design = (b.design || b.designMobile ? `<style class="transform-vars">${designCss(b)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
+  const designed = b.design || b.designMobile, live = liveView && designed ? liveStyle(b, liveView) : null;
+  const design = (designed ? `<style class="transform-vars">${designCss(b, !!liveView)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   // A block with animations says so on its .sqs-block (ANIMFLOW.json).
-  const inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
-  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}">${inner}${design}</div>`;
+  let inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
+  if (live?.inner) inner = inner.replace(/^<div /, `<div style="${live.inner}" `);
+  return `<div class="fe-block fe-block-${b.id}" data-block-id="${b.id}"${live?.block ? ` style="${live.block}"` : ''}>${inner}${design}</div>`;
 }
 
 // Section divider (P5), measured on the oracle (parity/findings/DIVIDER.json, CAP-DIVSHAPES.json):
@@ -936,6 +956,11 @@ export function renderFooter(model) {
 }
 
 export function exportHtml(model, siteCss) {
+  const was = liveView;
+  liveView = null;
+  try { return exportPage(model, siteCss); } finally { liveView = was; }
+}
+function exportPage(model, siteCss) {
   return `<!doctype html>
 <html lang="en">
 <head>
