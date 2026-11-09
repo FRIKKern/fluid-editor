@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 25 changes
-  - U10: the Scrolling turn at the full-width heading layouts ([#500](https://github.com/FRIKKern/fluid-editor/pull/500))
-  - Y2: a Cmd+Z that pulls the frame's scroll up takes the text bar and caret; T15: Rotate stops at ±360° ([#499](https://github.com/FRIKKern/fluid-editor/pull/499))
+- **Today** · 28 changes
+  - T15: a Shape's Blur, the amount alone, on its contents ([#503](https://github.com/FRIKKern/fluid-editor/pull/503))
+  - T15: Blur read in the editor twice, on a Text and a Shape (CAP-T15BLUR); a rule read in oracle-capture ([#502](https://github.com/FRIKKern/fluid-editor/pull/502))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed

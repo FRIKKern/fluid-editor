@@ -1415,4 +1415,10 @@ export const RECIPES = {
     ['rightClick', 0, 0], ['click', 'Copy'], ['toPage', 'Blocks Probe'], ['blank'], ['read', 'another page', { sections: true }], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'line on another page', { areas: 0 }], ['rightClick', 0, 0], ['shot', 'menu'], ['clickIf', 'Paste'], ['read', 'pasted on another page', { areas: 0 }], ['exit'], ['read', 'left', { sections: true }],
   ] },
 
+  'CAP-U9PLUS24': { page: 'Gestures Probe', question: "U9: the + 24 read once at F 488 in CAP-U9DEMO (panel 259, rule 236): walk F's setup and its first three 50 px steps up, every frame logged, in two separate edits (A, B).", steps: (() => {
+    const run = (r) => [['window', 1600, 1000], ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400], ['panel', 1], ['pause', 700],
+      ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -50, 3, 250, 1], ['read', `${r} after`, { panelBox: 1 }], ['exit']];
+    return [...run('A'), ...run('B')];
+  })() },
+
 };
