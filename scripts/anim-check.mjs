@@ -108,6 +108,7 @@ add('A tile adds one row', (await model()).length === 1 && model()[0].preset ===
 add('A tile: Edit button at its box', nearBox(box(`panel.querySelector('.an-gear')`), [115, 114, 36, 36]), box(`panel.querySelector('.an-gear')`));
 add('A tile: the block says it has animations', q(`const b = d.querySelector('.fe-block[data-block-id="${id}"] .sqs-block'); return JSON.stringify(b.hasAttribute('data-has-block-animations'));`));
 await clickSel(act('gear'));
+await pause(2400); // the opening play on the stage (CAP-T15FLOATOPEN1.json) is over: the square at rest
 add('Editor: title', q(`return JSON.stringify(!!byText('On Hover') && !panel.querySelector('[data-btab]'));`));
 add('Editor: stage and square', nearBox(box(`panel.querySelector('.an-stage')`), [22, 55, 276, 70]) && nearBox(box(`panel.querySelector('.an-stage .an-sq')`), [142, 72, 36, 36]), box(`panel.querySelector('.an-stage')`));
 add('Editor: tabs', nearBox(box(`panel.querySelectorAll('.an-tab')[0]`), [22, 136, 138, 36]) && nearBox(box(`panel.querySelectorAll('.an-tab')[1]`), [160, 136, 138, 36]), box(`panel.querySelectorAll('.an-tab')[0]`));
@@ -899,13 +900,23 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     add('Stage square on a Ping Pong Loop: out and back on its ease, once, then at rest', ok(mine) && ok(them), JSON.stringify([snapsOf(mine), mine.at(-1)[1]])); }
   // A preset's editor (CAP-T15STAGE8-GROW.json, opened by Grow's unnamed Edit button, pressed by an on-top check against its
   // tile): the same stage. Still after Opacity goes to 50% on End; the mouse on it plays End once, to Grow's scale squared, and back.
-  await settle(); await fresh('Shape'); await clickSel(act('add')); await clickRadio('hover-1', 120); await clickSel(act('gear'));
+  await settle(); await fresh('Shape'); await clickSel(act('add')); await clickRadio('hover-1', 120); await clickSel(act('gear')); await pause(3000);
   { const T = R('CAP-T15STAGE8-GROW');
     watch(2500); q(`const e = panel.querySelector('[data-afield="end:0"]'); e.focus(); e.value = '50%'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(100); e.blur(); return 'true';`); await pause(2700);
     const c = motion(frames());
     add('Stage square in a preset\'s editor: still after Opacity goes to 50%', c === null && theirs(T.change) === null, JSON.stringify(c));
     const hm = motion(await hoverRun(2600)), ht = theirs(T.hover);
     add(`Stage square in a preset's editor: the mouse on it plays Grow to ${ht.peak} and back in ${ht.end} ms, as read`, !!hm && near(hm.peak, ht.peak, 0.015) && Math.abs(hm.end - ht.end) <= 0.15 * ht.end, JSON.stringify(hm)); }
+  // Opening a preset's editor plays it once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json agree): Float
+  // starts about 760 ms after the press, down to its End's scale squared, back to rest, then still.
+  await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-2', 120); await pause(600);
+  { const F1 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15FLOATOPEN1.json', import.meta.url))).reads.open;
+    const them = F1.frames.map((f) => [f[0] - F1.down, f.slice(1).find((e) => e[0][0] >= 595 && e[0][0] <= 612 && e[0][1] >= 365 && e[0][1] <= 390 && e[0][2] < 45)]).filter(([, e]) => e).map(([t, e]) => [t, sx(e[1])]);
+    watch(6000); await clickSel(act('gear'), 10); await pause(6200);
+    const mine = oursPairs(frames());
+    const sum = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.002); return m.length ? { start: m[0][0], end: m.at(-1)[0], min: Math.round(Math.min(...v.map(([, x]) => x)) * 1000) / 1000, last: v.at(-1)[1] } : null; };
+    const a1 = sum(mine), b1 = sum(them);
+    add(`Stage square: opening Float's editor plays it once, from ${b1.start} ms, down to ${b1.min}, at rest by ${b1.end} ms, as read`, !!a1 && Math.abs(a1.start - b1.start) <= 150 && near(a1.min, b1.min, 0.01) && Math.abs(a1.end - b1.end) <= 0.15 * b1.end && near(a1.last, 1, 0.001), JSON.stringify({ ours: a1, theirs: b1 })); }
   await settle();
 }
 

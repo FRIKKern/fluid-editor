@@ -1504,7 +1504,15 @@ function updateResize(e) {
     need = contentRows(held, bp === 'mobile' ? { pitch: PHONE_ROW + m.rg, rg: m.rg } : measure(fe));
     Object.assign(el.style, { width, height });
     r1 = r0 + need;
-  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) need = Math.max(need, Math.ceil((deskNeed(held, c1 - c0) + m.rg) / m.pitch - 0.02));
+  } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) {
+    // A Summary takes the rows of its content's height before the pull, at the width it was pressed at, so it widens into
+    // the rows of its narrower content (CAP-X6SUMMARYWALK.json: P, 9 of 11 predicted, the 2 misses pulls that moved nothing).
+    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen).
+    const [, o0, , o1] = g.orig;
+    const past = held.label === 'Summary' && (g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols);
+    const cols = held.label === 'Summary' && !past ? o1 - o0 : c1 - c0;
+    need = Math.max(need, Math.ceil((deskNeed(held, cols) + m.rg) / m.pitch - 0.02));
+  }
   else if (side && bp === 'mobile' && held.phoneHeight) {
     // A pointer past the floor, where it would snap under it, takes the rows with no give: Menu 31.09 rows high is 31 at
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
@@ -2078,6 +2086,14 @@ function animStopPreview() {
   const el = sel && blockEl(sel.bid);
   if (el) releasePose(el);
 }
+// A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
+// agree): its slow-starting run first shows at 844 ms, so it starts about 170 ms after the press; not if the editor has changed by then.
+let stageOpenTimer = 0;
+function stageOnOpen() {
+  clearTimeout(stageOpenTimer);
+  const sq = blockPanel.querySelector('.an-stage .an-sq'), at = anim.i;
+  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 170);
+}
 function animAction(el) {
   if (el.dataset.anim !== 'play') animStopPreview();
   const act = el.dataset.anim, i = el.dataset.i == null ? null : Number(el.dataset.i), rows = animRows();
@@ -2094,7 +2110,7 @@ function animAction(el) {
   else if (act === 'play') { animPreview(rows[i ?? anim.i]); return; }
   else if (act === 'menu') anim.menu = !anim.menu;
   else if (act === 'trigger') { anim = { ...anim, trigger: el.dataset.v, menu: false }; animPlay = 'tiles'; }
-  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; }
+  else if (act === 'gear') { anim = { ...anim, view: 'editor', tab: TABS[anim.trigger].includes(anim.tab) ? anim.tab : TABS[anim.trigger][0] }; renderBlockPanel(); stageOnOpen(); return; }
   else if (act === 'blank') {
     const a = newAnimation(anim.trigger);
     const at = anim.i ?? rows.length;
