@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 61 changes
+- **Today** · 62 changes
+  - P3: the flat mark outlives S, M and L; a top or bottom press there leaves Custom a gutter ([#521](https://github.com/FRIKKern/fluid-editor/pull/521))
   - A2: two corpus exceptions rebuilt on the probe page, read twice ([#540](https://github.com/FRIKKern/fluid-editor/pull/540))
-  - T12: the Appear row's fill follows the focus; Site Default kept as a value, as read ([#539](https://github.com/FRIKKern/fluid-editor/pull/539))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
