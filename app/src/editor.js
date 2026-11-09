@@ -6065,7 +6065,7 @@ layoutsPanel.addEventListener('click', (e) => {
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
-  if (mix.list[layoutsPicked].fit) {
+  if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);
     const fe = feEl(layoutsSid), m = measure(fe);
     fitLayout(S(layoutsSid), mix, layoutsPicked, (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height ?? 0, { rg: m.rg, pitch: rowFloor(fe) + m.rg });
