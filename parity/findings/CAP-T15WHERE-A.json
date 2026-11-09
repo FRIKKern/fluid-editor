@@ -1,0 +1,1817 @@
+{
+  "item": "CAP-T15WHERE-A",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15: where each Design value lives in the editor (style attribute, a rule for the block, an @media part), run A: a new Text through Background, its Color, Stroke, Corner, Opacity and both Blurs; a new Shape with Blur and Opacity, then the same Shape on the phone and back. Blocks Probe, unsaved.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text base",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Background"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text background",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Background Color"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Color #FFCF5A"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Background Color"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "text background FFCF5A",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Solid Stroke"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text stroke",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "0px",
+      12
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text corner 12",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "100%",
+      50
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text opacity 50",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text backdrop 15",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Element"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text element 15",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      40
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text element 40",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "shape blur 15",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "100%",
+      50
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "shape opacity 50",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      70
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "fillValue",
+      "50%",
+      30
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone blur 70 opacity 30",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "desktop after phone",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "text base": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text background": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text background FFCF5A": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text stroke": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text corner 12": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "12px",
+            "inline": "12px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text opacity 50": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": []
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "12px",
+            "inline": "12px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text backdrop 15": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794239465942_438 fe-block fluid-engin",
+            "filter": "none",
+            "backdrop": "blur(15px)"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "backdrop-filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "12px",
+            "inline": "12px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y backdrop-filter"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text element 15": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794239465942_438 fe-block fluid-engin",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "12px",
+            "inline": "12px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y filter"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text element 40": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": [
+          {
+            "cls": "fe-block-yui_3_17_2_1_1794239465942_438 fe-block fluid-engin",
+            "filter": "blur(40px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "filter",
+            "value": "blur(40px)",
+            "inline": "blur(40px)",
+            "from": []
+          },
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 207, 90)",
+            "inline": "var(--tweak-text-block-background-color)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "2px",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "12px",
+            "inline": "12px",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y filter"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "props": "--tweak-text-block-background-color background-color --tweak-text-block-stroke-color border-top-color border-right-color border-bottom-color border-left-color border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "shape blur 15": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "shape opacity 50": {
+      "rule": {
+        "ruleCount": 1,
+        "decls": [
+          {
+            "--opacity": "100%",
+            "--translate-x": "0px",
+            "--translate-y": "0px",
+            "--rotation": "0deg",
+            "--scale-x": "100%",
+            "--scale-y": "100%",
+            "--skew-x": "0deg",
+            "--skew-y": "0deg",
+            "--origin-x": "50%",
+            "--origin-y": "50%",
+            "--block-transform": "none",
+            "opacity": "var(--opacity, 1)",
+            "transform": "var(--block-transform)",
+            "transform-origin": "var(--origin-x) var(--origin-y)"
+          }
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "no Edit",
+    "stopped after clickIf: it failed, so the 12 later steps did not run"
+  ],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "note": "rule reads keep each transform-vars rule as its declarations only; the selector (the block id) is left out (O2)"
+}

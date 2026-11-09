@@ -1,0 +1,137 @@
+{
+  "item": "CAP-T12YSCALE-F1",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Chart value axis, set F (250, 640, 410): Bar, Line, flipped Bar; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "fillValue",
+      "150",
+      "250"
+    ],
+    [
+      "fillValue",
+      "250",
+      "640"
+    ],
+    [
+      "fillValue",
+      "150",
+      "410"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "bar"
+    ],
+    [
+      "selectKey",
+      "Bar Chart",
+      "L"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "line"
+    ],
+    [
+      "selectKey",
+      "Line Chart",
+      "B"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "flip"
+    ],
+    [
+      "read",
+      "end",
+      {}
+    ],
+    [
+      "pressNamed",
+      "Exit"
+    ],
+    [
+      "pause",
+      1500
+    ]
+  ],
+  "reads": {
+    "end": {
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

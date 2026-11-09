@@ -1,6 +1,6 @@
 {
-  "pass": 113,
-  "total": 113,
+  "pass": 118,
+  "total": 118,
   "results": [
     {
       "what": "A new Text lands at 1/2/3/10, 71 tall",
@@ -452,6 +452,26 @@
     },
     {
       "what": "Shape Blur 40: filter on its contents",
+      "ok": true
+    },
+    {
+      "what": "Text Blur: in the block's style attribute, not the rule",
+      "ok": true
+    },
+    {
+      "what": "Text Background color: in its box's style attribute",
+      "ok": true
+    },
+    {
+      "what": "Shape on desktop: blur on the contents' attribute, rule at desktop's values",
+      "ok": true
+    },
+    {
+      "what": "Shape on the phone: the attributes hold the phone's values",
+      "ok": true
+    },
+    {
+      "what": "Back on desktop: desktop's values again",
       "ok": true
     }
   ]
