@@ -45,8 +45,9 @@ CAP-Y2KEYS4 CAP-Y2KEYS5 CAP-Y2KEYS6 CAP-Y2KEYS7 CAP-Y2KEYS8 CAP-Y2KEYS9 CAP-Y2SC
 const CLAIM = /predictions? (were )?pushed|pushed first|-PREDICTED/i;
 const claims = (f, hasSibling) => !!f.predictions || hasSibling || CLAIM.test(String(f.question || ''));
 
-// Key order doesn't make two reads differ.
-const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])])) : v);
+// Key order doesn't make two reads differ, and neither do block ids: a case built twice mints new blocks, so a
+// stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone).
+const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => k !== 'id').sort().map((k) => [k, canon(v[k])])) : v);
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
 
 // What is wrong with one fresh finding. predText is its predictions file's text (null if missing); gitTime is the
@@ -89,6 +90,8 @@ const fails = [];
   const differ = { ...good, reads: { a: { x: 1 }, 'a again': { x: 2 } } };
   proof('two reads that differ fail', freshFails(differ, text, null).length > 0);
   proof('two reads that differ, named unsteady, pass', freshFails({ ...differ, unsteady: ['one'] }, text, null).length === 0);
+  proof('two builds that differ by block ids alone pass', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['2', '2'] }] } } }, text, null).length === 0);
+  proof('two builds whose blocks differ fail', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['1', '1'] }] } } }, text, null).length > 0);
   proof('no predictions record fails', freshFails({ question: 'Predictions pushed first' }, null, null).length > 0);
 }
 
@@ -111,4 +114,4 @@ for (const n of files) {
 for (const name of GRANDFATHERED) if (!files.has(`${name}.json`)) fails.push(`grandfathered ${name}.json is gone: take it off the list`);
 
 if (fails.length) { console.error(`check-fresh: ${fails.length} problem(s)\n  ${fails.join('\n  ')}`); process.exit(1); }
-console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 7 guard proofs hold`);
+console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 9 guard proofs hold`);
