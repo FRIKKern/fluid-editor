@@ -1677,7 +1677,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   {
     const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-C.json', import.meta.url))), errs = [];
     const html = C.steps.filter((x) => x[0] === 'pasteHere').map((x) => x[3]);
-    for (const [pre, h] of [['C', html[0]], ['M', html[1]]]) {
+    // Three lines of code (CAP-U10CD1.json): one P, the lines joined by a space; tags, alignment and words.
+    const CD1 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10CD1.json', import.meta.url)));
+    for (const [k, r] of Object.entries(CD1.reads)) if (/layout \d$/.test(k)) C.reads[k.replace(/^CL/, 'L')] = r;
+    for (const [pre, h] of [['C', html[0]], ['M', html[1]], ['L', CD1.steps.find((x) => x[0] === 'pasteHere')[3]]]) {
       await start();
       evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(h)}, id: 'p0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
       await pause(400);
@@ -1687,11 +1690,12 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       for (const [k, r] of Object.entries(C.reads).filter(([k]) => k.startsWith(pre + ' ') && /layout \d$/.test(k))) {
         const g = evalJs(S, `(() => { document.querySelector('[data-layout="${k.split(' ').pop()}"]').click(); const s = fe.model.sections[0], x = s.blocks[0], c = document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + x.id + '"] .sqs-block-content'); return JSON.stringify([s.rows.desktop, x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), JSON.stringify([...c.querySelectorAll('p,h1,h2,h3,h4,ul,ol,li,blockquote,pre')].map((e) => [e.tagName, e.parentElement.tagName === 'DIV' ? 'DIV' : e.parentElement.tagName, e.style.textAlign || '', getComputedStyle(e).textAlign]))]); })()`);
         const want = [r.look.rows, r.areas[0][0], r.areas[0][1], JSON.stringify(r.aligns[0][1])];
-        if (g[3] !== want[3] || (pre === 'C' && g.slice(0, 3).join() !== want.slice(0, 3).join())) errs.push(`${k} ${g.slice(0, 3)} ${g[3].slice(0, 60)}`);
+        const said = pre !== 'L' || evalJs(S, `(() => JSON.stringify(fe.model.sections[0].blocks[0].html.replace(/<[^>]+>/g, '')))()`) === r.html.replace(/<[^>]+>/g, '');
+        if (g[3] !== want[3] || !said || (pre === 'C' && g.slice(0, 3).join() !== want.slice(0, 3).join())) errs.push(`${k} ${g.slice(0, 3)} ${g[3].slice(0, 60)}`);
       }
       browser(S, 'press', 'Escape'); await pause(150);
     }
-    add('View Layouts, code alone and in a mixed Text: a paragraph at every pick, as read (32 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+    add('View Layouts, code alone, of three lines and in a mixed Text: a paragraph at every pick, as read (35 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
