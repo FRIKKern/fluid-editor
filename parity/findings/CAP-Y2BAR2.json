@@ -1,0 +1,735 @@
+{
+  "item": "CAP-Y2BAR2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Y2: what takes the text bar away on Heading 1's third Cmd+Z (CAP-Y2BAR.json: the bar goes, the caret goes, the frame's scroll jumps 523 to 360). Same steps, but with the frame scrolled to its top before that Cmd+Z, so the page's shrink can't move it. Also: does that scroll alone take the bar? Read twice (P1, P2).",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P1 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "read",
+      "P1 2 z, frame at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P1 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P1 4 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P2 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "read",
+      "P2 2 z, frame at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P2 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "P2 4 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "P1 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 2 z, frame at its top": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 3 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 4 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 2 z, frame at its top": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 3 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 4 y": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice (P1, P2), in agreement. The same Heading 1 steps, with the frame scrolled from 523 to its top before the third Cmd+Z: the scroll alone keeps the bar (its Bold moves with the block, y 70 to 243) and the caret. The third Cmd+Z then keeps the bar and the caret (offset 3), and so does the Cmd+Shift+Z after it. So the bar and caret go when the Cmd+Z pulls the frame's scroll up."
+}

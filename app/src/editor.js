@@ -1604,7 +1604,10 @@ function onKey(e) {
     // Cmd+Z and Cmd+Shift+Z are the edit's own: one step, and the edit stays open (CAP-Y2EDIT.json). A field keeps its own.
     if (mod && !e.altKey && e.code === 'KeyZ' && !e.target.closest?.('input, textarea, select')) {
       e.preventDefault();
-      if (e.shiftKey) textRedo(editing); else textUndo(editing);
+      const ed = editing, y0 = win.scrollY;
+      ed.caretGone = false;
+      if (e.shiftKey) textRedo(ed); else textUndo(ed);
+      textStepScrolled(ed, y0);
       return;
     }
     if (e.key === 'Enter' && e.shiftKey && !mod && !e.altKey) {
@@ -2218,8 +2221,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
       let v = scrubbed(start, dx, key);
       const pose = /:(\d)/.exec(key);
       // A drag stops at its bar's ends, as Design's: Opacity 100%, Scale 0 and 200%, Offset 1,000px, Skew 60°, read twice
-      // (CAP-T15FIELDS2.json); a value typed past an end is not pulled back. Rotate's ends are not read: it runs on.
-      if (pose && pose[1] !== '1') {
+      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2); a value typed past an end is not pulled back.
+      if (pose) {
         const [lo, hi] = POSE_RANGE[pose[1]], s0 = parseFloat(String(start).replace(/,/g, '')), n = parseFloat(v), unit = String(v).replace(/^-?[\d.]+/, '');
         v = `${Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), n))}${unit}`;
       }
@@ -4639,7 +4642,7 @@ function currentColorKey() {
   return (fmt.TEXT_COLORS.find(([, , c]) => c === rgb) || [])[1] || null;
 }
 function renderTextBar() {
-  if (!editing || editing.soft || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
+  if (!editing || editing.soft || editing.barGone || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
   textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
@@ -4940,6 +4943,17 @@ function textUndo(ed) {
   if (ed.marks.length === 1) { ed.before = to; ed.height0 = textHeight(b); }
   ed.atMark = true;
   updateUi();
+}
+// A step that leaves the page too short for the frame's scroll pulls it up, and the text bar and the caret go, the edit staying
+// open; a Cmd+Shift+Z then brings the caret back, not the bar (CAP-Y2BAR.json, Heading 1, read twice: scroll 523 to 360). The
+// same step with the frame at its top keeps both (CAP-Y2BAR2.json, read twice). Inferred: the bar comes back on a press in the page.
+function textStepScrolled(ed, y0) {
+  if (editing !== ed || ed.soft || y0 <= doc.scrollingElement.scrollHeight - win.innerHeight + 1) return;
+  ed.barGone = true;
+  // Chrome puts a caret back at the text's start on any key while none is set, so it goes again on each key let go until Cmd is.
+  ed.caretGone = true;
+  win.getSelection().removeAllRanges();
+  renderTextBar();
 }
 function textRedo(ed) {
   const to = redoStack.at(-1);
@@ -7322,6 +7336,8 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
+  frame.contentDocument.addEventListener('pointerdown', () => { if (editing?.barGone) editing.barGone = false; }, true);
+  frame.contentDocument.addEventListener('keyup', (e) => { if (!editing?.caretGone) return; win.getSelection().removeAllRanges(); if (!e.metaKey && !e.ctrlKey) editing.caretGone = false; });
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
