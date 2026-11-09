@@ -1,0 +1,14 @@
+{
+ "item": "U10",
+ "kind": "predictions",
+ "capturedAt": "2026-11-09",
+ "note": "Pushed before the read. Ours renders the 5-item list in a Text 7.2px shorter than the oracle after a layout pick (CAP-U10PADR1-UL5.json: text 512.6, content 579; ours 507.8 and 571.8). There the items are Heading 1 (66.4px, 76 high) inside li. Ours puts 32px margins on each H1, so 5 x 76 + 4 x 32 = 508 and 64 outside. The read's two numbers fit only a margin of 33.2 = 0.5em on each side of each H1, given items 76 high. Our li > p margin of 0.5rem (8px at 16px) is 0.5em there too.",
+ "rule": "LI_HALF_EM: a block child of a list item has 0.5em margins above and below (in the item's own font size). Paragraph items keep 8px; Heading 1 items take 33.2px.",
+ "reads": "A new Text on Blocks Probe with a 2-item and then a 5-item bullet list of paragraphs, read as pasted (paragraph items) and after layout 4 (Heading 1 items): every item box.",
+ "predict": {
+  "paragraph items": "the li boxes 8 + item height + 8 apart edge to edge as margins collapse: li tops differ by item height + 8",
+  "UL2 layout 4": "li tops 109.2 apart (76 + 33.2); text 185.2 (2 x 76 + 33.2); content 251.6 (185.2 + 66.4)",
+  "UL5 layout 4": "li tops 109.2 apart; text 512.6 and content 579 as read before (seen)",
+  "ours now": "li tops 108 apart; UL2 text 184, content 248"
+ }
+}
