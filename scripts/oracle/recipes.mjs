@@ -525,6 +525,21 @@ export const RECIPES = {
     ];
     return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2SHRINKB': { page: 'Blocks Probe', question: 'A2 and R2: a fresh round on candidate B, from the steady reads of CAP-A2SHRINKWHY and CAP-A2SHRINKWHY2: a new Text drops to the rows its content needs at the edit that brings the one-phone-row block from last back to first on the phone, whichever block that edit changed. Predicted first (CAP-A2SHRINKB-PREDICTED.json). Read twice (CAP-A2SHRINKB2). No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0, section: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...LT, ...TYPE('hello'), ...READ('b1 typed once'), ...TYPE(' world'), ...READ('b1 typed twice'), ...TYPE(' again'), ...READ('b1 typed three times')],
+      [...LT, ...TYPE('hello'), ...READ('b2 typed once'), ...MOVE(59, 0), ...READ('b2 then moved right')],
+      [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...READ('b3 Text beside the Line, before'), ...TYPE('hello'), ...READ('b3 typed once'), ...TYPE(' world'), ...READ('b3 typed twice')],
+      [...LT, ...MOVE(59, 0), ...READ('b4 moved right, before'), ...TYPE('hello'), ...READ('b4 typed once'), ...TYPE(' world'), ...READ('b4 typed twice')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
@@ -1442,3 +1457,4 @@ export const RECIPES = {
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
 RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
+RECIPES['CAP-A2SHRINKB2'] = { ...RECIPES['CAP-A2SHRINKB'], question: 'A2 and R2: the second read of each CAP-A2SHRINKB case, the same steps, every case built again from a new blank section. A case scores only when both reads agree.' };
