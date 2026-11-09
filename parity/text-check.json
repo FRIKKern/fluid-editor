@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 962,
-  "total": 962,
+  "pass": 963,
+  "total": 963,
   "couldNotRun": [],
   "results": [
     {
@@ -546,6 +546,10 @@
     },
     {
       "name": "Y2 bar: frame at its top, the third Cmd+Z keeps the bar and caret (CAP-Y2BAR2)",
+      "ok": true
+    },
+    {
+      "name": "Y2 bar: after that Cmd+Z, the frame back at its top brings nothing, a grab cursor, a press closes the edit, the block selected (CAP-Y2BAR3)",
       "ok": true
     },
     {

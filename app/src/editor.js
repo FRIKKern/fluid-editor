@@ -957,8 +957,9 @@ function onDown(e) {
   const blk = e.target.closest('.fe-block');
   if (editing) {
     const same = blk && blk.dataset.blockId === editing.bid;
-    if (same && !editing.soft) return;
-    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json).
+    if (same && !editing.soft && !editing.barGone) return;
+    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json); the same once a step
+    // has pulled the frame's scroll and taken the bar (CAP-Y2BAR3.json).
     pressedAfterEscape = same;
     finishTextEdit();
   }
@@ -4962,10 +4963,12 @@ function textUndo(ed) {
 }
 // A step that leaves the page too short for the frame's scroll pulls it up, and the text bar and the caret go, the edit staying
 // open; a Cmd+Shift+Z then brings the caret back, not the bar (CAP-Y2BAR.json, Heading 1, read twice: scroll 523 to 360). The
-// same step with the frame at its top keeps both (CAP-Y2BAR2.json, read twice). Inferred: the bar comes back on a press in the page.
+// same step with the frame at its top keeps both (CAP-Y2BAR2.json, read twice). Then the block takes presses as a block, with a
+// grab cursor, and scrolling back brings nothing; a press on it closes the edit and leaves it selected (CAP-Y2BAR3.json, twice).
 function textStepScrolled(ed, y0) {
   if (editing !== ed || ed.soft || y0 <= doc.scrollingElement.scrollHeight - win.innerHeight + 1) return;
   ed.barGone = true;
+  blockEl(ed.bid).classList.remove('is-text-editing');
   // Chrome puts a caret back at the text's start on any key while none is set, so it goes again on each key let go until Cmd is.
   ed.caretGone = true;
   win.getSelection().removeAllRanges();
@@ -7352,7 +7355,6 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
-  frame.contentDocument.addEventListener('pointerdown', () => { if (editing?.barGone) editing.barGone = false; }, true);
   frame.contentDocument.addEventListener('keyup', (e) => { if (!editing?.caretGone) return; win.getSelection().removeAllRanges(); if (!e.metaKey && !e.ctrlKey) editing.caretGone = false; });
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.

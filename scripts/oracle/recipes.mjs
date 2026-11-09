@@ -1421,6 +1421,16 @@ export const RECIPES = {
     return [...run('A'), ...run('B')];
   })() },
 
+  'CAP-Y2BAR3': { page: 'Gestures Probe', question: "Y2, inferred until now: after the Cmd+Z that pulls the frame's scroll and takes the text bar (CAP-Y2BAR.json), the block is above the frame's view; does scrolling back bring the bar, what is under the pointer there, and does a press on the block's text then bring it? And the toolbar's Undo as that third step, pressed by name with an on-top check: the bar, the edit, the scroll. Read twice (Q1, Q2).", steps: (() => {
+    const R = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'], barState: true, focused: true };
+    const typed = [['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300],
+      ['keysFast', ' longer line of words that runs on past the end of the block'], ['pause', 1300], ['keysFast', ' and then on and on over a second line and more words to fill it'], ['pause', 1300], ['keysFast', ' and then again on and on over a third line and more words to fill'], ['pause', 1300]];
+    const run = (r) => [['window', 1600, 1000],
+      ...typed, ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', `${r} 3 z`, R],
+      ['scrollFrame', 0], ['pause', 600], ['read', `${r} frame back at its top`, { ...R, hit: [0, 'new', [[0.5, 0.5], [0.1, 0.15], [0.9, 0.85]]] }], ['pressFrame', 'main#page .fe-block .sqs-block'], ['read', `${r} pressed in the text`, R], ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['exit'],
+      ...typed, ['press', 'Meta+z'], ['pause', 300], ['press', 'Meta+z'], ['pause', 300], ['read', `${r} 2 z`, R], ['pressNamed', 'Undo'], ['read', `${r} toolbar Undo`, R], ['press', 'Escape'], ['pause', 300], ['exit']];
+    return [...run('Q1'), ...run('Q2')];
+  })() },
   ...(() => {
     // U9: which pushes double. CAP-U9DEMO's walks F (50 px) and G (20 px) in full, every frame logged, each walk twice, one capture each.
     const setup = [['window', 1600, 1000], ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400], ['panel', 1], ['pause', 700]];
