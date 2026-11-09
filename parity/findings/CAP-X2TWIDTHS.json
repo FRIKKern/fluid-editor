@@ -1,0 +1,1205 @@
+{
+  "item": "CAP-X2TWIDTHS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "startedAt": "2026-11-09T23:21:54.562Z",
+  "predictions": {
+    "file": "CAP-X2TWIDTHS-PREDICTED.json",
+    "commit": "b28c7d5e57c2340fafad34ad682ae9495ca88f5b",
+    "committedAt": "2026-11-10T00:20:25+01:00",
+    "sha256": "7de692718765750eb134721b0fee3628a16d29a2c49ed9d8eaffd5c432825274"
+  },
+  "engine": "chrome",
+  "question": "X2, rule T scored as is at other frame widths (no refit before the read): a lone 6 wide Shape on the right margin track (lines 21 to 27), pressed 30% in from its left, held and moved +1, then left in steps across T's three parts, ring read at each, twice (R1, R2). At 1280 (columns 49.515625px, so T's step from 3 to 2 columns left sits at -42.1, 0.85 of a column) and at 1920 (columns as at 1600, the frame 320px wider). Gestures Probe, unsaved, one block per enter.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1280,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1008.14,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1280 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -1"
+    ],
+    [
+      "move",
+      -20,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -20"
+    ],
+    [
+      "move",
+      -36,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -36"
+    ],
+    [
+      "move",
+      -48,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -48"
+    ],
+    [
+      "move",
+      -90,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -90"
+    ],
+    [
+      "move",
+      -122,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -122"
+    ],
+    [
+      "move",
+      -137,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -137"
+    ],
+    [
+      "move",
+      -172,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -172"
+    ],
+    [
+      "move",
+      -188,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -188"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1008.14,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1280 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -1"
+    ],
+    [
+      "move",
+      -20,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -20"
+    ],
+    [
+      "move",
+      -36,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -36"
+    ],
+    [
+      "move",
+      -48,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -48"
+    ],
+    [
+      "move",
+      -90,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -90"
+    ],
+    [
+      "move",
+      -122,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -122"
+    ],
+    [
+      "move",
+      -137,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -137"
+    ],
+    [
+      "move",
+      -172,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -172"
+    ],
+    [
+      "move",
+      -188,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -188"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1920,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1920 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -25"
+    ],
+    [
+      "move",
+      -45,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -45"
+    ],
+    [
+      "move",
+      -55,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -55"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -100"
+    ],
+    [
+      "move",
+      -148,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -148"
+    ],
+    [
+      "move",
+      -158,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -158"
+    ],
+    [
+      "move",
+      -225,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -225"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1920 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -25"
+    ],
+    [
+      "move",
+      -45,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -45"
+    ],
+    [
+      "move",
+      -55,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -55"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -100"
+    ],
+    [
+      "move",
+      -148,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -148"
+    ],
+    [
+      "move",
+      -158,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -158"
+    ],
+    [
+      "move",
+      -225,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -225"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R1 w1280 start": {
+      "block": {
+        "desktop": "1/21/7/27",
+        "mobile": "1/2/7/10",
+        "box": [
+          992.2,
+          230.9,
+          287.8,
+          206.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794266529885_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 21 / 7 / 27",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,98.4",
+          "col 10x10 at 281.8,98.4",
+          "ne 10x10 at 281.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 138.9,-6",
+          "row 10x10 at 138.9,202.9",
+          "se 10x10 at 281.8,202.9",
+          "sw 10x10 at -6,202.9"
+        ]
+      },
+      "areas": [
+        [
+          "1/21/7/27",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 w1280 1": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        1,
+        12
+      ]
+    },
+    "R1 w1280 -1": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        -1,
+        12
+      ]
+    },
+    "R1 w1280 -20": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        -20,
+        12
+      ]
+    },
+    "R1 w1280 -36": {
+      "ring": "1 / 20 / 7 / 26",
+      "at": [
+        -36,
+        12
+      ]
+    },
+    "R1 w1280 -48": {
+      "ring": "1 / 20 / 7 / 26",
+      "at": [
+        -48,
+        12
+      ]
+    },
+    "R1 w1280 -90": {
+      "ring": "1 / 19 / 7 / 25",
+      "at": [
+        -90,
+        12
+      ]
+    },
+    "R1 w1280 -122": {
+      "ring": "1 / 19 / 7 / 25",
+      "at": [
+        -122,
+        12
+      ]
+    },
+    "R1 w1280 -137": {
+      "ring": "1 / 18 / 7 / 24",
+      "at": [
+        -137,
+        12
+      ]
+    },
+    "R1 w1280 -172": {
+      "ring": "1 / 18 / 7 / 24",
+      "at": [
+        -172,
+        12
+      ]
+    },
+    "R1 w1280 -188": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -188,
+        12
+      ]
+    },
+    "R2 w1280 start": {
+      "block": {
+        "desktop": "1/21/7/27",
+        "mobile": "1/2/7/10",
+        "box": [
+          992.2,
+          230.9,
+          287.8,
+          206.9
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794266605172_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 21 / 7 / 27",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,98.4",
+          "col 10x10 at 281.8,98.4",
+          "ne 10x10 at 281.8,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 138.9,-6",
+          "row 10x10 at 138.9,202.9",
+          "se 10x10 at 281.8,202.9",
+          "sw 10x10 at -6,202.9"
+        ]
+      },
+      "areas": [
+        [
+          "1/21/7/27",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 w1280 1": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        1,
+        12
+      ]
+    },
+    "R2 w1280 -1": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        -1,
+        12
+      ]
+    },
+    "R2 w1280 -20": {
+      "ring": "1 / 21 / 7 / 27",
+      "at": [
+        -20,
+        12
+      ]
+    },
+    "R2 w1280 -36": {
+      "ring": "1 / 20 / 7 / 26",
+      "at": [
+        -36,
+        12
+      ]
+    },
+    "R2 w1280 -48": {
+      "ring": "1 / 20 / 7 / 26",
+      "at": [
+        -48,
+        12
+      ]
+    },
+    "R2 w1280 -90": {
+      "ring": "1 / 19 / 7 / 25",
+      "at": [
+        -90,
+        12
+      ]
+    },
+    "R2 w1280 -122": {
+      "ring": "1 / 19 / 7 / 25",
+      "at": [
+        -122,
+        12
+      ]
+    },
+    "R2 w1280 -137": {
+      "ring": "1 / 18 / 7 / 24",
+      "at": [
+        -137,
+        12
+      ]
+    },
+    "R2 w1280 -172": {
+      "ring": "1 / 18 / 7 / 24",
+      "at": [
+        -172,
+        12
+      ]
+    },
+    "R2 w1280 -188": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -188,
+        12
+      ]
+    },
+    "R1 w1920 start": {
+      "block": {
+        "desktop": "1/21/7/27",
+        "mobile": "1/2/7/10",
+        "box": [
+          1377,
+          284.5,
+          543,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794266667900_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 21 / 7 / 27",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 537,112.8",
+          "ne 10x10 at 537,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 266.5,-6",
+          "row 10x10 at 266.5,231.6",
+          "se 10x10 at 537,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/21/7/27",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 w1920 1": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        1,
+        12
+      ]
+    },
+    "R1 w1920 -1": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -1,
+        12
+      ]
+    },
+    "R1 w1920 -25": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -25,
+        12
+      ]
+    },
+    "R1 w1920 -45": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -45,
+        12
+      ]
+    },
+    "R1 w1920 -55": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -55,
+        12
+      ]
+    },
+    "R1 w1920 -100": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -100,
+        12
+      ]
+    },
+    "R1 w1920 -148": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -148,
+        12
+      ]
+    },
+    "R1 w1920 -158": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -158,
+        12
+      ]
+    },
+    "R1 w1920 -225": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -225,
+        12
+      ]
+    },
+    "R2 w1920 start": {
+      "block": {
+        "desktop": "1/21/7/27",
+        "mobile": "1/2/7/10",
+        "box": [
+          1377,
+          284.5,
+          543,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794266723655_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 21 / 7 / 27",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 537,112.8",
+          "ne 10x10 at 537,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 266.5,-6",
+          "row 10x10 at 266.5,231.6",
+          "se 10x10 at 537,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "areas": [
+        [
+          "1/21/7/27",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 w1920 1": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        1,
+        12
+      ]
+    },
+    "R2 w1920 -1": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -1,
+        12
+      ]
+    },
+    "R2 w1920 -25": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -25,
+        12
+      ]
+    },
+    "R2 w1920 -45": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -45,
+        12
+      ]
+    },
+    "R2 w1920 -55": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -55,
+        12
+      ]
+    },
+    "R2 w1920 -100": {
+      "ring": "1 / 16 / 7 / 22",
+      "at": [
+        -100,
+        12
+      ]
+    },
+    "R2 w1920 -148": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -148,
+        12
+      ]
+    },
+    "R2 w1920 -158": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -158,
+        12
+      ]
+    },
+    "R2 w1920 -225": {
+      "ring": "1 / 17 / 7 / 23",
+      "at": [
+        -225,
+        12
+      ]
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
