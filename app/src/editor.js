@@ -1212,17 +1212,21 @@ function storedRows(g) {
     else if (a[2] >= L) { a[0] += d; a[2] += d; }
     areas.set(b.id, a);
   }
-  return { sid: g.sid, bp, areas };
+  return { sid: g.sid, bp, areas, d };
 }
 function showStored() {
   let t = stored;
   const shift = new Map();
   stored = null;
+  const lone = !!t.lone;
   if (t.lone) t = t.bp === bp && S(t.sid) && B(t.sid, t.lone) ? storedRows({ sid: t.sid, kept: new Map([[t.lone, true]]) }) : null;
   if (!t) return shift;
   const s = t.bp === bp ? S(t.sid) : null;
   if (!s) return shift;
   for (const b of s.blocks) if (t.areas.has(b.id)) { shift.set(b.id, t.areas.get(b.id)[0] - lay(b).area[0]); lay(b).area = t.areas.get(b.id); }
+  // X8 R1, refit 1 under test (CAP-98SECTION-A-PREDICTED.json, CAP-98SECTION-B-PREDICTED.json): a lone widening's stored rows give the section d rows
+  // too, then it grows to its blocks as before (CAP-98.json 10 to 11 rows; CAP-98SPLIT.json 12 + 1, its blocks need 14).
+  if (lone) s.rows[bp] += t.d;
   growRows(s);
   renderSectionDom(s.id);
   return shift;
