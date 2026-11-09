@@ -348,7 +348,7 @@ let wh = where('text', { design: { background: true, bgColor: 'rgb(255, 207, 90)
 add('Text Blur: in the block\'s style attribute, not the rule', wh.block.includes('filter: blur(40px)') && wh.filter === drawn(WH['text element 40'], 'filter', 'block').value && wh.ruleClean, JSON.stringify(wh));
 add('Text Background color: in its box\'s style attribute', wh.inner.includes('background-color') && wh.bg === drawn(WH['text background FFCF5A'], 'background-color').value && wh.ruleClean, JSON.stringify(wh));
 wh = where('shape', { design: { blur: true, blurPx: 15, opacity: 50 }, designMobile: { blurPx: 70, opacity: 30 } });
-const wC = (n) => ({ blur: drawn(WC[n], 'filter').value, opacity: drawn(WC[n], 'opacity', 'block').value, rule: WC[n].rule.rules[0].match(/--opacity: ([^;]+)/)[1] });
+const wC = (n) => ({ blur: drawn(WC[n], 'filter').value, opacity: drawn(WC[n], 'opacity', 'block').value, rule: WC[n].rule.decls[0]['--opacity'] });
 let wantW = wC('desktop after phone');
 add('Shape on desktop: blur on the contents\' attribute, rule at desktop\'s values', wh.inner.includes('filter: blur(15px)') && wh.innerFilter === wantW.blur && wh.opacity === wantW.opacity && wh.ruleOpacity === wantW.rule && wh.ruleClean, JSON.stringify({ wh, wantW }));
 evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
