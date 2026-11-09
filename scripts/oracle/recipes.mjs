@@ -661,6 +661,24 @@ export const RECIPES = {
     };
     return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again'), ...cases(' third')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2CORPUS1': { page: 'Blocks Probe', question: 'A2: corpus section 65b0bd7f (A2-CORPUS.json), one of the 5 whose rules have a pair out of phone order that shares no phone row, rebuilt here with three Shapes by adds, desktop moves and resizes, then phone moves and resizes. Its saved desktop areas 3/1/21/17, 5/3/22/14, 7/12/20/24 (z 1 to 3), phone 2/1/12/9, 4/2/15/10, 14/2/31/10, rules in z order 3, 2, 1. Column 1 (the bleed) is taken as column 2, and z1 stays 6 rows high on the phone, not 10 (its handle sits under z2). Read: the DOM order after the desktop build and after the phone build. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const C = (n) => Math.round(n * 58.78) + Math.sign(n), R = (n) => Math.round(n * 41.09) + Math.sign(n), P = (n) => Math.round(n * 35) + Math.sign(n);
+    const ADD = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (c, r) => [['drag', 0, 'new', 'middle', C(c), R(r)], ['press', 'Escape'], ['deselect', 0]];
+    const SIZE = (part, px) => [['select', 0, 'new'], ['drag', 0, 'new', part, part === 's' ? 0 : px, part === 's' ? px : 0], ['press', 'Escape'], ['deselect', 0]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const DESK = [
+      ...ADD, ...MOVE(0, 2), ...SIZE('e', C(9)), ...SIZE('s', R(6)), ...SIZE('s', R(6)),
+      ...ADD, ...MOVE(1, 4), ...SIZE('e', C(5)), ...SIZE('s', R(6)), ...SIZE('s', R(5)),
+      ...ADD, ...MOVE(10, 6), ...SIZE('e', C(6)), ...SIZE('s', R(7)),
+    ];
+    // On the phone, by place in the stack: z3 down a row and 11 taller, z2 up 3 and 5 taller, z1 down a row. z1 stays 6 rows, not 10: its handle is under z2.
+    const PMOVE = (k, r) => [['select', 0, k], ['drag', 0, k, 'middle', 0, P(r)], ['press', 'Escape'], ['deselect', 0]];
+    const PSIZE = (k, r) => [['select', 0, k], ['drag', 0, k, 's', 0, P(r)], ['press', 'Escape'], ['deselect', 0]];
+    const PHONE = [['view', 'Mobile'], ...PMOVE(2, 1), ...PSIZE(2, 6), ...PSIZE(2, 5), ...PMOVE(1, -3), ...PSIZE(1, 5), ...PMOVE(0, 1), ['view', 'Desktop']];
+    const cases = (s) => [[...DESK, ['read', `k1 desktop built${s}`, { stack: 0 }], ...PHONE, ['read', `k1 phone built${s}`, { stack: 0 }]]];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
