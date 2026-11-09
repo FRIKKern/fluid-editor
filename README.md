@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - A2: read-only probe of how one phone edit sets the DOM order ([#544](https://github.com/FRIKKern/fluid-editor/pull/544))
   - R2: rule S refit 2 (sum threshold) read: 11 of 14 fresh, ties S, frozen ([#543](https://github.com/FRIKKern/fluid-editor/pull/543))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
