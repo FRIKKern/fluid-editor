@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 29 changes
+- **Today** · 30 changes
+  - A2: second read of each fresh case, 9 of 9 agree, none unsteady (CAP-A2FRESH2) ([#506](https://github.com/FRIKKern/fluid-editor/pull/506))
   - A2: fresh round on new layouts, DOM order 9 of 9 (CAP-A2FRESH) ([#505](https://github.com/FRIKKern/fluid-editor/pull/505))
-  - T15: a Shape's Blur, the amount alone, on its contents ([#503](https://github.com/FRIKKern/fluid-editor/pull/503))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
