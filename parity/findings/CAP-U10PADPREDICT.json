@@ -1,0 +1,156 @@
+{
+  "item": "U10",
+  "name": "CAP-U10PADPREDICT",
+  "question": "The fit pad (fitLayout, #481): content heights chosen near a row boundary, where pads from 25.1 to 36.3 give different rows. Six Texts alone on Blocks Probe, each picked at layouts 2 and 4.",
+  "rules": {
+    "F": "A fitted block takes the fewest rows n whose height, 41.09 x n - 11, holds its content height plus 30px. The section rows are the end line plus 3 (layout 2) or 1 (layout 4). Fitted on CAP-U10TEXTMIX-B.json and -D.json, the pad from 25.1 to 36.3 fitting all (seen)."
+  },
+  "scoring": "Per read: the span F gives for the content height read there (contentH), and the rows. The contentH predicted here comes from ours and is not scored; padRange is the pads that give the predicted span for that contentH. splits: whether 25.1 and 36.3 give different spans there.",
+  "predictions": [
+    {
+      "read": "H3 layout 2",
+      "contentH": 291.9,
+      "span": 9,
+      "end": 14,
+      "rows": 17,
+      "padRange": [
+        25.8,
+        36.3
+      ],
+      "splits": true
+    },
+    {
+      "read": "H3 layout 4",
+      "contentH": 291.9,
+      "span": 9,
+      "end": 12,
+      "rows": 13,
+      "padRange": [
+        25.8,
+        36.3
+      ],
+      "splits": true
+    },
+    {
+      "read": "Q2 layout 2",
+      "contentH": 247.9,
+      "span": 8,
+      "end": 13,
+      "rows": 16,
+      "padRange": [
+        28.7,
+        36.3
+      ],
+      "splits": true
+    },
+    {
+      "read": "Q2 layout 4",
+      "contentH": 247.9,
+      "span": 8,
+      "end": 11,
+      "rows": 12,
+      "padRange": [
+        28.7,
+        36.3
+      ],
+      "splits": true
+    },
+    {
+      "read": "HL3 layout 2",
+      "contentH": 367.9,
+      "span": 10,
+      "end": 15,
+      "rows": 18,
+      "padRange": [
+        25.1,
+        32
+      ],
+      "splits": true
+    },
+    {
+      "read": "HL3 layout 4",
+      "contentH": 367.9,
+      "span": 10,
+      "end": 13,
+      "rows": 14,
+      "padRange": [
+        25.1,
+        32
+      ],
+      "splits": true
+    },
+    {
+      "read": "QL2 layout 2",
+      "contentH": 323.9,
+      "span": 9,
+      "end": 14,
+      "rows": 17,
+      "padRange": [
+        25.1,
+        34.9
+      ],
+      "splits": true
+    },
+    {
+      "read": "QL2 layout 4",
+      "contentH": 399.9,
+      "span": 11,
+      "end": 14,
+      "rows": 15,
+      "padRange": [
+        25.1,
+        36.3
+      ],
+      "splits": false
+    },
+    {
+      "read": "H4L layout 2",
+      "contentH": 411.8,
+      "span": 12,
+      "end": 17,
+      "rows": 20,
+      "padRange": [
+        29.2,
+        36.3
+      ],
+      "splits": true
+    },
+    {
+      "read": "H4L layout 4",
+      "contentH": 487.8,
+      "span": 13,
+      "end": 16,
+      "rows": 17,
+      "padRange": [
+        25.1,
+        35.4
+      ],
+      "splits": true
+    },
+    {
+      "read": "Q3L layout 2",
+      "contentH": 615.8,
+      "span": 16,
+      "end": 21,
+      "rows": 24,
+      "padRange": [
+        25.1,
+        30.6
+      ],
+      "splits": true
+    },
+    {
+      "read": "Q3L layout 4",
+      "contentH": 691.8,
+      "span": 18,
+      "end": 21,
+      "rows": 22,
+      "padRange": [
+        25.1,
+        36.3
+      ],
+      "splits": false
+    }
+  ],
+  "score": "Round 1: 6 of 12, scored the same on the content heights read there and on the predictions. Misses: H3 and HL3 at layout 2 end at line 11 (6 rows, rows 14) though their content needs 9 and 10; HL3 at layout 4 takes 11 rows where 30px gives 10 (needs 32.0 or more); Q3L at layout 2 takes 17 where 30px gives 16 (needs 30.6 or more); H4L (two headings) splits into two blocks, H1 and H4, at both picks, so the one-block prediction misses twice. Refit 1 is in CAP-U10PADREFIT1.json."
+}

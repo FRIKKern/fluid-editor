@@ -1,0 +1,377 @@
+{
+  "item": "CAP-U10PADR1-Q5",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: Q5, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADREFIT1.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<blockquote><p>Quote one</p><p>Quote two</p><p>Quote three</p><p>Quote four</p><p>Quote five</p></blockquote>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q5 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Q5 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q5 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      5
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q5 layout 5",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "Q5 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote one</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote two</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote three</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote four</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote five</p></blockquote>",
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q5 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            491.8,
+            ""
+          ],
+          [
+            "2",
+            643.8,
+            ""
+          ],
+          [
+            "3",
+            882.4,
+            ""
+          ],
+          [
+            "4",
+            1123.6,
+            ""
+          ],
+          [
+            "5",
+            1330.6,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q5 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.927,
+        "edge": "curve",
+        "h": 1297.8,
+        "rows": 21,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "textH": 507.8,
+      "aligns": [
+        [
+          "4/2/19/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 571.8,
+      "areas": [
+        [
+          "4/2/19/26",
+          "2/1/17/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q5 layout 5": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1119.6,
+        "rows": 19,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 507.8,
+      "aligns": [
+        [
+          "3/3/18/25",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 571.8,
+      "areas": [
+        [
+          "3/3/18/25",
+          "1/2/16/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

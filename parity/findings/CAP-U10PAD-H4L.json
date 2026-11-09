@@ -1,0 +1,347 @@
+{
+  "item": "CAP-U10PAD-H4L",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: H4L, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADPREDICT.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe that runs on longer here and then keeps going past the end of the second line into a third and a fourth</h2><h2>Second heading</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "H4L start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "H4L open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "H4L layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "H4L layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "H4L start": {
+      "look": {
+        "top": -34,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1407.3,
+        "rows": 26,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe that runs on longer here and then keeps going past the end of the second line into a third and a fourth</h2><h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Second heading</h2>",
+      "areas": [
+        [
+          "1/2/21/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "H4L open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            454.4,
+            ""
+          ],
+          [
+            "2",
+            608.2,
+            ""
+          ],
+          [
+            "3",
+            759.4,
+            ""
+          ],
+          [
+            "4",
+            855.1,
+            ""
+          ],
+          [
+            "5",
+            1073.8,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "H4L layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 811.9,
+        "rows": 3,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 379.8,
+      "aligns": [
+        [
+          "1/4/2/24",
+          [
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "2/10/4/18",
+          [
+            [
+              "H4",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 379.8,
+      "areas": [
+        [
+          "1/4/2/24",
+          "5/2/18/10"
+        ],
+        [
+          "2/10/4/18",
+          "19/3/22/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "H4L layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1201.8,
+        "rows": 21,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 531.8,
+      "aligns": [
+        [
+          "4/3/19/14",
+          [
+            [
+              "H1",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "4/15/6/23",
+          [
+            [
+              "H4",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 531.8,
+      "areas": [
+        [
+          "4/3/19/14",
+          "5/2/23/10"
+        ],
+        [
+          "4/15/6/23",
+          "24/2/27/8"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

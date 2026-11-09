@@ -1,0 +1,341 @@
+{
+  "item": "CAP-U10PAD-Q2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: Q2, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADPREDICT.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<blockquote><p>Quote words for a probe</p><p>Second line</p></blockquote>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q2 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "Q2 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q2 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "Q2 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "Q2 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words for a probe</p><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Second line</p></blockquote>",
+      "areas": [
+        [
+          "1/2/4/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            491.8,
+            ""
+          ],
+          [
+            "2",
+            643.8,
+            ""
+          ],
+          [
+            "3",
+            819.5,
+            ""
+          ],
+          [
+            "4",
+            997.9,
+            ""
+          ],
+          [
+            "5",
+            1141.8,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 996.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 183.9,
+      "aligns": [
+        [
+          "5/2/13/26",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 247.9,
+      "areas": [
+        [
+          "5/2/13/26",
+          "2/1/11/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 183.9,
+      "aligns": [
+        [
+          "3/6/11/22",
+          [
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 247.9,
+      "areas": [
+        [
+          "3/6/11/22",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

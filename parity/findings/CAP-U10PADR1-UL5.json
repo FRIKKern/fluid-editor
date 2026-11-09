@@ -1,0 +1,437 @@
+{
+  "item": "CAP-U10PADR1-UL5",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: UL5, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADREFIT1.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<ul><li><p>Item one</p></li><li><p>Item two</p></li><li><p>Item three</p></li><li><p>Item four</p></li><li><p>Item five</p></li></ul>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "UL5 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "UL5 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "UL5 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "UL5 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "UL5 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 790.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Item one</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Item two</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Item three</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Item four</p></li><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Item five</p></li></ul>",
+      "areas": [
+        [
+          "1/2/6/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "UL5 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            491.8,
+            ""
+          ],
+          [
+            "2",
+            643.8,
+            ""
+          ],
+          [
+            "3",
+            883.8,
+            ""
+          ],
+          [
+            "4",
+            1126.6,
+            ""
+          ],
+          [
+            "5",
+            1341.5,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "UL5 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1160.7,
+        "rows": 20,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 512.6,
+      "aligns": [
+        [
+          "3/6/19/22",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 579,
+      "areas": [
+        [
+          "3/6/19/22",
+          "1/2/15/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "UL5 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1325.1,
+        "rows": 24,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 512.6,
+      "aligns": [
+        [
+          "5/2/21/26",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 579,
+      "areas": [
+        [
+          "5/2/21/26",
+          "2/1/16/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

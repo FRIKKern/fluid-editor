@@ -2019,8 +2019,12 @@ function holdDialogEscape(e) {
 window.addEventListener('keydown', holdDialogEscape, true);
 function dialogPress(e) {
   if (!dialogOpen()) return;
-  if (e.target.closest?.('.fe-block')?.dataset.blockId === sel.bid) { e.preventDefault(); e.stopImmediatePropagation(); return; }
-  designOpen = null; // the press goes on: on the section it lets the block go, on another block it takes that one (not read)
+  const on = e.target.closest?.('.fe-block')?.dataset.blockId;
+  if (on === sel.bid) { e.preventDefault(); e.stopImmediatePropagation(); return; }
+  designOpen = null;
+  // On another block the dialog closes and the open block goes, and the pressed one is not taken (CAP-T12DIALOGOTHER2.json,
+  // CAP-T12DIALOGOTHER3.json: no block toolbar after, the section's controls on hover). On the section the press goes on and lets it go.
+  if (on) { e.preventDefault(); e.stopImmediatePropagation(); select(null); return; }
   renderBlockPanel();
 }
 // A phone's dotted labels and its button right of the Animation tab, on any block with that tab.

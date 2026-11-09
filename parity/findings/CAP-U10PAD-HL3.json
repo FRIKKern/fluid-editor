@@ -1,0 +1,341 @@
+{
+  "item": "CAP-U10PAD-HL3",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "The fit pad near a row boundary: HL3, a Text alone, picked at layouts 2 and 4 (predicted in CAP-U10PADPREDICT.json).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe that runs on longer here</h2><h2>Second heading</h2><h2>Third heading</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "HL3 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "HL3 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "HL3 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "HL3 layout 4",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "HL3 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1160.7,
+        "rows": 20,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe that runs on longer here</h2><h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Second heading</h2><h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Third heading</h2>",
+      "areas": [
+        [
+          "1/2/15/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "HL3 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            491.8,
+            ""
+          ],
+          [
+            "2",
+            643.8,
+            ""
+          ],
+          [
+            "3",
+            842.8,
+            ""
+          ],
+          [
+            "4",
+            1044.5,
+            ""
+          ],
+          [
+            "5",
+            1211.6,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "HL3 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 1046.5,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 367.9,
+      "aligns": [
+        [
+          "5/2/11/26",
+          [
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 367.9,
+      "areas": [
+        [
+          "5/2/11/26",
+          "2/1/15/11"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "HL3 layout 4": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 955.2,
+        "rows": 15,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 367.9,
+      "aligns": [
+        [
+          "3/6/14/22",
+          [
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "H1",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 367.9,
+      "areas": [
+        [
+          "3/6/14/22",
+          "1/2/13/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

@@ -1644,6 +1644,28 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       add(`View Layouts, ${name} alone: 6 tiles, 2 to 5 as read, fitted to its words`, errs.length === 0, errs.slice(0, 3).join(' | '));
     }
   }
+  // The fit pad (CAP-U10PADPREDICT.json, -PADREFIT1.json): Texts alone near a row boundary, the read area and rows. Left
+  // out: a heading's first pick at layout 2 (ends short there, not built), the two-heading Text the oracle splits in
+  // two, and the 5-item list (ours renders it 7.2px shorter, so it fits a row less).
+  {
+    const errs = [];
+    for (const [file, key, html, picks] of [["CAP-U10PAD-H3","H3","<h2>Heading words for a probe</h2><h2>Second heading</h2><h2>Third heading</h2>",[4]],["CAP-U10PAD-Q2","Q2","<blockquote><p>Quote words for a probe</p><p>Second line</p></blockquote>",[2,4]],["CAP-U10PAD-HL3","HL3","<h2>Heading words for a probe that runs on longer here</h2><h2>Second heading</h2><h2>Third heading</h2>",[4]],["CAP-U10PAD-QL2","QL2","<blockquote><p>Quote words for a probe that runs on much longer here</p><p>Second line</p></blockquote>",[2,4]],["CAP-U10PAD-Q3L","Q3L","<blockquote><p>Quote words for a probe that runs on much longer here and keeps on going into a third line of words</p><p>Second line</p><p>Third line</p><p>Fourth line</p></blockquote>",[2,4]],["CAP-U10PADR1-QW","QW","<blockquote><p>Quote words for a probe that runs on much longer here and keeps on going into a third line of words</p></blockquote>",[4,2]],["CAP-U10PADR1-Q5","Q5","<blockquote><p>Quote one</p><p>Quote two</p><p>Quote three</p><p>Quote four</p><p>Quote five</p></blockquote>",[3,5]],["CAP-U10PADR1-H4","H4","<h2>Heading one</h2><h2>Heading two</h2><h2>Heading three</h2><h2>Heading four</h2>",[5,2]],["CAP-U10PADR1-H6","H6","<h2>Heading words for a probe that runs on longer here and then keeps going past the end of the second line into a third and a fourth and then a fifth line of heading words</h2>",[3]]]) {
+      const R = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'h0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const b = await chromeBtn();
+      if (!b || b.off) { errs.push(`${key} button`); continue; }
+      await realClick(b.x, b.y);
+      for (const n of picks) {
+        const r = R[`${key} layout ${n}`];
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0]) errs.push(`${key} ${n} ${g} read ${r.look.rows} ${r.areas[0][0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts, the fit pad: 14 reads near a row boundary as read', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
   evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);
