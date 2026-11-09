@@ -1,0 +1,1167 @@
+{
+  "item": "CAP-U9DOUBLE-F1",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "U9: which pushes double. CAP-U9DEMO's walk F (50 px) in full, every frame logged (run F1). Two runs of each walk: the same scrolls doubling both times is a trigger by place, others a timing race.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      1
+    ],
+    [
+      "fillRow",
+      "Row Count",
+      0,
+      "16"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "panel",
+      1
+    ],
+    [
+      "pause",
+      700
+    ],
+    [
+      "read",
+      "F1 open",
+      {
+        "panelBox": 1
+      }
+    ],
+    [
+      "scrollTrace",
+      "F1 up",
+      -50,
+      20,
+      250,
+      1
+    ],
+    [
+      "scrollTrace",
+      "F1 down",
+      50,
+      40,
+      250,
+      1
+    ],
+    [
+      "scrollTrace",
+      "F1 back",
+      -50,
+      10,
+      250,
+      1
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "F1 open": {
+      "panelBox": {
+        "box": [
+          1258,
+          213,
+          320,
+          476
+        ],
+        "edit": 73,
+        "scrollY": 588,
+        "secTop": 134.6,
+        "secH": 857.7,
+        "frameTop": 55,
+        "contentBox": [
+          0,
+          857.7
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "F1 up": {
+      "columns": [
+        "ms",
+        "frame scroll",
+        "panel top",
+        "panel style",
+        "panel transition",
+        "section top"
+      ],
+      "seen": [
+        [
+          3,
+          588,
+          213,
+          "",
+          "all",
+          134.6
+        ],
+        [
+          145,
+          "scroll -50"
+        ],
+        [
+          159,
+          538,
+          213,
+          "",
+          "all",
+          184.6
+        ],
+        [
+          598,
+          "scroll -50"
+        ],
+        [
+          606,
+          488,
+          213,
+          "",
+          "all",
+          234.6
+        ],
+        [
+          636,
+          488,
+          259,
+          "",
+          "all",
+          234.6
+        ],
+        [
+          1008,
+          "scroll -50"
+        ],
+        [
+          1020,
+          438,
+          259,
+          "",
+          "all",
+          284.6
+        ],
+        [
+          1035,
+          438,
+          286,
+          "",
+          "all",
+          284.6
+        ],
+        [
+          1428,
+          "scroll -50"
+        ],
+        [
+          1439,
+          388,
+          286,
+          "",
+          "all",
+          334.6
+        ],
+        [
+          1451,
+          388,
+          336,
+          "",
+          "all",
+          334.6
+        ],
+        [
+          1813,
+          "scroll -50"
+        ],
+        [
+          1820,
+          338,
+          336,
+          "",
+          "all",
+          384.6
+        ],
+        [
+          1835,
+          338,
+          386,
+          "",
+          "all",
+          384.6
+        ],
+        [
+          2190,
+          "scroll -50"
+        ],
+        [
+          2207,
+          288,
+          386,
+          "",
+          "all",
+          434.6
+        ],
+        [
+          2222,
+          288,
+          436,
+          "",
+          "all",
+          434.6
+        ],
+        [
+          2579,
+          "scroll -50"
+        ],
+        [
+          2593,
+          238,
+          436,
+          "",
+          "all",
+          484.6
+        ],
+        [
+          2602,
+          238,
+          486,
+          "",
+          "all",
+          484.6
+        ],
+        [
+          2990,
+          "scroll -50"
+        ],
+        [
+          3004,
+          188,
+          486,
+          "",
+          "all",
+          534.6
+        ],
+        [
+          3357,
+          "scroll -50"
+        ],
+        [
+          3371,
+          138,
+          486,
+          "",
+          "all",
+          584.6
+        ],
+        [
+          3714,
+          "scroll -50"
+        ],
+        [
+          3721,
+          88,
+          486,
+          "",
+          "all",
+          634.6
+        ],
+        [
+          4069,
+          "scroll -50"
+        ],
+        [
+          4089,
+          38,
+          486,
+          "",
+          "all",
+          684.6
+        ],
+        [
+          4565,
+          "scroll -50"
+        ],
+        [
+          4588,
+          0,
+          486,
+          "",
+          "all",
+          722.6
+        ],
+        [
+          4923,
+          "scroll -50"
+        ],
+        [
+          5283,
+          "scroll -50"
+        ],
+        [
+          5663,
+          "scroll -50"
+        ],
+        [
+          5995,
+          "scroll -50"
+        ],
+        [
+          6334,
+          "scroll -50"
+        ],
+        [
+          6692,
+          "scroll -50"
+        ],
+        [
+          7083,
+          "scroll -50"
+        ],
+        [
+          7514,
+          "scroll -50"
+        ]
+      ]
+    },
+    "F1 down": {
+      "columns": [
+        "ms",
+        "frame scroll",
+        "panel top",
+        "panel style",
+        "panel transition",
+        "section top"
+      ],
+      "seen": [
+        [
+          19,
+          0,
+          486,
+          "",
+          "all",
+          722.6
+        ],
+        [
+          169,
+          "scroll 50"
+        ],
+        [
+          207,
+          50,
+          486,
+          "",
+          "all",
+          672.6
+        ],
+        [
+          532,
+          "scroll 50"
+        ],
+        [
+          545,
+          100,
+          486,
+          "",
+          "all",
+          622.6
+        ],
+        [
+          971,
+          "scroll 50"
+        ],
+        [
+          979,
+          150,
+          486,
+          "",
+          "all",
+          572.6
+        ],
+        [
+          1328,
+          "scroll 50"
+        ],
+        [
+          1345,
+          200,
+          486,
+          "",
+          "all",
+          522.6
+        ],
+        [
+          1358,
+          200,
+          524,
+          "",
+          "all",
+          522.6
+        ],
+        [
+          1710,
+          "scroll 50"
+        ],
+        [
+          1727,
+          250,
+          524,
+          "",
+          "all",
+          472.6
+        ],
+        [
+          2055,
+          "scroll 50"
+        ],
+        [
+          2060,
+          300,
+          524,
+          "",
+          "all",
+          422.6
+        ],
+        [
+          2531,
+          "scroll 50"
+        ],
+        [
+          2547,
+          350,
+          524,
+          "",
+          "all",
+          372.6
+        ],
+        [
+          2921,
+          "scroll 50"
+        ],
+        [
+          2932,
+          400,
+          524,
+          "",
+          "all",
+          322.6
+        ],
+        [
+          3289,
+          "scroll 50"
+        ],
+        [
+          3298,
+          450,
+          524,
+          "",
+          "all",
+          272.6
+        ],
+        [
+          3607,
+          "scroll 50"
+        ],
+        [
+          3610,
+          500,
+          524,
+          "",
+          "all",
+          222.6
+        ],
+        [
+          3931,
+          "scroll 50"
+        ],
+        [
+          3943,
+          550,
+          524,
+          "",
+          "all",
+          172.6
+        ],
+        [
+          4272,
+          "scroll 50"
+        ],
+        [
+          4276,
+          600,
+          524,
+          "",
+          "all",
+          122.6
+        ],
+        [
+          4291,
+          600,
+          505,
+          "",
+          "all",
+          122.6
+        ],
+        [
+          4600,
+          "scroll 50"
+        ],
+        [
+          4609,
+          650,
+          505,
+          "",
+          "all",
+          72.6
+        ],
+        [
+          4625,
+          650,
+          455,
+          "",
+          "all",
+          72.6
+        ],
+        [
+          4927,
+          "scroll 50"
+        ],
+        [
+          4943,
+          700,
+          455,
+          "",
+          "all",
+          22.6
+        ],
+        [
+          4958,
+          700,
+          405,
+          "",
+          "all",
+          22.6
+        ],
+        [
+          5248,
+          "scroll 50"
+        ],
+        [
+          5260,
+          750,
+          405,
+          "",
+          "all",
+          -27.4
+        ],
+        [
+          5275,
+          750,
+          355,
+          "",
+          "all",
+          -27.4
+        ],
+        [
+          5577,
+          "scroll 50"
+        ],
+        [
+          5593,
+          800,
+          355,
+          "",
+          "all",
+          -77.4
+        ],
+        [
+          5608,
+          800,
+          305,
+          "",
+          "all",
+          -77.4
+        ],
+        [
+          5906,
+          "scroll 50"
+        ],
+        [
+          5911,
+          850,
+          305,
+          "",
+          "all",
+          -127.4
+        ],
+        [
+          5925,
+          850,
+          255,
+          "",
+          "all",
+          -127.4
+        ],
+        [
+          6293,
+          "scroll 50"
+        ],
+        [
+          6309,
+          900,
+          255,
+          "",
+          "all",
+          -177.4
+        ],
+        [
+          6325,
+          900,
+          205,
+          "",
+          "all",
+          -177.4
+        ],
+        [
+          6630,
+          "scroll 50"
+        ],
+        [
+          6643,
+          950,
+          205,
+          "",
+          "all",
+          -227.4
+        ],
+        [
+          6659,
+          950,
+          155,
+          "",
+          "all",
+          -227.4
+        ],
+        [
+          6969,
+          "scroll 50"
+        ],
+        [
+          6992,
+          1000,
+          155,
+          "",
+          "all",
+          -277.4
+        ],
+        [
+          7013,
+          1000,
+          55,
+          "",
+          "all",
+          -277.4
+        ],
+        [
+          7623,
+          "scroll 50"
+        ],
+        [
+          7629,
+          1050,
+          55,
+          "",
+          "all",
+          -327.4
+        ],
+        [
+          8168,
+          "scroll 50"
+        ],
+        [
+          8183,
+          1100,
+          55,
+          "",
+          "all",
+          -377.4
+        ],
+        [
+          8208,
+          1100,
+          -45,
+          "",
+          "all",
+          -377.4
+        ],
+        [
+          8225,
+          1100,
+          0,
+          "",
+          "all",
+          -377.4
+        ],
+        [
+          8548,
+          "scroll 50"
+        ],
+        [
+          8561,
+          1150,
+          0,
+          "",
+          "all",
+          -427.4
+        ],
+        [
+          8909,
+          "scroll 50"
+        ],
+        [
+          8926,
+          1200,
+          0,
+          "",
+          "all",
+          -477.4
+        ],
+        [
+          9293,
+          "scroll 50"
+        ],
+        [
+          9310,
+          1250,
+          0,
+          "",
+          "all",
+          -527.4
+        ],
+        [
+          9637,
+          "scroll 50"
+        ],
+        [
+          9644,
+          1300,
+          0,
+          "",
+          "all",
+          -577.4
+        ],
+        [
+          9967,
+          "scroll 50"
+        ],
+        [
+          9977,
+          1350,
+          0,
+          "",
+          "all",
+          -627.4
+        ],
+        [
+          10308,
+          "scroll 50"
+        ],
+        [
+          10326,
+          1400,
+          0,
+          "",
+          "all",
+          -677.4
+        ],
+        [
+          10620,
+          "scroll 50"
+        ],
+        [
+          10626,
+          1450,
+          0,
+          "",
+          "all",
+          -727.4
+        ],
+        [
+          10947,
+          "scroll 50"
+        ],
+        [
+          10959,
+          1500,
+          0,
+          "",
+          "all",
+          -777.4
+        ],
+        [
+          11388,
+          "scroll 50"
+        ],
+        [
+          11405,
+          1550,
+          0,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11646,
+          1550,
+          0.4,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11658,
+          1550,
+          1.4,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11675,
+          1550,
+          1,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11692,
+          1550,
+          1.9,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11708,
+          1550,
+          2.2,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11724,
+          1550,
+          2.7,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11741,
+          1550,
+          2.6,
+          "",
+          "all",
+          -827.4
+        ],
+        [
+          11812,
+          1550,
+          null,
+          null,
+          null,
+          -827.4
+        ],
+        [
+          11849,
+          "scroll 50"
+        ],
+        [
+          11853,
+          1600,
+          null,
+          null,
+          null,
+          -877.4
+        ],
+        [
+          12378,
+          "scroll 50"
+        ],
+        [
+          12397,
+          1650,
+          null,
+          null,
+          null,
+          -927.4
+        ],
+        [
+          12839,
+          "scroll 50"
+        ],
+        [
+          12848,
+          1700,
+          null,
+          null,
+          null,
+          -977.4
+        ],
+        [
+          13261,
+          "scroll 50"
+        ],
+        [
+          13277,
+          1750,
+          null,
+          null,
+          null,
+          -1027.4
+        ],
+        [
+          13625,
+          "scroll 50"
+        ],
+        [
+          13642,
+          1800,
+          null,
+          null,
+          null,
+          -1077.4
+        ],
+        [
+          13943,
+          "scroll 50"
+        ],
+        [
+          13973,
+          1850,
+          null,
+          null,
+          null,
+          -1127.4
+        ],
+        [
+          14285,
+          "scroll 50"
+        ],
+        [
+          14293,
+          1900,
+          null,
+          null,
+          null,
+          -1177.4
+        ],
+        [
+          14643,
+          "scroll 50"
+        ],
+        [
+          14660,
+          1950,
+          null,
+          null,
+          null,
+          -1227.4
+        ],
+        [
+          15123,
+          "scroll 50"
+        ],
+        [
+          15128,
+          2000,
+          null,
+          null,
+          null,
+          -1277.4
+        ]
+      ]
+    },
+    "F1 back": {
+      "columns": [
+        "ms",
+        "frame scroll",
+        "panel top",
+        "panel style",
+        "panel transition",
+        "section top"
+      ],
+      "seen": [
+        [
+          13,
+          2000,
+          null,
+          null,
+          null,
+          -1277.4
+        ],
+        [
+          71,
+          "scroll -50"
+        ],
+        [
+          110,
+          1950,
+          null,
+          null,
+          null,
+          -1227.4
+        ],
+        [
+          430,
+          "scroll -50"
+        ],
+        [
+          448,
+          1900,
+          null,
+          null,
+          null,
+          -1177.4
+        ],
+        [
+          1002,
+          "scroll -50"
+        ],
+        [
+          1016,
+          1850,
+          null,
+          null,
+          null,
+          -1127.4
+        ],
+        [
+          1350,
+          "scroll -50"
+        ],
+        [
+          1370,
+          1800,
+          null,
+          null,
+          null,
+          -1077.4
+        ],
+        [
+          1734,
+          "scroll -50"
+        ],
+        [
+          1750,
+          1750,
+          null,
+          null,
+          null,
+          -1027.4
+        ],
+        [
+          2099,
+          "scroll -50"
+        ],
+        [
+          2109,
+          1700,
+          null,
+          null,
+          null,
+          -977.4
+        ],
+        [
+          3094,
+          "scroll -50"
+        ],
+        [
+          3102,
+          1650,
+          null,
+          null,
+          null,
+          -927.4
+        ],
+        [
+          3440,
+          "scroll -50"
+        ],
+        [
+          3449,
+          1600,
+          null,
+          null,
+          null,
+          -877.4
+        ],
+        [
+          3754,
+          "scroll -50"
+        ],
+        [
+          3764,
+          1550,
+          null,
+          null,
+          null,
+          -827.4
+        ],
+        [
+          4086,
+          "scroll -50"
+        ],
+        [
+          4100,
+          1500,
+          null,
+          null,
+          null,
+          -777.4
+        ]
+      ]
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Across the walks F1, F2, G1, G2 (CAP-U9DOUBLE-*), CAP-U9PLUS24 A and B and CAP-U9OPENWALK A and B, every frame logged: a push doubles only when the panel's move shows a frame or more after the frame's scroll (more than 18 ms). 17 pushes doubled, all late; 123 pushes moved in the frame after the scroll and none doubled; 10 late pushes were exact. Places: F 488 doubled 4 of 5 (CAP-U9DEMO F, PLUS24 A and B, F1; not F2), G 468 in G1 and G2 but not CAP-U9DEMO G, G 228 only in CAP-U9DEMO; on the open walk 896 up, 946 and 1096 down doubled in both runs, 846, 746 and 1346 in one. So a place makes it likely and the trigger is timing: inferred, a race in the oracle's page between the scroll and the panel's update. Not built: when the update lands a frame late isn't set by the page's state, so ours keeps the frozen rule, its update in the scroll's frame."
+}
