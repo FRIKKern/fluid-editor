@@ -1,0 +1,1504 @@
+{
+  "item": "CAP-A2CORPUS1STEPS",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "startedAt": "2026-11-09T21:50:31.357Z",
+  "engine": "chrome",
+  "question": "A2: CAP-A2CORPUS1 again with a read after each phone step, to see which step puts z2 before z1 in the page and why z1 did not move. Corpus section 65b0bd7f (A2-CORPUS.json), one of the 5 whose rules have a pair out of phone order that shares no phone row, rebuilt here with three Shapes by adds, desktop moves and resizes, then phone moves and resizes. Its saved desktop areas 3/1/21/17, 5/3/22/14, 7/12/20/24 (z 1 to 3), phone 2/1/12/9, 4/2/15/10, 14/2/31/10, rules in z order 3, 2, 1. Column 1 (the bleed) is taken as column 2, and z1 stays 6 rows high on the phone, not 10 (its handle sits under z2). Read: the DOM order after the desktop build and after the phone build. Each case built twice, the second with \" again\". No Meta+c, x or v.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      83
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      530,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      60,
+      165
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      295,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      206
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      589,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      354,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      289
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "s0 desktop built",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1 z3 down a row",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "s",
+      0,
+      211
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2 z3 6 taller",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "s",
+      0,
+      176
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3 z3 5 taller",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4 z2 up 3",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      176
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s5 z2 5 taller",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s6 first block down a row",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "s7 back on desktop",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      83
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      530,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      60,
+      165
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      295,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      206
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      589,
+      248
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      354,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      289
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "s0 desktop built again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1 z3 down a row again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "s",
+      0,
+      211
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2 z3 6 taller again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "drag",
+      0,
+      2,
+      "s",
+      0,
+      176
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3 z3 5 taller again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4 z2 up 3 again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      176
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s5 z2 5 taller again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s6 first block down a row again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "read",
+      "s7 back on desktop again",
+      {
+        "stack": 0
+      }
+    ]
+  ],
+  "reads": {
+    "s0 desktop built": {
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1 z3 down a row": {
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2 z3 6 taller": {
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/26/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3 z3 5 taller": {
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4 z2 up 3": {
+      "stack": [
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s5 z2 5 taller": {
+      "stack": [
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s6 first block down a row": {
+      "stack": [
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "15/2/32/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s7 back on desktop": {
+      "stack": [
+        {
+          "id": "0_694",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "0_438",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "0_970",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "15/2/32/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s0 desktop built again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1 z3 down a row again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2 z3 6 taller again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/26/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3 z3 5 taller again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4 z2 up 3 again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s5 z2 5 taller again": {
+      "stack": [
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "14/2/31/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s6 first block down a row again": {
+      "stack": [
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "15/2/32/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s7 back on desktop again": {
+      "stack": [
+        {
+          "id": "4_676",
+          "type": "csr",
+          "desktop": "5/3/22/14",
+          "phone": "4/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/21/17",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_952",
+          "type": "csr",
+          "desktop": "7/12/20/24",
+          "phone": "15/2/32/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
