@@ -429,7 +429,7 @@ function videoPlayerHtml(b) {
 function blockInner(b, model) {
   switch (b.type) {
     case 'text':
-      return `<div class="sqs-block html-block sqs-block-html${b.design?.background ? ' sqs-background-enabled' : ''}" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
+      return `<div class="sqs-block html-block sqs-block-html${(liveView ? designFor(b, liveView) : b.design || {}).background ? ' sqs-background-enabled' : ''}" data-block-type="2" id="block-${b.id}"><div class="sqs-block-content"><div class="sqs-html-content">${b.html}</div></div></div>`;
     case 'button':
       // Button style (parity/findings/BUTTONSTYLE.json): Primary is medium, Secondary large,
       // Tertiary small; the oracle writes both on the container and the link.
@@ -583,14 +583,27 @@ export const shapeFill = (b, bp) => (bp === 'mobile' && phoneOwn(b, 'color') ? b
 let liveView = null;
 export const setLiveView = (bp) => { liveView = bp; };
 const isMoved = (d) => d.tx || d.ty || d.rotate || d.sx !== 100 || d.sy !== 100 || d.kx || d.ky;
-export function liveStyle(b, bp) {
-  const d = designFor(b, bp), block = [], inner = [];
-  // Once a transform value is set, the block's attribute holds every variable (CAP-T15WHERE-A.json, text opacity 50).
-  const edited = (g) => !!g && ['opacity', 'tx', 'ty', 'rotate', 'sx', 'sy', 'kx', 'ky', 'ox', 'oy'].some((k) => k in g);
-  if ((bp === 'mobile' && b.designMobile) || edited(b.design)) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
+// The editor's rule keeps the values the block had when first drawn (loaded or added) until a phone edit, which
+// rewrites it at desktop's; desktop edits leave it (CAP-T15WHERE-A.json, -B, -C). ruleForget is the editor's, on load.
+const VARS = ['opacity', 'tx', 'ty', 'rotate', 'sx', 'sy', 'kx', 'ky', 'ox', 'oy'];
+const ruleAt = new Map();
+export const ruleForget = () => ruleAt.clear();
+function ruleValues(b) {
+  const phone = JSON.stringify(b.designMobile || null), now = designFor(b, 'desktop'), at = ruleAt.get(b.id);
+  if (at && at.phone === phone) return at.d;
+  ruleAt.set(b.id, { d: now, phone });
+  return now;
+}
+export function liveStyle(b, bp, rule = null) {
+  const d = designFor(b, bp), block = [], inner = [], desk = designFor(b, 'desktop');
+  // Once a transform value is set, the block's attribute holds every variable (CAP-T15WHERE-A.json, text opacity 50),
+  // and so it does while the rule holds other values than desktop's, so the block draws its own.
+  const edited = (g) => !!g && VARS.some((k) => k in g);
+  if ((bp === 'mobile' && b.designMobile) || edited(b.design) || (rule && VARS.some((k) => rule[k] !== desk[k]))) block.push(`--block-transform: ${isMoved(d) ? TRANSFORM : 'none'}`, `--opacity: ${d.opacity}%`, `--translate-x: ${d.tx}px`, `--translate-y: ${d.ty}px`, `--rotation: ${d.rotate}deg`, `--scale-x: ${d.sx}%`, `--scale-y: ${d.sy}%`, `--skew-x: ${d.kx}deg`, `--skew-y: ${d.ky}deg`, `--origin-x: ${d.ox}%`, `--origin-y: ${d.oy}%`);
   // A Shape's blur is on its contents, a Text's on the block (CAP-T15BLUR.json).
   if (d.blur) (b.type === 'shape' ? inner : block).push(`${b.type !== 'shape' && d.blurKind !== 'element' ? 'backdrop-filter' : 'filter'}: blur(${d.blurPx ?? 15}px)`);
-  if (d.background) inner.push(`background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}`);
+  // A Text's Background on is a class on its box, its white from site.css; a picked color is in the attribute (CAP-T15WHERE-A.json, -B).
+  if (d.background && (b.type !== 'text' || d.bgColor || d.bgClear)) inner.push(`background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}`);
   // A Text's Stroke and Corner are on its box's attribute too (CAP-T15WHERE-A.json, text stroke, text corner 12); its padding is not.
   if (b.type === 'text' && (d.stroke || d.background)) {
     if (d.stroke) inner.push(`border: ${d.strokeSize === 'custom' ? d.strokePx ?? 2 : STROKE_PX[d.strokeSize || 'S']}px ${d.stroke} ${d.strokeColor || 'rgb(0, 0, 0)'}`);
@@ -627,8 +640,8 @@ function designRule(b, d, phone, live = false) {
     }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
-export function designCss(b, live = false) {
-  const base = designRule(b, designFor(b, 'desktop'), false, live);
+export function designCss(b, live = false, rule = null) {
+  const base = designRule(b, rule || designFor(b, 'desktop'), false, live);
   if (live) { const phone = b.designMobile ? designRule(b, designFor(b, 'mobile'), true, true) : ''; return phone ? `${base}\n    @media (max-width: 767px) {${phone}}\n  ` : base; }
   return b.designMobile ? `${base}\n    @media (max-width: 767px) {${designRule(b, designFor(b, 'mobile'), true)}}\n  ` : base;
 }
@@ -729,8 +742,8 @@ function kidDesign(b, c) {
 
 export function renderBlock(b, model) {
   const blend = blendCss(b, !!liveView);
-  const designed = b.design || b.designMobile, live = liveView && designed ? liveStyle(b, liveView) : null;
-  const design = (designed ? `<style class="transform-vars">${designCss(b, !!liveView)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
+  const designed = b.design || b.designMobile, rule = liveView ? ruleValues(b) : null, live = rule && designed ? liveStyle(b, liveView, rule) : null;
+  const design = (designed ? `<style class="transform-vars">${designCss(b, !!liveView, rule)}</style>` : '') + (blend ? `<style class="fe-blend">${blend}</style>` : '');
   // A block with animations says so on its .sqs-block (ANIMFLOW.json).
   let inner = b.animations?.length ? blockInner(b, model).replace('<div class="sqs-block ', '<div data-has-block-animations="" class="sqs-block ') : blockInner(b, model);
   if (live?.inner) inner = inner.replace(/^<div /, `<div style="${live.inner}" `);

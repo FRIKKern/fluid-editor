@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -7297,6 +7297,7 @@ function frameBarKeys() {
 $('reset').addEventListener('click', () => {
   const before = JSON.stringify(model);
   model = demoModel();
+  ruleForget();
   sel = null;
   renderAll();
   commit(before, 'Reset to the demo page');
@@ -7443,6 +7444,7 @@ function boot() {
     get canUndo() { return undoStack.length > 0; },
     load(next) {
       model = JSON.parse(JSON.stringify(next));
+      ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;

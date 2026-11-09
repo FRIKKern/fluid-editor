@@ -1727,6 +1727,44 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts, a list- or quote-first Text with a heading or a paragraph: tags and alignment as read (${n} picks)`, errs.length === 0 && n === 48, errs.slice(0, 3).join(' | '));
   }
+  // Walks with every layout right after every other once (CAP-U10WALK-W1A.json to W5B, each read twice alike): the
+  // full-width heading turns where the read's does, at every pick; the heading alone's areas and rows as read; and on the
+  // lists with a step built, each pick's change from that layout's first visit, as read (the set places come from
+  // CAP-VIEWLAYOUTS.json's words, so only the change compares). Not built, left out: h1p2b1's 2 and 3, h1p1i1b1's steps.
+  // h1p2's 3 after 0: the rows left out only, as ours' paragraphs there end a row lower than these words' (the set places).
+  {
+    const errs = [], H = '<h2>Heading words for a probe</h2>', P = '<p>Paragraph words for a probe</p>', P2 = '<p>Second paragraph words</p>';
+    const WALKS = { W1: [H, P, 'Button'], W2: [H, P, P2, 'Button'], W3: [H, P, P2], W4: [H], W5: [H, P, 'Image', 'Button'] };
+    const skip = { W2: [2, 3], W5: 'steps' };
+    let n = 0;
+    const A = (v) => v.split('/').map(Number), order = (as) => as.map(A).sort((x, y) => x[1] - y[1] || x[0] - y[0]);
+    for (const [w, parts] of Object.entries(WALKS)) {
+      const R = JSON.parse(readFileSync(new URL(`../parity/findings/CAP-U10WALK-${w}A.json`, import.meta.url))).reads;
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0], made = {}; for (const t of ['Text', 'Button', 'Image']) { fe.addBlock(s.id, t); made[t] = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === t.toLowerCase()))); } const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = ${JSON.stringify(parts)}.map((p, i) => ({ ...JSON.parse(JSON.stringify(made[p.startsWith('<') ? 'Text' : p])), ...(p.startsWith('<') && { html: p }), id: 'w' + i + 'aaaaaaaaaaaaaaaaaaaaaa' })); fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${w} button`); continue; }
+      await realClick(btn.x, btn.y);
+      const first = {};
+      for (const [label, r] of Object.entries(R).filter(([k]) => / layout \d$/.test(k))) {
+        const pk = +label.split(' ').pop();
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${pk}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks.map((x) => x.layout.desktop.area.join('/')), s.blocks.some((x) => x.type === 'scrolling')]); })()`);
+        n++;
+        const turns = r.aligns.some((x) => /marquee/.test(JSON.stringify(x[2]?.kinds || '')));
+        if (g[2] !== turns) errs.push(`${w} ${label} turns ours ${g[2]} read ${turns}`);
+        const read = [r.look.rows, r.areas.map((x) => x[0])];
+        if (w === 'W4') { if (JSON.stringify([g[0], order(g[1])]) !== JSON.stringify([read[0], order(read[1])])) errs.push(`${w} ${label} ours ${JSON.stringify(g.slice(0, 2))} read ${JSON.stringify(read)}`); continue; }
+        if (skip[w] === 'steps' || skip[w]?.includes(pk)) continue;
+        if (!first[pk]) { first[pk] = [g, read]; continue; }
+        const d = (now, was) => [w === 'W3' && pk === 3 ? 'rows' : now[0] - was[0], ...order(now[1]).flatMap((a, i) => [a[0] - order(was[1])[i][0], a[2] - order(was[1])[i][2]])].join();
+        const ours = d(g, first[pk][0]), theirs = d(read, first[pk][1]);
+        if (ours !== theirs) errs.push(`${w} ${label} change ours ${ours} read ${theirs}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts, five walks: turns, the heading alone and the built steps as read (${n} picks)`, errs.length === 0 && n === 219, errs.slice(0, 4).join(' | '));
+  }
   // Rule E (CAP-U10ENDSPREDICT.json): a list- or quote-first Text with one other Text in the heading list, every pick
   // in the order read, both blocks' desktop areas and the rows (CAP-U10LF-*A.json seen, CAP-U10ENDS-*A.json predicted;
   // their B reads agree). Left out, named misses: the quote as heading at layouts 2 and 5 in QP and EPQ.
@@ -1826,7 +1864,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('a pick drops the Shape and the empty text', P1.n === 3, String(P1.n));
   add('a pick sets the rows', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
   pick(0); await pause(150);
-  add('the next pick from there', rows() === VL.mixes.h1p1b1.layouts[0].rows, String(rows()));
+  // Layout 0 after 2 is a row longer than its first read (CAP-U10WALK-W1A.json and W1B: the heading list's step).
+  add('the next pick from there', rows() === VL.mixes.h1p1b1.layouts[0].rows + 1, String(rows()));
   evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
   add('one undo goes back one pick', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
   evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
@@ -2942,6 +2981,17 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     for (const k of ['#undo', '#redo', '#undo', '#undo']) { await press(k); at(); }
     const want = Object.values(A).map((r) => `${r.look.rows} ${r.areas[0][0]}`), again = Object.values(B).map((r) => `${r.look.rows} ${r.areas[0][0]}`);
     add('Layouts: the step on Undo with the panel closed, as CAP-U10UNDOCLOSED read twice', closed === true && want.join() === again.join() && got.join() === want.join(), `${closed} ${got} want ${want}`);
+  }
+  // Undo onto the start from 3, 4 and 5 keeps it; from 1 the text ends a row higher (CAP-U10WALK-UNDOA.json, read again in B alike).
+  {
+    const A = read('CAP-U10WALK-UNDOA'), B = read('CAP-U10WALK-UNDOB'), got = [];
+    const at = () => got.push(`${now().rows} ${js(`return JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area.join('/'));`)}`);
+    await setup(); js(`const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks[0].layout.desktop.area = [1, 2, 3, 10]; fe.load(m); return 'true';`); await pause(300);
+    await open();
+    for (const n of [3, 4, 5, 1]) { await pick(n); at(); await press('#undo'); at(); }
+    await esc();
+    const rows = (R) => Object.entries(R).filter(([k]) => /pick|undo from/.test(k)).map(([, r]) => `${r.look.rows} ${r.areas[0][0]}`);
+    add('Layouts: Undo onto the start from 3, 4, 5 and 1, as CAP-U10WALK-UNDO read twice', rows(A).join() === rows(B).join() && got.join() === rows(A).join(), `${got} want ${rows(A)}`);
   }
   await setup(); await open(); await pick(0); await key('Meta+z');
   add('Mark: goes with Undo by keyboard', mark() === '', mark());
