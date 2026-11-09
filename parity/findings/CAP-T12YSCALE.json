@@ -2,7 +2,7 @@
  "item": "T12",
  "capturedAt": "2026-11-09",
  "question": "The value axis of a Chart (where it starts, ends and steps), read to score the rule in CAP-T12YSCALE-PREDICTED.json.",
- "how": "Six runs on Blocks Probe, two per set (CAP-T12YSCALE-A1.json to C2.json): a new Chart, the three Population values typed, then a shot as a Bar Chart, as a Line Chart and as a flipped Bar Chart. The chart has no readable markup (htmlOf found nothing), so the tick labels were read by eye from the shots. Both reads of each set agree. Nothing saved: each run left by Exit, then the dialog Exit, and read back 0 sections.",
+ "how": "Six runs on Blocks Probe, two per set (CAP-T12YSCALE-A1.json to C2.json): a new Chart, the three Population values typed, then a shot as a Bar Chart, as a Line Chart and as a flipped Bar Chart. The chart has no readable markup (htmlOf found nothing), so the tick labels were read by eye from the shots. Both reads of each set agree. Nothing saved: each run left by Exit, then the dialog Exit, and read back 0 sections. Refit 1 sets D, E and F: six more runs the same way (CAP-T12YSCALE-D1.json to F2.json), both reads agree.",
  "reads": {
   "A": {
    "values": [
@@ -72,6 +72,77 @@
     "step": 400
    },
    "barLabels": "tilted"
+  },
+  "D": {
+   "values": [
+    130,
+    170,
+    160
+   ],
+   "bar": {
+    "from": 0,
+    "to": 160,
+    "step": 40,
+    "note": "the 170 bar rises past the 160 line, the axis top"
+   },
+   "line": {
+    "from": 130,
+    "to": 170,
+    "step": 10
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 160,
+    "step": 40,
+    "note": "as the Bar"
+   },
+   "barLabels": "flat"
+  },
+  "E": {
+   "values": [
+    3,
+    9,
+    6
+   ],
+   "bar": {
+    "from": 0,
+    "to": 10,
+    "step": 2
+   },
+   "line": {
+    "from": 3,
+    "to": 9,
+    "step": 1
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 10,
+    "step": 2
+   },
+   "barLabels": "flat"
+  },
+  "F": {
+   "values": [
+    250,
+    640,
+    410
+   ],
+   "bar": {
+    "from": 0,
+    "to": 800,
+    "step": 200
+   },
+   "line": {
+    "from": 200,
+    "to": 700,
+    "step": 100
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 700,
+    "step": 100
+   },
+   "barLabels": "tilted"
   }
  },
  "round1": {
@@ -86,6 +157,20 @@
    "C line": "miss: predicted 1200 to 1900 by 200",
    "C bar": "miss: predicted 0 to 2000 by 500",
    "C flippedBar": "miss: predicted 0 to 2000 by 500"
+  }
+ },
+ "refit1": {
+  "score": "6 of 9",
+  "charts": {
+   "D line": "hit",
+   "D bar": "miss: predicted 0 to 200 by 40",
+   "D flippedBar": "miss: predicted 0 to 200 by 40",
+   "E line": "hit",
+   "E bar": "hit",
+   "E flippedBar": "hit",
+   "F line": "hit",
+   "F bar": "miss: predicted 0 to 700 by 100",
+   "F flippedBar": "hit"
   }
  }
 }
