@@ -1569,14 +1569,15 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const roles = [...key.matchAll(/([hpib])(\d)/g)].flatMap(([, r, n]) => Array.from({ length: +n }, (_, k) => r + k));
     const errs = [];
     mix.layouts.forEach((L, n) => {
-      const g = evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'), li = document.querySelectorAll('.lo-list li')[${n}].getBoundingClientRect(); return JSON.stringify({ rows: s.rows, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.height, s.divider ? s.dividerShape : ''], b: s.blocks.map((x) => [x.id.slice(0, 2), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.html ? x.html.slice(1, 3) : '']), tile: li.height, x: li.left }); })()`);
+      const g = evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'), li = document.querySelectorAll('.lo-list li')[${n}].getBoundingClientRect(); return JSON.stringify({ rows: s.rows, h: sec.getBoundingClientRect().height, look: [s.theme || '', s.height, s.divider ? s.dividerShape : ''], b: s.blocks.map((x) => [x.id.slice(0, 2), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.html ? x.html.slice(1, 3) : x.type]), tile: li.height, x: li.left }); })()`);
       if (!g) { errs.push(`${n} no tile`); return; }
       if (g.rows.desktop !== L.rows || g.rows.mobile !== L.phoneRows) errs.push(`${n} rows ${g.rows.desktop},${g.rows.mobile}`);
       if (Math.abs(g.h - L.h) > 2) errs.push(`${n} height ${g.h}`);
       const st = L.style || {};
       if (g.look.join() !== [st.theme || '', st.height || 'medium', st.divider || ''].join()) errs.push(`${n} look ${g.look}`);
       if (Math.abs(g.tile - TH[key][n]) > 1 || Math.abs(g.x - mix.listX) > 1) errs.push(`${n} tile ${g.tile},${g.x}`);
-      for (const r of roles) { const x = g.b.find((v) => v[0] === r), w = L.places[r]; if (!x || x[1] !== w[0] || x[2] !== w[1] || (r[0] === 'h' && x[3] !== L.tag)) errs.push(`${n} ${r} ${x}`); }
+      // A heading the layout makes a Scrolling block reads h1 here: the oracle's items are H1 (CAP-U10TEXTMIX-A2.json).
+      for (const r of roles) { const x = g.b.find((v) => v[0] === r), w = L.places[r]; if (!x || x[1] !== w[0] || x[2] !== w[1] || (r[0] === 'h' && x[3] !== L.tag && !(x[3] === 'scrolling' && L.tag === 'h1'))) errs.push(`${n} ${r} ${x}`); }
     });
     add(`View Layouts ${key}: ${mix.layouts.length} picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
