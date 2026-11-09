@@ -2771,14 +2771,22 @@ function refitStandin(b, change) {
   const x = contentRows(b, formPitch(b), false, false, true), up = Math.max(1, Math.ceil(x - 0.02));
   setFormRows(b, S(sel.sid), x > x0 ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
 }
-let quoteBefore = null;
+let quoteBefore = null, standinIdle = 0;
 blockPanel.addEventListener('input', (e) => {
   const t = e.target.closest(STANDIN_FIELDS);
   if (!t || !sel) return;
   const b = B(sel.sid, sel.bid);
   quoteBefore ??= JSON.stringify(model);
   refitStandin(b, () => { b[t.dataset.content] = t.isContentEditable ? cleanMessage(t) : t.value; });
+  // A pause in typing ends an undo step: the text so far is one step, what is typed after it the next (CAP-T12NLREADS1.json,
+  // CAP-T12NLREADS2.json, CAP-T12NLGAP.json, Newsletter's Title and Button Text: keys 500 or 700 ms apart are one step, 1000 or
+  // 1300 ms apart two; emptying the field does not split it). 850 ms, between the reads, is inferred, as is Form Name; the
+  // rich text boxes and Quote were not read.
+  clearTimeout(standinIdle);
+  if (b.standin === 'newsletter' && t.tagName === 'INPUT') standinIdle = setTimeout(() => { if (quoteBefore == null || document.activeElement !== t) return; const before = quoteBefore; quoteBefore = null; t.dataset.idled = '1'; commit(before, 'Newsletter changed'); }, 850);
 });
+// After such a step the field may be left with the text it had when it was entered, which fires no change: the rest commits here.
+blockPanel.addEventListener('focusout', (e) => { const t = e.target; if (!t.dataset?.idled) return; delete t.dataset.idled; clearTimeout(standinIdle); if (quoteBefore != null) t.dispatchEvent(new Event('change', { bubbles: true })); });
 let standinFlush = null, panelPress = false;
 blockPanel.addEventListener('pointerdown', () => { panelPress = true; }, true);
 window.addEventListener('pointerup', () => { panelPress = false; }, true);
