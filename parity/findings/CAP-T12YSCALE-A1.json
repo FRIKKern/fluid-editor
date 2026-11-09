@@ -1,0 +1,129 @@
+{
+  "item": "CAP-T12YSCALE-A1",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Chart value axis, set A (420, 480, 455): Bar, Line, flipped Bar; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "fillValue",
+      "150",
+      "420"
+    ],
+    [
+      "fillValue",
+      "250",
+      "480"
+    ],
+    [
+      "fillValue",
+      "150",
+      "455"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "barA",
+      {
+        "htmlOf": "[class*=chart]"
+      }
+    ],
+    [
+      "shot",
+      "barA"
+    ],
+    [
+      "selectKey",
+      "Bar Chart",
+      "L"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "lineA"
+    ],
+    [
+      "selectKey",
+      "Line Chart",
+      "B"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "flipA"
+    ]
+  ],
+  "reads": {
+    "barA": {
+      "htmlOf": "",
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ],
+  "readBack": {
+    "before": {
+      "/blocks-probe": {
+        "path": "/blocks-probe",
+        "sections": 0,
+        "blocks": 0
+      }
+    },
+    "after": null,
+    "same": false
+  }
+}

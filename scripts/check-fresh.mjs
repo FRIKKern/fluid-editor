@@ -13,7 +13,10 @@ import { execFileSync } from 'node:child_process';
 const DIR = new URL('../parity/findings/', import.meta.url);
 
 // Findings from before this check (2026-11-09). They stay as they are; nothing new joins this list.
+// One exception, the lead's ruling: CAP-T12YSCALE, its three rounds read on a branch cut before this check, each one's
+// predictions pushed before its first shot (UTC): fb887ed 15:41 against 15:44, a9f12f8 15:59 against 16:01, 249574d 16:15 against 16:16.
 const GRANDFATHERED = new Set(`
+CAP-T12YSCALE
 CAP-79ONTOP CAP-82UNDO CAP-93HR CAP-98 CAP-98SPLIT CAP-A2DELETE CAP-A2FRESH CAP-A2STOPNEW CAP-A2TYPEDNEW CAP-E4ENTER
 CAP-E4FRESH CAP-E4REOPEN2 CAP-E4REOPEN3 CAP-E4SCORE CAP-E5HEAD2 CAP-E5WHERE CAP-E5WHERE2 CAP-E7BOX CAP-E7REOPEN3
 CAP-E7REOPEN4 CAP-E7SCORE CAP-ESC2 CAP-P3ALIGN2 CAP-P3ALIGN3 CAP-P3ALIGN4 CAP-P3FRAME CAP-P3PREDICT CAP-P3PREDICT2

@@ -268,6 +268,15 @@ export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink
 // under the picture and the caption 15 under that. The picture is our own drawing of the data, in the palette's colours
 // (the oracle draws on a canvas, so its marks aren't read; a flipped chart's bars take the palette in row order, read with
 // three series in CAP-T12CHARTSERIES.json flip3).
+const NICE_STEPS = [1, 2, 4, 5, 8];
+function lineAxis(vals) {
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  if (!(hi > lo)) { const t = Math.max(1, hi), s = 10 ** Math.floor(Math.log10(t)); return [0, (Math.floor(t / s) + 1) * s, s]; }
+  const u = 10 ** Math.floor(Math.log10(hi - lo)), on = (v, s) => Math.abs(v / s - Math.round(v / s)) < 1e-6;
+  const nice = (s) => { const e = 10 ** Math.floor(Math.log10(s) + 1e-9); return NICE_STEPS.includes(+(s / e).toFixed(6)); };
+  const from = Math.floor(lo / u) * u;
+  for (let to = Math.ceil(hi / u) * u; ; to += u) for (let n = 7; n >= 1; n--) { const s = (to - from) / n; if (nice(s) && on(from, s) && on(to, s)) return [from, to, s]; }
+}
 function chartHtml(b) {
   // A series added from the + (CAP-T12CHARTCELLS3.json) is drawn beside the first: bars side by side in each label's band, a
   // line each, a legend item each, in the palette's order (the oracle's canvas marks aren't read; inferred from its picture).
@@ -280,8 +289,13 @@ function chartHtml(b) {
   // A Line Chart's plot is its own box, wider and taller than a Bar's, its points on the band lines: the first on the axis, the
   // last on the right edge (CAP-T12LINECHART.json line1 and line3 shots, by pixel: 352 by 184 from 48.5, 16.5 in the picture).
   const line = c.type === 'Line Chart', [L, R, T, B] = line ? [48.5, 400.5, 16.5, 200.5] : [80, 450.5, 16, 184];
-  const y = (v) => B - ((B - T) * v) / top, band = (R - L) / Math.max(1, groups.length), px = (n) => (groups.length > 1 ? L + ((R - L) * n) / (groups.length - 1) : (L + R) / 2);
-  const ticks = Array.from({ length: Math.round(top / step) + 1 }, (_, n) => n * step);
+  // A Line Chart's value axis (CAP-T12YSCALE.json, the rule in CAP-T12YSCALE-REFIT2-PREDICTED.json, frozen at 5 of 9; its line
+  // part predicted 6 of 6 unseen lines): start and end on multiples of u, the power of 10 under the values' range, and the most
+  // even split into at most 7 steps of 1, 2, 4, 5 or 8 times a power of 10 that both ends sit on, the end moving up by u until
+  // one works. Bars keep ours: the frozen rule missed D, H and I and the older bar3 there.
+  const [base, end, by] = line ? lineAxis(all.flat()) : [0, top, step];
+  const y = (v) => B - ((B - T) * (v - base)) / (end - base), band = (R - L) / Math.max(1, groups.length), px = (n) => (groups.length > 1 ? L + ((R - L) * n) / (groups.length - 1) : (L + R) / 2);
+  const ticks = Array.from({ length: Math.round((end - base) / by) + 1 }, (_, n) => +(base + n * by).toPrecision(12));
   // A Bar Chart's lines (CAP-T12CHARTCELLS3.json headplus shot, CAP-T12CHARTCELLS.json P1 shot, by pixel): a faint grid at each
   // value and each band's edge, from 3 above the top value down to the baseline; the axis, the baseline and 5px ticks past them
   // twice as dark. The right edge's line is under the dialog in both shots (inferred).
@@ -289,7 +303,7 @@ function chartHtml(b) {
   // A Line Chart has the same lines, with an upright one at each point after the first (CAP-T12LINECHART.json, by pixel).
   const edges = line ? groups.slice(1).map((_, n) => px(n + 1)) : groups.map((_, n) => L + band * (n + 1));
   const lines = ln(`M${L - 5} ${B}H${R}`, 'axis') + ln(`M${L} ${up}V${B + 4}`, 'axis')
-      + ticks.filter((t) => t > 0).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
+      + ticks.filter((t) => t > base).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
       + edges.map((x) => { return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
   const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${line ? px(n) : L + band * (n + 0.5)}" y="${B + (line ? 19 : 24)}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (k) => pal[k % pal.length];
