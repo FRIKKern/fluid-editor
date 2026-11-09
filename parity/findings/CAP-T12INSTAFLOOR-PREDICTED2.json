@@ -1,0 +1,83 @@
+{
+ "item": "T12",
+ "kind": "predictions",
+ "capturedAt": "2026-11-09",
+ "note": "Refit 1 of the floor rule, pushed before the read. Round 1 (CAP-T12INSTAFLOOR-1.json): FLOOR 3 of 5, ROUND 3 of 5, ours 0 of 5. Same setup as round 1: a new Instagram (12 rows, content 359.4 at 1:1), rows changed first as named, then Edit, Design and one pick (a key on the focused select; 2.40 set by script). Rows are the area end minus 1. If the rows before the pick read other than planned, each rule is scored from the rows read. drop is the content lost, in rows of 41.094.",
+ "rules": {
+  "DROP": "The refit. A pick that shrinks the content: max(fit, rows - 1 - ceil(drop)). A pick that grows it fits the content. No mark: it holds for every pick, new or not, after keys or a pull. Seen: 25 of 25 (CAP-T12INSTAASPECT-A to -F every pick, CAP-T12READS-J, CAP-T12INSTAFLOOR-1).",
+  "FLOOR": "Round 1 rule, frozen form, for comparison.",
+  "ROUND": "For comparison."
+ },
+ "runs": [
+  {
+   "run": "Q1",
+   "before": "Cmd+Down four times",
+   "rows": 16,
+   "pick": "4:3 Four-Three",
+   "content": 284.6,
+   "fit": 8,
+   "drop": 1.82,
+   "predict": {
+    "DROP": 13,
+    "FLOOR": 12,
+    "ROUND": 13
+   }
+  },
+  {
+   "run": "Q2",
+   "before": "Cmd+Down once",
+   "rows": 13,
+   "pick": "2.40 Anamorphic Widescreen",
+   "content": 184.7,
+   "fit": 5,
+   "drop": 4.25,
+   "predict": {
+    "DROP": 7,
+    "FLOOR": 6,
+    "ROUND": 7
+   }
+  },
+  {
+   "run": "Q3",
+   "before": "a pull down of 123 px on the bottom handle",
+   "rows": 15,
+   "pick": "16:9 Widescreen",
+   "content": 228.4,
+   "fit": 6,
+   "drop": 3.19,
+   "predict": {
+    "DROP": 10,
+    "FLOOR": 9,
+    "ROUND": 10
+   }
+  },
+  {
+   "run": "Q4",
+   "before": "Cmd+Down five times",
+   "rows": 17,
+   "pick": "3:2 Standard",
+   "content": 259.6,
+   "fit": 7,
+   "drop": 2.43,
+   "predict": {
+    "DROP": 13,
+    "FLOOR": 12,
+    "ROUND": 12
+   }
+  },
+  {
+   "run": "Q5",
+   "before": "Cmd+Down six times",
+   "rows": 18,
+   "pick": "2.40 Anamorphic Widescreen",
+   "content": 184.7,
+   "fit": 5,
+   "drop": 4.25,
+   "predict": {
+    "DROP": 12,
+    "FLOOR": 9,
+    "ROUND": 9
+   }
+  }
+ ]
+}
