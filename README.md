@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 54 changes
+- **Today** · 55 changes
+  - X6: what sets 9 or 10 rows: the release, varying run to run (CAP-X6NINETEN) ([#535](https://github.com/FRIKKern/fluid-editor/pull/535))
   - R2: the one-row shrink after a drag is explained by A2's rule B1 (#527) ([#534](https://github.com/FRIKKern/fluid-editor/pull/534))
-  - X6: a trailing Instagram pull never catches up (CAP-X6TRAILWHY) ([#530](https://github.com/FRIKKern/fluid-editor/pull/530))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
