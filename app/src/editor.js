@@ -1507,7 +1507,8 @@ function updateResize(e) {
   } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) {
     // A Summary takes the rows of its content's height before the pull, at the width it was pressed at, so it widens into
     // the rows of its narrower content (CAP-X6SUMMARYWALK.json: P, 9 of 11 predicted, the 2 misses pulls that moved nothing).
-    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen).
+    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen;
+    // CAP-X6SUMMARYFAR.json 2 of 3 fresh, frozen: from 22 columns it reached the floor late and kept the pressed width's, inferred).
     const [, o0, , o1] = g.orig;
     const past = held.label === 'Summary' && (g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols);
     const cols = held.label === 'Summary' && !past ? o1 - o0 : c1 - c0;

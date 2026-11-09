@@ -366,12 +366,14 @@
     "dialog Exit"
   ],
   "answer": "A new Summary, 530 high at 18 columns, 11 rows. A: pulled 1200 px in from the east, it lands at 8 columns, 2097 high, 52 rows: the landed width's height. Undone, it is back at 18 columns with 14 rows, not 11. B: 3 columns in from the west to 15 (475 high), 14 rows; then 1200 px in from the east: 8 columns, 52 rows, the landed width's again. C: 4 columns out to 22 (507 high), 14 rows; then 1200 px in from the west: 8 columns, 2097 high, 14 rows, the pressed width's.",
-  "ours": "Refit 1 of P (CAP-X6SUMMARYWALK.json), pushed before this read: a pull past the floor takes the landed width's height. Predicted 2 of 3: A and B. C missed: from 22 columns the pull reaches the floor only near the end of its 12 steps, from 18 or 15 early, so the content had not reflowed when it was let go; inferred, not built.",
+  "ours": "Refit 1 of P (CAP-X6SUMMARYWALK.json), pushed before this read: a pull past the floor takes the landed width's height. Predicted 2 of 3: A and B. C missed: from 22 columns the pull reaches the floor only near the end of its 12 steps, from 18 or 15 early, so the content had not reflowed when it was let go; inferred, not built. npm run x6-check replays it with its columns compared and its rows named: ours draws CAP-X6DESKROWS.json's heights (1332 at 8 columns), this session's were 2097.",
   "differs": [
-    "C, far in from the west from 22 columns: 14 rows, the pressed width's height, where the refit takes the landed width's (52): a miss"
+    "C, far in from the west from 22 columns: 14 rows, the pressed width's height, where the refit takes the landed width's (52): a miss, named. Why, inferred: the pull reaches the floor only near the end of its 12 steps, so the content had not reflowed at let-go",
+    "Undo after A: back at 18 columns with 14 rows, not its 11. One read"
   ],
   "score": {
     "predicted": "2 of 3 (CAP-X6SUMMARYFAR-PREDICTED.json): A and B match; C misses",
-    "P alone": "1 of 3 (C)"
+    "P alone": "1 of 3 (C)",
+    "ruling": "kept, frozen at 2 of 3: with the seen read 3 of 4 far pulls, 1 of 4 without it"
   }
 }
