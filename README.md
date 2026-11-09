@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 24 changes
+- **Today** · 25 changes
+  - U10: the Scrolling turn at the full-width heading layouts ([#500](https://github.com/FRIKKern/fluid-editor/pull/500))
   - Y2: a Cmd+Z that pulls the frame's scroll up takes the text bar and caret; T15: Rotate stops at ±360° ([#499](https://github.com/FRIKKern/fluid-editor/pull/499))
-  - U10: a Heading 1 in a list item has half its size above and below; the 5-item list fits as read ([#498](https://github.com/FRIKKern/fluid-editor/pull/498))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
