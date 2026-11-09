@@ -633,6 +633,24 @@ export const RECIPES = {
     };
   })(),
   // Each single read once more, steps copied from its finding: CAP-A2ROUND1 b3 and x2, CAP-A2ROUND2 f1, CAP-TEXTWIDTH7 f3.
+  'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => READ(`${n}${s}`);
+      const INSTA = [['add', 0, 'Instagram'], ['pause', 1200], ['press', 'Escape'], ['select', 0, 'new'], ['drag', 0, 'new', 'e', -58.78, 0], ['pause', 400]];
+      const AFTER = (n) => [['pause', 400], ...R(`${n} 400 ms`), ['pause', 2000], ...R(`${n} 2 s`)];
+      const LINE = [['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 826, 0], ['press', 'Escape'], ['deselect', 0]];
+      return [
+        [...LINE, ...INSTA, ...R('i1 pulled'), ['press', 'Escape'], ['select', 0, 1], ['press', 'ArrowDown'], ['press', 'Escape'], ...AFTER('i1 Line nudged')],
+        [...INSTA, ...R('i2 pulled'), ['press', 'Escape'], ['view', 'Mobile'], ['view', 'Desktop'], ...AFTER('i2 Mobile View and back')],
+        [...INSTA, ...R('i3 pulled'), ['press', 'Escape'], ['select', 0, 'new'], ['press', 'Escape'], ...AFTER('i3 selected again')],
+        [...INSTA, ...R('i4 pulled'), ['press', 'ArrowDown'], ['pause', 400], ['press', 'ArrowUp'], ['press', 'Escape'], ...AFTER('i4 nudged down and up')],
+        [...INSTA, ...R('i5 pulled'), ['pause', 6000], ...R('i5 6 s later')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-A2ARROWWHY': { page: 'Blocks Probe', question: 'A2: after text put in by a paste an arrow key did not move the block (CAP-A2ROUND1 x2, CAP-SINGLEAGAIN x2). Is it the paste, or the double click that opened the text? Reads of what holds focus (the page and the frame) and the selection, then ArrowDown. a1 the x2 steps again; a2 another block selected in between; a3 the paste after Write; a4 a double click and nothing pasted; a5 no text edit. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const LONG = '<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>';
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
