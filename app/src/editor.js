@@ -1507,7 +1507,8 @@ function updateResize(e) {
   } else if (side && bp === 'desktop' && deskHeight(held.label, c1 - c0) !== undefined) {
     // A Summary takes the rows of its content's height before the pull, at the width it was pressed at, so it widens into
     // the rows of its narrower content (CAP-X6SUMMARYWALK.json: P, 9 of 11 predicted, the 2 misses pulls that moved nothing).
-    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen).
+    // Pulled past its floor it sits there long enough to reflow: the landed width's (refit 1, CAP-X6DESKROWS.json w far in, seen;
+    // CAP-X6SUMMARYFAR.json 2 of 3 fresh, frozen: from 22 columns it reached the floor late and kept the pressed width's, inferred).
     const [, o0, , o1] = g.orig;
     const past = held.label === 'Summary' && (g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols);
     const cols = held.label === 'Summary' && !past ? o1 - o0 : c1 - c0;
@@ -1706,7 +1707,7 @@ function onKey(e) {
     const next = [a[0], a[1], Math.max(a[0] + 1, a[2] + dr), Math.min(LAST_LINE[bp], Math.max(a[1] + 1, a[3] + dc))];
     if (b.type === 'text') next[2] = Math.max(next[2], a[0] + contentRows(b, measure(feEl(sel.sid))));
     lay(b).area = next;
-    delete b.asAdded; // as a pull does (inferred for the keys)
+    // The keys do not end a new Instagram's kept row as a pull does: Cmd+Down to 13 rows, then 3:2, read 9 (CAP-T12READS-J.json).
     growRows(S(sel.sid));
     renderSectionDom(sel.sid);
     commit(before, `Keyboard resized ${sel.bid} to ${next.join('/')}`);
@@ -1861,7 +1862,7 @@ function renderBlockPanel() {
   const mdField = b.type === 'markdown' && blockPanel.querySelector('textarea[data-content="markdown"]');
   if (mdField && mdField === document.activeElement && fullOf(mdField) !== (b.text || '')) { dropFolds(mdField); mdField.value = b.text || ''; mdLines(mdField); paintMdBar(mdField); } // undo with the field still in focus
   if (codeCommit) return; // the field's own text changed nothing else here, and a redraw would take a press on Mode from under it
-  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext]')) return; // keep a field being typed in
+  if (blockPanel.contains(document.activeElement) && document.activeElement.matches('[data-content],[data-afield],[data-ff-field],[data-ff-opt],[data-ff-post],[data-form-lbtext],.bp-rt')) return; // keep a field being typed in
   const shape = b.type === 'shape' && b.standin !== 'quote' && b.standin !== 'newsletter' && !standinPanelOf(b) ? { radius: cornerFor(b, bp).first, stretch: b.stretch !== false, shape: b.shape, corners: shownCorners(b), color: shapeFill(b, bp) || themeInk(b, 'fill'), strokeInk: themeInk(b, 'stroke') } : null;
   const image = b.type === 'image' ? { mode: b.mode || 'fill', shapeId: b.imageShape || 'circle', corner: cornerFor(b, bp).first, corners: shownCorners(b), empty: !!b.empty, stretch: !!b.stretch, overlay: !!b.overlay, overlayColor: shapeColorOf(b, 'overlay'), blendName: BLEND_MODES.find((m) => blendValue(m) === (b.overlayBlend || 'normal')), lightbox: !!b.lightbox, themeName: b.lightboxTheme === 'light' ? 'Light Overlay' : 'Dark Overlay', fxView, fxOpen, effect: b.effect } : null;
   const stack = b.type === 'stack' ? { ...stackAxes(b, bp), gap: b.gap ?? 20, gapOpen: stackGapOpen, pad: b.padding, four: !!b.padFour } : null;
@@ -2761,7 +2762,7 @@ blockPanel.addEventListener('input', (e) => {
   if (!t || !sel) return;
   const b = B(sel.sid, sel.bid);
   quoteBefore ??= JSON.stringify(model);
-  refitStandin(b, () => { b[t.dataset.content] = t.value; });
+  refitStandin(b, () => { b[t.dataset.content] = t.isContentEditable ? cleanMessage(t) : t.value; });
 });
 let standinFlush = null, panelPress = false;
 blockPanel.addEventListener('pointerdown', () => { panelPress = true; }, true);
@@ -2772,6 +2773,8 @@ blockPanel.addEventListener('change', (e) => {
   quoteBefore = null;
   const go = () => { if (standinFlush !== go) return; standinFlush = null; commit(before, `${name} changed`); };
   standinFlush = go;
+  // A bar press on a rich text box keeps its focus, and the press is its own step: commit now. Leaving it waits as above.
+  if (e.target.isContentEditable && document.activeElement === e.target) { go(); return; }
   // A tick later, so a press on the other field has its focus first and the redraw leaves that field alone. A press
   // that left the field waits for its click: the redraw would take the switch or pick from under it.
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
@@ -2792,8 +2795,9 @@ function setStandinValue(key, v) {
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
-  const t = e.target.closest('input[data-sp-set], select[data-sp-set], input[data-sp-field], textarea[data-sp-field], input[data-sp-range]');
+  const t = e.target.closest('input[data-sp-set], select[data-sp-set], input[data-sp-field], textarea[data-sp-field], .bp-rt[data-sp-field], input[data-sp-range]');
   if (!t || !sel) return;
+  if (t.isContentEditable) { const v = cleanMessage(t), b = B(sel.sid, sel.bid); if (v !== (b.sp?.[t.dataset.spField] ?? '')) setStandinValue(t.dataset.spField, v); return; }
   if (t.tagName === 'SELECT') return setStandinValue(t.dataset.spSet, t.value);
   if (t.dataset.spSet) return setStandinValue(t.dataset.spSet, t.checked);
   if (t.dataset.spRange) return setStandinValue(t.dataset.spRange, Number(t.value));

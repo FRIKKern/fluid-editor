@@ -1,0 +1,30 @@
+{
+  "item": "X6",
+  "capturedAt": "2026-11-09",
+  "question": "X6, Summary on desktop: does a pull past its floor take its rows from the landed width's height (refit 1 of P, CAP-X6SUMMARYWALK.json)? Predictions pushed before the read of CAP-X6SUMMARYFAR.json, the rule's last refit round.",
+  "setup": "Blocks Probe, unsaved, a new section, desktop. A new Summary (18 columns, 2 to 20, 11 rows). A: pulled 1200 px in from the east. Undone. B: pulled 176.34 px (3 columns) in from the west to 15, then 1200 px in from the east. Undone twice. C: pulled 235.12 px (4 columns) out from the east to 22, then 1200 px in from the west. Area and content height read live 400 ms after each pull and after each undo.",
+  "rule": "P with refit 1: a side pull of Summary gives max(rows before, ceil((h + 11) / 41.09 - 0.02)). h is its content's height at the width it was pressed at, but when the pointer goes past the floor (8 columns), the landed width's height, read at the floor after the pull. P without the refit would take the pressed width's.",
+  "predictions": [
+    {
+      "case": "A, far in from the east from 18",
+      "predict": "lands at 8 columns (2 to 10); rows = max(11, from the height read there), about 30 or more; P alone would give about 14"
+    },
+    {
+      "case": "B, 3 in from the west to 15",
+      "predict": "P: rows from 18's height, about 12 to 14 (seen kind, not scored)"
+    },
+    {
+      "case": "B, then far in from the east",
+      "predict": "lands at 8 columns (5 to 13); rows = max(rows before, from the height read there)"
+    },
+    {
+      "case": "C, 4 out to 22",
+      "predict": "P: rows from 18's height, max with 11 (not scored)"
+    },
+    {
+      "case": "C, then far in from the west",
+      "predict": "lands at 8 columns (16 to 24); rows = max(rows before, from the height read there)"
+    }
+  ],
+  "score": "Counted on the three far pulls: rows equal the refit's from the read's own height at 8 columns, and columns land at 8. Holds: the refit stays. Misses: frozen, the refit taken out, the far-in reads named."
+}

@@ -305,10 +305,13 @@ export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.s
 // Newsletter (CAP-T12NEWSLETTER.json): the panel's words as typed. An empty Title takes the heading away, an empty
 // Button Text shows Sign Up, and each line of Description or Disclaimer is a paragraph. Show Name Field adds First Name
 // and Last Name. The fields take nothing on the canvas, and nothing is sent.
+// A panel's rich text (CAP-T12READS-I.json) as the model keeps it: the box's own HTML, or older plain text, a paragraph a
+// line; an empty line is one line tall (CAP-T12READS-D.json).
+export const richHtml = (t) => (!t ? '' : /^\s*<(p|h[1-4]|pre)[\s>]/i.test(t) ? t : t.split('\n').map((l) => `<p>${escapeHtml(l) || '<br>'}</p>`).join(''));
 export const NEWSLETTER_TEXT = { nlFormName: 'Newsletter Form', nlTitle: 'Subscribe', nlDesc: 'Sign up with your email address to receive news and updates.', nlDisc: 'We respect your privacy.', nlButton: 'Sign Up' };
 export const newsletterOf = (b) => ({ ...Object.fromEntries(Object.entries(NEWSLETTER_TEXT).map(([k, v]) => [k, b[k] ?? v])), nlName: !!b.nlName, nlReqFirst: !!b.nlReqFirst, nlReqLast: !!b.nlReqLast, nlLayout: b.nlLayout || 'float', nlAlign: b.nlAlign || 'center' });
 function newsletterHtml(b) {
-  const n = newsletterOf(b), paras = (t) => (t ? t.split('\n').map((l) => `<p>${escapeHtml(l) || '<br>'}</p>`).join('') : ''); // an empty line is one line tall (CAP-T12READS-D.json)
+  const n = newsletterOf(b), paras = richHtml;
   const input = (type, label) => `<label class="newsletter-form-field-label title">${label}</label><input class="newsletter-form-field-element field-element" type="${type}" placeholder="${label}" aria-label="${label}" tabindex="-1" readonly>`;
   const name = n.nlName ? `<fieldset class="form-item fields name required"><div class="field first-name">${input('text', 'First Name')}</div> <div class="field last-name">${input('text', 'Last Name')}</div></fieldset> ` : '';
   const cap = (s) => s[0].toUpperCase() + s.slice(1);

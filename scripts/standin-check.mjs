@@ -254,6 +254,22 @@ viewport(S, 1600, 1400);
   await key('G'); await key('o', 300); typed.push(['btnGo', blk()]);
   const miss = typed.filter(([s, b]) => !same(b, s)).map(([s, b]) => `${s} ${b.rows}/${R[s].rows}`);
   add('Newsletter: typed Title, Description, Disclaimer, Button Text', !miss.length, miss.join(' '));
+  // Description and Disclaimer are rich text on a short bar, 54 above the box, as read (CAP-T12READS-I.json).
+  const rtBar = (label) => qs(`const a = p.querySelector('.bp-rt[aria-label="${label}"]'), w = a.closest('.bp-rt-wrap').getBoundingClientRect(), row = document.querySelector('#msg-bar .tx-row'), B = row.getBoundingClientRect(); return JSON.stringify({ focus: document.activeElement === a, bar: [B.left - w.left, B.top - w.top, B.width, B.height].map(Math.round), c: [...row.children].map((c) => { const r = c.getBoundingClientRect(); return [c.getAttribute('aria-label') || 'sep', Math.round(r.left - B.left), Math.round(r.top - B.top), Math.round(r.height)]; }) });`);
+  const SHORT = '[["Squarespace AI",4,4,36],["sep",44,11,22],["Bold",49,4,36],["Italic",89,4,36],["Underline",129,4,36],["Link",169,4,36],["sep",209,11,22],["Clear Formatting",214,4,36]]';
+  const rts = [];
+  for (const l of ['Description', 'Disclaimer']) { await press(`.bp-rt[aria-label="${l}"]`, 400); rts.push(rtBar(l)); }
+  add('Newsletter: Description and Disclaimer show the short bar, no Text Style, 54 above the box', rts.every((r) => r.focus && JSON.stringify(r.bar) === '[0,-54,254,44]' && JSON.stringify(r.c) === SHORT), JSON.stringify(rts));
+  // Link fades at a caret in a box with text too, rgb(183, 183, 183) (CAP-T12READS-J.json); with a selection it shows dark (inferred).
+  const linkColor = () => qs(`return JSON.stringify(getComputedStyle(document.querySelector('#msg-bar [data-fmt="link"]')).color);`);
+  await press('.bp-rt[aria-label="Description"]', 200); const caretLink = linkColor();
+  await key('Meta+a', 200); const selLink = linkColor();
+  add('Newsletter: Link faded at a caret in a box with text, dark with a selection', caretLink === 'rgb(183, 183, 183)' && selLink !== caretLink, JSON.stringify([caretLink, selLink]));
+  await press('#msg-bar [data-fmt="bold"]', 400);
+  const boldOn = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
+  await press('#undo', 400);
+  const boldOff = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
+  add('Newsletter: Bold on Description reaches the block; one undo step', /<strong>/.test(boldOn[0]) && boldOn[1] && !/<strong>/.test(boldOff[0] || '') && !boldOff[1], JSON.stringify({ boldOn, boldOff }));
   if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
   // CAP-T12NLPOST.json: the Form Name tip on hover, 11px above the ?; the rows names add; Post-Submit; the phone view.
   const help = at('.bp-nl-help');
@@ -308,7 +324,9 @@ viewport(S, 1600, 1400);
   // Quote's 6 to 4 at 4.93 (CAP-T12QUOTEROWS.json).
   add('Newsletter: Stack with names, rows as read (named miss)', sn.rows === ND.stackNames.stack.rows, `${sn.rows}/${ND.stackNames.stack.rows}`);
   fresh({ rows: 7 });
-  await press('[data-btab="Content"]'); await press('[data-content][aria-label="Description"]', 150); await key('Meta+ArrowDown');
+  await press('[data-btab="Content"]'); await press('[data-content][aria-label="Description"]', 150);
+  // The caret to the text's end: headless Chrome runs no Cmd+Down in a rich text box, so by the selection.
+  qs(`const s = getSelection(); s.selectAllChildren(document.activeElement); s.collapseToEnd(); return '1';`);
   for (const c of ['Enter', 'Enter', 'Z', 'q']) await key(c);
   await key('Tab', 400);
   const el = ourBoxes();
@@ -458,6 +476,13 @@ viewport(S, 1600, 1400);
   pick('pcType', 'Bonus'); await press('input[data-sp-set="pcExplicit"]');
   const pc = state(); await undoOnce(); const pcu = state();
   add("Audio: Podcast's Title, Episode type and Explicit content keep their values; one undo step each; rows stay 3", pc.sp.pcTitle === 'So' && pc.sp.pcType === 'Bonus' && pc.sp.pcExplicit === true && pcu.sp.pcExplicit === undefined && pcu.sp.pcType === 'Bonus' && pc.area[2] === 4, JSON.stringify({ pc, pcu }));
+  // Episode notes: rich text on the short bar without Underline or the line before Clear Formatting (CAP-T12READS-I.json).
+  await press('.bp-rt[aria-label="Episode notes"]', 400);
+  const nb = qs(`const a = p.querySelector('.bp-rt[aria-label="Episode notes"]'), w = a.closest('.bp-rt-wrap').getBoundingClientRect(), row = document.querySelector('#msg-bar .tx-row'), B = row.getBoundingClientRect(); return JSON.stringify({ ph: getComputedStyle(a, '::before').content, bar: [B.left - w.left, B.top - w.top, B.width, B.height].map(Math.round), c: [...row.children].map((c) => [c.getAttribute('aria-label') || 'sep', Math.round(c.getBoundingClientRect().left - B.left)]) });`);
+  await key('H'); await key('i'); await key('Meta+a', 200); await press('#msg-bar [data-fmt="italic"]', 400);
+  const notes = state().sp.pcNotes;
+  qs(`document.activeElement.blur(); await sleep(300); return '1';`);
+  add('Audio: Episode notes on the short bar without Underline, 54 above; Italic keeps', nb.ph === '"Write here..."' && JSON.stringify(nb.bar) === '[0,-54,209,44]' && JSON.stringify(nb.c) === '[["Squarespace AI",4],["sep",44],["Bold",49],["Italic",89],["Link",129],["Clear Formatting",169]]' && /<em>Hi<\/em>/.test(notes || ''), JSON.stringify({ nb, notes }));
   const mimeOther = () => qs(`return JSON.stringify(!!p.querySelector('input[data-sp-field="pcMimeOther"]'));`);
   const m0 = mimeOther(); pick('pcMime', 'audio/mpeg (.mp3)'); const m1 = mimeOther();
   add('Audio: Mime type audio/mpeg (.mp3) takes away the free field under it', m0 && !m1, JSON.stringify({ m0, m1 }));

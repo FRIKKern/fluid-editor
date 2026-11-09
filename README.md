@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 7 changes
-  - U10: View Layouts keeps to Edit Section's band while scrolling (300 of 300) ([#463](https://github.com/FRIKKern/fluid-editor/pull/463))
-  - T12: Pricing Plan rows refit 2, Accordion grip/Escape/icon-left, Newsletter grey, Podcast Mime (CAP-T12READS-H) ([#482](https://github.com/FRIKKern/fluid-editor/pull/482))
+- **Today** · 12 changes
+  - T12: Link fades at a caret in rich text fields; Instagram 2.40 first pick and Cmd+Down read; the gallery status box stays hidden ([#487](https://github.com/FRIKKern/fluid-editor/pull/487))
+  - U10: a list or a quote alone takes the lone heading's list; alignment inside lists and quotes ([#484](https://github.com/FRIKKern/fluid-editor/pull/484))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed

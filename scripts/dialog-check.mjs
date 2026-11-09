@@ -177,6 +177,21 @@ for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   });
   add(`Instagram run ${run}${run === 'F' ? ', pulled first' : ''}: ${picks.length} picks, rows as read`, JSON.stringify(ours) === JSON.stringify(want), `${ours} want ${want}`);
 }
+// CAP-T12READS-J.json: 2.40 as a new block's first pick, 12 rows to 6; Cmd+Down to 13 rows does not end the kept row as a pull
+// does: 3:2 after it keeps a row over the fit (read 9, ours 8: the rule behind the kept row is not scored, a named miss).
+{
+  const R = read('CAP-T12READS-J.json').reads;
+  let { id } = await fresh('Instagram');
+  q(`dl.querySelector('[data-dl-tab="Design"]')?.click(); await sleep(150); return 'true';`);
+  pick('select[data-dl="galAspect"]', '2.40 Anamorphic Widescreen');
+  add('Instagram, new, 2.40 first: 12 rows to 6', state(id).area === R.first240.after.replace(/ /g, ''), state(id).area);
+  ({ id } = await fresh('Instagram', { edit: false }));
+  browser(S, 'press', 'Meta+ArrowDown'); await pause(400);
+  const keyed = state(id).area;
+  q(`document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); dl.querySelector('[data-dl-tab="Design"]')?.click(); await sleep(150); return 'true';`);
+  pick('select[data-dl="galAspect"]', '3:2 Standard');
+  add('Instagram, Cmd+Down then 3:2: a row kept over the fit of 7', keyed === R.keys.keyed.replace(/ /g, '') && state(id).area === '1/2/9/10', `${keyed} ${state(id).area}`);
+}
 {
   const { id } = await fresh('Tag Cloud');
   const a = state(id).area;
