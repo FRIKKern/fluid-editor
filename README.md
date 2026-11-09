@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 56 changes
+- **Today** · 57 changes
+  - U10: the step on the other lists, the other full-width headings' turn, Undo onto the start from 3 to 5 ([#514](https://github.com/FRIKKern/fluid-editor/pull/514))
   - X2: rule T, a 6 wide's jump from the right margin track (fresh 18 of 18), built ([#536](https://github.com/FRIKKern/fluid-editor/pull/536))
-  - X6: what sets 9 or 10 rows: the release, varying run to run (CAP-X6NINETEN) ([#535](https://github.com/FRIKKern/fluid-editor/pull/535))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
