@@ -1,0 +1,1098 @@
+{
+  "item": "CAP-Y2BAR3",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "startedAt": "2026-11-09T16:13:19.123Z",
+  "engine": "chrome",
+  "question": "Y2, inferred until now: after the Cmd+Z that pulls the frame's scroll and takes the text bar (CAP-Y2BAR.json), the block is above the frame's view; does scrolling back bring the bar, what is under the pointer there, and does a press on the block's text then bring it? And the toolbar's Undo as that third step, pressed by name with an on-top check: the bar, the edit, the scroll. Read twice (Q1, Q2).",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q1 frame back at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true,
+        "hit": [
+          0,
+          "new",
+          [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.1,
+              0.15
+            ],
+            [
+              0.9,
+              0.85
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "pressFrame",
+      "main#page .fe-block .sqs-block"
+    ],
+    [
+      "read",
+      "Q1 pressed in the text",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "Q1 toolbar Undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "Q2 frame back at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true,
+        "hit": [
+          0,
+          "new",
+          [
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.1,
+              0.15
+            ],
+            [
+              0.9,
+              0.85
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "pressFrame",
+      "main#page .fe-block .sqs-block"
+    ],
+    [
+      "read",
+      "Q2 pressed in the text",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "read",
+      "Q2 toolbar Undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "Q1 3 z": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q1 frame back at its top": {
+      "focused": "frame",
+      "hit": [
+        {
+          "at": [
+            0.5,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.1,
+            0.15
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.9,
+            0.85
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q1 pressed in the text": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": true
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q1 2 z": {
+      "focused": "frame",
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</h1>",
+      "areas": [
+        [
+          "1/2/19/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q1 toolbar Undo": {
+      "focused": {
+        "tag": "button",
+        "label": "Undo",
+        "value": "",
+        "box": [
+          145.4,
+          1.5,
+          36,
+          52
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "BUTTON",
+        "frameFocus": {
+          "tag": "body",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 3 z": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 frame back at its top": {
+      "focused": "frame",
+      "hit": [
+        {
+          "at": [
+            0.5,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.1,
+            0.15
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.9,
+            0.85
+          ],
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 pressed in the text": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": true
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 2 z": {
+      "focused": "frame",
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "Q2 toolbar Undo": {
+      "focused": {
+        "tag": "button",
+        "label": "Undo",
+        "value": "",
+        "box": [
+          145.4,
+          1.5,
+          36,
+          52
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "BUTTON",
+        "frameFocus": {
+          "tag": "body",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 520,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that </h1>",
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice (Q1, Q2), in agreement where both runs reached the same case. Heading 1 as CAP-Y2BAR.json: the third Cmd+Z pulls the frame's scroll from 523 to 360 and takes the bar and the caret, the edit focused; the block is then above the frame's view. With the frame back at its top: still no bar and no caret, the edit focused, and at three points on the block a press would land on its .sqs-block, cursor grab, not on its text. A press there (the block's middle, checked on top) closes the edit: the block stays selected (Write shows), nothing editable has the focus, no bar. So the inference that the bar comes back on a press in the page was wrong for a press on the block. Toolbar Undo as the third step: in neither run did it pull the scroll (523, 520), because the typing split differently in the two runs (Q1 back to the first line, 10 rows; Q2 back to mid word, 7 rows); in both it closed the edit and deselected, as known. Whether Undo or Cmd+Shift+Z drop the bar when they pull the scroll stays not read. Two earlier tries stopped at the press on the heading: with the block out of view and then under its .sqs-block, the heading itself was never on top."
+}

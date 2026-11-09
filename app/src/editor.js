@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -51,6 +51,7 @@ const centerLine = () => (1 + LAST_LINE[bp]) / 2; // the middle of the canvas: l
 let model = load() ?? demoModel();
 let savedJson = JSON.stringify(model);
 let bp = 'desktop';
+setLiveView(bp); // the frame draws Blur and Background color for the view it shows (render.js liveStyle)
 let sel = null; // { sid, bid }
 let editing = null; // text edit session
 let gesture = null; // move or resize session
@@ -957,8 +958,9 @@ function onDown(e) {
   const blk = e.target.closest('.fe-block');
   if (editing) {
     const same = blk && blk.dataset.blockId === editing.bid;
-    if (same && !editing.soft) return;
-    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json).
+    if (same && !editing.soft && !editing.barGone) return;
+    // After one Escape a press on the block takes the keys from the text and opens nothing (CAP-ESC2.json); the same once a step
+    // has pulled the frame's scroll and taken the bar (CAP-Y2BAR3.json).
     pressedAfterEscape = same;
     finishTextEdit();
   }
@@ -4962,10 +4964,12 @@ function textUndo(ed) {
 }
 // A step that leaves the page too short for the frame's scroll pulls it up, and the text bar and the caret go, the edit staying
 // open; a Cmd+Shift+Z then brings the caret back, not the bar (CAP-Y2BAR.json, Heading 1, read twice: scroll 523 to 360). The
-// same step with the frame at its top keeps both (CAP-Y2BAR2.json, read twice). Inferred: the bar comes back on a press in the page.
+// same step with the frame at its top keeps both (CAP-Y2BAR2.json, read twice). Then the block takes presses as a block, with a
+// grab cursor, and scrolling back brings nothing; a press on it closes the edit and leaves it selected (CAP-Y2BAR3.json, twice).
 function textStepScrolled(ed, y0) {
   if (editing !== ed || ed.soft || y0 <= doc.scrollingElement.scrollHeight - win.innerHeight + 1) return;
   ed.barGone = true;
+  blockEl(ed.bid).classList.remove('is-text-editing');
   // Chrome puts a caret back at the text's start on any key while none is set, so it goes again on each key let go until Cmd is.
   ed.caretGone = true;
   win.getSelection().removeAllRanges();
@@ -7287,6 +7291,8 @@ function setBp(next) {
   if (editing) finishTextEdit();
   if (gesture) cancelGesture();
   bp = next;
+  setLiveView(bp);
+  for (const s of model.sections) if (s.blocks.some((b) => b.designMobile)) renderSectionDom(s.id);
   $('bp-desktop').classList.toggle('is-on', bp === 'desktop');
   $('bp-mobile').classList.toggle('is-on', bp === 'mobile');
   $('bp-desktop').setAttribute('aria-checked', String(bp === 'desktop'));
@@ -7352,7 +7358,6 @@ function watchEmptyText() {
 
 function boot() {
   watchEmptyText();
-  frame.contentDocument.addEventListener('pointerdown', () => { if (editing?.barGone) editing.barGone = false; }, true);
   frame.contentDocument.addEventListener('keyup', (e) => { if (!editing?.caretGone) return; win.getSelection().removeAllRanges(); if (!e.metaKey && !e.ctrlKey) editing.caretGone = false; });
   frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
