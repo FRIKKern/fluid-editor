@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 31 changes
+- **Today** · 32 changes
+  - R2: a south resize scrolls only when let go over the block moved while the page scrolled; X2: touch reads ([#508](https://github.com/FRIKKern/fluid-editor/pull/508))
   - T12: last reads: status box on hover, low Appear list, Link with a selection, a typing pause ends an undo step ([#507](https://github.com/FRIKKern/fluid-editor/pull/507))
-  - A2: second read of each fresh case, 9 of 9 agree, none unsteady (CAP-A2FRESH2) ([#506](https://github.com/FRIKKern/fluid-editor/pull/506))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
