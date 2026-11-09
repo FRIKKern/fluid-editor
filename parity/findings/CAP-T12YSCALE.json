@@ -1,0 +1,91 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "The value axis of a Chart (where it starts, ends and steps), read to score the rule in CAP-T12YSCALE-PREDICTED.json.",
+ "how": "Six runs on Blocks Probe, two per set (CAP-T12YSCALE-A1.json to C2.json): a new Chart, the three Population values typed, then a shot as a Bar Chart, as a Line Chart and as a flipped Bar Chart. The chart has no readable markup (htmlOf found nothing), so the tick labels were read by eye from the shots. Both reads of each set agree. Nothing saved: each run left by Exit, then the dialog Exit, and read back 0 sections.",
+ "reads": {
+  "A": {
+   "values": [
+    420,
+    480,
+    455
+   ],
+   "bar": {
+    "from": 0,
+    "to": 480,
+    "step": 80
+   },
+   "line": {
+    "from": 420,
+    "to": 480,
+    "step": 10
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 480,
+    "step": 80
+   },
+   "barLabels": "tilted"
+  },
+  "B": {
+   "values": [
+    7,
+    23,
+    16
+   ],
+   "bar": {
+    "from": 0,
+    "to": 30,
+    "step": 5
+   },
+   "line": {
+    "from": 0,
+    "to": 30,
+    "step": 5
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 30,
+    "step": 5
+   },
+   "barLabels": "flat"
+  },
+  "C": {
+   "values": [
+    1200,
+    1900,
+    1500
+   ],
+   "bar": {
+    "from": 0,
+    "to": 2000,
+    "step": 400
+   },
+   "line": {
+    "from": 1200,
+    "to": 1900,
+    "step": 100
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 2000,
+    "step": 400
+   },
+   "barLabels": "tilted"
+  }
+ },
+ "round1": {
+  "score": "3 of 9",
+  "charts": {
+   "A line": "hit",
+   "A bar": "miss: predicted 0 to 500 by 100",
+   "A flippedBar": "miss: predicted 0 to 500 by 100",
+   "B line": "hit",
+   "B bar": "miss: predicted 0 to 30 by 10",
+   "B flippedBar": "hit",
+   "C line": "miss: predicted 1200 to 1900 by 200",
+   "C bar": "miss: predicted 0 to 2000 by 500",
+   "C flippedBar": "miss: predicted 0 to 2000 by 500"
+  }
+ }
+}
