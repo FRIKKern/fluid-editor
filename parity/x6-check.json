@@ -1,9 +1,9 @@
 {
   "check": "pulls per type against the oracle",
   "tolerance": 0,
-  "pass": 631,
-  "total": 631,
-  "known": 47,
+  "pass": 639,
+  "total": 639,
+  "known": 54,
   "results": [
     {
       "file": "CAP-X6PULLS",
@@ -3158,6 +3158,46 @@
     {
       "file": "CAP-X6SUMMARYWALK",
       "read": "w in to 9",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "start",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "A far in from the east",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "back after A",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "B w in to 15",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "B far in from the east",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "back after B",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "C e out to 22",
+      "ok": true
+    },
+    {
+      "file": "CAP-X6SUMMARYFAR",
+      "read": "C far in from the west",
       "ok": true
     }
   ]
