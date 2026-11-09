@@ -25,12 +25,11 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 65 changes
+- **Today** · 1 change
+  - R2: rule S refit 2 (sum threshold) read: 11 of 14 fresh, ties S, frozen ([#543](https://github.com/FRIKKern/fluid-editor/pull/543))
+- **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
-  - U10: the quote as heading's inner boxes at 2, 4 and 5, read twice: alike in the short and the fitting cases ([#522](https://github.com/FRIKKern/fluid-editor/pull/522))
-- **Yesterday** · 93 changes
-  - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
-- **Last week** · 364 changes, 3 milestones closed
+- **Last week** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
