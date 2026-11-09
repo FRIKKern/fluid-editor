@@ -159,9 +159,25 @@ function startStep(s, mix, prev) {
   s.rows = { ...s.rows, desktop: s.rows.desktop - st.by };
 }
 
+// A heading alone at layouts 2 to 5 (CAP-U10TEXTMIX-D.json; a list and a quote in -B take the same places): the block's
+// end line follows its words, the fewest rows whose height (rows x pitch - gap) holds its content and about 30px more
+// (25.1 to 36.3 fits every read: a heading 76 tall takes 3 rows, a quote 140 takes 5, a list 251.5 takes 8, and rule
+// P's high one-line paragraph, 22.4, takes 2). The section's rows are that end line plus 'past' (rule K's form).
+// contentH(b) is the block's content height as rendered at the new place; m holds the grid's pitch and gap.
+const FIT_PAD = 30;
+export function fitLayout(s, mix, n, contentH, m) {
+  const f = mix.list[n]?.fit, b = f && mix.by[f.block[0]]?.[+f.block.slice(1)];
+  if (!b) return;
+  const [r0, c0, , c1] = b.layout.desktop.area, rows = Math.max(1, Math.ceil((contentH(b) + FIT_PAD + m.rg) / m.pitch));
+  b.layout.desktop.area = [r0, c0, r0 + rows, c1];
+  s.rows = { ...s.rows, desktop: r0 + rows + f.past };
+}
+
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
-  const fitsAt = (L) => s.rows?.desktop === L.rows && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => b.layout.desktop.area.join('/') === L.places[r + k][0]));
+  // A fitted block matches by its start line and columns, and the rows by its end line.
+  const at = (L, r, k, a) => { const w = L.places[r + k][0]; if (L.fit?.block !== r + k) return a.join('/') === w; const [r0, c0, , c1] = area(w); return a[0] === r0 && a[1] === c0 && a[3] === c1 && s.rows?.desktop === a[2] + L.fit.past; };
+  const fitsAt = (L) => (!!L.fit || s.rows?.desktop === L.rows) && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => at(L, r, k, b.layout.desktop.area)));
   // Any of a step's spans.
   const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && others(mix.list[n].step).some((p) => fitsAt(variant(mix.list[n], p)))));
   if (last != null && fits(last)) return last;
