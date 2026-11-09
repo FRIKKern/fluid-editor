@@ -125,6 +125,9 @@ export function applyLayout(s, mix, n, base) {
       const [desk, phone] = L.places[r + k];
       b.layout.desktop.area = area(desk);
       b.layout.mobile.area = area(phone);
+      // Code becomes a paragraph at every pick (CAP-U10TEXTMIX-C.json: code alone takes the paragraph list as a P, and in
+      // a mixed Text its code reads as a P too). Read with one line of code; inline code marks inside are not read.
+      if (r === 'h' || r === 'p') b.html = b.html.replace(/<pre[^>]*>(?:<code[^>]*>)?([\s\S]*?)(?:<\/code>)?<\/pre>/g, '<p>$1</p>');
       // The tag: a heading's, or every paragraph's in a list or a quote (CAP-U10TEXTMIX-B.json: their P become H1).
       if (r === 'h' && L.tag) b.html = b.html.replace(listFirst(b) ? /<(\/?)(?:p|h[1-4])(?=[\s>])/g : /<(\/?)h[1-4]/g, `<$1${L.tag}`);
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
