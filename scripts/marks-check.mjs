@@ -649,8 +649,10 @@ add('Custom height after NaN, opened again: empty, slider at the middle', hLet.t
 const p3Pads = (p) => { const v = p.split(' ').map(parseFloat); return [v[0], v.length === 1 ? v[0] : v.length === 2 ? v[0] : v[2]]; };
 const p3AlignRead = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), W = f.contentWindow, s = f.contentDocument.querySelectorAll('main#page .page-section')[1], w = s.querySelector('.content-wrapper'), c = W.getComputedStyle(w), vh = W.innerHeight / 100, vmax = Math.max(W.innerWidth, W.innerHeight) / 100; const on = [...document.querySelectorAll('#section-panel [data-sact="height"][aria-pressed="true"]')].map((b) => b.getAttribute('aria-label')), va = [...document.querySelectorAll('#section-panel [data-sact="valign"][aria-pressed="true"]')].map((b) => b.getAttribute('aria-label')); const r = document.querySelector('.sp-custom-height input[type=range]'), t = document.querySelector('.sp-custom-height input[type=text]'); return JSON.stringify({ minVh: parseFloat(W.getComputedStyle(s).minHeight) / vh, pad: [parseFloat(c.paddingTop) / vmax, parseFloat(c.paddingBottom) / vmax], height: on.join('+'), valign: va.join('+'), range: r ? r.value + '/' + t.value : null }); })()`);
 const p3OpenPanel = async () => { await frameScroll(914); await hoverInSection(300); const p = chromeBox('Open Section Settings'); await pressAt(p[0] + 60, p[1] + 20); await pause(200); };
-// CAP-P3ALIGN.json first read the M presses and the history gutter, not built: its reads compare the panel's buttons only.
-for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2', 'CAP-P3ALIGN']) {
+// CAP-P3ALIGN.json first read the M presses and the history gutter: its reads compare the panel's buttons only. The flat mark
+// kept through M and the gutter a top or bottom press at M leaves on Custom are read facts (CAP-P3VERT-*, each run twice, A and
+// B alike; CAP-P3ALIGN3 had the M miss), built unscored: the frozen rule's 12 of 12 stays the count.
+for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2', 'CAP-P3ALIGN', 'CAP-P3ALIGN3', ...['VA', 'VB', 'VC'].flatMap((k) => [`CAP-P3VERT-${k}A`, `CAP-P3VERT-${k}B`])]) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
   await fresh(); await p3OpenPanel();
   for (const l of ['M', 'Vertical center']) { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${l}"]').click(); return 'ok'; })()`); await pause(200); }

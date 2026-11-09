@@ -5573,11 +5573,12 @@ function onSectionClick(e) {
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
   // Custom height after a flattening Vertical press starts again at 1 (difference 104, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json).
-  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
-  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
-  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
-  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
-  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
+  // S, M or L keeps the flat mark: top and bottom then keep no padding (CAP-P3VERT-VB, CAP-P3ALIGN3, read twice); Custom ends it.
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; if (v === 'custom') delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next Custom or field change
+  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel.
+  // A top or bottom press on S, M or L that isn't flat leaves a 4vw gutter on Custom's near edge from then on (CAP-P3VERT-VA, VC, read twice).
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; if (v !== 'middle' && s.height !== 'custom' && !s.flat) s.gutter = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -5970,7 +5971,7 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  const shownAs = panelFlat === s.id && s.flat && s.height === 'custom' ? { ...s, height: 'small', customHeight: undefined } : s;
   sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;

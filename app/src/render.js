@@ -807,6 +807,8 @@ export function renderSection(s, model) {
     `horizontal-alignment--${s.halign || 'center'}`,
     `background-width--${s.bgWidth || 'full-bleed'}`,
     s.divider ? 'has-section-divider' : '',
+    s.flat && s.height !== 'custom' ? 'section-pad--flat' : '',
+    s.gutter ? 'section-pad--gutter' : '',
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
   const vars = [s.height === 'custom' ? `--custom-height: ${s.flat ? 0 : s.customHeight ?? 0};` : '', s.divider && dividerBand(s) !== 6 ? `--divider-h: ${dividerBand(s)}vw;` : ''].filter(Boolean).join(' ');
