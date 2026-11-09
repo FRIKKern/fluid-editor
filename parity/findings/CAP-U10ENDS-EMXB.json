@@ -1,0 +1,814 @@
+{
+  "item": "CAP-U10ENDS-EMXB",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "U10 end lines, round 1 of CAP-U10ENDSPREDICT.json: case EMXB (A and B the same steps twice), read at the paste and through the predicted picks. Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words</p><ul><li><p>List item one</p></li></ul><blockquote><p>Quote words</p></blockquote>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "EMX start b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 01 layout 0 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 02 layout 2 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 03 layout 1 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 04 layout 0 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 05 layout 3 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressLayout",
+      4
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "EMX 06 layout 4 b0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "EMX start b0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/5/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            478.7,
+            ""
+          ],
+          [
+            "2",
+            656,
+            ""
+          ],
+          [
+            "3",
+            815.1,
+            ""
+          ],
+          [
+            "4",
+            968.5,
+            ""
+          ],
+          [
+            "5",
+            1106.4,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 01 layout 0 b0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "5/7/9/21",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "5/7/9/21",
+          "2/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 02 layout 2 b0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.893,
+        "edge": "curve",
+        "h": 886.9,
+        "rows": 11,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "aligns": [
+        [
+          "8/15/12/25",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "8/15/12/25",
+          "2/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 03 layout 1 b0": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 996.3,
+        "rows": 16,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "4/6/14/22",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 338.3,
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "4/6/14/22",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 04 layout 0 b0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 832,
+        "rows": 12,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "5/7/9/21",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "5/7/9/21",
+          "2/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 05 layout 3 b0": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.888,
+        "edge": "curve",
+        "h": 845.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "aligns": [
+        [
+          "3/3/7/13",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "3/3/7/13",
+          "2/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "EMX 06 layout 4 b0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "4/9/8/19",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ],
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "BLOCKQUOTE",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "BLOCKQUOTE",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 115.2,
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words</p><ul data-rte-list=\"default\"><li><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">List item one</p></li></ul><blockquote><p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Quote words</p></blockquote>",
+      "areas": [
+        [
+          "4/9/8/19",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
