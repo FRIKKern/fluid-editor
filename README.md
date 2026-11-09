@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 16 changes
+- **Today** · 17 changes
+  - T15: Animation fields stop at their bar's ends; Cmd+Z while typing is the page's undo ([#490](https://github.com/FRIKKern/fluid-editor/pull/490))
   - T12: dialog-check comment, a pull does not end Instagram's row rule ([#492](https://github.com/FRIKKern/fluid-editor/pull/492))
-  - T12: Instagram rows after an Aspect Ratio pick follow the DROP rule (5 of 5 unseen, frozen) ([#491](https://github.com/FRIKKern/fluid-editor/pull/491))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
