@@ -5,10 +5,13 @@ import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.j
 import { dividerEdge } from './render.js';
 import { setStyleProp } from './text-format.js';
 
+// A Text that a layout made a Scrolling block keeps its words (textHtml) and is still that Text to the mixes.
+const asText = (b) => (b.textHtml != null ? { ...b, type: 'text', html: b.textHtml } : b);
 // A space where a paragraph, heading or list item ends, so a list's items don't run together on its tile.
-const words = (b) => String(b.html || '').replace(/<\/(p|h[1-6]|li)>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-const listFirst = (b) => /^\s*<(ul|ol|blockquote)[\s>]/.test(b.html || '');
-const roleOf = (b) => {
+const words = (x) => String(asText(x).html || '').replace(/<\/(p|h[1-6]|li)>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const listFirst = (x) => /^\s*<(ul|ol|blockquote)[\s>]/.test(asText(x).html || '');
+const roleOf = (x) => {
+  const b = asText(x);
   if (b.type === 'image') return 'i';
   if (b.type === 'button') return 'b';
   if (b.type === 'text') return /^\s*<h[1-4]/.test(b.html || '') ? 'h' : 'p';
@@ -19,7 +22,7 @@ const roleOf = (b) => {
 const dropped = (b) => (b.type === 'shape' && !b.label) || (b.type === 'text' && !words(b));
 // The oracle's name for a block outside the text, image and button mixes: ours, or a stand-in's label.
 const NAMES = { video: 'Video', accordion: 'Accordion', scrolling: 'Scrolling', code: 'Code', embed: 'Embed', markdown: 'Markdown', map: 'Map' };
-const kindOf = (b) => (b.type === 'shape' ? b.label : NAMES[b.type]) || null;
+const kindOf = (b) => (b.textHtml != null ? null : (b.type === 'shape' ? b.label : NAMES[b.type]) || null);
 // The list a 5 or 10 tile type shares, by place: desktop row start and columns, phone row start and columns,
 // rows past the block's last row, style (CAP-U10PICK-CODE.json, QUOTE, ACCORDION; VIDEO, MAP).
 const SHARED = {
@@ -86,6 +89,9 @@ export const layoutTheme = (theme) => THEME_TURN[theme || ''];
 // middle (start line + end line = 28), left otherwise (CAP-U10ALIGN-A.json, 6 of 6 seen; CAP-U10ALIGNPREDICT.json,
 // 41 of 41 predicted in CAP-U10ALIGN-B, C and D). Its paragraphs and headings, those inside list items and quotes too
 // (CAP-U10TEXTMIXPREDICT.json, 160 of 160 lines); the lists, items and quotes themselves keep theirs, and code has none.
+const marqueeWords = (html) => String(html || '').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').trim();
+// A Scrolling block's text size at a 1600 wide page (site.css's .marquee, its page width 1400).
+const marqueePx = (v) => Math.min((v - 1) * 19.2 + 16, Math.max((v - 1) * 16.8 + 16, v * 16));
 const centred = (desk) => { const [, c0, , c1] = area(desk); return c0 + c1 === 28; };
 function alignText(b, centre) {
   if (typeof document === 'undefined' || !b.html) return;
@@ -125,6 +131,15 @@ export function applyLayout(s, mix, n, base) {
       const [desk, phone] = L.places[r + k];
       b.layout.desktop.area = area(desk);
       b.layout.mobile.area = area(phone);
+      // The Scrolling turn (CAP-U10SC1.json to SC5, CAP-U10TEXTMIX-A2.json and -D): at a few full-width layouts the
+      // heading's Text becomes a Scrolling block, its items its words run together (a list's items too, no space) and an
+      // asterisk, at that layout's text size and wave; the next pick makes it the Text again.
+      if (b.textHtml != null) { Object.assign(b, { type: 'text', html: b.textHtml }); for (const x of ['textHtml', 'text', 'size', 'wave']) delete b[x]; }
+      if (L.scroll?.block === r + k) {
+        Object.assign(b, { type: 'scrolling', textHtml: b.html, text: `${marqueeWords(b.html)} *`, size: L.scroll.size, wave: L.scroll.wave });
+        delete b.html;
+        return;
+      }
       // Code becomes a paragraph at every pick (CAP-U10TEXTMIX-C.json: code alone takes the paragraph list as a P, and in
       // a mixed Text its code reads as a P too). Read with one line of code; inline code marks inside are not read.
       if (r === 'h' || r === 'p') b.html = b.html.replace(/<pre[^>]*>(?:<code[^>]*>)?([\s\S]*?)(?:<\/code>)?<\/pre>/g, '<p>$1</p>');
@@ -212,6 +227,11 @@ function tile(mix, n, on, look) {
       const box = `left:${(xOf(c0) * SCALE).toFixed(1)}px;top:${((pad + (r0 - 1) * 41.09) * SCALE).toFixed(1)}px;width:${((xOf(c1) - xOf(c0) - 11) * SCALE).toFixed(1)}px;height:${(((r1 - r0) * 41.09 - 11) * SCALE).toFixed(1)}px`;
       if (r === 'i' || r === 't') parts.push(`<span class="lo-i" style="${box}"></span>`);
       if (r === 'b') parts.push(`<span class="lo-b" style="${box}"><i></i></span>`);
+      if (L.scroll?.block === r + k) {
+        const t = `${marqueeWords(asText(b).html)} * `.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        parts.push(`<span class="lo-t lo-scroll" style="${box};color:${ink};font-size:${(marqueePx(L.scroll.size) * SCALE).toFixed(1)}px;line-height:${(((r1 - r0) * 41.09 - 11) * SCALE).toFixed(1)}px;white-space:nowrap;overflow:hidden">${t.repeat(3)}</span>`);
+        return;
+      }
       if (r === 'h' || r === 'p') parts.push(`<span class="lo-t lo-${L.tag && r === 'h' ? L.tag : r}" style="${box};color:${ink}${centred(L.places[r + k][0]) ? ';text-align:center' : ''}">${words(b).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`);
     });
   }

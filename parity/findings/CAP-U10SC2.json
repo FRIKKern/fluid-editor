@@ -1,0 +1,1188 @@
+{
+  "item": "CAP-U10SC2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "U10 Scrolling turn and unread text mixes: SC2 (see steps). Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<h2>Heading words for a probe</h2>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "S2 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S2 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S2 01 layout 3",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ],
+        "inside": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "S2-1-L3"
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S2 02 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ],
+        "inside": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "S2-2-L0"
+    ]
+  ],
+  "reads": {
+    "S2 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/5/10",
+          [
+            [
+              "H2",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "1/2/3/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<h2 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Heading words for a probe</h2>",
+      "areas": [
+        [
+          "1/2/5/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S2 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          272,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            328,
+            ""
+          ],
+          [
+            "1",
+            412.4,
+            ""
+          ],
+          [
+            "2",
+            500.4,
+            ""
+          ],
+          [
+            "3",
+            590.2,
+            ""
+          ],
+          [
+            "4",
+            682.9,
+            ""
+          ],
+          [
+            "5",
+            825.1,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S2 01 layout 3": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/1/5/27",
+          null,
+          {
+            "els": [
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ],
+              [
+                "H1",
+                "DIV",
+                "",
+                "start"
+              ]
+            ],
+            "kinds": [
+              "DIV sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+              "DIV sqs-block-marquee-content sqs-block-content",
+              "DIV sqs-block-outline",
+              "DIV sqs-block-resizing-outline"
+            ]
+          }
+        ],
+        [
+          "5/3/7/13",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 93,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            0,
+            263.4,
+            1600,
+            153.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-marquee sqs-block marquee-block sqs-block-editable",
+          "box": [
+            0,
+            263.4,
+            1600,
+            153.4
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-marquee-content sqs-block-content",
+          "box": [
+            0,
+            293.6,
+            1600,
+            93
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "Marquee",
+          "box": [
+            0,
+            293.6,
+            1600,
+            93
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "64px",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "alignItems": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "Marquee-display",
+          "box": [
+            0,
+            293.6,
+            1600,
+            93
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "64px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "Marquee-measure",
+          "box": [
+            0,
+            293.6,
+            974.5,
+            93
+          ],
+          "css": {
+            "display": "flex",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "64px",
+            "flexDirection": "row",
+            "alignItems": "center"
+          }
+        },
+        {
+          "tag": "h1",
+          "cls": "Marquee-item Marquee-item--text",
+          "box": [
+            0,
+            293.6,
+            889,
+            93
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "alignItems": "center"
+          }
+        },
+        {
+          "tag": "h1",
+          "cls": "Marquee-item Marquee-item--text",
+          "box": [
+            915.5,
+            293.6,
+            32.4,
+            93
+          ],
+          "css": {
+            "display": "flex",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "alignItems": "center"
+          }
+        },
+        {
+          "tag": "h1",
+          "cls": "",
+          "box": [
+            0,
+            293.6,
+            1600,
+            93
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "Marquee-svg",
+          "box": [
+            0,
+            302.9,
+            1600,
+            93
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 9.3)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "g",
+          "cls": "Marquee-path-group",
+          "box": [
+            -550,
+            369.1,
+            2750,
+            0
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, 4.65)",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "Marquee-path",
+          "box": [
+            -550,
+            369.1,
+            2750,
+            0
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "text",
+          "cls": "",
+          "box": [
+            -532.1,
+            232.9,
+            2659.9,
+            154.6
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "textpath",
+          "cls": "Marquee-svg-text",
+          "box": [
+            -532.1,
+            232.9,
+            2659.9,
+            154.6
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            -532.1,
+            232.9,
+            711.6,
+            154.6
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            206,
+            294.4,
+            32.4,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            264.6,
+            294.4,
+            889,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            1180.1,
+            294.4,
+            32.4,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            1238.7,
+            294.4,
+            889.1,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "text",
+          "cls": "",
+          "box": [
+            -550.1,
+            294.4,
+            939.6,
+            93
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "textpath",
+          "cls": "Marquee-svg-group",
+          "box": [
+            -550.1,
+            294.4,
+            939.6,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            -550.1,
+            294.4,
+            889.2,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "tspan",
+          "cls": "Marquee-svg-text",
+          "box": [
+            357,
+            294.4,
+            32.4,
+            93
+          ],
+          "css": {
+            "display": "inline",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "g",
+          "cls": "Marquee-hitbox",
+          "box": [
+            -550,
+            306.1,
+            2750,
+            83.7
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "66.4px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<style data-test=\"fluid-engine-grid-css\">\n  .fe-block-yui_3_17_2_1_1794192698115_438, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1794192698115_438, .transform-indicator-yui_3_17_2_1_1794192698115_438 {\n    grid-area: 3/2/7/10;\n\n    \n  }\n\n  .sqs-align-with-block-placement-yui_3_17_2_1_1794192698115_438 {\n    grid-area: 3/2/7/10;\n  }\n\n  .fe-block-yui_3_17_2_1_1794192698115_438, .transform-indicator-yui_3_17_2_1_1794192698115_438 {\n    z-index: 1;\n  }\n\n  .fe-block-yui_3_17_2_1_1794192698115_438 .sqs-block {\n    justify-content: center;\n  }\n\n  .fe-block-yui_3_17_2_1_1794192698115_438 .sqs-block-alignment-wrapper {\n    align-items: center;\n  }\n\n  @media (min-width: 768px) { \n    .fe-block-yui_3_17_2_1_1794192698115_438, .fluid-engine-block-editing-indicator-yui_3_17_2_1_1794192698115_438, .transform-indicator-yui_3_17_2_1_1794192698115_438 {\n      grid-area: 1/1/5/27;\n\n      \n    }\n\n    .sqs-align-with-block-placement-yui_3_17_2_1_1794192698115_438 {\n      grid-area: 1/1/5/27;\n    }\n\n    .fe-block-yui_3_17_2_1_1794192698115_438, .transform-indicator-yui_3_17_2_1_1794192698115_438 {\n      z-index: 1;\n    }\n\n    .fe-block-yui_3_17_2_1_1794192698115_438 .sqs-block {\n      justify-content: center;\n    }\n\n    .fe-block-yui_3_17_2_1_1794192698115_438 .sqs-block-alignment-wrapper {\n      align-items: center;\n    }\n   }\n  </style><div class=\"fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-events\" style=\"z-index: 2; position: relative; height: 100%; pointer-events: auto;\"><div id=\"block-yui_3_17_2_1_1794192698115_438\" class=\"yui3-widget yui3-block-base sqs-block-csr s",
+      "areas": [
+        [
+          "1/1/5/27",
+          "3/2/7/10"
+        ],
+        [
+          "5/3/7/13",
+          "8/3/10/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S2 02 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/9/4/19",
+          [
+            [
+              "H3",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "4/10/6/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 50.3,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            112.3
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            112.3
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "h3",
+          "cls": "",
+          "box": [
+            511.6,
+            283.9,
+            576.8,
+            50.3
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "41.2px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            511.6,
+            283.9,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            512.6,
+            284.9,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<h3 style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Heading words for a probe</h3>",
+      "areas": [
+        [
+          "1/9/4/19",
+          "3/2/6/10"
+        ],
+        [
+          "4/10/6/18",
+          "7/3/9/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

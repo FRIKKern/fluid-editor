@@ -1,0 +1,996 @@
+{
+  "item": "CAP-U10SC4",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "U10 Scrolling turn and unread text mixes: SC4 (see steps). Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<ul><li><p>List item one</p></li><li><p>List item two</p></li></ul>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "S4 start",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S4 open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S4 01 layout 0",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          1
+        ],
+        "html": [
+          0,
+          1
+        ],
+        "inside": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "S4-1-L0"
+    ],
+    [
+      "pressLayout",
+      2
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "S4 02 layout 2",
+      {
+        "look": 0,
+        "areas": 0,
+        "aligns": 0,
+        "contentH": [
+          0,
+          1
+        ],
+        "html": [
+          0,
+          1
+        ],
+        "inside": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "shot",
+      "S4-2-L2"
+    ]
+  ],
+  "reads": {
+    "S4 start": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/2/3/10",
+          [
+            [
+              "P",
+              "DIV",
+              "",
+              "start"
+            ]
+          ]
+        ],
+        [
+          "1/2/3/10",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "P",
+              "LI",
+              "",
+              "start"
+            ]
+          ]
+        ]
+      ],
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/3/10",
+          "3/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S4 open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            410.2,
+            ""
+          ],
+          [
+            "2",
+            515,
+            ""
+          ],
+          [
+            "3",
+            638.5,
+            ""
+          ],
+          [
+            "4",
+            731.2,
+            ""
+          ],
+          [
+            "5",
+            893.1,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S4 01 layout 0": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/9/7/19",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H3",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H3",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "7/10/9/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 22.4,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            71.2
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "3",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            71.2
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            570.4,
+            490.8,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            570.4,
+            490.8,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            571.4,
+            491.8,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "areas": [
+        [
+          "1/9/7/19",
+          "3/2/8/10"
+        ],
+        [
+          "7/10/9/18",
+          "9/3/11/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S4 02 layout 2": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "aligns": [
+        [
+          "1/4/9/24",
+          [
+            [
+              "UL",
+              "DIV",
+              "",
+              "start"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ],
+            [
+              "LI",
+              "UL",
+              "",
+              "start"
+            ],
+            [
+              "H1",
+              "LI",
+              "center",
+              "center"
+            ]
+          ]
+        ],
+        [
+          "9/10/11/18",
+          [
+            [
+              "P",
+              "DIV",
+              "center",
+              "center"
+            ]
+          ]
+        ]
+      ],
+      "contentH": 22.4,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            71.2
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "3",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            71.2
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "flex-start"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            570.4,
+            573,
+            459.3,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            570.4,
+            573,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            571.4,
+            574,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "areas": [
+        [
+          "1/4/9/24",
+          "5/2/11/10"
+        ],
+        [
+          "9/10/11/18",
+          "12/3/14/9"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
