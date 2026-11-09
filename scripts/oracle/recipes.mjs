@@ -633,6 +633,21 @@ export const RECIPES = {
     };
   })(),
   // Each single read once more, steps copied from its finding: CAP-A2ROUND1 b3 and x2, CAP-A2ROUND2 f1, CAP-TEXTWIDTH7 f3.
+  'CAP-X6NINETEN': { page: 'Blocks Probe', question: 'X6: what sets 9 or 10 rows after a new Instagram is pulled one column in from the east? In CAP-X6TRAILWHY i2 took 9 in both builds, i1, i3, i4 and i5 took 10, with the same steps. Each case changes one thing: n1 the i2 steps run first in the session; n2 a wait of 5 s before the pull, not 1.2 s; n3 the pull held 1.5 s before the release, read held; n4 the i3 steps, a control. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => [['read', `${n}${s}`, { areas: 0, contentH: [0, 'new'] }]];
+      const ADD = (wait) => [['add', 0, 'Instagram'], ['pause', wait], ['press', 'Escape'], ['select', 0, 'new']];
+      const PULL = [['drag', 0, 'new', 'e', -58.78, 0], ['pause', 400]];
+      return [
+        [...ADD(1200), ...R('n1 start'), ...PULL, ...R('n1 pulled')],
+        [...ADD(5000), ...R('n2 start'), ...PULL, ...R('n2 pulled')],
+        [...ADD(1200), ...R('n3 start'), ['holdRaw', 0, 'new', 'e', 0, 0], ['move', -58.78, 0], ['pause', 1500], ...R('n3 held'), ['release'], ['pause', 400], ...R('n3 pulled')],
+        [...ADD(1200), ...R('n4 start'), ...PULL, ...R('n4 pulled')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
