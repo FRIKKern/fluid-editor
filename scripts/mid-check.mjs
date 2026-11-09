@@ -754,6 +754,32 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   }
   viewport(S, 1600, 1000); await pause(120);
 }
+// R2, rule S: a one-line Text widened by its east side keeps its rows at the drop when x of its new right grid line has a fraction
+// under 0.5 px, and falls when let go. Two agreeing reads each: CAP-R2SUBPIXEL.json and CAP-R2ENDLINE-A/B/C.json R1 (R2 agrees),
+// CAP-R2WIDEDROP.json a1, a4, a6 (CAP-TEXTWIDTH7.json f4, f3, f7 agree). Named miss: column 3 to line 15 falls at the drop.
+{ const t3 = 'Short note about the mill road and the birch trees above it.', reads = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).reads;
+  const sub = ['w1280 L13', 'w1280 L14', 'w1280 L17', 'w1280 L18', 'w1920 L15', 'c3 L15', 'c3 L17'].map((k) => ['CAP-R2SUBPIXEL', `R1 ${k}`, `R1 ${k} written`]);
+  const end = [...['L18', 'L19', 'L20', 'L21'].map((k) => ['CAP-R2ENDLINE-A', `R1 ${k}`]), ...['L22', 'L23', 'L24', 'L25'].map((k) => ['CAP-R2ENDLINE-B', `R1 ${k}`]), ...['c3 L15', 'c3 L16', 'c4 L15', 'c4 L16'].map((k) => ['CAP-R2ENDLINE-C', `R1 ${k}`, `R1 ${k} after move`])];
+  const drop = ['a1 T3 wider 1', 'a4 T3 wider 4', 'a6 T3 wider 6'].map((k) => ['CAP-R2WIDEDROP', k]);
+  const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.find((x) => x.id === 't').layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
+  const handle = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
+  for (const [f, key, start] of [...sub, ...end, ...drop]) {
+    const R = reads(f), w = /w1280/.test(key) ? 1280 : /w1920/.test(key) ? 1920 : 1600, pitch = w === 1280 ? 49.515625 : 58.78125;
+    const from = start ? R[start].stack[0].desktop : '1/2/3/10', a0 = from.split('/').map(Number), held = R[`${key} held`], gone = R[`${key} let go`];
+    viewport(S, w, 945); await pause(150);
+    evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: '<p>${t3}</p>', layout: { desktop: { area: ${JSON.stringify(a0)}, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 200)); fe.select('s', 't'); return 1; })()`); await pause(200);
+    const dx = (Number(held.stack[0].desktop.split('/')[3]) - a0[3]) * pitch, p = handle();
+    mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30);
+    for (let n = 1; n <= 12; n++) { mouse(S, 'move', p[0] + (dx * n) / 12, p[1], { buttons: 1 }); await pause(12); }
+    mouse(S, 'up', p[0] + dx, p[1]); await pause(80);
+    for (const [when, o] of [['at the drop', held], ['let go', gone]]) {
+      if (o === gone) { browser(S, 'press', 'Escape'); await pause(150); }
+      const r = read(), miss = o === held && /c3 L15/.test(key);
+      groupCases.push({ name: `R2 rule S, ${f} ${key} ${when}`, diffs: [r.a !== o.stack[0].desktop && `area: oracle ${o.stack[0].desktop}, ours ${r.a}`, r.rows !== o.section.rows && `rows: oracle ${o.section.rows}, ours ${r.rows}`].filter(Boolean), ...(miss ? { known: 'rule S misses it: written on column 3 and widened to line 15 (x .28) the oracle falls at the drop, twice in two sessions' } : {}) });
+    }
+  }
+  viewport(S, 1600, 1000); await pause(120);
+}
 // R2: after a south resize let go over the block last moved while the page scrolled, the page scrolls so its bottom sits at the
 // frame's bottom; let go beside it, or with no such move, it stays (rule H, CAP-R2PTR.json 4 of 4 fresh; CAP-RESIZESCROLL4.json v1
 // and v2, CAP-R2X2LAST.json se and sw, CAP-R2REMEMBER.json, CAP-R2TWICE.json); an east resize stays (CAP-RESIZESCROLL3.json t3).
