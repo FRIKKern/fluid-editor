@@ -1,0 +1,1311 @@
+{
+  "item": "Y2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Y2: the text bar on Heading 1 after Cmd+Z back to its first words and Cmd+Shift+Z on (CAP-Y2KEYS9.json read it as not showing, once). Same steps, read twice (H1, H2), with where the bar's Bold is and what hides it, and the frame's focus. T15: Rotate's ends on Animation, a drag 50px past 350° and -350°, read twice (R1, R2).",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "H1 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 4 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 5 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H1 6 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "350°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 rotate +50",
+      "Rotate",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "-350°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R1 rotate -50",
+      "Rotate",
+      0,
+      -50
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "H2 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 1 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 2 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 3 z",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 4 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 5 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "H2 6 y",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Animation"
+    ],
+    [
+      "clickIf",
+      "Add a new animation"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Start blank"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "350°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 rotate +50",
+      "Rotate",
+      0,
+      50
+    ],
+    [
+      "fillRow",
+      "Rotate",
+      0,
+      "-350°"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "dragRow",
+      "R2 rotate -50",
+      "Rotate",
+      0,
+      -50
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "H1 typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</h1>",
+      "areas": [
+        [
+          "1/2/19/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 3 z": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 4 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 5 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</h1>",
+      "areas": [
+        [
+          "1/2/20/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H1 6 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 rotate +50": {
+      "label": "Rotate",
+      "n": 0,
+      "from": "350°",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        577,
+        533,
+        182,
+        11
+      ],
+      "path": [
+        [
+          20,
+          "358°"
+        ],
+        [
+          40,
+          "360°"
+        ],
+        [
+          50,
+          "360°"
+        ]
+      ],
+      "held": "360°",
+      "after": "360°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "360°",
+        "caret": 4
+      }
+    },
+    "R1 rotate -50": {
+      "label": "Rotate",
+      "n": 0,
+      "from": "-350°",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        577,
+        533,
+        182,
+        11
+      ],
+      "path": [
+        [
+          -20,
+          "-358°"
+        ],
+        [
+          -40,
+          "-360°"
+        ],
+        [
+          -50,
+          "-360°"
+        ]
+      ],
+      "held": "-360°",
+      "after": "-360°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "-360°",
+        "caret": 5
+      }
+    },
+    "H2 typed": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 1 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</h1>",
+      "areas": [
+        [
+          "1/2/19/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 2 z": {
+      "has": {
+        "Bold": true,
+        "Write": false
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              70,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 523,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 3 z": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 4 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block</h1>",
+      "areas": [
+        [
+          "1/2/11/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 5 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it</h1>",
+      "areas": [
+        [
+          "1/2/20/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "H2 6 y": {
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 rotate +50": {
+      "label": "Rotate",
+      "n": 0,
+      "from": "350°",
+      "dx": 50,
+      "at": "top",
+      "strip": [
+        577,
+        533,
+        182,
+        11
+      ],
+      "path": [
+        [
+          20,
+          "358°"
+        ],
+        [
+          40,
+          "360°"
+        ],
+        [
+          50,
+          "360°"
+        ]
+      ],
+      "held": "360°",
+      "after": "360°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "360°",
+        "caret": 4
+      }
+    },
+    "R2 rotate -50": {
+      "label": "Rotate",
+      "n": 0,
+      "from": "-350°",
+      "dx": -50,
+      "at": "top",
+      "strip": [
+        577,
+        533,
+        182,
+        11
+      ],
+      "path": [
+        [
+          -20,
+          "-358°"
+        ],
+        [
+          -40,
+          "-360°"
+        ],
+        [
+          -50,
+          "-360°"
+        ]
+      ],
+      "held": "-360°",
+      "after": "-360°",
+      "focus": {
+        "tag": "INPUT",
+        "value": "-360°",
+        "caret": 5
+      }
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice each, in agreement. Heading 1 (H1, H2), as CAP-Y2KEYS9.json: the bar shows typed and on the first two Cmd+Z, its Bold at y 70 with the frame at 523. The third Cmd+Z (back to abc, 10 rows to 3) leaves no Bold on the page at all, and no caret, the edit open and focused, and the frame's scroll pulled from 523 to 360. Three Cmd+Shift+Z bring the caret back (offsets 63, 127, 193), not the bar. Rotate on Animation (R1, R2): a drag 50px past 350° stops at 360°, and past -350° at -360° (path 358, 360, 360), the focus on the input, caret at its end."
+}

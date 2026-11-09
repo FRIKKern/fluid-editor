@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 960,
-  "total": 960,
+  "pass": 962,
+  "total": 962,
   "couldNotRun": [],
   "results": [
     {
@@ -538,6 +538,14 @@
     },
     {
       "name": "79 under left: 1/2/10/10 1/2/10/10",
+      "ok": true
+    },
+    {
+      "name": "Y2 bar: the third Cmd+Z pulls the scroll up, the bar and caret go, a redo brings only the caret (CAP-Y2BAR)",
+      "ok": true
+    },
+    {
+      "name": "Y2 bar: frame at its top, the third Cmd+Z keeps the bar and caret (CAP-Y2BAR2)",
       "ok": true
     },
     {

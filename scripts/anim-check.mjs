@@ -228,9 +228,10 @@ await typeInto(1, '2000');
 add('End Rotate typed 2000 shows 2,000°, as read', fieldsNow()[1] === '2,000°', fieldsNow());
 await drag(`panel.querySelectorAll('.an-box')[4].querySelector('.sc-r')`, 20);
 add('A drag on from 2,000px stays at 2,000px (inferred, as Design: not pulled back, not taken further)', fieldsNow()[4] === '2,000px', fieldsNow());
-// A drag stops at the bar's ends on Animation's fields, the focus left on the input with the caret at its end (CAP-T15FIELDS2.json, read twice).
+// A drag stops at the bar's ends on Animation's fields, the focus left on the input with the caret at its end (CAP-T15FIELDS2.json, read twice;
+// Rotate in CAP-Y2BAR.json, R1 and R2).
 // Opacity goes by its left edge: from its right one, 50px on is over the page's frame, which takes the let-go.
-for (const [i, from, dx, want, edge] of [[0, '95', 50, '100%', 'sc-l'], [2, '190', 50, '200%'], [3, '10', -50, '0%'], [4, '990', 50, '1,000px'], [5, '-990', -50, '-1,000px'], [6, '55', 50, '60°']]) {
+for (const [i, from, dx, want, edge] of [[0, '95', 50, '100%', 'sc-l'], [1, '350', 50, '360°', 'sc-l'], [1, '-350', -50, '-360°', 'sc-l'], [2, '190', 50, '200%'], [3, '10', -50, '0%'], [4, '990', 50, '1,000px'], [5, '-990', -50, '-1,000px'], [6, '55', 50, '60°']]) {
   await typeInto(i, from);
   await drag(`panel.querySelectorAll('.an-box')[${i}].querySelector('.${edge || 'sc-r'}')`, dx);
   const f = q(`const e = panel.querySelectorAll('.an-box input')[${i}]; return JSON.stringify({ v: e.value, focused: document.activeElement === e, caret: e.selectionStart === e.value.length });`);
