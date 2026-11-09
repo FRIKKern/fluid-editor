@@ -289,6 +289,13 @@ body { position: relative; }
 /* Custom height at top or bottom (difference 103, CAP-P3ALIGN2 to 4): no gutter on the near edge, twice the padding on the far one. */
 .page-section.section-height--custom.vertical-alignment--top > .content-wrapper { padding-top: 0; }
 .page-section.section-height--custom.vertical-alignment--bottom > .content-wrapper { padding-bottom: 0; }
+/* After a top or bottom press at S, M or L, Custom's near edge keeps the 4vw gutter, flat or not (CAP-P3VERT-VA, VC). */
+.page-section.section-height--custom.section-pad--gutter.vertical-alignment--top > .content-wrapper { padding-top: var(--sqs-site-gutter, 4vw); }
+.page-section.section-height--custom.section-pad--gutter.vertical-alignment--bottom > .content-wrapper { padding-bottom: var(--sqs-site-gutter, 4vw); }
+/* S, M or L after a flattening press: top and bottom keep no padding, center keeps it (CAP-P3VERT-VB, CAP-P3ALIGN3).
+   Flat with the gutter at S, M or L was not read. */
+.page-section.section-pad--flat.vertical-alignment--top > .content-wrapper,
+.page-section.section-pad--flat.vertical-alignment--bottom > .content-wrapper { padding: 0; }
 /* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
 .sqs-html-content p[data-rte-preserve-empty]:empty::before { content: ""; display: inline-block; }
 .page-section a { color: inherit; }
@@ -769,3 +776,5 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Stack with names: the names take one field's width, so they stack too (CAP-T12READS-D.json, stackNames). */
 .newsletter-form-wrapper--layoutStack .newsletter-form fieldset { width: 288px; max-width: 100%; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-button-wrapper { display: block; margin: 0; padding: 8px 0; }
+/* A Text's Background on is this class; its white is a sheet's, a picked color the box's attribute (CAP-T15WHERE-A.json, -B). */
+.sqs-block-html.sqs-background-enabled { background-color: rgb(255, 255, 255); }

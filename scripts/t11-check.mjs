@@ -655,6 +655,20 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   const want = { vr: rb[0] + rb[2] - (RS.value['Slide Up'].box[1] + 1), cx: rb[0] + rb[2] - (RS.chevron.box[0] + RS.chevron.box[1] + 1) / 2, cy: (RS.chevron.box[2] + RS.chevron.box[3] + 1) / 2 - rb[1] };
   add('Design tab, Quote: after a pick the Appear row shows its value as the oracle\'s does', row.v === 'Slide Up' && row.bg === rgb(RS.fill.color) && row.rad === '3px' && row.line === 'none' && row.lab === rgb(RS.label.darkest) && row.vc === rgb(RS.value.darkest) && row.cc === rgb(RS.chevron.darkest)
     && near(row.vr, want.vr, 1.5) && near(row.cx, want.cx, 1.5) && near(row.cy, want.cy, 1.5), JSON.stringify({ row, want }));
+  // The fill and the hidden line are the focus's (CAP-T12FILL-A.json, -B): a Tab off clears them and keeps the value and the dark
+  // label; Site Default picked shows as a value, focused with the fill.
+  const FL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12FILL-A.json', import.meta.url))).reads;
+  const fillOf = (r) => { const f = r.looks.find((x) => x.tag === 'div' && x.box[2] > 280 && x.box[3] > 40); const l = r.looks.find((x) => x.tag === 'div' && x.box[3] === 1); const lab = r.looks.find((x) => x.text === 'Appear'); const v = r.looks.find((x) => x.tag === 'span' && x.text && x.text !== 'Appear'); return { fill: f ? f.bg : 'none', line: !!l, lab: lab.color, v: v?.text }; };
+  const rowNow = () => q(`const a = panel.querySelector('[data-appear]'), s = getComputedStyle(a), v = a.querySelector('.bp-appear-v'); return JSON.stringify({ focused: document.activeElement === a, fill: s.backgroundColor === 'rgba(0, 0, 0, 0)' ? 'none' : s.backgroundColor, line: getComputedStyle(a, '::after').content !== 'none', lab: getComputedStyle(a.firstElementChild).color, v: v?.firstChild.textContent });`);
+  const sameRow = (o, w) => o.fill === w.fill && o.line === w.line && o.lab === w.lab && o.v === w.v;
+  let fo = rowNow(), fw = fillOf(FL['2 slide up, focused']);
+  add('Appear after a pick: the row keeps the focus, with the fill', fo.focused && sameRow(fo, fw), JSON.stringify({ fo, fw }));
+  q(`panel.querySelector('[data-appear]').blur(); await sleep(150); return 'true';`);
+  fo = rowNow(); fw = fillOf(FL['3 slide up, tabbed off']);
+  add('Appear focus off: no fill, the line back, the value and dark label kept', sameRow(fo, fw), JSON.stringify({ fo, fw }));
+  q(`panel.querySelector('[data-appear]').click(); await sleep(250); pop.querySelector('[data-appear-opt="Site Default"]').click(); await sleep(400); return 'true';`);
+  fo = rowNow(); fw = fillOf(FL['4 site default, focused']);
+  add('Appear Site Default picked: shown as a value, focused with the fill', fo.focused && sameRow(fo, fw), JSON.stringify({ fo, fw }));
   await fresh('Text'); q(`document.body.click(); await sleep(150); return 'true';`);
   const tid = q(`return JSON.stringify(fe.model.sections[1].blocks.at(-1).id);`);
   q(`fe.select(fe.model.sections[1].id, '${tid}'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`); tab();
