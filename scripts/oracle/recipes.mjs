@@ -540,6 +540,23 @@ export const RECIPES = {
     ];
     return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2SHRINKB1': { page: 'Blocks Probe', question: 'A2 and R2: refit 1 of candidate B, a fresh round. B1 (fitted on CAP-A2SHRINKWHY and CAP-A2SHRINKB, seen): a new Text drops to the rows its content needs at a typing that brings the one-phone-row Line from last back to first on the phone; a move that does so leaves it. Predictions pushed first (CAP-A2SHRINKB1-PREDICTED.json). Each case is built twice in this capture, the second time with " again" on its read labels. No Meta+c, x or v.', steps: (() => {
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (dx, dy) => [['drag', 0, 'new', 'middle', dx, dy], ['press', 'Escape'], ['deselect', 0]];
+    const NUDGE = [['select', 0, 'new'], ['press', 'ArrowRight'], ['press', 'Escape'], ['deselect', 0]];
+    const TYPE = (text) => [['pick', 0, 'new'], ['click', 'Write'], ['keysFast', text], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0]];
+    const LT = [...ADD('Line'), ...ADD('Text'), ...MOVE(0, 41)];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const READ = (name) => [['read', `${name}${s}`, { stack: 0, section: 0 }]];
+      return [
+        [...LT, ...TYPE('hello'), ...READ('c1 typed once'), ...NUDGE, ...READ('c1 then nudged right'), ...TYPE(' world'), ...READ('c1 typed twice'), ...TYPE(' again'), ...READ('c1 typed three times')],
+        [...ADD('Line'), ...ADD('Text'), ...MOVE(588, 0), ...MOVE(59, 0), ...READ('c3 beside the Line, moved twice'), ...TYPE('hello'), ...READ('c3 typed once'), ...TYPE(' world'), ...READ('c3 typed twice')],
+        [...LT, ...MOVE(59, 0), ...MOVE(59, 0), ...READ('c4 moved right twice'), ...TYPE('hello'), ...READ('c4 typed once'), ...TYPE(' world'), ...READ('c4 typed twice')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-TEXTSHRINK': { page: 'Gestures Probe', question: 'A2 and R2: why does a new Text drop to one row on desktop at its second edit in CAP-A2TYPEDNEW t2 and t5, but not in CAP-TEXTSECOND u1 and u3? Each case changes one thing from t2. Candidates, predicted first: D, a Text moved by hand loses its spare row at its second edit; L, only with a one-row Line above it; T, only when the phone order changes in that edit. No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
