@@ -648,6 +648,19 @@ export const RECIPES = {
     };
     return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-X6NINETEN2': { page: 'Blocks Probe', question: 'X6: CAP-X6NINETEN gave 8, 9, 10 and 11 rows for the same one-column Instagram pull, and its held case never moved. Does the time between the last move and the release set the rows? h1 held 1.5 s at the new width before the release, read held; h2 the same press and moves let go at once. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const R = (n) => [['read', `${n}${s}`, { areas: 0, contentH: [0, 'new'] }]];
+      const ADD = [['add', 0, 'Instagram'], ['pause', 1200], ['press', 'Escape'], ['select', 0, 'new']];
+      const HOLD = [['holdRaw', 0, 'new', 'e', -58.78, 0], ['move', -58.78, 0]];
+      return [
+        [...ADD, ...HOLD, ['pause', 1500], ...R('h1 held 1.5 s'), ['release'], ['pause', 400], ...R('h1 let go')],
+        [...ADD, ...HOLD, ['release'], ['pause', 400], ...R('h2 let go at once')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again'), ...cases(' third')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
