@@ -1,0 +1,1667 @@
+{
+  "item": "R2",
+  "capturedAt": "2026-11-09",
+  "question": "R2, rule S refit 1 (left edge), fresh round: does a one-line Text's drop keep its second row only when its new right line's fraction is under 0.5 and the left and right lines' fractions add to under 1? Unseen setups at 1600: the short Text moved 1, 2 or 4 columns right before it is written (left line 3, 4 or 6), widened by its east side to lines 18, 19, 20 or 24. Read at the drop and let go, twice (R1, R2). Gestures Probe, unsaved.",
+  "rule": "S refit 1: a one-line Text widened by its east side keeps its rows at the drop when x of its new right grid line has a fractional part under 0.5 px and under 1 minus the fractional part of x of its left grid line; it falls to the rows it needs otherwise; let go always takes the rows it needs. Grid line x at 1600 = 100.125 + (k - 2) * 58.78125. Where the left fraction is under 0.5 it is rule S.",
+  "from": "Scratch predictor of refit 1, fitted on every seen read: CAP-R2WIDEDROP, CAP-TEXTWIDTH7 f3, f4, f7, CAP-R2ENDLINE-A/B/C, CAP-R2SUBPIXEL (33 of 33 one-line drops, R1 where read twice, including column 3 to line 15 twice, where S holds 31). asBuilt: rule S as built on main (#538), which keeps on any right fraction under 0.5.",
+  "hit": "Scored on the Text's desktop area and the section rows at 'held' and 'let go' (each case's two reads must agree). Refit 1 and S differ on c3 L19, c3 L20, c3 L24 and c4 L19 held; c6 checks both on a left fraction under 0.5. A setup miss, named and not scored: the 'written' read not on its start area, or the held text not one line (textH over 30).",
+  "predicted": {
+    "c3 L19 written": {
+      "text": "1/3/3/11",
+      "setup": true
+    },
+    "c3 L19 held": {
+      "text": "1/3/2/19",
+      "rows": 7,
+      "leftFrac": 0.90625,
+      "edgeFrac": 0.40625,
+      "asBuilt": "1/3/3/19",
+      "asBuiltRows": 8
+    },
+    "c3 L19 let go": {
+      "text": "1/3/2/19",
+      "rows": 7,
+      "asBuilt": "1/3/2/19",
+      "asBuiltRows": 7
+    },
+    "c3 L20 written": {
+      "text": "1/3/3/11",
+      "setup": true
+    },
+    "c3 L20 held": {
+      "text": "1/3/2/20",
+      "rows": 7,
+      "leftFrac": 0.90625,
+      "edgeFrac": 0.1875,
+      "asBuilt": "1/3/3/20",
+      "asBuiltRows": 8
+    },
+    "c3 L20 let go": {
+      "text": "1/3/2/20",
+      "rows": 7,
+      "asBuilt": "1/3/2/20",
+      "asBuiltRows": 7
+    },
+    "c3 L24 written": {
+      "text": "1/3/3/11",
+      "setup": true
+    },
+    "c3 L24 held": {
+      "text": "1/3/2/24",
+      "rows": 7,
+      "leftFrac": 0.90625,
+      "edgeFrac": 0.3125,
+      "asBuilt": "1/3/3/24",
+      "asBuiltRows": 8
+    },
+    "c3 L24 let go": {
+      "text": "1/3/2/24",
+      "rows": 7,
+      "asBuilt": "1/3/2/24",
+      "asBuiltRows": 7
+    },
+    "c4 L19 written": {
+      "text": "1/4/3/12",
+      "setup": true
+    },
+    "c4 L19 held": {
+      "text": "1/4/2/19",
+      "rows": 7,
+      "leftFrac": 0.6875,
+      "edgeFrac": 0.40625,
+      "asBuilt": "1/4/3/19",
+      "asBuiltRows": 8
+    },
+    "c4 L19 let go": {
+      "text": "1/4/2/19",
+      "rows": 7,
+      "asBuilt": "1/4/2/19",
+      "asBuiltRows": 7
+    },
+    "c6 L18 written": {
+      "text": "1/6/3/14",
+      "setup": true
+    },
+    "c6 L18 held": {
+      "text": "1/6/2/18",
+      "rows": 7,
+      "leftFrac": 0.25,
+      "edgeFrac": 0.625,
+      "asBuilt": "1/6/2/18",
+      "asBuiltRows": 7
+    },
+    "c6 L18 let go": {
+      "text": "1/6/2/18",
+      "rows": 7,
+      "asBuilt": "1/6/2/18",
+      "asBuiltRows": 7
+    },
+    "c6 L19 written": {
+      "text": "1/6/3/14",
+      "setup": true
+    },
+    "c6 L19 held": {
+      "text": "1/6/3/19",
+      "rows": 8,
+      "leftFrac": 0.25,
+      "edgeFrac": 0.40625,
+      "asBuilt": "1/6/3/19",
+      "asBuiltRows": 8
+    },
+    "c6 L19 let go": {
+      "text": "1/6/2/19",
+      "rows": 7,
+      "asBuilt": "1/6/2/19",
+      "asBuiltRows": 7
+    }
+  },
+  "cases": {
+    "c3 L19 held": [
+      "R1 c3 L19 held",
+      "R2 c3 L19 held"
+    ],
+    "c3 L19 let go": [
+      "R1 c3 L19 let go",
+      "R2 c3 L19 let go"
+    ],
+    "c3 L20 held": [
+      "R1 c3 L20 held",
+      "R2 c3 L20 held"
+    ],
+    "c3 L20 let go": [
+      "R1 c3 L20 let go",
+      "R2 c3 L20 let go"
+    ],
+    "c3 L24 held": [
+      "R1 c3 L24 held",
+      "R2 c3 L24 held"
+    ],
+    "c3 L24 let go": [
+      "R1 c3 L24 let go",
+      "R2 c3 L24 let go"
+    ],
+    "c4 L19 held": [
+      "R1 c4 L19 held",
+      "R2 c4 L19 held"
+    ],
+    "c4 L19 let go": [
+      "R1 c4 L19 let go",
+      "R2 c4 L19 let go"
+    ],
+    "c6 L18 held": [
+      "R1 c6 L18 held",
+      "R2 c6 L18 held"
+    ],
+    "c6 L18 let go": [
+      "R1 c6 L18 let go",
+      "R2 c6 L18 let go"
+    ],
+    "c6 L19 held": [
+      "R1 c6 L19 held",
+      "R2 c6 L19 held"
+    ],
+    "c6 L19 let go": [
+      "R1 c6 L19 let go",
+      "R2 c6 L19 let go"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      470.24,
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L20 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      529.02,
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L20 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L20 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L24 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      764.14,
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L24 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c3 L24 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      117.56,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c4 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      411.46,
+      0
+    ],
+    [
+      "read",
+      "R1 c4 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c4 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      235.12,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L18 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      235.12,
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L18 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L18 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      235.12,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      293.9,
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 c6 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      470.24,
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L20 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      529.02,
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L20 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L20 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      58.78,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L24 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      764.14,
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L24 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c3 L24 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      117.56,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c4 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      411.46,
+      0
+    ],
+    [
+      "read",
+      "R2 c4 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c4 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      235.12,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L18 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      235.12,
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L18 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L18 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      235.12,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L19 written",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      293.9,
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L19 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 c6 L19 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ]
+}

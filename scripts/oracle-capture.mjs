@@ -88,10 +88,11 @@ const CSS = `const css = (c) => Object.fromEntries(${JSON.stringify(PROPS)}.map(
 const cls = `const cls = (e) => [...e.classList].filter((c) => !/^[A-Za-z0-9_]{16}$|^fe-block-|^fluid-engine-[a-z0-9]{5,7}$|^yui/.test(c)).join(' ').slice(0, 90);`;
 const BLOCK = (i, id) => `d.querySelectorAll('main#page .fluid-engine')[${i}].querySelector('.fe-block[data-block-id="${id}"]')`;
 
-let added = null;
+// added: the last block added; made: every block added since the last blank, so 'a1' is the first of them.
+let added = null, made = [];
 // The section's bottom handle: a row-resize box, wider than a block's 10px handle.
 const SECTION_HANDLE = (i) => `[...d.querySelectorAll('main#page .page-section')[${i}].querySelectorAll('*')].find((e) => { const q = e.getBoundingClientRect(); return q.width >= 20 && q.width <= 60 && q.height >= 20 && q.height <= 40 && W.getComputedStyle(e).cursor === 'row-resize'; })`;
-const blockId = (i, k) => (k === 'new' ? added : blockIds(i)[k]);
+const blockId = (i, k) => (k === 'new' ? added : /^a\d+$/.test(k) ? made[k.slice(1) - 1] : blockIds(i)[k]);
 // Puts block i, k in the middle of the frame, tags it, and gives the point of `part` in frame coordinates.
 function point(i, k, part = 'middle') {
   const id = blockId(i, k);
@@ -292,7 +293,7 @@ const STEPS = {
   frame: async (w, h) => { evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const [k, v] of [['width', '${w}px'], ['height', '${h}px'], ['max-width', 'none'], ['min-width', '0'], ['flex', 'none']]) f.style.setProperty(k, v, 'important'); return 'true'; })()`); await pause(1500); },
   unframe: async () => { evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); for (const k of ['width', 'height', 'max-width', 'min-width', 'flex']) f.style.removeProperty(k); return 'true'; })()`); await pause(800); },
   listen: () => evalJs(S, `(() => { ${FRAME} W.__fxEvents = []; if (!W.__fxListen) { W.__fxListen = true; for (const t of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel', 'touchstart', 'touchend', 'contextmenu', 'dragstart']) d.addEventListener(t, (e) => { const last = W.__fxEvents.at(-1); const name = t + (e.pointerType ? ':' + e.pointerType : ''); if (last && last[0] === name) last[1]++; else W.__fxEvents.push([name, 1]); }, true); } return 'true'; })()`),
-  blank: () => addSection(),
+  blank: () => { made = []; return addSection(); },
   // Leaves the page without saving and enters another probe page: does a copied block survive it?
   toPage: async (title) => { pageTitle = title; await exitWithoutSaving().catch((e) => { if (!e.message.includes('not in edit mode')) throw e; }); const o = evalJs(S, 'JSON.stringify(location.origin)'); goto(S, o + '/config/pages'); await pause(6000); booted(); try { await enterEdit(title); } catch { /* an empty page has no editing grid */ } finding.visited = title; await desktop(); },
   hover: (i) => hoverSection(i),
@@ -302,7 +303,7 @@ const STEPS = {
   select: async (i, k, part = 'middle') => { const [x, y] = point(i, k, part); await inFrame(() => { mouse(S, 'move', x, y); mouse(S, 'down', x, y); mouse(S, 'up', x, y); }); await pause(800); },
   deselect: async () => { await escape(); },
   pick: (i, k) => select(i, blockId(i, k)),
-  add: async (i, type) => { added = await addBlock(i, type); await pause(800); },
+  add: async (i, type) => { added = await addBlock(i, type); made.push(added); await pause(800); },
   // Add a block with no scrollIntoView: opens the menu, moves only what o names, reads the frame's scroll and the tile's
   // place, and presses the tile by the real mouse if it is on top. o.frameBy scrolls the frame, o.menu scrolls the menu's
   // own scroller until the tile is in it. A tile out of reach or covered is named, and not pressed.
@@ -328,7 +329,7 @@ const STEPS = {
     if (!now.inView || !now.onTop) { out.notPressed = now.inView ? 'covered' : 'out of view'; finding.errors.push(`${name}: not pressed, ${out.notPressed}`); await escape(); return; }
     cdp(S, { op: 'drag', from: now.at, to: now.at, steps: 1, holdMs: 50, mods: [] }); await pause(1800);
     out.afterFrameY = evalJs(S, `(() => { ${FRAME} return JSON.stringify(Math.round(W.scrollY)); })()`);
-    added = blockIds(i).find((id) => !had.has(id)) || null;
+    added = blockIds(i).find((id) => !had.has(id)) || null; made.push(added);
     if (!added) finding.errors.push(`${name}: no new block`);
     await pause(800);
   },

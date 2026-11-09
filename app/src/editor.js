@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -1148,6 +1148,14 @@ function fitTextRows(s, b, g) {
   // lowest block rises (CAP-R2WIDEFALL.json: 1 row under, 4 under, pushed by the typing, lower to the right; alone, 12 go
   // to 8 in CAP-TEXTWIDTH.json). Not built: on the saved demo section the blocks below stay (CAP-TEXTWIDTH2.json).
   const fall = lost > 0 && !narrowing;
+  // Rule S (CAP-R2SUBPIXEL-PREDICTED.json, predictions first, 13 of 14 fresh): a one-line Text widened by its east side keeps
+  // its rows at the drop when x of its new right grid line has a fractional part under 0.5 px, and falls to the rows it needs
+  // when let go (CAP-R2WIDEDROP.json, CAP-R2ENDLINE-A/B/C.json, CAP-R2SUBPIXEL.json). Miss: written on column 3 and widened
+  // to line 15 (x .28) it falls at the drop, twice in two sessions.
+  if (fall && b.type === 'text' && g.dir === 'e' && oneLine(b) && lineX(m, g.target[3]) % 1 < 0.5) {
+    unsettled = { sid: s.id, bid: b.id, bp, lost };
+    return;
+  }
   if (fall && b.type === 'text') moveWithText(s, b, a, -lost);
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), before = lowest();
   a[2] -= lost;
@@ -1158,6 +1166,7 @@ function fitTextRows(s, b, g) {
 
 // After narrowing, those rows last until the block is let go: Escape, another block or the next drag.
 // Then the rows the text needs at its real width are added (CAP-TEXTWIDTH4.json, CAP-TEXTWIDTH5.json).
+// Widened under rule S, the rows it would lose last the same way, and fall then (lost).
 // Time alone does nothing. No undo step of its own. Growing pushes as typing does.
 let unsettled = null;
 let scrolledMove = null; // the block last moved while the page scrolled under it (R5 above)
@@ -1166,6 +1175,13 @@ function settleTextRows() {
   unsettled = null;
   const s = u && u.bp === bp ? S(u.sid) : null, b = s?.blocks.find((o) => o.id === u.bid);
   if (!b) return;
+  if (u.lost) {
+    const a = lay(b).area;
+    moveWithText(s, b, a, -u.lost);
+    a[2] -= u.lost;
+    renderSectionDom(s.id);
+    return;
+  }
   const content = blockEl(b.id)?.querySelector('.sqs-block-content');
   if (!content) return;
   // Text that runs over stretches the rows, so the pitch is read with the text out, as a form's is.
@@ -1774,6 +1790,15 @@ function onDblClick(e) {
 }
 
 const textHeight = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
+// A Text whose content is under one and a half of its first line's height (rule S).
+const oneLine = (b) => {
+  const c = blockEl(b.id)?.querySelector('.sqs-block-content'), p = c?.querySelector('p, h1, h2, h3, h4, pre');
+  const lh = p ? parseFloat(win.getComputedStyle(p).lineHeight) : NaN;
+  return lh > 0 && c.offsetHeight < 1.5 * lh;
+};
+// x of grid line k (1 is the left edge of the first column), on the browser's 1/64 px layout steps: the computed track
+// widths are rounded to 4 places, which adds up to 805.4994 for line 14 at 1600, where the box is at 805.5.
+const lineX = (m, k) => Math.round((k - 1 < m.colStart.length ? m.colStart[k - 1] : m.colEnd[m.colEnd.length - 1]) * 64) / 64;
 const selectionLeft = new Map(); // block id: the html it was left with and where its selection was
 const previewed = new Map(); // the text of each block when Preview last forgot its selection
 const pathFrom = (root, node) => { const path = []; for (let n = node; n !== root; n = n.parentNode) path.unshift([...n.parentNode.childNodes].indexOf(n)); return path; };
@@ -3392,7 +3417,9 @@ shapePop.addEventListener('click', (e) => {
   if (apo) {
     const v = apo.dataset.appearOpt;
     closeShapePop();
-    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { if (v === APPEAR[0]) delete b.appear; else b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
+    // Site Default picked is shown as a value, and the row keeps the focus (CAP-T12FILL-A.json, -B).
+    if ((B(sel.sid, sel.bid).appear || APPEAR[0]) !== v) { setShape((b) => { b.appear = v; }, `appear ${v}`); playAppear(sel.bid, v); }
+    blockPanel.querySelector('[data-appear]')?.focus();
     return;
   }
   const io = e.target.closest('[data-image-opt]');
@@ -5603,11 +5630,12 @@ function onSectionClick(e) {
   const before = JSON.stringify(model);
   if (act === 'gap') { customGap = false; s.gap = v === 'zero' ? 0 : MEDIUM_GAP; s.rowGap = s.gap; }
   // Custom height after a flattening Vertical press starts again at 1 (difference 104, CAP-P3ALIGN2.json, CAP-P3ALIGN4.json).
-  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; delete s.flat; panelFlat = null; }
-  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next height change
-  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel; on M set in the panel it
-  // drops the padding too (CAP-P3ALIGN3, M top, one read, not predicted): not built.
-  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; s.valign = v; }
+  // S, M or L keeps the flat mark: top and bottom then keep no padding (CAP-P3VERT-VB, CAP-P3ALIGN3, read twice); Custom ends it.
+  if (act === 'height') { s.customHeight = v === 'custom' ? (s.flat ? 1 : s.customHeight ?? 1) : undefined; s.height = v; if (v === 'custom') delete s.flat; panelFlat = null; }
+  // A Vertical press on a Custom height section drops its min-height and padding to 0 until the next Custom or field change
+  // (difference 102; CAP-P3ALIGN2 to 4, frozen rule 12 of 12). Only when the size was set in the panel.
+  // A top or bottom press on S, M or L that isn't flat leaves a 4vw gutter on Custom's near edge from then on (CAP-P3VERT-VA, VC, read twice).
+  if (act === 'valign') { if (v !== s.valign && s.height === 'custom' && s.customHeight != null) s.flat = true; if (v !== 'middle' && s.height !== 'custom' && !s.flat) s.gutter = true; s.valign = v; }
   if (act === 'bgWidth') s.bgWidth = v;
   if (act === 'theme') s.theme = v;
   if (act === 'dividerStroke') { if (v === 'solid') delete s.dividerStroke; else s.dividerStroke = v; }
@@ -6000,7 +6028,7 @@ function renderSectionPanel() {
   const s = S(editSid);
   themeColors = themeColors || readThemeColors();
   const top = sectionPanel.scrollTop;
-  const shownAs = panelFlat === s.id && s.flat ? { ...s, height: 'small', customHeight: undefined } : s;
+  const shownAs = panelFlat === s.id && s.flat && s.height === 'custom' ? { ...s, height: 'small', customHeight: undefined } : s;
   sectionPanel.innerHTML = sectionPanelHtml(shownAs, { tab: sectionTab, bp, gapKind: gapKind(s), fill: fillScreen(s), minRows: Math.max(1, ...s.blocks.map((b) => b.layout[bp].area[2] - 1)), themes: THEMES, themeColors, view: secView, more: secMore, filterOpen, tipOpen });
   sectionPanel.hidden = false;
   sectionPanel.scrollTop = top;
@@ -7297,6 +7325,7 @@ function frameBarKeys() {
 $('reset').addEventListener('click', () => {
   const before = JSON.stringify(model);
   model = demoModel();
+  ruleForget();
   sel = null;
   renderAll();
   commit(before, 'Reset to the demo page');
@@ -7443,6 +7472,7 @@ function boot() {
     get canUndo() { return undoStack.length > 0; },
     load(next) {
       model = JSON.parse(JSON.stringify(next));
+      ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;
