@@ -1666,6 +1666,28 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add('View Layouts, the fit pad: 18 reads near a row boundary as read', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // Code becomes a paragraph (CAP-U10TEXTMIX-C.json): code alone through the 16 read picks, its rows, both areas, and its
+  // tags and alignment; a Text of paragraph, list, quote and code, its tags and alignment only (its rows follow its
+  // height in a way not yet read as a rule).
+  {
+    const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-C.json', import.meta.url))), errs = [];
+    const html = C.steps.filter((x) => x[0] === 'pasteHere').map((x) => x[3]);
+    for (const [pre, h] of [['C', html[0]], ['M', html[1]]]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(h)}, id: 'p0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const b = await chromeBtn();
+      if (!b || b.off) { errs.push(`${pre} button`); continue; }
+      await realClick(b.x, b.y);
+      for (const [k, r] of Object.entries(C.reads).filter(([k]) => k.startsWith(pre + ' ') && /layout \d$/.test(k))) {
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${k.split(' ').pop()}"]').click(); const s = fe.model.sections[0], x = s.blocks[0], c = document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + x.id + '"] .sqs-block-content'); return JSON.stringify([s.rows.desktop, x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), JSON.stringify([...c.querySelectorAll('p,h1,h2,h3,h4,ul,ol,li,blockquote,pre')].map((e) => [e.tagName, e.parentElement.tagName === 'DIV' ? 'DIV' : e.parentElement.tagName, e.style.textAlign || '', getComputedStyle(e).textAlign]))]); })()`);
+        const want = [r.look.rows, r.areas[0][0], r.areas[0][1], JSON.stringify(r.aligns[0][1])];
+        if (g[3] !== want[3] || (pre === 'C' && g.slice(0, 3).join() !== want.slice(0, 3).join())) errs.push(`${k} ${g.slice(0, 3)} ${g[3].slice(0, 60)}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts, code alone and in a mixed Text: a paragraph at every pick, as read (32 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
   evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], T = s.blocks[0]; s.blocks.push({ ...JSON.parse(JSON.stringify(T)), id: 'emptyaaaaaaaaaaaaaaaaaaaaa', html: '<p data-rte-preserve-empty="true"></p>' }); fe.load(m); fe.addBlock(fe.model.sections[0].id, 'Shape'); fe.select(null); return 'true'; })()`); await pause(500);
