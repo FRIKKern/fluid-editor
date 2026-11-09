@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 38 changes
-  - Fresh rounds: check-fresh guards predictions-first and two agreeing reads; oracle-capture --predictions ([#515](https://github.com/FRIKKern/fluid-editor/pull/515))
-  - U10: a list- or quote-first Text with one other Text, tags and alignment as read ([#512](https://github.com/FRIKKern/fluid-editor/pull/512))
+- **Today** · 42 changes
+  - Y2: a press after a pulled-scroll Cmd+Z closes the edit, the block selected (CAP-Y2BAR3) ([#520](https://github.com/FRIKKern/fluid-editor/pull/520))
+  - U9: which pushes double is timing, a late update; the demo open walk on Gestures Probe ([#516](https://github.com/FRIKKern/fluid-editor/pull/516))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
