@@ -1,0 +1,661 @@
+{
+  "item": "CAP-P3VERT-VCA",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "P3: the Vertical press at M, VCA (VA fresh at M then top, bottom, center, top; VB Custom, Vertical bottom, then M and the three; VC M, Vertical bottom, then Custom, top, center). A and B the same steps twice. Blocks Probe, new blank section, named presses only, unsaved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "C start",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "C M",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "C M bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "C custom after M bottom",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "C custom top",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical center"
+    ],
+    [
+      "read",
+      "C custom center",
+      {
+        "section": 0,
+        "sections": true,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ]
+  ],
+  "reads": {
+    "C start": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C M": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C M bottom": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "211.2px 0px 64px",
+          "h": 592.9
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 731.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C custom after M bottom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "9.45px",
+          "padding": "138.641px 0px 0px",
+          "h": 523.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "3.2px 0px 64px",
+          "h": 384.9
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--bottom",
+          "rows": 8,
+          "blocks": [],
+          "h": 523.6
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          523.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C custom top": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "0px",
+          "padding": "138.641px 0px 0px",
+          "h": 520.4
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 0px",
+          "h": 381.8
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--top",
+          "rows": 8,
+          "blocks": [],
+          "h": 520.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          520.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C custom center": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "0px",
+          "padding": "138.641px 0px 0px",
+          "h": 456.4
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "0px",
+          "h": 317.8
+        }
+      },
+      "sections": [
+        {
+          "id": "6bf384",
+          "classes": "background-width--full-bleed content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 456.4
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          456.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
