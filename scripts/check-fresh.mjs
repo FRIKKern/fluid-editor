@@ -13,7 +13,10 @@ import { execFileSync } from 'node:child_process';
 const DIR = new URL('../parity/findings/', import.meta.url);
 
 // Findings from before this check (2026-11-09). They stay as they are; nothing new joins this list.
+// One exception, the lead's ruling: CAP-T12YSCALE, its three rounds read on a branch cut before this check, each one's
+// predictions pushed before its first shot (UTC): fb887ed 15:41 against 15:44, a9f12f8 15:59 against 16:01, 249574d 16:15 against 16:16.
 const GRANDFATHERED = new Set(`
+CAP-T12YSCALE
 CAP-79ONTOP CAP-82UNDO CAP-93HR CAP-98 CAP-98SPLIT CAP-A2DELETE CAP-A2FRESH CAP-A2STOPNEW CAP-A2TYPEDNEW CAP-E4ENTER
 CAP-E4FRESH CAP-E4REOPEN2 CAP-E4REOPEN3 CAP-E4SCORE CAP-E5HEAD2 CAP-E5WHERE CAP-E5WHERE2 CAP-E7BOX CAP-E7REOPEN3
 CAP-E7REOPEN4 CAP-E7SCORE CAP-ESC2 CAP-P3ALIGN2 CAP-P3ALIGN3 CAP-P3ALIGN4 CAP-P3FRAME CAP-P3PREDICT CAP-P3PREDICT2
@@ -44,8 +47,9 @@ CAP-U10ENDSPREDICT
 const CLAIM = /predictions? (were )?pushed|pushed first|-PREDICTED/i;
 const claims = (f, hasSibling) => !!f.predictions || hasSibling || CLAIM.test(String(f.question || ''));
 
-// Key order doesn't make two reads differ.
-const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])])) : v);
+// Key order doesn't make two reads differ, and neither do block ids: a case built twice mints new blocks, so a
+// stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone).
+const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => k !== 'id').sort().map((k) => [k, canon(v[k])])) : v);
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
 
 // What is wrong with one fresh finding. predText is its predictions file's text (null if missing); gitTime is the
@@ -88,6 +92,8 @@ const fails = [];
   const differ = { ...good, reads: { a: { x: 1 }, 'a again': { x: 2 } } };
   proof('two reads that differ fail', freshFails(differ, text, null).length > 0);
   proof('two reads that differ, named unsteady, pass', freshFails({ ...differ, unsteady: ['one'] }, text, null).length === 0);
+  proof('two builds that differ by block ids alone pass', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['2', '2'] }] } } }, text, null).length === 0);
+  proof('two builds whose blocks differ fail', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['1', '1'] }] } } }, text, null).length > 0);
   proof('no predictions record fails', freshFails({ question: 'Predictions pushed first' }, null, null).length > 0);
 }
 
@@ -110,4 +116,4 @@ for (const n of files) {
 for (const name of GRANDFATHERED) if (!files.has(`${name}.json`)) fails.push(`grandfathered ${name}.json is gone: take it off the list`);
 
 if (fails.length) { console.error(`check-fresh: ${fails.length} problem(s)\n  ${fails.join('\n  ')}`); process.exit(1); }
-console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 7 guard proofs hold`);
+console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 9 guard proofs hold`);

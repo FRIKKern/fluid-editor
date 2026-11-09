@@ -375,6 +375,20 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   const back = q(`const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); return JSON.stringify(b ? Object.keys(b).filter((k) => k.startsWith('chart')) : ['no block']);`);
   add('Chart: 24 undos, back to the plain chart and 8 rows', back.length === 0 && s.area === '1/2/9/10' && Math.abs(s.content - 250.4) <= 1, `${back} ${s.area} ${s.content}`);
 }
+{
+  // A Line Chart's value axis, as read (CAP-T12YSCALE.json, two agreeing reads each, and CAP-T12LINECHART.json line1 for the
+  // default 150, 250, 150): its first and last tick and its step, for one series typed into the three cells.
+  const { id } = await fresh('Chart');
+  pick('select[data-dl="chartType"]', 'Line Chart');
+  const R = read('CAP-T12YSCALE.json').reads;
+  const sets = [['default', [150, 250, 150], { from: 100, to: 300, step: 50 }], ...['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'].map((k) => [k, R[k].values, R[k].line])];
+  for (const [k, vals, want] of sets) {
+    const got = q(`for (const [n, v] of ${JSON.stringify(vals)}.entries()) { const c = dl.querySelector('[data-dl-cell="' + (n + 1) + ',1"]'); c.value = String(v); c.dispatchEvent(new Event('change', { bubbles: true })); await sleep(120); }
+      const t = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] svg .fe-chart-text')].map((e) => e.textContent).filter((x) => /^-?[0-9.]+$/.test(x)).map(Number); return JSON.stringify(t);`);
+    const exp = Array.from({ length: Math.round((want.to - want.from) / want.step) + 1 }, (_, n) => want.from + n * want.step);
+    add(`Chart Line ${k} (${vals.join(', ')}): ticks ${want.from} to ${want.to} by ${want.step}`, JSON.stringify(got) === JSON.stringify(exp), JSON.stringify(got));
+  }
+}
 writeFileSync(new URL('../parity/dialog-check.json', import.meta.url), `${JSON.stringify({ pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass} of ${total}`);
 process.exit(pass === total ? 0 : 1);

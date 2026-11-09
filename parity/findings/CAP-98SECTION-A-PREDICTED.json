@@ -1,0 +1,755 @@
+{
+  "item": "X8",
+  "capturedAt": "2026-11-09",
+  "question": "X8, R1 refit 1 (the first refit; R1's first round was CAP-98SPLIT.json, 4 of 4): when a lone widening's stored rows fire at the next layout gesture, does the section take d rows too, then grow to its blocks? Part A. A1: CAP-98's steps again on Gestures Probe (the Shape moved 705,41, the named miss 11 against 10 rows). A2: the same with the Shape moved 705,0, so it stays across L and grows d, its blocks needing 7 rows of the section's 10. Read twice (R1, R2). Gestures Probe, unsaved, one setup per enter.",
+  "from": "Ours as in this commit: editor.js showStored, refit 1 (a lone widening's stored rows add d to the section's rows, then growRows); the group drop's stored rows (frozen) unchanged. Replayed with npm run neworder-check's replay of the R1 steps. asBuilt: R1 before this refit, the same areas with one row less (main).",
+  "hit": "Scored on 'moved' and 'moved escaped': both blocks' desktop and phone areas and the section's rows equal ours'. Each case's two reads must agree. A setup miss, named and not scored: 'text widened' not 1/2/5/12, or in B the Shape not ending on or above line 5 before the move.",
+  "predicted": {
+    "A1 moved": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/9/20",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "2/14/9/20",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "A1 moved escaped": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "2/14/9/20",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "2/14/9/20",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "A1 setup": {
+      "text widened": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ]
+      ],
+      "rows tw": 10,
+      "shape escaped": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ]
+    },
+    "A2 moved": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/14/8/20",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "1/14/8/20",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "A2 moved escaped": {
+      "areas": [
+        [
+          "1/2/6/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/14/8/20",
+          "3/2/9/10"
+        ]
+      ],
+      "rows": 11,
+      "asBuilt": {
+        "areas": [
+          [
+            "1/2/6/12",
+            "1/2/3/10"
+          ],
+          [
+            "1/14/8/20",
+            "3/2/9/10"
+          ]
+        ],
+        "rows": 10
+      }
+    },
+    "A2 setup": {
+      "text widened": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ]
+      ],
+      "rows tw": 10,
+      "shape escaped": [
+        [
+          "1/2/5/12",
+          "1/2/3/10"
+        ],
+        [
+          "1/2/7/8",
+          "3/2/9/10"
+        ]
+      ]
+    }
+  },
+  "cases": {
+    "A1 moved": [
+      "R1 A1 moved",
+      "R2 A1 moved"
+    ],
+    "A1 moved escaped": [
+      "R1 A1 moved escaped",
+      "R2 A1 moved escaped"
+    ],
+    "A2 moved": [
+      "R1 A2 moved",
+      "R2 A2 moved"
+    ],
+    "A2 moved escaped": [
+      "R1 A2 moved escaped",
+      "R2 A2 moved escaped"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A1 text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A1 shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "read",
+      "R1 A1 moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A1 moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A2 text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A2 shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "read",
+      "R1 A2 moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 A2 moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A1 text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A1 shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "read",
+      "R2 A1 moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A1 moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home. Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A2 text widened",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A2 shape escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "read",
+      "R2 A2 moved",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 A2 moved escaped",
+      {
+        "areas": 0,
+        "section": 0
+      }
+    ],
+    [
+      "exit"
+    ]
+  ]
+}

@@ -1,0 +1,1987 @@
+{
+  "item": "CAP-T15WHERE-LOOK",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15: where the Design values live, first look",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text base",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Background"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text background",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text backdrop",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Element"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "text element",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "shape blur",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "controls": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "text base": {
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": false,
+          "box": [
+            850,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            446,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            850,
+            507.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            564,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100%",
+          "box": [
+            705,
+            611,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            611,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            644,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            611,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0°",
+          "box": [
+            705,
+            662,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            662,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            695,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            662,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            713,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            738,
+            713,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            713,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            713,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            694,
+            764,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            738,
+            764,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            764,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            832,
+            764,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text background": {
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": true,
+          "box": [
+            862,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Background Color",
+          "box": [
+            589,
+            402,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            503,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            536,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "small block background padding",
+          "box": [
+            596,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "medium block background padding",
+          "box": [
+            667,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "large block background padding",
+          "box": [
+            738,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Custom block background padding",
+          "box": [
+            809,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            635,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": false,
+          "box": [
+            850,
+            696.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "combobox",
+          "label": "More actions",
+          "box": [
+            837.5,
+            753,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text backdrop": {
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "backdrop-filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "backdrop-filter"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": true,
+          "box": [
+            862,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Background Color",
+          "box": [
+            589,
+            402,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            503,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            536,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "small block background padding",
+          "box": [
+            596,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "medium block background padding",
+          "box": [
+            667,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "large block background padding",
+          "box": [
+            738,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Custom block background padding",
+          "box": [
+            809,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            635,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            696.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            732,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            732,
+            142,
+            32
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "text element": {
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "filter"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.is-empty.is-editor-empty",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            578,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            600,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            662,
+            301,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Background",
+          "value": true,
+          "box": [
+            862,
+            372.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Background Color",
+          "box": [
+            589,
+            402,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            799,
+            503,
+            66,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            536,
+            88,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            788,
+            503,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            697,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            738,
+            506,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "small block background padding",
+          "box": [
+            596,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "medium block background padding",
+          "box": [
+            667,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "large block background padding",
+          "box": [
+            738,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Custom block background padding",
+          "box": [
+            809,
+            598,
+            71,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            589,
+            635,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            862,
+            696.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Element",
+          "box": [
+            596,
+            732,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Backdrop",
+          "box": [
+            738,
+            732,
+            142,
+            32
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Blur Amount",
+          "value": "15px",
+          "box": [
+            836,
+            781,
+            34,
+            22
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "shape blur": {
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            461,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            483,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Animation",
+          "box": [
+            545,
+            299,
+            67.5,
+            55
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            461,
+            312,
+            320,
+            103
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0px",
+          "box": [
+            588,
+            421,
+            160,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            421,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            454,
+            182,
+            11
+          ]
+        },
+        {
+          "role": "button",
+          "label": "",
+          "box": [
+            577,
+            421,
+            11,
+            44
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Uniform corner radii",
+          "box": [
+            486,
+            424,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Individual corner radii",
+          "box": [
+            527,
+            424,
+            41,
+            38
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Stretch",
+          "value": true,
+          "box": [
+            745,
+            497.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Color",
+          "box": [
+            472,
+            587,
+            298,
+            49
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Blend ModeNormal",
+          "box": [
+            472,
+            635,
+            298,
+            46
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Drop Shadow",
+          "value": false,
+          "box": [
+            733,
+            741.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Blur",
+          "value": true,
+          "box": [
+            745,
+            786.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
