@@ -25,3 +25,14 @@ export async function runSteps(steps, { STEPS, errors, guard = () => null, onSta
   }
   return { ran, stopped: false };
 }
+
+// Polls probe() until it returns something, or gives null once limitMs has passed. The read-back uses it to wait for the frame
+// to load its page again after the reload (a fixed 6 s pause read it before it loaded, 3 times on 2026-11-09).
+export async function waitUntil(probe, limitMs, everyMs = 500, sleep = (ms) => new Promise((r) => setTimeout(r, ms))) {
+  for (let waited = 0; ; waited += everyMs) {
+    const v = probe();
+    if (v != null) return v;
+    if (waited >= limitMs) return null;
+    await sleep(everyMs);
+  }
+}
