@@ -266,8 +266,8 @@ export const MAP_PALETTES = { 1: ['#f2efe6', '#a6d3ea', '#c8e3b4', '#d7cdb2', '#
 export const mapVars = (style) => ['land', 'water', 'park', 'hill', 'road', 'ink'].map((k, i) => `--m-${k}:${MAP_PALETTES[style][i]}`).join(';');
 // Chart (CAP-ROWSCHART.json, CAP-T12CHARTLOOK.json): a title above (the page's h2), the picture 15 below it, the legend
 // under the picture and the caption 15 under that. The picture is our own drawing of the data, in the palette's colours
-// (the oracle draws on a canvas, so its marks aren't read; a flipped chart's colour per bar is inferred). With Flip on, the
-// legend went away though Show Legend was on (one read).
+// (the oracle draws on a canvas, so its marks aren't read; a flipped chart's bars take the palette in row order, read with
+// three series in CAP-T12CHARTSERIES.json flip3).
 function chartHtml(b) {
   // A series added from the + (CAP-T12CHARTCELLS3.json) is drawn beside the first: bars side by side in each label's band, a
   // line each, a legend item each, in the palette's order (the oracle's canvas marks aren't read; inferred from its picture).
@@ -297,7 +297,10 @@ function chartHtml(b) {
     let a = -Math.PI / 2;
     marks = rows.map(([, v], n) => { const a1 = a + (2 * Math.PI * v) / sum, big = a1 - a > Math.PI ? 1 : 0, p = (t) => `${229.5 + 100 * Math.cos(t)} ${114.5 + 100 * Math.sin(t)}`, d = `M229.5 114.5L${p(a)}A100 100 0 ${big} 1 ${p(a1)}Z`; a = a1; return `<path d="${d}" fill="${pal[n % pal.length]}"/>`; }).join('');
   }
-  const legend = c.legend && !c.flip ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend">${Array.from({ length: ns }, (_, k) => `<li><span style="background-color:${pal[k % pal.length]}"></span>${escapeHtml(c.data[0][k + 1] || '')}</li>`).join('')}</ul></figcaption></div>` : '';
+  // Flipped, the legend names the rows in their colours, and a one-series chart has none (CAP-T12CHARTSERIES.json, CAP-T12CHARTLEGEND2.json:
+  // two and three series, the switch on; CAP-T12CHARTASK.json, CAP-T12CHARTLOOK.json: one series).
+  const keys = c.flip ? c.data.slice(1).map((r) => r[0] || '') : Array.from({ length: ns }, (_, k) => c.data[0][k + 1] || '');
+  const legend = c.legend && (!c.flip || ns > 1) ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend">${keys.map((t, k) => `<li><span style="background-color:${pal[k % pal.length]}"></span>${escapeHtml(t)}</li>`).join('')}</ul></figcaption></div>` : '';
   return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
 }
 export const QUOTE_TEXT = { quote: 'Whatever it is, the way you tell your story online can make all the difference.', source: 'Quote Source' };

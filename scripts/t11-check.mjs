@@ -622,6 +622,16 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   const l = q(`const a = panel.querySelector('[data-appear]'); if (!a) return JSON.stringify({ shown: false, opts: [] }); a.scrollIntoView({ block: 'nearest' }); await sleep(150); const r = a.getBoundingClientRect(); a.click(); await sleep(250); return JSON.stringify({ shown: !pop.hidden, opts: [...pop.querySelectorAll('[data-appear-opt]')].map((o) => [o.textContent, ...box(o, r)]), cur: pop.querySelector('.is-cur')?.textContent });`);
   const wl = opts.map((o) => [o.label, o.box[0] - ab[0], o.box[1] - ab[1], o.box[2]]);
   add('Design tab, Quote: Appear opens its 6 options over the row, Site Default on', l.shown && l.cur === 'Site Default' && l.opts.length === wl.length && wl.every((w, i) => l.opts[i][0] === w[0] && near(l.opts[i][1], w[1], 1) && near(l.opts[i][2], w[2], 1) && near(l.opts[i][3], w[3], 1)), JSON.stringify(l.opts.map((o) => o.slice(0, 3))));
+  // Low in a 700 tall window the list moves up, its foot 11 above the window's: Site Default at 413, Reveal at 638 (CAP-T12APPEARLOW.json).
+  {
+    const low = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12APPEARLOW.json', import.meta.url), 'utf8')).reads.list.controls.filter((c) => c.role === 'option').map((c) => Math.round(c.box[1]));
+    q(`if (!pop.hidden) panel.querySelector('[data-appear]').click(); await sleep(200); return 'true';`);
+    viewport(S, 1600, 700); await pause(500);
+    const lo = q(`const a = panel.querySelector('[data-appear]'); a.scrollIntoView({ block: 'end' }); await sleep(150); const r = a.getBoundingClientRect(); a.click(); await sleep(250); return JSON.stringify({ row: Math.round(r.top), tops: [...pop.querySelectorAll('[data-appear-opt]')].map((o) => Math.round(o.getBoundingClientRect().top)) });`);
+    add('Design tab, Quote: low in a 700 tall window the Appear list moves up as read', lo.row > 433 && lo.tops.length === 6 && nearAll([lo.tops[0], lo.tops[5]], [low[0], low[5]], 1), JSON.stringify(lo));
+    viewport(S, 1600, 1000); await pause(500);
+    q(`if (pop.hidden || !pop.querySelector('[data-appear-opt]')) { panel.querySelector('[data-appear]').click(); await sleep(250); } return 'true';`);
+  }
   const pk = q(`if (!pop.querySelector('[data-appear-opt]')) return JSON.stringify(null); pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(200); const b = fe.model.sections[1].blocks.at(-1), a = b.appear; panel.querySelector('[data-appear]').click(); await sleep(200); const cur = pop.querySelector('.is-cur')?.textContent; pop.querySelector('[data-appear-opt="Fade In"]').click(); await sleep(150); fe.undo(); await sleep(250); return JSON.stringify({ a, cur, after: fe.model.sections[1].blocks.at(-1).appear ?? null });`);
   add('Design tab, Quote: a pick is kept on the block and is one undo step', pk?.a === 'Fade In' && pk.cur === 'Fade In' && pk.after === null, JSON.stringify(pk));
   // A pick plays its effect once on the quote in the editor (CAP-T12QUOTEAPPEAR4.json, its press time; CAP-T12QUOTEAPPEAR3.json

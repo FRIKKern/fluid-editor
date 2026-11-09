@@ -206,16 +206,18 @@ function rowHtml(r, cw, b, pages) {
       // series 110 wide, a 44 wide slot for the + after them, and empty cells to the edge; the header has the same with a
       // rule under it. The empty cells take no press, as read; the two + add a row or a series (CAP-T12CHARTCELLS2.json,
       // CAP-T12CHARTCELLS3.json): a row of 0s under the rows, or a series of 0s after the last one.
-      const n = Math.max(1, v[0].length - 1), plusAt = 165 + 110 * n, room = plusAt + 44 <= 539; // past three series: inferred
+      // The series + stays however many series there are: past the dialog's width the grid scrolls sideways, and a series
+      // added there scrolls it to its end, the + 23 short of the right edge (CAP-T12PLUSFIND.json: four presses, five series).
+      const n = Math.max(1, v[0].length - 1), plusAt = 165 + 110 * n;
       const fill = (from) => { const out = []; for (let x = from; x + 110 <= 539; x += 110) out.push([x, 110]); return out; };
       const series = Array.from({ length: n }, (_, k) => [165 + 110 * k, 110]);
       const head = [[33, 132], ...series, [plusAt, 44], ...fill(plusAt + 44)], body = [[33, 110], [55, 110], ...series, [plusAt, 44], ...fill(plusAt + 44)];
       const cell = (y, [x, w], val, extra, at) => `<input type="text" class="dl-cell${extra}" style="top:${y}px;left:${x}px;width:${w}px" value="${esc(val)}" aria-label="Chart Data"${at && !off ? ` data-dl-cell="${at}"` : ' disabled'}>`;
-      const plus = (y, x, what) => (room || what === 'row' ? `<button type="button" class="dl-plus" style="top:${y}px;left:${x}px" data-dl-add="${what}" aria-label="Add a ${what}"${dis}>${PLUS}+</button>` : '');
+      const plus = (y, x, what) => `<button type="button" class="dl-plus" style="top:${y}px;left:${x}px" data-dl-add="${what}" aria-label="Add a ${what}"${dis}>${PLUS}+</button>`;
       const rowsAt = [...v.slice(1).map((_, n) => 44 * (n + 1)), 44 * v.length + 2];
       const html = head.map((c, k) => cell(0, c, k >= 1 && k <= n ? v[0][k] ?? '' : '', ' is-head', k >= 1 && k <= n && `0,${k}`)).join('') + plus(0, plusAt, 'series')
         + rowsAt.map((y, r) => body.map((c, k) => cell(y, c, k >= 1 && k <= n + 1 ? v[r + 1]?.[k - 1] ?? '' : '', r % 2 && v[r + 1] ? ' is-alt' : '', v[r + 1] && k >= 1 && k <= n + 1 && `${r + 1},${k - 1}`)).join('') + (v[r + 1] ? `<span class="dl-grip" style="top:${y}px"></span>` : plus(y, 55, 'row'))).join('');
-      return `<div class="${cls}" ${at(r.y, rowsAt.at(-1) + 44, 0, cw + 66)}>${html}</div>`;
+      return `<div class="${cls}" ${at(r.y, rowsAt.at(-1) + 44, 0, cw + 66)}>${html}<span class="dl-grid-end" style="top:0;left:${plusAt + 44}px"></span></div>`;
     }
     case 'area': return `<div class="${cls}" ${at(r.y, r.h)}><textarea aria-label="Chart Data" data-dl-area="${r.key}"${dis}>${esc(chartCsv(v))}</textarea></div>`;
     // Update is off until the box's text differs from the data (CAP-T12CHARTCELLS.json, CAP-T12CHARTCONFIRM.json).
