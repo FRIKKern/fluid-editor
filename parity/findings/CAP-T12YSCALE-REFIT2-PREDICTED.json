@@ -1,0 +1,87 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "Refit 2, the last, of the chart value axis rule, predicted before reading sets G, H and I. Round 1 scored 3 of 9, refit 1 6 of 9 (CAP-T12YSCALE.json). After this round the rule is frozen.",
+ "how": "Same as before: a new Chart on Blocks Probe, the three Population values typed, shots as Bar, Line and flipped Bar, two runs per set.",
+ "rule": {
+  "name": "unit, the most even steps of at least 24.5px, bars end at a close tick",
+  "steps": [
+   "u is 10 to the power floor(log10(highest value - lowest value)), from the data even for a bar.",
+   "The axis starts at the lowest value (0 or less for a bar) rounded down to a multiple of u, and ends at the highest rounded up to a multiple of u.",
+   "Try n from floor(plot height / 24.5) down to 1 steps: the step is (end - start) / n, and must be 1, 2, 4, 5 or 8 times a power of 10, with start and end both multiples of it. The first n that works is used; if none does, the end moves up by u and the search runs again.",
+   "A bar axis then ends at the highest tick under the top value instead, when the top value is at most 6.5% past it: the top bar runs past the axis (read in D)."
+  ],
+  "plotHeights": "Line 184. Bar 184 when its labels lie flat, 167 when they tilt (when they tilt is frozen and not part of this rule). Flipped Bar 183. G and H are predicted with flat labels, as the 160 of set D was; the prediction for I is the same either way.",
+  "fitted": "The 6.5% lies between D (170 over 160, 6.25%, pulled down) and the F Bar (640 over 600, 6.7%, not). The 24.5px lies between the tilted F Bar (7 steps of 23.9 refused) and the 7 steps of 26.1 and 26.3 taken."
+ },
+ "seenScore": "21 of 22 on the charts it was fitted on (the four older shots, round 1 and refit 1). Miss: bar3 (CAP-T12CHARTSERIES.json) reads 0 to 300 by 100, the rule gives 50 (the A Bar takes the same 27.8px steps at the same height).",
+ "predictions": {
+  "G": {
+   "values": [
+    110,
+    135,
+    128
+   ],
+   "line": {
+    "from": 110,
+    "to": 140,
+    "step": 5
+   },
+   "bar": {
+    "from": 0,
+    "to": 140,
+    "step": 20
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 140,
+    "step": 20
+   }
+  },
+  "H": {
+   "values": [
+    41,
+    62,
+    58
+   ],
+   "line": {
+    "from": 40,
+    "to": 70,
+    "step": 5
+   },
+   "bar": {
+    "from": 0,
+    "to": 60,
+    "step": 10
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 60,
+    "step": 10
+   }
+  },
+  "I": {
+   "values": [
+    2300,
+    4100,
+    3600
+   ],
+   "line": {
+    "from": 2000,
+    "to": 5000,
+    "step": 500
+   },
+   "bar": {
+    "from": 0,
+    "to": 4000,
+    "step": 1000
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 4000,
+    "step": 1000
+   }
+  }
+ },
+ "scoring": "Each of the 9 charts scores when start, end and step match the read. Then the rule is frozen, whatever the score."
+}

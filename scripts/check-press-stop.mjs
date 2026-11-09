@@ -2,7 +2,7 @@
 // never reaches the page after a press that didn't land (2026-11-09). Stand-in steps, no Chrome.
 // Usage: node scripts/check-press-stop.mjs
 import { readFileSync } from 'node:fs';
-import { runSteps } from './oracle/run-steps.mjs';
+import { runSteps, waitUntil } from './oracle/run-steps.mjs';
 
 let fails = 0, total = 0;
 const is = (what, ok) => { total++; if (!ok) { fails++; console.log(`press stop DIFF ${what}`); } };
@@ -42,6 +42,20 @@ is('an unknown step stops the run instead of throwing', r.stopped && /stopped be
 
 r = await run([['toPage', 'P'], ['keys', 'x']], { guard: (op) => (op === 'keys' ? 'the frame is on /other' : null) });
 is('a guard stops before its step', JSON.stringify(r.ran) === JSON.stringify(['toPage']) && /stopped before keys: the frame is on \/other/.test(r.errors[0]));
+
+// The read-back waits for the frame (waitUntil), with a stand-in clock: a page that loads late is still read, one that never
+// loads gives null once the limit has passed, and oracle-capture then fails the run loudly.
+{
+  let calls = 0, slept = 0; const sleep = async (ms) => { slept += ms; };
+  const late = await waitUntil(() => (++calls >= 4 ? { path: '/p' } : null), 30000, 500, sleep);
+  is('a frame that loads late is waited for', late?.path === '/p' && calls === 4 && slept === 1500);
+  slept = 0;
+  const never = await waitUntil(() => null, 30000, 500, sleep);
+  is('a frame that never loads gives null at the limit, no sooner', never === null && slept === 30000);
+}
+const cap = readFileSync(new URL('./oracle-capture.mjs', import.meta.url), 'utf8');
+is('no fixed pause before the read-back', !/reload\(S\); await pause\(/.test(cap));
+is('a read-back that times out fails the run', /await waitUntil\(loaded, 30000\)[\s\S]{0,400}process\.exitCode = 1/.test(cap));
 
 // oracle-capture uses this loop, and writes the finding in the same finally that leaves without saving.
 const src = readFileSync(new URL('./oracle-capture.mjs', import.meta.url), 'utf8');

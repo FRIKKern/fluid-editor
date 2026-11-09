@@ -29,7 +29,7 @@ import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock,
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
 import { STUB_JS } from './lib/clip-guard.mjs';
-import { runSteps } from './oracle/run-steps.mjs';
+import { runSteps, waitUntil } from './oracle/run-steps.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -767,8 +767,11 @@ try {
   finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
   finding.exitSteps = exitWithoutSaving.steps;
   if (Object.keys(pagesBefore).length) {
-    try { reload(S); await pause(6000); } catch { /* the count below says what is there */ }
-    const after = countPage(), before = after && pagesBefore[after.path];
+    try { reload(S); } catch { /* the wait below says whether the page came back */ }
+    // Wait for the frame to hold a page this run visited, fully loaded; 30 s at most, and then the run fails loudly.
+    const loaded = () => { const c = countPage(), done = (() => { try { return evalJs(S, `(() => JSON.stringify(document.getElementById('sqs-site-frame')?.contentDocument?.readyState ?? null))()`) === 'complete'; } catch { return false; } })(); return c && done && c.path in pagesBefore ? c : null; };
+    const after = await waitUntil(loaded, 30000), before = after && pagesBefore[after.path];
+    if (!after) { finding.errors.push('read-back: the frame did not load a page this run visited within 30 s after the reload; check the page by hand'); console.error(`READ-BACK FAILED: ${finding.errors.at(-1)}`); process.exitCode = 1; }
     finding.readBack = { before: before || pagesBefore, after, same: !!before && JSON.stringify(after) === JSON.stringify(before) };
     console.log(`read-back: ${JSON.stringify(finding.readBack.before)} before, ${JSON.stringify(after)} after${finding.readBack.same ? '' : ': NOT THE SAME, check the page'}`);
   }
