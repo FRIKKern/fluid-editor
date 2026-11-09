@@ -1764,6 +1764,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       browser(S, 'press', 'Escape'); await pause(150);
     }
     add(`View Layouts, five walks: turns, the heading alone and the built steps as read (${n} picks)`, errs.length === 0 && n === 219, errs.slice(0, 4).join(' | '));
+  }
   // Rule E (CAP-U10ENDSPREDICT.json): a list- or quote-first Text with one other Text in the heading list, every pick
   // in the order read, both blocks' desktop areas and the rows (CAP-U10LF-*A.json seen, CAP-U10ENDS-*A.json predicted;
   // their B reads agree). Left out, named misses: the quote as heading at layouts 2 and 5 in QP and EPQ.
