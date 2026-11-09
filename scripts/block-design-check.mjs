@@ -342,8 +342,8 @@ const WC = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15WHERE-C.js
 const drawn = (r, prop, part) => r.where.drawn.find((x) => x.prop === prop && (part === 'block' ? x.part === 'block' : x.part !== 'block' && !/outline|resizing|label-tag/.test(x.part)));
 const where = (k, set) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const fr = document.getElementById('site-frame');
   if (${JSON.stringify(set)}) { const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = [{ id: 'wh1', type: ${JSON.stringify(k)}, ...(${JSON.stringify(k)} === 'text' ? { html: '<p>Where</p>' } : { shape: 'rectangle' }), layout: { desktop: { area: [1, 2, 6, 10] }, mobile: { area: [1, 1, 6, 8] } }, ...${JSON.stringify(set)} }]; fe.load(next); await sleep(300); }
-  const f = fr.contentDocument.querySelector('.fe-block-wh1'), sq = f.querySelector('.sqs-block'), W = fr.contentWindow, c = W.getComputedStyle(f), cq = W.getComputedStyle(sq), rule = f.querySelector('style.transform-vars').textContent;
-  return JSON.stringify({ block: f.getAttribute('style') || '', inner: sq.getAttribute('style') || '', filter: c.filter, opacity: c.opacity, innerFilter: cq.filter, bg: cq.backgroundColor, ruleClean: !/blur|background|@media/.test(rule), ruleOpacity: (rule.match(/--opacity: ([^;]+)/) || [])[1], bw: cq.borderTopWidth, br: cq.borderTopLeftRadius, blend: f.querySelector('style.fe-blend')?.textContent || '' }); })()`);
+  const f = fr.contentDocument.querySelector('.fe-block-wh1'), sq = f.querySelector('.sqs-block'), W = fr.contentWindow, c = W.getComputedStyle(f), cq = W.getComputedStyle(sq), rule = f.querySelector('style.transform-vars')?.textContent || '';
+  return JSON.stringify({ block: f.getAttribute('style') || '', inner: sq.getAttribute('style') || '', filter: c.filter, opacity: c.opacity, innerFilter: cq.filter, bg: cq.backgroundColor, ruleClean: !/blur|background|@media/.test(rule), ruleOpacity: (rule.match(/--opacity: ([^;]+)/) || [])[1], bw: cq.borderTopWidth, br: cq.borderTopLeftRadius, cls: sq.classList.contains('sqs-background-enabled'), blend: f.querySelector('style.fe-blend')?.textContent || '' }); })()`);
 let wh = where('text', { design: { background: true, bgColor: 'rgb(255, 207, 90)', blur: true, blurKind: 'element', blurPx: 40 } });
 add('Text Blur: in the block\'s style attribute, not the rule', wh.block.includes('filter: blur(40px)') && wh.filter === drawn(WH['text element 40'], 'filter', 'block').value && wh.ruleClean, JSON.stringify(wh));
 add('Text Background color: in its box\'s style attribute', wh.inner.includes('background-color') && wh.bg === drawn(WH['text background FFCF5A'], 'background-color').value && wh.ruleClean, JSON.stringify(wh));
@@ -361,6 +361,24 @@ wh = where('text', { design: { background: true, stroke: 'solid', corner: 12 } }
 add('Text Stroke and Corner: in its box\'s style attribute', wh.inner.includes('border: 2px solid') && wh.inner.includes('border-radius: 12px') && wh.bw === drawn(WH['text corner 12'], 'border-top-width').value && wh.br === drawn(WH['text corner 12'], 'border-top-left-radius').value && !/border:|sqs-block \{ border-radius/.test(wh.blend) && !wh.block.includes('--opacity'), JSON.stringify(wh));
 wh = where('text', { design: { background: true, stroke: 'solid', corner: 12, opacity: 50 } });
 add('Text after Opacity: the block\'s attribute holds every variable', /^--block-transform: none; --opacity: 50%; --translate-x: 0px;.*--origin-y: 50%$/.test(wh.block) && wh.opacity === drawn(WH['text opacity 50'], 'opacity', 'block').value, JSON.stringify(wh));
+// Background on alone is a class on the box, its white from a sheet, nothing in the attribute (CAP-T15WHERE-A.json, -B, text background).
+wh = where('text', { design: { background: true } });
+add('Text Background on: a class, the white not in the attribute', wh.cls && !wh.inner.includes('background') && wh.bg === drawn(WH['text background'], 'background-color').value, JSON.stringify(wh));
+// The rule keeps its first values through desktop edits and takes desktop's at a phone edit (-A text opacity 50, -C phone blur 70).
+const panelDo = (js) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const panel = document.getElementById('block-panel');
+  fe.select(fe.model.sections[1].id, 'wh1'); await sleep(150); if (panel.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); panel.querySelector('[data-btab="Design"]')?.click(); await sleep(150); ${js} await sleep(300); return 'true'; })()`);
+where('text', {});
+panelDo(`const i = panel.querySelector('input[data-design="opacity"]'); i.value = '50'; i.dispatchEvent(new Event('change', { bubbles: true }));`);
+wh = where('text', null);
+const aRule = WH['text opacity 50'].rule.decls[0]['--opacity'];
+add('Opacity 50 on desktop: the rule keeps its first value', wh.ruleOpacity === aRule && wh.opacity === '0.5' && wh.block.includes('--opacity: 50%'), JSON.stringify({ wh, aRule }));
+evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
+wh = where('text', null);
+add('The view alone leaves the rule', wh.ruleOpacity === WC['phone start'].rule.decls[0]['--opacity'], JSON.stringify(wh));
+panelDo(`panel.querySelector('input[data-design="blur"]').click();`);
+wh = where('text', null);
+add('A phone edit rewrites the rule at desktop\'s values', wh.ruleOpacity === WC['phone blur 70'].rule.decls[0]['--opacity'] && wh.opacity === '0.5', JSON.stringify(wh));
+evalJs(S, `(async () => { fe.setBp('desktop'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
