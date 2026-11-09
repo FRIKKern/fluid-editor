@@ -1,0 +1,222 @@
+{
+ "item": "A2",
+ "question": "A2: a fresh round on the DOM order of new layouts on Blocks Probe (recipe CAP-A2FRESH), made only of adds and desktop moves, none of them read before: same top rows (ties), stairs down left and right, a Button held inside an Image, one half inside, three Buttons on one place, an Image beside two blocks with a Line under it, a one-row Line at the top. R (ours, from our code on main 7ab13af, replayed with the mouse as neworder-check does, adds through the Add Block path that commits): the DOM order by desktop z, with both areas. Reading (a plain rule to compare): desktop rows top first, then left first, ties by z. Scored: the DOM order by z on each of the 9 reads; the phone areas are listed and counted apart.",
+ "predicted": {
+  "f1 three on one top row, added right to left": {
+   "R": "3,2,1",
+   "stack": [
+    {
+     "z": 3,
+     "type": "code",
+     "desktop": "1/2/7/6",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "1/10/3/16",
+     "phone": "7/2/9/10"
+    },
+    {
+     "z": 1,
+     "type": "shape",
+     "desktop": "1/18/7/24",
+     "phone": "9/2/15/10"
+    }
+   ],
+   "reading": "3,2,1"
+  },
+  "f2 stairs down to the right": {
+   "R": "1,2,3",
+   "stack": [
+    {
+     "z": 1,
+     "type": "shape",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "3/10/5/16",
+     "phone": "7/2/9/10"
+    },
+    {
+     "z": 3,
+     "type": "code",
+     "desktop": "5/18/11/22",
+     "phone": "9/2/15/10"
+    }
+   ],
+   "reading": "1,2,3"
+  },
+  "f3 stairs down to the left": {
+   "R": "3,2,1",
+   "stack": [
+    {
+     "z": 3,
+     "type": "code",
+     "desktop": "5/2/11/6",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "3/10/5/16",
+     "phone": "7/2/9/10"
+    },
+    {
+     "z": 1,
+     "type": "shape",
+     "desktop": "1/18/7/24",
+     "phone": "9/2/15/10"
+    }
+   ],
+   "reading": "1,2,3"
+  },
+  "f4 Button inside Image, Text right": {
+   "R": "1,2,3",
+   "stack": [
+    {
+     "z": 1,
+     "type": "image",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "3/2/5/8",
+     "phone": "7/2/9/10"
+    },
+    {
+     "z": 3,
+     "type": "text",
+     "desktop": "1/12/3/20",
+     "phone": "9/2/11/10"
+    }
+   ],
+   "reading": "1,3,2"
+  },
+  "f5 three Buttons on one place": {
+   "R": "1,2,3",
+   "stack": [
+    {
+     "z": 1,
+     "type": "button",
+     "desktop": "1/2/3/8",
+     "phone": "1/2/3/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "1/2/3/8",
+     "phone": "3/2/5/10"
+    },
+    {
+     "z": 3,
+     "type": "button",
+     "desktop": "1/2/3/8",
+     "phone": "5/2/7/10"
+    }
+   ],
+   "reading": "1,2,3"
+  },
+  "f6 Button half inside Image, Shape right": {
+   "R": "1,2,3",
+   "stack": [
+    {
+     "z": 1,
+     "type": "image",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "6/2/8/8",
+     "phone": "7/2/9/10"
+    },
+    {
+     "z": 3,
+     "type": "shape",
+     "desktop": "1/12/7/18",
+     "phone": "9/2/15/10"
+    }
+   ],
+   "reading": "1,3,2"
+  },
+  "f7 Image beside two, Line under Image": {
+   "R": "1,4,2,3",
+   "stack": [
+    {
+     "z": 1,
+     "type": "image",
+     "desktop": "1/2/7/8",
+     "phone": "1/2/7/10"
+    },
+    {
+     "z": 4,
+     "type": "line",
+     "desktop": "9/2/10/6",
+     "phone": "7/2/8/10"
+    },
+    {
+     "z": 2,
+     "type": "button",
+     "desktop": "1/10/3/16",
+     "phone": "8/2/10/10"
+    },
+    {
+     "z": 3,
+     "type": "text",
+     "desktop": "4/10/6/18",
+     "phone": "10/2/12/10"
+    }
+   ],
+   "reading": "1,2,3,4"
+  },
+  "f8 Line and Text on one top row": {
+   "R": "1,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "desktop": "1/12/3/20",
+     "phone": "2/2/4/10"
+    }
+   ],
+   "reading": "1,2"
+  },
+  "f8 Button under the Line": {
+   "R": "1,3,2",
+   "stack": [
+    {
+     "z": 1,
+     "type": "line",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10"
+    },
+    {
+     "z": 3,
+     "type": "button",
+     "desktop": "5/2/7/8",
+     "phone": "2/2/4/10"
+    },
+    {
+     "z": 2,
+     "type": "text",
+     "desktop": "1/12/3/20",
+     "phone": "4/2/6/10"
+    }
+   ],
+   "reading": "1,2,3"
+  }
+ }
+}
