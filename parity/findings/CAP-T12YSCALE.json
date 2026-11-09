@@ -2,7 +2,7 @@
  "item": "T12",
  "capturedAt": "2026-11-09",
  "question": "The value axis of a Chart (where it starts, ends and steps), read to score the rule in CAP-T12YSCALE-PREDICTED.json.",
- "how": "Six runs on Blocks Probe, two per set (CAP-T12YSCALE-A1.json to C2.json): a new Chart, the three Population values typed, then a shot as a Bar Chart, as a Line Chart and as a flipped Bar Chart. The chart has no readable markup (htmlOf found nothing), so the tick labels were read by eye from the shots. Both reads of each set agree. Nothing saved: each run left by Exit, then the dialog Exit, and read back 0 sections. Refit 1 sets D, E and F: six more runs the same way (CAP-T12YSCALE-D1.json to F2.json), both reads agree.",
+ "how": "Six runs on Blocks Probe, two per set (CAP-T12YSCALE-A1.json to C2.json): a new Chart, the three Population values typed, then a shot as a Bar Chart, as a Line Chart and as a flipped Bar Chart. The chart has no readable markup (htmlOf found nothing), so the tick labels were read by eye from the shots. Both reads of each set agree. Nothing saved: each run left by Exit, then the dialog Exit, and read back 0 sections. Refit 1 sets D, E and F: six more runs the same way (CAP-T12YSCALE-D1.json to F2.json), both reads agree. Refit 2 sets G, H and I: six more runs (CAP-T12YSCALE-G1.json to I2.json), both reads agree. Three of their read-backs ran before the frame had loaded (null, or a blank page); each next run reached Blocks Probe with 0 sections, and the last read back 0.",
  "reads": {
   "A": {
    "values": [
@@ -143,6 +143,75 @@
     "step": 100
    },
    "barLabels": "tilted"
+  },
+  "G": {
+   "values": [
+    110,
+    135,
+    128
+   ],
+   "bar": {
+    "from": 0,
+    "to": 140,
+    "step": 20
+   },
+   "line": {
+    "from": 110,
+    "to": 140,
+    "step": 5
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 140,
+    "step": 20
+   },
+   "barLabels": "flat"
+  },
+  "H": {
+   "values": [
+    41,
+    62,
+    58
+   ],
+   "bar": {
+    "from": 0,
+    "to": 70,
+    "step": 10
+   },
+   "line": {
+    "from": 40,
+    "to": 70,
+    "step": 5
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 70,
+    "step": 10
+   },
+   "barLabels": "flat"
+  },
+  "I": {
+   "values": [
+    2300,
+    4100,
+    3600
+   ],
+   "bar": {
+    "from": 0,
+    "to": 5000,
+    "step": 1000
+   },
+   "line": {
+    "from": 2000,
+    "to": 5000,
+    "step": 500
+   },
+   "flippedBar": {
+    "from": 0,
+    "to": 5000,
+    "step": 1000
+   },
+   "barLabels": "tilted"
   }
  },
  "round1": {
@@ -172,5 +241,29 @@
    "F bar": "miss: predicted 0 to 700 by 100",
    "F flippedBar": "hit"
   }
+ },
+ "refit2": {
+  "score": "5 of 9",
+  "charts": {
+   "G line": "hit",
+   "G bar": "hit",
+   "G flippedBar": "hit",
+   "H line": "hit",
+   "H bar": "miss: predicted 0 to 60 by 10",
+   "H flippedBar": "miss: predicted 0 to 60 by 10",
+   "I line": "hit",
+   "I bar": "miss: predicted 0 to 4000 by 1000",
+   "I flippedBar": "miss: predicted 0 to 4000 by 1000"
+  }
+ },
+ "frozen": {
+  "rule": "CAP-T12YSCALE-REFIT2-PREDICTED.json, frozen after its round: no more refits.",
+  "scores": {
+   "round1": "3 of 9",
+   "refit1": "6 of 9",
+   "refit2": "5 of 9"
+  },
+  "lines": "The line part is the same in refit 1 and refit 2, and predicted all 6 unseen lines (D to I). Round 1 had 2 of 3 lines (C missed).",
+  "bars": "Bars missed 4 of 6 in refit 2: the 6.5% pull-down (fitted on D alone) put H at 60 and I at 4000; both end past their top bar (70, 5000). Unexplained: D ends at 160 under its 170 bar, and bar3 steps 100 where A Bar steps at the same height take 27.8px."
  }
 }
