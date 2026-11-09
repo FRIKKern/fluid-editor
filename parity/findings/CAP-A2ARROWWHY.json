@@ -1,0 +1,2131 @@
+{
+ "item": "CAP-A2ARROWWHY",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-09",
+ "startedAt": "2026-11-09T19:52:27.969Z",
+ "engine": "chrome",
+ "question": "A2: after text put in by a paste an arrow key did not move the block (CAP-A2ROUND1 x2, CAP-SINGLEAGAIN x2). Is it the paste, or the double click that opened the text? Reads of what holds focus (the page and the frame) and the selection, then ArrowDown. a1 the x2 steps again; a2 another block selected in between; a3 the paste after Write; a4 a double click and nothing pasted; a5 no text edit. Each case built twice, the second with \" again\". No Meta+c, x or v.",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a1 pasted after a double click",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a1 selected",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a1 after ArrowDown",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a2 another block selected first, selected",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a2 another block selected first, after ArrowDown",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a3 pasted after Write",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a3 selected",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a3 after ArrowDown",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a4 double click, nothing pasted",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a4 selected",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a4 after ArrowDown",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a5 no text edit, selected",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a5 no text edit, after ArrowDown",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a1 pasted after a double click again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a1 selected again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a1 after ArrowDown again",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a2 another block selected first, selected again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a2 another block selected first, after ArrowDown again",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "pick",
+   0,
+   "new"
+  ],
+  [
+   "click",
+   "Write"
+  ],
+  [
+   "pasteMid",
+   0,
+   "new",
+   "<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a3 pasted after Write again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a3 selected again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a3 after ArrowDown again",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "editText",
+   0,
+   "new"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a4 double click, nothing pasted again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a4 selected again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a4 after ArrowDown again",
+   {
+    "stack": 0
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Line"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Text"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "middle",
+   0,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "a5 no text edit, selected again",
+   {
+    "stack": 0,
+    "focused": true,
+    "sel": ":focus"
+   }
+  ],
+  [
+   "press",
+   "ArrowDown"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "a5 no text edit, after ArrowDown again",
+   {
+    "stack": 0
+   }
+  ]
+ ],
+ "reads": {
+  "a1 pasted after a double click": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "7_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "7_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "tiptap ProseMirror ProseMirror-focused",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      134.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a1 selected": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "7_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "7_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "tiptap ProseMirror ProseMirror-focused",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      134.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a1 after ArrowDown": {
+   "stack": [
+    {
+     "id": "7_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "7_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a2 another block selected first, selected": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "4_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      153.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 6 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a2 another block selected first, after ArrowDown": {
+   "stack": [
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "4_631",
+     "type": "csr",
+     "desktop": "3/2/7/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 pasted after Write": {
+   "focused": {
+    "tag": "button",
+    "label": "Open Layers Panel",
+    "value": "",
+    "box": [
+     26,
+     219.6,
+     38,
+     36
+    ],
+    "outline": "rgba(0, 0, 0, 0) solid 2px",
+    "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(14, 14, 14) 0px 0px 0px 4px",
+    "bg": "rgb(255, 255, 255)"
+   },
+   "stack": [
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 selected": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      153.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 6 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 after ArrowDown": {
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "3/2/7/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 double click, nothing pasted": {
+   "focused": null,
+   "stack": [
+    {
+     "id": "5_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "5_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 selected": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "5_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "5_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      71.2
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 4 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 after ArrowDown": {
+   "stack": [
+    {
+     "id": "5_631",
+     "type": "csr",
+     "desktop": "3/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "5_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a5 no text edit, selected": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "4_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      71.2
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 4 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a5 no text edit, after ArrowDown": {
+   "stack": [
+    {
+     "id": "4_631",
+     "type": "csr",
+     "desktop": "3/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "4_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a1 pasted after a double click again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "0_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "tiptap ProseMirror ProseMirror-focused",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      134.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a1 selected again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "0_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "tiptap ProseMirror ProseMirror-focused",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      134.4
+     ],
+     "css": {
+      "display": "block",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a1 after ArrowDown again": {
+   "stack": [
+    {
+     "id": "0_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "0_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a2 another block selected first, selected again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "9_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "9_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      153.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 6 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a2 another block selected first, after ArrowDown again": {
+   "stack": [
+    {
+     "id": "9_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "9_631",
+     "type": "csr",
+     "desktop": "3/2/7/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 pasted after Write again": {
+   "focused": {
+    "tag": "button",
+    "label": "Open Layers Panel",
+    "value": "",
+    "box": [
+     26,
+     219.6,
+     38,
+     36
+    ],
+    "outline": "rgba(0, 0, 0, 0) solid 2px",
+    "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(14, 14, 14) 0px 0px 0px 4px",
+    "bg": "rgb(255, 255, 255)"
+   },
+   "stack": [
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 selected again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "2/2/6/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      153.4
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 6 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a3 after ArrowDown again": {
+   "stack": [
+    {
+     "id": "2_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "2_631",
+     "type": "csr",
+     "desktop": "3/2/7/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 double click, nothing pasted again": {
+   "focused": null,
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 selected again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      71.2
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 4 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a4 after ArrowDown again": {
+   "stack": [
+    {
+     "id": "1_631",
+     "type": "csr",
+     "desktop": "3/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "1_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a5 no text edit, selected again": {
+   "focused": "frame",
+   "stack": [
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "1/2/2/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "id": "8_631",
+     "type": "csr",
+     "desktop": "2/2/4/10",
+     "phone": "2/2/4/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    }
+   ],
+   "sel": [
+    {
+     "tag": "div",
+     "cls": "fe-block is-transitioning-visibility",
+     "box": [
+      100.1,
+      285.3,
+      459.3,
+      71.2
+     ],
+     "css": {
+      "display": "block",
+      "position": "relative",
+      "zIndex": "2",
+      "opacity": "1",
+      "color": "rgb(0, 0, 0)",
+      "borderTopColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "fontSize": "16px",
+      "gridArea": "2 / 2 / 4 / 10",
+      "flexDirection": "row"
+     }
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "a5 no text edit, after ArrowDown again": {
+   "stack": [
+    {
+     "id": "8_631",
+     "type": "csr",
+     "desktop": "3/2/5/10",
+     "phone": "1/2/3/10",
+     "z": [
+      "2",
+      "2"
+     ]
+    },
+    {
+     "id": "8_420",
+     "type": "csr",
+     "desktop": "1/2/2/6",
+     "phone": "3/2/4/10",
+     "z": [
+      "1",
+      "1"
+     ]
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true,
+ "exitSteps": [
+  "top Exit",
+  "dialog Exit"
+ ],
+ "answer": "All 13 cases agree with their second build (block ids aside). a1: after the paste and two Escapes, the frame's focus stays on the text editor (ProseMirror-focused), a click on the block keeps it, and ArrowDown leaves the block where it was. a2: another block selected first moves the focus to a block, and ArrowDown moves the Text a row. a3: after a paste opened by Write the Escapes move the focus to the page (Open Layers Panel), and ArrowDown moves it. a4: a double click with nothing pasted leaves no focus, and ArrowDown moves it. a5, no text edit: it moves."
+}
