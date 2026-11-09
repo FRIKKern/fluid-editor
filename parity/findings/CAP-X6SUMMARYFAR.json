@@ -1,0 +1,377 @@
+{
+  "item": "CAP-X6SUMMARYFAR",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "X6: a new Summary on desktop pulled far in past its floor from three start widths (18 from the east; 15 from the east; 22 from the west), each undone: area and content height 400 ms after each pull and undo.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Summary"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "start",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -1200,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "A far in from the east",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "back after A",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "w",
+      176.34,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "B w in to 15",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      -1200,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "B far in from the east",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "back after B",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "e",
+      235.12,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "C e out to 22",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "w",
+      1200,
+      0
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "C far in from the west",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "start": {
+      "contentH": 530,
+      "areas": [
+        [
+          "1/2/12/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A far in from the east": {
+      "contentH": 2097,
+      "areas": [
+        [
+          "1/2/53/10",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "back after A": {
+      "contentH": 530,
+      "areas": [
+        [
+          "1/2/15/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B w in to 15": {
+      "contentH": 475,
+      "areas": [
+        [
+          "1/5/15/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B far in from the east": {
+      "contentH": 2097,
+      "areas": [
+        [
+          "1/5/53/13",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "back after B": {
+      "contentH": 530,
+      "areas": [
+        [
+          "1/2/15/20",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C e out to 22": {
+      "contentH": 507,
+      "areas": [
+        [
+          "1/2/15/24",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C far in from the west": {
+      "contentH": 2097,
+      "areas": [
+        [
+          "1/16/15/24",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "A new Summary, 530 high at 18 columns, 11 rows. A: pulled 1200 px in from the east, it lands at 8 columns, 2097 high, 52 rows: the landed width's height. Undone, it is back at 18 columns with 14 rows, not 11. B: 3 columns in from the west to 15 (475 high), 14 rows; then 1200 px in from the east: 8 columns, 52 rows, the landed width's again. C: 4 columns out to 22 (507 high), 14 rows; then 1200 px in from the west: 8 columns, 2097 high, 14 rows, the pressed width's.",
+  "ours": "Refit 1 of P (CAP-X6SUMMARYWALK.json), pushed before this read: a pull past the floor takes the landed width's height. Predicted 2 of 3: A and B. C missed: from 22 columns the pull reaches the floor only near the end of its 12 steps, from 18 or 15 early, so the content had not reflowed when it was let go; inferred, not built.",
+  "differs": [
+    "C, far in from the west from 22 columns: 14 rows, the pressed width's height, where the refit takes the landed width's (52): a miss"
+  ],
+  "score": {
+    "predicted": "2 of 3 (CAP-X6SUMMARYFAR-PREDICTED.json): A and B match; C misses",
+    "P alone": "1 of 3 (C)"
+  }
+}
