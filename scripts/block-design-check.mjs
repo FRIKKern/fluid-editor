@@ -107,6 +107,9 @@ add('Amount 40: backdrop', r.blurB === b.backdrop.backdropFilter && r.blurF === 
 dset('blurKind', 'element');
 r = read();
 add('Element: filter, no note', r.blurB === b.element.backdropFilter && r.blurF === b.element.filter && !q(`return JSON.stringify(!!panel.querySelector('.bp-blur-note'));`), `${r.blurB} ${r.blurF}`);
+dset('blurKind', '');
+r = read();
+add('Back to Backdrop keeps the amount', r.blurB === b.backdrop.backdropFilter && r.blurF === b.backdrop.filter, `${r.blurB} ${r.blurF}`);
 onoff('blur');
 r = read();
 add('Blur off clears both', r.blurB === 'none' && r.blurF === 'none', `${r.blurB} ${r.blurF}`);
@@ -320,6 +323,18 @@ for (const [name, css] of Object.entries(BLENDS)) {
 }
 px = await blendShot('difference', true);
 add('Blend Difference over another white Shape: black, it blends with the block under it', same(px.shape, [0, 0, 0]) && same(px.section, [181, 100, 247]), JSON.stringify(px));
+// A Shape's Blur (CAP-T15BLUR.json): the amount alone, drawn as filter: blur on the contents, not on the block.
+const shapeBlur = (px) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const panel = document.getElementById('block-panel'), fr = document.getElementById('site-frame');
+  if (${px === null}) { const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = []; fe.load(next); await sleep(250); fe.addBlock(s.id, 'Shape'); await sleep(300); const k = fe.model.sections[1].blocks.at(-1);
+    fe.select(fe.model.sections[1].id, k.id); await sleep(150); if (panel.hidden) document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); panel.querySelector('[data-btab="Design"]')?.click(); await sleep(150); panel.querySelector('input[data-design="blur"]').click(); await sleep(260); }
+  else { const e = panel.querySelector('input[type="text"][data-design="blurPx"]'); e.value = '${px}'; e.dispatchEvent(new Event('change', { bubbles: true })); await sleep(260); }
+  const k = fe.model.sections[1].blocks.at(-1), f = fr.contentDocument.querySelector('.fe-block-' + k.id), W = fr.contentWindow, c = W.getComputedStyle(f), sq = W.getComputedStyle(f.querySelector('.sqs-block'));
+  return JSON.stringify({ kinds: panel.querySelectorAll('[data-dset="blurKind"]').length, note: !!panel.querySelector('.bp-blur-note'), text: panel.querySelector('input[type="text"][data-design="blurPx"]')?.value, block: [c.filter, c.backdropFilter], contents: [sq.filter, sq.backdropFilter] }); })()`);
+let sb = shapeBlur(null);
+add('Shape Blur: the amount alone, 15px', sb.kinds === 0 && !sb.note && sb.text === '15px', JSON.stringify(sb));
+add('Shape Blur 15: filter on its contents', sb.contents.join() === 'blur(15px),none' && sb.block.join() === 'none,none', JSON.stringify(sb));
+sb = shapeBlur(40);
+add('Shape Blur 40: filter on its contents', sb.contents.join() === 'blur(40px),none' && sb.block.join() === 'none,none', JSON.stringify(sb));
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
