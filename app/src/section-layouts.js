@@ -141,8 +141,9 @@ export function applyLayout(s, mix, n, base) {
         return;
       }
       // Code becomes a paragraph at every pick (CAP-U10TEXTMIX-C.json: code alone takes the paragraph list as a P, and in
-      // a mixed Text its code reads as a P too). Read with one line of code; inline code marks inside are not read.
-      if (r === 'h' || r === 'p') b.html = b.html.replace(/<pre[^>]*>(?:<code[^>]*>)?([\s\S]*?)(?:<\/code>)?<\/pre>/g, '<p>$1</p>');
+      // a mixed Text its code reads as a P too), its lines joined by a space (CAP-U10CD1.json). Inline code marks never
+      // reach a pick there: the oracle's paste drops them (CAP-U10CD2.json).
+      if (r === 'h' || r === 'p') b.html = b.html.replace(/<pre[^>]*>(?:<code[^>]*>)?([\s\S]*?)(?:<\/code>)?<\/pre>/g, (_, t) => `<p>${t.replace(/\s*\n\s*/g, ' ').trim()}</p>`);
       // The tag: a heading's, or every paragraph's in a list or a quote (CAP-U10TEXTMIX-B.json: their P become H1).
       if (r === 'h' && L.tag) b.html = b.html.replace(listFirst(b) ? /<(\/?)(?:p|h[1-4])(?=[\s>])/g : /<(\/?)h[1-4]/g, `<$1${L.tag}`);
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
