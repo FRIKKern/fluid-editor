@@ -647,6 +647,10 @@ export const RECIPES = {
         [...INSTA, ...R('i3 pulled'), ['press', 'Escape'], ['select', 0, 'new'], ['press', 'Escape'], ...AFTER('i3 selected again')],
         [...INSTA, ...R('i4 pulled'), ['press', 'ArrowDown'], ['pause', 400], ['press', 'ArrowUp'], ['press', 'Escape'], ...AFTER('i4 nudged down and up')],
         [...INSTA, ...R('i5 pulled'), ['pause', 6000], ...R('i5 6 s later')],
+      ];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-A2ARROWWHY': { page: 'Blocks Probe', question: 'A2: after text put in by a paste an arrow key did not move the block (CAP-A2ROUND1 x2, CAP-SINGLEAGAIN x2). Is it the paste, or the double click that opened the text? Reads of what holds focus (the page and the frame) and the selection, then ArrowDown. a1 the x2 steps again; a2 another block selected in between; a3 the paste after Write; a4 a double click and nothing pasted; a5 no text edit. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const LONG = '<p>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit</p>';
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
