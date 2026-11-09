@@ -1619,11 +1619,13 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     browser(S, 'press', 'Escape'); await pause(150);
     add(`View Layouts h1p1: the heading's step through every pair (${run.length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
-  // A heading alone (CAP-U10TEXTMIX-D.json), and a list or a quote alone (-B), with the reads' words: on, 6 tiles, 0 and 1
-  // not built (the oracle makes it a Scrolling block there), and at 2 to 5 the read areas and rows, the end line fitted to
-  // the words, h1 (a list's or quote's paragraphs too), centred, the theme.
+  // A heading alone (CAP-U10TEXTMIX-D.json), and a list or a quote alone (-B), with the reads' words through every read
+  // pick: on, 6 tiles; at 0 and 1 a Scrolling block (CAP-U10SC1.json: its words and an asterisk, size 8, wave 0 at 0 and
+  // 60 at 1, 0's step after 1), at 2 to 5 the end line fitted to the words, h1 (a list's or quote's paragraphs too),
+  // centred; at each the read areas, rows, theme and divider.
   {
     const D = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-D.json', import.meta.url))).reads, B = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-B.json', import.meta.url))).reads;
+    const SAYS = { D: 'Heading words for a probe *', L: 'List item oneList item two *', Q: 'Quote words for a probe *' };
     for (const [name, R, html, inner] of [['a heading', D, '<h2>Heading words for a probe</h2>', /^<h1 [^>]*text-align: ?center[^>]*>[^<]*<\/h1>$/], ['a list', B, '<ul><li><p>List item one</p></li><li><p>List item two</p></li></ul>', /^<ul><li><h1 [^>]*text-align: ?center[^>]*>List item one<\/h1><\/li><li><h1 [^>]*text-align: ?center[^>]*>List item two<\/h1><\/li><\/ul>$/], ['a quote', B, '<blockquote><p>Quote words for a probe</p></blockquote>', /^<blockquote><h1 [^>]*text-align: ?center[^>]*>Quote words for a probe<\/h1><\/blockquote>$/]]) {
       const errs = [], pre = name === 'a heading' ? 'D' : name === 'a list' ? 'L' : 'Q';
       await start();
@@ -1634,14 +1636,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       else {
         await realClick(b.x, b.y);
         const tiles = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => (t.disabled ? -1 : +t.dataset.layout)))`);
-        if (tiles.join() !== '-1,-1,2,3,4,5') errs.push(`tiles ${tiles}`);
-        for (const [k, r] of Object.entries(R).filter(([k]) => k.startsWith(pre + ' ') && /layout [2-5]$/.test(k))) {
-          const g = evalJs(S, `(() => { document.querySelector('[data-layout="${k.split(' ').pop()}"]').click(); const s = fe.model.sections[0], x = s.blocks[0]; return JSON.stringify([s.rows.desktop, x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.html.replace(/ data-[a-z-]+="[^"]*"/g, ''), s.theme || '']); })()`);
-          if (g[0] !== r.look.rows || g[1] !== r.areas[0][0] || (pre === 'D' && g[2] !== r.areas[0][1]) || !inner.test(g[3]) || g[4] !== r.look.th) errs.push(`${k} ${g}`);
+        if (tiles.join() !== '0,1,2,3,4,5') errs.push(`tiles ${tiles}`);
+        for (const [k, r] of Object.entries(R).filter(([k]) => k.startsWith(pre + ' ') && /layout [0-5]$/.test(k))) {
+          const n = +k.split(' ').pop();
+          const g = evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); const s = fe.model.sections[0], x = s.blocks[0]; return JSON.stringify([s.rows.desktop, x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.type === 'text' ? x.html.replace(/ data-[a-z-]+="[^"]*"/g, '') : [x.type, x.text, x.size, x.wave].join('|'), s.theme || '', !!s.divider]); })()`);
+          const body = n < 2 ? g[3] === ['scrolling', SAYS[pre], 8, n ? 60 : 0].join('|') : inner.test(g[3]);
+          if (g[0] !== r.look.rows || g[1] !== r.areas[0][0] || ((pre === 'D' || n < 2) && g[2] !== r.areas[0][1]) || !body || g[4] !== r.look.th || g[5] !== r.look.dv) errs.push(`${k} ${g}`);
         }
         browser(S, 'press', 'Escape'); await pause(150);
       }
-      add(`View Layouts, ${name} alone: 6 tiles, 2 to 5 as read, fitted to its words`, errs.length === 0, errs.slice(0, 3).join(' | '));
+      add(`View Layouts, ${name} alone: 6 tiles, every read pick as read, Scrolling at 0 and 1, fitted to its words at 2 to 5`, errs.length === 0, errs.slice(0, 3).join(' | '));
     }
   }
   // The fit pad (CAP-U10PADPREDICT.json, -PADREFIT1.json): Texts alone near a row boundary, the read area and rows. Left
@@ -1687,6 +1691,28 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       browser(S, 'press', 'Escape'); await pause(150);
     }
     add('View Layouts, code alone and in a mixed Text: a paragraph at every pick, as read (32 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
+  // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
+  // the heading's areas where it scrolls, and its kind or tag at every read pick (the other spans follow the words, rule W).
+  {
+    const errs = [], A = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-A.json', import.meta.url))).reads, A2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10TEXTMIX-A2.json', import.meta.url))).reads, SC2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10SC2.json', import.meta.url))).reads;
+    const P = '<p>Paragraph words for a probe</p>';
+    for (const [pre, R, ps] of [['H1', A, 1], ['F1', A2, 1], ['F2', A2, 2], ['S2', SC2, 1]]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: '<h2>Heading words for a probe</h2>', id: 'h0aaaaaaaaaaaaaaaaaaaaaa' }, ...${JSON.stringify([...Array(ps).keys()])}.map((k) => ({ ...JSON.parse(JSON.stringify(t)), html: ${JSON.stringify(P)}, id: 'p' + k + 'aaaaaaaaaaaaaaaaaaaaaaa', layout: { ...t.layout, desktop: { ...t.layout.desktop, area: [3 + 2 * k, 2, 5 + 2 * k, 10] }, mobile: { ...t.layout.mobile, area: [3 + 2 * k, 2, 5 + 2 * k, 10] } } }))]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const b = await chromeBtn();
+      if (!b || b.off) { errs.push(`${pre} button`); continue; }
+      await realClick(b.x, b.y);
+      for (const [k, r] of Object.entries(R).filter(([k]) => k.startsWith(pre + ' ') && /layout \d$/.test(k))) {
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${k.split(' ').pop()}"]').click(); const x = fe.model.sections[0].blocks.find((b) => b.id.startsWith('h0')); return JSON.stringify([x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/'), x.type === 'text' ? (x.html.match(/^<(h\\d|p)/) || [])[1] : [x.type, x.text, x.size, x.wave].join('|')]); })()`);
+        const want = r.aligns[0][1] ? r.aligns[0][1][0][0].toLowerCase() : 'scrolling|Heading words for a probe *|4|0';
+        if (g[2] !== want || (!r.aligns[0][1] && (g[0] !== r.areas[0][0] || g[1] !== r.areas[0][1]))) errs.push(`${k} ${g} read ${r.areas[0]} ${want}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts, the heading lists\' full-width heading: Scrolling there, the Text again after, as read', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // One mix in full: the panel, one undo a pick, the tile marked, a Shape and an empty text dropped, Escape.
   await start(); build('h1p1b1'); await pause(450);
