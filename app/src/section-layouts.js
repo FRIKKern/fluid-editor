@@ -78,7 +78,9 @@ export function sectionMix(s) {
   if (by.p.length === 1 && kept.length === 1 && listFirst(by.p[0])) [by.h, by.p] = [by.p, []];
   if (by.p.length === 2 && kept.length === 2 && listFirst(by.p[0]) !== listFirst(by.p[1])) by.h = by.p.splice(by.p.findIndex(listFirst), 1);
   const key = ['h', 'p', 'i', 'b'].map((r) => (by[r].length ? r + by[r].length : '')).join('');
-  return LAYOUTS[key] ? { key, by, list: LAYOUTS[key] } : null;
+  // The heading list with a list- or quote-first Text: every Text's end line grows with its height (rule E, growLayout).
+  const grows = key === 'h1p1' && [...by.h, ...by.p].some(listFirst);
+  return LAYOUTS[key] ? { key, by, list: LAYOUTS[key], ...(grows && { grows }) } : null;
 }
 
 const area = (v) => v.split('/').map(Number);
@@ -167,6 +169,8 @@ export function applyLayout(s, mix, n, base) {
 // -B.json: from 0 back to 1 gives 13). Redo brings back the state Undo left, so it has none.
 export function restep(s, mix, prev) {
   const n = layoutShown(s, mix, null);
+  // A mix whose Texts grow (rule E): Undo onto it is not read, the state Undo gives is kept.
+  if (mix.grows) return;
   // An Undo that stays on the same layout (a text edit in it, say) keeps the state as it was: not read.
   if (n === prev) return;
   if (n == null) return startStep(s, mix, prev);
@@ -201,18 +205,44 @@ function startStep(s, mix, prev) {
 // contentH(b) is the block's content height as rendered at the new place; m holds the grid's pitch and gap.
 const FIT_PAD = 33.5;
 export function fitLayout(s, mix, n, contentH, m) {
+  const span = (x) => Math.max(1, Math.ceil((contentH(x) + FIT_PAD + m.rg) / m.pitch));
+  if (mix.grows) return growLayout(s, mix, n, span);
   const f = mix.list[n]?.fit, b = f && mix.by[f.block[0]]?.[+f.block.slice(1)];
   if (!b) return;
-  const [r0, c0, , c1] = b.layout.desktop.area, rows = Math.max(1, Math.ceil((contentH(b) + FIT_PAD + m.rg) / m.pitch));
+  const [r0, c0, , c1] = b.layout.desktop.area, rows = span(b);
   b.layout.desktop.area = [r0, c0, r0 + rows, c1];
   s.rows = { ...s.rows, desktop: r0 + rows + f.past };
+}
+
+// Rule E (CAP-U10ENDSPREDICT.json, predicted before the reads; round 1 on fresh reads, each read twice alike: 104 of
+// 114 lines on the oracle's heights, 100 of 114 on ours'; frozen there, no refit): every Text ends at its start line
+// plus the fit span above, and a layout's step (rule P) comes off or onto it. A heading Text at layout 0 keeps its set
+// span. A block below another, with columns in common, moves down by that block's change, keeping its gap; the section
+// rows follow the lowest end line. Misses, named: a quote as heading at layouts 2 and 5 ends short in 2 of 3 quotes
+// (CAP-U10ENDS-EPQA.json 4 rows where 8, CAP-U10LF-QPA.json 3 and 2 where 5), not the one-word quote (EPS); no rule found.
+function growLayout(s, mix, n, span) {
+  const L = mix.list[n], blocks = Object.keys(mix.by).flatMap((r) => mix.by[r].map((b, k) => [r + k, b]));
+  const was = new Map(blocks.map(([, b]) => [b, [...b.layout.desktop.area]])), moved = new Map();
+  const lowWas = Math.max(...[...was.values()].map((a) => a[2]));
+  blocks.sort((x, y) => was.get(x[1])[0] - was.get(y[1])[0]);
+  for (const [slot, b] of blocks) {
+    const [r0, c0, r1, c1] = was.get(b), [q0, , q1] = area(L.places[slot][0]);
+    let shift = 0;
+    for (const [, o] of blocks) { const a = was.get(o); if (o !== b && a[2] <= r0 && a[1] < c1 && c0 < a[3]) shift += moved.get(o) || 0; }
+    const keep = b.type !== 'text' || (n === 0 && slot === 'h0' && !listFirst(b));
+    const len = keep ? r1 - r0 : span(b) + (r1 - r0) - (q1 - q0);
+    b.layout.desktop.area = [r0 + shift, c0, r0 + shift + len, c1];
+    moved.set(b, r0 + shift + len - r1);
+  }
+  s.rows = { ...s.rows, desktop: s.rows.desktop + Math.max(...blocks.map(([, b]) => b.layout.desktop.area[2])) - lowWas };
 }
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
   // A fitted block matches by its start line and columns, and the rows by its end line.
-  const at = (L, r, k, a) => { const w = L.places[r + k][0]; if (L.fit?.block !== r + k) return a.join('/') === w; const [r0, c0, , c1] = area(w); return a[0] === r0 && a[1] === c0 && a[3] === c1 && s.rows?.desktop === a[2] + L.fit.past; };
-  const fitsAt = (L) => (!!L.fit || s.rows?.desktop === L.rows) && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => at(L, r, k, b.layout.desktop.area)));
+  // A mix whose Texts grow matches by columns alone (each layout's are its own).
+  const at = (L, r, k, a) => { const w = L.places[r + k][0]; if (mix.grows) { const [, c0, , c1] = area(w); return a[1] === c0 && a[3] === c1; } if (L.fit?.block !== r + k) return a.join('/') === w; const [r0, c0, , c1] = area(w); return a[0] === r0 && a[1] === c0 && a[3] === c1 && s.rows?.desktop === a[2] + L.fit.past; };
+  const fitsAt = (L) => (!!L.fit || !!mix.grows || s.rows?.desktop === L.rows) && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => at(L, r, k, b.layout.desktop.area)));
   // Any of a step's spans.
   const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && others(mix.list[n].step).some((p) => fitsAt(variant(mix.list[n], p)))));
   if (last != null && fits(last)) return last;
