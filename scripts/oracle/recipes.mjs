@@ -700,6 +700,34 @@ export const RECIPES = {
     };
     return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2CORPUS2': { page: 'Blocks Probe', question: 'A2: corpus section 67367682 (A2-CORPUS.json), another of the 5 with a pair out of phone order that shares no phone row, rebuilt with six Shapes added in z order: desktop moves and resizes in steps of at most 6 rows, then phone moves and resizes, each block picked by the order it was added (a1 to a6). Its saved desktop areas 3/7/15/21, 17/13/35/27, 17/1/35/14, 17/1/19/27, 21/3/31/12, 21/17/32/25 (z 1 to 6), phone 7/2/12/10, 30/1/43/11, 18/1/31/11, 18/1/20/11, 22/3/28/9, 32/2/42/10, rules in z order. Column 1 and column 26 (the bleeds) are taken as 2 and 25, on desktop and phone. Read: the DOM order after the desktop build and after each phone step. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
+    const C = (n) => Math.round(n * 58.78) + Math.sign(n), R = (n) => Math.round(n * 41.09) + Math.sign(n), P = (n) => Math.round(n * 35) + Math.sign(n);
+    const chunks = (n) => { const out = []; while (n) { const d = Math.sign(n) * Math.min(6, Math.abs(n)); out.push(d); n -= d; } return out; };
+    const ADD = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (c, r) => chunks(r).length ? chunks(r).map((d, n) => [['select', 0, 'new'], ['drag', 0, 'new', 'middle', n ? 0 : C(c), R(d)], ['press', 'Escape'], ['deselect', 0]]).flat() : [['select', 0, 'new'], ['drag', 0, 'new', 'middle', C(c), 0], ['press', 'Escape'], ['deselect', 0]];
+    const SIZE = (part, n) => chunks(n).map((d) => [['select', 0, 'new'], ['drag', 0, 'new', part, part === 's' ? 0 : C(d), part === 's' ? R(d) : 0], ['press', 'Escape'], ['deselect', 0]]).flat();
+    // Desktop areas with the bleeds taken in; a new Shape lands at 1/2/7/8.
+    const AREAS = [[3, 7, 15, 21], [17, 13, 35, 26], [17, 2, 35, 14], [17, 2, 19, 26], [21, 3, 31, 12], [21, 17, 32, 25]];
+    const DESK = AREAS.flatMap(([r0, c0, r1, c1]) => [...ADD, ...MOVE(c0 - 2, r0 - 1), ...SIZE('e', c1 - c0 - 6), ...SIZE('s', r1 - r0 - 6)]);
+    // On the phone, each block in add order to its saved area (bleeds taken in), in steps of at most 7 rows. Each press lands
+    // where no later block covers it, and a block is resized before it moves where that keeps its handle clear:
+    // [block, select point, part, phone columns, phone rows].
+    const Q = (n) => Math.round(n * 48.45) + Math.sign(n);
+    const PLAN = [[1, 'middle', 's', 0, -1], [1, 'middle', 'middle', 0, 6], [2, 'middle', 's', 0, 7], [2, [0.5, 0.25], [0.5, 0.25], 0, 5], [3, 'middle', 's', 0, 7],
+      [3, [0.5, 0.25], [0.5, 0.25], 0, 7], [3, [0.5, 0.9], [0.5, 0.9], 0, 4], [4, 'middle', 'middle', 0, -1], [4, 'middle', 's', 0, -4], [5, 'middle', 'e', -2, 0],
+      [5, 'middle', 'middle', 1, 7], [5, 'middle', 'middle', 0, 2], [6, 'middle', 'middle', 0, 1], [6, 'middle', 's', 0, 4]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = (s) => {
+      const RD = (n) => [['read', `${n}${s}`, { stack: 0 }]];
+      const steps = [...DESK, ['view', 'Mobile'], ...RD('s0 desktop built')];
+      PLAN.forEach(([k, sel, part, dc, dr], n) => {
+        steps.push(['select', 0, `a${k}`, sel], ['drag', 0, `a${k}`, part, Q(dc), P(dr)], ['press', 'Escape'], ['deselect', 0]);
+        if (PLAN[n + 1]?.[0] !== k) steps.push(...RD(`p${k} a${k} placed`));
+      });
+      return [[...steps, ['view', 'Desktop'], ...RD('p7 back on desktop')]];
+    };
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];

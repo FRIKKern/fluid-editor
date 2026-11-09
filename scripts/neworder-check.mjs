@@ -46,7 +46,7 @@ const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
   let last = null, view = 'desktop', held = false, writing = false; // held: a group or a handle waits for the next drag, so no Escape first
-  const pick = (k) => (k === 'new' ? last : blockAt(k));
+  const made = [], pick = (k) => (k === 'new' ? last : /^a\d+$/.test(k) ? made[k.slice(1) - 1] : blockAt(k)); // a1: the first block added since the blank
   inTextReads = file.startsWith('CAP-TEXTPUSH');
   const parts = !ONLY && !FULL ? SAMPLE[file] : null;
   let part = -1;
@@ -55,11 +55,13 @@ for (const file of FILES) {
     if (op === 'blank') part++;
     if (parts && !parts.includes(part)) continue;
     if (op === 'blank') {
+      made.length = 0;
       view = 'desktop';
       evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
     } else if (op === 'add') {
       // The capture's add finds its tile with the page back at the top (CAP-DRAGSCROLL.json: 44 and 10 become 0).
       last = evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); fe.addBlock('s', ${JSON.stringify(step[2])}); return JSON.stringify(fe.model.sections[0].blocks.find((b, k, all) => b.layout.desktop.z === Math.max(...all.map((x) => x.layout.desktop.z))).id); })()`);
+      made.push(last);
       await pause(3); quiet = false; press('Escape'); await pause(40);
     } else if (op === 'view') {
       view = step[1] === 'Mobile' ? 'mobile' : 'desktop';
