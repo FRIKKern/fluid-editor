@@ -274,12 +274,12 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   // A Line Chart's plot (CAP-T12LINECHART.json line1 and line3 shots, by pixel, block at 99.5, 298.5): the axis 48.5 in and the
   // baseline 215.5 down the block (the picture 15 down it, under any title), an upright line 176 and 352 along, from 3 above the top value to 4 below the baseline; the points
   // on them, the first on the axis; the labels 19 under the baseline; the curve through every point.
-  const lg = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] svg'), blk = g.closest('.fe-block').getBoundingClientRect(), R = (e) => e.getBoundingClientRect(), base = R(g.querySelector('.fe-chart-axis')), ax = R(g.querySelector('.fe-chart-axis + .fe-chart-axis'));
+  const lg = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] svg'); if (!g.querySelector('.fe-chart-axis + .fe-chart-axis')) return JSON.stringify({ none: true }); const blk = g.closest('.fe-block').getBoundingClientRect(), R = (e) => e.getBoundingClientRect(), base = R(g.querySelector('.fe-chart-axis')), ax = R(g.querySelector('.fe-chart-axis + .fe-chart-axis'));
     const up = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.width < 1).map((r) => [Math.round(r.left - ax.left), Math.round(r.top - ax.top), Math.round(r.bottom - base.top)]);
     const pts = [...g.querySelectorAll('circle')].map((c) => [Math.round(+c.getAttribute('cx') - 48.5), Math.round(+c.getAttribute('cy'))]), pd = g.querySelector('path.fe-chart-line')?.getAttribute('d') ?? '';
     const lab = [...g.querySelectorAll('.fe-chart-text')].filter((t) => !/^[0-9]+$/.test(t.textContent)).map((t) => Math.round((+t.getAttribute('y') - 200.5) * 10) / 10);
     return JSON.stringify({ at: [Math.round((ax.left - blk.left) * 2) / 2, Math.round((base.top - R(g).top + 15) * 2) / 2], up, pts: pts.map((p) => p[0]), through: [...g.querySelectorAll('circle')].every((c) => pd.includes(c.getAttribute('cx') + ' ' + c.getAttribute('cy'))), lab });`);
-  add('Chart Line: its plot, upright lines at the points and labels where the oracle draws them', near(lg.at, [48.5, 215.5], 1) && JSON.stringify(lg.up) === JSON.stringify([[176, 0, 0], [352, 0, 0]]) && JSON.stringify(lg.pts) === JSON.stringify([0, 176, 352]) && lg.through && lg.lab.every((v) => v === 19), JSON.stringify(lg));
+  add('Chart Line: its plot, upright lines at the points and labels where the oracle draws them', !lg.none && near(lg.at, [48.5, 215.5], 1) && JSON.stringify(lg.up) === JSON.stringify([[176, 0, 0], [352, 0, 0]]) && JSON.stringify(lg.pts) === JSON.stringify([0, 176, 352]) && lg.through && lg.lab.every((v) => v === 19), JSON.stringify(lg));
   pick('select[data-dl="chartType"]', 'Bar Chart');
   pick('button[data-dl="chartFlip"]');
   s = state(id); p = parts();
