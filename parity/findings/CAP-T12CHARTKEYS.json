@@ -1,0 +1,4139 @@
+{
+  "item": "CAP-T12CHARTKEYS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Chart dialog: Shift+Tab from a cell; the series + pressed (by its text, on-top checked) until it is gone; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressValue",
+      "Las Vegas"
+    ],
+    [
+      "read",
+      "cell",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Tab"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "tab",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Shift+Tab"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "shift tab",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Shift+Tab"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "shift tab 2",
+      {
+        "focused": true
+      }
+    ],
+    [
+      "shot",
+      "shifttab"
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "series 2",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          490,
+          1110,
+          800
+        ]
+      }
+    ],
+    [
+      "shot",
+      "s2"
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "series 3",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          490,
+          1110,
+          800
+        ]
+      }
+    ],
+    [
+      "shot",
+      "s3"
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "series 4",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          490,
+          1110,
+          800
+        ]
+      }
+    ],
+    [
+      "shot",
+      "s4"
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "series 5",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          490,
+          1110,
+          800
+        ]
+      }
+    ],
+    [
+      "shot",
+      "s5"
+    ]
+  ],
+  "reads": {
+    "cell": {
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "Las Vegas",
+        "box": [
+          607,
+          643,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "tab": {
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "250",
+        "box": [
+          717,
+          643,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "shift tab": {
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "Las Vegas",
+        "box": [
+          607,
+          643,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "shift tab 2": {
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "150",
+        "box": [
+          717,
+          599,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "series 2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            691,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            691,
+            110,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          827,
+          513,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            491,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            513,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            937,
+            513,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            981,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            557,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            981,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            601,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            981,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            645,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            981,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            607,
+            691,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            691,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            981,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "series 3": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            937,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            937,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            937,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            691,
+            44,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          937,
+          513,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            491,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1047,
+            513,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            1047,
+            513,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1047,
+            557,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1047,
+            601,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1047,
+            645,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            607,
+            691,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            937,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1047,
+            691,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "series 4": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            617,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            727,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            837,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            947,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            507,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            617,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            727,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            837,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            947,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1057,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            507,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            617,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            727,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            837,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            947,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1057,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            507,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            617,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            727,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            837,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            947,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1057,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            507,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            617,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            727,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            837,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            947,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1057,
+            691,
+            44,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          947,
+          513,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            491,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            617,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            727,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            837,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            947,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1057,
+            513,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            1057,
+            513,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            617,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            727,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            837,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            947,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1057,
+            557,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            617,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            727,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            837,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            947,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1057,
+            601,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            617,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            727,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            837,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            947,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1057,
+            645,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            617,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            727,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            837,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            947,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1057,
+            691,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "series 5": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            581,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            691,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            801,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            911,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            581,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            691,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            801,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            911,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1021,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            581,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            691,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            801,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            911,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1021,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            581,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            691,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            801,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "0",
+          "box": [
+            911,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1021,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            581,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            691,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            801,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            911,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1021,
+            691,
+            44,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "input",
+        "label": "",
+        "value": "",
+        "box": [
+          911,
+          513,
+          110,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            491,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            581,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            691,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            801,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            911,
+            513,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1021,
+            513,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            1021,
+            513,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            581,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            691,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            801,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            911,
+            557,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1021,
+            557,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            581,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            691,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            801,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            911,
+            601,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1021,
+            601,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            581,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            691,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            801,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            911,
+            645,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1021,
+            645,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            581,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            691,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            801,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            911,
+            691,
+            110,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            1021,
+            691,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "pressed": [
+    {
+      "text": "+",
+      "box": [
+        827,
+        555,
+        36,
+        44
+      ]
+    },
+    {
+      "text": "+",
+      "box": [
+        937,
+        513,
+        36,
+        44
+      ]
+    },
+    {
+      "text": "+",
+      "box": [
+        1047,
+        513,
+        36,
+        44
+      ]
+    },
+    {
+      "text": "+",
+      "box": [
+        1057,
+        513,
+        36,
+        44
+      ]
+    }
+  ],
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}

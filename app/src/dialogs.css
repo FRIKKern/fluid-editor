@@ -54,6 +54,8 @@
 .dl-layout svg { position: absolute; top: 21px; left: calc(50% - 16px); }
 .dl-layout-name { position: absolute; top: 56px; left: 0; right: 0; height: 44px; display: flex; align-items: center; justify-content: center; line-height: 18px; }
 .dl-grid > * { position: absolute; box-sizing: border-box; }
+.dl-grid { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; } /* no bar drawn: not read */
+.dl-grid-end { width: 23px; height: 1px; }
 .dl-cell { height: 44px; padding: 0 11px; border: 0; background: none; color: #3e3e3e; font: inherit; }
 .dl-cell.is-head { border-bottom: 1px solid #d0d0d0; }
 .dl-cell.is-alt { background: #e4e4e4; }
@@ -67,12 +69,15 @@
 .dl-button button { width: 100%; height: 100%; padding: 11px; border: 0; background: #3e3e3e; color: #fff; font: 500 11px/22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: .5px; text-transform: uppercase; }
 .dl-button button:disabled { opacity: .3; } /* (191, 191, 191) over the panel, read by pixel (CAP-T12CHARTCELLS.json) */
 /* Update asks first (CAP-T12CHARTCONFIRM.json): a box centred on the button, Confirm focused. */
-.dl-confirm { position: absolute; z-index: 2; width: 350px; height: 138px; box-sizing: border-box; overflow: hidden; border-radius: 4px; background: #f6f6f6; color: #3e3e3e; box-shadow: rgba(0, 0, 0, .22) 0 4px 33px 0, rgba(0, 0, 0, .04) 0 0 0 1px; font-size: 12px; font-weight: 400; line-height: 22px; }
+.dl-confirm { position: absolute; z-index: 4; width: 350px; height: 138px; box-sizing: border-box; overflow: hidden; border-radius: 4px; background: #f6f6f6; color: #3e3e3e; box-shadow: rgba(0, 0, 0, .22) 0 4px 33px 0, rgba(0, 0, 0, .04) 0 0 0 1px; font-size: 12px; font-weight: 400; line-height: 22px; }
 .dl-confirm-title, .dl-confirm-text { position: absolute; left: 33px; width: 284px; text-align: center; }
 .dl-confirm-title { top: 22px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
 .dl-confirm-text { top: 55px; }
 .dl-confirm button { position: absolute; top: 99px; height: 38px; box-sizing: content-box; padding: 0; border: 0; border-top: 1px solid #e4e4e4; background: #f6f6f6; color: #3e3e3e; font-family: inherit; font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: .5px; text-transform: uppercase; }
 .dl-confirm [data-dl-confirm="cancel"] { left: 0; width: 174.5px; }
 .dl-confirm [data-dl-confirm="ok"] { left: 174.5px; width: 175.5px; box-shadow: inset 1px 0 #e4e4e4; }
-/* Confirm takes the focus with no ring drawn (CAP-T12CHARTCONFIRM.json asked shot). */
+/* Confirm takes the focus with no ring drawn (CAP-T12CHARTCONFIRM.json asked shot); after a key (Escape, which keeps the box)
+   it shows a 2px ring inside its box (CAP-T12CHARTASK.json escape shot). The layer under the box covers the dialog. */
 .dl-confirm button:focus { outline: none; }
+.dl-confirm.is-key button:focus { outline: 2px solid #3e3e3e; outline-offset: -2px; }
+.dl-veil { position: absolute; z-index: 3; left: 0; top: 0; width: 100%; }

@@ -1,0 +1,577 @@
+{
+  "item": "CAP-T12CHARTSERIES",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Chart with three series (B and C typed in): the Bar, Line and Pie pictures, a flipped Bar, and the legend flipped and not; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "keys",
+      "Bb"
+    ],
+    [
+      "fillValue",
+      "0",
+      "200"
+    ],
+    [
+      "fillValue",
+      "0",
+      "100"
+    ],
+    [
+      "fillValue",
+      "0",
+      "300"
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "keys",
+      "Cc"
+    ],
+    [
+      "fillValue",
+      "0",
+      "50"
+    ],
+    [
+      "fillValue",
+      "0",
+      "120"
+    ],
+    [
+      "fillValue",
+      "0",
+      "220"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "bar3",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "shot",
+      "bar3"
+    ],
+    [
+      "selectKey",
+      "Bar Chart",
+      "L"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "line3"
+    ],
+    [
+      "selectKey",
+      "Line Chart",
+      "P"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "pie3"
+    ],
+    [
+      "selectKey",
+      "Pie Chart",
+      "B"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "flip3"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Show Legend"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "flipleg"
+    ],
+    [
+      "pressNamed",
+      "Data"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "unflipleg"
+    ]
+  ],
+  "reads": {
+    "bar3": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            318,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            513,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Bb",
+          "box": [
+            827,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Cc",
+          "box": [
+            937,
+            513,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "200",
+          "box": [
+            827,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "50",
+          "box": [
+            937,
+            557,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            557,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "100",
+          "box": [
+            827,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "120",
+          "box": [
+            937,
+            601,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            601,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "300",
+          "box": [
+            827,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "220",
+          "box": [
+            937,
+            645,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            645,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            937,
+            691,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            1047,
+            691,
+            44,
+            44
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "pressed": [
+    {
+      "text": "+",
+      "box": [
+        827,
+        555,
+        36,
+        44
+      ]
+    },
+    {
+      "text": "+",
+      "box": [
+        937,
+        513,
+        36,
+        44
+      ]
+    }
+  ],
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}

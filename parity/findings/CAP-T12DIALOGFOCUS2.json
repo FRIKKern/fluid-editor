@@ -1,0 +1,1368 @@
+{
+  "item": "CAP-T12DIALOGFOCUS2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Tag Cloud dialog: focus after Edit and its ring; a press on another block (Calendar, positional) while it is open; that block's dialog at window height 620; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Calendar"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      320
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "add",
+      0,
+      "Tag Cloud"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tag cloud",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "tagcloud"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "other block",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "other"
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "window",
+      1600,
+      620
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "edit 620",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "e620"
+    ]
+  ],
+  "reads": {
+    "tag cloud": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            649.6,
+            350,
+            65,
+            16
+          ]
+        }
+      ],
+      "focused": null,
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            182.6,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            556,
+            236,
+            300,
+            495
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Tag Cloud",
+          "box": [
+            589,
+            247,
+            234,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            649.6,
+            350,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            589,
+            457,
+            234,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Display Type",
+          "box": [
+            589,
+            552,
+            71.6,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            571,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Tags",
+          "box": [
+            600,
+            582,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            571,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Sort By",
+          "box": [
+            589,
+            640,
+            40.9,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            659,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Alphabetical",
+          "box": [
+            600,
+            670,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            659,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "5 Tags",
+          "box": [
+            589,
+            725,
+            234,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            757.8,
+            234,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Pick the number of tags to show in the cloud.",
+          "box": [
+            589,
+            769.8,
+            234,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "other block": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            649.6,
+            350,
+            65,
+            16
+          ]
+        }
+      ],
+      "focused": "frame",
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            182.6,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            556,
+            236,
+            300,
+            495
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Tag Cloud",
+          "box": [
+            589,
+            247,
+            234,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            649.6,
+            350,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            589,
+            457,
+            234,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Display Type",
+          "box": [
+            589,
+            552,
+            71.6,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            571,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Tags",
+          "box": [
+            600,
+            582,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            571,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Sort By",
+          "box": [
+            589,
+            640,
+            40.9,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            659,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Alphabetical",
+          "box": [
+            600,
+            670,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            659,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "5 Tags",
+          "box": [
+            589,
+            725,
+            234,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            757.8,
+            234,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Pick the number of tags to show in the cloud.",
+          "box": [
+            589,
+            769.8,
+            234,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "edit 620": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            649.6,
+            141,
+            65,
+            16
+          ]
+        }
+      ],
+      "focused": "frame",
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            743.8,
+            593,
+            112.4,
+            36
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "rgba(0, 0, 0, 0.12) 0px 4px 16px 0px, rgba(0, 0, 0, 0.02) 0px 0px 0px 1px",
+          "radius": "8px",
+          "over": "visible clip normal",
+          "border": "0px rgba(0, 0, 0, 0)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            754.8,
+            604,
+            16,
+            14
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "0 updates",
+          "box": [
+            776.8,
+            605,
+            63.4,
+            12
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            175.6,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            182.6,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            589,
+            248,
+            234,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Display Type",
+          "box": [
+            589,
+            343,
+            71.6,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            362,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Tags",
+          "box": [
+            600,
+            373,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            362,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "label",
+          "role": "",
+          "text": "Sort By",
+          "box": [
+            589,
+            431,
+            40.9,
+            15
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            450,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Alphabetical",
+          "box": [
+            600,
+            461,
+            212,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden ellipsis nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "select",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            450,
+            234,
+            44
+          ],
+          "font": "Clarkson 12px 400 normal normal none",
+          "color": "rgb(0, 0, 0)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip pre",
+          "border": "0px rgb(0, 0, 0)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "5 Tags",
+          "box": [
+            589,
+            516,
+            234,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "",
+          "box": [
+            589,
+            548.8,
+            234,
+            2
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(223, 223, 223)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Pick the number of tags to show in the cloud.",
+          "box": [
+            589,
+            560.8,
+            234,
+            22
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressNamed [\"Edit\"]: nothing labelled Edit"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
