@@ -335,6 +335,28 @@ add('Shape Blur: the amount alone, 15px', sb.kinds === 0 && !sb.note && sb.text 
 add('Shape Blur 15: filter on its contents', sb.contents.join() === 'blur(15px),none' && sb.block.join() === 'none,none', JSON.stringify(sb));
 sb = shapeBlur(40);
 add('Shape Blur 40: filter on its contents', sb.contents.join() === 'blur(40px),none' && sb.block.join() === 'none,none', JSON.stringify(sb));
+// Where the editor keeps them (CAP-T15WHERE-A.json, -B, -C): Blur and Background color in style attributes for the view
+// shown, a Text's blur on the block, a Shape's on its contents; the transform-vars rule holds desktop's variables alone.
+const WH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15WHERE-A.json', import.meta.url))).reads;
+const WC = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15WHERE-C.json', import.meta.url))).reads;
+const drawn = (r, prop, part) => r.where.drawn.find((x) => x.prop === prop && (part === 'block' ? x.part === 'block' : x.part !== 'block' && !/outline|resizing|label-tag/.test(x.part)));
+const where = (k, set) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const fr = document.getElementById('site-frame');
+  if (${JSON.stringify(set)}) { const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1]; s.blocks = [{ id: 'wh1', type: ${JSON.stringify(k)}, ...(${JSON.stringify(k)} === 'text' ? { html: '<p>Where</p>' } : { shape: 'rectangle' }), layout: { desktop: { area: [1, 2, 6, 10] }, mobile: { area: [1, 1, 6, 8] } }, ...${JSON.stringify(set)} }]; fe.load(next); await sleep(300); }
+  const f = fr.contentDocument.querySelector('.fe-block-wh1'), sq = f.querySelector('.sqs-block'), W = fr.contentWindow, c = W.getComputedStyle(f), cq = W.getComputedStyle(sq), rule = f.querySelector('style.transform-vars').textContent;
+  return JSON.stringify({ block: f.getAttribute('style') || '', inner: sq.getAttribute('style') || '', filter: c.filter, opacity: c.opacity, innerFilter: cq.filter, bg: cq.backgroundColor, ruleClean: !/blur|background|@media/.test(rule), ruleOpacity: (rule.match(/--opacity: ([^;]+)/) || [])[1] }); })()`);
+let wh = where('text', { design: { background: true, bgColor: 'rgb(255, 207, 90)', blur: true, blurKind: 'element', blurPx: 40 } });
+add('Text Blur: in the block\'s style attribute, not the rule', wh.block.includes('filter: blur(40px)') && wh.filter === drawn(WH['text element 40'], 'filter', 'block').value && wh.ruleClean, JSON.stringify(wh));
+add('Text Background color: in its box\'s style attribute', wh.inner.includes('background-color') && wh.bg === drawn(WH['text background FFCF5A'], 'background-color').value && wh.ruleClean, JSON.stringify(wh));
+wh = where('shape', { design: { blur: true, blurPx: 15, opacity: 50 }, designMobile: { blurPx: 70, opacity: 30 } });
+const wC = (n) => ({ blur: drawn(WC[n], 'filter').value, opacity: drawn(WC[n], 'opacity', 'block').value, rule: WC[n].rule.rules[0].match(/--opacity: ([^;]+)/)[1] });
+let wantW = wC('desktop after phone');
+add('Shape on desktop: blur on the contents\' attribute, rule at desktop\'s values', wh.inner.includes('filter: blur(15px)') && wh.innerFilter === wantW.blur && wh.opacity === wantW.opacity && wh.ruleOpacity === wantW.rule && wh.ruleClean, JSON.stringify({ wh, wantW }));
+evalJs(S, `(async () => { fe.setBp('mobile'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
+wh = where('shape', null); wantW = wC('phone blur 70 opacity 30');
+add('Shape on the phone: the attributes hold the phone\'s values', wh.innerFilter === wantW.blur && wh.opacity === wantW.opacity && wh.ruleOpacity === wantW.rule && wh.ruleClean && /--opacity: 30%/.test(wh.block), JSON.stringify({ wh, wantW }));
+evalJs(S, `(async () => { fe.setBp('desktop'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
+wh = where('shape', null);
+add('Back on desktop: desktop\'s values again', wh.innerFilter === 'blur(15px)' && wh.opacity === '0.5' && !wh.block.includes('--opacity'), JSON.stringify(wh));
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);

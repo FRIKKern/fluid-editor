@@ -1,0 +1,813 @@
+{
+  "item": "CAP-T15WHERE-C",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "T15: where a Shape Design value lives on the phone, run C (second read of run B tail): Blur and Opacity 50 on desktop, then Blur 70 and Opacity 30 on the phone, then back on desktop. Blocks Probe, unsaved.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pressNamed",
+      "Blur"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "fillValue",
+      "100%",
+      50
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "shape blur 15 opacity 50",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "clickIf",
+      "Edit"
+    ],
+    [
+      "clickIf",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone start",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fill",
+      "Blur Amount",
+      70
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone blur 70",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "fillValue",
+      "50%",
+      30
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "phone blur 70 opacity 30",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "desktop after phone",
+      {
+        "where": [
+          0,
+          "new"
+        ],
+        "rule": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "shape blur 15 opacity 50": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794239975252_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794239975252_438 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "phone start": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794239975252_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794239975252_438 { --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "phone blur 70": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794239975252_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794239975252_438 { --opacity: 50%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(70px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(70px)",
+            "inline": "blur(70px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "phone blur 70 opacity 30": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794239975252_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794239975252_438 { --opacity: 50%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(70px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.3",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(70px)",
+            "inline": "blur(70px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "desktop after phone": {
+      "rule": {
+        "key": "fe-block-yui_3_17_2_1_1794239975252_438",
+        "rules": [
+          ".fe-block-yui_3_17_2_1_1794239975252_438 { --opacity: 50%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%; --block-transform: none; opacity: var(--opacity, 1); transform: var(--block-transform); transform-origin: var(--origin-x) var(--origin-y); }"
+        ],
+        "drawn": [
+          {
+            "cls": "fluid-engine-block-contents GvySv_NU6wpoVCOH accept-pointer-",
+            "filter": "blur(15px)",
+            "backdrop": "none"
+          }
+        ]
+      },
+      "where": {
+        "unread": 19,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "opacity",
+            "value": "0.5",
+            "inline": "",
+            "from": [
+              {
+                "owner": "style.transform-vars",
+                "media": "",
+                "forBlock": true,
+                "value": "var(--opacity, 1)",
+                "important": false
+              }
+            ]
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "prop": "filter",
+            "value": "blur(15px)",
+            "inline": "blur(15px)",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "mix-blend-mode --block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events filter"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          },
+          {
+            "part": "svg.sqs-shape.sqs-shape-rectangle",
+            "props": "background-color width height"
+          },
+          {
+            "part": "rect.",
+            "props": "width height"
+          }
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
