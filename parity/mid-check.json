@@ -1,11 +1,13 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1022,
+  "pass": 1064,
   "known": [
     "hold phone, full width -24,12",
-    "R2 wider 5"
+    "R2 wider 5",
+    "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
+    "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1024,
+  "total": 1068,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3840,6 +3842,190 @@
     },
     {
       "name": "R2 c5 Shape pushed by 1, widened 3",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L13 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L13 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L14 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L14 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L17 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L17 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L18 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1280 L18 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1920 L15 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 w1920 L15 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
+      "diffs": [
+        "area: oracle 1/3/2/15, ours 1/3/3/15",
+        "rows: oracle 7, ours 8"
+      ],
+      "known": "rule S misses it: written on column 3 and widened to line 15 (x .28) the oracle falls at the drop, twice in two sessions"
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 c3 L17 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2SUBPIXEL R1 c3 L17 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L18 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L18 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L19 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L19 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L20 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L20 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L21 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-A R1 L21 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L22 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L22 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L23 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L23 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L24 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L24 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L25 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-B R1 L25 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop",
+      "diffs": [
+        "area: oracle 1/3/2/15, ours 1/3/3/15",
+        "rows: oracle 7, ours 8"
+      ],
+      "known": "rule S misses it: written on column 3 and widened to line 15 (x .28) the oracle falls at the drop, twice in two sessions"
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c3 L16 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c3 L16 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c4 L15 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c4 L15 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c4 L16 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2ENDLINE-C R1 c4 L16 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a1 T3 wider 1 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a1 T3 wider 1 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a4 T3 wider 4 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a4 T3 wider 4 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a6 T3 wider 6 at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S, CAP-R2WIDEDROP a6 T3 wider 6 let go",
       "diffs": []
     },
     {
