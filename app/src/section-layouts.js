@@ -72,8 +72,11 @@ export function sectionMix(s) {
     by[r].push(b);
   }
   // A Text that starts with a list or a quote, alone, is laid out as a heading alone (CAP-U10TEXTMIX-B.json, the same
-  // start lines and columns as -D pick for pick). With other blocks: not read, it stays a paragraph.
-  if (by.p.length === 1 && s.blocks.filter((b) => !dropped(b)).length === 1 && listFirst(by.p[0])) [by.h, by.p] = [by.p, []];
+  // start lines and columns as -D pick for pick). With one paragraph and nothing else it takes the heading's place
+  // and tag, the heading list's 6 tiles (CAP-U10LF-LPA.json, LPB, QPA, QPB, read twice alike). With a heading it is
+  // the paragraph (CAP-U10LF-LHA.json, QHA). With other blocks: not read, it stays a paragraph.
+  if (by.p.length === 1 && kept.length === 1 && listFirst(by.p[0])) [by.h, by.p] = [by.p, []];
+  if (by.p.length === 2 && kept.length === 2 && listFirst(by.p[0]) !== listFirst(by.p[1])) by.h = by.p.splice(by.p.findIndex(listFirst), 1);
   const key = ['h', 'p', 'i', 'b'].map((r) => (by[r].length ? r + by[r].length : '')).join('');
   return LAYOUTS[key] ? { key, by, list: LAYOUTS[key] } : null;
 }
@@ -146,6 +149,9 @@ export function applyLayout(s, mix, n, base) {
       if (r === 'h' || r === 'p') b.html = b.html.replace(/<pre[^>]*>(?:<code[^>]*>)?([\s\S]*?)(?:<\/code>)?<\/pre>/g, (_, t) => `<p>${t.replace(/\s*\n\s*/g, ' ').trim()}</p>`);
       // The tag: a heading's, or every paragraph's in a list or a quote (CAP-U10TEXTMIX-B.json: their P become H1).
       if (r === 'h' && L.tag) b.html = b.html.replace(listFirst(b) ? /<(\/?)(?:p|h[1-4])(?=[\s>])/g : /<(\/?)h[1-4]/g, `<$1${L.tag}`);
+      // A list or a quote as the heading list's paragraph: its P become H4 at every pick (CAP-U10LF-LHA.json, LHB, QHA,
+      // QHB, read twice alike, and CAP-U10SC3.json). Read with one heading only.
+      if (r === 'p' && mix.key === 'h1p1' && listFirst(b)) b.html = b.html.replace(/<(\/?)p(?=[\s>])/g, '<$1h4');
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
     });
   }

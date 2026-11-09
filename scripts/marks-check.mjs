@@ -1697,6 +1697,36 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add('View Layouts, code alone, of three lines and in a mixed Text: a paragraph at every pick, as read (35 picks)', errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // A list- or quote-first Text with one other Text (CAP-U10LF-*.json, each read twice alike): with a heading it is the
+  // paragraph, its P become H4; with a paragraph it takes the heading's place and tag. Every block's tags and alignment,
+  // or Scrolling, at all 6 picks (its rows and end lines follow its height, not built).
+  {
+    const errs = [];
+    let n = 0;
+    for (const k of ['LHA', 'LHB', 'LPA', 'LPB', 'QHA', 'QHB', 'QPA', 'QPB']) {
+      const F = JSON.parse(readFileSync(new URL(`../parity/findings/CAP-U10LF-${k}.json`, import.meta.url)));
+      const [a, b] = F.steps.filter((x) => x[0] === 'pasteHere').map((x) => x[3]);
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(a)}, id: 'a0aaaaaaaaaaaaaaaaaaaaaa' }, { ...JSON.parse(JSON.stringify(t)), html: ${JSON.stringify(b)}, id: 'b0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${k} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of Object.entries(F.reads).filter(([x]) => /layout \d b0$/.test(x))) {
+        n++;
+        const pick = label.split(' ')[3];
+        // Ours: each block's tags and alignment as the read gives them, or SCROLL.
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${pick}"]').click(); const d = document.getElementById('site-frame').contentDocument; return JSON.stringify(fe.model.sections[0].blocks.map((x) => { if (x.type === 'scrolling') return [x.id[0], 'SCROLL']; const c = d.querySelector('.fe-block[data-block-id="' + x.id + '"] .sqs-block-content'); return [x.id[0], JSON.stringify([...c.querySelectorAll('p,h1,h2,h3,h4,ul,ol,li,blockquote')].map((e) => [e.tagName, e.parentElement.tagName === 'DIV' ? 'DIV' : e.parentElement.tagName, e.style.textAlign || '', getComputedStyle(e).textAlign]))]; }).sort()); })()`);
+        // The read: the entry with the list or the quote is b, the other text a, and an entry with no aligns scrolls.
+        const want = r.aligns.map((x) => (x[1] ? [/^(UL|OL|BLOCKQUOTE)$/.test(x[1][0][0]) ? 'b' : 'a', JSON.stringify(x[1])] : [null, 'SCROLL']));
+        const s = want.find((x) => !x[0]);
+        if (s) s[0] = want.some((x) => x[0] === 'b') ? 'a' : 'b';
+        if (JSON.stringify(g) !== JSON.stringify(want.sort())) errs.push(`${k} ${pick} ours ${JSON.stringify(g).slice(0, 160)}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts, a list- or quote-first Text with a heading or a paragraph: tags and alignment as read (${n} picks)`, errs.length === 0 && n === 48, errs.slice(0, 3).join(' | '));
+  }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
   // the heading's areas where it scrolls, and its kind or tag at every read pick (the other spans follow the words, rule W).
