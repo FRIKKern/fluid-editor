@@ -73,6 +73,9 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
    paragraph, in the list's indent; a list item's paragraph has half a paragraph's margin. */
 .sqs-html-content li { list-style: none; }
 .sqs-html-content li > p { margin: .5rem 0; }
+/* A Heading 1 in a list item has half its own size above and below: 33.2px at 66.4px, items 109.2 apart (CAP-U10LISTGAP-UL2.json,
+   -UL5.json). Heading 2 to 4 in a list item are not read. */
+.sqs-html-content li > h1 { margin: .5em 0; }
 .sqs-html-content li > p::before { display: inline-block; box-sizing: border-box; width: 40px; margin-left: -40px; text-align: right; white-space: pre; }
 .sqs-html-content ul > li > p::before { content: "•"; padding-right: 10px; }
 .sqs-html-content ol > li { counter-increment: rte-list; }
