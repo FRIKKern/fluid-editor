@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -51,6 +51,7 @@ const centerLine = () => (1 + LAST_LINE[bp]) / 2; // the middle of the canvas: l
 let model = load() ?? demoModel();
 let savedJson = JSON.stringify(model);
 let bp = 'desktop';
+setLiveView(bp); // the frame draws Blur and Background color for the view it shows (render.js liveStyle)
 let sel = null; // { sid, bid }
 let editing = null; // text edit session
 let gesture = null; // move or resize session
@@ -7290,6 +7291,8 @@ function setBp(next) {
   if (editing) finishTextEdit();
   if (gesture) cancelGesture();
   bp = next;
+  setLiveView(bp);
+  for (const s of model.sections) if (s.blocks.some((b) => b.designMobile)) renderSectionDom(s.id);
   $('bp-desktop').classList.toggle('is-on', bp === 'desktop');
   $('bp-mobile').classList.toggle('is-on', bp === 'mobile');
   $('bp-desktop').setAttribute('aria-checked', String(bp === 'desktop'));
