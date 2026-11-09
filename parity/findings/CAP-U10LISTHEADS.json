@@ -1,0 +1,4272 @@
+{
+ "item": "U10",
+ "capturedAt": "2026-11-09",
+ "question": "List items after a Layouts pick: their tag, margins and marker (bullet or number), for Heading 1 to 4 items; read twice.",
+ "how": "f86 on the oracle, Blocks Probe at 1600 by 1000, nothing saved, each run on a new blank section and left by Exit and Exit Without Saving. Texts added from the menu and filled by a paste event (no clipboard); one real press on the Text first line (a caret move) so Escape reaches it; the section hovered, the layout switcher and the tile pressed by a real pointer with an on-top check. Then each list item read: tag, box, margins, the computed ::before of its child and where its text starts. Runs: A a 2-item bullet list alone, layouts 4 then 2; B a 2-item numbered list alone, layout 4; C a bullet list Text with a paragraph Text, layouts 0, 1, 2; D a heading Text with a bullet list Text, layouts 2 and 4. Each run read in two separate passes (a and b); every value read the same in both.",
+ "unnamedPresses": [
+  "One press on each Text first line, 30 in and 10 down, to put the key focus in the frame (no typing)"
+ ],
+ "facts": [
+  "A heading in a list item has margins of half its own size, above and below: Heading 1 66.4px with 33.2, Heading 2 58 with 29, Heading 3 41.2 with 20.6, Heading 4 26.08 with 13.04. A paragraph item keeps 8 at 16px.",
+  "Each item child draws the paragraph marker at its own size: a bullet is \"•\" in an inline-block at least 40px wide, 40px to the left, 10px of right padding, set right, in the text colour (black here). A number is two spaces, the count and \". \", the same box with no padding; at Heading 1 it is 89.2 wide, so the centred line moves 24.6 right (text at 697 against 672.4 for a bullet).",
+  "Run C: the list Text takes the heading place; layout 0 gives Heading 3 items (centred), layout 1 Heading 2, layout 2 Heading 1. Run D: the list Text is the paragraph; layouts 2 and 4 give Heading 4 items."
+ ],
+ "passA": {
+  "A-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "A-pick4": [
+   {
+    "area": "3 / 6 / 11 / 22",
+    "box": [
+     335.3,
+     142.4,
+     929.5,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          199.7,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          308.9,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "A-pick2": [
+   {
+    "area": "5 / 2 / 13 / 26",
+    "box": [
+     100.1,
+     224.6,
+     1399.8,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       290.9,
+       1399.8,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       290.9,
+       1399.8,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         290.9,
+         1359.8,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         140.1,
+         290.9,
+         1359.8,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          281.9,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         400.1,
+         1359.8,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         140.1,
+         400.1,
+         1359.8,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          391.1,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "B-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "OL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "decimal"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "B-pick4": [
+   {
+    "area": "3 / 6 / 11 / 22",
+    "box": [
+     335.3,
+     142.4,
+     929.5,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "OL",
+      "box": [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "decimal"
+      },
+      "items": [
+       {
+        "li": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "89.2031px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          697,
+          199.7,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "106.125px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          708,
+          308.9,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "C-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       244.2,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick0": [
+   {
+    "area": "1 / 9 / 7 / 19",
+    "box": [
+     511.6,
+     60.2,
+     576.8,
+     235.6
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       511.6,
+       80.8,
+       576.8,
+       121.3
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       511.6,
+       80.8,
+       576.8,
+       121.3
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         551.6,
+         80.8,
+         536.8,
+         50.3
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H3",
+        "text": "Item one",
+        "box": [
+         551.6,
+         80.8,
+         536.8,
+         50.3
+        ],
+        "css": {
+         "marginTop": "20.6px",
+         "marginBottom": "20.6px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "50.3438px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          728.2,
+          76.8,
+          183.7,
+          57
+         ]
+        ]
+       },
+       {
+        "li": [
+         551.6,
+         151.8,
+         536.8,
+         50.3
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H3",
+        "text": "Item two",
+        "box": [
+         551.6,
+         151.8,
+         536.8,
+         50.3
+        ],
+        "css": {
+         "marginTop": "20.6px",
+         "marginBottom": "20.6px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "50.3438px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          729.7,
+          147.8,
+          180.5,
+          57
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "7 / 10 / 9 / 18",
+    "box": [
+     570.4,
+     306.8,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       306.8,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick1": [
+   {
+    "area": "1 / 3 / 8 / 13",
+    "box": [
+     158.9,
+     60.2,
+     576.8,
+     276.7
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       158.9,
+       89.2,
+       576.8,
+       164.7
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       158.9,
+       89.2,
+       576.8,
+       164.7
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         198.9,
+         89.2,
+         536.8,
+         67.9
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H2",
+        "text": "Item one",
+        "box": [
+         198.9,
+         89.2,
+         536.8,
+         67.9
+        ],
+        "css": {
+         "marginTop": "29px",
+         "marginBottom": "29px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "67.8594px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          198.9,
+          82.2,
+          258,
+          81
+         ]
+        ]
+       },
+       {
+        "li": [
+         198.9,
+         186.1,
+         536.8,
+         67.9
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H2",
+        "text": "Item two",
+        "box": [
+         198.9,
+         186.1,
+         536.8,
+         67.9
+        ],
+        "css": {
+         "marginTop": "29px",
+         "marginBottom": "29px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "67.8594px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          198.9,
+          179.1,
+          253.6,
+          81
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "1 / 15 / 3 / 23",
+    "box": [
+     864.3,
+     60.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       864.3,
+       60.2,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick2": [
+   {
+    "area": "1 / 4 / 9 / 24",
+    "box": [
+     217.7,
+     60.2,
+     1164.6,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       217.7,
+       93.4,
+       1164.6,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       217.7,
+       93.4,
+       1164.6,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         257.7,
+         93.4,
+         1124.6,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         257.7,
+         93.4,
+         1124.6,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          84.4,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         257.7,
+         202.6,
+         1124.6,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         257.7,
+         202.6,
+         1124.6,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          193.6,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "9 / 10 / 11 / 18",
+    "box": [
+     570.4,
+     389,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       389,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "D-start": [
+   {
+    "area": "1 / 2 / 5 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       244.2,
+       459.3,
+       135.7
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "D-pick2": [
+   {
+    "area": "1 / 4 / 4 / 24",
+    "box": [
+     217.7,
+     60.2,
+     1164.6,
+     112.3
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       217.7,
+       60.2,
+       1164.6,
+       76
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "4 / 10 / 8 / 18",
+    "box": [
+     570.4,
+     183.5,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       196.5,
+       459.3,
+       79.2
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       570.4,
+       196.5,
+       459.3,
+       79.2
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         610.4,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item one",
+        "box": [
+         610.4,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          761.6,
+          194.5,
+          116.8,
+          36
+         ]
+        ]
+       },
+       {
+        "li": [
+         610.4,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item two",
+        "box": [
+         610.4,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          762.6,
+          240.7,
+          114.8,
+          36
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "D-pick4": [
+   {
+    "area": "4 / 3 / 9 / 14",
+    "box": [
+     158.9,
+     183.5,
+     635.6,
+     194.5
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       158.9,
+       183.5,
+       635.6,
+       151.9
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "4 / 15 / 8 / 23",
+    "box": [
+     864.3,
+     183.5,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       864.3,
+       196.5,
+       459.3,
+       79.2
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       864.3,
+       196.5,
+       459.3,
+       79.2
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         904.3,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item one",
+        "box": [
+         904.3,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          904.3,
+          194.5,
+          116.8,
+          36
+         ]
+        ]
+       },
+       {
+        "li": [
+         904.3,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item two",
+        "box": [
+         904.3,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          904.3,
+          240.7,
+          114.8,
+          36
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "passB": {
+  "A-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "A-pick4": [
+   {
+    "area": "3 / 6 / 11 / 22",
+    "box": [
+     335.3,
+     142.4,
+     929.5,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          199.7,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          308.9,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "A-pick2": [
+   {
+    "area": "5 / 2 / 13 / 26",
+    "box": [
+     100.1,
+     224.6,
+     1399.8,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       290.9,
+       1399.8,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       290.9,
+       1399.8,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         290.9,
+         1359.8,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         140.1,
+         290.9,
+         1359.8,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          281.9,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         400.1,
+         1359.8,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         140.1,
+         400.1,
+         1359.8,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          391.1,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "B-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "OL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "decimal"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "B-pick4": [
+   {
+    "area": "3 / 6 / 11 / 22",
+    "box": [
+     335.3,
+     142.4,
+     929.5,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "OL",
+      "box": [
+       335.3,
+       208.7,
+       929.5,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "decimal"
+      },
+      "items": [
+       {
+        "li": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         375.3,
+         208.7,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "89.2031px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          697,
+          199.7,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         375.3,
+         317.9,
+         889.5,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"  \" counter(rte-list) \". \"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "106.125px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "0px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          708,
+          308.9,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "C-start": [
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       244.2,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick0": [
+   {
+    "area": "1 / 9 / 7 / 19",
+    "box": [
+     511.6,
+     60.2,
+     576.8,
+     235.6
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       511.6,
+       80.8,
+       576.8,
+       121.3
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       511.6,
+       80.8,
+       576.8,
+       121.3
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         551.6,
+         80.8,
+         536.8,
+         50.3
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H3",
+        "text": "Item one",
+        "box": [
+         551.6,
+         80.8,
+         536.8,
+         50.3
+        ],
+        "css": {
+         "marginTop": "20.6px",
+         "marginBottom": "20.6px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "50.3438px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          728.2,
+          76.8,
+          183.7,
+          57
+         ]
+        ]
+       },
+       {
+        "li": [
+         551.6,
+         151.8,
+         536.8,
+         50.3
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H3",
+        "text": "Item two",
+        "box": [
+         551.6,
+         151.8,
+         536.8,
+         50.3
+        ],
+        "css": {
+         "marginTop": "20.6px",
+         "marginBottom": "20.6px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "50.3438px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "41.2px",
+         "lineHeight": "50.3464px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          729.7,
+          147.8,
+          180.5,
+          57
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "7 / 10 / 9 / 18",
+    "box": [
+     570.4,
+     306.8,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       306.8,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick1": [
+   {
+    "area": "1 / 3 / 8 / 13",
+    "box": [
+     158.9,
+     60.2,
+     576.8,
+     276.7
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       158.9,
+       89.2,
+       576.8,
+       164.7
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       158.9,
+       89.2,
+       576.8,
+       164.7
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         198.9,
+         89.2,
+         536.8,
+         67.9
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H2",
+        "text": "Item one",
+        "box": [
+         198.9,
+         89.2,
+         536.8,
+         67.9
+        ],
+        "css": {
+         "marginTop": "29px",
+         "marginBottom": "29px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "67.8594px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          198.9,
+          82.2,
+          258,
+          81
+         ]
+        ]
+       },
+       {
+        "li": [
+         198.9,
+         186.1,
+         536.8,
+         67.9
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H2",
+        "text": "Item two",
+        "box": [
+         198.9,
+         186.1,
+         536.8,
+         67.9
+        ],
+        "css": {
+         "marginTop": "29px",
+         "marginBottom": "29px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "67.8594px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "58px",
+         "lineHeight": "67.86px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          198.9,
+          179.1,
+          253.6,
+          81
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "1 / 15 / 3 / 23",
+    "box": [
+     864.3,
+     60.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       864.3,
+       60.2,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "C-pick2": [
+   {
+    "area": "1 / 4 / 9 / 24",
+    "box": [
+     217.7,
+     60.2,
+     1164.6,
+     317.8
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       217.7,
+       93.4,
+       1164.6,
+       185.1
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       217.7,
+       93.4,
+       1164.6,
+       185.1
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         257.7,
+         93.4,
+         1124.6,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item one",
+        "box": [
+         257.7,
+         93.4,
+         1124.6,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          672.4,
+          84.4,
+          295.2,
+          93
+         ]
+        ]
+       },
+       {
+        "li": [
+         257.7,
+         202.6,
+         1124.6,
+         76
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H1",
+        "text": "Item two",
+        "box": [
+         257.7,
+         202.6,
+         1124.6,
+         76
+        ],
+        "css": {
+         "marginTop": "33.2px",
+         "marginBottom": "33.2px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "75.9688px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "66.4px",
+         "lineHeight": "75.9616px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          674.9,
+          193.6,
+          290.2,
+          93
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "area": "9 / 10 / 11 / 18",
+    "box": [
+     570.4,
+     389,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       389,
+       459.3,
+       22.4
+      ]
+     ]
+    ],
+    "lists": []
+   }
+  ],
+  "D-start": [
+   {
+    "area": "1 / 2 / 5 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       244.2,
+       459.3,
+       135.7
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "1 / 2 / 3 / 10",
+    "box": [
+     100.1,
+     244.2,
+     459.3,
+     71.2
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       100.1,
+       252.2,
+       459.3,
+       52.8
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item one",
+        "box": [
+         140.1,
+         252.2,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          251.2,
+          70.8,
+          23
+         ]
+        ]
+       },
+       {
+        "li": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "P",
+        "text": "Item two",
+        "box": [
+         140.1,
+         282.6,
+         419.3,
+         22.4
+        ],
+        "css": {
+         "marginTop": "8px",
+         "marginBottom": "8px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "22.4062px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "16px",
+         "lineHeight": "22.4px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          140.1,
+          281.6,
+          69.6,
+          23
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "D-pick2": [
+   {
+    "area": "1 / 4 / 4 / 24",
+    "box": [
+     217.7,
+     60.2,
+     1164.6,
+     112.3
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       217.7,
+       60.2,
+       1164.6,
+       76
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "4 / 10 / 8 / 18",
+    "box": [
+     570.4,
+     183.5,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       570.4,
+       196.5,
+       459.3,
+       79.2
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       570.4,
+       196.5,
+       459.3,
+       79.2
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         610.4,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item one",
+        "box": [
+         610.4,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          761.6,
+          194.5,
+          116.8,
+          36
+         ]
+        ]
+       },
+       {
+        "li": [
+         610.4,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item two",
+        "box": [
+         610.4,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "center",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          762.6,
+          240.7,
+          114.8,
+          36
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "D-pick4": [
+   {
+    "area": "4 / 3 / 9 / 14",
+    "box": [
+     158.9,
+     183.5,
+     635.6,
+     194.5
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       158.9,
+       183.5,
+       635.6,
+       151.9
+      ]
+     ]
+    ],
+    "lists": []
+   },
+   {
+    "area": "4 / 15 / 8 / 23",
+    "box": [
+     864.3,
+     183.5,
+     459.3,
+     153.4
+    ],
+    "other": [
+     [
+      "DIV",
+      [
+       864.3,
+       196.5,
+       459.3,
+       79.2
+      ]
+     ]
+    ],
+    "lists": [
+     {
+      "tag": "UL",
+      "box": [
+       864.3,
+       196.5,
+       459.3,
+       79.2
+      ],
+      "css": {
+       "marginTop": "0px",
+       "marginBottom": "0px",
+       "paddingLeft": "40px",
+       "listStyleType": "disc"
+      },
+      "items": [
+       {
+        "li": [
+         904.3,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item one",
+        "box": [
+         904.3,
+         196.5,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          904.3,
+          194.5,
+          116.8,
+          36
+         ]
+        ]
+       },
+       {
+        "li": [
+         904.3,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "liCss": {
+         "listStyleType": "none",
+         "paddingLeft": "0px",
+         "marginTop": "0px",
+         "marginBottom": "0px",
+         "display": "list-item"
+        },
+        "tag": "H4",
+        "text": "Item two",
+        "box": [
+         904.3,
+         242.7,
+         419.3,
+         33.1
+        ],
+        "css": {
+         "marginTop": "13.04px",
+         "marginBottom": "13.04px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "textAlign": "start",
+         "color": "rgb(0, 0, 0)",
+         "paddingLeft": "0px",
+         "textIndent": "0px"
+        },
+        "before": {
+         "content": "\"•\"",
+         "display": "inline-block",
+         "position": "static",
+         "left": "auto",
+         "top": "auto",
+         "width": "40px",
+         "height": "33.0938px",
+         "marginLeft": "-40px",
+         "marginRight": "0px",
+         "paddingRight": "10px",
+         "paddingLeft": "0px",
+         "fontSize": "26.08px",
+         "lineHeight": "33.0903px",
+         "fontWeight": "400",
+         "color": "rgb(0, 0, 0)",
+         "verticalAlign": "baseline",
+         "textAlign": "right",
+         "transform": "none",
+         "boxSizing": "border-box"
+        },
+        "textRects": [
+         [
+          904.3,
+          240.7,
+          114.8,
+          36
+         ]
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -73,13 +73,15 @@ p { margin: 1rem 0; letter-spacing: var(--body-font-letter-spacing); }
    paragraph, in the list's indent; a list item's paragraph has half a paragraph's margin. */
 .sqs-html-content li { list-style: none; }
 .sqs-html-content li > p { margin: .5rem 0; }
-/* A Heading 1 in a list item has half its own size above and below: 33.2px at 66.4px, items 109.2 apart (CAP-U10LISTGAP-UL2.json,
-   -UL5.json). Heading 2 to 4 in a list item are not read. */
-.sqs-html-content li > h1 { margin: .5em 0; }
-.sqs-html-content li > p::before { display: inline-block; box-sizing: border-box; width: 40px; margin-left: -40px; text-align: right; white-space: pre; }
-.sqs-html-content ul > li > p::before { content: "•"; padding-right: 10px; }
+/* A heading in a list item (after a Layouts pick) has half its own size above and below, and the same marker as a
+   paragraph at its size: 33.2px and 66.4px for Heading 1, 29 and 58 for 2, 20.6 and 41.2 for 3, 13.04 and 26.08 for 4
+   (CAP-U10LISTGAP-UL2.json, -UL5.json, CAP-U10LISTHEADS.json, read twice). The marker box is at least 40px: a number
+   at Heading 1 takes 89.2. */
+.sqs-html-content li > :is(h1, h2, h3, h4) { margin: .5em 0; }
+.sqs-html-content li > :is(p, h1, h2, h3, h4)::before { display: inline-block; box-sizing: border-box; min-width: 40px; margin-left: -40px; text-align: right; white-space: pre; }
+.sqs-html-content ul > li > :is(p, h1, h2, h3, h4)::before { content: "•"; padding-right: 10px; }
 .sqs-html-content ol > li { counter-increment: rte-list; }
-.sqs-html-content ol > li > p::before { content: "  " counter(rte-list) ". "; }
+.sqs-html-content ol > li > :is(p, h1, h2, h3, h4)::before { content: "  " counter(rte-list) ". "; }
 .sqs-html-content pre { margin: 1rem 0; font-family: monospace, serif; font-size: 1rem; line-height: var(--body-font-line-height); white-space: pre-wrap; }
 .sqs-html-content pre code { font-family: Poppins; font-size: 1rem; font-weight: 500; line-height: 1; letter-spacing: .01em; }
 
