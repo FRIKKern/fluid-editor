@@ -2813,20 +2813,42 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`Scrolling, ${rows} rows: down with the section's bottom, up with its top + 140`, off.length === 0, JSON.stringify(off));
   }
-  // On a section with no header, the way up: top + 1.4 on 2 walks of 3 (CAP-U10SECOND2.json).
+  // On a section with no header, the way up: its content box's top + 1, by the band (CAP-U10SECOND.json, s: + 48.4 on this unpicked section;
+  // CAP-U10SECOND2.json's + 1.4 came after a pick, its content box from + 0.4).
   await setup({ more: 2, second: true });
   await frameTo(600);
   const below = js(`const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([r.left + 800, r.top + q.top + 200]);`);
   mouse(S, 'move', below[0], below[1]); await pause(200); await press('#section-chrome [data-sc="layouts"]');
   const secTop = () => js(`const f = document.getElementById('site-frame'); return JSON.stringify(f.getBoundingClientRect().top + f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect().top);`);
   await frameTo(1040); await frameTo(800); await frameTo(600);
-  add('Scrolling, second section: up with its top + 1', shut() === false && Math.abs(top() - secTop() - 1.4) <= 2, JSON.stringify([top(), secTop()]));
+  const cwTop = js(`const f = document.getElementById('site-frame'); return JSON.stringify(f.getBoundingClientRect().top + f.contentDocument.querySelectorAll('.page-section')[1].querySelector('.content-wrapper').getBoundingClientRect().top);`);
+  add('Scrolling, second section: up with its content box top + 1', shut() === false && Math.abs(top() - cwTop - 1) <= 1.5 && Math.abs(top() - secTop() - 48.4) <= 1.5, JSON.stringify([top(), secTop(), cwTop]));
   // It closes where Edit Section's does (CAP-U10READ5.json).
   await setup({ more: 3 }); await open();
   await frameTo(640);
   add('Scrolling: still open at frame 640', shut() === false);
   await frameTo(680);
   add('Scrolling: closed at frame 680', shut() === true);
+  // It keeps to Edit Section's band while the page scrolls, and closes on it: the oracle's V walk replayed step for step
+  // (window 1600 by 900, no pick; CAP-U10BAND2.json, predictions in CAP-U10BAND-PREDICT.json). Named, not matched: the opening,
+  // ours 380 by the opening rule, the oracle 341 (the band's high edge; short first sections open below it, so no rule).
+  {
+    const R2 = read('CAP-U10BAND2');
+    await setup({ more: 5, second: true }); viewport(S, 1600, 900); await pause(500);
+    const secAt = () => js(`const f = document.getElementById('site-frame'), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([f.getBoundingClientRect().top + q.top + f.contentWindow.scrollY, f.getBoundingClientRect().top + q.top]);`);
+    const o = R2['V open'].panelBox, shift = secAt()[0] - (o.secTop + o.scrollY);
+    await frameTo(o.scrollY + shift);
+    const at = secAt()[1], fl = js(`return JSON.stringify(document.getElementById('site-frame').getBoundingClientRect().left + 800);`);
+    mouse(S, 'move', fl, at + 200); await pause(200); await press('#section-chrome [data-sc="layouts"]');
+    const t0 = top(), want0 = R2['V open tiles'].tiles.box[1];
+    let ok = 0, n = 0; const miss = [];
+    for (const w of ['down', 'up', 'to close', 'back']) for (const [y, want] of R2[`V ${w}`].seen) {
+      await frameTo(y + shift); const t = shut() ? null : top(); n++;
+      if ((t === null && want === null) || (t !== null && want !== null && Math.abs(t - want) <= 1)) ok++; else miss.push([w, y, want, t]);
+    }
+    add(`Scrolling keeps to the band, V: ${n} of ${n} steps as the oracle`, ok === n, JSON.stringify({ t0, want0, ok, n, miss: miss.slice(0, 4) }));
+    await esc();
+  }
 }
 
 // U12: what the option rows draw on a page, against parity/findings/CAP-U12OPTIONS.json. Read inside Site Styles, as ours is here.

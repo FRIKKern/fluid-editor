@@ -1,0 +1,38 @@
+{
+  "item": "CAP-U10BAND-PREDICT",
+  "question": "U10's open part: View Layouts' panel top on a section with no header while the page scrolls, mostly on the way down (CAP-VIEWLAYOUTS.json notRead). Prediction: it keeps to the same band as Edit Section's panel, by U9's frozen band rule, unchanged (a check, not a refit). Written and pushed before the read. Gestures Probe: section 0 with a Text block, sections 1 and 2 empty, a Text block added to section 1; View Layouts opened on section 1. V: window 1600 by 900, no pick. W: window 1600 by 1000, layout 2 picked, then reopened. Walks of 20 px steps, 250 ms each: down, up, down to close, back.",
+  "rule": "While Edit Section's panel is open and the page scrolls, its top (window coordinates) is the last top, pushed to stay within a band that moves with the page: low = the section's content box top + 1, high = the content box bottom + 1 - 476 (the content box is the section less its padding, the box that holds the grid). A push from below that would put the panel's bottom past the window (top above H - 476, rounded) does not happen: it stays. Then it is held at 0. It closes once high is above -421 in the window, and stays closed scrolling back. Frozen after refit 1 (CAP-U9BAND-PREDICT.json, CAP-U9BAND.json: 529 of 540 fresh).",
+  "seen": "On the earlier View Layouts walks (CAP-U10SECOND.json, CAP-U10SECOND2.json; 20 and 40 px steps, 150 ms): s 35 of 37 with ours' content box (+ 47.4, 528.9); t 21 of 27 and u 26 of 27 with content boxes inferred from those reads (+ 0.4, 775.1 and + 0.4, 528.9). The misses run one scroll step ahead.",
+  "inputs": "V: the oracle's content box taken to be ours for a medium section of 8 rows at window height 900: section 557.7 tall, content box from + 14.4, 528.9 tall. W: the content box is not predicted (ours' layout table is not the oracle's), the rule is scored with the content box read.",
+  "predictions": [
+    {
+      "case": "V: content box",
+      "predict": "from the section's top + 14.4, 528.9 tall, within 1 px"
+    },
+    {
+      "case": "V: down",
+      "predict": "once the band's high (section top + 68.3) passes the panel's top, the panel goes with it, then is held at 0"
+    },
+    {
+      "case": "V: up",
+      "predict": "the panel stays until the band's low (section top + 15.4) passes it, then goes with it; it stays below 424 (H - 476) once low passes that"
+    },
+    {
+      "case": "V: close",
+      "predict": "at the first step where section top + 68.3 is above -421; stays closed back"
+    },
+    {
+      "case": "W: down, up and close",
+      "predict": "the same with the read content box: low = top + box top + 1, high = top + box bottom + 1 - 476, close at high < -421"
+    },
+    {
+      "case": "V: every step",
+      "predict": "each step within 1 px of the rule run from the read opening"
+    },
+    {
+      "case": "W: every step",
+      "predict": "each step within 1 px of the rule run from the read opening, with the read content box"
+    }
+  ],
+  "score": "Counted per walk step within 1 px, and per case above. The opening top is not scored."
+}
