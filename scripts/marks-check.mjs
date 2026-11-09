@@ -1835,7 +1835,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('a pick drops the Shape and the empty text', P1.n === 3, String(P1.n));
   add('a pick sets the rows', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
   pick(0); await pause(150);
-  add('the next pick from there', rows() === VL.mixes.h1p1b1.layouts[0].rows, String(rows()));
+  // Layout 0 after 2 is a row longer than its first read (CAP-U10WALK-W1A.json and W1B: the heading list's step).
+  add('the next pick from there', rows() === VL.mixes.h1p1b1.layouts[0].rows + 1, String(rows()));
   evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
   add('one undo goes back one pick', rows() === VL.mixes.h1p1b1.layouts[2].rows, String(rows()));
   evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(150);
