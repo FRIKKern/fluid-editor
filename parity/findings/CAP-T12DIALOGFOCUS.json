@@ -1,0 +1,915 @@
+{
+  "item": "CAP-T12DIALOGFOCUS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Tag Cloud and Calendar dialogs: the focus after Edit and its ring; a press on another block (Calendar, by its block, positional) while Tag Cloud's dialog is open; Calendar's dialog at window heights 1000 and 760; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Calendar"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      1,
+      "Tag Cloud"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "tag cloud",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "tagcloud"
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "other block",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "other"
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "calendar",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "calendar"
+    ],
+    [
+      "window",
+      1600,
+      760
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "calendar 760",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          540,
+          150,
+          1160,
+          990
+        ]
+      }
+    ],
+    [
+      "shot",
+      "cal760"
+    ]
+  ],
+  "reads": {
+    "tag cloud": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Add Section",
+          "box": [
+            744.4,
+            964,
+            111.1,
+            36
+          ]
+        }
+      ],
+      "focused": "frame",
+      "looks": [],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "other block": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Open Layers Panel",
+          "box": [
+            26,
+            81,
+            38,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Edit",
+          "box": [
+            108.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Align Vertically",
+          "box": [
+            153.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Pin",
+          "box": [
+            193.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Duplicate",
+          "box": [
+            238.1,
+            198.2,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Remove",
+          "box": [
+            278.1,
+            198.2,
+            36,
+            36
+          ]
+        }
+      ],
+      "focused": "frame",
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            938,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            945,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "calendar": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            949.1,
+            329,
+            65,
+            16
+          ]
+        }
+      ],
+      "focused": null,
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            938,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            945,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            791,
+            237,
+            335,
+            465
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Calendar",
+          "box": [
+            824,
+            248,
+            269,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            949.1,
+            329,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            824,
+            414,
+            269,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "calendar 760": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            949.1,
+            289,
+            65,
+            16
+          ]
+        }
+      ],
+      "focused": null,
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            743.8,
+            733,
+            112.4,
+            36
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "rgba(0, 0, 0, 0.12) 0px 4px 16px 0px, rgba(0, 0, 0, 0.02) 0px 0px 0px 1px",
+          "radius": "8px",
+          "over": "visible clip normal",
+          "border": "0px rgba(0, 0, 0, 0)"
+        },
+        {
+          "tag": "svg",
+          "role": "",
+          "text": "",
+          "box": [
+            754.8,
+            744,
+            16,
+            14
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "0 updates",
+          "box": [
+            776.8,
+            745,
+            63.4,
+            12
+          ],
+          "font": "Clarkson 12px 500 12px -0.14px uppercase",
+          "color": "rgb(14, 14, 14)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(14, 14, 14)"
+        },
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            938,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            945,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            791,
+            197,
+            335,
+            465
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Calendar",
+          "box": [
+            824,
+            208,
+            269,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "a",
+          "role": "",
+          "text": "Learn more",
+          "box": [
+            949.1,
+            289,
+            65,
+            16
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "There are no collections.",
+          "box": [
+            824,
+            374,
+            269,
+            70
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "11px",
+          "over": "visible clip normal",
+          "border": "2px rgba(0, 0, 0, 0.1)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "blank []: click: nothing found for () => [...document.querySelectorAll('a')].filter((x) => x.getBoundingClientRect().width > 0).find((x) => [x.getAttribute",
+    "add [1,\"Tag Cloud\"]: js_error: TypeError: Cannot read properties of undefined (reading 'getBoundingClientRect')",
+    "pressNamed [\"Edit\"]: nothing labelled Edit"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

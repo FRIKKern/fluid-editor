@@ -1,0 +1,138 @@
+{
+  "item": "CAP-T12CHARTLEGEND2",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Two series, Show Legend on, then Flip: the legend and the switch after; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressText",
+      "+"
+    ],
+    [
+      "keys",
+      "Bb"
+    ],
+    [
+      "fillValue",
+      "0",
+      "200"
+    ],
+    [
+      "fillValue",
+      "0",
+      "100"
+    ],
+    [
+      "fillValue",
+      "0",
+      "300"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Show Legend"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "leg2"
+    ],
+    [
+      "pressNamed",
+      "Data"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "flip2"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "shot",
+      "design2"
+    ]
+  ],
+  "reads": {},
+  "errors": [],
+  "visited": "Gestures Probe",
+  "pressed": [
+    {
+      "text": "+",
+      "box": [
+        827,
+        555,
+        36,
+        44
+      ]
+    }
+  ],
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}

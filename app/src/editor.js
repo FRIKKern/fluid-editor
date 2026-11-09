@@ -1902,9 +1902,9 @@ const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]
 function renderDialog(b) {
   const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;
   if (dialogEl.dataset.key !== key) {
-    const top = dialogEl.scrollTop, had = dialogEl.contains(document.activeElement) ? document.activeElement.dataset.dl : null;
+    const top = dialogEl.scrollTop, left = dialogEl.querySelector('.dl-grid')?.scrollLeft ?? 0, had = dialogEl.contains(document.activeElement) ? document.activeElement.dataset.dl : null;
     dialogEl.innerHTML = dialogHtml(b, dlgTab, dialogPages());
-    if (dialogEl.dataset.bid === b.id) dialogEl.scrollTop = top;
+    if (dialogEl.dataset.bid === b.id) { dialogEl.scrollTop = top; const g = dialogEl.querySelector('.dl-grid'); if (g) g.scrollLeft = left; }
     dialogEl.dataset.key = key;
     dialogEl.dataset.bid = b.id;
     if (had) dialogEl.querySelector(`[data-dl="${had}"]`)?.focus({ preventScroll: true });
@@ -1937,6 +1937,10 @@ function setDialogValue(k, v) {
   commit(before, `${dialogOf(b).title} changed`);
 }
 dialogEl.addEventListener('click', (e) => {
+  // A press outside the Are You Sure? box, on the dialog, lands on a layer over it and does what Cancel does: the box goes, the
+  // text stays and Update takes the focus (CAP-T12CHARTASK.json: the Data tab read covered, a press at its spot closed the box
+  // and left the tab and the text as they were).
+  if (e.target.closest('.dl-veil')) { dialogEl.querySelector('.dl-confirm')?.remove(); e.target.remove(); dialogEl.querySelector('[data-dl-action="csv"]')?.focus({ preventScroll: true }); return; }
   const tab = e.target.closest('[data-dl-tab]');
   if (tab) { dlgTab = tab.dataset.dlTab; dialogEl.scrollTop = 0; renderDialog(B(sel.sid, sel.bid)); return; }
   const box = e.target.closest('button[data-dl]');
@@ -1951,23 +1955,25 @@ dialogEl.addEventListener('click', (e) => {
     dialogEl.querySelector(`[data-dl-cell="${add.dataset.dlAdd === 'row' ? `${data.length - 1},0` : `0,${n + 1}`}"]`)?.focus({ preventScroll: true });
     // The row + scrolls the panel to its end: 42 in the one read (CAP-T12CHARTCELLS2.json, rows 555 to 513). Inferred: to the end.
     if (add.dataset.dlAdd === 'row') dialogEl.scrollTop = dialogEl.scrollHeight;
+    else { const g = dialogEl.querySelector('.dl-grid'); if (g) g.scrollLeft = g.scrollWidth; }
     return;
   }
   // Update asks first: Are You Sure?, centred on the button, Confirm focused; Cancel keeps the box's text, Confirm makes it the
   // data (CAP-T12CHARTCELLS2.json, CAP-T12CHARTCONFIRM.json).
   const upd = e.target.closest('[data-dl-action="csv"]');
   if (upd && !upd.disabled) {
-    dialogEl.querySelector('.dl-confirm')?.remove();
-    const row = upd.closest('.dl-row'), box = document.createElement('div');
+    dialogEl.querySelectorAll('.dl-confirm, .dl-veil').forEach((x) => x.remove());
+    const row = upd.closest('.dl-row'), box = document.createElement('div'), veil = document.createElement('div');
+    veil.className = 'dl-veil'; veil.style.height = `${dialogEl.scrollHeight}px`;
     box.className = 'dl-confirm'; box.setAttribute('role', 'dialog');
     box.style.top = `${row.offsetTop + row.offsetHeight / 2 - 69}px`; box.style.left = `${(dialogEl.clientWidth - 350) / 2}px`;
     box.innerHTML = '<div class="dl-confirm-title">Are You Sure?</div><div class="dl-confirm-text">This will overwrite the current chart data.</div><button type="button" data-dl-confirm="cancel">Cancel</button><button type="button" data-dl-confirm="ok">Confirm</button>';
-    dialogEl.append(box); box.querySelector('[data-dl-confirm="ok"]').focus({ preventScroll: true });
+    dialogEl.append(veil, box); box.querySelector('[data-dl-confirm="ok"]').focus({ preventScroll: true });
     return;
   }
   const answer = e.target.closest('[data-dl-confirm]');
   if (answer) {
-    answer.closest('.dl-confirm').remove();
+    answer.closest('.dl-confirm').remove(); dialogEl.querySelector('.dl-veil')?.remove();
     if (answer.dataset.dlConfirm === 'ok') { const t = dialogEl.querySelector('[data-dl-area]'); setDialogValue(t.dataset.dlArea, parseCsv(t.value)); }
   }
 });
@@ -2004,7 +2010,10 @@ dialogEl.addEventListener('change', (e) => {
   if (c.type === 'range') c.blur();
 });
 const dialogOpen = () => !dialogEl.hidden && sel && designOpen === sel.bid;
-function holdDialogEscape(e) { if (e.key === 'Escape' && dialogOpen()) { e.preventDefault(); e.stopImmediatePropagation(); } }
+function holdDialogEscape(e) {
+  if (dialogOpen()) dialogEl.querySelector('.dl-confirm')?.classList.add('is-key'); // a key shows Confirm's ring (CAP-T12CHARTASK.json escape)
+  if (e.key === 'Escape' && dialogOpen()) { e.preventDefault(); e.stopImmediatePropagation(); }
+}
 window.addEventListener('keydown', holdDialogEscape, true);
 function dialogPress(e) {
   if (!dialogOpen()) return;
@@ -3227,8 +3236,9 @@ function renderShapePop() {
     // What a pick does on the page is not read: it is kept on the block.
     const cur = b.appear || APPEAR[0];
     shapePop.innerHTML = APPEAR.map((o) => `<button type="button" role="option" class="${o === cur ? 'is-cur' : ''}" aria-selected="${o === cur}" data-appear-opt="${o}">${o}</button>`).join('');
-    const top = shapeUi.rect.top - 25;
-    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list past the window's foot scrolls (not read)
+    // Low in the window, the list moves up and its foot sits 11 above the window's (CAP-T12APPEARLOW.json: 700 tall, row at 623).
+    const top = Math.max(8, Math.min(shapeUi.rect.top - 25, innerHeight - 11 - (APPEAR.length * 45 + 11))); // rows 45, padding 5 and 6
+    shapePop.style.cssText = `left:${shapeUi.rect.left}px;top:${top}px;max-height:${innerHeight - top - 8}px;overflow:auto`; // a list taller than the window scrolls (not read)
   } else if (kind === 'imagesel') {
     // Blend Mode and Lightbox Theme (IMAGEDESIGN.json): a list over the button, 9px to its left.
     const video = shapeUi.key === 'vblend', blend = video || shapeUi.key === 'blend', list = blend ? BLEND_MODES : ['Light Overlay', 'Dark Overlay'];

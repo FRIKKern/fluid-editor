@@ -1,0 +1,1493 @@
+{
+  "item": "CAP-T12CHARTASK",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Chart Are You Sure? box: Escape, then a press on the Data tab outside it (named, then at its spot); then Show Legend before Flip; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressNamed",
+      "Import / Export"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressValue",
+      "Label,"
+    ],
+    [
+      "press",
+      "Meta+ArrowDown"
+    ],
+    [
+      "press",
+      "Enter"
+    ],
+    [
+      "keys",
+      "Ef,40"
+    ],
+    [
+      "pressNamed",
+      "Update"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "asked",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          240,
+          1110,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "asked"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "escape",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          240,
+          1110,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "escape"
+    ],
+    [
+      "clickIf",
+      "Update"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "read",
+      "asked2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Data"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "data named",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          240,
+          1110,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "datanamed"
+    ],
+    [
+      "clickAt",
+      647,
+      289
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "data at",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          580,
+          240,
+          1110,
+          900
+        ]
+      }
+    ],
+    [
+      "shot",
+      "dataat"
+    ],
+    [
+      "clickIf",
+      "Cancel"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Show Legend"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "legon"
+    ],
+    [
+      "pressNamed",
+      "Data"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Flip X And Y Axes"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "shot",
+      "legflip"
+    ]
+  ],
+  "reads": {
+    "asked": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "div",
+        "label": "Confirm",
+        "box": [
+          837.5,
+          715,
+          175.5,
+          38
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgb(246, 246, 246)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart",
+          "box": [
+            585,
+            246,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            742.7,
+            268,
+            190.7,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Import or Export Chart Data",
+          "box": [
+            585,
+            335,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Your data is provided here in CSV (comma separated value) format. You can copy t",
+          "box": [
+            585,
+            357,
+            506,
+            88
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            467,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "textarea",
+          "role": "",
+          "text": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "auto clip pre-wrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(62, 62, 62)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Update",
+          "box": [
+            596,
+            673,
+            484,
+            22
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "dialog",
+          "text": "",
+          "box": [
+            663,
+            615,
+            350,
+            138
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Are You Sure?",
+          "box": [
+            696,
+            637,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "This will overwrite the current chart data.",
+          "box": [
+            696,
+            670,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "escape": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "div",
+        "label": "Confirm",
+        "box": [
+          837.5,
+          715,
+          175.5,
+          38
+        ],
+        "outline": "rgb(62, 62, 62) solid 2px",
+        "shadow": "none",
+        "bg": "rgb(246, 246, 246)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart",
+          "box": [
+            585,
+            246,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            742.7,
+            268,
+            190.7,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Import or Export Chart Data",
+          "box": [
+            585,
+            335,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Your data is provided here in CSV (comma separated value) format. You can copy t",
+          "box": [
+            585,
+            357,
+            506,
+            88
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            467,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "textarea",
+          "role": "",
+          "text": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "auto clip pre-wrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(62, 62, 62)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Update",
+          "box": [
+            596,
+            673,
+            484,
+            22
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "dialog",
+          "text": "",
+          "box": [
+            663,
+            615,
+            350,
+            138
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Are You Sure?",
+          "box": [
+            696,
+            637,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "This will overwrite the current chart data.",
+          "box": [
+            696,
+            670,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "asked2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "data named": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ]
+        }
+      ],
+      "focused": null,
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart",
+          "box": [
+            585,
+            246,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            742.7,
+            268,
+            190.7,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Import or Export Chart Data",
+          "box": [
+            585,
+            335,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Your data is provided here in CSV (comma separated value) format. You can copy t",
+          "box": [
+            585,
+            357,
+            506,
+            88
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            467,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "textarea",
+          "role": "",
+          "text": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "auto clip pre-wrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(62, 62, 62)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Update",
+          "box": [
+            596,
+            673,
+            484,
+            22
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "dialog",
+          "text": "",
+          "box": [
+            663,
+            615,
+            350,
+            138
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "rgba(0, 0, 0, 0.22) 0px 4px 33px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px",
+          "radius": "4px",
+          "over": "hidden clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Are You Sure?",
+          "box": [
+            696,
+            637,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "This will overwrite the current chart data.",
+          "box": [
+            696,
+            670,
+            284,
+            22
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Cancel",
+          "box": [
+            663,
+            715,
+            174.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "button",
+          "text": "Confirm",
+          "box": [
+            837.5,
+            715,
+            175.5,
+            38
+          ],
+          "font": "Clarkson 11px 500 16px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "data at": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "textarea",
+          "label": "Label,Population New York,150 Las Vegas,250 San ",
+          "value": "Labe\nEf,40l,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Update",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "div",
+        "label": "Update",
+        "box": [
+          585,
+          662,
+          506,
+          44
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "none",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "looks": [
+        {
+          "tag": "button",
+          "role": "",
+          "text": "",
+          "box": [
+            744.4,
+            705,
+            111.1,
+            36
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(2, 122, 255)",
+          "shadow": "none",
+          "radius": "6px",
+          "over": "hidden clip normal",
+          "border": "1px rgb(72, 148, 255)"
+        },
+        {
+          "tag": "span",
+          "role": "",
+          "text": "Add Section",
+          "box": [
+            756.4,
+            712,
+            87.1,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart",
+          "box": [
+            585,
+            246,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Design",
+          "box": [
+            742.7,
+            268,
+            190.7,
+            45
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "1px rgb(228, 228, 228)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Import or Export Chart Data",
+          "box": [
+            585,
+            335,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px 0.5px uppercase",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Your data is provided here in CSV (comma separated value) format. You can copy t",
+          "box": [
+            585,
+            357,
+            506,
+            88
+          ],
+          "font": "Clarkson 11px 400 22px normal none",
+          "color": "rgb(121, 121, 121)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(121, 121, 121)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Chart Data",
+          "box": [
+            585,
+            467,
+            506,
+            22
+          ],
+          "font": "Clarkson 12px 500 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "textarea",
+          "role": "",
+          "text": "Label,Population\nNew York,150\nLas Vegas,250\nSan Francisco,150",
+          "box": [
+            585,
+            489,
+            506,
+            144
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgb(255, 255, 255)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "auto clip pre-wrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "",
+          "box": [
+            585,
+            662,
+            506,
+            44
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(62, 62, 62)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "Update",
+          "box": [
+            596,
+            673,
+            484,
+            22
+          ],
+          "font": "Clarkson 11px 500 22px 0.5px uppercase",
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip normal",
+          "border": "0px rgb(255, 255, 255)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [
+    "pressNamed [\"Data\"]: Data is covered",
+    "no Cancel"
+  ],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}

@@ -1,0 +1,547 @@
+{
+  "item": "CAP-T12PLUSFIND",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "What the Chart dialog's + cells are (tags, roles), before any press; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "grid",
+      {
+        "controls": true,
+        "focused": true,
+        "looks": [
+          820,
+          540,
+          880,
+          790
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "grid": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn more",
+          "box": [
+            810.9,
+            360,
+            65,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            585,
+            555,
+            132,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Population",
+          "box": [
+            717,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            555,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "New York",
+          "box": [
+            607,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            599,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            599,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "Las Vegas",
+          "box": [
+            607,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "250",
+          "box": [
+            717,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            643,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            643,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "San Francisco",
+          "box": [
+            607,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "150",
+          "box": [
+            717,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            687,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            687,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            607,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            717,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            827,
+            733,
+            44,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            871,
+            733,
+            110,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "",
+          "value": "",
+          "box": [
+            981,
+            733,
+            110,
+            44
+          ]
+        }
+      ],
+      "focused": {
+        "tag": "select",
+        "label": "Bar ChartLine ChartPie Chart",
+        "value": "1009",
+        "box": [
+          585,
+          423,
+          506,
+          44
+        ],
+        "outline": "rgb(0, 0, 0) none 3px",
+        "shadow": "none",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "looks": [
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            555,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "1px rgb(208, 208, 208)"
+        },
+        {
+          "tag": "div",
+          "role": "",
+          "text": "+",
+          "box": [
+            827,
+            555,
+            35.6,
+            44
+          ],
+          "font": "Clarkson 24px 400 22px normal none",
+          "color": "rgb(62, 62, 62)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "visible clip nowrap",
+          "border": "0px rgb(62, 62, 62)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            599,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            643,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(228, 228, 228)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            687,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        },
+        {
+          "tag": "input",
+          "role": "",
+          "text": "",
+          "box": [
+            827,
+            733,
+            44,
+            44
+          ],
+          "font": "Clarkson 12px 400 22px normal none",
+          "color": "rgb(161, 161, 161)",
+          "bg": "rgb(246, 246, 246)",
+          "shadow": "none",
+          "radius": "0px",
+          "over": "clip clip nowrap",
+          "border": "0px rgb(161, 161, 161)"
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ]
+}
