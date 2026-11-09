@@ -281,18 +281,19 @@ for (const sw of H.sweeps) {
     if (g.ring !== m.ring) diffs.push(`ring: oracle ${m.ring}, ours ${g.ring}`);
     for (const key of ['bx', 'by', 'w', 'h', 'gapBelow', 'otherTx', 'feH']) if (m[key] !== undefined && !near(g[key], m[key])) diffs.push(`${key}: oracle ${m[key]}, ours ${g[key]}`);
     if (m.line !== undefined && g.line !== m.line) diffs.push(`line: oracle ${m.line}, ours ${g.line}`);
-    groupCases.push({ name, diffs, known: H.knownMisses.some((x) => x.sweep === sw.name && x.at.includes(m.dx)) });
+    // The right margin track's first 90px are rule T now (CAP-X2SIX.json): no longer a known miss.
+    groupCases.push({ name, diffs, known: H.knownMisses.some((x) => x.sweep === sw.name && x.sweep !== 'from the right margin track' && x.at.includes(m.dx)) });
   });
 }
 // X2's table from the right margin track, held and moved like HOLD.json's sweep: the mirror on 4 (a Code, never resized), 12 and 13 wide, the left edge
 // rule on 6 wide, resized or not (CAP-X2WIDTHS2.json B, CAP-X2WIDTHS3.json H and J, CAP-X2RESIZED.json), and 4, 5 and 6 wide pressed
-// clear of the section toolbar (CAP-X2W456B.json R1, R2 agrees). The 6 wide's first 90px are HOLD.json's known miss
-// (-91 misses, -97 hits in CAP-X2W456B.json).
-for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'], ['CAP-X2WIDTHS3', 'H', 'H w6 coarse'], ['CAP-X2WIDTHS3', 'J', 'J w13 middle coarse'], ['CAP-X2RESIZED', 'N4', 'N4 code'], ['CAP-X2RESIZED', 'R6', 'R6 shape'], ['CAP-X2W456B', 'R1 w5', 'R1 w5'], ['CAP-X2W456B', 'R1 w4', 'R1 w4'], ['CAP-X2W456B', 'R1 w6', 'R1 w6']]) {
+// clear of the section toolbar (CAP-X2W456B.json R1, R2 agrees). The 6 wide's first 90px are rule T (CAP-X2SIX.json, pressed
+// 30% in and on rows 8 to 14, a move right of 1px too).
+for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'], ['CAP-X2WIDTHS3', 'H', 'H w6 coarse'], ['CAP-X2WIDTHS3', 'J', 'J w13 middle coarse'], ['CAP-X2RESIZED', 'N4', 'N4 code'], ['CAP-X2RESIZED', 'R6', 'R6 shape'], ['CAP-X2W456B', 'R1 w5', 'R1 w5'], ['CAP-X2W456B', 'R1 w4', 'R1 w4'], ['CAP-X2W456B', 'R1 w6', 'R1 w6'], ['CAP-X2SIX', 'R1 A', 'R1 A'], ['CAP-X2SIX', 'R1 B', 'R1 B']]) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
-  const at = F[`${start} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F).filter(([k, v]) => k.startsWith(`${tag} -`) && v.ring !== undefined);
+  const at = F[`${start} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F).filter(([k, v]) => k.startsWith(`${tag} `) && v.ring !== undefined);
   const { out } = sweep({ area: at, pre: [14, 0] }, rings.map(([, v]) => v.at)); // the capture's hold moves 14px first
-  rings.forEach(([k, v], i) => { const six = area(at)[3] - area(at)[1] === 6 && v.at[0] > -95; groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], known: six }); });
+  rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [] }); });
 }
 { const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
 { const sw = { view: 'mobile', area: '1 / 2 / 7 / 10', pre: [-12, 0] }; for (const c of H.phoneResize) { const { out } = sweep(sw, [[c.dx, 0]], 'pointercancel', 'e'); groupCases.push({ name: `hold phone resize east ${c.dx}`, diffs: [out[0].ring !== c.ring && `ring: oracle ${c.ring}, ours ${out[0].ring}`, out[0].line !== c.line && `line: oracle ${c.line}, ours ${out[0].line}`].filter(Boolean) }); } }

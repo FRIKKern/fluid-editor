@@ -1,25 +1,11 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 990,
+  "pass": 1022,
   "known": [
     "hold phone, full width -24,12",
-    "hold from the right margin track -30,12",
-    "hold from the right margin track -60,12",
-    "hold from the right margin track -70,12",
-    "hold from the right margin track -80,12",
-    "hold from the right margin track -90,12",
-    "hold CAP-X2WIDTHS3 H -30",
-    "hold CAP-X2WIDTHS3 H -60",
-    "hold CAP-X2RESIZED R6 -30",
-    "hold CAP-X2RESIZED R6 -60",
-    "hold CAP-X2W456B R1 w6 -1",
-    "hold CAP-X2W456B R1 w6 -20",
-    "hold CAP-X2W456B R1 w6 -32",
-    "hold CAP-X2W456B R1 w6 -38",
-    "hold CAP-X2W456B R1 w6 -91",
     "R2 wider 5"
   ],
-  "total": 1006,
+  "total": 1024,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -1956,40 +1942,28 @@
     },
     {
       "name": "hold from the right margin track -30,12",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27",
-        "bx: oracle -26.88, ours -29.9990234375",
-        "w: oracle 341.75, ours 383.015625"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "hold from the right margin track -60,12",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "hold from the right margin track -70,12",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "hold from the right margin track -80,12",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "hold from the right margin track -90,12",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": [],
+      "known": false
     },
     {
       "name": "hold from the right margin track -100,12",
@@ -2358,406 +2332,383 @@
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -30",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -60",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -140",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -300",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -1000",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS2 B -1100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -30",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -60",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -140",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -300",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -1000",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 H -1100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -30",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -60",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -140",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -300",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -1000",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2WIDTHS3 J -1100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -30",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -60",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -140",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -300",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -600",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED N4 -1000",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -30",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -60",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -100",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -140",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -300",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -600",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2RESIZED R6 -1000",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -1",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -20",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -48",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -54",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -133",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -139",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -191",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -197",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -250",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -256",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -1132",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -1138",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -1224",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w5 -1230",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -1",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -20",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -48",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -54",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -133",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -139",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -191",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -197",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -250",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -256",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -1191",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -1197",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -1282",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w4 -1288",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -1",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -20",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -32",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 21 / 7 / 27"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -38",
-      "diffs": [
-        "ring: oracle 1 / 18 / 7 / 24, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -91",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 20 / 7 / 26"
-      ],
-      "known": true
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -97",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -150",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -156",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -209",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -215",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -1090",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -1096",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -1165",
-      "diffs": [],
-      "known": false
+      "diffs": []
     },
     {
       "name": "hold CAP-X2W456B R1 w6 -1171",
-      "diffs": [],
-      "known": false
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -25",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -45",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -55",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -100",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -148",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -158",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 A -215",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -25",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -45",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -55",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -100",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -148",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -158",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2SIX R1 B -215",
+      "diffs": []
     },
     {
       "name": "hold one move and a release",
