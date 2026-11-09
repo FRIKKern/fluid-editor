@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 40 changes
+- **Today** · 41 changes
+  - U9: which pushes double is timing, a late update; the demo open walk on Gestures Probe ([#516](https://github.com/FRIKKern/fluid-editor/pull/516))
   - O1: the read-back waits for the frame, 30 s at most, then fails loudly ([#519](https://github.com/FRIKKern/fluid-editor/pull/519))
-  - T12: a Line Chart's value axis (y scale reads, rule frozen at 5 of 9) ([#518](https://github.com/FRIKKern/fluid-editor/pull/518))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
