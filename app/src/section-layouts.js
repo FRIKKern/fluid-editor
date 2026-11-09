@@ -114,17 +114,23 @@ function alignText(b, centre) {
 // blocks in 'push' move down with it. Every other pick there, and every pick of p1i1, is the same whatever came before.
 export function variant(L, prev) {
   if (!L.step) return L;
-  const { read, lowAfter = [], by = 0, block, grow, push = [] } = L.step;
-  const d = grow ? grow[prev] || 0 : (lowAfter.includes(prev) ? -by : 0) + (read === 'low' ? by : 0);
-  if (!d) return L;
-  const [r0, c0, r1, c1] = area(L.places[block][0]), places = { ...L.places, [block]: [`${r0}/${c0}/${r1 + d}/${c1}`, L.places[block][1]] };
-  for (const k of push) { const [q0, k0, q1, k1] = area(L.places[k][0]); places[k] = [`${q0 + d}/${k0}/${q1 + d}/${k1}`, L.places[k][1]]; }
+  // A step grows one block (and moves those it pushes), or with move shifts it whole; a list steps each block on its own
+  // (h1p2b1's 2 and 3: the heading grows, the button moves, CAP-U10BTN).
+  let places = L.places;
+  for (const { read, lowAfter = [], by = 0, block, grow, push = [], move } of [].concat(L.step)) {
+    const d = grow ? grow[prev] || 0 : (lowAfter.includes(prev) ? -by : 0) + (read === 'low' ? by : 0);
+    if (!d) continue;
+    const [r0, c0, r1, c1] = area(places[block][0]);
+    places = { ...places, [block]: [`${move ? r0 + d : r0}/${c0}/${r1 + d}/${c1}`, places[block][1]] };
+    for (const k of push) { const [q0, k0, q1, k1] = area(places[k][0]); places[k] = [`${q0 + d}/${k0}/${q1 + d}/${k1}`, places[k][1]]; }
+  }
+  if (places === L.places) return L;
   // The rows follow the lowest end line: a stepped block above another one changes no rows (CAP-U10WALK-W1A.json, h1p1b1's 1).
   const low = (p) => Math.max(...Object.values(p).map((v) => area(v[0])[2]));
   return { ...L, rows: L.rows + low(places) - low(L.places), places };
 }
 // The layouts before that give a step's other spans.
-const others = (st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1]);
+const others = (step) => [...new Set([].concat(step).flatMap((st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1])))];
 
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
 export function applyLayout(s, mix, n, base) {
@@ -173,9 +179,9 @@ export function restep(s, mix, prev) {
   if (n === prev) return;
   if (n == null) return startStep(s, mix, prev);
   if (!mix.list[n].step) return;
-  const L = variant(mix.list[n], prev), { block, push = [] } = L.step;
-  if (!mix.by[block[0]]?.[+block.slice(1)]) return;
-  for (const k of [block, ...push]) { const b = mix.by[k[0]]?.[+k.slice(1)]; if (b) b.layout.desktop.area = area(L.places[k][0]); }
+  const L = variant(mix.list[n], prev), moved = [].concat(L.step).flatMap(({ block, push = [] }) => [block, ...push]);
+  if (!mix.by[moved[0][0]]?.[+moved[0].slice(1)]) return;
+  for (const k of moved) { const b = mix.by[k[0]]?.[+k.slice(1)]; if (b) b.layout.desktop.area = area(L.places[k][0]); }
   s.rows = { ...s.rows, desktop: L.rows };
 }
 

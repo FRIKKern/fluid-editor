@@ -1730,16 +1730,18 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // Walks with every layout right after every other once (CAP-U10WALK-W1A.json to W5B, each read twice alike): the
   // full-width heading turns where the read's does, at every pick; the heading alone's areas and rows as read; and on the
   // lists with a step built, each pick's change from that layout's first visit, as read (the set places come from
-  // CAP-VIEWLAYOUTS.json's words, so only the change compares). Not built, left out: h1p2b1's 2 and 3, h1p1i1b1's steps.
+  // CAP-VIEWLAYOUTS.json's words, so only the change compares). Not built, left out: h1p1i1b1's steps. CAP-U10BTN-WLA.json and
+  // WBA (each read twice alike) walk h1p2b1's 2 and 3 with a longer second paragraph and with the button added first.
   // h1p2's 3 after 0: the rows left out only, as ours' paragraphs there end a row lower than these words' (the set places).
   {
     const errs = [], H = '<h2>Heading words for a probe</h2>', P = '<p>Paragraph words for a probe</p>', P2 = '<p>Second paragraph words</p>';
-    const WALKS = { W1: [H, P, 'Button'], W2: [H, P, P2, 'Button'], W3: [H, P, P2], W4: [H], W5: [H, P, 'Image', 'Button'] };
-    const skip = { W2: [2, 3], W5: 'steps' };
+    const PL = '<p>Second paragraph words that run on for a good while, longer than the first one, so that in a narrow column this paragraph takes several lines</p>';
+    const WALKS = { W1: [H, P, 'Button'], W2: [H, P, P2, 'Button'], W3: [H, P, P2], W4: [H], W5: [H, P, 'Image', 'Button'], WL: [H, P, PL, 'Button'], WB: ['Button', H, P, P2] };
+    const skip = { W5: 'steps' };
     let n = 0;
     const A = (v) => v.split('/').map(Number), order = (as) => as.map(A).sort((x, y) => x[1] - y[1] || x[0] - y[0]);
     for (const [w, parts] of Object.entries(WALKS)) {
-      const R = JSON.parse(readFileSync(new URL(`../parity/findings/CAP-U10WALK-${w}A.json`, import.meta.url))).reads;
+      const R = JSON.parse(readFileSync(new URL(`../parity/findings/CAP-U10${w[1] === 'L' || w[1] === 'B' ? 'BTN' : 'WALK'}-${w}A.json`, import.meta.url))).reads;
       await start();
       evalJs(S, `(() => { const s = fe.model.sections[0], made = {}; for (const t of ['Text', 'Button', 'Image']) { fe.addBlock(s.id, t); made[t] = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === t.toLowerCase()))); } const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = ${JSON.stringify(parts)}.map((p, i) => ({ ...JSON.parse(JSON.stringify(made[p.startsWith('<') ? 'Text' : p])), ...(p.startsWith('<') && { html: p }), id: 'w' + i + 'aaaaaaaaaaaaaaaaaaaaaa' })); fe.load(m); return 'true'; })()`);
       await pause(400);
@@ -1763,7 +1765,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       }
       browser(S, 'press', 'Escape'); await pause(150);
     }
-    add(`View Layouts, five walks: turns, the heading alone and the built steps as read (${n} picks)`, errs.length === 0 && n === 219, errs.slice(0, 4).join(' | '));
+    add(`View Layouts, seven walks: turns, the heading alone and the built steps as read (${n} picks)`, errs.length === 0 && n === 279, errs.slice(0, 4).join(' | '));
   }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
