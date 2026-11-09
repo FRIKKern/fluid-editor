@@ -157,8 +157,9 @@ const contentOf = (ch) => Number(ch.find((c) => c.startsWith('DIV.targeted')).sp
   add('Instagram, new, 1:1 to 3:2: 12 rows to 8, one over the fit', s.area === areaOf(ch), s.area);
   add('Instagram: no Show Title row', q(`return JSON.stringify(!dl.querySelector('[data-dl="galTitle"]'));`) === true);
 }
-// Instagram's rows over Aspect Ratio picks (CAP-T12INSTAASPECT-A.json to -F.json): a new block's first pick that shrinks the content keeps a row
-// over the fit, every later pick and a first one that grows fit it, and a pull before the first pick takes the kept row away (F).
+// Instagram's rows over Aspect Ratio picks (CAP-T12INSTAASPECT-A.json to -F.json), as the DROP rule gives them: a pick that shrinks the
+// content drops the rows it lost, rounded up, and one more, never under the fit; one that grows it fits. A pull does not change the rule (F;
+// CAP-T12INSTAFLOOR-1.json P3, -2.json Q3).
 for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   const fd = read(`CAP-T12INSTAASPECT-${run}.json`), picks = fd.steps.filter((t) => t[0] === 'selectKey');
   const { id } = await fresh('Instagram', { edit: run !== 'F' });
