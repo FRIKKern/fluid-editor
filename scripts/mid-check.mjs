@@ -781,7 +781,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     const ok = got.every((g) => (want ? g.y > 0 && Math.abs(g.bottom - g.h) < 1.5 : g.y === 0));
     groupCases.push({ name: `R2 ${name}`, diffs: ok ? [] : [`oracle ${want ? 'the moved block at the bottom' : 'no scroll'}, ours ${JSON.stringify(got)}`] });
   }
-  evalJs(S, `fe.select(null)`);
+  // The last case leaves the page scrolled; the cases after it press blocks at the frame's top.
+  evalJs(S, `fe.select(null)`); evalJs(S, `document.getElementById('site-frame').contentWindow.scrollTo(0, 0)`);
 }
 // X2: which handle drags leave a block selected (HANDLEUP.json, a Text's corner and side: CAP-X2STEPS.json), with the real mouse, a pen and touch.
 { const load = async (type, html = '') => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'large', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 24, mobile: 6 }, blocks: [{ id: 'k', type: '${type}', label: 'k', fill: '#ccc', html: '${html}', layout: { desktop: { area: [1, 5, 7, 11], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 7, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 120)); fe.select('s', 'k'); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(40); };

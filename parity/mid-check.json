@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 945,
+  "pass": 953,
   "known": [
     "hold phone, full width -24,12",
     "hold from the right margin track -30,12",
@@ -14,7 +14,7 @@
     "hold CAP-X2RESIZED R6 -60",
     "R2 wider 5"
   ],
-  "total": 956,
+  "total": 964,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -3667,15 +3667,35 @@
       "diffs": []
     },
     {
-      "name": "R2 south resize after a move that scrolled",
+      "name": "R2 south over it",
       "diffs": []
     },
     {
-      "name": "R2 south resize, no move before",
+      "name": "R2 south-west on its left edge",
       "diffs": []
     },
     {
-      "name": "R2 east resize after a move that scrolled",
+      "name": "R2 south-east over it, narrow",
+      "diffs": []
+    },
+    {
+      "name": "R2 south-east on its right edge",
+      "diffs": []
+    },
+    {
+      "name": "R2 south beside it",
+      "diffs": []
+    },
+    {
+      "name": "R2 south, no move before",
+      "diffs": []
+    },
+    {
+      "name": "R2 east after a move",
+      "diffs": []
+    },
+    {
+      "name": "R2 south over it twice",
       "diffs": []
     },
     {
@@ -3832,6 +3852,18 @@
     },
     {
       "name": "X2 Shape corner 70, 70 by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Shape south 65 down by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text corner 60 down by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Text north-east 60 up by touch",
       "diffs": []
     },
     {
