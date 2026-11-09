@@ -728,6 +728,31 @@ export const RECIPES = {
     };
     return [['window', 1600, 1000], ['enter'], ['blank'], ...[...cases(''), ...cases(' again')].flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2PHONEEDIT': { page: 'Blocks Probe', question: 'A2: how one phone edit sets the DOM order. Small setups, read only, no rule: 2 or 3 Shapes added on desktop (all at desktop 1/2/7/8, stacked on the phone as added), then one phone edit, each setup changing one thing: move or resize, onto a block or apart, up or down, the lower or the higher z, 2 blocks or a chain of 3. Read: the stack before and after the edit. Each setup built twice, the second with " again". Blocks picked by add order (a1 first). No Meta+c, x or v.', steps: (() => {
+    const P = (n) => Math.round(n * 35) + Math.sign(n);
+    const ADD = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
+    const EDIT = (k, part, rows) => [['select', 0, k], ['drag', 0, k, part, 0, P(rows)], ['press', 'Escape'], ['deselect', 0]];
+    // [label, blocks, edits]; each edit [block, part, phone rows].
+    const SETUPS = [
+      ['e1 two, a2 moved up 3 onto a1', 2, [['a2', 'middle', -3]]],
+      ['e2 two, a1 resized 3 down onto a2', 2, [['a1', 's', 3]]],
+      ['e3 two, a2 moved down 3 apart', 2, [['a2', 'middle', 3]]],
+      ['e4 two, a1 moved down 3 onto a2', 2, [['a1', 'middle', 3]]],
+      ['e5 two, a1 moved down 9 below a2', 2, [['a1', 'middle', 9]]],
+      ['e6 three, a2 resized 1 down onto a3', 3, [['a2', 's', 1]]],
+      ['e7 three, a3 moved up 3 onto a2', 3, [['a3', 'middle', -3]]],
+      ['e8 three, a2 moved up 3 onto a1, then resized 4 down onto a3', 3, [['a2', 'middle', -3], ['a2', 's', 4]]],
+    ];
+    const one = ([label, n, edits], s) => {
+      const tag = label.split(' ')[0], out = [...Array(n)].flatMap(() => ADD);
+      out.push(['view', 'Mobile'], ['read', `${tag} before${s}`, { stack: 0 }]);
+      edits.forEach((e, m) => out.push(...EDIT(...e), ['read', `${label}${edits.length > 1 ? ` (${m + 1})` : ''}${s}`, { stack: 0 }]));
+      return [...out, ['view', 'Desktop']];
+    };
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const all = [...SETUPS.map((u) => one(u, '')), ...SETUPS.map((u) => one(u, ' again'))];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...all.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
