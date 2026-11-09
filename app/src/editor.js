@@ -157,7 +157,25 @@ function phoneFollowsMove(s, was) {
   }
   // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
   const typed = same.some(([b, o]) => b.html !== o.html);
-  return (s.phoneFollows && (changed('desktop', (a) => a) || typed) && followDesktopEdit(s)) || gone.length > 0;
+  if (!(s.phoneFollows && (changed('desktop', (a) => a) || typed))) return gone.length > 0;
+  const top = () => s.blocks.reduce((t, b) => (b.layout.mobile.area[0] < t.layout.mobile.area[0] ? b : t));
+  const first = top(), moved = followDesktopEdit(s), now = top();
+  // A text edit that brings a one-phone-row block back to first on the phone drops each Text it changed to the
+  // rows its content needs, and the section gives those rows back; a move that does the same leaves it
+  // (CAP-A2SHRINKB1, B1: 10 of 10 fresh, both builds agreeing). Read with two blocks, the one-row Line last
+  // before the edit; with more blocks "was not first" is inferred.
+  const na = now.layout.mobile.area;
+  if (typed && now !== first && na[0] === 1 && na[2] === 2) {
+    const m = measure(feEl(s.id));
+    for (const [b, o] of same) {
+      if (b.type !== 'text' || b.html === o.html) continue;
+      const a = b.layout.desktop.area, give = a[2] - a[0] - contentRows(b, m);
+      if (give <= 0) continue;
+      b.layout.desktop.area = [a[0], a[1], a[2] - give, a[3]];
+      s.rows.desktop = Math.max(...s.blocks.map((x) => x.layout.desktop.area[2] - 1), s.rows.desktop - give);
+    }
+  }
+  return moved || gone.length > 0;
 }
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
@@ -5107,8 +5125,11 @@ function softenTextEdit() {
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
   softening = true;
-  const now = commitTextSteps(ed, height);
+  let now = commitTextSteps(ed, height);
   softening = false;
+  // The commit can give rows back (A2, CAP-A2SHRINKB1): the open text takes them, and the edit goes on from
+  // there, or the close puts them back and turns the phone order once more.
+  if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; setArea(blockEl(ed.bid), ed.area); now = JSON.stringify(model); }
   editing = ed;
   Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
