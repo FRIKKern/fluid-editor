@@ -1,752 +1,753 @@
 {
-  "item": "CAP-X6NINETEN",
-  "oracle": "/blocks-probe",
-  "capturedAt": "2026-11-09",
-  "startedAt": "2026-11-09T21:06:09.096Z",
-  "engine": "chrome",
-  "question": "X6: what sets 9 or 10 rows after a new Instagram is pulled one column in from the east? In CAP-X6TRAILWHY i2 took 9 in both builds, i1, i3, i4 and i5 took 10, with the same steps. Each case changes one thing: n1 the i2 steps run first in the session; n2 a wait of 5 s before the pull, not 1.2 s; n3 the pull held 1.5 s before the release, read held; n4 the i3 steps, a control. Each case built twice, the second with \" again\". No Meta+c, x or v.",
-  "steps": [
-    [
-      "window",
-      1600,
-      1000
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n1 start",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n1 pulled",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      5000
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n2 start",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n2 pulled",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n3 start",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "holdRaw",
-      0,
-      "new",
-      "e",
-      0,
-      0
-    ],
-    [
-      "move",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      1500
-    ],
-    [
-      "read",
-      "n3 held",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "release"
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n3 pulled",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n4 start",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n4 pulled",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n1 start again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n1 pulled again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      5000
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n2 start again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n2 pulled again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n3 start again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "holdRaw",
-      0,
-      "new",
-      "e",
-      0,
-      0
-    ],
-    [
-      "move",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      1500
-    ],
-    [
-      "read",
-      "n3 held again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "release"
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n3 pulled again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "exit"
-    ],
-    [
-      "enter"
-    ],
-    [
-      "blank"
-    ],
-    [
-      "add",
-      0,
-      "Instagram"
-    ],
-    [
-      "pause",
-      1200
-    ],
-    [
-      "press",
-      "Escape"
-    ],
-    [
-      "select",
-      0,
-      "new"
-    ],
-    [
-      "read",
-      "n4 start again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ],
-    [
-      "drag",
-      0,
-      "new",
-      "e",
-      -58.78,
-      0
-    ],
-    [
-      "pause",
-      400
-    ],
-    [
-      "read",
-      "n4 pulled again",
-      {
-        "areas": 0,
-        "contentH": [
-          0,
-          "new"
-        ]
-      }
-    ]
+ "item": "CAP-X6NINETEN",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-09",
+ "startedAt": "2026-11-09T21:06:09.096Z",
+ "engine": "chrome",
+ "question": "X6: what sets 9 or 10 rows after a new Instagram is pulled one column in from the east? In CAP-X6TRAILWHY i2 took 9 in both builds, i1, i3, i4 and i5 took 10, with the same steps. Each case changes one thing: n1 the i2 steps run first in the session; n2 a wait of 5 s before the pull, not 1.2 s; n3 the pull held 1.5 s before the release, read held; n4 the i3 steps, a control. Each case built twice, the second with \" again\". No Meta+c, x or v.",
+ "steps": [
+  [
+   "window",
+   1600,
+   1000
   ],
-  "reads": {
-    "n1 start": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n1 pulled": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/10/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n2 start": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n2 pulled": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/12/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 start": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 held": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 pulled": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n4 start": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n4 pulled": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/9/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n1 start again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n1 pulled again": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/10/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n2 start again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n2 pulled again": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/10/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 start again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 held again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n3 pulled again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n4 start again": {
-      "contentH": 359.4,
-      "areas": [
-        [
-          "1/2/13/10",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    },
-    "n4 pulled again": {
-      "contentH": 315.3,
-      "areas": [
-        [
-          "1/2/10/9",
-          "1/2/13/10"
-        ]
-      ],
-      "path": "/blocks-probe",
-      "save": "changed"
-    }
-  },
-  "errors": [],
-  "leftDirty": true,
-  "exitSteps": [
-    "top Exit",
-    "dialog Exit"
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n1 start",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n1 pulled",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   5000
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n2 start",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n2 pulled",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n3 start",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "holdRaw",
+   0,
+   "new",
+   "e",
+   0,
+   0
+  ],
+  [
+   "move",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   1500
+  ],
+  [
+   "read",
+   "n3 held",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "release"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n3 pulled",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n4 start",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n4 pulled",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n1 start again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n1 pulled again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   5000
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n2 start again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n2 pulled again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n3 start again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "holdRaw",
+   0,
+   "new",
+   "e",
+   0,
+   0
+  ],
+  [
+   "move",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   1500
+  ],
+  [
+   "read",
+   "n3 held again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "release"
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n3 pulled again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Instagram"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "select",
+   0,
+   "new"
+  ],
+  [
+   "read",
+   "n4 start again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
+  ],
+  [
+   "drag",
+   0,
+   "new",
+   "e",
+   -58.78,
+   0
+  ],
+  [
+   "pause",
+   400
+  ],
+  [
+   "read",
+   "n4 pulled again",
+   {
+    "areas": 0,
+    "contentH": [
+     0,
+     "new"
+    ]
+   }
   ]
+ ],
+ "reads": {
+  "n1 start": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n1 pulled": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/10/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n2 start": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n2 pulled": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/12/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 start": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 held": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 pulled": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n4 start": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n4 pulled": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/9/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n1 start again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n1 pulled again": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/10/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n2 start again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n2 pulled again": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/10/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 start again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 held again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n3 pulled again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n4 start again": {
+   "contentH": 359.4,
+   "areas": [
+    [
+     "1/2/13/10",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "n4 pulled again": {
+   "contentH": 315.3,
+   "areas": [
+    [
+     "1/2/10/9",
+     "1/2/13/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "leftDirty": true,
+ "exitSteps": [
+  "top Exit",
+  "dialog Exit"
+ ],
+ "answer": "A new Instagram, 359.4 high at 8 columns (12 rows), pulled one column in from the east, 315.3 high after (8 rows by its height). n1, first in the session: 9 rows in both builds. n2, a 5 s wait before the pull: 11, then 9 (unsteady). n4, the i3 steps again: 8, then 9 (unsteady). n3, a hold, never moved the block: the hold was pressed with no move (a setup fault, read again in CAP-X6NINETEN2)."
 }
