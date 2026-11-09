@@ -447,6 +447,23 @@ export const RECIPES = {
     ];
     return [['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2FRESH': { page: 'Blocks Probe', question: 'A2: a fresh round on the DOM order of new layouts, made only of adds and desktop moves: same top rows (ties), stairs down left and right, a block held inside another, half inside, three Buttons on one place, a column next to two blocks, a one-row Line at the top. Predicted first from our code (CAP-A2FRESH-PREDICTED.json). Scored: the DOM order, by z, on each read.', steps: (() => {
+    const READ = (name) => [['read', name, { stack: 0 }]];
+    const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const MOVE = (cols, rows) => [['drag', 0, 'new', 'middle', Math.round(cols * 58.78) + 1, Math.round(rows * 41.09) + 1], ['press', 'Escape'], ['deselect', 0]];
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const cases = [
+      [...ADD('Shape'), ...MOVE(16, 0), ...ADD('Button'), ...MOVE(8, 0), ...ADD('Code'), ...READ('f1 three on one top row, added right to left')],
+      [...ADD('Shape'), ...ADD('Button'), ...MOVE(8, 2), ...ADD('Code'), ...MOVE(16, 4), ...READ('f2 stairs down to the right')],
+      [...ADD('Shape'), ...MOVE(16, 0), ...ADD('Button'), ...MOVE(8, 2), ...ADD('Code'), ...MOVE(0, 4), ...READ('f3 stairs down to the left')],
+      [...ADD('Image'), ...ADD('Button'), ...MOVE(0, 2), ...ADD('Text'), ...MOVE(10, 0), ...READ('f4 Button inside Image, Text right')],
+      [...ADD('Button'), ...ADD('Button'), ...ADD('Button'), ...READ('f5 three Buttons on one place')],
+      [...ADD('Image'), ...ADD('Button'), ...MOVE(0, 5), ...ADD('Shape'), ...MOVE(10, 0), ...READ('f6 Button half inside Image, Shape right')],
+      [...ADD('Image'), ...ADD('Button'), ...MOVE(8, 0), ...ADD('Text'), ...MOVE(8, 3), ...ADD('Line'), ...MOVE(0, 8), ...READ('f7 Image beside two, Line under Image')],
+      [...ADD('Line'), ...ADD('Text'), ...MOVE(10, 0), ...READ('f8 Line and Text on one top row'), ...ADD('Button'), ...MOVE(0, 4), ...READ('f8 Button under the Line')],
+    ];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...cases.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-A2TYPEDNEW': { page: 'Gestures Probe', question: 'A2: does a text edit that changes no size set the phone order again? Candidate T, predicted first from our code: a change to a text\'s HTML on desktop counts as an edit, so the order follows the desktop and turns as after a move. Fitted on CAP-A2TYPED3 y5 (seen). No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { stack: 0 }]];
     const ADD = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
@@ -1398,4 +1415,12 @@ export const RECIPES = {
     ['rightClick', 0, 0], ['click', 'Copy'], ['toPage', 'Blocks Probe'], ['blank'], ['read', 'another page', { sections: true }], ['add', 0, 'Line'], ['press', 'Escape'], ['read', 'line on another page', { areas: 0 }], ['rightClick', 0, 0], ['shot', 'menu'], ['clickIf', 'Paste'], ['read', 'pasted on another page', { areas: 0 }], ['exit'], ['read', 'left', { sections: true }],
   ] },
 
+  'CAP-U9PLUS24': { page: 'Gestures Probe', question: "U9: the + 24 read once at F 488 in CAP-U9DEMO (panel 259, rule 236): walk F's setup and its first three 50 px steps up, every frame logged, in two separate edits (A, B).", steps: (() => {
+    const run = (r) => [['window', 1600, 1000], ['enter'], ['blank'], ['blank'], ['blank'], ['blank'], ['blank'], ['panel', 1], ['fillRow', 'Row Count', 0, '16'], ['pause', 800], ['press', 'Escape'], ['pause', 400], ['panel', 1], ['pause', 700],
+      ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -50, 3, 250, 1], ['read', `${r} after`, { panelBox: 1 }], ['exit']];
+    return [...run('A'), ...run('B')];
+  })() },
+
 };
+// The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
+RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };

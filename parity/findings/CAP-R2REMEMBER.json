@@ -1,0 +1,1185 @@
+{
+  "item": "CAP-R2REMEMBER",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "R2: is the block moved while the page scrolled still used by a second south resize? A tall Shape moved down while the page scrolls; a new Shape moved 600 right (no scroll), resized south 246, the frame scrolled back to its top, then resized south 120 again. Read twice (A2, B2), each in a fresh edit.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      287
+    ],
+    [
+      "read",
+      "A2 moved",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      600,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "A2 new moved right",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      246
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "A2 first",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "A2 before second",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      120
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "A2 second",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      287
+    ],
+    [
+      "read",
+      "B2 moved",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      600,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "read",
+      "B2 new moved right",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      246
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "B2 first",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "B2 before second",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "s",
+      0,
+      120
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "B2 second",
+      {
+        "block": [
+          0,
+          "new"
+        ],
+        "stack": 0,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "A2 moved": {
+      "block": {
+        "desktop": "8/2/24/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          487.9,
+          341.7,
+          646.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200557337_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "8 / 2 / 24 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,318.3",
+          "col 10x10 at 337.7,318.3",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,642.5",
+          "se 10x10 at 337.7,642.5",
+          "sw 10x10 at -6,642.5"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 44,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 new moved right": {
+      "block": {
+        "desktop": "1/12/7/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200557337_658",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 7 / 18",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_658",
+          "type": "csr",
+          "desktop": "1/12/7/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 first": {
+      "block": {
+        "desktop": "1/12/13/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          482.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200557337_658",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 13 / 18",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "section",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_658",
+          "type": "csr",
+          "desktop": "1/12/13/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 before second": {
+      "block": {
+        "desktop": "1/12/13/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          482.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200557337_658",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 13 / 18",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,236.1",
+          "col 10x10 at 337.7,236.1",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,478.1",
+          "se 10x10 at 337.7,478.1",
+          "sw 10x10 at -6,478.1"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_658",
+          "type": "csr",
+          "desktop": "1/12/13/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 second": {
+      "block": {
+        "desktop": "1/12/16/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          605.4
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200557337_658",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 16 / 18",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "section",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_658",
+          "type": "csr",
+          "desktop": "1/12/16/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 moved": {
+      "block": {
+        "desktop": "8/2/24/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          100.1,
+          487.9,
+          341.7,
+          646.5
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200622906_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "8 / 2 / 24 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,318.3",
+          "col 10x10 at 337.7,318.3",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,642.5",
+          "se 10x10 at 337.7,642.5",
+          "sw 10x10 at -6,642.5"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 44,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 new moved right": {
+      "block": {
+        "desktop": "1/12/7/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200622906_658",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 7 / 18",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,112.8",
+          "col 10x10 at 337.7,112.8",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,231.6",
+          "se 10x10 at 337.7,231.6",
+          "sw 10x10 at -6,231.6"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_658",
+          "type": "csr",
+          "desktop": "1/12/7/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 first": {
+      "block": {
+        "desktop": "1/12/13/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          482.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200622906_658",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 13 / 18",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "section",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_658",
+          "type": "csr",
+          "desktop": "1/12/13/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 before second": {
+      "block": {
+        "desktop": "1/12/13/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          482.1
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200622906_658",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 13 / 18",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,236.1",
+          "col 10x10 at 337.7,236.1",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,478.1",
+          "se 10x10 at 337.7,478.1",
+          "sw 10x10 at -6,478.1"
+        ]
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_658",
+          "type": "csr",
+          "desktop": "1/12/13/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 second": {
+      "block": {
+        "desktop": "1/12/16/18",
+        "mobile": "7/2/13/10",
+        "box": [
+          687.9,
+          244.2,
+          341.7,
+          605.4
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794200622906_658",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 12 / 16 / 18",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "section",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "8/2/24/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_658",
+          "type": "csr",
+          "desktop": "1/12/16/18",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Twice (A2, B2): with the new Shape moved 600 right first (1/12/7/18), its s pulls of 246 and then 120, let go beside the moved block, scrolled nothing."
+}

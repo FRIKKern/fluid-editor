@@ -1,0 +1,4221 @@
+{
+  "item": "CAP-T12NLREADS2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-09",
+  "engine": "chrome",
+  "question": "Second read of CAP-T12NLREADS1 (Link at a caret and with a selection; E1 to E5), plus E6 Button Text replaced by G, 2.5 s, then o (never empty) and E7 Button Text emptied, 1.2 s, typed; each after a Show Name Field press as a buffer; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressText",
+      "Sign up with your email address to receive news and updates."
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "link caret",
+      {
+        "btnState": [
+          "Link",
+          "Clear Formatting",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "caret"
+    ],
+    [
+      "keysList",
+      [
+        "Meta+a"
+      ]
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "link all",
+      {
+        "btnState": [
+          "Link",
+          "Clear Formatting",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "all"
+    ],
+    [
+      "keysList",
+      [
+        "ArrowRight",
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft"
+      ]
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "link some",
+      {
+        "btnState": [
+          "Link",
+          "Clear Formatting",
+          "Bold"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "some"
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Subscribe"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "Backspace",
+        "H",
+        "i",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E1 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E1 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E1 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Subscribe"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "H",
+        "i",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E2 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E2 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E2 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Sign Up"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "Backspace"
+      ]
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "G",
+        "o",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E3 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E3 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E3 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Subscribe"
+    ],
+    [
+      "keysList",
+      [
+        "Meta+a",
+        "Backspace",
+        "H",
+        "i",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E4 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E4 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E4 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Sign Up"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "Backspace",
+        "G",
+        "o",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E5 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E5 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E5 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Sign Up"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "G"
+      ]
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "o",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E6 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E6 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E6 u2",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressValue",
+      "Sign Up"
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "Meta+a",
+        "Backspace"
+      ]
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "keysGap",
+      500,
+      [
+        "G",
+        "o",
+        "Tab"
+      ]
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E7 done",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E7 u1",
+      {
+        "controls": true
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "E7 u2",
+      {
+        "controls": true
+      }
+    ]
+  ],
+  "reads": {
+    "link caret": {
+      "btnState": {
+        "Link": null,
+        "Clear Formatting": null,
+        "Bold": null
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "link all": {
+      "btnState": {
+        "Link": null,
+        "Clear Formatting": null,
+        "Bold": null
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "link some": {
+      "btnState": {
+        "Link": null,
+        "Clear Formatting": null,
+        "Bold": null
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E1 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Hi",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            722,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            767,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            807,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Underline",
+          "box": [
+            847,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            887,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            932,
+            559,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E1 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E1 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E2 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Hi",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            722,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            767,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            807,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Underline",
+          "box": [
+            847,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            887,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            932,
+            559,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E2 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E2 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E3 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Go",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E3 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E3 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E4 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Hi",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Squarespace AI",
+          "box": [
+            722,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Bold",
+          "box": [
+            767,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Italic",
+          "box": [
+            807,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "checkbox",
+          "label": "Underline",
+          "box": [
+            847,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Link",
+          "box": [
+            887,
+            559,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Clear Formatting",
+          "box": [
+            932,
+            559,
+            36,
+            36
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E4 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E4 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            301,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            301,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            301,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            301,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "a",
+          "label": "Learn More.",
+          "box": [
+            854,
+            394,
+            67.5,
+            16
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Form Name",
+          "value": "Newsletter Form",
+          "box": [
+            822.9,
+            421,
+            149.1,
+            44
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Title",
+          "value": "Subscribe",
+          "box": [
+            718,
+            515,
+            276,
+            44
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E5 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Go",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Post-Submit",
+          "box": [
+            978,
+            748,
+            16,
+            16
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E5 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Post-Submit",
+          "box": [
+            978,
+            748,
+            16,
+            16
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E5 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            772.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E6 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Go",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Post-Submit",
+          "box": [
+            978,
+            748,
+            16,
+            16
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E6 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "G",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Post-Submit",
+          "box": [
+            978,
+            748,
+            16,
+            16
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E6 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "box": [
+            718,
+            600,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Navigate to Post-Submit",
+          "box": [
+            978,
+            748,
+            16,
+            16
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E7 done": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Go",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E7 u1": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E7 u2": {
+      "controls": [
+        {
+          "role": "button",
+          "label": "Save",
+          "box": [
+            11,
+            8.5,
+            55.6,
+            38
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Exit",
+          "box": [
+            77.6,
+            8.5,
+            45.8,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Undo",
+          "box": [
+            145.4,
+            1.5,
+            36,
+            52
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Redo",
+          "box": [
+            189.4,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Desktop View",
+          "box": [
+            1390,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "radio",
+          "label": "Mobile View",
+          "box": [
+            1436,
+            11.5,
+            46,
+            32
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle Site Styles editing",
+          "box": [
+            1495,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Toggle preview mode",
+          "box": [
+            1542,
+            9.5,
+            36,
+            36
+          ]
+        },
+        {
+          "role": "button",
+          "label": "Click and drag to reposition block editor form",
+          "box": [
+            696,
+            299,
+            320,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Content",
+          "box": [
+            718,
+            299,
+            52.8,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Design",
+          "box": [
+            786.8,
+            299,
+            46,
+            55
+          ]
+        },
+        {
+          "role": "tab",
+          "label": "Storage",
+          "box": [
+            848.8,
+            299,
+            51.7,
+            55
+          ]
+        },
+        {
+          "role": "input:text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "box": [
+            718,
+            555,
+            276,
+            44
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Show Name Field",
+          "value": true,
+          "box": [
+            980,
+            637.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require First Name",
+          "value": false,
+          "box": [
+            968,
+            682.5,
+            12,
+            12
+          ]
+        },
+        {
+          "role": "input:checkbox",
+          "label": "Require Last Name",
+          "value": false,
+          "box": [
+            968,
+            727.5,
+            12,
+            12
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "pressed": [
+    {
+      "text": "Sign up with your email address to receive news and updates.",
+      "box": [
+        729,
+        555,
+        254,
+        44
+      ]
+    }
+  ],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}

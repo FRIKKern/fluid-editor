@@ -1086,12 +1086,16 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   if (g.type === 'move' && g.pageScrolled) scrolledMove = { sid: g.sid, bid: g.bid };
-  // After a south resize the page scrolls so the bottom of the block last moved while the page scrolled under it sits at the
-  // frame's bottom; with no such block, none (CAP-RESIZESCROLLPREDICT.json R5: 2 of 2 on its refit, the 233 of CAP-DRAGSCROLL f3,
-  // CAP-RESIZESCROLL p3, q3 and CAP-RESIZESCROLL2 s1, s3 to s5). An east resize does not (t3); other south corners inferred.
+  // After a south resize let go over the block last moved while the page scrolled under it, the page scrolls so that block's
+  // bottom sits at the frame's bottom; let go elsewhere, or with no such block, none (rule H, predicted first in
+  // CAP-R2PTR-PREDICTED.json: 4 of 4 fresh in CAP-R2PTR.json, where R5 without the pointer held 2; fits R5's reads, the 233 of
+  // CAP-DRAGSCROLL f3, CAP-RESIZESCROLL p3, q3, CAP-RESIZESCROLL2 s1, s3 to s5, and CAP-R2X2LAST.json's se, sw and plain moves,
+  // CAP-R2REMEMBER.json's let go beside it). Any south corner. The block stays remembered through a plain move of another
+  // block and a resize that used it (CAP-R2X2LAST.json plain, CAP-R2TWICE.json, twice each). An east resize does not (t3).
   if (g.type === 'resize' && /s/.test(g.dir)) {
     const q = scrolledMove && blockEl(scrolledMove.bid)?.getBoundingClientRect();
-    if (q && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
+    const over = q && e.clientX >= q.left && e.clientX < q.right && e.clientY >= q.top && e.clientY < q.bottom;
+    if (over && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
   }
   // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
   // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).
@@ -2771,14 +2775,22 @@ function refitStandin(b, change) {
   const x = contentRows(b, formPitch(b), false, false, true), up = Math.max(1, Math.ceil(x - 0.02));
   setFormRows(b, S(sel.sid), x > x0 ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
 }
-let quoteBefore = null;
+let quoteBefore = null, standinIdle = 0;
 blockPanel.addEventListener('input', (e) => {
   const t = e.target.closest(STANDIN_FIELDS);
   if (!t || !sel) return;
   const b = B(sel.sid, sel.bid);
   quoteBefore ??= JSON.stringify(model);
   refitStandin(b, () => { b[t.dataset.content] = t.isContentEditable ? cleanMessage(t) : t.value; });
+  // A pause in typing ends an undo step: the text so far is one step, what is typed after it the next (CAP-T12NLREADS1.json,
+  // CAP-T12NLREADS2.json, CAP-T12NLGAP.json, Newsletter's Title and Button Text: keys 500 or 700 ms apart are one step, 1000 or
+  // 1300 ms apart two; emptying the field does not split it). 850 ms, between the reads, is inferred, as is Form Name; the
+  // rich text boxes and Quote were not read.
+  clearTimeout(standinIdle);
+  if (b.standin === 'newsletter' && t.tagName === 'INPUT') standinIdle = setTimeout(() => { if (quoteBefore == null || document.activeElement !== t) return; const before = quoteBefore; quoteBefore = null; t.dataset.idled = '1'; commit(before, 'Newsletter changed'); }, 850);
 });
+// After such a step the field may be left with the text it had when it was entered, which fires no change: the rest commits here.
+blockPanel.addEventListener('focusout', (e) => { const t = e.target; if (!t.dataset?.idled) return; delete t.dataset.idled; clearTimeout(standinIdle); if (quoteBefore != null) t.dispatchEvent(new Event('change', { bubbles: true })); });
 let standinFlush = null, panelPress = false;
 blockPanel.addEventListener('pointerdown', () => { panelPress = true; }, true);
 window.addEventListener('pointerup', () => { panelPress = false; }, true);

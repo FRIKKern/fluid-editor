@@ -8,7 +8,7 @@
 //   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
 //   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   walkGroup i k part mx my | addFromMenu i type name {frameBy, menu, above, at, look} | handleDrag i k part dx dy name | beforeOf name selector
-//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
+//   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | scrollTrace name dy n [wait] [sec] [tail] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   selectKey shown key (focuses the panel's select showing that option and types a key, which picks the next option starting with it, as oracle-rows does) |
 //   click label | clickIf label | press key | keys text | keysFast text | keysList [keys] | keysGap ms [keys] | fill label value | fillValue shown value | rightClick i k
 //   groupDrag i dx dy | stubClipboard | synthClip copy|paste [frame|top] | clipHold | clipGive | clickAt x y | walk i k part mx my [grab dx,dy]| pressAtHandle i k s | dragAt x y x2 y2 | typeAt x y text | dragRow name label n dx [step] (a real drag by the field's top or left strip, value per step) | typeRow label n text (no Enter) | rowValues name [labels] | fillRange value | fillStill value name (no scroll; refuses a field off screen) | fillRow label n value | hoverRow label [n] | pressTile [n] | pressEl selector [n] | hoverEl selector [n] | pressNamed label | pressLayout n | pressAfter label | pressPart label n | pressReset label [n] | dragAt x y x2 y2 | scrollBlock i k gap | scrollFrame y | setCode text | moveFrame selector [n] | pressFrame selector [n] | moveAfter label | moveIcon label | scrollTo label | holdAt x y | moveAt x y | releaseAt (window pixels) |
@@ -27,6 +27,7 @@ import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock,
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
 import { STUB_JS } from './lib/clip-guard.mjs';
+import { runSteps } from './oracle/run-steps.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -91,6 +92,8 @@ function read(what) {
   const out = {};
   if (what.rows) out.rows = Object.fromEntries(what.rows.map((L) => [L, evalJs(S, `(() => { const f = ${ROWINPUTS(L)}; return JSON.stringify(f ? f.map((e) => e.value) : null); })()`)]));
   if (what.style) { const [i, k] = what.style; const id = blockId(i, k); out.style = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const all = [b, ...b.querySelectorAll('*')]; const c = (e) => W.getComputedStyle(e); const inl = b.getAttribute('style') || ''; const svg = b.querySelector('svg path, svg rect, svg circle, svg polygon'); const box = b.querySelector('.sqs-shape, .sqs-block-content > *, .sqs-block > *') || b; const q = box.getBoundingClientRect(); return JSON.stringify({ transform: c(b).transform, origin: c(b).transformOrigin, opacity: c(b).opacity, radius: c(box).borderRadius, border: c(box).borderTopWidth + ' ' + c(box).borderTopStyle + ' ' + c(box).borderTopColor, bg: c(box).backgroundColor, fill: svg ? c(svg).fill : null, stroke: svg ? c(svg).stroke + ' ' + c(svg).strokeWidth : null, rx: b.querySelector('svg rect') ? b.querySelector('svg rect').getAttribute('rx') : null, tagName: svg ? svg.tagName : null, inner: [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10], vars: inl.replace(/\\s+/g, ' ').slice(0, 400) }); })()`); }
+  // The block's Design rule (<style class="transform-vars">, keyed .fe-block-<id>) and what its parts draw: filter and backdrop-filter (T15).
+  if (what.rule) { const [i, k] = what.rule; const id = blockId(i, k); out.rule = evalJs(S, `(() => { ${FRAME} const b = ${BLOCK(i, id)}; if (!b) return JSON.stringify(null); const key = [...b.classList].find((c) => /^fe-block-/.test(c)) || ''; const rules = [...d.querySelectorAll('style.transform-vars')].map((x) => x.textContent.replace(/\\s+/g, ' ').trim()).filter((t) => key && t.includes(key)); const drawn = [b, ...b.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e); return { cls: String(e.className.baseVal ?? e.className).slice(0, 60), filter: c.filter, backdrop: c.backdropFilter || c.webkitBackdropFilter }; }).filter((x) => x.filter !== 'none' || (x.backdrop && x.backdrop !== 'none')); return JSON.stringify({ key, rules, drawn }); })()`); }
   if (what.range) out.range = evalJs(S, `(() => { const all = [...document.querySelectorAll('input')].filter((e) => !e.closest('#sqs-site-frame')); const r = all.find((e) => e.type === 'range' && e.getBoundingClientRect().width > 0); if (!r) return JSON.stringify(null); const t = all[all.indexOf(r) + 1]; const q = t.getBoundingClientRect(); return JSON.stringify({ slider: r.value, field: t.value, min: r.min, max: r.max, fieldAt: [Math.round(q.left), Math.round(q.top)] }); })()`);
   if (what.controls) out.controls = evalJs(S, `JSON.stringify(${CONTROLS})`);
   // What has the focus, and the look of each thing with text or an icon in a region of the page. Addresses lose their scheme and the site's name (O2).
@@ -489,9 +492,9 @@ const STEPS = {
   // A preset tile's unnamed square button (its Edit), found inside the tile that holds the words; pressed only if on top.
   pressTileButton: async (words) => { if (!tag(`() => { const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(words)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')); if (!leaf) return null; let t = leaf; while (t.parentElement && t.getBoundingClientRect().width < 100) t = t.parentElement; const T = t.getBoundingClientRect(); return [...document.querySelectorAll('button')].find((b) => { const r = b.getBoundingClientRect(); return r.width >= 28 && r.width <= 44 && r.height >= 28 && r.height <= 44 && !b.getAttribute('aria-label') && !b.innerText.trim() && r.left >= T.left - 1 && r.right <= T.right + 1 && r.top >= T.top - 1 && r.bottom <= T.bottom + 1; }) || null; }`)) throw new Error(`no unnamed button on the ${words} tile`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, box: [q.left, q.top, q.width, q.height].map(Math.round), onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`the ${words} tile's button is covered`); finding.pressed = [...(finding.pressed || []), { tileButton: words, box: at.box }]; mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
   // The topmost visible element (outside the site) whose own text is exactly this, such as a + with no name; pressed only if on top.
-  pressText: async (text) => { if (!tag(`() => [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(text)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).sort((x, y) => x.getBoundingClientRect().top - y.getBoundingClientRect().top)[0]`)) throw new Error(`nothing reads ${text}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, box: [q.left, q.top, q.width, q.height].map(Math.round), onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`${text} is covered`); finding.pressed = [...(finding.pressed || []), { text, box: at.box }]; mouse(S, 'move', at.x, at.y); await pause(200); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(800); },
-  // The field (input or textarea, outside the site) whose value starts with this; clicked only if on top.
-  pressValue: async (start) => { if (!tag(`() => [...document.querySelectorAll('input, textarea')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.value.startsWith(${JSON.stringify(start)}))`)) throw new Error(`no field holding ${start}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); const q = e.getBoundingClientRect(); const x = q.left + Math.min(q.width / 2, 40), y = q.top + Math.min(q.height / 2, 22); const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`the field holding ${start} is covered`); mouse(S, 'move', at.x, at.y); await pause(200); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(600); },
+  pressText: async (text) => { const at = evalJs(S, `(() => { const e = [...document.querySelectorAll('body *')].filter((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(text)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')).sort((x, y) => x.getBoundingClientRect().top - y.getBoundingClientRect().top)[0]; if (!e) return JSON.stringify(null); e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, box: [q.left, q.top, q.width, q.height].map(Math.round), onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at) throw new Error(`nothing reads ${text}`); if (!at.onTop) throw new Error(`${text} is covered`); finding.pressed = [...(finding.pressed || []), { text, box: at.box }]; mouse(S, 'move', at.x, at.y); await pause(200); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(800); },
+  // The field (input or textarea, outside the site) whose value starts with this, scrolled to the middle; clicked only if on top.
+  pressValue: async (start) => { if (!tag(`() => [...document.querySelectorAll('input, textarea')].find((e) => e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame') && e.value.startsWith(${JSON.stringify(start)}))`)) throw new Error(`no field holding ${start}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); const x = q.left + Math.min(q.width / 2, 40), y = q.top + Math.min(q.height / 2, 22); const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`the field holding ${start} is covered`); mouse(S, 'move', at.x, at.y); await pause(200); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(600); },
   pressWords: async (label) => { if (!tag(`() => [...document.querySelectorAll('button')].find((x) => x.getBoundingClientRect().width > 0 && x.innerText.replace(/\\s+/g, ' ').trim().toUpperCase() === ${JSON.stringify(label.toUpperCase())})`)) throw new Error(`no button reads ${label}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`${label} is covered`); mouse(S, 'move', at.x, at.y); await pause(300); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
   // The first button after a heading with this label, by a real press, only if nothing lies over its middle.
   pressAfter: async (label) => { if (!tag(`() => { const leaf = [...document.querySelectorAll('body *')].find((e) => e.childElementCount === 0 && e.textContent.trim() === ${JSON.stringify(label)} && e.getBoundingClientRect().width > 0 && !e.closest('#sqs-site-frame')); if (!leaf) return null; const all = [...document.querySelectorAll('button, [role=button]')].filter((e) => e.getBoundingClientRect().width > 0); return all.find((e) => leaf.compareDocumentPosition(e) & 4); }`)) throw new Error(`no button after ${label}`); const at = evalJs(S, `(() => { const e = document.getElementById('fx-target'); e.scrollIntoView({ block: 'nearest' }); const q = e.getBoundingClientRect(); const x = q.left + q.width / 2, y = q.top + q.height / 2; const top = document.elementFromPoint(x, y); return JSON.stringify({ x, y, onTop: !!top && (top === e || e.contains(top) || top.contains(e)) }); })()`); if (!at.onTop) throw new Error(`something lies over the button after ${label}`); mouse(S, 'move', at.x, at.y); mouse(S, 'down', at.x, at.y); mouse(S, 'up', at.x, at.y); await pause(1000); },
@@ -680,6 +683,16 @@ const STEPS = {
     }
     finding.reads[name] = { columns: ['scroll', 'panel top', 'Edit Section y', 'section top'], seen };
   },
+  // As scrollWalk, with every frame logged: ms, the frame's scroll, the panel's top, its inline style and transition, and section `sec`'s top; each scroll is stamped.
+  scrollTrace: async (name, dy, n, wait = 250, sec = 0, tail = 1500) => {
+    evalJs(S, `(() => { ${FRAME} const T = window.__st = { t0: performance.now(), seen: [], stop: false, key: '' }; const find = () => [...document.querySelectorAll('body *')].find((e) => { const q = e.getBoundingClientRect(); return q.width === 320 && q.height >= 300 && ['absolute', 'fixed'].includes(getComputedStyle(e).position) && !e.closest('#sqs-site-frame'); }) || document.querySelector('[role=dialog][aria-label="Section editor form"]'); let p = null; const r1 = (v) => Math.round(v * 10) / 10; const tick = () => { if (T.stop) return; if (!p || !p.isConnected) p = find(); const s = d.querySelectorAll('main#page .page-section')[${sec}]; const fr = f.getBoundingClientRect(); const row = [Math.round(W.scrollY), p ? r1(p.getBoundingClientRect().top) : null, p ? (p.getAttribute('style') || '').slice(0, 120) : null, p ? getComputedStyle(p).transition.slice(0, 80) : null, r1(fr.top + s.getBoundingClientRect().top)]; const key = JSON.stringify(row); if (key !== T.key) { T.key = key; T.seen.push([Math.round(performance.now() - T.t0), ...row]); } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+    for (let k = 0; k < n; k++) {
+      evalJs(S, `(() => { window.__st.seen.push([Math.round(performance.now() - window.__st.t0), 'scroll ${dy}']); document.getElementById('sqs-site-frame').contentWindow.scrollBy({ top: ${dy}, behavior: 'instant' }); return 'true'; })()`); await pause(wait);
+    }
+    await pause(tail);
+    const seen = evalJs(S, `(() => { const T = window.__st; T.stop = true; return JSON.stringify(T.seen); })()`);
+    finding.reads[name] = { columns: ['ms', 'frame scroll', 'panel top', 'panel style', 'panel transition', 'section top'], seen };
+  },
   clickAt: async (x, y) => { cdp(S, { op: 'drag', from: [x, y], to: [x, y], steps: 1, holdMs: 50, mods: [] }); await pause(1000); },
   dragAt: async (x, y, x2, y2) => { cdp(S, { op: 'drag', from: [x, y], to: [x2, y2], steps: 12, holdMs: 200, mods: [] }); await pause(1000); },
   drag: async (i, k, part, dx, dy, o = {}) => { const [x, y] = point(i, k, part); await inFrame(() => cdp(S, { op: 'drag', from: [x, y], to: [x + dx, y + dy], steps: 12, holdMs: 200, mods: [], pointerType: o.pointerType })); await pause(800); },
@@ -709,31 +722,36 @@ const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.st
 // After stubClipboard, its marker (__fxClip, the name cdp-run's key guard reads too) must still be in the top window and the frame before each step (a reload or a new document drops it).
 const stubMarked = () => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); const has = (w) => !!w && typeof w.__fxClip === 'object' && w.__fxClip !== null; return JSON.stringify(has(window) && !!f && has(f.contentWindow)); })()`) === true;
 let stubbed = false;
+// The read-back: the page's sections and blocks when the run first reaches it, and again after Exit Without Saving and a reload.
+const countPage = () => { try { return evalJs(S, `(() => { const d = document.getElementById('sqs-site-frame')?.contentDocument; if (!d) return JSON.stringify(null); return JSON.stringify({ path: d.location.pathname, sections: d.querySelectorAll('main#page .page-section').length, blocks: d.querySelectorAll('main#page .fe-block').length }); })()`); } catch { return null; } };
+const pagesBefore = {};
+// A step that fails ends the run (scripts/oracle/run-steps.mjs). Whatever happens, it then leaves without saving and writes the reads it has.
 try {
-  for (const [op, ...a] of recipe.steps) {
-    stepNo++;
-    if (!STEPS[op]) throw new Error(`no step ${op}`);
-    console.log(op, JSON.stringify(a).slice(0, 80));
-    if (stubbed && op !== 'exit' && !stubMarked()) { finding.errors.push(`stopped before ${op}: the clipboard stub's marker is gone`); console.log('  error:', finding.errors.at(-1)); break; }
-    if (!NO_PAGE_NEEDED.has(op)) {
-      const at = wrongPage();
-      if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
-    }
-    if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false;
-    try { await STEPS[op](...a); if (op === 'stubClipboard') stubbed = true; } catch (e) {
-      if (op === 'click' && a[0] === 'Write') noWrite = true;
-      finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
-      console.log('  error:', finding.errors.at(-1));
-      if (op === 'enter' || op === 'stubClipboard') break;
-      if (held) await inFrame(() => mouse(S, 'up', held.x, held.y)).catch(() => {});
-      held = null;
-    }
-  }
+  await runSteps(recipe.steps, {
+    STEPS, errors: finding.errors, log: (m) => console.log('  error:', m),
+    onStart: (op, a) => { stepNo++; console.log(op, JSON.stringify(a).slice(0, 80)); if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false; },
+    guard: (op) => {
+      if (stubbed && op !== 'exit' && !stubMarked()) return "the clipboard stub's marker is gone";
+      const at = NO_PAGE_NEEDED.has(op) ? null : wrongPage();
+      return at === null ? null : `the frame is on ${at}, not ${pathOf(pageTitle)}`;
+    },
+    onDone: (op) => { if (op === 'stubClipboard') stubbed = true; if (op === 'toPage') { const c = countPage(); if (c && !(c.path in pagesBefore)) pagesBefore[c.path] = c; } },
+    onFail: async () => { if (held) await inFrame(() => mouse(S, 'up', held.x, held.y)).catch(() => {}); held = null; },
+  });
+} catch (e) {
+  finding.errors.push(`stopped: ${String(e.message).split('\n')[0].slice(0, 160)}`);
+  console.log('  error:', finding.errors.at(-1));
 } finally {
   await desktop().catch(() => {});
   finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
   finding.exitSteps = exitWithoutSaving.steps;
+  if (Object.keys(pagesBefore).length) {
+    try { reload(S); await pause(6000); } catch { /* the count below says what is there */ }
+    const after = countPage(), before = after && pagesBefore[after.path];
+    finding.readBack = { before: before || pagesBefore, after, same: !!before && JSON.stringify(after) === JSON.stringify(before) };
+    console.log(`read-back: ${JSON.stringify(finding.readBack.before)} before, ${JSON.stringify(after)} after${finding.readBack.same ? '' : ': NOT THE SAME, check the page'}`);
+  }
+  const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
+  writeFileSync(file, text);
+  console.log(`wrote parity/findings/${name}.json, ${Object.keys(finding.reads).length} reads, ${finding.errors.length} errors, left dirty: ${finding.leftDirty}`);
 }
-const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
-writeFileSync(file, text);
-console.log(`wrote parity/findings/${name}.json, ${Object.keys(finding.reads).length} reads, ${finding.errors.length} errors, left dirty: ${finding.leftDirty}`);

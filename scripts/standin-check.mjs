@@ -260,16 +260,28 @@ viewport(S, 1600, 1400);
   const rts = [];
   for (const l of ['Description', 'Disclaimer']) { await press(`.bp-rt[aria-label="${l}"]`, 400); rts.push(rtBar(l)); }
   add('Newsletter: Description and Disclaimer show the short bar, no Text Style, 54 above the box', rts.every((r) => r.focus && JSON.stringify(r.bar) === '[0,-54,254,44]' && JSON.stringify(r.c) === SHORT), JSON.stringify(rts));
-  // Link fades at a caret in a box with text too, rgb(183, 183, 183) (CAP-T12READS-J.json); with a selection it shows dark (inferred).
+  // Link fades at a caret in a box with text too, rgb(183, 183, 183) (CAP-T12READS-J.json); with a selection, all of it or three
+  // letters, it is dark, rgb(14, 14, 14), as Bold (CAP-T12NLREADS1.json, CAP-T12NLREADS2.json, by pixel).
   const linkColor = () => qs(`return JSON.stringify(getComputedStyle(document.querySelector('#msg-bar [data-fmt="link"]')).color);`);
   await press('.bp-rt[aria-label="Description"]', 200); const caretLink = linkColor();
   await key('Meta+a', 200); const selLink = linkColor();
-  add('Newsletter: Link faded at a caret in a box with text, dark with a selection', caretLink === 'rgb(183, 183, 183)' && selLink !== caretLink, JSON.stringify([caretLink, selLink]));
+  await key('ArrowRight', 100); for (let n = 0; n < 3; n++) await key('Shift+ArrowLeft', 80); await pause(150); const someLink = linkColor();
+  const boldColor = qs(`return JSON.stringify(getComputedStyle(document.querySelector('#msg-bar [data-fmt="bold"]')).color);`);
+  add('Newsletter: Link faded at a caret in a box with text, dark as Bold with all or three letters selected', caretLink === 'rgb(183, 183, 183)' && selLink === boldColor && someLink === boldColor && selLink !== caretLink, JSON.stringify([caretLink, selLink, someLink, boldColor]));
   await press('#msg-bar [data-fmt="bold"]', 400);
   const boldOn = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
   await press('#undo', 400);
   const boldOff = qs(`return JSON.stringify([fe.model.sections[1].blocks[0].nlDesc, !!d.querySelector('.newsletter-form-header-description strong')]);`);
   add('Newsletter: Bold on Description reaches the block; one undo step', /<strong>/.test(boldOn[0]) && boldOn[1] && !/<strong>/.test(boldOff[0] || '') && !boldOff[1], JSON.stringify({ boldOn, boldOff }));
+  // A pause in typing ends an undo step (CAP-T12NLREADS1.json, CAP-T12NLREADS2.json, CAP-T12NLGAP.json): Button Text with a
+  // second between G and o undoes to G, then to what it was; N and o 0.6 s apart are one step.
+  const nlBtn = () => qs(`return JSON.stringify(p.querySelector('input[data-content="nlButton"]').value);`);
+  const btn0 = nlBtn();
+  await press('input[data-content="nlButton"]', 200); await key('Meta+a'); await key('G', 1100); await key('o'); await key('Tab', 300);
+  await press('#undo', 400); const pu1 = nlBtn(); await press('#undo', 400); const pu2 = nlBtn();
+  await press('input[data-content="nlButton"]', 200); await key('Meta+a'); await key('N', 600); await key('o'); await key('Tab', 300);
+  const typed06 = nlBtn(); await press('#undo', 400); const pv1 = nlBtn();
+  add('Newsletter: a second\'s pause in typing ends an undo step, 0.6 s does not', pu1 === 'G' && pu2 === btn0 && typed06 === 'No' && pv1 === btn0, JSON.stringify({ btn0, pu1, pu2, typed06, pv1 }));
   if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
   // CAP-T12NLPOST.json: the Form Name tip on hover, 11px above the ?; the rows names add; Post-Submit; the phone view.
   const help = at('.bp-nl-help');

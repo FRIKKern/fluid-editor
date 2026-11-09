@@ -394,10 +394,12 @@ function padRows(d) {
     + (custom ? rangeRow('Top &amp; Bottom', 'padY', d.padY ?? 6, '%', 20) + rangeRow('Left &amp; Right', 'padX', d.padX ?? 6, '%', 20) : '');
 }
 // Blur (BLOCKDESIGN.json): Backdrop to start, or Element, with an amount from 0 to 100.
-function blurRows(d) {
+// A Shape's has the amount alone, no Element or Backdrop and no note (CAP-T15BLUR.json).
+function blurRows(d, amountOnly = false) {
   const sw = `<label class="sp-switch"><input type="checkbox" data-design="blur" aria-label="Blur" ${d.blur ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
   const row = `<div class="sp-row"><span class="sp-label">Blur</span><span class="sp-ctl">${sw}</span></div>`;
   if (!d.blur) return row;
+  if (amountOnly) return row + rangeRow('Blur Amount', 'blurPx', d.blurPx ?? 15, 'px', 100);
   const el = d.blurKind === 'element', seg = (v, label, on) => `<button type="button" role="radio" class="sp-seg sp-txt${on ? ' is-on' : ''}" aria-checked="${on}" data-dset="blurKind" data-v="${v}" aria-label="${label}">${label}</button>`;
   return row + `<div class="bp-seg2" role="radiogroup" aria-label="Blur type">${seg('element', 'Element', el)}${seg('', 'Backdrop', !el)}</div>`
     + (el ? '' : '<p class="bp-note bp-blur-note">Blurred backgrounds are more noticeable when the opacity is lower.</p>')
@@ -628,7 +630,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
         + blendRow(d.blend || 'normal', open === 'blend', true)
         + strokeRows({ ...d, strokeColor: d.strokeColor || shape.strokeInk }, false, true)
         + row('Drop Shadow', sw('shadow', d.shadow, 'Drop Shadow'))
-        + blurRows(d)
+        + blurRows(d, true)
         + '</div>'
         + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
         + pairs.join('');
