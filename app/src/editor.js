@@ -1086,12 +1086,16 @@ function onUp(e) {
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   if (g.type === 'move' && g.pageScrolled) scrolledMove = { sid: g.sid, bid: g.bid };
-  // After a south resize the page scrolls so the bottom of the block last moved while the page scrolled under it sits at the
-  // frame's bottom; with no such block, none (CAP-RESIZESCROLLPREDICT.json R5: 2 of 2 on its refit, the 233 of CAP-DRAGSCROLL f3,
-  // CAP-RESIZESCROLL p3, q3 and CAP-RESIZESCROLL2 s1, s3 to s5). An east resize does not (t3); other south corners inferred.
+  // After a south resize let go over the block last moved while the page scrolled under it, the page scrolls so that block's
+  // bottom sits at the frame's bottom; let go elsewhere, or with no such block, none (rule H, predicted first in
+  // CAP-R2PTR-PREDICTED.json: 4 of 4 fresh in CAP-R2PTR.json, where R5 without the pointer held 2; fits R5's reads, the 233 of
+  // CAP-DRAGSCROLL f3, CAP-RESIZESCROLL p3, q3, CAP-RESIZESCROLL2 s1, s3 to s5, and CAP-R2X2LAST.json's se, sw and plain moves,
+  // CAP-R2REMEMBER.json's let go beside it). Any south corner. The block stays remembered through a plain move of another
+  // block and a resize that used it (CAP-R2X2LAST.json plain, CAP-R2TWICE.json, twice each). An east resize does not (t3).
   if (g.type === 'resize' && /s/.test(g.dir)) {
     const q = scrolledMove && blockEl(scrolledMove.bid)?.getBoundingClientRect();
-    if (q && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
+    const over = q && e.clientX >= q.left && e.clientX < q.right && e.clientY >= q.top && e.clientY < q.bottom;
+    if (over && q.bottom > win.innerHeight) win.scrollTo(0, Math.floor(win.scrollY + q.bottom - win.innerHeight));
   }
   // Narrowed by a corner, it takes the rows its text needs only when let go: Escape, another block or the next drag, not the
   // drop's own unselecting (CAP-SINGLEAGAIN.json f3, CAP-ONEROWHANDLE.json: 1 row at the drop, 2 and a section row more after Escape).

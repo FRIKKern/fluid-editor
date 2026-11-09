@@ -1,0 +1,24 @@
+{
+  "item": "R2",
+  "question": "R2 resize scroll: which decides it, the block remembered (R5, frozen), the corner (se never scrolls, from CAP-R2X2LAST), or the pointer (H: the page scrolls only if the pointer is let go over the block last moved while the page scrolled)? Predictions pushed before the read CAP-R2PTR.json, read twice (A3, B3).",
+  "cases": {
+    "a narrow se on V": {
+      "how": "V, a Shape made tall (s 400) and moved down 287 while the page scrolls; a new Shape narrowed by e -205, then se 0,246, let go over V",
+      "R5": "scroll, V's bottom at the frame's bottom (233)",
+      "se corner": "no scroll",
+      "H": "scroll (233)"
+    },
+    "b s off V": {
+      "how": "V moved 300 right and 287 down while the page scrolls; a new Shape (columns 2 to 8, not moved) resized s 0,246, let go left of V",
+      "R5": "scroll (233)",
+      "se corner": "scroll (233)",
+      "H": "no scroll"
+    },
+    "c used twice": {
+      "how": "V a tall Shape moved down while the page scrolls; a new Shape resized s 0,123 (let go over V), the frame scrolled to its top, then s 0,123 again (let go over V). Read in CAP-R2TWICE.json (A4, B4).",
+      "H, remembered until reload (ours)": "scroll both times",
+      "H, used once": "scroll the first time, not the second"
+    }
+  },
+  "seen": "H was made from CAP-R2X2LAST.json and CAP-R2REMEMBER.json (all seen). R5 is frozen; its fresh count on those: se 0 of 2, sw 2 of 2, plain 2 of 2, moved right 0 of 2, second resize 0 of 2."
+}
