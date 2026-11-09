@@ -1737,7 +1737,9 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const errs = [], H = '<h2>Heading words for a probe</h2>', P = '<p>Paragraph words for a probe</p>', P2 = '<p>Second paragraph words</p>';
     const PL = '<p>Second paragraph words that run on for a good while, longer than the first one, so that in a narrow column this paragraph takes several lines</p>';
     const WALKS = { W1: [H, P, 'Button'], W2: [H, P, P2, 'Button'], W3: [H, P, P2], W4: [H], W5: [H, P, 'Image', 'Button'], WL: [H, P, PL, 'Button'], WB: ['Button', H, P, P2] };
-    const skip = { W5: 'steps' };
+    // WL and WB read h1p2b1's 1 after 3 with a 3-row heading (2, 3, 1), W2 with a 1-row one (1, 3, 1): the step there
+    // depends on more than the last layout. Ours keeps W2's; left out here, named in U10's evidence.
+    const skip = { W5: 'steps', WL: [1], WB: [1] };
     let n = 0;
     const A = (v) => v.split('/').map(Number), order = (as) => as.map(A).sort((x, y) => x[1] - y[1] || x[0] - y[0]);
     for (const [w, parts] of Object.entries(WALKS)) {
