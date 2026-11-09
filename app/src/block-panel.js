@@ -6,7 +6,7 @@
 // oracle shows them but do nothing yet; the inventory counts them as missing.
 import { SHAPES, shapeById } from './shapes.js';
 import { IMAGE_SHAPE_TABS, imageShapesOf } from './image-shapes.js';
-import { ACCORDION_STYLES, escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
+import { richHtml, ACCORDION_STYLES, escapeHtml as esc, DESIGN_DEFAULTS, BLEND_MODES, STROKE_PX, MAP_STYLES, MAP_ZOOMS, mapArt, mapVars, socialGlyph, socialKind, SOCIAL_SIZES, SOCIAL_STYLES } from './render.js';
 import { linkKind, linkSummary, parseMail, parsePhone } from './link-kinds.js';
 import { HITS, resetBtn, ARROWS, barHtml, POSE_RANGE } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
@@ -528,7 +528,8 @@ const quoteContentHtml = (c) => [['quote', 'Quote', 'Add a quote'], ['source', '
 // Storage rows are out of scope (0005): a link out, and form storage.
 const nlCap = (k, label) => `<label class="bp-nl-cap" for="bp-nl-${k}">${label}</label>`;
 const nlLine = (k, label, ph, v) => `<div class="bp-nl-f">${nlCap(k, label)}<input id="bp-nl-${k}" class="bp-nl-in" type="text" aria-label="${label}" placeholder="${ph}" data-content="${k}" value="${esc(v)}" autocomplete="off" spellcheck="false"></div>`;
-const nlArea = (k, label, v) => `${nlCap(k, label)}<div class="bp-nl-box"><textarea id="bp-nl-${k}" class="bp-nl-ta" aria-label="${label}" data-content="${k}" spellcheck="false">${esc(v)}</textarea></div>`;
+// Description and Disclaimer are rich text on a short bar (CAP-T12READS-I.json, form-message.js).
+const nlArea = (k, label, v) => `${nlCap(k, label)}<div class="bp-nl-box bp-rt-wrap"><div id="bp-nl-${k}" class="bp-rt bp-nl-ta" contenteditable="true" role="textbox" aria-multiline="true" aria-label="${label}" data-content="${k}" data-rt="short" spellcheck="false">${richHtml(v) || '<p><br></p>'}</div></div>`;
 const nlRow = (label, ctl, nav, cls = '') => `<div class="sp-row bp-nl-row${cls}"><span class="sp-label">${label}</span>${nav ? `<button type="button" class="bp-nl-go" aria-label="Navigate to ${label}"${nav === true ? ' disabled data-unbuilt title="Not built yet"' : ` data-ff="${nav}"`}>${pi('<path d="M9 6l6 6-6 6"/>')}</button>` : ctl}</div>`;
 const nlSwitch = (k, label, on) => `<label class="sp-switch"><input type="checkbox" aria-label="${label}" data-nl-set="${k}"${on ? ' checked' : ''}><span aria-hidden="true"></span></label>`;
 // The Form Name tip shows on hover, above the ? (CAP-T12NLPOST.json, tip).

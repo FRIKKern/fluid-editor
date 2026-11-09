@@ -69,6 +69,17 @@ function putLetters(box, sel, [from, to]) {
   sel.addRange(r);
 }
 
+// Other panels' rich text boxes (.bp-rt) take the same bar, cut to what CAP-T12READS-I.json read: data-rt="short"
+// (Newsletter's Description and Disclaimer) has no Text Style; "notes" (Podcast's Episode notes) has no Underline either,
+// and no line before Clear Formatting. The bar sits 54 above the box around the text (.bp-rt-wrap), as on the Message box.
+const RT = '.bp-ffp-msg, .bp-rt';
+function cutBar(bar, kind) {
+  if (!kind) return;
+  const style = bar.querySelector('.tx-style');
+  style?.nextElementSibling?.remove(); style?.remove();
+  if (kind === 'notes') { bar.querySelector('[data-fmt="underline"]')?.remove(); [...bar.querySelectorAll('.tx-sep')].at(-1)?.remove(); }
+}
+
 export function messageBox({ panel, bar, stage, linkPop, openLink }) {
   const doc = panel.ownerDocument;
   const win = doc.defaultView;
@@ -77,7 +88,7 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
   const fire = (type) => box.dispatchEvent(new Event(type, { bubbles: true }));
   const place = () => {
     if (bar.hidden || !current()) return;
-    const r = box.getBoundingClientRect(), st = stage.getBoundingClientRect();
+    const r = (box.closest('.bp-rt-wrap') || box).getBoundingClientRect(), st = stage.getBoundingClientRect();
     bar.style.left = `${r.left - st.left}px`;
     bar.style.top = `${r.top - st.top - 54}px`;
   };
@@ -88,6 +99,7 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     if (under) on.underline = under.on;
     on.link = !linkPop.hidden || (inside && !sel.isCollapsed && !!fmt.linkAt(box, sel.getRangeAt(0)));
     bar.innerHTML = messageBarHtml(inside ? fmt.currentStyle(box, sel) : 'p', menu, on, !box.textContent.trim());
+    cutBar(bar, box.dataset.rt);
     bar.hidden = false;
     box.classList.toggle('is-empty', !box.textContent.trim());
     place();
@@ -140,21 +152,22 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     press(act);
   });
   panel.addEventListener('focusin', (e) => {
-    if (!e.target.matches?.('.bp-ffp-msg')) return;
+    if (!e.target.matches?.(RT)) return;
     box = e.target;
     doc.execCommand('defaultParagraphSeparator', false, 'p');
     draw();
   });
   panel.addEventListener('focusout', (e) => {
-    if (!e.target.matches?.('.bp-ffp-msg')) return;
+    if (!e.target.matches?.(RT)) return;
     fire('change');
     if (bar.contains(e.relatedTarget) || linkPop.contains(e.relatedTarget) || !linkPop.hidden) return;
     hide();
   });
   panel.addEventListener('keydown', (e) => {
     if (!current() || e.target !== box || !(e.metaKey || e.ctrlKey)) return;
-    if (e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); press('style', STYLE_KEYS[e.code]); }
-    else if (!e.altKey && !e.shiftKey && MARK_KEYS[e.code]) { e.preventDefault(); press(MARK_KEYS[e.code]); }
+    const kind = box.dataset.rt;
+    if (e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); if (!kind) press('style', STYLE_KEYS[e.code]); }
+    else if (!e.altKey && !e.shiftKey && MARK_KEYS[e.code]) { e.preventDefault(); if (!(kind === 'notes' && e.code === 'KeyU')) press(MARK_KEYS[e.code]); }
   });
   panel.addEventListener('paste', (e) => {
     if (!current() || !box.contains(e.target)) return;
@@ -190,5 +203,14 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     if (doc.activeElement === box) draw();
   });
   panel.addEventListener('scroll', place);
+  // A press on a box's margin, around its text, puts the caret at the end of the text.
+  panel.addEventListener('mousedown', (e) => {
+    const wrap = e.target.closest?.('.bp-rt-wrap'), rt = wrap?.querySelector('.bp-rt');
+    if (!rt || rt.contains(e.target)) return;
+    e.preventDefault();
+    rt.focus();
+    win.getSelection().selectAllChildren(rt);
+    win.getSelection().collapseToEnd();
+  });
   return { place, sync: () => { if (!bar.hidden && !current()) hide(); else place(); } };
 }

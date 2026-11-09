@@ -3,7 +3,7 @@
 // a sized stand-in (0005): none of these rows changed a block's rows on the oracle, so a press only keeps its value.
 // Rows that need an account, a lookup, a collection or a payment are drawn faded and do nothing (0005's stand-in line).
 // Note texts are copied from the read's screenshots.
-import { escapeHtml as esc } from './render.js';
+import { escapeHtml as esc, richHtml } from './render.js';
 import { IMAGE_SHAPE_TABS, imageShapesOf } from './image-shapes.js';
 
 const pi = (p) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
@@ -78,12 +78,14 @@ const promo = (pic, title, text, go, have) => () => `<div class="bp-sp-promo${pi
 // The views a row opens (CAP-T12READS-G.json): a field under its label; a field to the right of its label; a range in px.
 const lf = (key, label, ph = '') => (v) => `<label class="bp-sp-lf"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}"${ph ? ` placeholder="${ph}"` : ''} autocomplete="off" spellcheck="false"></span></label>`;
 const lta = (key, label, cls, ph = '') => (v) => `<label class="bp-sp-lf ${cls}"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><textarea aria-label="${label}" data-sp-field="${key}"${ph ? ` placeholder="${ph}"` : ''} spellcheck="false">${esc(v[key] ?? '')}</textarea></span></label>`;
+// Rich text on the short bar without Underline (CAP-T12READS-I.json, form-message.js).
+const lrt = (key, label, cls, ph) => (v) => `<div class="bp-sp-lf ${cls}"><span class="sp-label">${label}</span><span class="bp-sp-lfbox bp-rt-wrap"><div class="bp-rt${v[key] ? '' : ' is-empty'}" contenteditable="true" role="textbox" aria-multiline="true" aria-label="${label}" data-sp-field="${key}" data-rt="notes" data-placeholder="${ph}" spellcheck="false">${richHtml(v[key]) || '<p><br></p>'}</div></span></div>`;
 const bare = (key, label) => (v) => `<span class="bp-sp-lfbox bp-sp-bare"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></span>`;
 const sf = (key, label) => (v) => `<label class="bp-sp-sf"><span class="sp-label">${label}</span><span class="bp-sp-lfbox"><input type="text" aria-label="${label}" data-sp-field="${key}" value="${esc(v[key] ?? '')}" autocomplete="off" spellcheck="false"></span></label>`;
 const ssw = (key, label) => (v) => `<div class="bp-sp-sf"><span class="sp-label">${label}</span><label class="sp-switch"><input type="checkbox" aria-label="${label}" data-sp-set="${key}"${v[key] ? ' checked' : ''}><span aria-hidden="true"></span></label></div>`;
 const rpx = (key, label, def, min, max, step) => (v) => `<div class="bp-sp-range bp-sp-rpx"><div class="bp-sp-rhead"><span class="sp-label">${label}</span><input type="text" aria-label="${label}" data-sp-field="${key}" data-min="${min}" data-max="${max}" value="${v[key] ?? def}"><span class="bp-sp-px">px</span></div><input type="range" aria-label="${label}" data-sp-range="${key}" min="${min}" max="${max}" step="${step}" value="${v[key] ?? def}" style="--p:${(((v[key] ?? def) - min) / (max - min)) * 100}%"></div>`;
 const VIEWS = {
-  Podcast: [note(`These fields become tags for your podcasts RSS<br>feed. Squarespace uses Apple Podcasts<br>standard format. ${link('Learn more')}`, ' bp-sp-mnote bp-sp-vnote'), lf('pcTitle', 'Title'), lf('pcSubtitle', 'Subtitle'), lta('pcSummary', 'Summary', 'is-sum'), lta('pcNotes', 'Episode notes', 'is-notes', 'Write here...'), rule(),
+  Podcast: [note(`These fields become tags for your podcasts RSS<br>feed. Squarespace uses Apple Podcasts<br>standard format. ${link('Learn more')}`, ' bp-sp-mnote bp-sp-vnote'), lf('pcTitle', 'Title'), lf('pcSubtitle', 'Subtitle'), lta('pcSummary', 'Summary', 'is-sum'), lrt('pcNotes', 'Episode notes', 'is-notes', 'Write here...'), rule(),
     boxsel('pcType', 'Episode type', ['Full (default)', 'Trailer', 'Bonus'], 'Full (default)'), sf('pcSeason', 'Season number'), sf('pcEpisode', 'Episode number'), sf('pcDuration', 'Duration'), ssw('pcExplicit', 'Explicit content'), rule(),
     sf('pcSize', 'File size'), boxsel('pcMime', 'Mime type', ['audio/mpeg (.mp3)', 'Other'], 'Other'), when((v) => (v.pcMime ?? 'Other') === 'Other', bare('pcMimeOther', 'Mime type')), rule(), lf('pcAnalytics', 'Podcast analytics URL', 'https://')],
   'Size and Spacing': [rpx('smColumn', 'Column Width', 270, 50, 600, 10), rpx('smGutter', 'Gutter Width', 60, 0, 100, 1)],

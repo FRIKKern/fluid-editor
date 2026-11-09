@@ -1,0 +1,426 @@
+{
+ "item": "T12",
+ "capturedAt": "2026-11-09",
+ "question": "Which bar the rich text fields of the stand-in panels show: Newsletter's Description and Disclaimer, Podcast's Episode notes; and which fields beside them are plain.",
+ "how": "f81 on the oracle, one block per run on Blocks Probe, unsaved: Add Block, the block by name, Edit, then a press into the field under each caption (on top, named by its caption; no typing, no key), then the focused field and the bar read, and a screenshot. Podcast reached by Navigate to Podcast. Left by Exit Without Saving; the probe page read 0 blocks after. No press on the bar.",
+ "unnamedPresses": [
+  "Each field, by the box under its caption (on top)"
+ ],
+ "reads": {
+  "newsletter": [
+   {
+    "step": {
+     "tab": "Content",
+     "rtfocus": "Description"
+    },
+    "note": {
+     "field": {
+      "tag": "DIV",
+      "ce": "true",
+      "role": "textbox",
+      "aria": null,
+      "ph": null,
+      "box": [
+       729,
+       610.1,
+       254,
+       44
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "pad": "0px",
+      "color": "rgb(62, 62, 62)",
+      "font": "14px/22px 400 Clarkson, \"Helvetica Neue\", Helvetica, A",
+      "outline": "rgb(62, 62, 62) none 3px",
+      "html": "<p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\">Sign up with your email address to receive news and updates.</p>",
+      "parentCls": ""
+     },
+     "marks": 1,
+     "bar": {
+      "box": [
+       -7,
+       -64.1,
+       246,
+       36
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "radius": "0px",
+      "shadow": "none",
+      "role": null,
+      "controls": [
+       [
+        "Squarespace AI",
+        [
+         0,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Link",
+        [
+         165,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Clear Formatting",
+        [
+         210,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ]
+      ],
+      "leaves": [
+       [
+        40,
+        7,
+        1,
+        22
+       ],
+       [
+        205,
+        7,
+        1,
+        22
+       ]
+      ]
+     }
+    }
+   },
+   {
+    "step": {
+     "tab": "Content",
+     "rtfocus": "Disclaimer"
+    },
+    "note": {
+     "field": {
+      "tag": "DIV",
+      "ce": "true",
+      "role": "textbox",
+      "aria": null,
+      "ph": null,
+      "box": [
+       729,
+       610.1,
+       254,
+       22
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "pad": "0px",
+      "color": "rgb(62, 62, 62)",
+      "font": "14px/22px 400 Clarkson, \"Helvetica Neue\", Helvetica, A",
+      "outline": "rgb(62, 62, 62) none 3px",
+      "html": "<p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\">We respect your privacy.</p>",
+      "parentCls": ""
+     },
+     "marks": 2,
+     "bar": {
+      "box": [
+       -7,
+       -223.1,
+       246,
+       36
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "radius": "0px",
+      "shadow": "none",
+      "role": null,
+      "controls": [
+       [
+        "Squarespace AI",
+        [
+         0,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Link",
+        [
+         165,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Clear Formatting",
+        [
+         210,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ]
+      ],
+      "leaves": [
+       [
+        40,
+        7,
+        1,
+        22
+       ],
+       [
+        205,
+        7,
+        1,
+        22
+       ]
+      ]
+     }
+    }
+   },
+   {
+    "step": {
+     "tab": "Content",
+     "rtfocus": "Title"
+    },
+    "note": {
+     "field": {
+      "tag": "INPUT",
+      "ce": null,
+      "role": null,
+      "aria": "Title",
+      "ph": "Enter a title",
+      "box": [
+       718,
+       515,
+       276,
+       44
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "pad": "0px",
+      "color": "rgb(14, 14, 14)",
+      "font": "14px/22px 400 Clarkson, \"Helvetica Neue\", Helvetica, A",
+      "outline": "rgb(14, 14, 14) none 3px",
+      "html": "Subscribe",
+      "parentCls": "pqG320mnGqckNkRF"
+     },
+     "marks": 0,
+     "bar": null
+    }
+   }
+  ],
+  "podcast": [
+   {
+    "step": {
+     "tab": "Content",
+     "nav": "Navigate to Podcast"
+    },
+    "note": {
+     "view": {
+      "box": [
+       461,
+       301,
+       320,
+       500
+      ],
+      "text": [
+       "Back @33,18,32,14",
+       "Podcast @133,15,54,22",
+       "Learn more @118,107,65,16",
+       "Title @22,129,276,32",
+       "Subtitle @22,223,276,32",
+       "Summary @22,322,276,36",
+       "Episode notes @22,479,276,22",
+       "Episode type @22,753,87,44",
+       "Full (default) @175,764,88,22",
+       "Season number @22,804,105,44",
+       "Episode number @22,855,110,44",
+       "Duration @22,906,57,44",
+       "Explicit content @22,957,88,44",
+       "File size @22,1042,53,44",
+       "Mime type @22,1093,71,44",
+       "Other @175,1104,88,22",
+       "Podcast analytics URL @22,1244,276,32"
+      ],
+      "c": [
+       "DIV||Click and drag to reposition block editor form|||||BackPodcast|0,-2,320,55",
+       "BUTTON|button||||||Back|11,3,54,46",
+       "INPUT|text|||||||33,178,254,22",
+       "INPUT|text|||||||33,272,254,22",
+       "TEXTAREA|textarea|||||||33,369,254,88",
+       "INPUT|text|||full||||162,752,1,1",
+       "BUTTON|submit||||||Full (default)|163,753,135,44",
+       "INPUT|text|||||||174,815,113,22",
+       "INPUT|text|||||||174,866,113,22",
+       "INPUT|text|||||||174,917,113,22",
+       "INPUT|checkbox|||||||272,973,12,12",
+       "INPUT|text|||||||174,1053,113,22",
+       "INPUT|text|||other||||162,1092,1,1",
+       "BUTTON|submit||||||Other|163,1093,135,44",
+       "INPUT|text|||||||33,1165,254,22",
+       "INPUT|text||(web-address placeholder)|||||33,1293,254,22"
+      ]
+     },
+     "looks": [
+      "BUTTON | button |  |  |  | 11,2.5,54.2,46 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(242, 242, 242) | 3px | none | -0.14px | ",
+      "SPAN |  |  | Back |  | 33,17.5,32.2,14 | 14px/14px 500 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+      "A |  |  | Learn more |  | 118.4,107,65,16 | 12px/16px 400 | rgb(102, 102, 102) | rgba(0, 0, 0, 0) | 1px solid rgb(121, 121, 121) | 0px | none | normal | ",
+      "LABEL |  |  | Title |  | 22,129,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "INPUT | text |  |  |  | 33,178,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "LABEL |  |  | Subtitle |  | 22,223,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "INPUT | text |  |  |  | 33,272,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "LABEL |  |  | Summary |  | 22,322,276,36 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "TEXTAREA | textarea |  |  |  | 33,369,254,88 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "P |  |  | Episode notes |  | 22,479,276,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "INPUT | text |  | full |  | 162,752,1,1 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | combobox |  |  |  | 163,753,135,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 6px | none | normal | ",
+      "SPAN |  |  | Full (default) |  | 175,764,87.6,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+      "INPUT | text |  |  |  | 174,815,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "INPUT | text |  |  |  | 174,866,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "INPUT | text |  |  |  | 174,917,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "INPUT | checkbox |  |  |  | 272,973,12,12 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 9999px | none | normal | false",
+      "INPUT | text |  |  |  | 174,1053,113,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "INPUT | text |  | other |  | 162,1092,1,1 | 14px/16px 400 | rgb(14, 14, 14) | rgb(255, 255, 255) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "BUTTON | combobox |  |  |  | 163,1093,135,44 | 14px/16px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 1px solid rgb(231, 231, 231) | 6px | none | normal | ",
+      "SPAN |  |  | Other |  | 175,1104,87.6,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | -0.14px | ",
+      "INPUT | text |  |  |  | 33,1165,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false",
+      "LABEL |  |  | Podcast analytics URL |  | 22,1244,276,32 | 14px/32px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | ",
+      "INPUT | text |  |  | (web-address placeholder) | 33,1293,254,22 | 14px/22px 400 | rgb(14, 14, 14) | rgba(0, 0, 0, 0) | 0px none rgb(14, 14, 14) | 0px | none | normal | false"
+     ]
+    }
+   },
+   {
+    "step": {
+     "tab": "Content",
+     "rtfocus": "Episode notes"
+    },
+    "note": {
+     "field": {
+      "tag": "DIV",
+      "ce": "true",
+      "role": "textbox",
+      "aria": null,
+      "ph": null,
+      "box": [
+       494,
+       613.1,
+       254,
+       22
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "pad": "0px",
+      "color": "rgb(62, 62, 62)",
+      "font": "14px/22px 400 Clarkson, \"Helvetica Neue\", Helvetica, A",
+      "outline": "rgb(62, 62, 62) none 3px",
+      "html": "<p data-rte-preserve-empty=\"true\" style=\"white-space:pre-wrap;\" data-placeholder=\"Write here…\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "parentCls": ""
+     },
+     "marks": 1,
+     "bar": {
+      "box": [
+       -7,
+       -64.1,
+       201,
+       36
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "radius": "0px",
+      "shadow": "none",
+      "role": null,
+      "controls": [
+       [
+        "Squarespace AI",
+        [
+         0,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Link",
+        [
+         125,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ],
+       [
+        "Clear Formatting",
+        [
+         165,
+         0,
+         36,
+         36
+        ],
+        false,
+        null
+       ]
+      ],
+      "leaves": [
+       [
+        40,
+        7,
+        1,
+        22
+       ]
+      ]
+     }
+    }
+   },
+   {
+    "step": {
+     "tab": "Content",
+     "rtfocus": "Summary"
+    },
+    "note": {
+     "field": {
+      "tag": "TEXTAREA",
+      "ce": null,
+      "role": null,
+      "aria": null,
+      "ph": null,
+      "box": [
+       494,
+       606,
+       254,
+       88
+      ],
+      "bg": "rgba(0, 0, 0, 0)",
+      "pad": "0px",
+      "color": "rgb(14, 14, 14)",
+      "font": "14px/22px 400 Clarkson, \"Helvetica Neue\", Helvetica, A",
+      "outline": "rgb(14, 14, 14) none 3px",
+      "html": "",
+      "parentCls": "css-1np7ys2"
+     },
+     "marks": 0,
+     "bar": null
+    }
+   }
+  ]
+ },
+ "facts": [
+  "Description and Disclaimer are rich text (a contenteditable textbox, paragraphs marked to keep empty), the text 11 in and 14 down in their box; Title beside them is a plain input with no bar.",
+  "Their bar, 54 above the box at its left, 254 by 44: Squarespace AI 4, a line 1 by 22 at 44 (11 down), Bold 49, Italic 89, Underline 129, Link 169, a line at 209, Clear Formatting 214, each 36 square, 4 down. It is the Form Message box's bar (FORMFIELDS.json) without Text Style.",
+  "Episode notes is rich text too, with the placeholder Write here (a paragraph marked empty), the text 11 in and 15 down. Its bar, 54 above, 209 by 44: Squarespace AI 4, a line at 44, Bold 49, Italic 89, Link 129, Clear Formatting 169: no Underline and no line before Clear Formatting.",
+  "Summary in the Podcast view is a plain textarea with no bar.",
+  "In the screenshots Link looks faded with a caret and no selection, in Description (with text) and in Episode notes (empty). Its colour was not read."
+ ],
+ "shots": "f81-Newsletterrt-Description.png, f81-Audiort-Episodenotes.png (lane scratch, not kept)"
+}
