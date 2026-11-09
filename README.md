@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes
-  - T12: Line Chart's plot, upright lines and curve; a press on another block closes a dialog ([#494](https://github.com/FRIKKern/fluid-editor/pull/494))
-  - U10: fit pad refit to 33.5px on fresh reads near row boundaries ([#493](https://github.com/FRIKKern/fluid-editor/pull/493))
+- **Today** · 23 changes
+  - U10: a Heading 1 in a list item has half its size above and below; the 5-item list fits as read ([#498](https://github.com/FRIKKern/fluid-editor/pull/498))
+  - T12: a Line Chart's points ring 1px in half white ([#497](https://github.com/FRIKKern/fluid-editor/pull/497))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed

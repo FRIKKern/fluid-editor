@@ -305,7 +305,8 @@ function chartHtml(b) {
     const P = groups.map(([, vs], n) => [px(n), y(vs[k])]), at = (n) => P[Math.max(0, Math.min(P.length - 1, n))];
     const hand = (n, s) => (n === 0 || n === P.length - 1 ? P[n] : [P[n][0] + s * 0.2 * (at(n + 1)[0] - at(n - 1)[0]), P[n][1] + s * 0.2 * (at(n + 1)[1] - at(n - 1)[1])]);
     const d = P.map((p, n) => (n ? `C${hand(n - 1, 1).join(' ')} ${hand(n, -1).join(' ')} ${p.join(' ')}` : `M${p.join(' ')}`)).join('');
-    return `<path d="${d}" fill="none" stroke="${colour(k)}" stroke-width="2" class="fe-chart-line"/>${P.map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="4" fill="${colour(k)}"/>`).join('')}`;
+    // Each point has a 1px ring of half white over its colour (the line3 shot, by pixel: 121 to 192, 191 to 223, 229 to 242).
+    return `<path d="${d}" fill="none" stroke="${colour(k)}" stroke-width="2" class="fe-chart-line"/>${P.map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="4" fill="${colour(k)}" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1" class="fe-chart-point"/>`).join('')}`;
   }).join('');
   else {
     const sum = rows.reduce((a, [, v]) => a + v, 0) || 1;
