@@ -27,6 +27,7 @@ import { enterEdit, exitWithoutSaving, hoverSection, openSectionPanel, addBlock,
 import { RECIPES } from './oracle/recipes.mjs';
 import { takesText } from './oracle/takes-text.mjs';
 import { STUB_JS } from './lib/clip-guard.mjs';
+import { runSteps } from './oracle/run-steps.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-capture drives a headless Chrome: set ORACLE_SURFACE=cdp:<port> (scripts/oracle-headless.mjs).'); process.exit(2); }
@@ -721,31 +722,36 @@ const wrongPage = () => { const at = evalJs(S, `(() => { ${FRAME} return JSON.st
 // After stubClipboard, its marker (__fxClip, the name cdp-run's key guard reads too) must still be in the top window and the frame before each step (a reload or a new document drops it).
 const stubMarked = () => evalJs(S, `(() => { const f = document.getElementById('sqs-site-frame'); const has = (w) => !!w && typeof w.__fxClip === 'object' && w.__fxClip !== null; return JSON.stringify(has(window) && !!f && has(f.contentWindow)); })()`) === true;
 let stubbed = false;
+// The read-back: the page's sections and blocks when the run first reaches it, and again after Exit Without Saving and a reload.
+const countPage = () => { try { return evalJs(S, `(() => { const d = document.getElementById('sqs-site-frame')?.contentDocument; if (!d) return JSON.stringify(null); return JSON.stringify({ path: d.location.pathname, sections: d.querySelectorAll('main#page .page-section').length, blocks: d.querySelectorAll('main#page .fe-block').length }); })()`); } catch { return null; } };
+const pagesBefore = {};
+// A step that fails ends the run (scripts/oracle/run-steps.mjs). Whatever happens, it then leaves without saving and writes the reads it has.
 try {
-  for (const [op, ...a] of recipe.steps) {
-    stepNo++;
-    if (!STEPS[op]) throw new Error(`no step ${op}`);
-    console.log(op, JSON.stringify(a).slice(0, 80));
-    if (stubbed && op !== 'exit' && !stubMarked()) { finding.errors.push(`stopped before ${op}: the clipboard stub's marker is gone`); console.log('  error:', finding.errors.at(-1)); break; }
-    if (!NO_PAGE_NEEDED.has(op)) {
-      const at = wrongPage();
-      if (at !== null) { finding.errors.push(`stopped before ${op}: the frame is on ${at}, not ${pathOf(pageTitle)}`); console.log('  error:', finding.errors.at(-1)); break; }
-    }
-    if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false;
-    try { await STEPS[op](...a); if (op === 'stubClipboard') stubbed = true; } catch (e) {
-      if (op === 'click' && a[0] === 'Write') noWrite = true;
-      finding.errors.push(`${op} ${JSON.stringify(a).slice(0, 60)}: ${String(e.stderr || e.message).trim().split('\n')[0].slice(0, 160)}`);
-      console.log('  error:', finding.errors.at(-1));
-      if (op === 'enter' || op === 'stubClipboard') break;
-      if (held) await inFrame(() => mouse(S, 'up', held.x, held.y)).catch(() => {});
-      held = null;
-    }
-  }
+  await runSteps(recipe.steps, {
+    STEPS, errors: finding.errors, log: (m) => console.log('  error:', m),
+    onStart: (op, a) => { stepNo++; console.log(op, JSON.stringify(a).slice(0, 80)); if (['pick', 'select', 'enter', 'blank', 'editText'].includes(op)) noWrite = false; },
+    guard: (op) => {
+      if (stubbed && op !== 'exit' && !stubMarked()) return "the clipboard stub's marker is gone";
+      const at = NO_PAGE_NEEDED.has(op) ? null : wrongPage();
+      return at === null ? null : `the frame is on ${at}, not ${pathOf(pageTitle)}`;
+    },
+    onDone: (op) => { if (op === 'stubClipboard') stubbed = true; if (op === 'toPage') { const c = countPage(); if (c && !(c.path in pagesBefore)) pagesBefore[c.path] = c; } },
+    onFail: async () => { if (held) await inFrame(() => mouse(S, 'up', held.x, held.y)).catch(() => {}); held = null; },
+  });
+} catch (e) {
+  finding.errors.push(`stopped: ${String(e.message).split('\n')[0].slice(0, 160)}`);
+  console.log('  error:', finding.errors.at(-1));
 } finally {
   await desktop().catch(() => {});
   finding.leftDirty = await exitWithoutSaving().catch((e) => (/not in edit mode/.test(e.message) ? false : `exit failed: ${e.message}`));
   finding.exitSteps = exitWithoutSaving.steps;
+  if (Object.keys(pagesBefore).length) {
+    try { reload(S); await pause(6000); } catch { /* the count below says what is there */ }
+    const after = countPage(), before = after && pagesBefore[after.path];
+    finding.readBack = { before: before || pagesBefore, after, same: !!before && JSON.stringify(after) === JSON.stringify(before) };
+    console.log(`read-back: ${JSON.stringify(finding.readBack.before)} before, ${JSON.stringify(after)} after${finding.readBack.same ? '' : ': NOT THE SAME, check the page'}`);
+  }
+  const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
+  writeFileSync(file, text);
+  console.log(`wrote parity/findings/${name}.json, ${Object.keys(finding.reads).length} reads, ${finding.errors.length} errors, left dirty: ${finding.leftDirty}`);
 }
-const text = JSON.stringify(finding, null, 2).replace(/(https?):\/\/([^"' )]+)/g, (m, sch, rest) => (/squarespace|sqsp/.test(rest) ? '<url>' : `<${sch}>${rest}`)) + '\n';
-writeFileSync(file, text);
-console.log(`wrote parity/findings/${name}.json, ${Object.keys(finding.reads).length} reads, ${finding.errors.length} errors, left dirty: ${finding.leftDirty}`);
