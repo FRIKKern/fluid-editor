@@ -1720,6 +1720,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // numbered list alone at layout 4, then Heading 2 to 4 items as loaded (the mixes that make them are not built here).
   {
     const H = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10LISTHEADS.json', import.meta.url))).passA;
+    viewport(S, 1600, 1000); // the read's window: the text's place depends on it
     const errs = [];
     const items = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, W = d.defaultView; return JSON.stringify([...d.querySelectorAll('.fluid-engine')[0].querySelectorAll('li')].map((li) => { const k = li.firstElementChild, c = W.getComputedStyle(k), b = W.getComputedStyle(k, '::before'), rg = d.createRange(); rg.selectNodeContents(k); const r = [...rg.getClientRects()].find((q) => q.width > 0); return [k.tagName, c.marginTop, c.marginBottom, b.content, b.fontSize, Math.round(parseFloat(b.width) * 10) / 10, b.paddingRight, Math.round(r.left * 10) / 10, Math.round(li.getBoundingClientRect().top * 10) / 10]; })); })()`);
     const want = (key) => H[key].find((b) => b.lists && b.lists.length).lists[0].items.map((it) => [it.tag, it.css.marginTop, it.css.marginBottom, it.before.content, it.before.fontSize, Math.round(parseFloat(it.before.width) * 10) / 10, it.before.paddingRight, it.textRects[0][0]]);
