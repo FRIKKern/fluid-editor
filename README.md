@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - T12: Pricing Plan rows refit 2, Accordion grip/Escape/icon-left, Newsletter grey, Podcast Mime (CAP-T12READS-H) ([#482](https://github.com/FRIKKern/fluid-editor/pull/482))
   - U10: a heading alone has its own Layouts list, its end line fitted to its words ([#481](https://github.com/FRIKKern/fluid-editor/pull/481))
-  - T15: opening a preset's editor plays it once on the stage ([#479](https://github.com/FRIKKern/fluid-editor/pull/479))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
