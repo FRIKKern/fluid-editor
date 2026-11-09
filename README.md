@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 43 changes
-  - T15: the editor keeps Blur and Background color in style attributes, as read ([#523](https://github.com/FRIKKern/fluid-editor/pull/523))
-  - Y2: a press after a pulled-scroll Cmd+Z closes the edit, the block selected (CAP-Y2BAR3) ([#520](https://github.com/FRIKKern/fluid-editor/pull/520))
+- **Today** · 46 changes
+  - A2: check-fresh compares two builds without their block ids, which are new on every build ([#517](https://github.com/FRIKKern/fluid-editor/pull/517))
+  - X8: R1 refit 1, the section takes d rows when a lone widening's stored rows fire (6 of 6, fresh 4 of 4) ([#528](https://github.com/FRIKKern/fluid-editor/pull/528))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
