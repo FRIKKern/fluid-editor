@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 37 changes
+- **Today** · 38 changes
+  - Fresh rounds: check-fresh guards predictions-first and two agreeing reads; oracle-capture --predictions ([#515](https://github.com/FRIKKern/fluid-editor/pull/515))
   - U10: a list- or quote-first Text with one other Text, tags and alignment as read ([#512](https://github.com/FRIKKern/fluid-editor/pull/512))
-  - U10: code of several lines becomes one paragraph at a pick, its lines joined by a space ([#504](https://github.com/FRIKKern/fluid-editor/pull/504))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
