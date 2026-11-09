@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 9 changes
+- **Today** · 10 changes
+  - T12: Newsletter Description and Disclaimer and Podcast Episode notes are rich text on the Message box's bar, cut as read (CAP-T12READS-I) ([#486](https://github.com/FRIKKern/fluid-editor/pull/486))
   - X6: Summary's floor refit kept, 2 of 3 fresh (CAP-X6SUMMARYFAR) ([#485](https://github.com/FRIKKern/fluid-editor/pull/485))
-  - T15: Follow's stage play as a table of the two agreed reads ([#483](https://github.com/FRIKKern/fluid-editor/pull/483))
 - **Yesterday** · 93 changes
   - T12: Summary's and Archive's panels, values only; Product's shape pick read ([#476](https://github.com/FRIKKern/fluid-editor/pull/476))
 - **Last week** · 364 changes, 3 milestones closed
