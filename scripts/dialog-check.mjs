@@ -177,8 +177,7 @@ for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   });
   add(`Instagram run ${run}${run === 'F' ? ', pulled first' : ''}: ${picks.length} picks, rows as read`, JSON.stringify(ours) === JSON.stringify(want), `${ours} want ${want}`);
 }
-// CAP-T12READS-J.json: 2.40 as a new block's first pick, 12 rows to 6; Cmd+Down to 13 rows does not end the kept row as a pull
-// does: 3:2 after it keeps a row over the fit (read 9, ours 8: the rule behind the kept row is not scored, a named miss).
+// CAP-T12READS-J.json: 2.40 as a new block's first pick, 12 rows to 6; Cmd+Down to 13 rows, then 3:2, 9 rows.
 {
   const R = read('CAP-T12READS-J.json').reads;
   let { id } = await fresh('Instagram');
@@ -190,7 +189,26 @@ for (const run of ['A', 'B', 'C', 'D', 'E', 'F']) {
   const keyed = state(id).area;
   q(`document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); dl.querySelector('[data-dl-tab="Design"]')?.click(); await sleep(150); return 'true';`);
   pick('select[data-dl="galAspect"]', '3:2 Standard');
-  add('Instagram, Cmd+Down then 3:2: a row kept over the fit of 7', keyed === R.keys.keyed.replace(/ /g, '') && state(id).area === '1/2/9/10', `${keyed} ${state(id).area}`);
+  add('Instagram, Cmd+Down then 3:2: 13 rows to 9', keyed === R.keys.keyed.replace(/ /g, '') && state(id).area === R.keys.after.replace(/ /g, ''), `${keyed} ${state(id).area}`);
+}
+// The DROP rule's two rounds (CAP-T12INSTAFLOOR-1.json, -2.json): rows changed by keys or a pull, then one pick, each on a new block.
+for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2], P2: ['ArrowUp', 1], P3: ['pull', 82], P4: ['ArrowDown', 3], P5: ['ArrowDown', 2] }],
+  ['CAP-T12INSTAFLOOR-2.json', { Q1: ['ArrowDown', 4], Q2: ['ArrowDown', 1], Q3: ['pull', 123], Q4: ['ArrowDown', 5], Q5: ['ArrowDown', 6] }]]) {
+  const runs = read(file).runs;
+  for (const [run, [how, n]] of Object.entries(plan)) {
+    const r = runs[run];
+    const { id } = await fresh('Instagram', { edit: false });
+    if (how === 'pull') {
+      const h = q(`const o = f.getBoundingClientRect(), r = d.querySelector('.fe-handle[data-dir="s"]').getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width / 2, o.top + r.top + r.height / 2]);`);
+      drag(S, h, [h[0], h[1] + n]); await pause(400);
+      q(`fe.select(fe.model.sections[1].id, '${id}'); await sleep(200); return 'true';`); // selected again after the pull, as the oracle run did
+    } else for (let k = 0; k < n; k++) { browser(S, 'press', `Meta+${how}`); await pause(250); }
+    const at = state(id).area;
+    q(`document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); dl.querySelector('[data-dl-tab="Design"]')?.click(); await sleep(150); return 'true';`);
+    pick('select[data-dl="galAspect"]', r.pick);
+    const got = state(id).area, want = r.after.replace(/ /g, '');
+    add(`Instagram ${run}: ${at} then ${r.pick.split(' ')[0]}, rows as read`, at === r.at.replace(/ /g, '') && got === want, `${at} ${got} want ${r.at} ${want}`);
+  }
 }
 {
   const { id } = await fresh('Tag Cloud');
