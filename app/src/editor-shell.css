@@ -1309,8 +1309,10 @@ body.is-preview #reload-preview { display: inline-flex; }
 .bp-appear::after { content: ''; position: absolute; left: 6px; right: 6px; bottom: 0; height: 1px; background: #e7e7e7; }
 .bp-appear svg { flex: none; margin-right: 14.5px; color: #0e0e0e; }
 /* After a pick (CAP-T12APPEARROW.json): grey fill 3px round, dark label, the value in #3e3e3e ending 34 from the row's right, a grey chevron 15 from it, no line. */
-.bp-appear.has-value { background: #f2f2f2; border-radius: 3px; color: #0e0e0e; }
-.bp-appear.has-value::after { content: none; }
+.bp-appear.has-value { color: #0e0e0e; }
+/* The fill and the hidden line follow the focus, not the value: a Tab off clears them, Site Default focused has them (CAP-T12FILL-A.json, -B). */
+.bp-appear:focus { background: #f2f2f2; border-radius: 3px; outline: none; }
+.bp-appear:focus::after { content: none; }
 .bp-appear-v { display: flex; align-items: center; color: #3e3e3e; }
 .bp-appear-v .bp-chev { margin: 0 -3px 0 2px; color: #a1a1a1; }
 #shape-pop.is-appear { width: 298px; padding: 5px 0 6px; border-radius: 3px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16); }
