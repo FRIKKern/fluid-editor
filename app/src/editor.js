@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelGone, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
 import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -1665,7 +1665,12 @@ function onKey(e) {
     // An open menu or popover goes first; the block stays selected until the next Escape.
     if (vAlignOpen || !pinPop.hidden) { closeFloating(); return; }
     if (gesture && gesture.type !== 'pending') cancelGesture();
-    else { accordionEscape(); select(null); }
+    else {
+      // A typed accordion field keeps its text: Escape commits it first (CAP-T12READS-H.json).
+      const f = document.activeElement;
+      if (blockPanel.contains(f) && f.matches('[data-content="accTitle"], [data-content="accDescription"]')) f.blur();
+      accordionEscape(); select(null);
+    }
     return;
   }
   // Keys measured on the oracle (parity/findings/KEYS.json, KEYS2.json).
@@ -2765,8 +2770,9 @@ blockPanel.addEventListener('change', (e) => {
   if (panelPress) window.addEventListener('pointerup', () => setTimeout(go), { once: true }); else setTimeout(go);
 });
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
-// A Pricing Plan's Elements switches move its rows on desktop by the content they leave, by the frozen rows rule of
-// CAP-T12NEWSLETTER.json (20 of 20 steps at 8 and 6 columns, CAP-T12PRESS-A.json and -E.json). Phone: not read, rows stay.
+// A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
+// lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). Phone: not read, rows stay.
 function setStandinValue(key, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
   const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
@@ -2774,7 +2780,7 @@ function setStandinValue(key, v) {
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
     const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, Math.floor(x + 0.02)) : rows);
+    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - Math.ceil(X(h0) - x + 0.05)) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }
@@ -3920,6 +3926,7 @@ function fitAccordion(b, s, need) {
 }
 // Escape from an item view whose edit made it grow gives the open item's rows back, to the nearest row, so the rows can
 // stretch. Back doesn't, and neither does Escape with no edit (CAP-ACCPHONE7.json to CAP-ACCPHONE10.json). Read at one length of description.
+// It joins the edit's undo step: one undo takes back the edit and the close together (CAP-T12READS-H.json).
 function accordionEscape() {
   if (!accGrew || !sel || !accView?.startsWith('acc-item:')) return;
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), m = measure(feEl(sel.sid));
@@ -3927,7 +3934,7 @@ function accordionEscape() {
   showAccordionItem(b);
   const need = Math.max(1, Math.round((blockEl(b.id).querySelector('.accordion-items-container').offsetHeight + m.rg) / m.pitch));
   fitAccordion(b, S(sel.sid), need);
-  commit(before, 'Item closed');
+  if (JSON.stringify(model) !== before) { followPhoneRows(before); note('Item closed'); updateUi(); }
 }
 function setAccordion(change, label, before = JSON.stringify(model)) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
@@ -3985,7 +3992,8 @@ blockPanel.addEventListener('change', (e) => {
 function accCustomFrom(b, k) {
   const pad = (v, t) => (Array.isArray(v) ? v : t(ACCORDION_PAD[v || 'M']));
   if (k === 'iconSize') return typeof b.iconSize === 'number' ? b.iconSize : ACCORDION_ICON[b.iconSize || 'S'];
-  if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : ACCORDION_WIDTH[b.descWidth || 'M'];
+  // From S (300px) the more range starts at its floor, 25 (CAP-T12READS-H.json).
+  if (k === 'descWidth') return typeof b.descWidth === 'number' ? b.descWidth : b.descWidth === 'S' ? 25 : ACCORDION_WIDTH[b.descWidth || 'M'];
   if (k === 'dividerSize') return typeof b.dividerSize === 'number' ? b.dividerSize : ACCORDION_LINE[b.dividerSize || 'S'];
   if (k === 'iconThickness') return typeof b.iconThickness === 'number' ? b.iconThickness : ACCORDION_LINE[b.iconThickness || 'S'];
   if (k === 'descPad') return pad(b.descPad, (n) => [0, 0, n, 0]);
@@ -4027,10 +4035,23 @@ blockPanel.addEventListener('pointerdown', (e) => {
   const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : '.bp-acc-row';
   const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
+  // Held (CAP-T12READS-H.json): the row waits in its new place at 0.4, the rows between make room, and a plain copy
+  // follows the pointer; the canvas moves on release.
+  const ghost = row.cloneNode(true), list = row.parentElement;
+  ghost.classList.add('bp-row-ghost');
+  if (getComputedStyle(list).position === 'static') list.style.position = 'relative';
+  Object.assign(ghost.style, { top: `${row.offsetTop}px`, left: `${row.offsetLeft}px`, width: `${row.offsetWidth}px` });
+  list.append(ghost);
   row.classList.add('is-moving');
   g.setPointerCapture(e.pointerId);
-  const move = (ev) => { const dy = ev.clientY - y0; to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h))); row.style.transform = `translateY(${dy}px)`; };
+  const move = (ev) => {
+    const dy = ev.clientY - y0;
+    to = Math.max(0, Math.min(rows.length - 1, from + Math.round(dy / h)));
+    ghost.style.transform = `translateY(${dy}px)`;
+    rows.forEach((r, n) => { r.style.transform = n === from ? `translateY(${(to - from) * h}px)` : n > from && n <= to ? `translateY(${-h}px)` : n < from && n >= to ? `translateY(${h}px)` : ''; });
+  };
   const up = () => {
+    ghost.remove();
     g.removeEventListener('pointermove', move); g.removeEventListener('pointerup', up); g.removeEventListener('pointercancel', up);
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
@@ -5970,17 +5991,17 @@ function pickMovesLayouts() {
   layoutsPlace.top = layoutsPickTop({ top: layoutsPlace.top, secTop, fresh });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
-// While the page scrolls: down with the section's bottom, up only once section top + 140 reaches it, by Edit Section's rule
-// (sectionPanelTop with prev). It closes where Edit Section's does (CAP-U10WALK2.json, CAP-U10READ5.json).
-// 5 of 34 oracle reads ran ahead of this on the way down, by up to one scroll step, with no rule.
+// While the page scrolls it keeps to the band of its section's content box, by Edit Section's rule (sectionPanelScrolled),
+// and closes on it: U9's frozen band rule, checked on View Layouts with predictions pushed first, 300 of 300 steps
+// (CAP-U10BAND-PREDICT.json, CAP-U10BAND2.json).
 function placeLayouts() {
   const el = layoutsSid && sectionEl(layoutsSid);
   if (!el) return;
-  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect(), secTop = fr.top + q.top, secBottom = fr.top + q.bottom;
-  if (sectionPanelGone({ secTop, secBottom })) { closeLayouts(); return; }
-  // Up: top + 140 under the header, top + 1.4 on other sections on 2 walks of 3. Those sections' way down has no rule (CAP-U10SECOND2.json).
-  const edit = secTop + (model.sections[0].id === layoutsSid ? 143 : 4);
-  layoutsPlace.top = sectionPanelTop({ edit, H: window.innerHeight, secTop, secBottom, prev: layoutsPlace.top });
+  const fr = frame.getBoundingClientRect(), q = el.getBoundingClientRect();
+  const cw = el.querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+  const low = fr.top + cw.top + 1, high = fr.top + cw.bottom + 1 - 476;
+  if (high < PANEL_BAND_CLOSES_AT) { closeLayouts(); return; }
+  layoutsPlace.top = sectionPanelScrolled({ prev: layoutsPlace.top, H: window.innerHeight, low, high });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
 layoutsPanel.addEventListener('click', (e) => {

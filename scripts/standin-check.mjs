@@ -266,6 +266,14 @@ viewport(S, 1600, 1400);
   const rows = () => qs(`const P0 = p.getBoundingClientRect().top - p.scrollTop; return JSON.stringify([...p.querySelectorAll('.bp-nl-row')].map((e) => { const r = e.getBoundingClientRect(); return [e.textContent.trim(), r.top - P0, r.height, e.querySelector('input')?.checked ?? null]; }));`);
   const nr = rows(), want = [['Show Name Field', 693, 45, true], ['Require First Name', 738, 45, false], ['Require Last Name', 783, 45, false], ['Post-Submit', 850, 45, null]];
   add('Newsletter: Show Name Field adds Require First and Last Name, off, at the rows read', nr.length === 4 && nr.every((r, i) => r[0] === want[i][0] && near([r[1], r[2]], [want[i][1], want[i][2]], 0.6) && r[3] === want[i][3]), JSON.stringify(nr));
+  const nlForm = () => qs(`const dd = document.getElementById('site-frame').contentDocument; return JSON.stringify({ text: [...dd.querySelectorAll('.newsletter-form')].map((f) => f.textContent.replace(/\\s+/g, ' ').trim()), inputs: [...dd.querySelectorAll('.newsletter-form input')].map((i) => [i.name, i.placeholder, i.required, i.getAttribute('aria-required')]), area: fe.model.sections[1].blocks[0].layout.desktop.area });`);
+  const formWas = nlForm(), phColor = qs(`return JSON.stringify([...p.querySelectorAll('.bp-nl-in, .bp-nl-name > input')].map((e) => getComputedStyle(e, '::placeholder').color));`);
+  await press('input[data-nl-set="nlReqFirst"]');
+  await press('input[data-nl-set="nlReqLast"]');
+  const formReq = nlForm();
+  await press('#undo'); await press('#undo');
+  // CAP-T12READS-H.json: the requires change nothing on the block; the panel's placeholders are rgb(148, 148, 148).
+  add('Newsletter: Require First and Last Name leave the block as it was; panel placeholders grey 148', JSON.stringify(formWas) === JSON.stringify(formReq) && phColor.length === 3 && phColor.every((c) => c === 'rgb(148, 148, 148)'), JSON.stringify({ phColor, formWas, formReq }));
   await press('input[data-nl-set="nlReqFirst"]');
   const req = qs(`const b = fe.model.sections[1].blocks[0]; return JSON.stringify(b.nlReqFirst === true);`);
   await press('#undo');
@@ -376,6 +384,10 @@ viewport(S, 1600, 1400);
   await press('button[data-sp-set="ppAlign"][data-v="center"]'); await press('input[data-sp-field="ppButton"]', 150); await key('Meta+a'); await key('G'); await key('o'); await key('Tab', 400);
   const pa = state();
   add('Pricing Plan: Alignment and Button Text keep their values, rows stay', pa.sp.ppAlign === 'center' && pa.sp.ppButton === 'Go' && pa.area[2] === 12, JSON.stringify(pa));
+  // Two parts off at once (CAP-T12READS-H.json, f78 at 8 columns): a shrink takes off the content lost, rounded up.
+  const pp2 = [];
+  for (const k of ['ppTitle', 'ppPrice', 'ppTitle', 'ppPrice', 'ppDesc', 'ppButtonOn', 'ppDesc', 'ppButtonOn']) pp2.push(await flip(k));
+  add('Pricing Plan at 8 columns: two parts off at once give 9 6 9 11 8 5 9 11 rows', JSON.stringify(pp2) === '[9,6,9,11,8,5,9,11]', JSON.stringify(pp2));
   // Pulled from 8 to 6 columns, it takes 12 rows; the switches there as read.
   placeAndEdit('Pricing Plan', 8, 11); await key('Escape', 300);
   const pulled = await pull('e', -2, 0);
@@ -435,11 +447,20 @@ viewport(S, 1600, 1400);
   const ss = state(); await undoOnce(); const ssu = state(); await press('[data-sp-view="back"]');
   const backTo = qs(`return JSON.stringify(!!p.querySelector('[data-sp-view="Size and Spacing"]') && p.querySelector('[data-btab].is-on')?.textContent);`);
   add('Summary: Size and Spacing keeps Column Width and Gutter Width; one undo step each; Back returns to Design', ss.sp.smColumn === 320 && ss.sp.smGutter === 25 && ssu.sp.smGutter === undefined && ssu.sp.smColumn === 320 && backTo === 'Design', JSON.stringify({ ss, ssu, backTo }));
+  // A typed Column Width keeps its value while the range steps by 10; under 50 it goes to 50 (CAP-T12READS-H.json).
+  await press('[data-sp-view="Size and Spacing"]');
+  const colw = [];
+  for (const v of ['275', '45']) { await press('input[data-sp-field="smColumn"]', 150); await key('Meta+a'); for (const c of v) await key(c); await key('Tab', 400); colw.push(qs(`return JSON.stringify([p.querySelector('input[data-sp-field="smColumn"]').value, p.querySelector('input[data-sp-range="smColumn"]').value]);`)); }
+  await press('[data-sp-view="back"]');
+  add('Summary: Column Width typed 275 reads 275 over a range at 280; typed 45 reads 50', JSON.stringify(colw) === '[["275","280"],["50","50"]]', JSON.stringify(colw));
   placeAndEdit('Audio', 6, 3); await press('[data-sp-view="Podcast"]');
   await press('input[data-sp-field="pcTitle"]', 150); await key('S'); await key('o'); await key('Tab', 400);
   pick('pcType', 'Bonus'); await press('input[data-sp-set="pcExplicit"]');
   const pc = state(); await undoOnce(); const pcu = state();
   add("Audio: Podcast's Title, Episode type and Explicit content keep their values; one undo step each; rows stay 3", pc.sp.pcTitle === 'So' && pc.sp.pcType === 'Bonus' && pc.sp.pcExplicit === true && pcu.sp.pcExplicit === undefined && pcu.sp.pcType === 'Bonus' && pc.area[2] === 4, JSON.stringify({ pc, pcu }));
+  const mimeOther = () => qs(`return JSON.stringify(!!p.querySelector('input[data-sp-field="pcMimeOther"]'));`);
+  const m0 = mimeOther(); pick('pcMime', 'audio/mpeg (.mp3)'); const m1 = mimeOther();
+  add('Audio: Mime type audio/mpeg (.mp3) takes away the free field under it', m0 && !m1, JSON.stringify({ m0, m1 }));
   // Summary and Archive: values only. Their rows move with presses on the oracle with no rule found (named, CAP-T12PRESS-B.json).
   placeAndEdit('Summary', 18, 11);
   const smFaded = qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-dsel:not(.bp-sp-vsel)')].map((e) => e.disabled));`);

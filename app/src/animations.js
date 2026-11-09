@@ -271,10 +271,30 @@ export function playTile(square, a) {
 // squared. Hover and Press go out in 1.5 times the Duration, hold and come back; a Continuous Loop runs out twice in the
 // Duration and stays at the End until the mouse leaves, a Ping Pong one out and back once (CAP-T15STAGE7-*.json); On Appear
 // and On Scroll go from their Start as their Preview does. Follow's play is read (CAP-T15STAGE7-FOLLOW6.json), not drawn.
+// Follow on the stage: a table, not a model. The two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json), at
+// Scale 150% by 150% with every other setting blank (Attract, Block, Smoothing 1, Radius 100%, Bounce 0.5), aligned where each
+// starts to move and averaged (within 0.02 where both run): the share of the way from rest to the Range pose, its scale squared
+// as on the other triggers, every 100 ms; then at rest. It starts 960 ms after the mouse comes on, the mean of the two reads
+// (692 and 1230 ms). Inferred: the same table for every other setting and for the other Range fields.
+const FOLLOW_P = [0, 0.033, 0.083, 0.13, 0.164, 0.189, 0.214, 0.247, 0.295, 0.36, 0.449, 0.527, 0.592, 0.636, 0.661, 0.67, 0.526, 0.304, 0.105, -0.026, -0.085, -0.089, -0.065, -0.035, -0.009, 0.007, 0.012, 0.012, 0.008, 0.004, 0.001, 0];
+function followStage(el, a) {
+  const s = stateOf(el), to = numbers(a.end || REST), win = el.ownerDocument.defaultView;
+  stop(s);
+  s.win = win;
+  const t0 = win.performance.now() + 960, last = FOLLOW_P.length - 1;
+  const frame = (now) => {
+    const u = (now - t0) / 100, i = Math.floor(u), p = u <= 0 || i >= last ? 0 : FOLLOW_P[i] + (FOLLOW_P[i + 1] - FOLLOW_P[i]) * (u - i), n = {};
+    for (const k of Object.keys(REST_N)) n[k] = REST_N[k] + (to[k] - REST_N[k]) * p;
+    s.pose = n;
+    write(el, s);
+    s.raf = i >= last ? 0 : win.requestAnimationFrame(frame);
+  };
+  s.raf = win.requestAnimationFrame(frame);
+}
 export function playStage(square, a) {
-  if (a.trigger === 'follow') return;
   const t = JSON.parse(JSON.stringify(a));
   for (const k of ['start', 'end']) if (t[k]) { t[k][2] = `${parseFloat(t[k][2]) ** 2 / 100}%`; t[k][3] = `${parseFloat(t[k][3]) ** 2 / 100}%`; }
+  if (t.trigger === 'follow') { followStage(square, t); return; }
   if (t.trigger === 'hover' || t.trigger === 'press') { playPreview(square, { ...t, duration: `${seconds(t) * 1.5 / 1000}s` }); return; }
   if (t.trigger === 'loop' && t.type !== 'Ping Pong') {
     clear(square);

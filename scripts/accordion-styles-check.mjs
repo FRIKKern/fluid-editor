@@ -124,6 +124,15 @@ add('Title right', t.align === 'right' && t.pad === F.title.right.padding, JSON.
 add('Alignment writes the attribute', R(`ul.dataset.accordionTitleAlignment`) === 'right');
 await press(btn('left'));
 await press(btn('Back'));
+// Icon on the left (CAP-T12READS-H.json): left text starts at 28, right text ends at the block's edge, centred text on its centre.
+await press(`P.querySelector('[data-acc-set="iconLeft"][data-v="left"]')`);
+await press(btn('Navigate to Title'));
+const textAt = () => R(`(() => { const e = root.querySelector('.accordion-item__title'), g = e.ownerDocument.createRange(); g.selectNodeContents(e); const r = g.getBoundingClientRect(); return [r.left - q.left, r.right - q.left, r.left + r.width / 2 - q.left, q.width]; })()`);
+const il = {};
+for (const a of ['center', 'right', 'left']) { await press(btn(a)); il[a] = textAt(); }
+add('Icon left: title text at 28, right edge, centre', near(il.left[0], 28) && near(il.right[1], il.right[3]) && near(il.center[2], il.center[3] / 2), JSON.stringify(il));
+await press(btn('Back'));
+await press(`P.querySelector('[data-acc-set="iconLeft"][data-v="right"]')`);
 
 // Description, with the first item open.
 await press(`P.querySelector('input[aria-label="Expand first item"]').closest('label')`);
@@ -152,6 +161,9 @@ const wr = R(`(() => { const e = P.querySelector('[data-acc-range="descWidth"]')
 add('Width more: 25 to 100, from 70', Number(wr[0]) === F.description.width.more.min && Number(wr[1]) === F.description.width.more.max && wr[2] === String(F.description.width.moreFromM) && near(wr[3], 22, 1.5) && near(wr[4], 212, 1.5) && wr[5] === '70%', JSON.stringify(wr));
 await typed(`P.querySelector('[data-acc-field="descWidth"]')`, '40%');
 add('A typed 40% keeps 300', near(desc().box[1], F.description.width.more.typed40), JSON.stringify(desc()));
+await press(btn('S', 0)); await press(`P.querySelector('[aria-label="More Width"]')`);
+const ws = R(`[P.querySelector('[data-acc-range="descWidth"]').value, P.querySelector('[data-acc-field="descWidth"]').value]`);
+add('Width more from S starts at 25%, still 300 (CAP-T12READS-H.json)', JSON.stringify(ws) === '["25","25%"]' && near(desc().box[1], 300), JSON.stringify({ ws, d: desc() }));
 await press(btn('M', 0));
 await press(btn('S', 1)); add('Padding S', desc().pad === F.description.padding.S, desc().pad);
 await press(btn('L', 1)); add('Padding L', desc().pad === F.description.padding.L, desc().pad);
@@ -205,13 +217,27 @@ await press(btn('M', 2));
 await tab('Content');
 const titles = () => R(`[...root.querySelectorAll('.accordion-item__title')].map((e) => e.textContent.trim())`);
 const grip = R(`(() => { const r = P.querySelector('.bp-acc-grip').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })()`);
+const row0 = R(`P.querySelector('.bp-acc-row').getBoundingClientRect().top`);
 mouse(S, 'move', grip[0], grip[1]); await pause(40); mouse(S, 'down', grip[0], grip[1], { buttons: 1 }); await pause(40);
 for (let i = 1; i <= 6; i++) { mouse(S, 'move', grip[0], grip[1] + i * 21.5, { buttons: 1 }); await pause(30); }
+// Held (CAP-T12READS-H.json): the row waits faded (0.4) in its new slot, a plain copy at the pointer, the canvas unmoved.
+const held = R(`(() => { const rows = [...P.querySelectorAll('.bp-acc-row:not(.bp-row-ghost)')], g = P.querySelector('.bp-row-ghost'), m = P.querySelector('.bp-acc-row.is-moving'), top = (e) => Math.round(e.getBoundingClientRect().top); return { slot: rows.map(top).sort((a, b) => a - b).indexOf(top(m)), fade: getComputedStyle(m).opacity, ghost: !!g && getComputedStyle(g).opacity === '1' && getComputedStyle(g).boxShadow === 'none', canvas: [...root.querySelectorAll('.accordion-item__title')].map((e) => e.textContent.trim())[0], gdy: g ? g.getBoundingClientRect().top - ${row0} : null }; })()`);
+add('Grip held: faded row in its new slot, plain copy follows', held.slot === 2 && held.fade === '0.4' && held.ghost && near(held.gdy, 129) && held.canvas === 'Accordion Item 1', JSON.stringify(held));
 mouse(S, 'up', grip[0], grip[1] + 129); await pause(400);
+add('Grip: no copy left after release', !R(`!!P.querySelector('.bp-row-ghost')`));
 add('Grip: first below third', JSON.stringify(titles()) === JSON.stringify(['Accordion Item 2', 'Accordion Item 3', 'Accordion Item 1']), JSON.stringify(titles()));
 add('The list follows', JSON.stringify(R(`[...P.querySelectorAll('.bp-acc-name')].map((e) => e.textContent)`)) === JSON.stringify(titles()));
 await undo();
 add('Grip is one undo step', JSON.stringify(titles()) === JSON.stringify(['Accordion Item 1', 'Accordion Item 2', 'Accordion Item 3']), JSON.stringify(titles()));
+
+// A title typed, then Escape with no Tab (CAP-T12READS-H.json): the text stays, the item closes, and one undo takes back both.
+const accRows = () => R(`(() => { const a = ${M}.layout.desktop.area; return [a[2] - a[0], ${M}.items[0].title]; })()`);
+const rows0 = accRows();
+await tab('Content'); await press(`P.querySelector('.bp-acc-name')`); await press(`P.querySelector('[data-content="accTitle"]')`);
+cdp(S, { op: 'press', key: 'Meta+a' }); for (const c of 'A rather long new title for this first accordion item, to run onto more lines than before') cdp(S, { op: 'press', key: c === ' ' ? 'Space' : c });
+await pause(250); cdp(S, { op: 'press', key: 'Escape' }); await pause(450);
+const escd = accRows(); await undo(); const undone = accRows();
+add('Escape keeps a typed title; one undo takes it and the rows back', escd[1].startsWith('A rather long') && JSON.stringify(undone) === JSON.stringify(rows0), JSON.stringify({ rows0, escd, undone }));
 
 writeFileSync(new URL('../parity/accordion-styles-check.json', import.meta.url), `${JSON.stringify({ check: 'accordion Icon, Title, Description, Dividers, grip', pass, total, results }, null, 1)}\n`);
 console.log(`Accordion styles: ${pass} of ${total} checks match`);
