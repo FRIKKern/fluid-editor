@@ -1501,5 +1501,5 @@
     "top Exit",
     "dialog Exit"
   ],
-  "answer": "Both reads agree at every step. The DOM stays z1, z2, z3 through z3's phone move and resizes and z2's move up 3 rows. z2's resize to phone 4/2/15/10, which then shares rows 4 to 6 with z1 and row 14 with z3, turns it to z3, z2, z1: the corpus order, where z3 (phone rows 14 to 30) comes before z1 (rows 1 to 6) and they share no row. The next step moves z3 (first in the DOM) down a row, off z2, and the DOM becomes z2, z1, z3. Ours keeps z1, z2, z3 at every step: it does not reorder after these phone edits. Inferred: 65b0bd7f's saved order is one a phone edit leaves; how the phone edit sets it is not known."
+  "answer": "A rebuild, not the original: this tests the rebuild only. Both reads agree at every step. The DOM stays z1, z2, z3 through z3's phone move and resizes and z2's move up 3 rows. z2's resize to phone 4/2/15/10, which then shares rows 4 to 6 with z1 and row 14 with z3, turns it to z3, z2, z1: the corpus order, where z3 (phone rows 14 to 30) comes before z1 (rows 1 to 6) and they share no row. The next step moves z3 (first in the DOM) down a row, off z2, and the DOM becomes z2, z1, z3. Ours keeps z1, z2, z3 at every step: it does not reorder after these phone edits. Inferred: 65b0bd7f's saved order is one a phone edit leaves; how the phone edit sets it is not known."
 }
