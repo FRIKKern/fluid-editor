@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 25 changes
-  - X2: CAP-X2W39 stands as read, labelled overlapped with chrome (lead's ruling); ours 6 of 17 ([#562](https://github.com/FRIKKern/fluid-editor/pull/562))
-  - P3: with the flat and gutter marks both on, S, M or L keep their own padding (CAP-P3FG, read facts) ([#566](https://github.com/FRIKKern/fluid-editor/pull/566))
+- **Today** · 28 changes
+  - A2: rule R, a resized block goes ahead of what it overlaps (6 of 6 fresh) ([#570](https://github.com/FRIKKern/fluid-editor/pull/570))
+  - T12: coverage-check list stored again (stale since #449; 696 rows moved, each explained) ([#569](https://github.com/FRIKKern/fluid-editor/pull/569))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
