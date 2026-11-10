@@ -14,7 +14,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
+import { phoneOrder, resizedAhead, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
@@ -121,11 +121,14 @@ function followPhoneRows(before) {
     const was = old.sections.find((o) => o.id === s.id);
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     // The first phone edit of a section that still follows desktop keeps the DOM order, even when a block moves
-    // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A second edit sorts again (e8 is not built).
+    // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A later edit follows rule R or sorts again.
     const first = bp === 'mobile' && was.phoneFollows === true && !was.phoneEdited;
     const reflowed = phoneFollowsMove(s, was);
     if (first && s.phoneEdited) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
-    const next = phoneOrder(s.blocks);
+    // Rule R (fitted on CAP-A2SECONDEDIT; predictions first, CAP-A2RESIZEAHEAD-PREDICTED.json: 6 of 6 fresh, two reads each):
+    // on a later phone edit, a block resized on the phone goes to its row's place, then ahead of the first block it overlaps.
+    // Misses seen corpus rebuild reads (CAP-A2CORPUS1STEPS s5, CAP-A2CORPUS2 p1).
+    const next = (bp === 'mobile' && s.phoneFollows != null && resizedAhead(s.blocks, was.blocks)) || phoneOrder(s.blocks);
     if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
     if (softening) continue; // The text stays open, in its place in the page; the close draws this
@@ -154,6 +157,7 @@ function phoneFollowsMove(s, was) {
   closeUp(s, gone);
   if (bp === 'mobile') {
     if (!gone.length && changed('mobile', (a) => a)) s.phoneEdited = true;
+    if (!gone.length) for (const [b, o] of same) { const n = b.layout.mobile.area, p = o.layout.mobile.area; if (n[2] - n[0] !== p[2] - p[0] || n[3] - n[1] !== p[3] - p[1]) b.phoneResized = true; }
     // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
     if (!gone.length && s.phoneFollows !== false) {
       const moved = changed('mobile', (a) => a.slice(0, 2));
@@ -615,10 +619,11 @@ toolbar.addEventListener('click', (e) => {
     openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }, null, true); return;
   }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
-  // on screen, and opens the popover; one undo step.
+  // on screen, and opens the popover; one undo step. After Remove Pin it pins again where the pin was,
+  // each option's offset kept (CAP-U4UNPIN.json, CAP-U4REPIN.json: Center 3vh back on Center, Top 5vh back on Top).
   if (act === 'pin') {
     if (!pinPop.hidden) { pinPop.hidden = true; return; } // A second click closes it and leaves the pin.
-    if (!lay(b).sticky) { const before = JSON.stringify(model); lay(b).sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
+    if (!lay(b).sticky) { const before = JSON.stringify(model); lay(b).sticky = lay(b).unpinned || { anchor: 'top', offset: 0 }; delete lay(b).unpinned; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
     openPin(sid, bid);
     return;
   }
@@ -1371,6 +1376,15 @@ function updateMove(e) {
   if (dx !== 0 && solo && bp !== 'mobile' && (bw === 6 || bw === 9) && bl + bw === m.colStart.length + 1) {
     const M = m.cols[m.cols.length - 1], n = bw - 1 + Math.round(M / colPitch), end = bl + bw;
     if (M >= colPitch) nb = Math.min(nb, dx > 0 ? end - (bw - 1 + Math.ceil((M - 12) / colPitch)) : dx > -(M / 2 + 5) ? end - n - 2 : end - n - 1);
+  }
+  // X2 read facts, not a rule (T is frozen): a lone 3 wide on the right margin track, read only at 1600 (M 89.125; CAP-X2T9.json
+  // w3 rows8, R1 and R2 agree on 18 moves). A move right goes to 23; left, from the first pixel to -48 it is on 21, from -54 to
+  // -139 on 22, then the mirror about 6px sooner than the table, and line 1 (not the table's 2) once its left edge passes the
+  // left margin's middle (-1347; -1341 is on 2). The cuts between reads are not read: -(M / 2 + 5) between -48 and -54, and
+  // the 6px shift fits every read (6 to 13 do; the true shift is not read). Other frame widths keep the table.
+  if (dx !== 0 && solo && bp !== 'mobile' && bw === 3 && bl + bw === m.colStart.length + 1 && Math.abs(m.cols[m.cols.length - 1] - 89.125) < 0.5) {
+    const end = bl + bw, s = dx - 6;
+    nb = dx > 0 ? end - 4 : dx > -(m.cols[m.cols.length - 1] / 2 + 5) ? end - 6 : leftEdgeOut(m, bl, dx) ? 1 : Math.min(end - 5, snapColumn(m, end, s, 2 + bw, cMax + bw) - bw);
   }
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
@@ -6873,14 +6887,15 @@ function setPin(change, label) {
   change(lay(b));
   renderSectionDom(pinPop.dataset.sid);
   commit(before, label);
-  openPin(pinPop.dataset.sid, pinPop.dataset.bid);
+  if (lay(b).sticky) openPin(pinPop.dataset.sid, pinPop.dataset.bid);
+  else pinPop.hidden = true; // Remove Pin closes the popover (CAP-U4PINTO.json, CAP-U4UNPIN.json: no Offset field, both reads).
 }
 pinPop.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
 pinPop.addEventListener('click', (e) => {
   const o = e.target.closest('[data-pin]');
   if (!o) return;
   const k = o.dataset.pin;
-  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+  setPin((L) => { if (k === 'remove') { L.unpinned = L.sticky; delete L.sticky; } else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
 // The field wants a number and a unit, exactly so: anything else stays as typed until the field is
 // left, then goes back. No limit on the number; the slider only shows what fits its range.

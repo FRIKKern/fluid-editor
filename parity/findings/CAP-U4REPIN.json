@@ -1,0 +1,1016 @@
+{
+  "item": "CAP-U4REPIN",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T10:20:30.164Z",
+  "predictions": {
+    "file": "CAP-U4REPIN-PREDICTED.json",
+    "commit": "7b07c4b366c80b2b66b06571f1fc0cc2ef4c26f4",
+    "committedAt": "2026-11-10T11:00:31+01:00",
+    "sha256": "b35f09c888353d76fec298ae2600d292c4040ce1a060c68ec5f5d02aedb50e17"
+  },
+  "engine": "chrome",
+  "question": "U4 which option the toolbar's Pin goes back to after Remove Pin (predictions pushed first, CAP-U4REPIN-PREDICTED.json): Top 5vh, Center 3vh, Remove Pin, Pin again (A); Top, Remove Pin, Pin again (B). Radios read. Blocks Probe, built twice, Exit Without Saving between. Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "fillValue",
+      "0px",
+      "5vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Center on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "fillValue",
+      "0px",
+      "3vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Remove Pin\"])"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R pinned again A",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Top on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "R top before remove B",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Remove Pin\"])"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R pinned again B",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "fillValue",
+      "0px",
+      "5vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Center on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "fillValue",
+      "0px",
+      "3vh"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Remove Pin\"])"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R pinned again A again",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Pin to Top on Scroll\"])"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "read",
+      "R top before remove B again",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "pressEl",
+      "label:has(input[aria-label=\"Remove Pin\"])"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R pinned again B again",
+      {
+        "radios": true,
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R pinned again A": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          false
+        ],
+        [
+          "Pin to Center on Scroll",
+          true
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "3vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "3",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R top before remove B": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          true
+        ],
+        [
+          "Pin to Center on Scroll",
+          false
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            445.4,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            478.4,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R pinned again B": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          true
+        ],
+        [
+          "Pin to Center on Scroll",
+          false
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R pinned again A again": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          false
+        ],
+        [
+          "Pin to Center on Scroll",
+          true
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "3vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "3",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R top before remove B again": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          true
+        ],
+        [
+          "Pin to Center on Scroll",
+          false
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            445.4,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            478.4,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R pinned again B again": {
+      "radios": [
+        [
+          "Pin to Top on Scroll",
+          true
+        ],
+        [
+          "Pin to Center on Scroll",
+          false
+        ],
+        [
+          "Pin to Bottom on Scroll",
+          false
+        ],
+        [
+          "Remove Pin",
+          false
+        ]
+      ],
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5vh",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            217.4,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "5",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            70.9,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

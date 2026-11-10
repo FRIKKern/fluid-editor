@@ -1,0 +1,19 @@
+{
+  "item": "U4",
+  "question": "U4, which option the toolbar's Pin goes back to after Remove Pin. CAP-U4UNPIN.json read the kept offsets surviving Remove Pin (Center 3vh, Top 5vh, both reads) and Pin again showing 3vh, but no radio was read. Predictions pushed first.",
+  "setup": "Blocks Probe, unsaved: a new section with a Shape, selected, Pin pressed (Top), Offset 5vh, Pin to Center, Offset 3vh, Remove Pin, Pin again (read A), then Pin to Top, Remove Pin, Pin again (read B). Window 1600 by 1000. Built twice in this capture, Exit Without Saving between. Named presses only; no clipboard. Reads: radios and the Offset field.",
+  "rules": {
+    "last": "Pin again goes back to the option the pin had when it was removed, with that option's kept offset.",
+    "top": "Rival: Pin again always pins to Top; Top shows its kept 5vh."
+  },
+  "bet": "last",
+  "predictions": [
+    { "case": "A after Center", "predict": "Pin to Center on Scroll checked, Offset 3vh." },
+    { "case": "B after Top", "predict": "Pin to Top on Scroll checked, Offset 5vh." }
+  ],
+  "scoring": "The checked radio and the Offset value, each case only if its two reads agree.",
+  "cases": {
+    "A after Center": ["R pinned again A", "R pinned again A again"],
+    "B after Top": ["R pinned again B", "R pinned again B again"]
+  }
+}

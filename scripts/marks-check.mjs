@@ -3079,6 +3079,15 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       if (Math.abs(want - R1[k].tiles.box[1]) > 1.5) offs1.push([k, want, R1[k].tiles.box[1]]);
     }
     add('View Layouts opens by rule O below the first section: 3 of 3 refit 1 reads', offs1.length === 0, JSON.stringify(offs1));
+    // A short first section (562 tall, by Edit Section's S) opens by U9's opening alone, its hang-out included, at H 900 and
+    // 1000, at the top and scrolled 60 (CAP-U10SHORT.json, predictions pushed first): keeping to the band would give 34 less.
+    const RS = read('CAP-U10SHORT'), offsS = [];
+    for (const k of Object.keys(RS).filter((k) => !/again$/.test(k))) {
+      const p = RS[k].panelBox, H = +k.match(/H(\d+)/)[1];
+      const want = Math.round(panelTopU9({ edit: p.edit, H, secTop: p.secTop, secBottom: p.secTop + p.secH }));
+      if (Math.abs(want - RS[k].tiles.box[1]) > 1.5) offsS.push([k, want, RS[k].tiles.box[1]]);
+    }
+    add('View Layouts on a short first section opens by U9 alone: 4 of 4 reads', offsS.length === 0 && Object.keys(RS).length === 8, JSON.stringify(offsS));
     const R2 = read('CAP-U10BAND2');
     await setup({ more: 5, second: true }); viewport(S, 1600, 900); await pause(500);
     const secAt = () => js(`const f = document.getElementById('site-frame'), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([f.getBoundingClientRect().top + q.top + f.contentWindow.scrollY, f.getBoundingClientRect().top + q.top]);`);

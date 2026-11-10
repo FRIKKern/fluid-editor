@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 26 changes
-  - T15: Edit opens on the tab its block type last showed ([#567](https://github.com/FRIKKern/fluid-editor/pull/567))
-  - X2: CAP-X2W39 stands as read, labelled overlapped with chrome (lead's ruling); ours 6 of 17 ([#562](https://github.com/FRIKKern/fluid-editor/pull/562))
+- **Today** · 31 changes
+  - X2: 3 wide at the right edge, read facts at 1600 (CAP-X2T9 w3, 18 of 18; old code 6), unscored ([#568](https://github.com/FRIKKern/fluid-editor/pull/568))
+  - U4: Remove Pin closes and keeps the pin; Pin puts it back (CAP-U4UNPIN, CAP-U4REPIN) ([#572](https://github.com/FRIKKern/fluid-editor/pull/572))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed

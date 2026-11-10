@@ -308,10 +308,9 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
     }
   }
   // Refit 2, the last (CAP-X2T9.json, R2 agrees on every ring): 9 wide at 1600, 6 wide at 1545 and 1672, a 9 wide one line in from
-  // the edge at 1760 (the setup drag stopped there, as ours does: the plain move rule), and a 3 wide on rows 8 to 14, which T leaves alone.
+  // the edge at 1760 (the setup drag stopped there, as ours does: the plain move rule), and a 3 wide on rows 8 to 14, built as read facts at 1600.
   const F9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X2T9.json', import.meta.url))).reads;
-  const w3 = 'X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)';
-  const miss9 = { 'R1 w6 1545 -1': 'refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21', 'R1 w6 1545 -20': 'refit 2: as at -1', ...Object.fromEntries(['1', '-1', '-20', '-48', '-54', '-133', '-191', '-250', '-660', '-1249', '-1341', '-1347'].map((d) => [`R1 w3 rows8 ${d}`, w3])) };
+  const miss9 = { 'R1 w6 1545 -1': 'refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21', 'R1 w6 1545 -20': 'refit 2: as at -1' };
   for (const tag of ['w9 1600', 'w9 1760', 'w6 1545', 'w6 1672', 'w3 rows8']) {
     viewport(S, tag === 'w3 rows8' ? 1600 : Number(tag.split(' ')[1]), 945); await pause(250);
     const at = F9[`R1 ${tag} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F9).filter(([k, v]) => k.startsWith(`R1 ${tag} `) && v.ring !== undefined);

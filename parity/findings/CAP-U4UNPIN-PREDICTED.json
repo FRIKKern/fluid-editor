@@ -1,0 +1,63 @@
+{
+  "item": "U4",
+  "question": "U4, the named gap 'whether the kept offsets survive Remove Pin, which closes the popover (not read)'. Each Pin option keeps its own Offset (CAP-U4PINTO2.json). After Top 5vh and Center 3vh, Remove Pin, then the toolbar's Pin again: does each option still hold its offset? Predictions pushed first.",
+  "setup": "A probe page, unsaved: a new section with a Shape, selected, Pin pressed (pins to top, opens the popover), Offset 5vh typed, Pin to Center, Offset 3vh typed, Remove Pin, then the toolbar's Pin again, then Center, then Top. Window 1600 by 1000. The run built twice in this capture, Exit Without Saving between. Named presses only; no clipboard.",
+  "rules": {
+    "forget": "Ours: Remove Pin drops the pin and every kept offset; Pin again starts at Top 0px, Center 0px.",
+    "keep": "Rival: the kept offsets survive: Pin again shows Top 5vh, Center 3vh."
+  },
+  "bet": "forget (ours)",
+  "predictions": [
+    {
+      "case": "top 5vh",
+      "predict": "Offset 5vh (control, as CAP-U4PINTO2)."
+    },
+    {
+      "case": "center 3vh",
+      "predict": "Offset 3vh (control)."
+    },
+    {
+      "case": "removed",
+      "predict": "The popover closes: no Offset field (as CAP-U4PINTO)."
+    },
+    {
+      "case": "pinned again",
+      "predict": "Popover open at Top, Offset 0px."
+    },
+    {
+      "case": "center again",
+      "predict": "Offset 0px."
+    },
+    {
+      "case": "top again",
+      "predict": "Offset 0px."
+    }
+  ],
+  "scoring": "The Offset field's value and the slider's, each case only if its two reads agree.",
+  "cases": {
+    "top 5vh": [
+      "U top 5vh",
+      "U top 5vh again"
+    ],
+    "center 3vh": [
+      "U center 3vh",
+      "U center 3vh again"
+    ],
+    "removed": [
+      "U removed",
+      "U removed again"
+    ],
+    "pinned again": [
+      "U pinned again",
+      "U pinned again again"
+    ],
+    "center again": [
+      "U center again",
+      "U center again again"
+    ],
+    "top again": [
+      "U top again",
+      "U top again again"
+    ]
+  }
+}
