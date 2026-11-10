@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 27 changes
+- **Today** · 28 changes
+  - A2: rule R, a resized block goes ahead of what it overlaps (6 of 6 fresh) ([#570](https://github.com/FRIKKern/fluid-editor/pull/570))
   - T12: coverage-check list stored again (stale since #449; 696 rows moved, each explained) ([#569](https://github.com/FRIKKern/fluid-editor/pull/569))
-  - T15: Edit opens on the tab its block type last showed ([#567](https://github.com/FRIKKern/fluid-editor/pull/567))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
