@@ -1995,7 +1995,7 @@ function renderBlockPanel() {
 // height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
 const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
 // Edit gives the first control that takes input the focus, with its ring (CAP-T12PALETTES.json: Chart Type on Chart, read
-// once; the others inferred). A row that redraws the dialog keeps the focus on its own control.
+// once; CAP-T12DIALOGFOCUS4.json: SoundCloud, Bandsintown and Flickr, rows out under 0005 that still take it, read twice). A row that redraws the dialog keeps the focus on its own control.
 const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]:not([disabled]), .dl-row textarea:not([disabled])';
 function renderDialog(b) {
   const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;

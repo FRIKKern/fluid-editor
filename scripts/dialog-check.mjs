@@ -222,7 +222,8 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
 }
 {
   await fresh('Bandsintown');
-  const off = q(`return JSON.stringify([...dl.querySelectorAll('.dl-row.is-out')].map((r) => [r.querySelector('input,select,button')?.disabled, getComputedStyle(r).opacity]));`);
+  // Still: disabled, or read only where the row takes the focus (Band Name, CAP-T12DIALOGFOCUS4.json).
+  const off = q(`return JSON.stringify([...dl.querySelectorAll('.dl-row.is-out')].map((r) => { const c = r.querySelector('input,select,button'); return [!!(c?.disabled || c?.readOnly), getComputedStyle(r).opacity]; }));`);
   add('Bandsintown: Band Name and Timeframe out (0005), faded and still', off.length === 2 && off.every(([dis, o]) => dis && Number(o) < 1), JSON.stringify(off));
 }
 
@@ -238,6 +239,20 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   p = at('dlg-other'); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(300);
   const now = state(id);
   add('A dialog open, a press on another block: it closes, no block selected', was.open && was.sel === id && !now.open && now.sel === null, JSON.stringify([was.open, was.sel, now.open, now.sel]));
+}
+{
+  // What Edit focuses (CAP-T12DIALOGFOCUS4.json, read twice): SoundCloud's and Bandsintown's fields and Flickr's account menu take it, though they're
+  // out under 0005; Instagram, Page Link and RSS focus nothing. Boxes against the dialog's (CAP-DIALOGS.json), within 1px.
+  const F = read('CAP-T12DIALOGFOCUS4.json').reads, got = [], bad = [];
+  for (const name of ['SoundCloud', 'Bandsintown', 'Flickr', 'Instagram', 'Page Link', 'RSS']) {
+    await fresh(name);
+    const a = q(`const a = document.activeElement; if (!a || !dl.contains(a)) return 'null'; const b = a.getBoundingClientRect(), o = dl.getBoundingClientRect(); return JSON.stringify({ tag: a.tagName.toLowerCase(), box: [b.left - o.left, b.top - o.top, b.width, b.height].map((v) => Math.round(v)) });`);
+    const w = F[`1 ${name}`].focused, o = D.dialogs[name].box;
+    const ok = w ? a?.tag === w.tag && near(a.box, [w.box[0] - o[0], w.box[1] - o[1], w.box[2], w.box[3]], 1) : a === null;
+    got.push(`${name} ${a ? `${a.tag} ${a.box}` : 'none'}`);
+    if (!ok) bad.push(name);
+  }
+  add('Edit focuses SoundCloud, Bandsintown, Flickr rows; not Instagram, Page Link, RSS', bad.length === 0, `${bad.join(', ')}: ${got.join('; ')}`);
 }
 {
   // Chart's rows (CAP-ROWSCHART.json changes, CAP-T12CHARTLOOK.json boxes), in the read order: Title, Caption, Show Legend,

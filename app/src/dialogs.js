@@ -34,9 +34,11 @@ const galleryDesign = (title) => {
     { k: 'check', y: 607.7 + d, key: 'galNewWindow', text: 'Open Links in New Window', help: 'Images with links will open in a new window.' },
   ];
 };
-const account = (top) => [
+// focus: a row out under 0005 that still takes the focus after Edit on the oracle (CAP-T12DIALOGFOCUS4.json): Flickr's account
+// menu, SoundCloud's and Bandsintown's fields. Instagram's account menu does not. It stays faded and changes nothing.
+const account = (top, focus = false) => [
   { k: 'label', y: top, text: 'Connected Account' },
-  { k: 'select', y: top + 22, options: ['Choose an account', 'Add an account'], out: true },
+  { k: 'select', y: top + 22, options: ['Choose an account', 'Add an account'], out: true, focus },
   { k: 'slider', y: top + 88, value: 10, min: 1, max: 20, unit: 'Items', out: true },
 ];
 const CHART_CSV = [['Label', 'Population'], ['New York', '150'], ['Las Vegas', '250'], ['San Francisco', '150']];
@@ -79,7 +81,7 @@ export const DIALOGS = {
       Design: galleryDesign(false),
     },
   },
-  Flickr: { title: 'Grid', w: 395, h: 498, dx: -4.4, top: 182, tabs: ['Account', 'Design'], rows: { Account: account(100), Design: galleryDesign(true) } },
+  Flickr: { title: 'Grid', w: 395, h: 498, dx: -4.4, top: 182, tabs: ['Account', 'Design'], rows: { Account: account(100, true), Design: galleryDesign(true) } },
   'Tag Cloud': {
     title: 'Tag Cloud', w: 300, h: 495, dx: -3.4, top: 181,
     rows: [
@@ -152,7 +154,7 @@ export const DIALOGS = {
   SoundCloud: {
     title: 'Edit SoundCloud Embed', w: 470, h: 191, dx: -5.4, top: 186,
     rows: [
-      { k: 'field', y: 67, placeholder: 'Enter a SoundCloud URL here', code: true, out: true },
+      { k: 'field', y: 67, placeholder: 'Enter a SoundCloud URL here', code: true, out: true, focus: true },
       { k: 'help', y: 111, h: 44, html: `Paste the URL of a SoundCloud track, playlist, or profile to embed a player on the page. ${LEARN}` },
     ],
   },
@@ -161,7 +163,7 @@ export const DIALOGS = {
     rows: [
       { k: 'text', y: 66, h: 66, html: `Display tour dates from your Bandsintown profile, and allow visitors to RSVP to your shows and buy tickets through links on your site. ${LEARN}` },
       { k: 'label', y: 155, text: 'Band Name' },
-      { k: 'field', y: 177, placeholder: 'Pablo City', out: true },
+      { k: 'field', y: 177, placeholder: 'Pablo City', out: true, focus: true },
       { k: 'help', y: 221, h: 44, text: "Enter your band's name as it appears within your Bandsintown account." },
       { k: 'label', y: 287, text: 'Timeframe to Show' },
       { k: 'select', y: 309, options: ['Upcoming', 'Date Range'], out: true },
@@ -176,7 +178,8 @@ const LAYOUT_ICONS = { Slideshow: '<rect x="2" y="2" width="28" height="16"/><re
 
 function rowHtml(r, cw, b, pages) {
   const off = r.out || r.unbuilt;
-  const dis = off ? ' disabled' : '';
+  // A row that takes the focus is not disabled: a field is read only, a menu keeps its first option (it takes no press or key but Tab).
+  const dis = !off ? '' : !r.focus ? ' disabled' : r.k === 'field' ? ' readonly aria-disabled="true" data-unbuilt' : ' aria-disabled="true" data-unbuilt onmousedown="event.preventDefault()" onkeydown="if (event.key !== \'Tab\') event.preventDefault()"';
   const cls = `dl-row dl-${r.k}${r.out ? ' is-out' : ''}${r.unbuilt ? ' is-unbuilt' : ''}`;
   const at = (y, h, x = 33, w = cw) => `style="top:${y}px;left:${x}px;width:${w}px${h != null ? `;height:${h}px` : ''}"`;
   const v = r.key ? dialogValue(b, r.key) : r.value;
