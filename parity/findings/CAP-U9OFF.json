@@ -1,0 +1,1476 @@
+{
+  "item": "CAP-U9OFF",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:23:24.772Z",
+  "predictions": {
+    "file": "CAP-U9OFF-PREDICTED.json",
+    "commit": "09b3dc990ae79646d30b8a442bbe6b0f87cd7d5f",
+    "committedAt": "2026-11-10T05:23:03+01:00",
+    "sha256": "a462bb941633482fa23cca6f8886dd18be602bf6fd279b3020706a48e9ef72a3"
+  },
+  "engine": "chrome",
+  "question": "U9 scroll-off (predictions pushed first, CAP-U9OFF-PREDICTED.json): does a scroll alone let a selected block go below the canvas (D), for a group above it (G), and for a Text being typed in (T)? Gestures Probe, each built twice in this capture, Exit Without Saving between. Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      3,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "select",
+      3,
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "D selected",
+      {
+        "block": [
+          3,
+          0
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "D below",
+      {
+        "block": [
+          3,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      3,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      3
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "select",
+      3,
+      0
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "D selected again",
+      {
+        "block": [
+          3,
+          0
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "D below again",
+      {
+        "block": [
+          3,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "G group, Button",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "G group, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      973
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "G above, Button",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "G above, Shape",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1400
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      1,
+      "Button"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "G group, Button again",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "G group, Shape again",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "frameTo",
+      973
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "G above, Button again",
+      {
+        "block": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "read",
+      "G above, Shape again",
+      {
+        "block": [
+          0,
+          1
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      900
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "T typing",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "focused": true
+      }
+    ],
+    [
+      "frameTo",
+      1100
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "T above",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      900
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "T typing again",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "focused": true
+      }
+    ],
+    [
+      "frameTo",
+      1100
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "T above again",
+      {
+        "block": [
+          0,
+          0
+        ],
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "D selected": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          200,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284629010_429",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 337.7,30.6",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,67.2",
+          "se 10x10 at 337.7,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "D below": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          2948,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284629010_429",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "D selected again": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          200,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284694365_429",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 337.7,30.6",
+          "ne 10x10 at 337.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 165.8,-6",
+          "row 10x10 at 165.8,67.2",
+          "se 10x10 at 337.7,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "D below again": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          2948,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284694365_429",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G group, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          354.3,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284776981_422",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "nw 10x10 at -7,-7"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G group, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          354.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284776981_646",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at 338.7,112.8",
+          "ne 10x10 at 338.7,-7",
+          "se 10x10 at 338.7,232.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G above, Button": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          -618.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284776981_422",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G above, Shape": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          -618.7,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284776981_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G group, Button again": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          354.3,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284873082_422",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "nw 10x10 at -7,-7"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G group, Shape again": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          354.3,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284873082_646",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at 338.7,112.8",
+          "ne 10x10 at 338.7,-7",
+          "se 10x10 at 338.7,232.6"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G above, Button again": {
+      "block": {
+        "desktop": "1/2/3/8",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          -618.7,
+          341.7,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284873082_422",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 8",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G above, Shape again": {
+      "block": {
+        "desktop": "1/14/7/20",
+        "mobile": "3/2/9/10",
+        "box": [
+          805.5,
+          -618.7,
+          341.7,
+          235.6
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284873082_646",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "2",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 14 / 7 / 20",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T typing": {
+      "focused": {
+        "tag": "div",
+        "label": "Block Editor Form",
+        "box": [
+          578,
+          301,
+          320,
+          500
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "rgba(0, 0, 0, 0.12) 0px 16px 64px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284956250_429",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 455.3,30.6",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,67.2",
+          "se 10x10 at 455.3,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T above": {
+      "focused": null,
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          -855.8,
+          459.3,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794284956250_429",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 10",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T typing again": {
+      "focused": {
+        "tag": "div",
+        "label": "Block Editor Form",
+        "box": [
+          578,
+          301,
+          320,
+          500
+        ],
+        "outline": "rgb(62, 62, 62) none 3px",
+        "shadow": "rgba(0, 0, 0, 0.12) 0px 16px 64px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+        "bg": "rgb(255, 255, 255)"
+      },
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          244.2,
+          459.3,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794285024213_429",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,30.6",
+          "col 10x10 at 455.3,30.6",
+          "ne 10x10 at 455.3,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 224.6,-6",
+          "row 10x10 at 224.6,67.2",
+          "se 10x10 at 455.3,67.2",
+          "sw 10x10 at -6,67.2"
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "T above again": {
+      "focused": null,
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/3/10",
+        "box": [
+          100.1,
+          -855.8,
+          459.3,
+          71.2
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794285024213_429",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 3 / 10",
+          "flexDirection": "row"
+        },
+        "handles": []
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
