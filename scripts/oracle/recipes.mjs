@@ -1658,7 +1658,7 @@ export const RECIPES = {
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
 RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
 RECIPES['CAP-A2SHRINKB2'] = { ...RECIPES['CAP-A2SHRINKB'], question: 'A2 and R2: the second read of each CAP-A2SHRINKB case, the same steps, every case built again from a new blank section. A case scores only when both reads agree.' };
-RECIPES['CAP-X6SUMMARYFAR2'] = { page: 'Blocks Probe', question: "X6: the second read of CAP-X6SUMMARYFAR, with its steps (A far in from the east and undone, B in to 15 then far in from the east and undone, C out to 22 then far in from the west). Its named one-read parts: C keeping the pressed width's rows, and the undo after A leaving 14 rows, not 11. Undo is Meta+z; no Meta+c, x or v.", steps: [
+RECIPES['CAP-X6SUMMARYFAR2'] = { page: 'Gestures Probe', question: "X6: the second read of CAP-X6SUMMARYFAR (read on Blocks Probe), here on Gestures Probe, the page the lead gave, with its steps (A far in from the east and undone, B in to 15 then far in from the east and undone, C out to 22 then far in from the west). Its named one-read parts: C keeping the pressed width's rows, and the undo after A leaving 14 rows, not 11. Undo is Meta+z; no Meta+c, x or v.", steps: [
   ["enter"],
   ["blank"],
   ["add", 0, "Summary"],
