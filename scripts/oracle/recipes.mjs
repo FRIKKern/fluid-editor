@@ -1684,6 +1684,14 @@ export const RECIPES = {
     const run = (r) => [...one(r, 'sw', 235.12), ...one(r, 'nw', 235.12), ...one(r, 'ne', -235.12), ...one(r, 'se', -235.12)];
     return [...run('A'), ...run('B')];
   })() },
+  'CAP-R2NARROW1280': { page: 'Blocks Probe', question: "R2: does narrowing take the text's height one pointer step before the end at window 1280, as at 1600 (CAP-TEXTWIDTH2.json)? CAP-TEXTWIDTH's long Text walked 16 columns wider and 20 narrower one column (49.515625) at a time, held and let go, two runs (R1, R2) in their own edits. Predictions pushed first (CAP-R2NARROW1280-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const PASTE = "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>";
+    const R = { areas: 0, section: 0, textH: [0, 0] }, P = 49.515625;
+    const drop = (r, name, dx) => [['pick', 0, 0], ['drag', 0, 0, 'e', dx, 0], ['read', `${r} ${name} held`, R], ['press', 'Escape'], ['read', `${r} ${name} let go`, R]];
+    const run = (r) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'Start of a long text here'], ['pasteMid', 0, 'new', PASTE], ['press', 'Escape'], ['press', 'Escape'], ['read', `${r} pasted`, R],
+      ...Array.from({ length: 16 }, (_, n) => drop(r, `wider ${n + 1}`, P)).flat(), ...Array.from({ length: 20 }, (_, n) => drop(r, `narrower ${n + 1}`, -P)).flat(), ['exit']];
+    return [['toPage', 'Blocks Probe'], ['window', 1280, 1000], ...run('R1'), ...run('R2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };

@@ -1,16 +1,27 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1126,
+  "pass": 1174,
   "known": [
     "hold phone, full width -24,12",
-    "hold CAP-X2TREFIT R1 w1560 -1",
-    "hold CAP-X2TREFIT R1 w1560 -18",
-    "hold CAP-X2TREFIT R1 w1680 1",
+    "hold CAP-X2T9 R1 w6 1545 -1",
+    "hold CAP-X2T9 R1 w6 1545 -20",
+    "hold CAP-X2T9 R1 w3 rows8 1",
+    "hold CAP-X2T9 R1 w3 rows8 -1",
+    "hold CAP-X2T9 R1 w3 rows8 -20",
+    "hold CAP-X2T9 R1 w3 rows8 -48",
+    "hold CAP-X2T9 R1 w3 rows8 -54",
+    "hold CAP-X2T9 R1 w3 rows8 -133",
+    "hold CAP-X2T9 R1 w3 rows8 -191",
+    "hold CAP-X2T9 R1 w3 rows8 -250",
+    "hold CAP-X2T9 R1 w3 rows8 -660",
+    "hold CAP-X2T9 R1 w3 rows8 -1249",
+    "hold CAP-X2T9 R1 w3 rows8 -1341",
+    "hold CAP-X2T9 R1 w3 rows8 -1347",
     "R2 wider 5",
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1133,
+  "total": 1192,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -2829,17 +2840,11 @@
     },
     {
       "name": "hold CAP-X2TREFIT R1 w1560 -1",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 21 / 7 / 27"
-      ],
-      "known": "refit 1: the track is 1.18 columns, so n is 6 and it should keep 21; the oracle is on 19"
+      "diffs": []
     },
     {
       "name": "hold CAP-X2TREFIT R1 w1560 -18",
-      "diffs": [
-        "ring: oracle 1 / 19 / 7 / 25, ours 1 / 21 / 7 / 27"
-      ],
-      "known": "refit 1: as at -1, on 19"
+      "diffs": []
     },
     {
       "name": "hold CAP-X2TREFIT R1 w1560 -43",
@@ -2863,10 +2868,7 @@
     },
     {
       "name": "hold CAP-X2TREFIT R1 w1680 1",
-      "diffs": [
-        "ring: oracle 1 / 20 / 7 / 26, ours 1 / 19 / 7 / 25"
-      ],
-      "known": "refit 1: c is 8, so 19; the oracle is on 20"
+      "diffs": []
     },
     {
       "name": "hold CAP-X2TREFIT R1 w1680 -1",
@@ -2919,6 +2921,284 @@
     {
       "name": "hold CAP-X2TREFIT R1 w1760 -241",
       "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -93",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -144",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -173",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -232",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -291",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -350",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -379",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -408",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -467",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -585",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -614",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -955",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1600 -1010",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -151",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -243",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -301",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -360",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -419",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -478",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -520",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -560",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -606",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -1005",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w9 1760 -1060",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -1",
+      "diffs": [
+        "ring: oracle 1 / 21 / 7 / 27, ours 1 / 19 / 7 / 25"
+      ],
+      "known": "refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -20",
+      "diffs": [
+        "ring: oracle 1 / 21 / 7 / 27, ours 1 / 19 / 7 / 25"
+      ],
+      "known": "refit 2: as at -1"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -50",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -65",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -417",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1545 -770",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 -1",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 -40",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 -100",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 -417",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w6 1672 -770",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 1",
+      "diffs": [
+        "ring: oracle 8 / 23 / 14 / 26, ours 8 / 24 / 14 / 27"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -1",
+      "diffs": [
+        "ring: oracle 8 / 21 / 14 / 24, ours 8 / 24 / 14 / 27"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -20",
+      "diffs": [
+        "ring: oracle 8 / 21 / 14 / 24, ours 8 / 24 / 14 / 27"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -48",
+      "diffs": [
+        "ring: oracle 8 / 21 / 14 / 24, ours 8 / 24 / 14 / 27"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -54",
+      "diffs": [
+        "ring: oracle 8 / 22 / 14 / 25, ours 8 / 23 / 14 / 26"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -133",
+      "diffs": [
+        "ring: oracle 8 / 22 / 14 / 25, ours 8 / 23 / 14 / 26"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -139",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -191",
+      "diffs": [
+        "ring: oracle 8 / 21 / 14 / 24, ours 8 / 22 / 14 / 25"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -197",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -250",
+      "diffs": [
+        "ring: oracle 8 / 20 / 14 / 23, ours 8 / 21 / 14 / 24"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -256",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -660",
+      "diffs": [
+        "ring: oracle 8 / 13 / 14 / 16, ours 8 / 14 / 14 / 17"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -690",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -735",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -1249",
+      "diffs": [
+        "ring: oracle 8 / 3 / 14 / 6, ours 8 / 4 / 14 / 7"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -1255",
+      "diffs": []
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -1341",
+      "diffs": [
+        "ring: oracle 8 / 2 / 14 / 5, ours 8 / 3 / 14 / 6"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
+    },
+    {
+      "name": "hold CAP-X2T9 R1 w3 rows8 -1347",
+      "diffs": [
+        "ring: oracle 8 / 1 / 14 / 4, ours 8 / 2 / 14 / 5"
+      ],
+      "known": "X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)"
     },
     {
       "name": "hold one move and a release",
