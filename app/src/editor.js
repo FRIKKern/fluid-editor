@@ -5112,7 +5112,10 @@ function onTextInput(e) {
   // rows as the text did, so spare rows stay spare: a new block's second row, or rows added by hand
   // (CAP-TEXTPUSH.json, CAP-TEXTPUSH2.json q1 and q2, CAP-TEXTPUSH3.json r6 and r11).
   const need = contentRows(b, ed.m), rows = ed.area[2] - ed.area[0];
-  const next = need > ed.need ? Math.max(rows, need) : rows - (ed.need - need);
+  let next = need > ed.need ? Math.max(rows, need) : rows - (ed.need - need);
+  // A delete that empties the text takes the undo's rows instead: less the height lost, rounded up, so an emptied Heading 1
+  // can sit a row short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json: 30 rows to 2, 4 reads; 3 rows by the rule above).
+  if (e?.inputType?.startsWith('delete') && !ed.ce.textContent && need < ed.need) next = Math.min(next, Math.max(1, rows - Math.ceil((ed.prevHeight - textHeight(b) + ed.m.rg) / ed.m.pitch - 0.02)));
   ed.need = need;
   if (next !== rows) {
     if (S(ed.sid).blocks.includes(b)) for (const o of moveWithText(S(ed.sid), b, ed.area, next - rows)) setArea(blockEl(o.id), lay(o).area);

@@ -1,0 +1,20 @@
+{
+  "item": "T15",
+  "question": "Two inferred parts of T15, predictions pushed first (ours as built): the Edge an On Appear row from Start blank has, and what a value typed past a drag's end does on Animation's Start fields.",
+  "rule": "Start blank on On Appear: Edge Top. Typed values on Animation's fields are taken as typed, with no limit (as L6 read on Design's transform fields): Opacity 500%, Rotate 400°, Scale 900% and -50%, Offset 5,000px and -5,000px, Skew 80° and -80°.",
+  "how": "Probe page, window 1600 by 1000, a new Shape, Edit, Animation, Add a new animation, the trigger menu, On Appear, Start blank; Timing (read); Start, then each field filled with Enter: Opacity 500, Rotate 400, Scale X 900, Scale Y -50, Offset X 5000, Offset Y -5000, Skew X 80, Skew Y -80 (read). The run twice, the second after Exit Without Saving and Edit again.",
+  "predictions": {
+    "timing": "Edge: Top on (Middle and Bottom off); Ease Out, Duration 0.4s, Delay 0s, When Block, Passes Screen 0%",
+    "typed": "Opacity 500%, Rotate 400°, Scale 900% and -50%, Offset 5,000px and -5,000px, Skew 80° and -80°"
+  },
+  "cases": {
+    "timing": [
+      "1 timing",
+      "2 timing"
+    ],
+    "typed": [
+      "1 typed",
+      "2 typed"
+    ]
+  }
+}
