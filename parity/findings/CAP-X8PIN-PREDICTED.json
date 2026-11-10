@@ -1,6 +1,6 @@
 {
   "item": "X8",
-  "question": "X8, round E: does a group count a pin in the section as an overlap, as one block does (TOOLBARS.json zButtons)? Three Shapes apart on Gestures Probe as in CAP-GROUPBAR.json (z 1, 3, 2), the right one pinned (Pin, Top), groups of two and three read for Move Forward and Move Backward. Built twice, Exit Without Saving between. Nothing saved. Ours predicted first.",
+  "question": "X8, round E: does a group count a pin in the section as an overlap, as one block does (TOOLBARS.json zButtons)? Three Shapes apart on Blocks Probe as in CAP-GROUPBAR.json (z 1, 3, 2), the right one pinned (Pin, Top), groups of two and three read for Move Forward and Move Backward. Built twice, Exit Without Saving between. Nothing saved. Ours predicted first.",
   "rule": "Ours: a pin anywhere in the section (this layout) shows Move Forward and Backward on a group with at least one block outside it, as on one block; Forward off when nothing outside is above the group's top, Backward off when nothing is below its bottom. A group of every block shows 4 buttons.",
   "from": "ours on main (editor.js groupZ), read with mid-check's group bar harness, the same areas and z values",
   "predicted": {
@@ -40,7 +40,7 @@
     ],
     [
       "toPage",
-      "Gestures Probe"
+      "Blocks Probe"
     ],
     [
       "enter"
