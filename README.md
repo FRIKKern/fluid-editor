@@ -25,10 +25,11 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 43 changes
+- **Today** · 1 change
+  - Y2: the section draws its spare rows during a text edit (CAP-Y2BARROWS, rival S 3 of 5) ([#585](https://github.com/FRIKKern/fluid-editor/pull/585))
+- **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
-  - X2: top-corner line wording per the lead (between 0 and 2 px, 1 inferred; frozen count 3 of 6; phone not read) ([#583](https://github.com/FRIKKern/fluid-editor/pull/583))
-- **Yesterday** · 65 changes
+- **This week** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
