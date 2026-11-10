@@ -1,0 +1,40 @@
+{
+  "item": "T12",
+  "question": "The focus after Edit on the older dialogs not read yet (inferred from Chart, Tag Cloud and Calendar), predictions pushed first: ours as built.",
+  "rule": "Edit gives the dialog's first control that takes input the focus. Ours takes the controls out of scope under 0005 as not taking input, so on these six nothing has the focus.",
+  "how": "Probe page, window 1600 by 1000, six new sections with a SoundCloud, a Bandsintown, an Instagram, a Flickr, a Page Link and an RSS block; then each selected and Edit, the focus read. The run twice, the second after Exit Without Saving and Edit again.",
+  "predictions": {
+    "SoundCloud": "nothing focused (null)",
+    "Bandsintown": "nothing focused (null)",
+    "Instagram": "nothing focused (null)",
+    "Flickr": "nothing focused (null)",
+    "Page Link": "nothing focused (null)",
+    "RSS": "nothing focused (null)"
+  },
+  "cases": {
+    "SoundCloud": [
+      "1 SoundCloud",
+      "2 SoundCloud"
+    ],
+    "Bandsintown": [
+      "1 Bandsintown",
+      "2 Bandsintown"
+    ],
+    "Instagram": [
+      "1 Instagram",
+      "2 Instagram"
+    ],
+    "Flickr": [
+      "1 Flickr",
+      "2 Flickr"
+    ],
+    "Page Link": [
+      "1 Page Link",
+      "2 Page Link"
+    ],
+    "RSS": [
+      "1 RSS",
+      "2 RSS"
+    ]
+  }
+}
