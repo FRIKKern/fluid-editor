@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 29 changes
+- **Today** · 30 changes
+  - U4: Remove Pin closes and keeps the pin; Pin puts it back (CAP-U4UNPIN, CAP-U4REPIN) ([#572](https://github.com/FRIKKern/fluid-editor/pull/572))
   - U10: a short first section opens by U9's opening alone, read at H 900 and 1000 (4 of 4; keeping to the band 0 of 4) ([#571](https://github.com/FRIKKern/fluid-editor/pull/571))
-  - A2: rule R, a resized block goes ahead of what it overlaps (6 of 6 fresh) ([#570](https://github.com/FRIKKern/fluid-editor/pull/570))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
