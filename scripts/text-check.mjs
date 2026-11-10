@@ -5,7 +5,7 @@
 // Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab), under 2 min.
 // npm run text-check -- --full also replays every CAP-E4 file with real keys, about 7 min.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser, mouse } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
 import { takesText } from './oracle/takes-text.mjs';
@@ -184,6 +184,28 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     browser(S, 'press', 'Meta+z'); await pause(400); check(`${name} z`);
     browser(S, 'press', 'Meta+Shift+z'); await pause(400); check(`${name} y`);
     browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(300); check(`${name} left`);
+  } }
+// R2: a Button or Social Links under a new Text, from its top to its old end, moves by the growth, its size kept (only a Text
+// stretches, above), and the first Cmd+Z after the let go is the typing's, with no step for the phone order (CAP-R2ONTOP.json).
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2ONTOP.json', import.meta.url))).reads;
+  const LOREM = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore';
+  const now = () => evalJs(S, `JSON.stringify([fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/')).sort(), fe.model.sections[0].rows.desktop])`);
+  for (const [c, type] of [['b', 'Button'], ['s', 'Social Links']]) {
+    goto(S, `${BASE}/index.html`); await pause(1200);
+    evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 1); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, ${JSON.stringify(type)}, true); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
+    browser(S, 'press', 'Escape'); await pause(200);
+    // Pressed where the other block doesn't cover the Text, then Write, as on the oracle.
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelector('.fe-block[data-block-id="' + fe.model.sections[0].blocks.at(-1).id + '"]').getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width * 0.95, r.top + q.top + q.height / 2]); })()`);
+    mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400);
+    const w = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]')?.getBoundingClientRect(); return JSON.stringify(q ? [q.left + q.width / 2, q.top + q.height / 2] : null); })()`);
+    if (w) { mouse(S, 'move', w[0], w[1]); mouse(S, 'down', w[0], w[1], { buttons: 1 }); mouse(S, 'up', w[0], w[1]); await pause(250); }
+    cdp(S, { op: 'presses', keys: [...LOREM].map((k) => (k === ' ' ? 'Space' : k)) }); await pause(1300);
+    browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(300);
+    const got = [now()]; browser(S, 'press', 'Meta+z'); await pause(500); got.push(now());
+    const want = ['let go', 'undo'].map((n) => [O[`R1 ${c} ${n}`].stack.map((b) => b.desktop).sort(), O[`R1 ${c} ${n}`].section.rows]);
+    const ok = JSON.stringify(got) === JSON.stringify(want);
+    results.push({ name: `R2 ${type} under a new Text: moved at the let go, the first Cmd+Z the typing's (CAP-R2ONTOP ${c})`, ok });
+    if (!ok) console.log(`R2 ontop ${c} DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(want)}`);
   } }
 // Y2's text bar: a Cmd+Z that leaves the page too short for the frame's scroll takes the bar and the caret, the edit open, and
 // Cmd+Shift+Z brings the caret back, not the bar (CAP-Y2BAR.json); with the frame at its top the same Cmd+Z keeps both
