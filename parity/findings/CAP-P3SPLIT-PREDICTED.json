@@ -1,0 +1,298 @@
+{
+ "item": "P3",
+ "capturedAt": "2026-11-10",
+ "question": "P3 panel path: is the Edit Section panel top at 125 set by the path of heights the section passes through, or by typing key by key? Predictions pushed first; reads only, no rule fitted.",
+ "how": "Gestures Probe, new blank section, panel, Custom height by name, frame as the capture leaves it. From 110 (set at once each time), 125 is reached three ways: A set at once (fillRange); B typed key by key (fillStill: the field takes 1, then 12, then 125); C set at once to 1, then 12, then 125 (the heights B passes through, without typing). The order A, B, C runs twice in each capture; two captures (CAP-P3SPLIT-1, -2).",
+ "hypotheses": {
+  "path": "The top follows the heights the section passes through: B and C give the same top at 125, and A may differ.",
+  "typing": "Typing itself moves the panel: B differs from C."
+ },
+ "known": "Earlier runs (CAP-P3SETTLE, CAP-P3STILL, CAP-P3STILL2) put 125 at 412 or 579; fillRange gave 412, fillStill 579 once and 412 once.",
+ "cases": {
+  "A 125": [
+   "a1 125",
+   "a2 125"
+  ],
+  "B 125": [
+   "b1 125",
+   "b2 125"
+  ],
+  "C 125": [
+   "c1 125",
+   "c2 125"
+  ],
+  "start 110": [
+   "a1 110",
+   "b1 110"
+  ]
+ },
+ "steps": [
+  [
+   "toPage",
+   "Gestures Probe"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "panel",
+   0
+  ],
+  [
+   "pressNamed",
+   "Custom height"
+  ],
+  [
+   "read",
+   "custom",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "a1 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "125"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "a1 125",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "b1 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillStill",
+   "125",
+   "b1 keys"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "b1 125",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c1 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "1"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c1 1",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "12"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c1 12",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "125"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c1 125",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "a2 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "125"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "a2 125",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "b2 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillStill",
+   "125",
+   "b2 keys"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "b2 125",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "110"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c2 110",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "1"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c2 1",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "12"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c2 12",
+   {
+    "panelState": true
+   }
+  ],
+  [
+   "fillRange",
+   "125"
+  ],
+  [
+   "pause",
+   1200
+  ],
+  [
+   "read",
+   "c2 125",
+   {
+    "panelState": true
+   }
+  ]
+ ]
+}

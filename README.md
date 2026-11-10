@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes
-  - X2: CAP-X2W39 overlapped chrome's hold on Gestures Probe, unscored ([#554](https://github.com/FRIKKern/fluid-editor/pull/554))
-  - X2: 9 wide from the right margin track is not the mirror (ours 6 of 17); 3 wide not selected ([#553](https://github.com/FRIKKern/fluid-editor/pull/553))
+- **Today** · 23 changes
+  - U9: a scroll lets the selection go wholly out of the canvas: below too, a group, a Text being typed in ([#565](https://github.com/FRIKKern/fluid-editor/pull/565))
+  - X6: Summary far pulls read twice (CAP-X6SUMMARYFAR2) ([#564](https://github.com/FRIKKern/fluid-editor/pull/564))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
