@@ -1,0 +1,47 @@
+{
+  "item": "U10",
+  "question": "U10, the named gap: why a short first section opens below its band's high edge (CAP-VIEWLAYOUTS.json, 562 and 603.1 at H 1000), where every later section keeps to it (rule O, CAP-U10OPEN.json, CAP-U10OPEN2.json: window height ruled out). Only a short first section splits it. Predictions pushed first.",
+  "rules": {
+    "O1": "Built: the first section opens by U9's opening alone (sectionPanelTop, its short-section hang-out included), edit as read.",
+    "Ob": "Rival: the first section keeps to the band too, as later ones: min(U9's opening, content box bottom + 1 - 476)."
+  },
+  "bet": "O1",
+  "setup": "Round 1's build (CAP-U10OPEN.json): a new section with a Text, two more, a Text in the second. Then section 1 made short by Edit Section's S press (unsaved), Escape, the frame to 0 or 60, View Layouts opened on the first section by a real press. Window 1600 by 900 and by 1000. Each case built twice in this capture, Exit Without Saving between.",
+  "predictions": [
+    {
+      "case": "S H900 at 0",
+      "predict": "O1 on the read inputs (section top, height, content box, edit). At H 900 the short section may be under 562 tall, where U9 hang-out line is not read (extrapolated)."
+    },
+    {
+      "case": "S H900 at 60",
+      "predict": "O1 on the read inputs."
+    },
+    {
+      "case": "S H1000 at 0",
+      "predict": "O1: 176 if the section is 562 tall at top 55, as CAP-VIEWLAYOUTS (a control)."
+    },
+    {
+      "case": "S H1000 at 60",
+      "predict": "O1 on the read inputs: 116 if 562 tall at top -5."
+    }
+  ],
+  "scoring": "Within 1.5 px of each rule on the read inputs; each case only if its two reads agree. A case where O1 and Ob give the same value doesn't split them and is reported as such.",
+  "cases": {
+    "S H900 at 0": [
+      "S H900 at 0",
+      "S H900 at 0 again"
+    ],
+    "S H900 at 60": [
+      "S H900 at 60",
+      "S H900 at 60 again"
+    ],
+    "S H1000 at 0": [
+      "S H1000 at 0",
+      "S H1000 at 0 again"
+    ],
+    "S H1000 at 60": [
+      "S H1000 at 60",
+      "S H1000 at 60 again"
+    ]
+  }
+}
