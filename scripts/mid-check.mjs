@@ -883,6 +883,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
   }
+  // CAP-X2TOPLINE.json, twice each: a top corner pulled 60 out and let go 2 to 8 px above the old top is not selected. Pressed
+  // where the capture's handleDrag presses, on the block's own corner, not the handle's middle (1px above it).
+  for (const [dir, dx, up] of [['ne', 60, 2], ['ne', 60, 4], ['ne', 60, 6], ['ne', 60, 8], ['nw', -60, 4], ['nw', -60, 6]]) {
+    await load('text', '<p>Some text</p>');
+    const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="k"]').getBoundingClientRect(); return JSON.stringify([q.left + (/w/.test('${dir}') ? r.left : r.right), q.top + r.top]); })()`);
+    cdp(S, { op: 'drag', from: p, to: [p[0] + dx, p[1] - up], steps: 12, holdMs: 200 }); await pause(150);
+    const got = onSel(); groupCases.push({ name: `X2 Text ${dir} ${dx > 0 ? 'right' : 'left'} 60, ${up} up`, diffs: got === false ? [] : [`oracle selected false, ours ${got}`] });
+  }
   // A drag on a selected Text: inside its text it opens the editor and stays, under it the block moves (CAP-TEXTPRESS.json).
   for (const [name, below, moved] of [['on the text', 0, false], ['under the text', 30, true]]) {
     await load('text', '<p>Some text</p>');
