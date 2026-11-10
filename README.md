@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes
+- **Today** · 14 changes
+  - T12: phone rows that rise, read; the new rule failed, not built ([#555](https://github.com/FRIKKern/fluid-editor/pull/555))
   - X2: CAP-X2W39 overlapped chrome's hold on Gestures Probe, unscored ([#554](https://github.com/FRIKKern/fluid-editor/pull/554))
-  - X2: 9 wide from the right margin track is not the mirror (ours 6 of 17); 3 wide not selected ([#553](https://github.com/FRIKKern/fluid-editor/pull/553))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
