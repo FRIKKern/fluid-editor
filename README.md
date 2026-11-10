@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 10 changes
+- **Today** · 11 changes
+  - U9: a scroll alone lets the selected block go once it is wholly above the canvas (B1 split, 8 of 8) ([#552](https://github.com/FRIKKern/fluid-editor/pull/552))
   - U10: rule O refit 1: window height isn't why a short first section hangs out (built rule 3 of 3) ([#551](https://github.com/FRIKKern/fluid-editor/pull/551))
-  - U10: View Layouts opens no lower than its band's high edge (rule O, round 1: fresh 4 of 5) ([#550](https://github.com/FRIKKern/fluid-editor/pull/550))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
