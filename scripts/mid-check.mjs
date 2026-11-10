@@ -296,8 +296,8 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
   rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [] }); });
 }
 // Rule T refit 1 at other frame widths, the same 6 wide pressed 30% in (CAP-X2TWIDTHS.json at 1280 and 1920, CAP-X2TREFIT.json at
-// 1440, 1560, 1680 and 1760; R2 agrees on every ring). The refit's 3 fresh misses are named.
-{ const miss = { 'R1 w1560 -1': 'refit 1: the track is 1.18 columns, so n is 6 and it should keep 21; the oracle is on 19', 'R1 w1560 -18': 'refit 1: as at -1, on 19', 'R1 w1680 1': 'refit 1: c is 8, so 19; the oracle is on 20' };
+// 1440, 1560, 1680 and 1760; R2 agrees on every ring). Refit 2 fits refit 1's 3 misses.
+{ const miss = {};
   for (const file of ['CAP-X2TWIDTHS', 'CAP-X2TREFIT']) {
     const F2 = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
     for (const w of [...new Set(Object.keys(F2).map((k) => k.match(/^R1 w(\d+) /)?.[1]).filter(Boolean))]) {
@@ -306,6 +306,17 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
       const { out } = sweep({ area: '1 / 21 / 7 / 27', pre: [14, 0] }, rings.map(([, v]) => v.at));
       rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], ...(miss[k] ? { known: miss[k] } : {}) }); });
     }
+  }
+  // Refit 2, the last (CAP-X2T9.json, R2 agrees on every ring): 9 wide at 1600, 6 wide at 1545 and 1672, a 9 wide one line in from
+  // the edge at 1760 (the setup drag stopped there, as ours does: the plain move rule), and a 3 wide on rows 8 to 14, which T leaves alone.
+  const F9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X2T9.json', import.meta.url))).reads;
+  const w3 = 'X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)';
+  const miss9 = { 'R1 w6 1545 -1': 'refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21', 'R1 w6 1545 -20': 'refit 2: as at -1', ...Object.fromEntries(['1', '-1', '-20', '-48', '-54', '-133', '-191', '-250', '-660', '-1249', '-1341', '-1347'].map((d) => [`R1 w3 rows8 ${d}`, w3])) };
+  for (const tag of ['w9 1600', 'w9 1760', 'w6 1545', 'w6 1672', 'w3 rows8']) {
+    viewport(S, tag === 'w3 rows8' ? 1600 : Number(tag.split(' ')[1]), 945); await pause(250);
+    const at = F9[`R1 ${tag} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F9).filter(([k, v]) => k.startsWith(`R1 ${tag} `) && v.ring !== undefined);
+    const { out } = sweep({ area: at, pre: [14, 0], ...(tag === 'w3 rows8' ? { rowsD: 14 } : {}) }, rings.map(([, v]) => v.at));
+    rings.forEach(([k, v], i) => { groupCases.push({ name: `hold CAP-X2T9 ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], ...(miss9[k] ? { known: miss9[k] } : {}) }); });
   }
   viewport(S, F.window[0], F.window[1] + 55); await pause(250);
 }
@@ -751,6 +762,25 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     for (const [name, after] of [['f3 T3 narrower 4 held', async () => { await step(-235.12); }], ['f3 T3 narrower 4 let go', async () => { browser(S, 'press', 'Escape'); await pause(150); }]]) {
       await after(); const r = read(), w = F3[name];
       groupCases.push({ name: `R2 one row narrowed by its corner, ${name.includes('held') ? 'at the drop' : 'let go'}`, diffs: [r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
+    }
+  }
+  // The same Text pressed at each corner of its box (CAP-CORNERNARROW.json, two runs alike): at sw, nw and ne a 34px side handle
+  // is on top, at se the 10px corner; each narrowing 4 columns keeps one row at the drop and takes 2 and a section row when let go.
+  { const C = JSON.parse(readFileSync(new URL('../parity/findings/CAP-CORNERNARROW.json', import.meta.url))).reads, t3 = 'Short note about the mill road and the birch trees above it.';
+    for (const [c, dx] of [['sw', 235.12], ['nw', 235.12], ['ne', -235.12], ['se', -235.12]]) {
+      evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 7, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: '<p>${t3}</p>', layout: { desktop: { area: [1, 2, 2, 14], z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } } }] }] }); await new Promise((r) => setTimeout(r, 200)); fe.select('s', 't'); return 1; })()`); await pause(200);
+      const at = evalJs(S, `(() => { const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), d = f.contentDocument, q = d.querySelector('.fe-block[data-block-id="t"]').getBoundingClientRect(); const x = '${c}'.includes('w') ? q.left : q.right, y = '${c}'.includes('n') ? q.top : q.bottom; const e = d.elementFromPoint(x, y), r = e.getBoundingClientRect(); return JSON.stringify({ x: fr.left + x, y: fr.top + y, cursor: f.contentWindow.getComputedStyle(e).cursor, size: [Math.round(r.width), Math.round(r.height)] }); })()`);
+      const under = C[`A ${c} press`].under;
+      // Which handle: the element's own size isn't compared, the oracle's se reads 10 by 10 yet takes a press 15px off (CAP-ONEROWHANDLE.json).
+      groupCases.push({ name: `R2 one-row Text, the handle on top at its ${c} corner`, diffs: [at.cursor !== under.cursor && `oracle ${under.cursor}, ours ${at.cursor}`].filter(Boolean) });
+      mouse(S, 'move', at.x, at.y); await pause(30); mouse(S, 'down', at.x, at.y, { buttons: 1 }); await pause(30);
+      for (let n = 1; n <= 12; n++) { mouse(S, 'move', at.x + (dx * n) / 12, at.y, { buttons: 1 }); await pause(12); }
+      mouse(S, 'up', at.x + dx, at.y); await pause(200);
+      for (const when of ['held', 'let go']) {
+        if (when === 'let go') { browser(S, 'press', 'Escape'); await pause(150); }
+        const r = read(), w = C[`A ${c} narrower 4 ${when}`];
+        groupCases.push({ name: `R2 one-row Text narrowed from its ${c} corner, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: [r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
+      }
     }
   }
   // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.

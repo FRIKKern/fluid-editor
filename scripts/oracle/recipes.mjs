@@ -753,6 +753,29 @@ export const RECIPES = {
     const all = [...SETUPS.map((u) => one(u, '')), ...SETUPS.map((u) => one(u, ' again'))];
     return [['window', 1600, 1000], ['enter'], ['blank'], ...all.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2SECONDEDIT': { page: 'Gestures Probe', question: 'A2: what a second phone edit does to the DOM order (CAP-A2PHONEEDIT e8: a2 moved up 3 onto a1, then resized 4 down onto a3, gave z2, z1, z3). Read only, no rule. 2 or 3 Shapes added on desktop (all at 1/2/7/8, stacked on the phone as added), two phone edits, each setup changing one thing from f1 (e8 again): the second edit a resize that makes no chain, a move instead of a resize, the chain made by moving a3, the edits the other way round, and the first edit apart. Read: the stack before, after the first and after the second edit. Each setup built twice, the second with " again". Blocks picked by add order (a1 first). No Meta+c, x or v.', steps: (() => {
+    const P = (n) => Math.round(n * 35) + Math.sign(n);
+    const ADD = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
+    const EDIT = (k, part, rows) => [['select', 0, k], ['drag', 0, k, part, 0, P(rows)], ['press', 'Escape'], ['deselect', 0]];
+    // [tag, blocks, first edit, second edit]; each edit [block, part, phone rows].
+    const SETUPS = [
+      ['f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3', 3, ['a2', 'middle', -3], ['a2', 's', 4]],
+      ['f2 a2 up 3 onto a1, a2 resized 1 down (no chain)', 3, ['a2', 'middle', -3], ['a2', 's', 1]],
+      ['f3 a2 up 3 onto a1, a2 moved down 1 (still on a1)', 3, ['a2', 'middle', -3], ['a2', 'middle', 1]],
+      ['f4 a2 up 3 onto a1, a3 moved up 4 onto a2', 3, ['a2', 'middle', -3], ['a3', 'middle', -4]],
+      ['f5 a2 resized 1 down onto a3, a2 up 3 onto a1', 3, ['a2', 's', 1], ['a2', 'middle', -3]],
+      ['f6 a3 moved down 1 apart, a2 up 3 onto a1', 3, ['a3', 'middle', 1], ['a2', 'middle', -3]],
+      ['f7 two: a2 up 3 onto a1, a2 resized 1 down', 2, ['a2', 'middle', -3], ['a2', 's', 1]],
+    ];
+    const one = ([label, n, e1, e2], s) => {
+      const tag = label.split(' ')[0];
+      return [...[...Array(n)].flatMap(() => ADD), ['view', 'Mobile'], ['read', `${tag} before${s}`, { stack: 0 }],
+        ...EDIT(...e1), ['read', `${tag} first edit${s}`, { stack: 0 }], ...EDIT(...e2), ['read', `${label}${s}`, { stack: 0 }], ['view', 'Desktop']];
+    };
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const all = [...SETUPS.map((u) => one(u, '')), ...SETUPS.map((u) => one(u, ' again'))];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...all.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
@@ -1653,8 +1676,82 @@ export const RECIPES = {
       ['panel', 1, 0], ['pause', 700], ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -50, 16, 250, 1], ['scrollTrace', `${r} down`, 50, 30, 250, 1], ['exit']];
     return [...run('A'), ...run('B')];
   })() },
+  'CAP-CORNERNARROW': { page: 'Gestures Probe', question: "R2: CAP-TEXTWIDTH7 f3's one-row Text narrowed 4 columns, from each corner by its named handle (sw, nw, ne, and se as read), each on a new Text in its own edit, in two runs (A, B): rows at the drop and when let go. Ours applies f3's rule at every corner, inferred. No Meta+c, x or v.", steps: (() => {
+    const R = { stack: 0, section: 0, textH: [0, 0] };
+    const one = (r, c, dx) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['drag', 0, 0, 'e', 235.12, 0], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} wider 4 let go`, R],
+      ['pick', 0, 0], ['handleDrag', 0, 0, c, dx, 0, `${r} ${c} press`], ['read', `${r} ${c} narrower 4 held`, R], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} narrower 4 let go`, R], ['exit']];
+    const run = (r) => [...one(r, 'sw', 235.12), ...one(r, 'nw', 235.12), ...one(r, 'ne', -235.12), ...one(r, 'se', -235.12)];
+    return [...run('A'), ...run('B')];
+  })() },
+  'CAP-R2NARROW1280': { page: 'Blocks Probe', question: "R2: does narrowing take the text's height one pointer step before the end at window 1280, as at 1600 (CAP-TEXTWIDTH2.json)? CAP-TEXTWIDTH's long Text walked 16 columns wider and 20 narrower one column (49.515625) at a time, held and let go, two runs (R1, R2) in their own edits. Predictions pushed first (CAP-R2NARROW1280-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const PASTE = "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>";
+    const R = { areas: 0, section: 0, textH: [0, 0] }, P = 49.515625;
+    const drop = (r, name, dx) => [['pick', 0, 0], ['drag', 0, 0, 'e', dx, 0], ['read', `${r} ${name} held`, R], ['press', 'Escape'], ['read', `${r} ${name} let go`, R]];
+    const run = (r) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'Start of a long text here'], ['pasteMid', 0, 'new', PASTE], ['press', 'Escape'], ['press', 'Escape'], ['read', `${r} pasted`, R],
+      ...Array.from({ length: 16 }, (_, n) => drop(r, `wider ${n + 1}`, P)).flat(), ...Array.from({ length: 20 }, (_, n) => drop(r, `narrower ${n + 1}`, -P)).flat(), ['exit']];
+    return [['toPage', 'Blocks Probe'], ['window', 1280, 1000], ...run('R1'), ...run('R2')];
+  })() },
+  'CAP-R2LONGUNDO': { page: 'Blocks Probe', question: "R2: undo steps inside one long edit. a new Text with a Line moved under it in shared columns (CAP-TEXTPUSH5 t13's setup without the south pull, so every burst grows the Text), typed in 3 bursts in one edit, each its own step (keysFast waits 1.5 s), then Cmd+Z 3 times and Cmd+Shift+Z 3 times, still in the edit, then let go: the Text's and the Line's areas at every step, two runs (R1, R2). Predictions pushed first (CAP-R2LONGUNDO-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const W = ['the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night',
+      ' then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall',
+      ' and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter'];
+    const R = { stack: 0, section: 0, html: [0, 0] };
+    const run = (r) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0], ['read', `${r} before`, R],
+      ['pick', 0, 0], ['click', 'Write'], ...W.flatMap((w, n) => [['keysFast', w], ['read', `${r} step ${n + 1}`, R]]),
+      ...[1, 2, 3].flatMap((n) => [['press', 'Meta+z'], ['pause', 500], ['read', `${r} undo ${n}`, R]]), ...[1, 2, 3].flatMap((n) => [['press', 'Meta+Shift+z'], ['pause', 500], ['read', `${r} redo ${n}`, R]]),
+      ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', `${r} let go`, R], ['exit']];
+    return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
 RECIPES['CAP-A2SHRINKWHY2'] = { ...RECIPES['CAP-A2SHRINKWHY'], question: 'A2 and R2: the second read of each CAP-A2SHRINKWHY case, the same steps, every case built again from a new blank section. A case is built on only when both reads agree.' };
 RECIPES['CAP-A2SHRINKB2'] = { ...RECIPES['CAP-A2SHRINKB'], question: 'A2 and R2: the second read of each CAP-A2SHRINKB case, the same steps, every case built again from a new blank section. A case scores only when both reads agree.' };
+RECIPES['CAP-X6SUMMARYFAR2'] = { page: 'Gestures Probe', question: "X6: the second read of CAP-X6SUMMARYFAR (read on Blocks Probe), here on Gestures Probe, the page the lead gave, with its steps (A far in from the east and undone, B in to 15 then far in from the east and undone, C out to 22 then far in from the west). Its named one-read parts: C keeping the pressed width's rows, and the undo after A leaving 14 rows, not 11. Undo is Meta+z; no Meta+c, x or v.", steps: [
+  ["enter"],
+  ["blank"],
+  ["add", 0, "Summary"],
+  ["pause", 1200],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["read", "start", {"areas": 0, "contentH": [0, "new"]}],
+  ["drag", 0, "new", "e", -1200, 0],
+  ["pause", 400],
+  ["read", "A far in from the east", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["press", "Meta+z"],
+  ["pause", 500],
+  ["read", "back after A", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["drag", 0, "new", "w", 176.34, 0],
+  ["pause", 400],
+  ["read", "B w in to 15", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["drag", 0, "new", "e", -1200, 0],
+  ["pause", 400],
+  ["read", "B far in from the east", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["press", "Meta+z"],
+  ["pause", 500],
+  ["press", "Meta+z"],
+  ["pause", 500],
+  ["read", "back after B", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["drag", 0, "new", "e", 235.12, 0],
+  ["pause", 400],
+  ["read", "C e out to 22", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["drag", 0, "new", "w", 1200, 0],
+  ["pause", 400],
+  ["read", "C far in from the west", {"areas": 0, "contentH": [0, "new"]}],
+  ["press", "Escape"],
+  ["select", 0, "new"],
+  ["press", "Escape"],
+] };
