@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 15 changes
+- **Today** · 16 changes
+  - R2: a one-row Text narrowed from each corner, read twice (CAP-CORNERNARROW) ([#557](https://github.com/FRIKKern/fluid-editor/pull/557))
   - P3: split the panel path (neither typing nor the heights alone) ([#556](https://github.com/FRIKKern/fluid-editor/pull/556))
-  - T12: phone rows that rise, read; the new rule failed, not built ([#555](https://github.com/FRIKKern/fluid-editor/pull/555))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
