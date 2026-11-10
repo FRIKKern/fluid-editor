@@ -3067,6 +3067,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     // The one miss stays named: near the window's bottom it reads 424, rule O 422.
     add('View Layouts opens by rule O: 5 of 6 reads, the miss named', offs.length === 1 && offs[0][0] === 'H900 at 302', JSON.stringify(offs));
+    // Refit 1 (CAP-U10OPEN2.json, predictions pushed first): a second section at H 1000 keeps to the edge too, so window
+    // height isn't why a short first section hangs out below it. The first section goes by U9's opening, its edit as read.
+    const R1 = read('CAP-U10OPEN2'), offs1 = [];
+    for (const k of Object.keys(R1).filter((k) => !/again$/.test(k))) {
+      const p = R1[k].panelBox, H = +k.match(/H(\d+)/)[1], first = k.startsWith('F'), high = p.secTop + p.contentBox[0] + p.contentBox[1] + 1 - 476;
+      const opened = panelTopU9({ edit: first ? p.edit : p.secTop + 29.46, H, secTop: p.secTop, secBottom: p.secTop + p.secH });
+      const want = first ? Math.round(opened) : layoutsOpenTop({ opened, high });
+      if (Math.abs(want - R1[k].tiles.box[1]) > 1.5) offs1.push([k, want, R1[k].tiles.box[1]]);
+    }
+    add('View Layouts opens by rule O below the first section: 3 of 3 refit 1 reads', offs1.length === 0, JSON.stringify(offs1));
     const R2 = read('CAP-U10BAND2');
     await setup({ more: 5, second: true }); viewport(S, 1600, 900); await pause(500);
     const secAt = () => js(`const f = document.getElementById('site-frame'), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([f.getBoundingClientRect().top + q.top + f.contentWindow.scrollY, f.getBoundingClientRect().top + q.top]);`);
