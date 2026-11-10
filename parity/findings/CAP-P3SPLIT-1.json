@@ -1,0 +1,856 @@
+{
+  "item": "CAP-P3SPLIT-1",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:52:22.885Z",
+  "predictions": {
+    "file": "CAP-P3SPLIT-PREDICTED.json",
+    "commit": "31a0fb2d237c622c379c0d32487992d8a0bd5333",
+    "committedAt": "2026-11-10T05:52:07+01:00",
+    "sha256": "75fbc4a052879774d5854ffeb1b79721c664451407da920a3041ee0c2b858e7f"
+  },
+  "engine": "chrome",
+  "question": "P3 panel path split, run 1 of 2: 125 reached at once (A), typed (B), and at once through 1 and 12 (C), from 110; read only, no Save",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "custom",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "a1 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "a1 125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "b1 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "125",
+      "b1 keys"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "b1 125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c1 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "1"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c1 1",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "12"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c1 12",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c1 125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "a2 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "a2 125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "b2 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillStill",
+      "125",
+      "b2 keys"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "b2 125",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "110"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c2 110",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "1"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c2 1",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "12"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c2 12",
+      {
+        "panelState": true
+      }
+    ],
+    [
+      "fillRange",
+      "125"
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "c2 125",
+      {
+        "panelState": true
+      }
+    ]
+  ],
+  "reads": {
+    "custom": {
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1092,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a1 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            480,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a1 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            480,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b1 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            480,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b1 keys": {
+      "before": {
+        "fieldTop": 745,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 425,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 677,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 357,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "b1 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c1 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c1 1": {
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1092,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c1 12": {
+      "panelState": {
+        "range": true,
+        "value": "12",
+        "field": "12",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1128,
+        "sectionTop": 0,
+        "sectionH": 494.8,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c1 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            574,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a2 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            559,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "a2 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            559,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b2 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            559,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "b2 keys": {
+      "before": {
+        "fieldTop": 824,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 504,
+        "scrolled": [],
+        "pageY": 0
+      },
+      "after": {
+        "fieldTop": 677,
+        "whole": true,
+        "onTop": true,
+        "dialogTop": 357,
+        "scrolled": [],
+        "pageY": 0
+      }
+    },
+    "b2 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c2 110": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "110",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1672,
+        "sectionTop": 0,
+        "sectionH": 1039.5,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c2 1": {
+      "panelState": {
+        "range": true,
+        "value": "1",
+        "field": "1",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1092,
+        "sectionTop": 0,
+        "sectionH": 459.6,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c2 12": {
+      "panelState": {
+        "range": true,
+        "value": "12",
+        "field": "12",
+        "panel": {
+          "box": [
+            1258,
+            250,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1128,
+        "sectionTop": 0,
+        "sectionH": 494.8,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "c2 125": {
+      "panelState": {
+        "range": true,
+        "value": "100",
+        "field": "125",
+        "panel": {
+          "box": [
+            1258,
+            412,
+            320,
+            421
+          ],
+          "position": "absolute"
+        },
+        "scrollY": 0,
+        "docH": 1814,
+        "sectionTop": 0,
+        "sectionH": 1181.3,
+        "frameH": 945,
+        "active": "INPUT",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "unsteady": [
+    "A 125",
+    "C 125"
+  ],
+  "unsteadyWhy": "Within one run the pairs start from different panel tops (A: 480 then 559; C: the same 412, 250, 250 path gives 574 then 412). Both runs give the same 17 reads, so the run order repeats; the pairs are not repeats of one state."
+}
