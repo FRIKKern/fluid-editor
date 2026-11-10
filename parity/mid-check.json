@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1114,
+  "pass": 1126,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2TREFIT R1 w1560 -1",
@@ -10,7 +10,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1121,
+  "total": 1133,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4030,6 +4030,54 @@
     },
     {
       "name": "R2 one row narrowed by its corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text, the handle on top at its sw corner",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its sw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its sw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text, the handle on top at its nw corner",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its nw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its nw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text, the handle on top at its ne corner",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its ne corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its ne corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text, the handle on top at its se corner",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its se corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 one-row Text narrowed from its se corner, let go",
       "diffs": []
     },
     {
