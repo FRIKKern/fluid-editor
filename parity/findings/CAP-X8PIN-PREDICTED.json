@@ -1,0 +1,695 @@
+{
+  "item": "X8",
+  "question": "X8, round E: does a group count a pin in the section as an overlap, as one block does (TOOLBARS.json zButtons)? Three Shapes apart on Gestures Probe as in CAP-GROUPBAR.json (z 1, 3, 2), the right one pinned (Pin, Top), groups of two and three read for Move Forward and Move Backward. Built twice, Exit Without Saving between. Nothing saved. Ours predicted first.",
+  "rule": "Ours: a pin anywhere in the section (this layout) shows Move Forward and Backward on a group with at least one block outside it, as on one block; Forward off when nothing outside is above the group's top, Backward off when nothing is below its bottom. A group of every block shows 4 buttons.",
+  "from": "ours on main (editor.js groupZ), read with mid-check's group bar harness, the same areas and z values",
+  "predicted": {
+    "two apart, no pin": "Stack Blocks,Align Group,Duplicate,Remove",
+    "pin outside": "Stack Blocks,Align Group,Move Forward,Move Backward,Duplicate,Remove",
+    "pin inside": "Stack Blocks,Align Group,Move Forward,Move Backward off,Duplicate,Remove",
+    "pin inside, middle and right": "Stack Blocks,Align Group,Move Forward off,Move Backward,Duplicate,Remove",
+    "all three, pin inside": "Stack Blocks,Align Group,Duplicate,Remove"
+  },
+  "cases": {
+    "two apart, no pin": [
+      "R1 two apart, no pin",
+      "R2 two apart, no pin"
+    ],
+    "pin outside": [
+      "R1 pin outside",
+      "R2 pin outside"
+    ],
+    "pin inside": [
+      "R1 pin inside",
+      "R2 pin inside"
+    ],
+    "pin inside, middle and right": [
+      "R1 pin inside, middle and right",
+      "R2 pin inside, middle and right"
+    ],
+    "all three, pin inside": [
+      "R1 all three, pin inside",
+      "R2 all three, pin inside"
+    ]
+  },
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R1 two apart, no pin",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R1 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 pin inside, middle and right",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 all three, pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R2 two apart, no pin",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R2 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 pin inside, middle and right",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 all three, pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "capturedAt": "2026-11-10"
+}
