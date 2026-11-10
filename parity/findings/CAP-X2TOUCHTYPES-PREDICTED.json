@@ -1,0 +1,499 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-10",
+  "question": "X2: do other block types keep or lose the selection like Shape and Line when let go off a handle? A new Button and a new Quote, each pulled by its south-east corner 70, 70: by touch (held 150 ms; Shape stays selected, CAP-R2X2LAST.json T1, T2) and by the mouse (Shape is let go, HANDLEUP.json). Read twice (R1, R2). Gestures Probe, unsaved, one block per enter.",
+  "rule": "Ours as built (inferred until now): any block but a Text let go by the mouse or a pen more than 32px below its old bottom is not selected; touch keeps it selected.",
+  "from": "Ours on main: editor.js onUp, LET_GO_BELOW and the touch exception. Read facts: if both reads agree they are built as read.",
+  "hit": "Scored on the block's data-is-selected after the pull (each case's two reads must agree). A 'before' read not selected is a setup miss, named, not scored.",
+  "predicted": {
+    "Button touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Button touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Button mouse": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Button mouse before": {
+      "selected": true,
+      "setup": true
+    },
+    "Quote touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Quote touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Quote mouse": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Quote mouse before": {
+      "selected": true,
+      "setup": true
+    }
+  },
+  "cases": {
+    "Button touch": [
+      "R1 Button touch",
+      "R2 Button touch"
+    ],
+    "Button mouse": [
+      "R1 Button mouse",
+      "R2 Button mouse"
+    ],
+    "Quote touch": [
+      "R1 Quote touch",
+      "R2 Quote touch"
+    ],
+    "Quote mouse": [
+      "R1 Quote mouse",
+      "R2 Quote mouse"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Button touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Button touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Button mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R1 Button mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Quote touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Quote touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Quote mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R1 Quote mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Button touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Button touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Button mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R2 Button mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Quote touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Quote touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Quote mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R2 Quote mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ]
+}
