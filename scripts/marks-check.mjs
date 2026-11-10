@@ -652,11 +652,13 @@ const p3OpenPanel = async () => { await frameScroll(914); await hoverInSection(3
 // CAP-P3ALIGN.json first read the M presses and the history gutter: its reads compare the panel's buttons only. The flat mark
 // kept through M and the gutter a top or bottom press at M leaves on Custom are read facts (CAP-P3VERT-*, each run twice, A and
 // B alike; CAP-P3ALIGN3 had the M miss), built unscored: the frozen rule's 12 of 12 stays the count.
-for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2', 'CAP-P3ALIGN', 'CAP-P3ALIGN3', ...['VA', 'VB', 'VC'].flatMap((k) => [`CAP-P3VERT-${k}A`, `CAP-P3VERT-${k}B`])]) {
+// CAP-P3FG.json, both marks at once (predictions pushed first, 6 of 10 held, each read twice): its first build is replayed.
+for (const name of ['CAP-P3ALIGN4', 'CAP-P3ALIGN2', 'CAP-P3ALIGN', 'CAP-P3ALIGN3', ...['VA', 'VB', 'VC'].flatMap((k) => [`CAP-P3VERT-${k}A`, `CAP-P3VERT-${k}B`]), 'CAP-P3FG']) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url)));
   await fresh(); await p3OpenPanel();
   for (const l of ['M', 'Vertical center']) { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${l}"]').click(); return 'ok'; })()`); await pause(200); }
-  for (const [op, a] of F.steps.slice(F.steps.findIndex(([o]) => o === 'panel') + 1)) {
+  const from = F.steps.findIndex(([o]) => o === 'panel') + 1, to = F.steps.findIndex(([o], i) => i > from && o === 'exit');
+  for (const [op, a] of F.steps.slice(from, to < 0 ? undefined : to)) {
     if (op === 'pressNamed' && a === 'Undo') { evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300); }
     else if (op === 'pressNamed') { evalJs(S, `(() => { document.querySelector('#section-panel button[aria-label="${a}"]').click(); return 'ok'; })()`); await pause(200); }
     else if (op === 'fillRange') await hFill(a);

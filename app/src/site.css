@@ -289,11 +289,12 @@ body { position: relative; }
 /* Custom height at top or bottom (difference 103, CAP-P3ALIGN2 to 4): no gutter on the near edge, twice the padding on the far one. */
 .page-section.section-height--custom.vertical-alignment--top > .content-wrapper { padding-top: 0; }
 .page-section.section-height--custom.vertical-alignment--bottom > .content-wrapper { padding-bottom: 0; }
-/* After a top or bottom press at S, M or L, Custom's near edge keeps the 4vw gutter, flat or not (CAP-P3VERT-VA, VC). */
+/* After a top or bottom press at S, M or L, Custom's near edge keeps the 4vw gutter, flat or not (CAP-P3VERT-VA, VC;
+   flat at Custom bottom with it: 0 on top, 4vw below, CAP-P3FG.json). */
 .page-section.section-height--custom.section-pad--gutter.vertical-alignment--top > .content-wrapper { padding-top: var(--sqs-site-gutter, 4vw); }
 .page-section.section-height--custom.section-pad--gutter.vertical-alignment--bottom > .content-wrapper { padding-bottom: var(--sqs-site-gutter, 4vw); }
 /* S, M or L after a flattening press: top and bottom keep no padding, center keeps it (CAP-P3VERT-VB, CAP-P3ALIGN3).
-   Flat with the gutter at S, M or L was not read. */
+   With the gutter mark too, S, M or L keep their own padding (CAP-P3FG.json): render.js leaves the class off. */
 .page-section.section-pad--flat.vertical-alignment--top > .content-wrapper,
 .page-section.section-pad--flat.vertical-alignment--bottom > .content-wrapper { padding: 0; }
 /* An empty paragraph keeps one line, as on the oracle (22.4px for 16px text). */
