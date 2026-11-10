@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 23 changes
+- **Today** · 24 changes
+  - P3: with the flat and gutter marks both on, S, M or L keep their own padding (CAP-P3FG, read facts) ([#566](https://github.com/FRIKKern/fluid-editor/pull/566))
   - U9: a scroll lets the selection go wholly out of the canvas: below too, a group, a Text being typed in ([#565](https://github.com/FRIKKern/fluid-editor/pull/565))
-  - X6: Summary far pulls read twice (CAP-X6SUMMARYFAR2) ([#564](https://github.com/FRIKKern/fluid-editor/pull/564))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
