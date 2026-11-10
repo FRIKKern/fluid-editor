@@ -3716,9 +3716,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('a scroll alone: partly in view the block stays selected, wholly above it lets go and the next section takes the chrome', below[0] && part[0] && part[1] > 0 && !gone[0] && gone[1] < 0 && there.sid === 'u9s1' && there.outline === 'u9s1', JSON.stringify({ below, part, gone, there }));
   browser(S, 'press', 'Escape'); await pause(300);
 
-  // The same below the canvas, for a group, and for a Text being typed in, whose edit closes (CAP-U9OFF.json, read twice).
+  // The same below the canvas, for a group, and for a Text being typed in (CAP-U9OFF.json, read twice), whose edit stays open
+  // and keeps the keys, the bar gone (CAP-Y2REDOPULL2.json part S, read twice).
   await load(1600, 1400, { 0: [['u9h', 'shape', 1, 14, 6, 6], ['u9g', 'button', 1, 2, 6, 2]], 1: [['u9t', 'text', 1, 2, 8, 2]], 4: [['u9d', 'button', 1, 2, 6, 2]] });
-  const selOf = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe'), q = f.contentDocument.getElementById('block-${id}').closest('.fe-block'), r = q.getBoundingClientRect(); return JSON.stringify([q.dataset.isSelected === 'true', Math.round(r.top), Math.round(r.bottom), !!f.contentDocument.querySelector('[contenteditable="true"]')]); })()`);
+  const selOf = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe'), q = f.contentDocument.getElementById('block-${id}').closest('.fe-block'), r = q.getBoundingClientRect(); return JSON.stringify([q.dataset.isSelected === 'true', Math.round(r.top), Math.round(r.bottom), !!f.contentDocument.querySelector('[contenteditable="true"]'), document.getElementById('text-bar').hidden]); })()`);
   const docTop = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe'); return JSON.stringify(Math.round(f.contentDocument.getElementById('block-${id}').closest('.fe-block').getBoundingClientRect().top + f.contentWindow.scrollY)); })()`);
   const hit = async (id, mods = []) => { const p = at(id); mouse(S, 'move', p[0], p[1], { mods }); await pause(150); mouse(S, 'down', p[0], p[1], { buttons: 1, mods }); mouse(S, 'up', p[0], p[1], { mods }); await pause(600); };
   await scTo(docTop('u9d') - 300); await hit('u9d'); const dIn = selOf('u9d');
@@ -3727,7 +3728,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await scTo(docTop('u9h') + 236 + 383); const gOut = [selOf('u9g'), selOf('u9h')];
   await scTo(docTop('u9t') - 300); await hit('u9t'); evalJs(S, `(() => { fe.edit('u9s1', 'u9t'); return 'true'; })()`); await pause(300); const tIn = selOf('u9t');
   await scTo(docTop('u9t') + 72 + 856); const tOut = selOf('u9t');
-  add('a scroll alone lets go below the canvas, a group and a Text being typed in, its edit closed', dIn[0] && !dOut[0] && dOut[1] >= 1345 && gIn.every((x) => x[0]) && gOut.every((x) => !x[0] && x[2] <= 0) && tIn[0] && tIn[3] && !tOut[0] && !tOut[3] && tOut[2] <= 0, JSON.stringify({ dIn, dOut, gIn, gOut, tIn, tOut }));
+  add('a scroll alone lets go below the canvas, a group and a Text being typed in, its edit kept open without the bar', dIn[0] && !dOut[0] && dOut[1] >= 1345 && gIn.every((x) => x[0]) && gOut.every((x) => !x[0] && x[2] <= 0) && tIn[0] && tIn[3] && !tOut[0] && tOut[3] && tOut[4] && tOut[2] <= 0, JSON.stringify({ dIn, dOut, gIn, gOut, tIn, tOut }));
   browser(S, 'press', 'Escape'); await pause(300);
 
   // The phone panel keeps its top, and closes on the first step that puts its section's bottom above the canvas's top.
