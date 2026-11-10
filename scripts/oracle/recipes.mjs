@@ -1769,6 +1769,15 @@ export const RECIPES = {
       ['enter'], ['blank'], ...add('Text'), ['drag', 0, 'a1', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], ...add('Button'), ['select', 0, 'a2'], ['drag', 0, 'a2', 's', 0, 41], ['press', 'Escape'], ['deselect', 0], ...grow(r, 'u', 'a1')];
     return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
   })() },
+  'CAP-R2UNDOTWO': { page: 'Blocks Probe', question: "R2, from #580: on case b of CAP-R2ONTOP the oracle's second Cmd+Z after the let go removes the new Text, which #580 read as ours keeping it, and on s one run removed it while the other brought back the state before the edit. Causes, predicted first: A, as built: the add is a step and the typing one step, so the second Cmd+Z removes the Text and a third the other block (#580's replay added blocks with no undo step, so ours had nothing to undo there); T, the typing went in as two steps (a pause in the keys), so the second Cmd+Z leaves part of the words; X, one more step with no words (the press, the Write, a block loading), so the second Cmd+Z brings back the empty Text and a third removes it. CAP-R2ONTOP's b and s, each twice from a new blank section, Cmd+Z three times after the let go: both areas of each block, the section, and the Text's words. Predictions pushed first (CAP-R2UNDOTWO-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const LOREM = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore';
+    const R = { stack: 0, section: 0, htmlOf: 'main#page .sqs-html-content' };
+    const add = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const run = (r, c, type) => [['enter'], ['blank'], ...add(type), ...add('Text'), ['read', `${r} ${c} before`, R], ['pick', 0, 'a2'], ['click', 'Write'], ['keysFast', LOREM], ['read', `${r} ${c} typed`, R],
+      ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} let go`, R],
+      ['press', 'Meta+z'], ['pause', 500], ['read', `${r} ${c} undo`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} ${c} undo 2`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} ${c} undo 3`, R], ['exit']];
+    return [['toPage', 'Blocks Probe'], ['window', 1600, 1000], ...run('P1', 'b', 'Button'), ...run('P1', 's', 'Social Links'), ...run('P2', 'b', 'Button'), ...run('P2', 's', 'Social Links')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };

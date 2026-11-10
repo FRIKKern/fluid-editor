@@ -1,0 +1,216 @@
+{
+ "item": "CAP-R2UNDOTWO-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "R2, predicted before the read of CAP-R2UNDOTWO (Blocks Probe): CAP-R2ONTOP's b (a new Button 1/2/3/8 under a new Text) and s (a new Social Links 1/2/3/6), the Text typed into and let go, then Cmd+Z three times: what does each Cmd+Z take?",
+ "rule": "As built (A): the two adds are a step each and the typing one, so the first Cmd+Z is the typing's (the Text to 1 row, the other block just under it, 9 rows), the second removes the Text (the other back at its place, 8 rows) and the third the other block (no blocks). #580 read ours as keeping the Text at the second: its replay added blocks with no undo step, and replayed so (adds kept off the list), ours keeps the Text through the second and third Cmd+Z, which is that miss. Rival T: the typing went in as two steps (a pause in the keys), so the first Cmd+Z leaves part of the words, the second brings back the state before the edit and the third removes the Text. Rival X: one more step with no words between the add and the typing, so the first Cmd+Z leaves no words, as A, the second Cmd+Z brings back the state before the edit (the empty Text 1/2/3/10, the other block at its place, as CAP-R2ONTOP R2 s undo 2) and the third removes the Text.",
+ "from": "Ours replayed with the recipe's steps by real mouse and keys at 1600 (a scratch replay of oracle steps: fe.addBlock with its undo step, as ours' Add Block menu, real presses on the Text and on Write, the words by CDP key presses), both runs alike; and once with the adds kept off the undo list, as #580's replay.",
+ "hit": "text and other (desktop areas, from the stack read; null when gone) and sectionRows (drawn) equal; words is the Text's word count (null when gone); phone areas shown.",
+ "predicted": {
+  "b before": {
+   "text": "1/2/3/10",
+   "textPhone": "1/2/3/10",
+   "other": "1/2/3/8",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 8,
+   "words": 0
+  },
+  "b typed": {
+   "text": "1/2/5/10",
+   "textPhone": "1/2/3/10",
+   "other": "3/2/5/8",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 10,
+   "words": 48
+  },
+  "b let go": {
+   "text": "1/2/5/10",
+   "textPhone": "1/2/3/10",
+   "other": "3/2/5/8",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 10,
+   "words": 48
+  },
+  "b undo": {
+   "text": "1/2/2/10",
+   "textPhone": "1/2/3/10",
+   "other": "2/2/4/8",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 9,
+   "words": 0,
+   "rivalT": {
+    "words": "between 1 and 47",
+    "note": "the typing's second part undone, its first part left"
+   }
+  },
+  "b undo 2": {
+   "text": null,
+   "textPhone": null,
+   "other": "1/2/3/8",
+   "otherPhone": "1/2/3/10",
+   "sectionRows": 8,
+   "words": null,
+   "rivalT": {
+    "text": "1/2/3/10",
+    "other": "1/2/3/8",
+    "sectionRows": 8,
+    "words": 0,
+    "note": "the state before the edit"
+   },
+   "rivalX": {
+    "text": "1/2/3/10",
+    "other": "1/2/3/8",
+    "sectionRows": 8,
+    "words": 0,
+    "note": "the state before the edit, as CAP-R2ONTOP R2 s undo 2"
+   }
+  },
+  "b undo 3": {
+   "text": null,
+   "textPhone": null,
+   "other": null,
+   "otherPhone": null,
+   "sectionRows": 8,
+   "words": null,
+   "rivalT": {
+    "text": null,
+    "other": "1/2/3/8",
+    "sectionRows": 8,
+    "note": "the Text removed"
+   },
+   "rivalX": {
+    "text": null,
+    "other": "1/2/3/8",
+    "sectionRows": 8,
+    "note": "the Text removed"
+   }
+  },
+  "s before": {
+   "text": "1/2/3/10",
+   "textPhone": "1/2/3/10",
+   "other": "1/2/3/6",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 8,
+   "words": 0
+  },
+  "s typed": {
+   "text": "1/2/5/10",
+   "textPhone": "1/2/3/10",
+   "other": "3/2/5/6",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 10,
+   "words": 48
+  },
+  "s let go": {
+   "text": "1/2/5/10",
+   "textPhone": "1/2/3/10",
+   "other": "3/2/5/6",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 10,
+   "words": 48
+  },
+  "s undo": {
+   "text": "1/2/2/10",
+   "textPhone": "1/2/3/10",
+   "other": "2/2/4/6",
+   "otherPhone": "3/2/5/10",
+   "sectionRows": 9,
+   "words": 0,
+   "rivalT": {
+    "words": "between 1 and 47",
+    "note": "the typing's second part undone, its first part left"
+   }
+  },
+  "s undo 2": {
+   "text": null,
+   "textPhone": null,
+   "other": "1/2/3/6",
+   "otherPhone": "1/2/3/10",
+   "sectionRows": 8,
+   "words": null,
+   "rivalT": {
+    "text": "1/2/3/10",
+    "other": "1/2/3/6",
+    "sectionRows": 8,
+    "words": 0,
+    "note": "the state before the edit"
+   },
+   "rivalX": {
+    "text": "1/2/3/10",
+    "other": "1/2/3/6",
+    "sectionRows": 8,
+    "words": 0,
+    "note": "the state before the edit, as CAP-R2ONTOP R2 s undo 2"
+   }
+  },
+  "s undo 3": {
+   "text": null,
+   "textPhone": null,
+   "other": null,
+   "otherPhone": null,
+   "sectionRows": 8,
+   "words": null,
+   "rivalT": {
+    "text": null,
+    "other": "1/2/3/6",
+    "sectionRows": 8,
+    "note": "the Text removed"
+   },
+   "rivalX": {
+    "text": null,
+    "other": "1/2/3/6",
+    "sectionRows": 8,
+    "note": "the Text removed"
+   }
+  }
+ },
+ "cases": {
+  "b before": [
+   "P1 b before",
+   "P2 b before"
+  ],
+  "b typed": [
+   "P1 b typed",
+   "P2 b typed"
+  ],
+  "b let go": [
+   "P1 b let go",
+   "P2 b let go"
+  ],
+  "b undo": [
+   "P1 b undo",
+   "P2 b undo"
+  ],
+  "b undo 2": [
+   "P1 b undo 2",
+   "P2 b undo 2"
+  ],
+  "b undo 3": [
+   "P1 b undo 3",
+   "P2 b undo 3"
+  ],
+  "s before": [
+   "P1 s before",
+   "P2 s before"
+  ],
+  "s typed": [
+   "P1 s typed",
+   "P2 s typed"
+  ],
+  "s let go": [
+   "P1 s let go",
+   "P2 s let go"
+  ],
+  "s undo": [
+   "P1 s undo",
+   "P2 s undo"
+  ],
+  "s undo 2": [
+   "P1 s undo 2",
+   "P2 s undo 2"
+  ],
+  "s undo 3": [
+   "P1 s undo 3",
+   "P2 s undo 3"
+  ]
+ }
+}
