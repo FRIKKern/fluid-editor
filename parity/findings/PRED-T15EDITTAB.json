@@ -1,0 +1,35 @@
+{
+  "item": "T15",
+  "question": "A new rule, predictions pushed first: the tab a block panel opens on. Seen in CAP-T12PHONERISE.json (two shots): a fresh browser opened a new Newsletter on Content; after Exit Without Saving and Edit again in the same browser, a new Newsletter opened on Design, the tab the last panel had left. Ours opens on Content (Newsletter, Button) every time.",
+  "rule": "One remembered tab for the browser session, kept through Exit: Edit opens a block panel on the last tab any panel showed, if the block has a tab of that name, else on its first tab. Nothing remembered: the first tab.",
+  "how": "Probe page, window 1600 by 1000. A new Newsletter, Edit; Design, Escape, select it again, Edit; Escape, a new Button, Edit; Animation, Escape, the Newsletter, Edit; Escape, the Button, Edit. The run twice, the second after Exit Without Saving and Edit again (run 1 ends on Content, so run 2 starts as run 1). Read: which of Form Name (Newsletter Content), Attach link (Button Content), Layout and Blur (Newsletter Design) show, plus a shot.",
+  "predictions": {
+    "nl first": "Content (Form Name)",
+    "nl again": "Design (Layout, Blur)",
+    "button": "Design (no Attach link; the shot names the tab)",
+    "nl after animation": "Content: a Newsletter has no Animation tab, so its first tab",
+    "button after nl": "Content (Attach link)"
+  },
+  "cases": {
+    "nl first": [
+      "1 nl first",
+      "2 nl first"
+    ],
+    "nl again": [
+      "1 nl again",
+      "2 nl again"
+    ],
+    "button": [
+      "1 button",
+      "2 button"
+    ],
+    "nl after animation": [
+      "1 nl after animation",
+      "2 nl after animation"
+    ],
+    "button after nl": [
+      "1 button after nl",
+      "2 button after nl"
+    ]
+  }
+}
