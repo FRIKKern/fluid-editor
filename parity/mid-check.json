@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1186,
+  "pass": 1192,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
@@ -9,7 +9,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1192,
+  "total": 1198,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4910,6 +4910,30 @@
     },
     {
       "name": "group bar: phone two",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN R1 pin outside",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN R1 pin inside",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN R1 pin inside, middle and right",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN R1 all three, pin inside",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN2 R1 pin outside",
+      "diffs": []
+    },
+    {
+      "name": "group bar: CAP-X8PIN2 R1 pin inside",
       "diffs": []
     },
     {

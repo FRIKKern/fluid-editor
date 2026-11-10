@@ -1,0 +1,1538 @@
+{
+  "item": "CAP-X8PIN2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T16:28:05.867Z",
+  "predictions": {
+    "file": "CAP-X8PIN2-PREDICTED.json",
+    "commit": "b166375397ff5772e50529a289c60e0b4b9599cb",
+    "committedAt": "2026-11-10T17:26:46+01:00",
+    "sha256": "5dc2e59ebcea5ee9221e25801797aabb62acbe98450880ab33ec8a54e529fdae"
+  },
+  "engine": "chrome",
+  "question": "X8, round E, the check on CAP-X8PIN (a pin did not count for a group, 2 of 5): is the pin in effect? The same three Shapes on Blocks Probe (z 1, 3, 2), the right one pinned (Pin, Top), with the pin panel read, then one block alone (a pin makes a lone block show Move Forward, TOOLBARS.json), the two groups again, and the pinned block alone. Built twice, Exit Without Saving between. Nothing saved. Ours predicted first.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "R1 one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R1 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "R2 one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R2 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R1 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            922.7,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            776.3,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            922.7,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            776.3,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
