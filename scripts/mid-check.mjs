@@ -878,7 +878,9 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     ['Shape south 65 down by touch', 'shape', 's', 0, 65, 'touch', true], ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch', true], ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch', true],
     // CAP-X2TOUCHTYPES.json, twice each: a Button and a Quote work like a Shape, kept by touch and let go by the mouse.
     ['Button corner 70, 70 by touch', 'button', 'se', 70, 70, 'touch', true], ['Button corner 70, 70', 'button', 'se', 70, 70, 'mouse', false],
-    ['Quote corner 70, 70 by touch', 'quote', 'se', 70, 70, 'touch', true], ['Quote corner 70, 70', 'quote', 'se', 70, 70, 'mouse', false]]) {
+    ['Quote corner 70, 70 by touch', 'quote', 'se', 70, 70, 'touch', true], ['Quote corner 70, 70', 'quote', 'se', 70, 70, 'mouse', false],
+    // CAP-X2TOUCH3.json, twice each: Code, Map and Accordion work the same.
+    ...['Code', 'Map', 'Accordion'].flatMap((n) => [[`${n} corner 70, 70 by touch`, n.toLowerCase(), 'se', 70, 70, 'touch', true], [`${n} corner 70, 70`, n.toLowerCase(), 'se', 70, 70, 'mouse', false]])]) {
     await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });

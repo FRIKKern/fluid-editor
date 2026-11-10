@@ -1,0 +1,845 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-10",
+  "question": "X2, round E: do Code, Map and Accordion keep or lose the selection like Shape, Button and Quote when let go off a handle? Each new block pulled by its south-east corner 70, 70: by touch (held 150 ms; Shape, Button and Quote stay selected) and by the mouse (they are let go). Read twice (R1, R2). Blocks Probe, unsaved, one block per enter, as in CAP-X2TOUCHTYPES.json. After each add an 'inside' read names what was added; the screen is cleared (Escape, then a press on empty canvas) before each exit. Map gets no address.",
+  "rule": "Ours as built (inferred for these types): any block but a Text let go by the mouse or a pen more than 32px below its old bottom is not selected; touch keeps it selected.",
+  "from": "Ours on main: editor.js onUp, LET_GO_BELOW and the touch exception; the block type is not looked at except for Text. Read facts: if both reads agree they are built as read.",
+  "hit": "Scored on the block's data-is-selected after the pull (each case's two reads must agree). A 'before' read not selected is a setup miss, named, not scored.",
+  "predicted": {
+    "Code touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Code touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Code mouse": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Code mouse before": {
+      "selected": true,
+      "setup": true
+    },
+    "Map touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Map touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Map mouse": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Map mouse before": {
+      "selected": true,
+      "setup": true
+    },
+    "Accordion touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Accordion touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Accordion mouse": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Accordion mouse before": {
+      "selected": true,
+      "setup": true
+    }
+  },
+  "cases": {
+    "Code touch": [
+      "R1 Code touch",
+      "R2 Code touch"
+    ],
+    "Code mouse": [
+      "R1 Code mouse",
+      "R2 Code mouse"
+    ],
+    "Map touch": [
+      "R1 Map touch",
+      "R2 Map touch"
+    ],
+    "Map mouse": [
+      "R1 Map mouse",
+      "R2 Map mouse"
+    ],
+    "Accordion touch": [
+      "R1 Accordion touch",
+      "R2 Accordion touch"
+    ],
+    "Accordion mouse": [
+      "R1 Accordion mouse",
+      "R2 Accordion mouse"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 Code added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Code touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Code touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Code mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R1 Code mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 Map added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Map touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Map touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Map mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R1 Map mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 Accordion added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Accordion touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Accordion touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Accordion mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R1 Accordion mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Code"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 Code added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Code touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Code touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Code mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R2 Code mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Map"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 Map added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Map touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Map touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Map mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R2 Map mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Accordion"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 Accordion added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Accordion touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      70,
+      70,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Accordion touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Accordion mouse before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "se",
+      70,
+      70
+    ],
+    [
+      "read",
+      "R2 Accordion mouse",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ]
+  ]
+}
