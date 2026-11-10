@@ -1734,6 +1734,15 @@ export const RECIPES = {
       ['press', 'Meta+Shift+z'], ['pause', 500], ['read', `${r} redo`, R], ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['exit']];
     return [...run('Q1'), ...run('Q2')];
   })() },
+  'CAP-Y2BARROWS': { page: 'Blocks Probe', question: "Y2 and R2, not read until now: while a Heading 1 is in its edit, does the section draw the spare rows under it? Ours' model holds 6 more section rows than its page draws during the edit (36/24/14 against 30/18/8), and CAP-Y2BAR's frame held 523 through two Cmd+Z, then fell to 360 on the third, which ours' drawn rows can't give. CAP-Y2BAR's Heading 1 typed in 4 steps, the frame to its top, Cmd+Z three times, then let go: the section's box and rows, the page's height and scroll, the Heading's area, each step. Two runs (W1, W2). Predictions pushed first (CAP-Y2BARROWS-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const R = { areas: 0, section: 0, panelState: true, barState: true };
+    const typed = [['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300],
+      ['keysFast', ' longer line of words that runs on past the end of the block'], ['pause', 1300], ['keysFast', ' and then on and on over a second line and more words to fill it'], ['pause', 1300], ['keysFast', ' and then again on and on over a third line and more words to fill'], ['pause', 1300]];
+    const run = (r) => [['window', 1600, 1000], ...typed, ['scrollFrame', 0], ['pause', 300], ['read', `${r} typed`, R],
+      ['press', 'Meta+z'], ['pause', 500], ['read', `${r} z1`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} z2`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} z3`, R],
+      ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['read', `${r} let go`, R], ['exit']];
+    return [['toPage', 'Blocks Probe'], ...run('W1'), ...run('W2')];
+  })() },
   'CAP-Y2REDOPULL2': { page: 'Blocks Probe', question: "Y2, inferred until now: does a Cmd+Shift+Z that pulls the frame's scroll take the text bar and the caret, as the Cmd+Z does (CAP-Y2BAR.json)? CAP-Y2BAR's Heading 1 typed in 4 steps; the frame to its top (where a shortening keeps the bar, CAP-Y2BAR2.json); Cmd+A and Backspace; Cmd+Z; the frame to 523, where CAP-Y2BAR's typing left it with the bar; Cmd+Shift+Z, which empties the text again. CAP-Y2REDOPULL's frame at its end (1506) took the bar before the redo. Then S1 and S2, unscored: the frame to its end, keys x and y, the frame back at its top: is the edit still live (#565 closes it in ours)? Two runs (Q1, Q2). Predictions pushed first (CAP-Y2REDOPULL2-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
     const R = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'], barState: true, focused: true };
     const typed = [['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300],
