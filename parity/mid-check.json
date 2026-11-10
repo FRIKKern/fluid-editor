@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1110,
+  "pass": 1114,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2TREFIT R1 w1560 -1",
@@ -10,7 +10,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1117,
+  "total": 1121,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4434,6 +4434,22 @@
     },
     {
       "name": "X2 Text north-east 60 up by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Button corner 70, 70 by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Button corner 70, 70",
+      "diffs": []
+    },
+    {
+      "name": "X2 Quote corner 70, 70 by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 Quote corner 70, 70",
       "diffs": []
     },
     {

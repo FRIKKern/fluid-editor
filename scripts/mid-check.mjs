@@ -846,7 +846,10 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     ['Text north-east 5 right', 'text', 'ne', 5, 0, 'mouse', false], ['Text north-east 9 right', 'text', 'ne', 9, 0, 'mouse', false], ['Text north-west 5 up', 'text', 'nw', 0, -5, 'mouse', false],
 ['Text east 60 right', 'text', 'e', 60, 0, 'mouse', true], ['Shape corner 70, 70 by pen', 'shape', 'se', 70, 70, 'pen', false], ['Shape corner 70, 70 by touch', 'shape', 'se', 70, 70, 'touch', true],
     // CAP-R2X2LAST.json, twice each: touch keeps it where the mouse lets it go.
-    ['Shape south 65 down by touch', 'shape', 's', 0, 65, 'touch', true], ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch', true], ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch', true]]) {
+    ['Shape south 65 down by touch', 'shape', 's', 0, 65, 'touch', true], ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch', true], ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch', true],
+    // CAP-X2TOUCHTYPES.json, twice each: a Button and a Quote work like a Shape, kept by touch and let go by the mouse.
+    ['Button corner 70, 70 by touch', 'button', 'se', 70, 70, 'touch', true], ['Button corner 70, 70', 'button', 'se', 70, 70, 'mouse', false],
+    ['Quote corner 70, 70 by touch', 'quote', 'se', 70, 70, 'touch', true], ['Quote corner 70, 70', 'quote', 'se', 70, 70, 'mouse', false]]) {
     await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
