@@ -1692,6 +1692,17 @@ export const RECIPES = {
       ...Array.from({ length: 16 }, (_, n) => drop(r, `wider ${n + 1}`, P)).flat(), ...Array.from({ length: 20 }, (_, n) => drop(r, `narrower ${n + 1}`, -P)).flat(), ['exit']];
     return [['toPage', 'Blocks Probe'], ['window', 1280, 1000], ...run('R1'), ...run('R2')];
   })() },
+  'CAP-R2LONGUNDO': { page: 'Blocks Probe', question: "R2: undo steps inside one long edit. a new Text with a Line moved under it in shared columns (CAP-TEXTPUSH5 t13's setup without the south pull, so every burst grows the Text), typed in 3 bursts in one edit, each its own step (keysFast waits 1.5 s), then Cmd+Z 3 times and Cmd+Shift+Z 3 times, still in the edit, then let go: the Text's and the Line's areas at every step, two runs (R1, R2). Predictions pushed first (CAP-R2LONGUNDO-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const W = ['the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night',
+      ' then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall',
+      ' and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter'];
+    const R = { stack: 0, section: 0, html: [0, 0] };
+    const run = (r) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['add', 0, 'Line'], ['press', 'Escape'], ['deselect', 0], ['drag', 0, 'new', 'middle', 0, 287], ['press', 'Escape'], ['deselect', 0], ['read', `${r} before`, R],
+      ['pick', 0, 0], ['click', 'Write'], ...W.flatMap((w, n) => [['keysFast', w], ['read', `${r} step ${n + 1}`, R]]),
+      ...[1, 2, 3].flatMap((n) => [['press', 'Meta+z'], ['pause', 500], ['read', `${r} undo ${n}`, R]]), ...[1, 2, 3].flatMap((n) => [['press', 'Meta+Shift+z'], ['pause', 500], ['read', `${r} redo ${n}`, R]]),
+      ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', `${r} let go`, R], ['exit']];
+    return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
