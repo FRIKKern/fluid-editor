@@ -58,8 +58,11 @@ const toCheck = (found) => {
 // Key order doesn't make two reads differ, and neither do block ids: a case built twice mints new blocks, so a
 // stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone), nor a block read's
 // `data-test`, the same id on the block's element (CAP-X2TOUCHTYPES: every case differed by it alone).
+// Inside read HTML, the text editor's own id and the page's generated ids (":r16:") are new on each build too (CAP-R2UNDOTWO:
+// every case with a Text differed by them alone).
 const ID_KEYS = new Set(['id', 'data-test']);
-const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => !ID_KEYS.has(k)).sort().map((k) => [k, canon(v[k])])) : v);
+const HTML_IDS = (s) => s.replace(/data-rte-id="[^"]*"/g, 'data-rte-id=""').replace(/"(:r[0-9a-z]+:)"/g, '":r:"');
+const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => !ID_KEYS.has(k)).sort().map((k) => [k, canon(v[k])])) : typeof v === 'string' ? HTML_IDS(v) : v);
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
 
 // What is wrong with one fresh finding. predText is its predictions file's text (null if missing); gitTime is the
@@ -104,6 +107,8 @@ const fails = [];
   proof('two reads that differ, named unsteady, pass', freshFails({ ...differ, unsteady: ['one'] }, text, null).length === 0);
   proof('two builds that differ by block ids alone pass', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['2', '2'] }] } } }, text, null).length === 0);
   proof('two block reads that differ by data-test alone pass', freshFails({ ...good, reads: { a: { block: { desktop: '1/2/3/8', data: { 'data-test': 'yui_1_438', 'data-is-selected': 'true' } } }, 'a again': { block: { desktop: '1/2/3/8', data: { 'data-test': 'yui_2_420', 'data-is-selected': 'true' } } } } }, text, null).length === 0);
+  proof('two HTML reads that differ by editor ids alone pass', freshFails({ ...good, reads: { a: { htmlOf: '<div data-rte-id="90b0" aria-owns=":r16:"><p>lorem</p></div>' }, 'a again': { htmlOf: '<div data-rte-id="0218" aria-owns=":r4u:"><p>lorem</p></div>' } } }, text, null).length === 0);
+  proof('two HTML reads that differ in their words fail', freshFails({ ...good, reads: { a: { htmlOf: '<div data-rte-id="90b0"><p>lorem</p></div>' }, 'a again': { htmlOf: '<div data-rte-id="0218"><p>ipsum</p></div>' } } }, text, null).length > 0);
   proof('two block reads that differ in selection fail', freshFails({ ...good, reads: { a: { block: { data: { 'data-test': 'yui_1', 'data-is-selected': 'true' } } }, 'a again': { block: { data: { 'data-test': 'yui_2', 'data-is-selected': 'false' } } } } }, text, null).length > 0);
   proof('two builds whose blocks differ fail', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['1', '1'] }] } } }, text, null).length > 0);
   proof('no predictions record fails', freshFails({ question: 'Predictions pushed first' }, null, null).length > 0);
@@ -133,4 +138,4 @@ for (const n of toCheck(found)) {
 for (const name of GRANDFATHERED) if (!files.has(`${name}.json`)) fails.push(`grandfathered ${name}.json is gone: take it off the list`);
 
 if (fails.length) { console.error(`check-fresh: ${fails.length} problem(s)\n  ${fails.join('\n  ')}`); process.exit(1); }
-console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 11 guard proofs hold`);
+console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 13 guard proofs hold`);
