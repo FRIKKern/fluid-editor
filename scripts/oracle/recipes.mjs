@@ -1703,6 +1703,16 @@ export const RECIPES = {
       ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', `${r} let go`, R], ['exit']];
     return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
   })() },
+  'CAP-Y2REDOPULL': { page: 'Blocks Probe', question: "Y2, inferred until now: does a Cmd+Shift+Z that pulls the frame's scroll take the text bar and the caret, as the Cmd+Z does (CAP-Y2BAR.json)? CAP-Y2BAR's Heading 1 typed in 4 steps; the frame to its top (where a shortening keeps the bar, CAP-Y2BAR2.json); Cmd+A and Backspace; Cmd+Z; the frame to its end (a scroll alone keeps the bar); Cmd+Shift+Z, which empties the text again with the frame at its end. Two runs (Q1, Q2). Predictions pushed first (CAP-Y2REDOPULL-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const R = { html: [0, 'new'], areas: 0, has: ['Bold', 'Write'], barState: true, focused: true };
+    const typed = [['enter'], ['blank'], ['press', 'Escape'], ['add', 0, 'Text'], ['press', 'Escape'], ['pick', 0, 'new'], ['click', 'Write'], ['keys', 'abc'], ['pause', 300], ['click', 'Text Style'], ['click', 'Heading 1'], ['pause', 1300],
+      ['keysFast', ' longer line of words that runs on past the end of the block'], ['pause', 1300], ['keysFast', ' and then on and on over a second line and more words to fill it'], ['pause', 1300], ['keysFast', ' and then again on and on over a third line and more words to fill'], ['pause', 1300]];
+    const run = (r) => [['window', 1600, 1000], ...typed, ['scrollFrame', 100000], ['pause', 300], ['read', `${r} typed`, R],
+      ['scrollFrame', 0], ['pause', 300], ['read', `${r} frame at its top`, R], ['press', 'Meta+a'], ['pause', 200], ['press', 'Backspace'], ['pause', 1300], ['read', `${r} deleted`, R],
+      ['press', 'Meta+z'], ['pause', 500], ['read', `${r} undo`, R], ['scrollFrame', 100000], ['pause', 300], ['read', `${r} frame at its end`, R],
+      ['press', 'Meta+Shift+z'], ['pause', 500], ['read', `${r} redo`, R], ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['exit']];
+    return [...run('Q1'), ...run('Q2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
