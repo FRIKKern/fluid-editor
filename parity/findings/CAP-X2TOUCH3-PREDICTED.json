@@ -1,7 +1,7 @@
 {
   "item": "X2",
   "capturedAt": "2026-11-10",
-  "question": "X2, round E: do Code, Map and Accordion keep or lose the selection like Shape, Button and Quote when let go off a handle? Each new block pulled by its south-east corner 70, 70: by touch (held 150 ms; Shape, Button and Quote stay selected) and by the mouse (they are let go). Read twice (R1, R2). Blocks Probe, unsaved, one block per enter, as in CAP-X2TOUCHTYPES.json.",
+  "question": "X2, round E: do Code, Map and Accordion keep or lose the selection like Shape, Button and Quote when let go off a handle? Each new block pulled by its south-east corner 70, 70: by touch (held 150 ms; Shape, Button and Quote stay selected) and by the mouse (they are let go). Read twice (R1, R2). Blocks Probe, unsaved, one block per enter, as in CAP-X2TOUCHTYPES.json. After each add an 'inside' read names what was added; the screen is cleared (Escape, then a press on empty canvas) before each exit. Map gets no address.",
   "rule": "Ours as built (inferred for these types): any block but a Text let go by the mouse or a pen more than 32px below its old bottom is not selected; touch keeps it selected.",
   "from": "Ours on main: editor.js onUp, LET_GO_BELOW and the touch exception; the block type is not looked at except for Text. Read facts: if both reads agree they are built as read.",
   "hit": "Scored on the block's data-is-selected after the pull (each case's two reads must agree). A 'before' read not selected is a setup miss, named, not scored.",
@@ -103,12 +103,26 @@
       "Code"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R1 Code added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -196,6 +210,10 @@
       0
     ],
     [
+      "press",
+      "Escape"
+    ],
+    [
       "exit"
     ],
     [
@@ -210,12 +228,26 @@
       "Map"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R1 Map added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -303,6 +335,10 @@
       0
     ],
     [
+      "press",
+      "Escape"
+    ],
+    [
       "exit"
     ],
     [
@@ -317,12 +353,26 @@
       "Accordion"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R1 Accordion added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -410,6 +460,10 @@
       0
     ],
     [
+      "press",
+      "Escape"
+    ],
+    [
       "exit"
     ],
     [
@@ -424,12 +478,26 @@
       "Code"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R2 Code added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -517,6 +585,10 @@
       0
     ],
     [
+      "press",
+      "Escape"
+    ],
+    [
       "exit"
     ],
     [
@@ -531,12 +603,26 @@
       "Map"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R2 Map added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -624,6 +710,10 @@
       0
     ],
     [
+      "press",
+      "Escape"
+    ],
+    [
       "exit"
     ],
     [
@@ -638,12 +728,26 @@
       "Accordion"
     ],
     [
+      "pause",
+      800
+    ],
+    [
       "press",
       "Escape"
     ],
     [
       "deselect",
       0
+    ],
+    [
+      "read",
+      "R2 Accordion added",
+      {
+        "inside": [
+          0,
+          "new"
+        ]
+      }
     ],
     [
       "select",
@@ -729,6 +833,10 @@
     [
       "deselect",
       0
+    ],
+    [
+      "press",
+      "Escape"
     ],
     [
       "exit"
