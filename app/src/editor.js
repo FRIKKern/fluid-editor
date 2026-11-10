@@ -683,7 +683,9 @@ function letGoOutOfView() {
   if (!sel || (gesture && gesture.type !== 'pending')) return;
   const H = win.innerHeight, out = (id) => { const q = blockEl(id)?.getBoundingClientRect(); return !!q && (q.bottom <= 0 || q.top >= H); };
   if (![sel.bid, ...(sel.more || [])].every(out)) return;
-  if (editing) finishTextEdit();
+  // A Text being typed in lets go too, but its edit stays open: the bar and the frame's selection go, the keys still type
+  // (at its start, the frame scrolling to show it) and undo and redo step it (CAP-Y2REDOPULL2.json part S, CAP-Y2REDOPULL.json).
+  if (editing && !editing.soft) { editing.barGone = true; win.getSelection().removeAllRanges(); renderTextBar(); }
   select(null);
 }
 function select(next) {
