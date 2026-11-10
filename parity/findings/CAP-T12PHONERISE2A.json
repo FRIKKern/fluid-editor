@@ -1,0 +1,461 @@
+{
+  "item": "CAP-T12PHONERISE2A",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:42:40.522Z",
+  "predictions": {
+    "file": "PRED-T12PHONERISE2A.json",
+    "commit": "d06de9aa354ec8d943185d01c06f6ac3e96b477a",
+    "committedAt": "2026-11-10T05:42:24+01:00",
+    "sha256": "8c0ed0d1a710930996bba5bad4cf9b15c2664465ae9fc3905ca3613d492e2d2b"
+  },
+  "engine": "chrome",
+  "question": "Refit 1 of the phone rows rule, unchanged, predictions pushed first (PRED-T12PHONERISE2A.json): a phone Newsletter that hangs out, then a press that tests the rule, then another; the run twice.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "pressNamed",
+      "Content"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 desk names",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "1 phone names",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "alignLeft"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 alignLeft",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "read",
+      "1 alignLeft late",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-alignLeft"
+    ],
+    [
+      "pressNamed",
+      "alignCenter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 alignCenter",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "1 desk after",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "blank"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "pressNamed",
+      "Content"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 desk names",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "2 phone names",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "alignLeft"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 alignLeft",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "read",
+      "2 alignLeft late",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-alignLeft"
+    ],
+    [
+      "pressNamed",
+      "alignCenter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 alignCenter",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "2 desk after",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "1 desk names": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 phone names": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 alignLeft": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 alignLeft late": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 alignCenter": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 desk after": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 desk names": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 phone names": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 alignLeft": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 alignLeft late": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 alignCenter": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 desk after": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "score": "Refit 1, the rule unchanged: alignLeft while the block hung at 8 rows stayed 8 in both reads, predicted 16 (miss); alignCenter 8, predicted 16 (miss); desk names and desk after as predicted. Frozen refit 1 alone keeps 8 at both, as read."
+}

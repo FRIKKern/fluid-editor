@@ -1,0 +1,39 @@
+{
+  "item": "T12",
+  "question": "Refit 1 of PRED-T12PHONERISE.json, the rule unchanged, predictions pushed first: a phone Newsletter that hangs out (names on at the desktop, 8 rows on the phone holding 526.3) and then alignLeft on the phone, then alignCenter. The first change is the one that tests the rule; Alignment changes no height on the phone in ours, so the rule rises to ceil(15.35) = 16, frozen refit 1 alone keeps 8.",
+  "rule": "As in PRED-T12PHONERISE.json, not refitted: hung before a change (ceil(x0 - 0.02) > rows), then at least ceil(x - 0.02) after it. Frozen refit 1 alone keeps 8 at the first change.",
+  "how": "Probe page, window 1600 by 1000, a new Newsletter, Edit, Content, Show Name Field on, the phone view with the panel open, Design, then the two presses, then the desktop view. The run twice, the second after Exit Without Saving and Edit again.",
+  "predictions": {
+    "desk names": {
+      "desktop": 14,
+      "phone": 8
+    },
+    "alignLeft": {
+      "phone": 16
+    },
+    "alignCenter": {
+      "phone": 16
+    },
+    "desk after": {
+      "desktop": 14
+    }
+  },
+  "cases": {
+    "desk names": [
+      "1 desk names",
+      "2 desk names"
+    ],
+    "alignLeft": [
+      "1 alignLeft",
+      "2 alignLeft"
+    ],
+    "alignCenter": [
+      "1 alignCenter",
+      "2 alignCenter"
+    ],
+    "desk after": [
+      "1 desk after",
+      "2 desk after"
+    ]
+  }
+}

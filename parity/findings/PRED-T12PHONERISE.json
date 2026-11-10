@@ -1,0 +1,25 @@
+{
+  "item": "T12",
+  "question": "A new rule, predictions pushed first: a stand-in whose rows were already below its content before a change takes the rows its content needs after it, whatever the change. Read on a phone Newsletter that hangs out (names on at the desktop, then the phone view), with the frozen refit 1 rule's cases beside it.",
+  "rule": "Before a change: hung = ceil(x0 - 0.02) > rows, x0 the content in rows. After it: refit 1 as frozen (grow to ceil, shrink past a row to floor, else keep), then if hung, at least ceil(x - 0.02).",
+  "how": "Probe page, window 1600 by 1000. A new Newsletter from the menu (10 columns by 8 rows), Edit, Show Name Field on; the phone view with the panel open; then Show Name Field off, on, off; Design, alignLeft, alignCenter; the desktop view. The whole run twice, the second after Exit Without Saving and Edit again. Rows are the block's grid area in the phone part of its rule (desktop part for the desk reads).",
+  "predictions": {
+    "desk names": { "desktop": 14, "phone": 8, "by": "seen (CAP-T12NLPOST.json), not scored" },
+    "phone names": { "phone": 8, "by": "seen, not scored: the phone keeps the rows it had, the block hangs out (526.3 tall)" },
+    "c1 names off": { "phone": 11, "by": "the new rule: hung at 8, the content needs 10.67 rows. Frozen refit 1 alone keeps 8. Seen once (CAP-T12NLPOST.json phone), so scored as seen" },
+    "c2 names on": { "phone": 16, "by": "frozen refit 1: grows to ceil(15.35)" },
+    "c3 names off": { "phone": 10, "by": "frozen refit 1: shrinks past a row to floor(10.67); not hung before (16 rows)" },
+    "c4 left": { "phone": 11, "by": "the new rule, unseen: hung at 10 by 0.67 of a row; Alignment changes no height, so frozen refit 1 alone keeps 10" },
+    "c5 center": { "phone": 11, "by": "both: not hung at 11" },
+    "desk after": { "desktop": 14, "by": "seen (CAP-T12NLPOST.json deskAfter): the phone's edits leave the desktop's rows" }
+  },
+  "cases": {
+    "desk names": ["1 desk names", "2 desk names"],
+    "c1 names off": ["1 c1 names off", "2 c1 names off"],
+    "c2 names on": ["1 c2 names on", "2 c2 names on"],
+    "c3 names off": ["1 c3 names off", "2 c3 names off"],
+    "c4 left": ["1 c4 left", "2 c4 left"],
+    "c5 center": ["1 c5 center", "2 c5 center"],
+    "desk after": ["1 desk after", "2 desk after"]
+  }
+}
