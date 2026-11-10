@@ -379,6 +379,26 @@ panelDo(`panel.querySelector('input[data-design="blur"]').click();`);
 wh = where('text', null);
 add('A phone edit rewrites the rule at desktop\'s values', wh.ruleOpacity === WC['phone blur 70'].rule.decls[0]['--opacity'] && wh.opacity === '0.5', JSON.stringify(wh));
 evalJs(S, `(async () => { fe.setBp('desktop'); await new Promise((res) => setTimeout(res, 600)); return 'true'; })()`);
+// The tab Edit opens on (CAP-T15EDITTAB.json, CAP-T15EDITTAB2.json): each block type keeps the last tab its panel showed;
+// a type with none opens on its first; another type's tab changes nothing. Real presses on the tabs.
+{
+  const L = (a) => ({ desktop: { area: a, z: 1, justify: 'center', align: 'center' }, mobile: { area: [a[0], 2, a[2], 10], z: 1, justify: 'center', align: 'center' } });
+  evalJs(S, `(() => { const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.rows = { desktop: 30, mobile: 30 }; s.blocks = [
+    { id: 'tb1', type: 'button', label: 'Learn more', layout: ${JSON.stringify(L([1, 2, 3, 8]))} },
+    { id: 'tb2', type: 'button', label: 'Learn more', layout: ${JSON.stringify(L([4, 2, 6, 8]))} },
+    { id: 'tnl', type: 'shape', fill: '#d9d4ca', radius: '0', label: 'Newsletter', standin: 'newsletter', layout: ${JSON.stringify(L([8, 2, 16, 12]))} }]; fe.load(next); return 'true'; })()`);
+  await pause(400);
+  const edit = async (id) => { evalJs(S, `(async () => { fe.select(${JSON.stringify(sid)}, ${JSON.stringify(id)}); await new Promise((r) => setTimeout(r, 200)); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await new Promise((r) => setTimeout(r, 300)); return 'true'; })()`); await pause(150); };
+  const tabNow = () => evalJs(S, `(() => JSON.stringify(document.querySelector('#block-panel [data-btab].is-on')?.dataset.btab ?? null))()`);
+  const pressTab = async (t) => { const c = evalJs(S, `(() => { const r = document.querySelector('#block-panel [data-btab="${t}"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`); mouse(S, 'move', c[0], c[1]); await pause(50); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(300); };
+  const got = [];
+  await edit('tb1'); got.push(tabNow()); await pressTab('Design');
+  await edit('tb2'); got.push(tabNow()); await pressTab('Animation');
+  await edit('tnl'); got.push(tabNow()); await pressTab('Design');
+  await edit('tb1'); got.push(tabNow());
+  await edit('tnl'); got.push(tabNow());
+  add('Edit opens on the tab its type last showed', JSON.stringify(got) === JSON.stringify(['Content', 'Design', 'Content', 'Animation', 'Design']), JSON.stringify(got));
+}
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
