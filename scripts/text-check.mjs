@@ -224,6 +224,26 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     results.push({ name, ok }); if (!ok) console.log(`${name} DIFF ${JSON.stringify([z2, z3, y4])}`);
     browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(200);
   } }
+// Y2: Cmd+A and Backspace that empty the Heading 1 above take the undo's rows, less the height lost: 30 rows to 2, a row
+// short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json, 4 reads). The typing rule alone gives 3.
+{ goto(S, `${BASE}/index.html`); await pause(1200);
+  evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 2); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
+  browser(S, 'press', 'Escape'); await pause(200);
+  evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument, s = fe.model.sections[0], id = s.blocks.at(-1).id; fe.edit(s.id, id); f.querySelector('.fe-block[data-block-id="' + id + '"] .sqs-html-content').focus(); return 1; })()`); await pause(300);
+  cdp(S, { op: 'presses', keys: ['a', 'b', 'c'] }); await pause(300);
+  browser(S, 'click', '#text-bar [aria-label="Text Style"]'); await pause(400);
+  browser(S, 'click', '#text-bar [aria-label="Heading 1"]'); await pause(1300);
+  for (const w of [' longer line of words that runs on past the end of the block', ' and then on and on over a second line and more words to fill it', ' and then again on and on over a third line and more words to fill']) {
+    cdp(S, { op: 'presses', keys: [...w].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); await pause(1300);
+  }
+  evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); return 1; })()`); await pause(400);
+  const area = () => evalJs(S, `(() => { const e = document.getElementById('site-frame').contentDocument.querySelector('.fe-block.is-text-editing'); return JSON.stringify(e ? e.style.gridArea.split(' / ').join('/') : null); })()`);
+  const typed = area();
+  browser(S, 'press', 'Meta+a'); await pause(200); browser(S, 'press', 'Backspace'); await pause(500);
+  const emptied = area(), name = 'Y2: Cmd+A and Backspace empty a 30-row Heading 1 to 2 rows, a row short (CAP-Y2REDOPULL2)';
+  results.push({ name, ok: typed === '1/2/31/10' && emptied === '1/2/3/10' }); if (typed !== '1/2/31/10' || emptied !== '1/2/3/10') console.log(`${name} DIFF typed ${typed}, emptied ${emptied}`);
+  browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(200);
+}
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 const noRun = [];
 const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y', 'rows S1 2 z', 'rows S1 3 z', 'rows S2 3 z', 'rows S5 1 z', 'rows S5 2 z', 'rows S5 3 y']; // Named in Y2's evidence
