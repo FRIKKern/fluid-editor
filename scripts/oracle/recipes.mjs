@@ -1653,6 +1653,14 @@ export const RECIPES = {
       ['panel', 1, 0], ['pause', 700], ['read', `${r} open`, { panelBox: 1 }], ['scrollTrace', `${r} up`, -50, 16, 250, 1], ['scrollTrace', `${r} down`, 50, 30, 250, 1], ['exit']];
     return [...run('A'), ...run('B')];
   })() },
+  'CAP-CORNERNARROW': { page: 'Gestures Probe', question: "R2: CAP-TEXTWIDTH7 f3's one-row Text narrowed 4 columns, from each corner by its named handle (sw, nw, ne, and se as read), each on a new Text in its own edit, in two runs (A, B): rows at the drop and when let go. Ours applies f3's rule at every corner, inferred. No Meta+c, x or v.", steps: (() => {
+    const R = { stack: 0, section: 0, textH: [0, 0] };
+    const one = (r, c, dx) => [['enter'], ['blank'], ['add', 0, 'Text'], ['press', 'Escape'], ['deselect', 0], ['pick', 0, 0], ['click', 'Write'], ['keysFast', 'Short note about the mill road and the birch trees above it.'], ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0],
+      ['pick', 0, 0], ['drag', 0, 0, 'e', 235.12, 0], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} wider 4 let go`, R],
+      ['pick', 0, 0], ['handleDrag', 0, 0, c, dx, 0, `${r} ${c} press`], ['read', `${r} ${c} narrower 4 held`, R], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} narrower 4 let go`, R], ['exit']];
+    const run = (r) => [...one(r, 'sw', 235.12), ...one(r, 'nw', 235.12), ...one(r, 'ne', -235.12), ...one(r, 'se', -235.12)];
+    return [...run('A'), ...run('B')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
