@@ -605,7 +605,8 @@ toolbar.addEventListener('click', (e) => {
   if (act === 'write') { startTextEdit(sid, bid); placeToolbar(); return; }
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'; updateUi(); return; }
+  // Edit opens on the tab this block type's panel last showed, kept for the session; none yet: the type's first (CAP-T15EDITTAB.json).
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = tabOfType.get(b.standin || b.type) || (b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'); updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -1882,6 +1883,7 @@ function onPaste(e) {
 // transform-vars rule (render.js designCss). Stroke and Blend Mode are not built.
 let designOpen = null;
 let designTab = 'Design';
+const tabOfType = new Map(); // a block type's last panel tab (CAP-T15EDITTAB.json)
 let blendOpen = false;
 let bstyleOpen = false;
 let fihOpen = false;
@@ -2407,6 +2409,8 @@ blockPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-btab]');
   if (!t) return;
   designTab = t.dataset.btab;
+  const tb = sel && B(sel.sid, sel.bid);
+  if (tb) tabOfType.set(tb.standin || tb.type, designTab);
   closeLinkPopover();
   closeShapePop(); // CAP-T7DESIGN.json
   renderBlockPanel();
@@ -7502,6 +7506,7 @@ function boot() {
     load(next) {
       model = JSON.parse(JSON.stringify(next));
       ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)
+      tabOfType.clear(); // as a fresh browser: no tab remembered
       undoStack.length = 0;
       redoStack.length = 0;
       sel = null;

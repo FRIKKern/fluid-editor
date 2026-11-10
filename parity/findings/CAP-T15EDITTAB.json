@@ -1,0 +1,607 @@
+{
+  "item": "CAP-T15EDITTAB",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:57:05.568Z",
+  "predictions": {
+    "file": "PRED-T15EDITTAB.json",
+    "commit": "261973b6932bf84900ad433cc99b89e20bbbb4c9",
+    "committedAt": "2026-11-10T05:52:58+01:00",
+    "sha256": "aeecb181b4f78beef3fbfec470e6ca35ecd2128b2ea0ae49e51646d27038798a"
+  },
+  "engine": "chrome",
+  "question": "A new rule, predictions pushed first (PRED-T15EDITTAB.json): the tab a block panel opens on, after Design, Animation and another block type, read twice in one browser session.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 nl first",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-nl-first"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 nl again",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-nl-again"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 button",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-button"
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 nl after animation",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-nl-after-animation"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 button after nl",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-button-after-nl"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "blank"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 nl first",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-nl-first"
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 nl again",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-nl-again"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 button",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-button"
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 nl after animation",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-nl-after-animation"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 button after nl",
+      {
+        "has": [
+          "Form Name",
+          "Attach link",
+          "Layout",
+          "Blur"
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-button-after-nl"
+    ]
+  ],
+  "reads": {
+    "1 nl first": {
+      "has": {
+        "Form Name": true,
+        "Attach link": false,
+        "Layout": false,
+        "Blur": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1 nl again": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": true,
+        "Blur": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1 button": {
+      "has": {
+        "Form Name": false,
+        "Attach link": true,
+        "Layout": false,
+        "Blur": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1 nl after animation": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": true,
+        "Blur": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "1 button after nl": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": false,
+        "Blur": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 nl first": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": true,
+        "Blur": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 nl again": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": true,
+        "Blur": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 button": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": false,
+        "Blur": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 nl after animation": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": true,
+        "Blur": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "2 button after nl": {
+      "has": {
+        "Form Name": false,
+        "Attach link": false,
+        "Layout": false,
+        "Blur": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "unsteady": [
+    "nl first",
+    "button"
+  ],
+  "unsteadyWhy": "Not chance: the two runs started from different remembered tabs. Run 1 started in a fresh browser; run 2 started after run 1 had left the Newsletter on Design and the Button on Animation, and each opened there (shots 2-nl-first, 2-button). The prediction file assumed run 2 would start as run 1.",
+  "tabs": "From the shots: 1 button Content, 1 button after nl Animation, 2 button Animation, 2 button after nl Animation (Triggers list).",
+  "score": "First round: 1 of 3 steady cases as predicted (nl again: Design). Missed: nl after animation (Design, predicted Content) and button after nl (Animation, predicted Content). Run 1 button opened on Content, not on the Newsletter's Design. Not scored: nl first and button, whose runs started from different tabs. Every read fits one remembered tab per block type, kept through Exit, none in a fresh browser (seen, the basis of refit 1)."
+}
