@@ -619,10 +619,11 @@ toolbar.addEventListener('click', (e) => {
     openLinkPopover(b, (st) => { const r = (toolbar.querySelector('[data-tb="link"]') || btn).getBoundingClientRect(); return { left: Math.max(8, r.left + r.width / 2 - 160 - st.left), top: r.bottom + 7 - st.top }; }, null, true); return;
   }
   // Pin (parity/findings/PIN.json): the first click pins to the top with no offset, in the layout
-  // on screen, and opens the popover; one undo step.
+  // on screen, and opens the popover; one undo step. After Remove Pin it pins again where the pin was,
+  // each option's offset kept (CAP-U4UNPIN.json, CAP-U4REPIN.json: Center 3vh back on Center, Top 5vh back on Top).
   if (act === 'pin') {
     if (!pinPop.hidden) { pinPop.hidden = true; return; } // A second click closes it and leaves the pin.
-    if (!lay(b).sticky) { const before = JSON.stringify(model); lay(b).sticky = { anchor: 'top', offset: 0 }; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
+    if (!lay(b).sticky) { const before = JSON.stringify(model); lay(b).sticky = lay(b).unpinned || { anchor: 'top', offset: 0 }; delete lay(b).unpinned; renderSectionDom(sid); commit(before, `Pinned ${bid}`); }
     openPin(sid, bid);
     return;
   }
@@ -6877,14 +6878,15 @@ function setPin(change, label) {
   change(lay(b));
   renderSectionDom(pinPop.dataset.sid);
   commit(before, label);
-  openPin(pinPop.dataset.sid, pinPop.dataset.bid);
+  if (lay(b).sticky) openPin(pinPop.dataset.sid, pinPop.dataset.bid);
+  else pinPop.hidden = true; // Remove Pin closes the popover (CAP-U4PINTO.json, CAP-U4UNPIN.json: no Offset field, both reads).
 }
 pinPop.addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
 pinPop.addEventListener('click', (e) => {
   const o = e.target.closest('[data-pin]');
   if (!o) return;
   const k = o.dataset.pin;
-  setPin((L) => { if (k === 'remove') delete L.sticky; else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
+  setPin((L) => { if (k === 'remove') { L.unpinned = L.sticky; delete L.sticky; } else L.sticky = pinTo(L.sticky, k); }, k === 'remove' ? 'Removed the pin' : `Pinned to ${k}`);
 });
 // The field wants a number and a unit, exactly so: anything else stays as typed until the field is
 // left, then goes back. No limit on the number; the slider only shows what fits its range.
