@@ -26,6 +26,20 @@ export function phoneOrder(blocks) {
   return out;
 }
 
+// Candidate R: after a phone edit that moved or resized one block, which has been resized on the phone (now or before),
+// that block leaves its place, goes after every block that starts on its row or above, then ahead of the first of those
+// it overlaps. Anything else returns null.
+export function resizedAhead(blocks, was) {
+  const edited = blocks.filter((b) => { const o = was.find((x) => x.id === b.id); return o && o.layout.mobile.area.join() !== b.layout.mobile.area.join(); });
+  if (edited.length !== 1 || !edited[0].phoneResized) return null;
+  const e = edited[0], ea = e.layout.mobile.area, rest = blocks.filter((b) => b !== e);
+  let at = 0;
+  rest.forEach((b, k) => { if (b.layout.mobile.area[0] <= ea[0]) at = k + 1; });
+  const hit = rest.findIndex((b, k) => k < at && overlaps(b.layout.mobile.area, ea));
+  if (hit >= 0) at = hit;
+  return [...rest.slice(0, at), e, ...rest.slice(at)];
+}
+
 // A new block on a phone (parity/findings/CAP-NEWORDER*.json). `blocks` are in phone order; returns
 // the place the new block takes. Only blocks that start at its place compare by size: same size, it goes after that block and what sits inside it; inside bigger
 // ones, right after the smallest; around smaller ones, before the first. Anything else goes after

@@ -14,7 +14,7 @@ import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHt
 import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
-import { phoneOrder, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
+import { phoneOrder, resizedAhead, newBlockSlot, stoppedSlot, followDesktopEdit, followNewBlock, closeUp, phoneOverlaps } from './phone-order.js';
 import { codeLines, gutterWidth } from './code-look.js';
 import { foldRanges, foldRows, foldedLine, lineOf, foldsOf, fullOf, realOf, toggleFold, openFold, dropFolds, adoptFolds, foldArrow, foldDelete, noteSelection, syncFolds, foldUndo, foldReplace, foldCopy, foldCut } from './code-fold.js';
 import { mdWrap, mdLines as mdLinesEdit, mdHeading, mdState, mdEnter, mdBackspace, mdLinkIn, mdSetLink, mdAddDefinition, mdChangeLink, mdRemoveLink } from './markdown-edit.js';
@@ -125,7 +125,9 @@ function followPhoneRows(before) {
     const first = bp === 'mobile' && was.phoneFollows === true && !was.phoneEdited;
     const reflowed = phoneFollowsMove(s, was);
     if (first && s.phoneEdited) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
-    const next = phoneOrder(s.blocks);
+    // Candidate R (round E, predictions in CAP-A2RESIZEAHEAD-PREDICTED.json, not yet scored): on a later phone edit, a block
+    // resized on the phone goes to its row's place and then ahead of the first block it overlaps (CAP-A2SECONDEDIT f1, f2, f5, f7).
+    const next = (bp === 'mobile' && s.phoneFollows != null && resizedAhead(s.blocks, was.blocks)) || phoneOrder(s.blocks);
     if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
     if (softening) continue; // The text stays open, in its place in the page; the close draws this
@@ -154,6 +156,7 @@ function phoneFollowsMove(s, was) {
   closeUp(s, gone);
   if (bp === 'mobile') {
     if (!gone.length && changed('mobile', (a) => a)) s.phoneEdited = true;
+    if (!gone.length) for (const [b, o] of same) { const n = b.layout.mobile.area, p = o.layout.mobile.area; if (n[2] - n[0] !== p[2] - p[0] || n[3] - n[1] !== p[3] - p[1]) b.phoneResized = true; }
     // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
     if (!gone.length && s.phoneFollows !== false) {
       const moved = changed('mobile', (a) => a.slice(0, 2));
