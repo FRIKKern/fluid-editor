@@ -1,0 +1,632 @@
+{
+  "item": "CAP-T12PHONERISE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:37:51.477Z",
+  "predictions": {
+    "file": "PRED-T12PHONERISE.json",
+    "commit": "a8444e8de11d81bd49b8276d9a766d7447eb1aff",
+    "committedAt": "2026-11-10T05:30:53+01:00",
+    "sha256": "6028d4e26be599ae19ac7ac707e88cb84feaf24c64b03f3c905de43760688383"
+  },
+  "engine": "chrome",
+  "question": "A new rule, predictions pushed first (PRED-T12PHONERISE.json): a stand-in whose rows were below its content before a change takes the rows its content needs after it. A phone Newsletter that hangs out, Show Name Field off, on, off, Alignment left and center, then the desktop; the run twice.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "shot",
+      "1-edit"
+    ],
+    [
+      "pressNamed",
+      "Content"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 desk names",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "1 phone names",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 c1 names off",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "read",
+      "1 c1 late",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "1-c1"
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 c2 names on",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 c3 names off",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "alignLeft"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 c4 left",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "1-c4"
+    ],
+    [
+      "pressNamed",
+      "alignCenter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "1 c5 center",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "1 desk after",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "blank"
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "add",
+      0,
+      "Newsletter"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      2500
+    ],
+    [
+      "shot",
+      "2-edit"
+    ],
+    [
+      "pressNamed",
+      "Content"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 desk names",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "2 phone names",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 c1 names off",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "read",
+      "2 c1 late",
+      {
+        "areas": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "2-c1"
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 c2 names on",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Show Name Field"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 c3 names off",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressNamed",
+      "alignLeft"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 c4 left",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "shot",
+      "2-c4"
+    ],
+    [
+      "pressNamed",
+      "alignCenter"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "2 c5 center",
+      {
+        "areas": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      2600
+    ],
+    [
+      "read",
+      "2 desk after",
+      {
+        "areas": 0
+      }
+    ]
+  ],
+  "reads": {
+    "1 desk names": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 phone names": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c1 names off": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c1 late": {
+      "contentH": 362.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c2 names on": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/17/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c3 names off": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c4 left": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 c5 center": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "1 desk after": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 desk names": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 phone names": {
+      "contentH": 526.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c1 names off": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c1 late": {
+      "contentH": 362.3,
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/9/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c2 names on": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/17/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c3 names off": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c4 left": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 c5 center": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "2 desk after": {
+      "areas": [
+        [
+          "1/2/15/12",
+          "1/2/12/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "unsteady": [
+    "c1 names off"
+  ],
+  "earlier": "The same predictions and steps ran twice before this capture (the same round): the second run stopped both times, as Edit opened the panel on Design, the tab the run before had left (a shot), so a Content press was added. Their first runs read c1 names off at 8 rows (stayed) and 11 (rose); every other read as here.",
+  "score": "First round, 7 cases: desk names, c2, c4, c5 and desk after as predicted, read twice; c3 names off missed (predicted 10 by the frozen refit 1, read 11 twice: from 16 rows the oracle took ceil(10.67), not the floor); c1 unsteady (11 in 3 of 5 reads, with CAP-T12NLPOST.json, 8 in 2), so not scored. c4 did not test the new rule: the block no longer hung after c3.",
+  "facts": "Ours draws the phone Newsletter as read: 526.3 tall with names, 362.3 without (contentH). The phone edits leave the desktop at 14 rows."
+}
