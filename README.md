@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - X2: check-fresh compares two block reads without their data-test ids, new on every build ([#548](https://github.com/FRIKKern/fluid-editor/pull/548))
   - X2: rule T refit 1 on the margin track's width: 27 of 30 fresh (T 14), built ([#546](https://github.com/FRIKKern/fluid-editor/pull/546))
-  - U10: h1p2b1's 2 and 3, the heading and the button each step on their own ([#532](https://github.com/FRIKKern/fluid-editor/pull/532))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
