@@ -1,0 +1,809 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-10",
+  "question": "X2, rule T scored as is at other frame widths (no refit before the read): a lone 6 wide Shape on the right margin track (lines 21 to 27), pressed 30% in from its left, held and moved +1, then left in steps across T's three parts, ring read at each, twice (R1, R2). At 1280 (columns 49.515625px, so T's step from 3 to 2 columns left sits at -42.1, 0.85 of a column) and at 1920 (columns as at 1600, the frame 320px wider). Gestures Probe, unsaved, one block per enter.",
+  "rule": "T as built (#536): a lone 6 wide block on the right margin track jumps 3 columns left at the first pixel of a move left; from -0.85 of a column (-50 at 1600 and 1920, -42.1 at 1280) it is 2 columns left; from where ours' left edge rule is 3 columns left it follows that rule. A move right goes 1 column left. Read at 1600 only (CAP-X2SIX.json); the 0.85 of a column elsewhere is inferred.",
+  "from": "Ours on main (rule T, #536), each ring from mid-check's hold sweep at that frame width (viewport 1280 or 1920 by 945). Points sit at least 5px from each step ours makes: at 1280, 2 columns left from -43, the left edge rule's 18 from -130 and 17 from -181; at 1920, 2 left from -50, 18 from -153, 17 from -214.",
+  "hit": "Each case's two ring reads must agree; then the ring must equal T's area. A start not on 1/21/7/27, or the block not selected, is a setup miss, named, not scored. Two reads that disagree are named unsteady.",
+  "predicted": {
+    "w1280 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1280 1": "1 / 20 / 7 / 26",
+    "w1280 -1": "1 / 18 / 7 / 24",
+    "w1280 -20": "1 / 18 / 7 / 24",
+    "w1280 -36": "1 / 18 / 7 / 24",
+    "w1280 -48": "1 / 19 / 7 / 25",
+    "w1280 -90": "1 / 19 / 7 / 25",
+    "w1280 -122": "1 / 19 / 7 / 25",
+    "w1280 -137": "1 / 18 / 7 / 24",
+    "w1280 -172": "1 / 18 / 7 / 24",
+    "w1280 -188": "1 / 17 / 7 / 23",
+    "w1920 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1920 1": "1 / 20 / 7 / 26",
+    "w1920 -1": "1 / 18 / 7 / 24",
+    "w1920 -25": "1 / 18 / 7 / 24",
+    "w1920 -45": "1 / 18 / 7 / 24",
+    "w1920 -55": "1 / 19 / 7 / 25",
+    "w1920 -100": "1 / 19 / 7 / 25",
+    "w1920 -148": "1 / 19 / 7 / 25",
+    "w1920 -158": "1 / 18 / 7 / 24",
+    "w1920 -225": "1 / 17 / 7 / 23"
+  },
+  "cases": {
+    "w1280 1": [
+      "R1 w1280 1",
+      "R2 w1280 1"
+    ],
+    "w1280 -1": [
+      "R1 w1280 -1",
+      "R2 w1280 -1"
+    ],
+    "w1280 -20": [
+      "R1 w1280 -20",
+      "R2 w1280 -20"
+    ],
+    "w1280 -36": [
+      "R1 w1280 -36",
+      "R2 w1280 -36"
+    ],
+    "w1280 -48": [
+      "R1 w1280 -48",
+      "R2 w1280 -48"
+    ],
+    "w1280 -90": [
+      "R1 w1280 -90",
+      "R2 w1280 -90"
+    ],
+    "w1280 -122": [
+      "R1 w1280 -122",
+      "R2 w1280 -122"
+    ],
+    "w1280 -137": [
+      "R1 w1280 -137",
+      "R2 w1280 -137"
+    ],
+    "w1280 -172": [
+      "R1 w1280 -172",
+      "R2 w1280 -172"
+    ],
+    "w1280 -188": [
+      "R1 w1280 -188",
+      "R2 w1280 -188"
+    ],
+    "w1920 1": [
+      "R1 w1920 1",
+      "R2 w1920 1"
+    ],
+    "w1920 -1": [
+      "R1 w1920 -1",
+      "R2 w1920 -1"
+    ],
+    "w1920 -25": [
+      "R1 w1920 -25",
+      "R2 w1920 -25"
+    ],
+    "w1920 -45": [
+      "R1 w1920 -45",
+      "R2 w1920 -45"
+    ],
+    "w1920 -55": [
+      "R1 w1920 -55",
+      "R2 w1920 -55"
+    ],
+    "w1920 -100": [
+      "R1 w1920 -100",
+      "R2 w1920 -100"
+    ],
+    "w1920 -148": [
+      "R1 w1920 -148",
+      "R2 w1920 -148"
+    ],
+    "w1920 -158": [
+      "R1 w1920 -158",
+      "R2 w1920 -158"
+    ],
+    "w1920 -225": [
+      "R1 w1920 -225",
+      "R2 w1920 -225"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1280,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1008.14,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1280 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -1"
+    ],
+    [
+      "move",
+      -20,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -20"
+    ],
+    [
+      "move",
+      -36,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -36"
+    ],
+    [
+      "move",
+      -48,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -48"
+    ],
+    [
+      "move",
+      -90,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -90"
+    ],
+    [
+      "move",
+      -122,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -122"
+    ],
+    [
+      "move",
+      -137,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -137"
+    ],
+    [
+      "move",
+      -172,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -172"
+    ],
+    [
+      "move",
+      -188,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1280 -188"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1008.14,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1280 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -1"
+    ],
+    [
+      "move",
+      -20,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -20"
+    ],
+    [
+      "move",
+      -36,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -36"
+    ],
+    [
+      "move",
+      -48,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -48"
+    ],
+    [
+      "move",
+      -90,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -90"
+    ],
+    [
+      "move",
+      -122,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -122"
+    ],
+    [
+      "move",
+      -137,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -137"
+    ],
+    [
+      "move",
+      -172,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -172"
+    ],
+    [
+      "move",
+      -188,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1280 -188"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1920,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1920 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -25"
+    ],
+    [
+      "move",
+      -45,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -45"
+    ],
+    [
+      "move",
+      -55,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -55"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -100"
+    ],
+    [
+      "move",
+      -148,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -148"
+    ],
+    [
+      "move",
+      -158,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -158"
+    ],
+    [
+      "move",
+      -225,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1920 -225"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1920 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -25"
+    ],
+    [
+      "move",
+      -45,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -45"
+    ],
+    [
+      "move",
+      -55,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -55"
+    ],
+    [
+      "move",
+      -100,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -100"
+    ],
+    [
+      "move",
+      -148,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -148"
+    ],
+    [
+      "move",
+      -158,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -158"
+    ],
+    [
+      "move",
+      -225,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1920 -225"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ]
+}
