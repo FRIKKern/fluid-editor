@@ -1,0 +1,1558 @@
+{
+  "item": "CAP-R2LONGUNDO",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T05:27:33.506Z",
+  "predictions": {
+    "file": "CAP-R2LONGUNDO-PREDICTED.json",
+    "commit": "79be2ac6a157dea4fd2721a82bffc14876ec055f",
+    "committedAt": "2026-11-10T06:27:00+01:00",
+    "sha256": "f3bb4c163d652448d87b16ab7a70d018bee3fe546326cd1ab7169b2e39c60dea"
+  },
+  "engine": "chrome",
+  "question": "R2: undo steps inside one long edit. a new Text with a Line moved under it in shared columns (CAP-TEXTPUSH5 t13's setup without the south pull, so every burst grows the Text), typed in 3 bursts in one edit, each its own step (keysFast waits 1.5 s), then Cmd+Z 3 times and Cmd+Shift+Z 3 times, still in the edit, then let go: the Text's and the Line's areas at every step, two runs (R1, R2). Predictions pushed first (CAP-R2LONGUNDO-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      287
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 before",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night"
+    ],
+    [
+      "read",
+      "R1 step 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "keysFast",
+      " then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall"
+    ],
+    [
+      "read",
+      "R1 step 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "keysFast",
+      " and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter"
+    ],
+    [
+      "read",
+      "R1 step 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 undo 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 redo 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 redo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R1 redo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      287
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 before",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night"
+    ],
+    [
+      "read",
+      "R2 step 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "keysFast",
+      " then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall"
+    ],
+    [
+      "read",
+      "R2 step 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "keysFast",
+      " and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter"
+    ],
+    [
+      "read",
+      "R2 step 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 undo 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 redo 1",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 redo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "R2 redo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "R1 before": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 step 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/4/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "9/2/10/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 step 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 step 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 undo 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 undo 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          686
+        ],
+        "rows": 8,
+        "rowSizes": "39.3x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 undo 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "7/2/8/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 redo 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/4/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "9/2/10/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 redo 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 redo 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 let go": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 before": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 step 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/4/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "9/2/10/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 step 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 step 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 undo 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 undo 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          686
+        ],
+        "rows": 8,
+        "rowSizes": "39.3x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "8/2/9/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 undo 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "7/2/8/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 redo 1": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/4/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "9/2/10/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 redo 2": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          790.9
+        ],
+        "rows": 11,
+        "rowSizes": "30.1x11",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/6/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "11/2/12/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 redo 3": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 let go": {
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">the mill road runs north from the river past the old saw and the birch wood where the path turns up the hill toward the farm and the long barn with its red doors and the well in the yard where the cows come in at night then it climbs through the pines along the stream to a gate at the top of the ridge where the wind comes off the lake all day and the snow stays late into spring on the north side of every stone wall and from there you can see the whole valley with the town below the church tower and the fields running down to the water where the ferry crosses twice a day in summer and once a week in winter</p>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          873
+        ],
+        "rows": 13,
+        "rowSizes": "30.1x13",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/8/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_629",
+          "type": "csr",
+          "desktop": "13/2/14/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "answer": "Read twice (R1, R2), all 11 cases agree; read-backs clean. Ours as built, predicted first (CAP-R2LONGUNDO-PREDICTED.json): 10 of 10 fresh, section rows too. Three bursts in one edit are three steps: the Text grows 2 to 3, 5 and 7 rows and pushes the Line from row 8 to 9, 11 and 13. Each Cmd+Z inside the edit falls by the height lost, as the first undo does: 5 rows, then 2 (step 1 had 3), then the empty Text 1 row with the Line at row 7, above where it started. So undo steps do not give back the areas they had (rival K, 8 of 10, misses undo 2 and 3). Each Cmd+Shift+Z gives back the step's areas, and let go keeps them."
+}

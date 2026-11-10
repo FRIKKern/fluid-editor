@@ -1,0 +1,45 @@
+{
+  "item": "U9",
+  "question": "U9 scroll-off, the parts B1 left inferred, predictions pushed first: a scroll alone lets a single selected block go once it is wholly above the canvas (CAP-U9B1.json). Does the same hold below the canvas, for a group, and for a Text being typed in? Ours keeps all three selected (inferred).",
+  "setup": "Gestures Probe, unsaved. D: window 1600 by 1400, four new sections, a Button in the fourth, selected (the tool scrolls it to 200 from the top), then the frame back to 0, so it sits wholly below the canvas. G: B's build from CAP-U9B1.json, its Button and Shape selected as a group (press, then Shift press), then the frame to 973 so both are wholly above. T: window 1600 by 900, four new sections, a Text in the first with words pasted in and its typing still on, then the frame to 1100 so the Text is wholly above. Each built twice in this capture, Exit Without Saving between. No pointer event during a scroll.",
+  "bets": {
+    "D": "Below the canvas lets it go too: the Button reads unselected (ours keeps it: would differ).",
+    "G": "A group lets go too: both read unselected (ours keeps it: would differ).",
+    "T": "Typing keeps it: the Text stays selected, focus stays in the frame (ours the same)."
+  },
+  "scoring": "data-is-selected of each block read (and for T the focused read), each case only if its two reads agree. The block's box shows it is wholly out: if a case is only partly out, it is reported as such and doesn't count.",
+  "cases": {
+    "D selected": [
+      "D selected",
+      "D selected again"
+    ],
+    "D below": [
+      "D below",
+      "D below again"
+    ],
+    "G group Button": [
+      "G group, Button",
+      "G group, Button again"
+    ],
+    "G group Shape": [
+      "G group, Shape",
+      "G group, Shape again"
+    ],
+    "G above Button": [
+      "G above, Button",
+      "G above, Button again"
+    ],
+    "G above Shape": [
+      "G above, Shape",
+      "G above, Shape again"
+    ],
+    "T typing": [
+      "T typing",
+      "T typing again"
+    ],
+    "T above": [
+      "T above",
+      "T above again"
+    ]
+  }
+}

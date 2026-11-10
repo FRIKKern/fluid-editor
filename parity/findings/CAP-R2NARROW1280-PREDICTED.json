@@ -1,0 +1,597 @@
+{
+  "item": "CAP-R2NARROW1280-PREDICTED",
+  "capturedAt": "2026-11-10",
+  "question": "R2: ours at window 1280 predicts the text area at each drop of CAP-R2NARROW1280, before the read.",
+  "rule": "As built (fitTextRows): narrowing takes the text's height at its width plus the last pointer step (49.515625 / 12 = 4.13 px here) at the drop, and the rows the text needs when let go; widening takes rows off by the height lost. A rival with the last step 5.5 px gives the same areas at every drop, so this round cannot split the two.",
+  "from": "Scratch predictor: ours at viewport 1280 by 1000, the Text loaded at its fitted rows on columns 2 to 10, the real mouse in 12 steps per column, Escape after each read. The start (pasted) is setup: ours fits 8 rows; if the oracle pastes to another span the chain still follows each drop.",
+  "hit": "text (the desktop area) equal at the read; textH is shown, not scored.",
+  "predicted": {
+    "pasted": {
+      "text": "1/2/9/10",
+      "textH": 246,
+      "setup": true
+    },
+    "wider 1 held": {
+      "text": "1/2/8/11",
+      "textH": 224
+    },
+    "wider 1 let go": {
+      "text": "1/2/8/11",
+      "textH": 224
+    },
+    "wider 2 held": {
+      "text": "1/2/7/12",
+      "textH": 202
+    },
+    "wider 2 let go": {
+      "text": "1/2/7/12",
+      "textH": 202
+    },
+    "wider 3 held": {
+      "text": "1/2/7/13",
+      "textH": 179
+    },
+    "wider 3 let go": {
+      "text": "1/2/7/13",
+      "textH": 179
+    },
+    "wider 4 held": {
+      "text": "1/2/7/14",
+      "textH": 179
+    },
+    "wider 4 let go": {
+      "text": "1/2/7/14",
+      "textH": 179
+    },
+    "wider 5 held": {
+      "text": "1/2/6/15",
+      "textH": 157
+    },
+    "wider 5 let go": {
+      "text": "1/2/6/15",
+      "textH": 157
+    },
+    "wider 6 held": {
+      "text": "1/2/6/16",
+      "textH": 157
+    },
+    "wider 6 let go": {
+      "text": "1/2/6/16",
+      "textH": 157
+    },
+    "wider 7 held": {
+      "text": "1/2/5/17",
+      "textH": 134
+    },
+    "wider 7 let go": {
+      "text": "1/2/5/17",
+      "textH": 134
+    },
+    "wider 8 held": {
+      "text": "1/2/5/18",
+      "textH": 134
+    },
+    "wider 8 let go": {
+      "text": "1/2/5/18",
+      "textH": 134
+    },
+    "wider 9 held": {
+      "text": "1/2/5/19",
+      "textH": 112
+    },
+    "wider 9 let go": {
+      "text": "1/2/5/19",
+      "textH": 112
+    },
+    "wider 10 held": {
+      "text": "1/2/5/20",
+      "textH": 112
+    },
+    "wider 10 let go": {
+      "text": "1/2/5/20",
+      "textH": 112
+    },
+    "wider 11 held": {
+      "text": "1/2/5/21",
+      "textH": 112
+    },
+    "wider 11 let go": {
+      "text": "1/2/5/21",
+      "textH": 112
+    },
+    "wider 12 held": {
+      "text": "1/2/5/22",
+      "textH": 112
+    },
+    "wider 12 let go": {
+      "text": "1/2/5/22",
+      "textH": 112
+    },
+    "wider 13 held": {
+      "text": "1/2/5/23",
+      "textH": 112
+    },
+    "wider 13 let go": {
+      "text": "1/2/5/23",
+      "textH": 112
+    },
+    "wider 14 held": {
+      "text": "1/2/4/24",
+      "textH": 90
+    },
+    "wider 14 let go": {
+      "text": "1/2/4/24",
+      "textH": 90
+    },
+    "wider 15 held": {
+      "text": "1/2/4/25",
+      "textH": 90
+    },
+    "wider 15 let go": {
+      "text": "1/2/4/25",
+      "textH": 90
+    },
+    "wider 16 held": {
+      "text": "1/2/4/26",
+      "textH": 90
+    },
+    "wider 16 let go": {
+      "text": "1/2/4/26",
+      "textH": 90
+    },
+    "narrower 1 held": {
+      "text": "1/2/4/25",
+      "textH": 90
+    },
+    "narrower 1 let go": {
+      "text": "1/2/4/25",
+      "textH": 90
+    },
+    "narrower 2 held": {
+      "text": "1/2/4/24",
+      "textH": 90
+    },
+    "narrower 2 let go": {
+      "text": "1/2/4/24",
+      "textH": 90
+    },
+    "narrower 3 held": {
+      "text": "1/2/4/23",
+      "textH": 112
+    },
+    "narrower 3 let go": {
+      "text": "1/2/5/23",
+      "textH": 112
+    },
+    "narrower 4 held": {
+      "text": "1/2/5/22",
+      "textH": 112
+    },
+    "narrower 4 let go": {
+      "text": "1/2/5/22",
+      "textH": 112
+    },
+    "narrower 5 held": {
+      "text": "1/2/5/21",
+      "textH": 112
+    },
+    "narrower 5 let go": {
+      "text": "1/2/5/21",
+      "textH": 112
+    },
+    "narrower 6 held": {
+      "text": "1/2/5/20",
+      "textH": 112
+    },
+    "narrower 6 let go": {
+      "text": "1/2/5/20",
+      "textH": 112
+    },
+    "narrower 7 held": {
+      "text": "1/2/5/19",
+      "textH": 112
+    },
+    "narrower 7 let go": {
+      "text": "1/2/5/19",
+      "textH": 112
+    },
+    "narrower 8 held": {
+      "text": "1/2/5/18",
+      "textH": 134
+    },
+    "narrower 8 let go": {
+      "text": "1/2/5/18",
+      "textH": 134
+    },
+    "narrower 9 held": {
+      "text": "1/2/5/17",
+      "textH": 134
+    },
+    "narrower 9 let go": {
+      "text": "1/2/5/17",
+      "textH": 134
+    },
+    "narrower 10 held": {
+      "text": "1/2/6/16",
+      "textH": 157
+    },
+    "narrower 10 let go": {
+      "text": "1/2/6/16",
+      "textH": 157
+    },
+    "narrower 11 held": {
+      "text": "1/2/6/15",
+      "textH": 157
+    },
+    "narrower 11 let go": {
+      "text": "1/2/6/15",
+      "textH": 157
+    },
+    "narrower 12 held": {
+      "text": "1/2/7/14",
+      "textH": 179
+    },
+    "narrower 12 let go": {
+      "text": "1/2/7/14",
+      "textH": 179
+    },
+    "narrower 13 held": {
+      "text": "1/2/7/13",
+      "textH": 179
+    },
+    "narrower 13 let go": {
+      "text": "1/2/7/13",
+      "textH": 179
+    },
+    "narrower 14 held": {
+      "text": "1/2/7/12",
+      "textH": 202
+    },
+    "narrower 14 let go": {
+      "text": "1/2/7/12",
+      "textH": 202
+    },
+    "narrower 15 held": {
+      "text": "1/2/8/11",
+      "textH": 224
+    },
+    "narrower 15 let go": {
+      "text": "1/2/8/11",
+      "textH": 224
+    },
+    "narrower 16 held": {
+      "text": "1/2/9/10",
+      "textH": 246
+    },
+    "narrower 16 let go": {
+      "text": "1/2/9/10",
+      "textH": 246
+    },
+    "narrower 17 held": {
+      "text": "1/2/10/9",
+      "textH": 291
+    },
+    "narrower 17 let go": {
+      "text": "1/2/10/9",
+      "textH": 291
+    },
+    "narrower 18 held": {
+      "text": "1/2/11/8",
+      "textH": 336
+    },
+    "narrower 18 let go": {
+      "text": "1/2/11/8",
+      "textH": 336
+    },
+    "narrower 19 held": {
+      "text": "1/2/12/7",
+      "textH": 426
+    },
+    "narrower 19 let go": {
+      "text": "1/2/14/7",
+      "textH": 426
+    },
+    "narrower 20 held": {
+      "text": "1/2/17/6",
+      "textH": 560
+    },
+    "narrower 20 let go": {
+      "text": "1/2/17/6",
+      "textH": 560
+    }
+  },
+  "cases": {
+    "wider 1 held": [
+      "R1 wider 1 held",
+      "R2 wider 1 held"
+    ],
+    "wider 1 let go": [
+      "R1 wider 1 let go",
+      "R2 wider 1 let go"
+    ],
+    "wider 2 held": [
+      "R1 wider 2 held",
+      "R2 wider 2 held"
+    ],
+    "wider 2 let go": [
+      "R1 wider 2 let go",
+      "R2 wider 2 let go"
+    ],
+    "wider 3 held": [
+      "R1 wider 3 held",
+      "R2 wider 3 held"
+    ],
+    "wider 3 let go": [
+      "R1 wider 3 let go",
+      "R2 wider 3 let go"
+    ],
+    "wider 4 held": [
+      "R1 wider 4 held",
+      "R2 wider 4 held"
+    ],
+    "wider 4 let go": [
+      "R1 wider 4 let go",
+      "R2 wider 4 let go"
+    ],
+    "wider 5 held": [
+      "R1 wider 5 held",
+      "R2 wider 5 held"
+    ],
+    "wider 5 let go": [
+      "R1 wider 5 let go",
+      "R2 wider 5 let go"
+    ],
+    "wider 6 held": [
+      "R1 wider 6 held",
+      "R2 wider 6 held"
+    ],
+    "wider 6 let go": [
+      "R1 wider 6 let go",
+      "R2 wider 6 let go"
+    ],
+    "wider 7 held": [
+      "R1 wider 7 held",
+      "R2 wider 7 held"
+    ],
+    "wider 7 let go": [
+      "R1 wider 7 let go",
+      "R2 wider 7 let go"
+    ],
+    "wider 8 held": [
+      "R1 wider 8 held",
+      "R2 wider 8 held"
+    ],
+    "wider 8 let go": [
+      "R1 wider 8 let go",
+      "R2 wider 8 let go"
+    ],
+    "wider 9 held": [
+      "R1 wider 9 held",
+      "R2 wider 9 held"
+    ],
+    "wider 9 let go": [
+      "R1 wider 9 let go",
+      "R2 wider 9 let go"
+    ],
+    "wider 10 held": [
+      "R1 wider 10 held",
+      "R2 wider 10 held"
+    ],
+    "wider 10 let go": [
+      "R1 wider 10 let go",
+      "R2 wider 10 let go"
+    ],
+    "wider 11 held": [
+      "R1 wider 11 held",
+      "R2 wider 11 held"
+    ],
+    "wider 11 let go": [
+      "R1 wider 11 let go",
+      "R2 wider 11 let go"
+    ],
+    "wider 12 held": [
+      "R1 wider 12 held",
+      "R2 wider 12 held"
+    ],
+    "wider 12 let go": [
+      "R1 wider 12 let go",
+      "R2 wider 12 let go"
+    ],
+    "wider 13 held": [
+      "R1 wider 13 held",
+      "R2 wider 13 held"
+    ],
+    "wider 13 let go": [
+      "R1 wider 13 let go",
+      "R2 wider 13 let go"
+    ],
+    "wider 14 held": [
+      "R1 wider 14 held",
+      "R2 wider 14 held"
+    ],
+    "wider 14 let go": [
+      "R1 wider 14 let go",
+      "R2 wider 14 let go"
+    ],
+    "wider 15 held": [
+      "R1 wider 15 held",
+      "R2 wider 15 held"
+    ],
+    "wider 15 let go": [
+      "R1 wider 15 let go",
+      "R2 wider 15 let go"
+    ],
+    "wider 16 held": [
+      "R1 wider 16 held",
+      "R2 wider 16 held"
+    ],
+    "wider 16 let go": [
+      "R1 wider 16 let go",
+      "R2 wider 16 let go"
+    ],
+    "narrower 1 held": [
+      "R1 narrower 1 held",
+      "R2 narrower 1 held"
+    ],
+    "narrower 1 let go": [
+      "R1 narrower 1 let go",
+      "R2 narrower 1 let go"
+    ],
+    "narrower 2 held": [
+      "R1 narrower 2 held",
+      "R2 narrower 2 held"
+    ],
+    "narrower 2 let go": [
+      "R1 narrower 2 let go",
+      "R2 narrower 2 let go"
+    ],
+    "narrower 3 held": [
+      "R1 narrower 3 held",
+      "R2 narrower 3 held"
+    ],
+    "narrower 3 let go": [
+      "R1 narrower 3 let go",
+      "R2 narrower 3 let go"
+    ],
+    "narrower 4 held": [
+      "R1 narrower 4 held",
+      "R2 narrower 4 held"
+    ],
+    "narrower 4 let go": [
+      "R1 narrower 4 let go",
+      "R2 narrower 4 let go"
+    ],
+    "narrower 5 held": [
+      "R1 narrower 5 held",
+      "R2 narrower 5 held"
+    ],
+    "narrower 5 let go": [
+      "R1 narrower 5 let go",
+      "R2 narrower 5 let go"
+    ],
+    "narrower 6 held": [
+      "R1 narrower 6 held",
+      "R2 narrower 6 held"
+    ],
+    "narrower 6 let go": [
+      "R1 narrower 6 let go",
+      "R2 narrower 6 let go"
+    ],
+    "narrower 7 held": [
+      "R1 narrower 7 held",
+      "R2 narrower 7 held"
+    ],
+    "narrower 7 let go": [
+      "R1 narrower 7 let go",
+      "R2 narrower 7 let go"
+    ],
+    "narrower 8 held": [
+      "R1 narrower 8 held",
+      "R2 narrower 8 held"
+    ],
+    "narrower 8 let go": [
+      "R1 narrower 8 let go",
+      "R2 narrower 8 let go"
+    ],
+    "narrower 9 held": [
+      "R1 narrower 9 held",
+      "R2 narrower 9 held"
+    ],
+    "narrower 9 let go": [
+      "R1 narrower 9 let go",
+      "R2 narrower 9 let go"
+    ],
+    "narrower 10 held": [
+      "R1 narrower 10 held",
+      "R2 narrower 10 held"
+    ],
+    "narrower 10 let go": [
+      "R1 narrower 10 let go",
+      "R2 narrower 10 let go"
+    ],
+    "narrower 11 held": [
+      "R1 narrower 11 held",
+      "R2 narrower 11 held"
+    ],
+    "narrower 11 let go": [
+      "R1 narrower 11 let go",
+      "R2 narrower 11 let go"
+    ],
+    "narrower 12 held": [
+      "R1 narrower 12 held",
+      "R2 narrower 12 held"
+    ],
+    "narrower 12 let go": [
+      "R1 narrower 12 let go",
+      "R2 narrower 12 let go"
+    ],
+    "narrower 13 held": [
+      "R1 narrower 13 held",
+      "R2 narrower 13 held"
+    ],
+    "narrower 13 let go": [
+      "R1 narrower 13 let go",
+      "R2 narrower 13 let go"
+    ],
+    "narrower 14 held": [
+      "R1 narrower 14 held",
+      "R2 narrower 14 held"
+    ],
+    "narrower 14 let go": [
+      "R1 narrower 14 let go",
+      "R2 narrower 14 let go"
+    ],
+    "narrower 15 held": [
+      "R1 narrower 15 held",
+      "R2 narrower 15 held"
+    ],
+    "narrower 15 let go": [
+      "R1 narrower 15 let go",
+      "R2 narrower 15 let go"
+    ],
+    "narrower 16 held": [
+      "R1 narrower 16 held",
+      "R2 narrower 16 held"
+    ],
+    "narrower 16 let go": [
+      "R1 narrower 16 let go",
+      "R2 narrower 16 let go"
+    ],
+    "narrower 17 held": [
+      "R1 narrower 17 held",
+      "R2 narrower 17 held"
+    ],
+    "narrower 17 let go": [
+      "R1 narrower 17 let go",
+      "R2 narrower 17 let go"
+    ],
+    "narrower 18 held": [
+      "R1 narrower 18 held",
+      "R2 narrower 18 held"
+    ],
+    "narrower 18 let go": [
+      "R1 narrower 18 let go",
+      "R2 narrower 18 let go"
+    ],
+    "narrower 19 held": [
+      "R1 narrower 19 held",
+      "R2 narrower 19 held"
+    ],
+    "narrower 19 let go": [
+      "R1 narrower 19 let go",
+      "R2 narrower 19 let go"
+    ],
+    "narrower 20 held": [
+      "R1 narrower 20 held",
+      "R2 narrower 20 held"
+    ],
+    "narrower 20 let go": [
+      "R1 narrower 20 let go",
+      "R2 narrower 20 let go"
+    ],
+    "pasted": [
+      "R1 pasted",
+      "R2 pasted"
+    ]
+  }
+}
