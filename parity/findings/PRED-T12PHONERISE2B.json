@@ -1,0 +1,39 @@
+{
+  "item": "T12",
+  "question": "Refit 1 of PRED-T12PHONERISE.json, the rule unchanged, predictions pushed first: a phone Newsletter that hangs out (names on at the desktop, 8 rows on the phone holding 526.3) and then Stack on the phone, then Float. The first change is the one that tests the rule; Stack takes ours from 526.3 to 510.3 tall, so the rule rises to ceil(14.89) = 15, frozen refit 1 alone keeps 8; Float grows it back to 16 under both.",
+  "rule": "As in PRED-T12PHONERISE.json, not refitted: hung before a change (ceil(x0 - 0.02) > rows), then at least ceil(x - 0.02) after it. Frozen refit 1 alone keeps 8 at the first change.",
+  "how": "Probe page, window 1600 by 1000, a new Newsletter, Edit, Content, Show Name Field on, the phone view with the panel open, Design, then the two presses, then the desktop view. The run twice, the second after Exit Without Saving and Edit again.",
+  "predictions": {
+    "desk names": {
+      "desktop": 14,
+      "phone": 8
+    },
+    "Stack": {
+      "phone": 15
+    },
+    "Float": {
+      "phone": 16
+    },
+    "desk after": {
+      "desktop": 14
+    }
+  },
+  "cases": {
+    "desk names": [
+      "1 desk names",
+      "2 desk names"
+    ],
+    "Stack": [
+      "1 Stack",
+      "2 Stack"
+    ],
+    "Float": [
+      "1 Float",
+      "2 Float"
+    ],
+    "desk after": [
+      "1 desk after",
+      "2 desk after"
+    ]
+  }
+}
