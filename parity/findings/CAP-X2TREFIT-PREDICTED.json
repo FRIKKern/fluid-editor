@@ -1,0 +1,1506 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-10",
+  "question": "X2, rule T refit 1 (the margin track's extra width), fresh round: a lone 6 wide Shape on the right margin track (lines 21 to 27), pressed 30% in from its left, held and moved +1, then left in steps, ring read at each, twice (R1, R2), at four frame widths not read before: 1440 and 1560 (margin track under 1.5 columns), 1680 and 1760 (2.2 and 2.9 columns). Gestures Probe, unsaved, one block per enter.",
+  "rule": "T refit 1: let p be the column pitch, M the right margin track's width (frame's right edge minus x of line 26), n = 5 + round(M / p) and c = 5 + ceil(M / p), the block's box width in columns rounded and rounded up. If n is 6 or less, the block follows the left edge rule from the first pixel (21 - floor(-dx / p + 0.4) moving left, 21 moving right). Otherwise a move right goes to column 27 - c; a move left is on column 27 - (n + 2) until -(M / 2 + 5), then on 27 - (n + 1), and in both it takes the left edge rule's column when that is further left. At 1600 (M 89.125, p 58.78125: n 7, c 7) this is T as built: 20 at +1, 18, 19 from -49.6, then the left edge rule.",
+  "from": "Scratch predictor of refit 1 (columns), fitted on CAP-X2SIX.json (1600, A and B, 18 of 18) and CAP-X2TWIDTHS.json (1280 and 1920, 19 of 19): 37 of 37 seen. The switch at -(M / 2 + 5) is one choice inside the seen gaps (-49 to -50 at 1600, -100 to -148 at 1920); points sit at least 5px from it and from 0.556 M. M and p are ours' computed grid at each width (equal to the oracle's boxes at 1280, 1600 and 1920). asBuilt: ours on main (rule T at every width), from mid-check's hold sweep.",
+  "hit": "Each case's two ring reads must agree; then the ring must equal refit 1's area. A start not on 1/21/7/27, or the block not selected, is a setup miss, named, not scored. Two reads that disagree are named unsteady. Refit 1 is built only if it beats asBuilt on these reads.",
+  "predicted": {
+    "w1440 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1440 1": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 20 / 7 / 26"
+    },
+    "w1440 -1": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1440 -17": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1440 -41": {
+      "ring": "1 / 20 / 7 / 26",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1440 -69": {
+      "ring": "1 / 20 / 7 / 26",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1440 -117": {
+      "ring": "1 / 19 / 7 / 25",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1440 -173": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1440 -229": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 17 / 7 / 23"
+    },
+    "w1560 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1560 1": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 20 / 7 / 26"
+    },
+    "w1560 -1": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1560 -18": {
+      "ring": "1 / 21 / 7 / 27",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1560 -43": {
+      "ring": "1 / 20 / 7 / 26",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1560 -72": {
+      "ring": "1 / 20 / 7 / 26",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1560 -124": {
+      "ring": "1 / 19 / 7 / 25",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1560 -182": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1560 -241": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 17 / 7 / 23"
+    },
+    "w1680 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1680 1": {
+      "ring": "1 / 19 / 7 / 25",
+      "asBuilt": "1 / 20 / 7 / 26"
+    },
+    "w1680 -1": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1680 -25": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1680 -60": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1680 -111": {
+      "ring": "1 / 19 / 7 / 25",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1680 -182": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1680 -241": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 17 / 7 / 23"
+    },
+    "w1760 start": {
+      "area": "1/21/7/27",
+      "setup": true
+    },
+    "w1760 1": {
+      "ring": "1 / 19 / 7 / 25",
+      "asBuilt": "1 / 20 / 7 / 26"
+    },
+    "w1760 -1": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1760 -25": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1760 -70": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1760 -121": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 19 / 7 / 25"
+    },
+    "w1760 -182": {
+      "ring": "1 / 18 / 7 / 24",
+      "asBuilt": "1 / 18 / 7 / 24"
+    },
+    "w1760 -241": {
+      "ring": "1 / 17 / 7 / 23",
+      "asBuilt": "1 / 17 / 7 / 23"
+    }
+  },
+  "cases": {
+    "w1440 1": [
+      "R1 w1440 1",
+      "R2 w1440 1"
+    ],
+    "w1440 -1": [
+      "R1 w1440 -1",
+      "R2 w1440 -1"
+    ],
+    "w1440 -17": [
+      "R1 w1440 -17",
+      "R2 w1440 -17"
+    ],
+    "w1440 -41": [
+      "R1 w1440 -41",
+      "R2 w1440 -41"
+    ],
+    "w1440 -69": [
+      "R1 w1440 -69",
+      "R2 w1440 -69"
+    ],
+    "w1440 -117": [
+      "R1 w1440 -117",
+      "R2 w1440 -117"
+    ],
+    "w1440 -173": [
+      "R1 w1440 -173",
+      "R2 w1440 -173"
+    ],
+    "w1440 -229": [
+      "R1 w1440 -229",
+      "R2 w1440 -229"
+    ],
+    "w1560 1": [
+      "R1 w1560 1",
+      "R2 w1560 1"
+    ],
+    "w1560 -1": [
+      "R1 w1560 -1",
+      "R2 w1560 -1"
+    ],
+    "w1560 -18": [
+      "R1 w1560 -18",
+      "R2 w1560 -18"
+    ],
+    "w1560 -43": [
+      "R1 w1560 -43",
+      "R2 w1560 -43"
+    ],
+    "w1560 -72": [
+      "R1 w1560 -72",
+      "R2 w1560 -72"
+    ],
+    "w1560 -124": [
+      "R1 w1560 -124",
+      "R2 w1560 -124"
+    ],
+    "w1560 -182": [
+      "R1 w1560 -182",
+      "R2 w1560 -182"
+    ],
+    "w1560 -241": [
+      "R1 w1560 -241",
+      "R2 w1560 -241"
+    ],
+    "w1680 1": [
+      "R1 w1680 1",
+      "R2 w1680 1"
+    ],
+    "w1680 -1": [
+      "R1 w1680 -1",
+      "R2 w1680 -1"
+    ],
+    "w1680 -25": [
+      "R1 w1680 -25",
+      "R2 w1680 -25"
+    ],
+    "w1680 -60": [
+      "R1 w1680 -60",
+      "R2 w1680 -60"
+    ],
+    "w1680 -111": [
+      "R1 w1680 -111",
+      "R2 w1680 -111"
+    ],
+    "w1680 -182": [
+      "R1 w1680 -182",
+      "R2 w1680 -182"
+    ],
+    "w1680 -241": [
+      "R1 w1680 -241",
+      "R2 w1680 -241"
+    ],
+    "w1760 1": [
+      "R1 w1760 1",
+      "R2 w1760 1"
+    ],
+    "w1760 -1": [
+      "R1 w1760 -1",
+      "R2 w1760 -1"
+    ],
+    "w1760 -25": [
+      "R1 w1760 -25",
+      "R2 w1760 -25"
+    ],
+    "w1760 -70": [
+      "R1 w1760 -70",
+      "R2 w1760 -70"
+    ],
+    "w1760 -121": [
+      "R1 w1760 -121",
+      "R2 w1760 -121"
+    ],
+    "w1760 -182": [
+      "R1 w1760 -182",
+      "R2 w1760 -182"
+    ],
+    "w1760 -241": [
+      "R1 w1760 -241",
+      "R2 w1760 -241"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1440,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1133.16,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1440 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -1"
+    ],
+    [
+      "move",
+      -17,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -17"
+    ],
+    [
+      "move",
+      -41,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -41"
+    ],
+    [
+      "move",
+      -69,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -69"
+    ],
+    [
+      "move",
+      -117,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -117"
+    ],
+    [
+      "move",
+      -173,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -173"
+    ],
+    [
+      "move",
+      -229,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1440 -229"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1133.16,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1440 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -1"
+    ],
+    [
+      "move",
+      -17,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -17"
+    ],
+    [
+      "move",
+      -41,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -41"
+    ],
+    [
+      "move",
+      -69,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -69"
+    ],
+    [
+      "move",
+      -117,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -117"
+    ],
+    [
+      "move",
+      -173,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -173"
+    ],
+    [
+      "move",
+      -229,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1440 -229"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1560,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1560 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -1"
+    ],
+    [
+      "move",
+      -18,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -18"
+    ],
+    [
+      "move",
+      -43,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -43"
+    ],
+    [
+      "move",
+      -72,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -72"
+    ],
+    [
+      "move",
+      -124,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -124"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1560 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1560 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -1"
+    ],
+    [
+      "move",
+      -18,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -18"
+    ],
+    [
+      "move",
+      -43,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -43"
+    ],
+    [
+      "move",
+      -72,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -72"
+    ],
+    [
+      "move",
+      -124,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -124"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1560 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1680,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1680 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -25"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -60"
+    ],
+    [
+      "move",
+      -111,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -111"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1680 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1680 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -25"
+    ],
+    [
+      "move",
+      -60,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -60"
+    ],
+    [
+      "move",
+      -111,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -111"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1680 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1760,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R1 w1760 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -25"
+    ],
+    [
+      "move",
+      -70,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -70"
+    ],
+    [
+      "move",
+      -121,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -121"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R1 w1760 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ]
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      [
+        0.1,
+        0.5
+      ],
+      1196.79,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ]
+    ],
+    [
+      "read",
+      "R2 w1760 start",
+      {
+        "areas": 0,
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "hold",
+      0,
+      "new",
+      [
+        0.3,
+        0.5
+      ],
+      1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 1"
+    ],
+    [
+      "move",
+      -1,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -1"
+    ],
+    [
+      "move",
+      -25,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -25"
+    ],
+    [
+      "move",
+      -70,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -70"
+    ],
+    [
+      "move",
+      -121,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -121"
+    ],
+    [
+      "move",
+      -182,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -182"
+    ],
+    [
+      "move",
+      -241,
+      12
+    ],
+    [
+      "ring",
+      "R2 w1760 -241"
+    ],
+    [
+      "release",
+      "home"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ]
+}
