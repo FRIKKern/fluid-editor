@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 21 changes
+- **Today** · 22 changes
+  - X6: Summary far pulls read twice (CAP-X6SUMMARYFAR2) ([#564](https://github.com/FRIKKern/fluid-editor/pull/564))
   - R2: undo steps inside one long edit, 10 of 10 fresh (CAP-R2LONGUNDO) ([#563](https://github.com/FRIKKern/fluid-editor/pull/563))
-  - X2: rule T refit 2, the last (9 wide; 26 of 28 fresh, refit 1 had 15), built; T frozen ([#561](https://github.com/FRIKKern/fluid-editor/pull/561))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
