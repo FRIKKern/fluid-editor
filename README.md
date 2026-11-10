@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 35 changes
+- **Today** · 36 changes
+  - T15: Start blank's Edge and typed values, read as predicted ([#575](https://github.com/FRIKKern/fluid-editor/pull/575))
   - Y2, R2: the emptied-Text rows are read on a Heading 1 only, other styles inferred ([#578](https://github.com/FRIKKern/fluid-editor/pull/578))
-  - Y2: a delete that empties a Text takes the undo's rows, less the height lost (emptied Heading 1: 2 rows) ([#577](https://github.com/FRIKKern/fluid-editor/pull/577))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
