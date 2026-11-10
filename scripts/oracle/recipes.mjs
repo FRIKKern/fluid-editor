@@ -1748,6 +1748,18 @@ export const RECIPES = {
       ['scrollFrame', 0], ['pause', 600], ['read', `${r} frame back at its top`, S], ['press', 'Escape'], ['pause', 200], ['press', 'Escape'], ['pause', 300], ['exit']];
     return [...run('Q1'), ...run('Q2'), ...deep('S1'), ...deep('S2')];
   })() },
+  'CAP-R2ONTOP': { page: 'Blocks Probe', question: "R2, inferred until now: a block in shared columns from the Text's top or above to its old end exactly keeps its top and stretches as the Text grows (read on two Texts only, CAP-79ONTOP.json). b: a new Button (1/2/3/8) under a new Text; s: a new Social Links (1/2/3/6) under a new Text; u: the Text a row down, a Button above it pulled to its end (1/2/4/8). The Text typed into, let go, then Cmd+Z twice. Two runs (R1, R2). Predictions pushed first (CAP-R2ONTOP-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const LOREM = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore';
+    const R = { stack: 0, section: 0 };
+    const add = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const grow = (r, c, text) => [['read', `${r} ${c} before`, R], ['pick', 0, text], ['click', 'Write'], ['keysFast', LOREM], ['read', `${r} ${c} typed`, R],
+      ['press', 'Escape'], ['press', 'Escape'], ['deselect', 0], ['read', `${r} ${c} let go`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} ${c} undo`, R], ['press', 'Meta+z'], ['pause', 500], ['read', `${r} ${c} undo 2`, R], ['exit']];
+    const run = (r) => [
+      ['enter'], ['blank'], ...add('Button'), ...add('Text'), ...grow(r, 'b', 'a2'),
+      ['enter'], ['blank'], ...add('Social Links'), ...add('Text'), ...grow(r, 's', 'a2'),
+      ['enter'], ['blank'], ...add('Text'), ['drag', 0, 'a1', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], ...add('Button'), ['select', 0, 'a2'], ['drag', 0, 'a2', 's', 0, 41], ['press', 'Escape'], ['deselect', 0], ...grow(r, 'u', 'a1')];
+    return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
