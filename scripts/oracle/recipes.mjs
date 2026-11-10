@@ -753,6 +753,29 @@ export const RECIPES = {
     const all = [...SETUPS.map((u) => one(u, '')), ...SETUPS.map((u) => one(u, ' again'))];
     return [['window', 1600, 1000], ['enter'], ['blank'], ...all.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
   })() },
+  'CAP-A2SECONDEDIT': { page: 'Blocks Probe', question: 'A2: what a second phone edit does to the DOM order (CAP-A2PHONEEDIT e8: a2 moved up 3 onto a1, then resized 4 down onto a3, gave z2, z1, z3). Read only, no rule. 2 or 3 Shapes added on desktop (all at 1/2/7/8, stacked on the phone as added), two phone edits, each setup changing one thing from f1 (e8 again): the second edit a resize that makes no chain, a move instead of a resize, the chain made by moving a3, the edits the other way round, and the first edit apart. Read: the stack before, after the first and after the second edit. Each setup built twice, the second with " again". Blocks picked by add order (a1 first). No Meta+c, x or v.', steps: (() => {
+    const P = (n) => Math.round(n * 35) + Math.sign(n);
+    const ADD = [['add', 0, 'Shape'], ['press', 'Escape'], ['deselect', 0]];
+    const EDIT = (k, part, rows) => [['select', 0, k], ['drag', 0, k, part, 0, P(rows)], ['press', 'Escape'], ['deselect', 0]];
+    // [tag, blocks, first edit, second edit]; each edit [block, part, phone rows].
+    const SETUPS = [
+      ['f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3', 3, ['a2', 'middle', -3], ['a2', 's', 4]],
+      ['f2 a2 up 3 onto a1, a2 resized 1 down (no chain)', 3, ['a2', 'middle', -3], ['a2', 's', 1]],
+      ['f3 a2 up 3 onto a1, a2 moved down 1 (still on a1)', 3, ['a2', 'middle', -3], ['a2', 'middle', 1]],
+      ['f4 a2 up 3 onto a1, a3 moved up 4 onto a2', 3, ['a2', 'middle', -3], ['a3', 'middle', -4]],
+      ['f5 a2 resized 1 down onto a3, a2 up 3 onto a1', 3, ['a2', 's', 1], ['a2', 'middle', -3]],
+      ['f6 a3 moved down 1 apart, a2 up 3 onto a1', 3, ['a3', 'middle', 1], ['a2', 'middle', -3]],
+      ['f7 two: a2 up 3 onto a1, a2 resized 1 down', 2, ['a2', 'middle', -3], ['a2', 's', 1]],
+    ];
+    const one = ([label, n, e1, e2], s) => {
+      const tag = label.split(' ')[0];
+      return [...[...Array(n)].flatMap(() => ADD), ['view', 'Mobile'], ['read', `${tag} before${s}`, { stack: 0 }],
+        ...EDIT(...e1), ['read', `${tag} first edit${s}`, { stack: 0 }], ...EDIT(...e2), ['read', `${label}${s}`, { stack: 0 }], ['view', 'Desktop']];
+    };
+    const NEW = [['exit'], ['enter'], ['blank']];
+    const all = [...SETUPS.map((u) => one(u, '')), ...SETUPS.map((u) => one(u, ' again'))];
+    return [['window', 1600, 1000], ['enter'], ['blank'], ...all.flatMap((c, n) => (n ? [...NEW, ...c] : c))];
+  })() },
   'CAP-X6TRAILWHY': { page: 'Blocks Probe', question: 'X6: a new Instagram pulled one column in on desktop takes 9 rows where its height gives 8, and stays so 2 s later (CAP-X6DESKSETTLE2). Does any later step bring its rows to its tiles? After the pull: i1 a nudge of a Line beside it; i2 Mobile View and back; i3 Escape, select it, Escape; i4 a nudge of the Instagram down and back up; i5 a wait of 6 s. Read 400 ms and 2 s after each. Each case built twice, the second with " again". No Meta+c, x or v.', steps: (() => {
     const READ = (name) => [['read', name, { areas: 0, contentH: [0, 'new'] }]];
     const NEW = [['exit'], ['enter'], ['blank']];
