@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 36 changes
-  - T15: Start blank's Edge and typed values, read as predicted ([#575](https://github.com/FRIKKern/fluid-editor/pull/575))
-  - Y2, R2: the emptied-Text rows are read on a Heading 1 only, other styles inferred ([#578](https://github.com/FRIKKern/fluid-editor/pull/578))
+- **Today** · 38 changes
+  - R2: a Button or Social Links under a growing Text moves; only a Text stretches (CAP-R2ONTOP) ([#580](https://github.com/FRIKKern/fluid-editor/pull/580))
+  - T12: Edit focuses SoundCloud, Bandsintown and Flickr rows (CAP-T12DIALOGFOCUS4) ([#579](https://github.com/FRIKKern/fluid-editor/pull/579))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed

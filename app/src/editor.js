@@ -1997,7 +1997,7 @@ function renderBlockPanel() {
 // height read against the window: 235 to 241 whatever the block's top, so ours holds it to the frame (inferred).
 const dialogPages = () => [...new Set([...(model.header?.nav || []).map((n) => n.label), ...SITE_PAGES])].sort((x, y) => x.localeCompare(y));
 // Edit gives the first control that takes input the focus, with its ring (CAP-T12PALETTES.json: Chart Type on Chart, read
-// once; the others inferred). A row that redraws the dialog keeps the focus on its own control.
+// once; CAP-T12DIALOGFOCUS4.json: SoundCloud, Bandsintown and Flickr, rows out under 0005 that still take it, read twice). A row that redraws the dialog keeps the focus on its own control.
 const DIALOG_FIRST = '.dl-row select:not([disabled]), .dl-row input[type="text"]:not([disabled]), .dl-row textarea:not([disabled])';
 function renderDialog(b) {
   const d = dialogOf(b), key = JSON.stringify([b, dlgTab]), opening = dialogEl.hidden;
@@ -5144,9 +5144,11 @@ function moveWithText(s, b, a, d) {
   const low = lowest(a[2]);
   const was = others.map((o) => [...o.layout[bp].area]);
   if (d > 0) {
-    // One in shared columns from the text's top or above to its old end exactly keeps its top and stretches (CAP-79ONTOP.json:
-    // read on two Texts in the same place only); one going past the old end moves (CAP-TEXTPUSH4.json s3, CAP-TEXTPUSH5.json t1).
-    for (const q of lows) if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { if (q[0] > a[0] || q[2] > a[2]) q[0] += d; q[2] += d; }
+    // A Text in shared columns from the text's top or above to its old end exactly keeps its top and stretches (CAP-79ONTOP.json:
+    // two Texts in the same place). A Button or Social Links there moves by the growth, its size kept, from the text's top and
+    // from a row above it (CAP-R2ONTOP.json b, s, u); other types are inferred to move too. One going past the old end moves
+    // (CAP-TEXTPUSH4.json s3, CAP-TEXTPUSH5.json t1).
+    lows.forEach((q, k) => { if (q[0] > a[2] || (q[1] < a[3] && q[3] > a[1] && q[2] >= a[2])) { if (q[0] > a[0] || q[2] > a[2] || others[k].type !== 'text') q[0] += d; q[2] += d; } });
   } else {
     const end = a[2], top = end + d, under = lows.filter((q) => q[0] >= top);
     let free = 0;
@@ -5211,8 +5213,11 @@ function softenTextEdit() {
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
   softening = true;
-  let now = commitTextSteps(ed, height);
+  commitTextSteps(ed, height);
   softening = false;
+  // From after the commit's phone order turn: else the close takes the turn alone as one more undo step, which the oracle
+  // doesn't have (CAP-R2ONTOP.json: its first Cmd+Z after a let go is ours' second).
+  let now = JSON.stringify(model);
   // The commit can give rows back (A2, CAP-A2SHRINKB1): the open text takes them, and the edit goes on from
   // there, or the close puts them back and turns the phone order once more.
   if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; setArea(blockEl(ed.bid), ed.area); now = JSON.stringify(model); }

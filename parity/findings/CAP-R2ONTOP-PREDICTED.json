@@ -1,0 +1,171 @@
+{
+  "item": "CAP-R2ONTOP-PREDICTED",
+  "capturedAt": "2026-11-10",
+  "question": "R2: predicted before the read of CAP-R2ONTOP (Blocks Probe): blocks from the Text's top or above to its old end, as the Text grows and on Cmd+Z.",
+  "rule": "As built (moveWithText, CAP-79ONTOP.json): a block in shared columns from the Text's top or above to its old end exactly keeps its top and stretches by the growth, while typing and after; Cmd+Z after let go brings the Text back (rows less the height lost) and the other keeps its stretched end. Ours puts an extra step first: the first Cmd+Z only restores the block order the let go changed, so it moves nothing; the second undoes the typing. Rival M (rivalMove): the block moves by the growth, as one past the old end does.",
+  "from": "Ours replayed with the real mouse and keys (neworder-check's replay of the recipe's steps, keysFast with its 1.5 s wait), at 1600; both runs alike.",
+  "hit": "text and other (desktop areas) equal; sectionRows shown.",
+  "predicted": {
+    "b before": {
+      "text": "1/2/3/10",
+      "other": "1/2/3/8",
+      "sectionRows": 8,
+      "setup": true
+    },
+    "b typed": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/8",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/5/8"
+      }
+    },
+    "b let go": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/8",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/5/8"
+      }
+    },
+    "b undo": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/8",
+      "sectionRows": 10,
+      "note": "ours: the first Cmd+Z only puts back the block order changed at let go, so nothing moves"
+    },
+    "b undo 2": {
+      "text": "1/2/2/10",
+      "other": "1/2/5/8",
+      "sectionRows": 10
+    },
+    "s before": {
+      "text": "1/2/3/10",
+      "other": "1/2/3/6",
+      "sectionRows": 8,
+      "setup": true
+    },
+    "s typed": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/6",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/5/6"
+      }
+    },
+    "s let go": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/6",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/5/6"
+      }
+    },
+    "s undo": {
+      "text": "1/2/5/10",
+      "other": "1/2/5/6",
+      "sectionRows": 10,
+      "note": "ours: the first Cmd+Z only puts back the block order changed at let go, so nothing moves"
+    },
+    "s undo 2": {
+      "text": "1/2/2/10",
+      "other": "1/2/5/6",
+      "sectionRows": 10
+    },
+    "u before": {
+      "text": "2/2/4/10",
+      "other": "1/2/4/8",
+      "sectionRows": 8,
+      "setup": true
+    },
+    "u typed": {
+      "text": "2/2/6/10",
+      "other": "1/2/6/8",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/6/8"
+      }
+    },
+    "u let go": {
+      "text": "2/2/6/10",
+      "other": "1/2/6/8",
+      "sectionRows": 10,
+      "rivalMove": {
+        "other": "3/2/6/8"
+      }
+    },
+    "u undo": {
+      "text": "2/2/6/10",
+      "other": "1/2/6/8",
+      "sectionRows": 10,
+      "note": "ours: the first Cmd+Z only puts back the block order changed at let go, so nothing moves"
+    },
+    "u undo 2": {
+      "text": "2/2/3/10",
+      "other": "1/2/6/8",
+      "sectionRows": 10
+    }
+  },
+  "cases": {
+    "b before": [
+      "R1 b before",
+      "R2 b before"
+    ],
+    "b typed": [
+      "R1 b typed",
+      "R2 b typed"
+    ],
+    "b let go": [
+      "R1 b let go",
+      "R2 b let go"
+    ],
+    "b undo": [
+      "R1 b undo",
+      "R2 b undo"
+    ],
+    "b undo 2": [
+      "R1 b undo 2",
+      "R2 b undo 2"
+    ],
+    "s before": [
+      "R1 s before",
+      "R2 s before"
+    ],
+    "s typed": [
+      "R1 s typed",
+      "R2 s typed"
+    ],
+    "s let go": [
+      "R1 s let go",
+      "R2 s let go"
+    ],
+    "s undo": [
+      "R1 s undo",
+      "R2 s undo"
+    ],
+    "s undo 2": [
+      "R1 s undo 2",
+      "R2 s undo 2"
+    ],
+    "u before": [
+      "R1 u before",
+      "R2 u before"
+    ],
+    "u typed": [
+      "R1 u typed",
+      "R2 u typed"
+    ],
+    "u let go": [
+      "R1 u let go",
+      "R2 u let go"
+    ],
+    "u undo": [
+      "R1 u undo",
+      "R2 u undo"
+    ],
+    "u undo 2": [
+      "R1 u undo 2",
+      "R2 u undo 2"
+    ]
+  }
+}
