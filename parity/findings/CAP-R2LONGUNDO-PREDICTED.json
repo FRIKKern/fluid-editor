@@ -1,0 +1,124 @@
+{
+  "item": "CAP-R2LONGUNDO-PREDICTED",
+  "capturedAt": "2026-11-10",
+  "question": "R2: undo steps inside one long edit, predicted before the read of CAP-R2LONGUNDO (Blocks Probe).",
+  "rule": "As built (textFall, the first undo's rule, 4 of 4 fresh): each Cmd+Z inside the edit brings back the step's text, and the Text's rows are the larger of what it has and what the step had, less ceil((height lost + gap) / pitch - 0.02), one at least; blocks below move by the change. Redo gives back the step's areas. Rival K, inferred in R2's evidence: each undo step gives back the areas it had (ruleK).",
+  "from": "Ours replayed with the real mouse and keys (neworder-check's replay of the recipe's steps, keysFast with its 1.5 s wait), at 1600. Both runs gave the same areas.",
+  "hit": "text and line (desktop areas) equal; sectionRows shown. The two rules differ at undo 2 and undo 3.",
+  "predicted": {
+    "before": {
+      "text": "1/2/3/10",
+      "line": "8/2/9/6",
+      "sectionRows": 8,
+      "setup": true
+    },
+    "step 1": {
+      "text": "1/2/4/10",
+      "line": "9/2/10/6",
+      "sectionRows": 9
+    },
+    "step 2": {
+      "text": "1/2/6/10",
+      "line": "11/2/12/6",
+      "sectionRows": 11
+    },
+    "step 3": {
+      "text": "1/2/8/10",
+      "line": "13/2/14/6",
+      "sectionRows": 13
+    },
+    "undo 1": {
+      "text": "1/2/6/10",
+      "line": "11/2/12/6",
+      "sectionRows": 11,
+      "ruleK": {
+        "text": "1/2/6/10",
+        "line": "11/2/12/6"
+      }
+    },
+    "undo 2": {
+      "text": "1/2/3/10",
+      "line": "8/2/9/6",
+      "sectionRows": 8,
+      "ruleK": {
+        "text": "1/2/4/10",
+        "line": "9/2/10/6"
+      }
+    },
+    "undo 3": {
+      "text": "1/2/2/10",
+      "line": "7/2/8/6",
+      "sectionRows": 7,
+      "ruleK": {
+        "text": "1/2/3/10",
+        "line": "8/2/9/6"
+      }
+    },
+    "redo 1": {
+      "text": "1/2/4/10",
+      "line": "9/2/10/6",
+      "sectionRows": 9
+    },
+    "redo 2": {
+      "text": "1/2/6/10",
+      "line": "11/2/12/6",
+      "sectionRows": 11
+    },
+    "redo 3": {
+      "text": "1/2/8/10",
+      "line": "13/2/14/6",
+      "sectionRows": 13
+    },
+    "let go": {
+      "text": "1/2/8/10",
+      "line": "13/2/14/6",
+      "sectionRows": 13
+    }
+  },
+  "cases": {
+    "before": [
+      "R1 before",
+      "R2 before"
+    ],
+    "step 1": [
+      "R1 step 1",
+      "R2 step 1"
+    ],
+    "step 2": [
+      "R1 step 2",
+      "R2 step 2"
+    ],
+    "step 3": [
+      "R1 step 3",
+      "R2 step 3"
+    ],
+    "undo 1": [
+      "R1 undo 1",
+      "R2 undo 1"
+    ],
+    "undo 2": [
+      "R1 undo 2",
+      "R2 undo 2"
+    ],
+    "undo 3": [
+      "R1 undo 3",
+      "R2 undo 3"
+    ],
+    "redo 1": [
+      "R1 redo 1",
+      "R2 redo 1"
+    ],
+    "redo 2": [
+      "R1 redo 2",
+      "R2 redo 2"
+    ],
+    "redo 3": [
+      "R1 redo 3",
+      "R2 redo 3"
+    ],
+    "let go": [
+      "R1 let go",
+      "R2 let go"
+    ]
+  }
+}
