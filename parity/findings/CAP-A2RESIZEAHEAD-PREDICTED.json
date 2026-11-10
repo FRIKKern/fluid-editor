@@ -1,0 +1,79 @@
+{
+  "item": "A2",
+  "question": "A2: first round of candidate R, fitted on CAP-A2SECONDEDIT (seen, where it fits 7 of 7; it misses seen corpus rebuild reads, CAP-A2CORPUS1STEPS s5 and CAP-A2CORPUS2 p1). R: on a later phone edit (not the section's first), a block resized on the phone, at that edit or before, leaves its place, goes after every block that starts on its row or above, then ahead of the first of those it overlaps; any other later edit sorts by phone row, as ours did. The DOM order (z by add order) and phone areas are ours, from our code on 67637b3, replayed with the mouse and keys. Scored: the DOM order after the second edit of each of the 6 setups, read twice in CAP-A2RESIZEAHEAD (the second with \" again\"), only where the two agree. Ours before R (a phone-row sort after the first edit) predicts g2, g3, g4 and g6 differently: 2,1,3 would be 1,2,3; 3,1,2 would be 1,3,2 for g3 and g4; 2,1 would be 1,2.",
+  "cases": {
+    "g1 a3 down 3 apart, a1 resized 3 down onto a2": [
+      "g1 a3 down 3 apart, a1 resized 3 down onto a2",
+      "g1 a3 down 3 apart, a1 resized 3 down onto a2 again"
+    ],
+    "g2 a2 down 3 onto a3, a2 resized 4 up onto a1": [
+      "g2 a2 down 3 onto a3, a2 resized 4 up onto a1",
+      "g2 a2 down 3 onto a3, a2 resized 4 up onto a1 again"
+    ],
+    "g3 a3 up 2 onto a2, a3 resized 6 up onto a1 and a2": [
+      "g3 a3 up 2 onto a2, a3 resized 6 up onto a1 and a2",
+      "g3 a3 up 2 onto a2, a3 resized 6 up onto a1 and a2 again"
+    ],
+    "g4 a3 resized 2 down, a3 moved up 8 onto a1 and a2": [
+      "g4 a3 resized 2 down, a3 moved up 8 onto a1 and a2",
+      "g4 a3 resized 2 down, a3 moved up 8 onto a1 and a2 again"
+    ],
+    "g5 a1 resized 1 down onto a2, a3 moved up 9 onto a1 and a2": [
+      "g5 a1 resized 1 down onto a2, a3 moved up 9 onto a1 and a2",
+      "g5 a1 resized 1 down onto a2, a3 moved up 9 onto a1 and a2 again"
+    ],
+    "g6 two: a2 down 2 apart, a2 resized 4 up onto a1": [
+      "g6 two: a2 down 2 apart, a2 resized 4 up onto a1",
+      "g6 two: a2 down 2 apart, a2 resized 4 up onto a1 again"
+    ]
+  },
+  "predicted": {
+    "g1 a3 down 3 apart, a1 resized 3 down onto a2": {
+      "DOM": "1,2,3",
+      "phone": [
+        "1/2/10/10",
+        "7/2/13/10",
+        "16/2/22/10"
+      ]
+    },
+    "g2 a2 down 3 onto a3, a2 resized 4 up onto a1": {
+      "DOM": "2,1,3",
+      "phone": [
+        "6/2/16/10",
+        "1/2/7/10",
+        "13/2/19/10"
+      ]
+    },
+    "g3 a3 up 2 onto a2, a3 resized 6 up onto a1 and a2": {
+      "DOM": "3,1,2",
+      "phone": [
+        "5/2/17/10",
+        "1/2/7/10",
+        "7/2/13/10"
+      ]
+    },
+    "g4 a3 resized 2 down, a3 moved up 8 onto a1 and a2": {
+      "DOM": "3,1,2",
+      "phone": [
+        "5/2/13/10",
+        "1/2/7/10",
+        "7/2/13/10"
+      ]
+    },
+    "g5 a1 resized 1 down onto a2, a3 moved up 9 onto a1 and a2": {
+      "DOM": "1,3,2",
+      "phone": [
+        "1/2/8/10",
+        "4/2/10/10",
+        "7/2/13/10"
+      ]
+    },
+    "g6 two: a2 down 2 apart, a2 resized 4 up onto a1": {
+      "DOM": "2,1",
+      "phone": [
+        "5/2/15/10",
+        "1/2/7/10"
+      ]
+    }
+  }
+}
