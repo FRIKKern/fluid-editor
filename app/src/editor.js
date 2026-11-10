@@ -5227,6 +5227,8 @@ function softenTextEdit() {
   // The commit can give rows back (A2, CAP-A2SHRINKB1): the open text takes them, and the edit goes on from
   // there, or the close puts them back and turns the phone order once more.
   if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; setArea(blockEl(ed.bid), ed.area); now = JSON.stringify(model); }
+  // The section draws the rows the commit left, given back ones too: 7 after one Escape, not the edit's 8 (CAP-Y2SOFTROWS.json, two runs).
+  drawRows(ed.sid);
   editing = ed;
   Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
