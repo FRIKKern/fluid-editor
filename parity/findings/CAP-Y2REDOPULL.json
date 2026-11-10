@@ -1,0 +1,898 @@
+{
+  "item": "CAP-Y2REDOPULL",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T08:29:44.436Z",
+  "predictions": {
+    "file": "CAP-Y2REDOPULL-PREDICTED.json",
+    "commit": "6bb0e47c85a3df37f7cc6a5daa213f7989f92b9a",
+    "committedAt": "2026-11-10T09:17:20+01:00",
+    "sha256": "2b82d1d57144215aab9045250bfe2ae71a5ae01786345a03f383f429141c3d78"
+  },
+  "engine": "chrome",
+  "question": "Y2, inferred until now: does a Cmd+Shift+Z that pulls the frame's scroll take the text bar and the caret, as the Cmd+Z does (CAP-Y2BAR.json)? CAP-Y2BAR's Heading 1 typed in 4 steps; the frame to its top (where a shortening keeps the bar, CAP-Y2BAR2.json); Cmd+A and Backspace; Cmd+Z; the frame to its end (a scroll alone keeps the bar); Cmd+Shift+Z, which empties the text again with the frame at its end. Two runs (Q1, Q2). Predictions pushed first (CAP-Y2REDOPULL-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "scrollFrame",
+      100000
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 frame at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "Q1 deleted",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q1 undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      100000
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q1 frame at its end",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q1 redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "scrollFrame",
+      100000
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 typed",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 frame at its top",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+a"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Backspace"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "read",
+      "Q2 deleted",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q2 undo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "scrollFrame",
+      100000
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "Q2 frame at its end",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "Q2 redo",
+      {
+        "html": [
+          0,
+          "new"
+        ],
+        "areas": 0,
+        "has": [
+          "Bold",
+          "Write"
+        ],
+        "barState": true,
+        "focused": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "Q1 typed": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 1506,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q1 frame at its top": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q1 deleted": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "H1"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q1 undo": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q1 frame at its end": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 1506,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q1 redo": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "H1"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 typed": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 1506,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 frame at its top": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 deleted": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "H1"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 undo": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 frame at its end": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 1506,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc longer line of words that runs on past the end of the block and then on and on over a second line and more words to fill it and then again on and on over a third line and more words to fill</h1>",
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "Q2 redo": {
+      "focused": "frame",
+      "has": {
+        "Bold": false,
+        "Write": false
+      },
+      "barState": {
+        "bold": [],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "H1"
+        },
+        "frameY": 360,
+        "frameTop": 55
+      },
+      "html": "<h1 style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></h1>",
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Read twice (Q1, Q2), all 6 cases agree; the page verified clean after. The setup missed: the step that put the frame at its end scrolled it to 1506, not to CAP-Y2BAR's 523, and there, with the Heading 1 (1/2/31/10) above the frame's view, the text bar and the caret (no selection in the frame) were already gone, the edit focused. Neither came back with the frame back at its top; Cmd+A and Backspace (1/2/3/10) brought the caret back, not the bar, and so did Cmd+Z. Cmd+Shift+Z then pulled the frame's scroll from 1506 to 360 and kept the caret, the edit open. So the redo question is not answered here: the bar was gone before it. Scored against CAP-Y2REDOPULL-PREDICTED.json: 0 of 5, every miss from the setup (ours keeps the bar and caret at its frame's end, 1484); its redo case misses on the caret, which the oracle kept with no bar to take. New, read twice, not built: a scroll that takes the block out of the frame's view in an edit takes the bar and the caret on the oracle; ours keeps both (where the line is, block or caret out of view, is not read)."
+}
