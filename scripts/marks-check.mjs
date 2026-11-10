@@ -3729,6 +3729,11 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await scTo(docTop('u9t') - 300); await hit('u9t'); evalJs(S, `(() => { fe.edit('u9s1', 'u9t'); return 'true'; })()`); await pause(300); const tIn = selOf('u9t');
   await scTo(docTop('u9t') + 72 + 856); const tOut = selOf('u9t');
   add('a scroll alone lets go below the canvas, a group and a Text being typed in, its edit kept open without the bar', dIn[0] && !dOut[0] && dOut[1] >= 1345 && gIn.every((x) => x[0]) && gOut.every((x) => !x[0] && x[2] <= 0) && tIn[0] && tIn[3] && !tOut[0] && tOut[3] && tOut[4] && tOut[2] <= 0, JSON.stringify({ dIn, dOut, gIn, gOut, tIn, tOut }));
+  // Keys still type there, at the text's start, and the frame scrolls to show them; undo steps them back (CAP-Y2REDOPULL2.json part S, both reads).
+  browser(S, 'press', 'x'); await pause(150); browser(S, 'press', 'y'); await pause(500);
+  const typedOff = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), ce = f.contentDocument.querySelector('[contenteditable="true"]'), r = f.contentDocument.getElementById('block-u9t').getBoundingClientRect(); return JSON.stringify([ce ? ce.textContent : null, Math.round(r.bottom) > 0 && Math.round(r.top) < f.contentWindow.innerHeight]); })()`);
+  const xy = typedOff(); browser(S, 'press', 'Meta+z'); await pause(400); const back = typedOff();
+  add('keys after that scroll type at the Text\'s start, the frame scrolls to them, undo steps them back', xy[0] === 'xyWords' && xy[1] && back[0] === 'Words', JSON.stringify({ xy, back }));
   browser(S, 'press', 'Escape'); await pause(300);
 
   // The phone panel keeps its top, and closes on the first step that puts its section's bottom above the canvas's top.
