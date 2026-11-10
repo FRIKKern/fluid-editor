@@ -1,0 +1,22 @@
+{
+ "item": "CAP-Y2SOFTROWS-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "Y2, predicted before the read of CAP-Y2SOFTROWS (Blocks Probe): after one Escape from an edit whose close gives rows back (CAP-A2SHRINKB1 c3, rule B1), what does the section draw, and where is the Text?",
+ "rule": "As built (A): the first Escape commits the edit, so B1 drops the Text to 1 row (1/13/2/21) and the model's section to 7 rows, but the section's grid is not drawn again until the second Escape: 8 rows drawn after one Escape, 7 after the let go. Rival F: the section draws the model's rows at the first Escape too: 7 rows after one Escape. Rival L: nothing drops until the let go: after one Escape the Text keeps 1/13/3/21 and the section 8 rows.",
+ "from": "Ours replayed with the recipe's steps by real mouse and keys at 1600 (a scratch replay of oracle steps: fe.addBlock for each add, real drags, the real Write press, CDP key presses), read by the section grid's computed rows and each block's desktop area; both runs alike. Ours' section box is its own page's (623.7 at 7 and 8 rows, its min height), so rows decide; the oracle's box is given from CAP-A2SHRINKB1 (667.6 at 8 rows, 626.5 at 7).",
+ "hit": "text and line (desktop areas, from the stack read) and sectionRows (the section's drawn rows) equal; sectionH shown, about.",
+ "predicted": {
+  "moved": { "text": "1/13/3/21", "line": "1/2/2/6", "sectionRows": 8, "sectionH": 667.6 },
+  "typed": { "text": "1/13/3/21", "line": "1/2/2/6", "sectionRows": 8, "sectionH": 667.6 },
+  "one escape": { "text": "1/13/2/21", "line": "1/2/2/6", "sectionRows": 8, "sectionH": 667.6,
+   "rivalF": { "text": "1/13/2/21", "sectionRows": 7, "sectionH": 626.5 },
+   "rivalL": { "text": "1/13/3/21", "sectionRows": 8, "sectionH": 667.6 } },
+  "let go": { "text": "1/13/2/21", "line": "1/2/2/6", "sectionRows": 7, "sectionH": 626.5 }
+ },
+ "cases": {
+  "moved": ["Y1 moved", "Y2 moved"],
+  "typed": ["Y1 typed", "Y2 typed"],
+  "one escape": ["Y1 one escape", "Y2 one escape"],
+  "let go": ["Y1 let go", "Y2 let go"]
+ }
+}
