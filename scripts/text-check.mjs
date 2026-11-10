@@ -187,7 +187,7 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   } }
 // R2: a Button or Social Links under a new Text, from its top to its old end, moves by the growth, its size kept (only a Text
 // stretches, above), and the first Cmd+Z after the let go is the typing's, with no step for the phone order (CAP-R2ONTOP.json).
-{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2ONTOP.json', import.meta.url))).reads;
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2ONTOP.json', import.meta.url))).reads; const O2 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2UNDOTWO.json', import.meta.url))).reads;
   const LOREM = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore';
   const now = () => evalJs(S, `JSON.stringify([fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/')).sort(), fe.model.sections[0].rows.desktop])`);
   for (const [c, type] of [['b', 'Button'], ['s', 'Social Links']]) {
@@ -206,6 +206,12 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     const ok = JSON.stringify(got) === JSON.stringify(want);
     results.push({ name: `R2 ${type} under a new Text: moved at the let go, the first Cmd+Z the typing's (CAP-R2ONTOP ${c})`, ok });
     if (!ok) console.log(`R2 ontop ${c} DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(want)}`);
+    // The second Cmd+Z removes the new Text and the third the other block: each add is a step (CAP-R2UNDOTWO.json, 4 runs alike).
+    const more = []; for (let k = 0; k < 2; k++) { browser(S, 'press', 'Meta+z'); await pause(500); more.push(now()); }
+    const want2 = ['undo 2', 'undo 3'].map((n) => [O2[`P1 ${c} ${n}`].stack.map((b) => b.desktop).sort(), O2[`P1 ${c} ${n}`].section.rows]);
+    const ok2 = JSON.stringify(more) === JSON.stringify(want2);
+    results.push({ name: `R2 ${type} under a new Text: the second Cmd+Z removes the Text, the third the ${type} (CAP-R2UNDOTWO ${c})`, ok: ok2 });
+    if (!ok2) console.log(`R2 undo two ${c} DIFF ours ${JSON.stringify(more)} oracle ${JSON.stringify(want2)}`);
   } }
 // Y2's text bar: a Cmd+Z that leaves the page too short for the frame's scroll takes the bar and the caret, the edit open, and
 // Cmd+Shift+Z brings the caret back, not the bar (CAP-Y2BAR.json); with the frame at its top the same Cmd+Z keeps both
