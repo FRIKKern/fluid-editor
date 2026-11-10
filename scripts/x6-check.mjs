@@ -7,7 +7,7 @@ import { evalJs, goto, viewport, pause, ensureVisible, drag, browser, mouse } fr
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
-const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE', 'CAP-X6SUMMARYWALK', 'CAP-X6SUMMARYFAR']);
+const FILES = (process.argv[2] ? process.argv[2].split(',') : ['CAP-X6PULLS', 'CAP-X6AGAIN', 'CAP-X6ONEROW', 'CAP-X6STEPS', 'CAP-X6FLOORS', 'CAP-X6FLOORSPHONE', 'CAP-X6PHONEFLOORS', 'CAP-68PULL', 'CAP-X6SUMMARYPHONE', 'CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE', 'CAP-X6SUMMARYWALK', 'CAP-X6SUMMARYFAR', 'CAP-X6SUMMARYFAR2']);
 ensureVisible(S);
 viewport(S, 1600, 1000);
 goto(S, `${BASE}/index.html`); await pause(1500);
