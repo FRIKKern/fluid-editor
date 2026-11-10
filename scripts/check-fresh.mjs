@@ -50,8 +50,10 @@ const CLAIM = /predictions? (were )?pushed|pushed first|-PREDICTED/i;
 const claims = (f, hasSibling) => !!f.predictions || hasSibling || CLAIM.test(String(f.question || ''));
 
 // Key order doesn't make two reads differ, and neither do block ids: a case built twice mints new blocks, so a
-// stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone).
-const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => k !== 'id').sort().map((k) => [k, canon(v[k])])) : v);
+// stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone), nor a block read's
+// `data-test`, the same id on the block's element (CAP-X2TOUCHTYPES: every case differed by it alone).
+const ID_KEYS = new Set(['id', 'data-test']);
+const canon = (v) => (Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).filter((k) => !ID_KEYS.has(k)).sort().map((k) => [k, canon(v[k])])) : v);
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
 
 // What is wrong with one fresh finding. predText is its predictions file's text (null if missing); gitTime is the
@@ -95,6 +97,8 @@ const fails = [];
   proof('two reads that differ fail', freshFails(differ, text, null).length > 0);
   proof('two reads that differ, named unsteady, pass', freshFails({ ...differ, unsteady: ['one'] }, text, null).length === 0);
   proof('two builds that differ by block ids alone pass', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['2', '2'] }] } } }, text, null).length === 0);
+  proof('two block reads that differ by data-test alone pass', freshFails({ ...good, reads: { a: { block: { desktop: '1/2/3/8', data: { 'data-test': 'yui_1_438', 'data-is-selected': 'true' } } }, 'a again': { block: { desktop: '1/2/3/8', data: { 'data-test': 'yui_2_420', 'data-is-selected': 'true' } } } } }, text, null).length === 0);
+  proof('two block reads that differ in selection fail', freshFails({ ...good, reads: { a: { block: { data: { 'data-test': 'yui_1', 'data-is-selected': 'true' } } }, 'a again': { block: { data: { 'data-test': 'yui_2', 'data-is-selected': 'false' } } } } }, text, null).length > 0);
   proof('two builds whose blocks differ fail', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['1', '1'] }] } } }, text, null).length > 0);
   proof('no predictions record fails', freshFails({ question: 'Predictions pushed first' }, null, null).length > 0);
 }

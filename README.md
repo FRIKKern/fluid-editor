@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 4 changes
-  - U10: h1p2b1's 2 and 3, the heading and the button each step on their own ([#532](https://github.com/FRIKKern/fluid-editor/pull/532))
-  - X2: rule T scored as is at 1280 and 1920: 6 of 19 ([#545](https://github.com/FRIKKern/fluid-editor/pull/545))
+- **Today** · 7 changes
+  - X2: Button and Quote let go off a corner work like Shape (touch keeps, mouse lets go) ([#547](https://github.com/FRIKKern/fluid-editor/pull/547))
+  - X2: check-fresh compares two block reads without their data-test ids, new on every build ([#548](https://github.com/FRIKKern/fluid-editor/pull/548))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed

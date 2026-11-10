@@ -295,6 +295,20 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
   const { out } = sweep({ area: at, pre: [14, 0] }, rings.map(([, v]) => v.at)); // the capture's hold moves 14px first
   rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [] }); });
 }
+// Rule T refit 1 at other frame widths, the same 6 wide pressed 30% in (CAP-X2TWIDTHS.json at 1280 and 1920, CAP-X2TREFIT.json at
+// 1440, 1560, 1680 and 1760; R2 agrees on every ring). The refit's 3 fresh misses are named.
+{ const miss = { 'R1 w1560 -1': 'refit 1: the track is 1.18 columns, so n is 6 and it should keep 21; the oracle is on 19', 'R1 w1560 -18': 'refit 1: as at -1, on 19', 'R1 w1680 1': 'refit 1: c is 8, so 19; the oracle is on 20' };
+  for (const file of ['CAP-X2TWIDTHS', 'CAP-X2TREFIT']) {
+    const F2 = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
+    for (const w of [...new Set(Object.keys(F2).map((k) => k.match(/^R1 w(\d+) /)?.[1]).filter(Boolean))]) {
+      viewport(S, Number(w), 945); await pause(250);
+      const rings = Object.entries(F2).filter(([k, v]) => k.startsWith(`R1 w${w} `) && v.ring !== undefined);
+      const { out } = sweep({ area: '1 / 21 / 7 / 27', pre: [14, 0] }, rings.map(([, v]) => v.at));
+      rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], ...(miss[k] ? { known: miss[k] } : {}) }); });
+    }
+  }
+  viewport(S, F.window[0], F.window[1] + 55); await pause(250);
+}
 { const r = sweep({ area: H.oneMove.before }, [H.oneMove.move], 'pointerup'); groupCases.push({ name: 'hold one move and a release', diffs: [r.out[0].ring !== null && 'a ring on the first move', r.after !== H.oneMove.after && `drop: ${r.after}`].filter(Boolean) }); }
 { const sw = { view: 'mobile', area: '1 / 2 / 7 / 10', pre: [-12, 0] }; for (const c of H.phoneResize) { const { out } = sweep(sw, [[c.dx, 0]], 'pointercancel', 'e'); groupCases.push({ name: `hold phone resize east ${c.dx}`, diffs: [out[0].ring !== c.ring && `ring: oracle ${c.ring}, ours ${out[0].ring}`, out[0].line !== c.line && `line: oracle ${c.line}, ours ${out[0].line}`].filter(Boolean) }); } }
 // X7: Alt and Shift change nothing on a resize, shape or image (CAP-ALT.json, CAP-IMAGEMODS.json).
@@ -832,7 +846,10 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     ['Text north-east 5 right', 'text', 'ne', 5, 0, 'mouse', false], ['Text north-east 9 right', 'text', 'ne', 9, 0, 'mouse', false], ['Text north-west 5 up', 'text', 'nw', 0, -5, 'mouse', false],
 ['Text east 60 right', 'text', 'e', 60, 0, 'mouse', true], ['Shape corner 70, 70 by pen', 'shape', 'se', 70, 70, 'pen', false], ['Shape corner 70, 70 by touch', 'shape', 'se', 70, 70, 'touch', true],
     // CAP-R2X2LAST.json, twice each: touch keeps it where the mouse lets it go.
-    ['Shape south 65 down by touch', 'shape', 's', 0, 65, 'touch', true], ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch', true], ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch', true]]) {
+    ['Shape south 65 down by touch', 'shape', 's', 0, 65, 'touch', true], ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch', true], ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch', true],
+    // CAP-X2TOUCHTYPES.json, twice each: a Button and a Quote work like a Shape, kept by touch and let go by the mouse.
+    ['Button corner 70, 70 by touch', 'button', 'se', 70, 70, 'touch', true], ['Button corner 70, 70', 'button', 'se', 70, 70, 'mouse', false],
+    ['Quote corner 70, 70 by touch', 'quote', 'se', 70, 70, 'touch', true], ['Quote corner 70, 70', 'quote', 'se', 70, 70, 'mouse', false]]) {
     await load(type, type === 'text' ? '<p>Some text</p>' : ''); const p = at(dir), to = [p[0] + dx, p[1] + dy];
     if (how === 'touch') cdp(S, { op: 'touch', from: p, to, steps: 10, holdMs: 120 }); else cdp(S, { op: 'drag', from: p, to, steps: 10, holdMs: 80, ...(how === 'pen' ? { pointerType: 'pen' } : {}) });
     await pause(150); const got = onSel(); groupCases.push({ name: `X2 ${name}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });

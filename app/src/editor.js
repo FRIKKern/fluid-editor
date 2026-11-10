@@ -1348,10 +1348,16 @@ function updateMove(e) {
   const fromRight = dx < 0 && solo && bp !== 'mobile' && bl + bw === m.colStart.length + 1 && bw !== 6;
   let nb = (dx > 0 && bl > 1) || fromRight ? snapColumn(m, bl + bw, dx, (fromRight ? 2 : cMin - sh) + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   if (fromRight && nb === 2 && bl > 2 && !leftEdgeOut(m, bl, dx)) nb = 3;
-  // Rule T (CAP-X2SIX.json, predictions first, 18 of 18): a lone 6 wide on the right margin track jumps 3 columns left at
-  // the first pixel left, 2 from -50 (read at 1600: 0.85 of a column), and keeps the left edge rule from where that rule is
-  // 3 columns left (-153); a move right takes it 1 column left (HOLD.json, CAP-X2WIDTHS3.json G, CAP-X2W456B.json).
-  if (dx !== 0 && solo && bp !== 'mobile' && bw === 6 && bl + bw === m.colStart.length + 1) nb = dx > 0 ? bl - 1 : nb > bl - 3 ? (dx > -0.85 * colPitch ? bl - 3 : bl - 2) : nb;
+  // Rule T, refit 1 (CAP-X2TREFIT-PREDICTED.json, predictions first: 27 of 30 fresh at 1440, 1560, 1680 and 1760, where T as
+  // first built had 14). A lone 6 wide on the right margin track, whose box is (width - 1) columns plus that track (M), moves by
+  // its box width in columns, n rounded and c rounded up: a move right goes to 27 - c; a move left is on 27 - (n + 2) until
+  // -(M / 2 + 5), then on 27 - (n + 1), or the left edge rule's column when that is further left. With n at 6 or less (the track
+  // under 1.5 columns) it is the left edge rule (CAP-X2TWIDTHS.json at 1280). At 1600 this is T: 20, 18, 19 from -49.6 (CAP-X2SIX.json,
+  // HOLD.json, CAP-X2WIDTHS3.json G, CAP-X2W456B.json). Misses: at 1560 the first 18px left are on 19, not 21; at 1680 +1 is on 20, not 19.
+  if (dx !== 0 && solo && bp !== 'mobile' && bw === 6 && bl + bw === m.colStart.length + 1) {
+    const M = m.cols[m.cols.length - 1], n = bw - 1 + Math.round(M / colPitch), c = bw - 1 + Math.ceil(M / colPitch), end = bl + bw;
+    if (n > bw) nb = Math.min(nb, dx > 0 ? end - c : dx > -(M / 2 + 5) ? end - n - 2 : end - n - 1);
+  }
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
   if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
