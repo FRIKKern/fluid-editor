@@ -1,0 +1,30 @@
+{
+  "item": "T15",
+  "question": "Refit 1 of PRED-T15EDITTAB.json, predictions pushed first: the tab a block panel opens on, with the rule refitted on CAP-T15EDITTAB.json to one remembered tab per block type.",
+  "rule": "Each block type remembers the last tab its panel showed, for the browser session, kept through Exit; a type with nothing remembered opens on its first tab. The tab is the type's, not the block's, and another type's tab changes nothing.",
+  "how": "Probe page, window 1600 by 1000, a fresh browser. A new Button, Edit, Design, Escape; a second Button, Edit (b2); Animation, Escape; the first Button, Edit (b1 after b2 animation); Escape, a new Newsletter, Edit (nl new); Design, Escape; the first Button, Edit (b1 after nl design); then the Newsletter set back to Content. The run twice, the second after Exit Without Saving and Edit again: each case is set inside the run, and the Newsletter ends run 1 on Content, so run 2 reads as run 1 if the rule holds. Read: which of Form Name, Attach link (Content), Layout, Blur (Newsletter Design) and Triggers (Animation) show, plus a shot.",
+  "predictions": {
+    "b2": "Design: a new block of the type opens on its type's tab",
+    "b1 after b2 animation": "Animation: the type's last tab, not Design, the tab this block itself last showed",
+    "nl new": "Content: the Newsletter type has nothing remembered in run 1 and Content in run 2; the Button's Animation does not carry over",
+    "b1 after nl design": "Animation: the Newsletter's Design does not carry over to a Button"
+  },
+  "cases": {
+    "b2": [
+      "1 b2",
+      "2 b2"
+    ],
+    "b1 after b2 animation": [
+      "1 b1 after b2 animation",
+      "2 b1 after b2 animation"
+    ],
+    "nl new": [
+      "1 nl new",
+      "2 nl new"
+    ],
+    "b1 after nl design": [
+      "1 b1 after nl design",
+      "2 b1 after nl design"
+    ]
+  }
+}
