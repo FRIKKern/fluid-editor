@@ -48,6 +48,12 @@ CAP-U10ENDSPREDICT
 
 const CLAIM = /predictions? (were )?pushed|pushed first|-PREDICTED/i;
 const claims = (f, hasSibling) => !!f.predictions || hasSibling || CLAIM.test(String(f.question || ''));
+// A predictions file is no finding: a file that some finding names as its predictions file is skipped, whatever its own
+// keys (CAP-U10OPEN-PREDICT.json lists its "predictions", lead's ruling 2026-11-10). found maps a file name to its JSON.
+const toCheck = (found) => {
+  const named = new Set(Object.values(found).map((f) => f?.predictions?.file).filter(Boolean));
+  return Object.keys(found).filter((n) => !named.has(n));
+};
 
 // Key order doesn't make two reads differ, and neither do block ids: a case built twice mints new blocks, so a
 // stack read's `id`s never match (CAP-A2SHRINKB1: every case differed by its ids alone), nor a block read's
@@ -101,6 +107,9 @@ const fails = [];
   proof('two block reads that differ in selection fail', freshFails({ ...good, reads: { a: { block: { data: { 'data-test': 'yui_1', 'data-is-selected': 'true' } } }, 'a again': { block: { data: { 'data-test': 'yui_2', 'data-is-selected': 'false' } } } } }, text, null).length > 0);
   proof('two builds whose blocks differ fail', freshFails({ ...good, reads: { a: { stack: [{ id: '3_631', z: ['2', '2'] }] }, 'a again': { stack: [{ id: '5_631', z: ['1', '1'] }] } } }, text, null).length > 0);
   proof('no predictions record fails', freshFails({ question: 'Predictions pushed first' }, null, null).length > 0);
+  const planted = { 'F.json': { predictions: { file: 'P.json' } }, 'P.json': { predictions: [{ case: 'one' }] }, 'Q.json': { predictions: [{ case: 'one' }] } };
+  proof('a file a finding names as its predictions file is skipped', !toCheck(planted).includes('P.json'));
+  proof('a file no finding names, with a "predictions" key, is still checked', toCheck(planted).includes('Q.json') && claims(planted['Q.json'], false));
 }
 
 const gitTimeOf = (commit) => {
@@ -109,11 +118,13 @@ const gitTimeOf = (commit) => {
 
 const files = new Set(readdirSync(DIR).filter((n) => n.endsWith('.json')));
 let fresh = 0;
+const found = {};
 for (const n of files) {
   if (n.endsWith('-PREDICTED.json')) continue;
-  const name = n.slice(0, -5);
-  let f;
-  try { f = JSON.parse(readFileSync(new URL(n, DIR), 'utf8')); } catch { continue; } // check-findings reports files that don't parse
+  try { found[n] = JSON.parse(readFileSync(new URL(n, DIR), 'utf8')); } catch { continue; } // check-findings reports files that don't parse
+}
+for (const n of toCheck(found)) {
+  const name = n.slice(0, -5), f = found[n];
   if (!f || typeof f !== 'object' || !claims(f, files.has(`${name}-PREDICTED.json`)) || GRANDFATHERED.has(name)) continue;
   fresh++;
   const pred = f.predictions?.file && existsSync(new URL(f.predictions.file, DIR)) ? readFileSync(new URL(f.predictions.file, DIR), 'utf8') : null;
@@ -122,4 +133,4 @@ for (const n of files) {
 for (const name of GRANDFATHERED) if (!files.has(`${name}.json`)) fails.push(`grandfathered ${name}.json is gone: take it off the list`);
 
 if (fails.length) { console.error(`check-fresh: ${fails.length} problem(s)\n  ${fails.join('\n  ')}`); process.exit(1); }
-console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 9 guard proofs hold`);
+console.log(`check-fresh: ${fresh} fresh round(s) hold, ${GRANDFATHERED.size} from before are grandfathered, 11 guard proofs hold`);
