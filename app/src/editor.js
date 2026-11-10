@@ -1377,6 +1377,15 @@ function updateMove(e) {
     const M = m.cols[m.cols.length - 1], n = bw - 1 + Math.round(M / colPitch), end = bl + bw;
     if (M >= colPitch) nb = Math.min(nb, dx > 0 ? end - (bw - 1 + Math.ceil((M - 12) / colPitch)) : dx > -(M / 2 + 5) ? end - n - 2 : end - n - 1);
   }
+  // X2 read facts, not a rule (T is frozen): a lone 3 wide on the right margin track, read only at 1600 (M 89.125; CAP-X2T9.json
+  // w3 rows8, R1 and R2 agree on 18 moves). A move right goes to 23; left, from the first pixel to -48 it is on 21, from -54 to
+  // -139 on 22, then the mirror about 6px sooner than the table, and line 1 (not the table's 2) once its left edge passes the
+  // left margin's middle (-1347; -1341 is on 2). The cuts between reads are not read: -(M / 2 + 5) between -48 and -54, and
+  // the 6px shift fits every read (6 to 13 do; the true shift is not read). Other frame widths keep the table.
+  if (dx !== 0 && solo && bp !== 'mobile' && bw === 3 && bl + bw === m.colStart.length + 1 && Math.abs(m.cols[m.cols.length - 1] - 89.125) < 0.5) {
+    const end = bl + bw, s = dx - 6;
+    nb = dx > 0 ? end - 4 : dx > -(m.cols[m.cols.length - 1] / 2 + 5) ? end - 6 : leftEdgeOut(m, bl, dx) ? 1 : Math.min(end - 5, snapColumn(m, end, s, 2 + bw, cMax + bw) - bw);
+  }
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
   if ((solo || bp === 'mobile') && bl === 1 && nb === cMax - sh && cMax > c0 && !rightEdgeOut(m, bl + bw, dx)) nb = cMax - sh - 1;
