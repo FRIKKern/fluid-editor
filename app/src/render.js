@@ -848,7 +848,7 @@ export function renderSection(s, model) {
     `horizontal-alignment--${s.halign || 'center'}`,
     `background-width--${s.bgWidth || 'full-bleed'}`,
     s.divider ? 'has-section-divider' : '',
-    s.flat && s.height !== 'custom' ? 'section-pad--flat' : '',
+    s.flat && !s.gutter && s.height !== 'custom' ? 'section-pad--flat' : '',
     s.gutter ? 'section-pad--gutter' : '',
   ].filter(Boolean).join(' ');
   const themeName = (s.theme || '').replace(/^theme-/, '');
