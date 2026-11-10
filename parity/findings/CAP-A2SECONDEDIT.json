@@ -1,0 +1,3113 @@
+{
+  "item": "CAP-A2SECONDEDIT",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:33:27.596Z",
+  "engine": "chrome",
+  "question": "A2: what a second phone edit does to the DOM order (CAP-A2PHONEEDIT e8: a2 moved up 3 onto a1, then resized 4 down onto a3, gave z2, z1, z3). Read only, no rule. 2 or 3 Shapes added on desktop (all at 1/2/7/8, stacked on the phone as added), two phone edits, each setup changing one thing from f1 (e8 again): the second edit a resize that makes no chain, a move instead of a resize, the chain made by moving a3, the edits the other way round, and the first edit apart. Read: the stack before, after the first and after the second edit. Each setup built twice, the second with \" again\". Blocks picked by add order (a1 first). No Meta+c, x or v.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f1 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f1 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      141
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f2 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 a2 up 3 onto a1, a2 resized 1 down (no chain)",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f3 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 a2 up 3 onto a1, a2 moved down 1 (still on a1)",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f4 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f4 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "drag",
+      0,
+      "a3",
+      "middle",
+      0,
+      -141
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f4 a2 up 3 onto a1, a3 moved up 4 onto a2",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f5 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f5 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f5 a2 resized 1 down onto a3, a2 up 3 onto a1",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f6 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "drag",
+      0,
+      "a3",
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 a3 moved down 1 apart, a2 up 3 onto a1",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f7 before",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 first edit",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 two: a2 up 3 onto a1, a2 resized 1 down",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f1 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f1 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      141
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3 again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f2 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f2 a2 up 3 onto a1, a2 resized 1 down (no chain) again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f3 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f3 a2 up 3 onto a1, a2 moved down 1 (still on a1) again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f4 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f4 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "drag",
+      0,
+      "a3",
+      "middle",
+      0,
+      -141
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f4 a2 up 3 onto a1, a3 moved up 4 onto a2 again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f5 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f5 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f5 a2 resized 1 down onto a3, a2 up 3 onto a1 again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f6 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "drag",
+      0,
+      "a3",
+      "middle",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f6 a3 moved down 1 apart, a2 up 3 onto a1 again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "f7 before again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "middle",
+      0,
+      -106
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 first edit again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      "a2"
+    ],
+    [
+      "drag",
+      0,
+      "a2",
+      "s",
+      0,
+      36
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "f7 two: a2 up 3 onto a1, a2 resized 1 down again",
+      {
+        "stack": 0
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ]
+  ],
+  "reads": {
+    "f1 before": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 first edit": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3": {
+      "stack": [
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/14/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 before": {
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "7_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 first edit": {
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "7_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 a2 up 3 onto a1, a2 resized 1 down (no chain)": {
+      "stack": [
+        {
+          "id": "7_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 before": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 first edit": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 a2 up 3 onto a1, a2 moved down 1 (still on a1)": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "5/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 before": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 first edit": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 a2 up 3 onto a1, a3 moved up 4 onto a2": {
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "9/2/15/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 before": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 first edit": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/14/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 a2 resized 1 down onto a3, a2 up 3 onto a1": {
+      "stack": [
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 before": {
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 first edit": {
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 a3 moved down 1 apart, a2 up 3 onto a1": {
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 before": {
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 first edit": {
+      "stack": [
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 two: a2 up 3 onto a1, a2 resized 1 down": {
+      "stack": [
+        {
+          "id": "3_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "3_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 before again": {
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 first edit again": {
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f1 e8 again: a2 up 3 onto a1, a2 resized 4 down onto a3 again": {
+      "stack": [
+        {
+          "id": "6_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/14/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 before again": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 first edit again": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f2 a2 up 3 onto a1, a2 resized 1 down (no chain) again": {
+      "stack": [
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 before again": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 first edit again": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f3 a2 up 3 onto a1, a2 moved down 1 (still on a1) again": {
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "5/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 before again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 first edit again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f4 a2 up 3 onto a1, a3 moved up 4 onto a2 again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "9/2/15/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 before again": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 first edit again": {
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/14/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f5 a2 resized 1 down onto a3, a2 up 3 onto a1 again": {
+      "stack": [
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 before again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "13/2/19/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 first edit again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f6 a3 moved down 1 apart, a2 up 3 onto a1 again": {
+      "stack": [
+        {
+          "id": "1_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "1_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "1_865",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "14/2/20/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 before again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 first edit again": {
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "4_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/10/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "f7 two: a2 up 3 onto a1, a2 resized 1 down again": {
+      "stack": [
+        {
+          "id": "4_641",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "4/2/11/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "answer": "Read only, no rule. Both reads agree in all 7 setups. A second phone edit changed the DOM order in 4 of 7: f1 (e8 again), f2 (the resize makes no chain), f5 (the edits the other way round) and f7 (two blocks). Each time it was a2, resized on the phone at that edit or the one before, and overlapping a1, and a2 went ahead of a1 (z2, z1 and then z3). It made no change when no block had been resized: f3 (a2 moved down 1, still on a1), f4 (a3 moved up onto a2, a chain of three) and f6 (the first edit apart). So a chain is not needed, and a move can reorder once the block has been resized. Ours sorts by phone row after a section's first phone edit, so it misses f1, f2, f5 and f7. A simple rule, that a resized block goes ahead of a lower-z block it overlaps, fits these 7. It misses seen reads in CAP-A2CORPUS1STEPS (s5 also brings z3 first, and s6 moves z3 last) and in CAP-A2CORPUS2 (p1, p3 and p4), so no rule is fitted and no predictions round was run."
+}
