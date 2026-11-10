@@ -296,8 +296,8 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
   rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [] }); });
 }
 // Rule T refit 1 at other frame widths, the same 6 wide pressed 30% in (CAP-X2TWIDTHS.json at 1280 and 1920, CAP-X2TREFIT.json at
-// 1440, 1560, 1680 and 1760; R2 agrees on every ring). The refit's 3 fresh misses are named.
-{ const miss = { 'R1 w1560 -1': 'refit 1: the track is 1.18 columns, so n is 6 and it should keep 21; the oracle is on 19', 'R1 w1560 -18': 'refit 1: as at -1, on 19', 'R1 w1680 1': 'refit 1: c is 8, so 19; the oracle is on 20' };
+// 1440, 1560, 1680 and 1760; R2 agrees on every ring). Refit 2 fits refit 1's 3 misses.
+{ const miss = {};
   for (const file of ['CAP-X2TWIDTHS', 'CAP-X2TREFIT']) {
     const F2 = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads;
     for (const w of [...new Set(Object.keys(F2).map((k) => k.match(/^R1 w(\d+) /)?.[1]).filter(Boolean))]) {
@@ -306,6 +306,17 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
       const { out } = sweep({ area: '1 / 21 / 7 / 27', pre: [14, 0] }, rings.map(([, v]) => v.at));
       rings.forEach(([k, v], i) => { groupCases.push({ name: `hold ${file} ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], ...(miss[k] ? { known: miss[k] } : {}) }); });
     }
+  }
+  // Refit 2, the last (CAP-X2T9.json, R2 agrees on every ring): 9 wide at 1600, 6 wide at 1545 and 1672, a 9 wide one line in from
+  // the edge at 1760 (the setup drag stopped there, as ours does: the plain move rule), and a 3 wide on rows 8 to 14, which T leaves alone.
+  const F9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X2T9.json', import.meta.url))).reads;
+  const w3 = 'X2 table: 3 wide at the edge, the oracle is one line further left than ours (T is frozen, not built)';
+  const miss9 = { 'R1 w6 1545 -1': 'refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21', 'R1 w6 1545 -20': 'refit 2: as at -1', ...Object.fromEntries(['1', '-1', '-20', '-48', '-54', '-133', '-191', '-250', '-660', '-1249', '-1341', '-1347'].map((d) => [`R1 w3 rows8 ${d}`, w3])) };
+  for (const tag of ['w9 1600', 'w9 1760', 'w6 1545', 'w6 1672', 'w3 rows8']) {
+    viewport(S, tag === 'w3 rows8' ? 1600 : Number(tag.split(' ')[1]), 945); await pause(250);
+    const at = F9[`R1 ${tag} start`].areas[0][0].replace(/\//g, ' / '), rings = Object.entries(F9).filter(([k, v]) => k.startsWith(`R1 ${tag} `) && v.ring !== undefined);
+    const { out } = sweep({ area: at, pre: [14, 0], ...(tag === 'w3 rows8' ? { rowsD: 14 } : {}) }, rings.map(([, v]) => v.at));
+    rings.forEach(([k, v], i) => { groupCases.push({ name: `hold CAP-X2T9 ${k}`, diffs: out[i].ring !== v.ring ? [`ring: oracle ${v.ring}, ours ${out[i].ring}`] : [], ...(miss9[k] ? { known: miss9[k] } : {}) }); });
   }
   viewport(S, F.window[0], F.window[1] + 55); await pause(250);
 }

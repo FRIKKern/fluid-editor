@@ -1354,18 +1354,19 @@ function updateMove(e) {
   // 1, 2, 4, 7, 8, 10, 11, 12 and 13 wide (CAP-X2STEPS.json, CAP-X2STEPS3.json, CAP-X2WIDTHS.json to CAP-X2WIDTHS3.json,
   // CAP-X2RESIZED.json), inferred for the widths not read. A table, not a rule: 6 wide keeps the left edge rule, resized
   // or not, cause not known (HOLD.json, CAP-X2WIDTHS3.json G and H, CAP-X2RESIZED.json). A group and a phone are not read.
-  const fromRight = dx < 0 && solo && bp !== 'mobile' && bl + bw === m.colStart.length + 1 && bw !== 6;
+  const fromRight = dx < 0 && solo && bp !== 'mobile' && bl + bw === m.colStart.length + 1 && bw !== 6 && bw !== 9;
   let nb = (dx > 0 && bl > 1) || fromRight ? snapColumn(m, bl + bw, dx, (fromRight ? 2 : cMin - sh) + bw, cMax - sh + bw) - bw : snapColumn(m, bl, dx, cMin - sh, cMax - sh);
   if (fromRight && nb === 2 && bl > 2 && !leftEdgeOut(m, bl, dx)) nb = 3;
-  // Rule T, refit 1 (CAP-X2TREFIT-PREDICTED.json, predictions first: 27 of 30 fresh at 1440, 1560, 1680 and 1760, where T as
-  // first built had 14). A lone 6 wide on the right margin track, whose box is (width - 1) columns plus that track (M), moves by
-  // its box width in columns, n rounded and c rounded up: a move right goes to 27 - c; a move left is on 27 - (n + 2) until
-  // -(M / 2 + 5), then on 27 - (n + 1), or the left edge rule's column when that is further left. With n at 6 or less (the track
-  // under 1.5 columns) it is the left edge rule (CAP-X2TWIDTHS.json at 1280). At 1600 this is T: 20, 18, 19 from -49.6 (CAP-X2SIX.json,
-  // HOLD.json, CAP-X2WIDTHS3.json G, CAP-X2W456B.json). Misses: at 1560 the first 18px left are on 19, not 21; at 1680 +1 is on 20, not 19.
-  if (dx !== 0 && solo && bp !== 'mobile' && bw === 6 && bl + bw === m.colStart.length + 1) {
-    const M = m.cols[m.cols.length - 1], n = bw - 1 + Math.round(M / colPitch), c = bw - 1 + Math.ceil(M / colPitch), end = bl + bw;
-    if (n > bw) nb = Math.min(nb, dx > 0 ? end - c : dx > -(M / 2 + 5) ? end - n - 2 : end - n - 1);
+  // Rule T, refit 2, the last (CAP-X2T9-PREDICTED.json, predictions first). A lone 6 or 9 wide on the right margin track, whose
+  // box is (width - 1) columns plus that track (M, K = M / pitch): with K under 1 it takes the left edge rule from the first pixel
+  // (CAP-X2TWIDTHS.json at 1280, CAP-X2TREFIT.json at 1440). Otherwise, with n = width - 1 + round(K), a move left is on
+  // 27 - (n + 2) until -(M / 2 + 5), then on 27 - (n + 1), or the left edge rule's column when that is further left, and a move
+  // right goes to 27 - (width - 1 + ceil((M - 12) / pitch)). Fits the 6 wide at 1280 to 1920 (CAP-X2SIX.json, CAP-X2TWIDTHS.json,
+  // CAP-X2TREFIT.json, HOLD.json, CAP-X2WIDTHS3.json G, CAP-X2W456B.json) and the 9 wide at 1600 (CAP-X2W39.json). 9 wide follows
+  // the left edge rule, not the mirror.
+  if (dx !== 0 && solo && bp !== 'mobile' && (bw === 6 || bw === 9) && bl + bw === m.colStart.length + 1) {
+    const M = m.cols[m.cols.length - 1], n = bw - 1 + Math.round(M / colPitch), end = bl + bw;
+    if (M >= colPitch) nb = Math.min(nb, dx > 0 ? end - (bw - 1 + Math.ceil((M - 12) / colPitch)) : dx > -(M / 2 + 5) ? end - n - 2 : end - n - 1);
   }
   // From the left margin track the last step waits for the right edge to pass the right margin's middle
   // (MARGINSTEPS.json, CAP-G4MARGIN3.json, CAP-G4MARGIN4.json, CAP-G4MARGIN5.json).
