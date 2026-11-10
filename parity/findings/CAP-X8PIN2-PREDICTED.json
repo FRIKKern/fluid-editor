@@ -1,0 +1,606 @@
+{
+  "item": "X8",
+  "capturedAt": "2026-11-10",
+  "question": "X8, round E, the check on CAP-X8PIN (a pin did not count for a group, 2 of 5): is the pin in effect? The same three Shapes on Blocks Probe (z 1, 3, 2), the right one pinned (Pin, Top), with the pin panel read, then one block alone (a pin makes a lone block show Move Forward, TOOLBARS.json), the two groups again, and the pinned block alone. Built twice, Exit Without Saving between. Nothing saved. Ours predicted first.",
+  "rule": "Ours on main: a pin anywhere in the section shows Move Forward and Backward on one block and on a group with a block outside it.",
+  "from": "ours on main (editor.js zInfo and groupZ), the same areas and z values",
+  "predicted": {
+    "one, pin elsewhere": "Edit,Align Vertically,Pin,Move Forward,Move Backward off,Duplicate,Remove",
+    "pin outside": "Stack Blocks,Align Group,Move Forward,Move Backward,Duplicate,Remove",
+    "pin inside": "Stack Blocks,Align Group,Move Forward,Move Backward off,Duplicate,Remove",
+    "the pinned one": "Edit,Align Vertically,Pin,Move Forward,Move Backward,Duplicate,Remove"
+  },
+  "cases": {
+    "one, pin elsewhere": [
+      "R1 one, pin elsewhere",
+      "R2 one, pin elsewhere"
+    ],
+    "pin outside": [
+      "R1 pin outside",
+      "R2 pin outside"
+    ],
+    "pin inside": [
+      "R1 pin inside",
+      "R2 pin inside"
+    ],
+    "the pinned one": [
+      "R1 the pinned one",
+      "R2 the pinned one"
+    ]
+  },
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "R1 one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R1 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R1 the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "R2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "R2 one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "R2 pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "R2 the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ]
+}

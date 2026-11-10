@@ -980,6 +980,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await load(over); gb('middle and right, middle over left', 'middle and right, middle over left', bar('m', 'r'));
   await load(over); gb('all three, one overlap', 'all three, one overlap', bar('l', 'm', 'r'));
   await load(apart, true); gb('phone two', 'phone two', bar('l', 'm'));
+  // A pin doesn't count for a group, inside or outside it (CAP-X8PIN.json, CAP-X8PIN2.json; R2 and each other agree). The right one is pinned.
+  { const pinIt = () => evalJs(S, `(() => { const b = fe.model.sections[0].blocks.find((x) => x.id === 'r'); b.layout.desktop.sticky = { anchor: 'top', offset: 0 }; fe.load(JSON.parse(JSON.stringify(fe.model))); return 1; })()`);
+    for (const [file, read, ids] of [['CAP-X8PIN', 'R1 pin outside', ['l', 'm']], ['CAP-X8PIN', 'R1 pin inside', ['l', 'r']], ['CAP-X8PIN', 'R1 pin inside, middle and right', ['m', 'r']], ['CAP-X8PIN', 'R1 all three, pin inside', ['l', 'm', 'r']], ['CAP-X8PIN2', 'R1 pin outside', ['l', 'm']], ['CAP-X8PIN2', 'R1 pin inside', ['l', 'r']]]) {
+      const P = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads[read];
+      const want = ['Stack Blocks', 'Align Group', 'Move Forward', 'Move Backward', 'Duplicate', 'Remove'].filter((l) => P.btnState[l]).map((l) => l + (P.btnState[l].disabled ? ' off' : '')).join();
+      await load(apart); pinIt(); await pause(150); const got = bar(...ids);
+      groupCases.push({ name: `group bar: ${file} ${read}`, diffs: got === want ? [] : [`oracle ${want}, ours ${got}`] });
+    } }
   // On a phone the bar stands beside the phone: first button 27 right of it, 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
   const barAt = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(); return JSON.stringify([Math.round((b.left - q.right) * 10) / 10, Math.round((b.top - q.top - r.top) * 10) / 10]); })()`);
   const at = (name, got, want) => groupCases.push({ name: `phone bar place: ${name}`, diffs: Math.abs(got[0] - want[0]) <= 1 && Math.abs(got[1] - want[1]) <= 1.5 ? [] : [`oracle ${want}, ours ${got}`] });

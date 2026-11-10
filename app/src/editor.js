@@ -520,8 +520,9 @@ function groupZ(sid, ids) {
   // A block between the members counts both ways (CAP-GROUPFORWARD.json).
   const between = outside.some((z) => z > Math.min(...inside) && z < Math.max(...inside));
   // Forward and Backward show when a member overlaps a block outside the group; overlaps inside it don't count (CAP-GROUPBAR.json).
-  const pinned = S(sid).blocks.some((o) => o.layout[bp]?.sticky), others = S(sid).blocks.filter((o) => !ids.includes(o.id) && o.layout[bp]), members = S(sid).blocks.filter((o) => ids.includes(o.id));
-  const shows = others.length > 0 && (pinned || members.some((m) => others.some((o) => overlaps(lay(m).area, o.layout[bp].area))));
+  // A pin doesn't count for a group, inside it or outside, though it does for one block (CAP-X8PIN.json, CAP-X8PIN2.json, desktop).
+  const others = S(sid).blocks.filter((o) => !ids.includes(o.id) && o.layout[bp]), members = S(sid).blocks.filter((o) => ids.includes(o.id));
+  const shows = others.length > 0 && members.some((m) => others.some((o) => overlaps(lay(m).area, o.layout[bp].area)));
   return { shows, above: between || outside.some((z) => z > Math.max(...inside)), below: between || outside.some((z) => z < Math.min(...inside)) };
 }
 // The next block outside the group crosses it, and the z values stay the same set: 1, 2, 3 with
