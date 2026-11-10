@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 34 changes
+- **Today** · 35 changes
+  - Y2, R2: the emptied-Text rows are read on a Heading 1 only, other styles inferred ([#578](https://github.com/FRIKKern/fluid-editor/pull/578))
   - Y2: a delete that empties a Text takes the undo's rows, less the height lost (emptied Heading 1: 2 rows) ([#577](https://github.com/FRIKKern/fluid-editor/pull/577))
-  - Y2: why the emptied Heading 1 takes 2 rows on the oracle (the undo's height-lost rule; ours' typing rule is frozen) ([#574](https://github.com/FRIKKern/fluid-editor/pull/574))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
