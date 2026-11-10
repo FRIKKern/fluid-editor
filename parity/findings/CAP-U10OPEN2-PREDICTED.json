@@ -1,0 +1,43 @@
+{
+  "item": "U10",
+  "question": "U10, rule O refit 1, predictions pushed first: why a short first section opens below the band's high edge (CAP-VIEWLAYOUTS.json, 562 and 603.1 at H 1000) while V, a second section at H 900, opens on it (CAP-U10OPEN.json). Splits 'first section' from 'window height'.",
+  "rules": {
+    "O1": "Built (#550): rule O below the first section (U9's opening, then no lower than the content box bottom + 1 - 476); the first section by U9's opening alone.",
+    "O2": "Rival: by window height. Rule O on every section at H 900; U9's opening alone at H 1000."
+  },
+  "bet": "O1",
+  "inputs": "U9's opening is sectionPanelTop (frozen). edit: a second section's Edit Section top is its top + 29.46 (as round 1); the first section's is the read panelBox.edit (the first shown Edit Section button). Geometry is taken from the read: section top, height and content box.",
+  "predictions": [
+    {
+      "case": "F H900 first",
+      "O1": "U9 alone on the read inputs: 175 if edit reads 222.6 (as CAP-VIEWLAYOUTS' first section), 133 if it reads 84.5",
+      "O2": "123 (section top 55, 557.7 tall, content box + 14.4, 528.9, if as V)"
+    },
+    {
+      "case": "S H1000 at 420",
+      "O1": "404 (section top 302.6, 623.7 tall, content box + 47.4, 528.9)",
+      "O2": "451"
+    },
+    {
+      "case": "S H1000 at 440",
+      "O1": "384 (section top 282.6)",
+      "O2": "431"
+    }
+  ],
+  "scoring": "Each case scores only if its two reads agree. Within 1.5 px of each rule on the read inputs; the number beside it if the geometry is as assumed. A case where both rules give the same number on the read inputs doesn't split them and is reported as such.",
+  "setup": "Gestures Probe, unsaved, round 1's steps (CAP-U10OPEN.json): a new section with a Text, two more new sections, a Text in section 1, the frame scrolled to the case's place, View Layouts opened by a real press on section 0 (F) or 1 (S). Each case built twice in one capture, Exit Without Saving between.",
+  "cases": {
+    "F H900 first": [
+      "F H900 first",
+      "F H900 first again"
+    ],
+    "S H1000 at 420": [
+      "S H1000 at 420",
+      "S H1000 at 420 again"
+    ],
+    "S H1000 at 440": [
+      "S H1000 at 440",
+      "S H1000 at 440 again"
+    ]
+  }
+}
