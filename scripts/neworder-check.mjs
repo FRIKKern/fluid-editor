@@ -14,6 +14,8 @@ goto(S, `${BASE}/index.html`);
 await pause(1200);
 
 // Named misses, with no rule read yet.
+// A section's first phone edit keeps the page order (CAP-A2PHONEEDIT), which a sort by phone row can't see.
+const DOM_ORDER = new Set(['CAP-A2PHONEEDIT']);
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 // npm run textpush-check: the reads of text that grows or shrinks (R2), about 13 min, kept apart for its typing.
 const TEXT = process.argv[2] === '--text', FULL = process.argv[2] === '--full';
@@ -21,7 +23,7 @@ const TEXT = process.argv[2] === '--text', FULL = process.argv[2] === '--full';
 // a long drag, text that grows, shrinks and undoes, and a named miss so a change there shows.
 const SAMPLE = { 'CAP-NEWORDER3': [1], 'CAP-NEWORDER7': [3], 'CAP-DESKMOVE5': [6], 'CAP-TURNTEST4': [3], 'CAP-CYCLE4': [1], 'CAP-A2EDITS': [3, 9], 'CAP-A2ROUND2': [10], 'CAP-A2DELETE': [1], 'CAP-A2STOPNEW': [3], 'CAP-A2TYPED3': [4], 'CAP-A2TYPEDNEW': [0], 'CAP-LONGDRAG': [0], 'CAP-98SPLIT': [0], 'CAP-TEXTPUSH5': [1, 15], 'CAP-TEXTPUSH7': [2, 9] };
 const ONLY = TEXT ? ['CAP-TEXTPUSH', 'CAP-TEXTPUSH2', 'CAP-TEXTPUSH3', 'CAP-TEXTPUSH4', 'CAP-TEXTPUSH5', 'CAP-TEXTPUSH6', 'CAP-TEXTPUSH7', 'CAP-TEXTSECOND'] : process.argv[2] && !FULL ? process.argv[2].split(',') : null;
-const FILES = ONLY ?? (FULL ? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2DELETE', 'CAP-A2STOPNEW', 'CAP-A2TYPED3', 'CAP-A2TYPEDNEW', 'CAP-A2FRESH', 'CAP-A2SHRINKWHY', 'CAP-A2SHRINKWHY2', 'CAP-A2SHRINKB', 'CAP-A2SHRINKB2', 'CAP-A2SHRINKB1', 'CAP-TEXTSHRINK', 'CAP-LONGDRAG', 'CAP-98', 'CAP-98-AGAIN', 'CAP-98SPLIT'] : Object.keys(SAMPLE));
+const FILES = ONLY ?? (FULL ? ['CAP-NEWORDER', 'CAP-NEWORDER2', 'CAP-NEWORDER3', 'CAP-NEWORDER4', 'CAP-NEWORDER5', 'CAP-NEWORDER6', 'CAP-DESKMOVE', 'CAP-DESKMOVE2', 'CAP-DESKMOVE3', 'CAP-DESKMOVE4', 'CAP-DESKMOVE5', 'CAP-DESKMOVE6', 'CAP-DESKMOVE7', 'CAP-DESKMOVE8', 'CAP-DESKMOVE9', 'CAP-ORDER', 'CAP-TURNTEST', 'CAP-TURNTEST2', 'CAP-CYCLE', 'CAP-CYCLE2', 'CAP-CYCLE3', 'CAP-TURNTEST3', 'CAP-CYCLE4', 'CAP-NEWORDER7', 'CAP-TURNTEST4', 'CAP-A2EDITS', 'CAP-A2EDITS2', 'CAP-A2ROUND1', 'CAP-A2ROUND2', 'CAP-A2DELETE', 'CAP-A2STOPNEW', 'CAP-A2TYPED3', 'CAP-A2TYPEDNEW', 'CAP-A2FRESH', 'CAP-A2SHRINKWHY', 'CAP-A2SHRINKWHY2', 'CAP-A2SHRINKB', 'CAP-A2SHRINKB2', 'CAP-A2SHRINKB1', 'CAP-A2PHONEEDIT', 'CAP-TEXTSHRINK', 'CAP-LONGDRAG', 'CAP-98', 'CAP-98-AGAIN', 'CAP-98SPLIT'] : Object.keys(SAMPLE));
 let quiet = false; // nothing selected since the last Escape, so another one is a wasted call
 // After typing, the first Escape only closes the editor, so the next one counts too.
 let loud = 0;
@@ -46,7 +48,7 @@ const cases = [];
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
   let last = null, view = 'desktop', held = false, writing = false; // held: a group or a handle waits for the next drag, so no Escape first
-  const pick = (k) => (k === 'new' ? last : blockAt(k));
+  const made = [], pick = (k) => (k === 'new' ? last : /^a\d+$/.test(k) ? made[k.slice(1) - 1] : blockAt(k)); // a1: the first block added since the blank
   inTextReads = file.startsWith('CAP-TEXTPUSH');
   const parts = !ONLY && !FULL ? SAMPLE[file] : null;
   let part = -1;
@@ -55,11 +57,13 @@ for (const file of FILES) {
     if (op === 'blank') part++;
     if (parts && !parts.includes(part)) continue;
     if (op === 'blank') {
+      made.length = 0;
       view = 'desktop';
       evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`);
     } else if (op === 'add') {
       // The capture's add finds its tile with the page back at the top (CAP-DRAGSCROLL.json: 44 and 10 become 0).
       last = evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); fe.addBlock('s', ${JSON.stringify(step[2])}); return JSON.stringify(fe.model.sections[0].blocks.find((b, k, all) => b.layout.desktop.z === Math.max(...all.map((x) => x.layout.desktop.z))).id); })()`);
+      made.push(last);
       await pause(3); quiet = false; press('Escape'); await pause(40);
     } else if (op === 'view') {
       view = step[1] === 'Mobile' ? 'mobile' : 'desktop';
@@ -108,9 +112,11 @@ for (const file of FILES) {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;
       const z = !!r.stack?.[0]?.z;
-      const rows = (r.stack ? r.stack.map((b) => [b.desktop, b.phone, ...(z ? [Number(b.z[0])] : [])]) : r.areas).sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
+      // Most reads compare blocks by phone row; DOM_ORDER files compare the page order itself.
+      const keep = DOM_ORDER.has(file), byRow = (x) => (keep ? x : x.sort((a, b) => parseInt(a[1]) - parseInt(b[1])));
+      const rows = byRow(r.stack ? r.stack.map((b) => [b.desktop, b.phone, ...(z ? [Number(b.z[0])] : [])]) : r.areas);
       // A text in edit keeps its area out of the model until the edit ends: read that one from the page.
-      const ours = evalJs(S, `(() => { const live = (b, on) => { const e = on && document.getElementById('site-frame').contentDocument.querySelector('.fe-block.is-text-editing[data-block-id="' + b.id + '"]'); return e ? e.style.gridArea.split(' / ').join('/') : ''; }; return JSON.stringify(fe.model.sections[0].blocks.map((b) => [live(b, ${view === 'desktop'}) || b.layout.desktop.area.join('/'), live(b, ${view === 'mobile'}) || b.layout.mobile.area.join('/'), ...(${z} ? [b.layout.desktop.z] : [])]).sort((a, b) => parseInt(a[1]) - parseInt(b[1]))); })()`);
+      const ours = byRow(evalJs(S, `(() => { const live = (b, on) => { const e = on && document.getElementById('site-frame').contentDocument.querySelector('.fe-block.is-text-editing[data-block-id="' + b.id + '"]'); return e ? e.style.gridArea.split(' / ').join('/') : ''; }; return JSON.stringify(fe.model.sections[0].blocks.map((b) => [live(b, ${view === 'desktop'}) || b.layout.desktop.area.join('/'), live(b, ${view === 'mobile'}) || b.layout.mobile.area.join('/'), ...(${z} ? [b.layout.desktop.z] : [])])); })()`));
       const sectionRows = r.section?.rows, ourRows = evalJs(S, `fe.model.sections[0].rows.${view}`);
       const same = JSON.stringify(ours) === JSON.stringify(rows) && (sectionRows === undefined || sectionRows === ourRows);
       // What the phone draws, not only what the model says: stale CSS put a drag 2 rows off (task-62dadddadb37e31f).
