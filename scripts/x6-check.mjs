@@ -68,7 +68,7 @@ for (const file of FILES) {
       const want = pick?.split('/').map(Number), have = area();
       if (!want || VOID(file, step[1])) continue;
       off ??= want[0] - have[0];
-      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || /^CAP-X6SUMMARY(WALK|FAR)$/.test(file) || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
+      const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || /^CAP-X6SUMMARY(WALK|FAR2?)$/.test(file) || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
       const ok = named ? want[1] === have[1] && want[3] === have[3] : w === have.join('/');
       total++; if (ok) pass++; else console.log(`DIFF ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`);
       if (named && w !== have.join('/')) { known++; console.log(`known, rows: ${file} ${step[1]}: oracle ${w} ours ${have.join('/')}`); }
