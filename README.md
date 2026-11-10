@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 40 changes
-  - X8: a pin doesn't count for a group (CAP-X8PIN 2 of 5, pin proven in CAP-X8PIN2), built as a read fact ([#576](https://github.com/FRIKKern/fluid-editor/pull/576))
-  - U9: a Text being typed in keeps its edit open after scroll-off, the bar gone (fixes #565 against CAP-Y2REDOPULL2 S) ([#581](https://github.com/FRIKKern/fluid-editor/pull/581))
+- **Today** · 42 changes
+  - X2: top-corner line wording per the lead (between 0 and 2 px, 1 inferred; frozen count 3 of 6; phone not read) ([#583](https://github.com/FRIKKern/fluid-editor/pull/583))
+  - X2: a Text's top-corner line at 1px (CAP-X2TOPLINE, ours 3 of 6), refit 1 ([#582](https://github.com/FRIKKern/fluid-editor/pull/582))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
