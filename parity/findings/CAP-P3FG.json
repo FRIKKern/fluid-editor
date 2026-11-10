@@ -1,0 +1,1958 @@
+{
+  "item": "CAP-P3FG",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T04:42:58.818Z",
+  "predictions": {
+    "file": "CAP-P3FG-PREDICTED.json",
+    "commit": "0e3c67bf39b02d62746939c021202df201f09339",
+    "committedAt": "2026-11-10T05:42:47+01:00",
+    "sha256": "92776972904d0022e91931c3c68cde2f1e2d0a7fa299cf11731a9b0e6e9f8b3b"
+  },
+  "engine": "chrome",
+  "question": "P3 flat with the gutter (predictions pushed first, CAP-P3FG-PREDICTED.json): M, Vertical top, Custom height, Vertical bottom, M, the three Vertical presses, Custom height, on a new blank section. Gestures Probe, named presses only, the run built twice in this capture, Exit Without Saving between. Nothing saved.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "G start",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "G M",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "G M top",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "G custom",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "G custom bottom",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "G M after",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "G M top after",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "G M bottom after",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical center"
+    ],
+    [
+      "read",
+      "G M center after",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "G custom last",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "panel",
+      0
+    ],
+    [
+      "read",
+      "G start again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "G M again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "G M top again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "G custom again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "G custom bottom again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "M"
+    ],
+    [
+      "read",
+      "G M after again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical top"
+    ],
+    [
+      "read",
+      "G M top after again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical bottom"
+    ],
+    [
+      "read",
+      "G M bottom after again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Vertical center"
+    ],
+    [
+      "read",
+      "G M center after again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "pressNamed",
+      "Custom height"
+    ],
+    [
+      "read",
+      "G custom last again",
+      {
+        "section": 0,
+        "range": true,
+        "radios": true,
+        "sectionCss": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "G start": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M top": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 211.2px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "9.45px",
+          "padding": "138.641px 0px 0px",
+          "h": 523.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 3.2px",
+          "h": 384.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          523.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom bottom": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "0px",
+          "padding": "138.641px 0px 0px",
+          "h": 520.4
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "0px 0px 64px",
+          "h": 381.8
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          520.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M after": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "211.2px 0px 64px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M top after": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 211.2px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M bottom after": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "211.2px 0px 64px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M center after": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom last": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "9.45px",
+          "padding": "138.641px 0px 0px",
+          "h": 459.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "1.6px 0px",
+          "h": 320.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G start again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M top again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 211.2px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom again": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "9.45px",
+          "padding": "138.641px 0px 0px",
+          "h": 523.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 3.2px",
+          "h": 384.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          523.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom bottom again": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "0px",
+          "padding": "138.641px 0px 0px",
+          "h": 520.4
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "0px 0px 64px",
+          "h": 381.8
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          520.4
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M after again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "211.2px 0px 64px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M top after again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          true
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "64px 0px 211.2px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M bottom after again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          false
+        ],
+        [
+          "Vertical bottom",
+          true
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 731.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "211.2px 0px 64px",
+          "h": 592.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          731.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G M center after again": {
+      "range": null,
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          true
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          false
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "623.7px",
+          "padding": "138.641px 0px 0px",
+          "h": 667.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "105.6px 0px",
+          "h": 528.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "G custom last again": {
+      "range": {
+        "slider": "1",
+        "field": "1",
+        "min": "1",
+        "max": "100",
+        "fieldAt": [
+          1528,
+          515
+        ]
+      },
+      "radios": [
+        [
+          "Zero gap",
+          false
+        ],
+        [
+          "Medium gap",
+          true
+        ],
+        [
+          "Custom gap",
+          false
+        ],
+        [
+          "S",
+          false
+        ],
+        [
+          "M",
+          false
+        ],
+        [
+          "L",
+          false
+        ],
+        [
+          "Custom height",
+          true
+        ],
+        [
+          "Vertical top",
+          false
+        ],
+        [
+          "Vertical center",
+          true
+        ],
+        [
+          "Vertical bottom",
+          false
+        ]
+      ],
+      "sectionCss": {
+        "section": {
+          "minHeight": "9.45px",
+          "padding": "138.641px 0px 0px",
+          "h": 459.6
+        },
+        "wrapper": {
+          "minHeight": "auto",
+          "padding": "1.6px 0px",
+          "h": 320.9
+        }
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          459.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  },
+  "overlap": "Ran 04:42:58 to about 04:45 UTC on Gestures Probe, which fixes held from about 04:45 (CAP-A2SECONDEDIT started there at 04:33:27). Both builds agree on every read, read-backs clean: read facts by the lead ruling; unscored, the predictions not counted."
+}
