@@ -121,12 +121,13 @@ function followPhoneRows(before) {
     const was = old.sections.find((o) => o.id === s.id);
     if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     // The first phone edit of a section that still follows desktop keeps the DOM order, even when a block moves
-    // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A second edit sorts again (e8 is not built).
+    // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A later edit follows rule R or sorts again.
     const first = bp === 'mobile' && was.phoneFollows === true && !was.phoneEdited;
     const reflowed = phoneFollowsMove(s, was);
     if (first && s.phoneEdited) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
-    // Candidate R (round E, predictions in CAP-A2RESIZEAHEAD-PREDICTED.json, not yet scored): on a later phone edit, a block
-    // resized on the phone goes to its row's place and then ahead of the first block it overlaps (CAP-A2SECONDEDIT f1, f2, f5, f7).
+    // Rule R (fitted on CAP-A2SECONDEDIT; predictions first, CAP-A2RESIZEAHEAD-PREDICTED.json: 6 of 6 fresh, two reads each):
+    // on a later phone edit, a block resized on the phone goes to its row's place, then ahead of the first block it overlaps.
+    // Misses seen corpus rebuild reads (CAP-A2CORPUS1STEPS s5, CAP-A2CORPUS2 p1).
     const next = (bp === 'mobile' && s.phoneFollows != null && resizedAhead(s.blocks, was.blocks)) || phoneOrder(s.blocks);
     if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);

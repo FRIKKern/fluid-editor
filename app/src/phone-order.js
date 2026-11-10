@@ -26,7 +26,7 @@ export function phoneOrder(blocks) {
   return out;
 }
 
-// Candidate R: after a phone edit that moved or resized one block, which has been resized on the phone (now or before),
+// Rule R (CAP-A2RESIZEAHEAD, 6 of 6 fresh): after a phone edit that moved or resized one block, which has been resized on the phone (now or before),
 // that block leaves its place, goes after every block that starts on its row or above, then ahead of the first of those
 // it overlaps. Anything else returns null.
 export function resizedAhead(blocks, was) {
