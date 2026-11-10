@@ -96,6 +96,9 @@ const same = (a, b) => a.every((v, i) => v === b[i]);
 function growRows(s) {
   s.rows[bp] = Math.max(s.rows[bp], ...s.blocks.map((b) => b.layout[bp].area[2] - 1));
 }
+// While a text is open the section draws the rows its model holds, the spare rows under the text too: a new Heading 1's
+// 6 stay under it as it grows and through each Cmd+Z (CAP-Y2BARROWS.json, 5 of 5, two runs). The close draws the section again.
+const drawRows = (sid) => { feEl(sid).style.gridTemplateRows = `repeat(${S(sid).rows[bp]},minmax(${bp === 'mobile' ? '24px' : 'calc(var(--container-width) * var(--row-height-scaling-factor))'}, auto))`; };
 
 function note(text) {
   notes.unshift(text);
@@ -4982,6 +4985,7 @@ function showTextStep(ed, snap) {
     if (o !== b) setArea(blockEl(o.id), lay(o).area);
   }
   Object.assign(s, was, { blocks: s.blocks });
+  drawRows(ed.sid);
   ed.area = [...wasB.layout[bp].area];
   setArea(blockEl(ed.bid), ed.area);
   const ind = feEl(ed.sid).querySelector('.fe-indicator');
@@ -5121,6 +5125,7 @@ function onTextInput(e) {
   ed.need = need;
   if (next !== rows) {
     if (S(ed.sid).blocks.includes(b)) for (const o of moveWithText(S(ed.sid), b, ed.area, next - rows)) setArea(blockEl(o.id), lay(o).area);
+    drawRows(ed.sid);
     ed.area[2] = ed.area[0] + next;
     setArea(blockEl(ed.bid), ed.area);
     const ind = feEl(ed.sid).querySelector('.fe-indicator');

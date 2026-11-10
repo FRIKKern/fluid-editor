@@ -210,12 +210,13 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
 // Y2's text bar: a Cmd+Z that leaves the page too short for the frame's scroll takes the bar and the caret, the edit open, and
 // Cmd+Shift+Z brings the caret back, not the bar (CAP-Y2BAR.json); with the frame at its top the same Cmd+Z keeps both
 // (CAP-Y2BAR2.json). After that Cmd+Z, scrolling back brings nothing, the block shows a grab cursor, and a press on it closes the
-// edit and leaves it selected (CAP-Y2BAR3.json). A Heading 1 in a new section with one more under it, as the probe page's footer, by real keys.
+// edit and leaves it selected (CAP-Y2BAR3.json). A Heading 1 in a new section with an empty one under it, as the probe page's footer
+// (the page 587px under the section, the oracle's 633: the demo's long section kept ours from pulling), by real keys.
 { const barNow = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), W = f.contentWindow, ce = f.contentDocument.querySelector('[contenteditable="true"]'), sl = W.getSelection(); return JSON.stringify({ bar: !document.getElementById('text-bar').hidden, open: !!ce, caret: sl.rangeCount > 0, y: Math.round(W.scrollY) }); })()`);
   for (const mode of ['pull', 'top', 'press']) {
     const top = mode === 'top';
     goto(S, `${BASE}/index.html`); await pause(1200);
-    evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 2); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
+    evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 2); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; Object.assign(next.sections[1], { blocks: [], rows: { desktop: 8, mobile: 8 } }); fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
     browser(S, 'press', 'Escape'); await pause(200);
     evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument, s = fe.model.sections[0], id = s.blocks.at(-1).id; fe.edit(s.id, id); f.querySelector('.fe-block[data-block-id="' + id + '"] .sqs-html-content').focus(); return 1; })()`); await pause(300);
     cdp(S, { op: 'presses', keys: ['a', 'b', 'c'] }); await pause(300);
@@ -224,9 +225,11 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     for (const w of [' longer line of words that runs on past the end of the block', ' and then on and on over a second line and more words to fill it', ' and then again on and on over a third line and more words to fill']) {
       cdp(S, { op: 'presses', keys: [...w].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); await pause(1300);
     }
+    // The frame where the oracle's typing left it, 523 (CAP-Y2BAR.json, CAP-Y2BAR2.json, CAP-Y2BAR3.json: the section at the frame's top on
+    // both). Two Cmd+Z keep it there: the spare rows the section draws keep the page long enough. For CAP-Y2BAR2, the frame to its top then.
+    evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 523); return 1; })()`); await pause(300);
     browser(S, 'press', 'Meta+z'); await pause(300); browser(S, 'press', 'Meta+z'); await pause(300);
-    // The frame where the page's end is at the frame's end, as the oracle's was at 523, or at its top.
-    evalJs(S, `(() => { const W = document.getElementById('site-frame').contentWindow; W.scrollTo(0, ${top} ? 0 : W.document.scrollingElement.scrollHeight); return 1; })()`); await pause(300);
+    if (top) { evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); return 1; })()`); await pause(300); }
     const z2 = barNow();
     browser(S, 'press', 'Meta+z'); await pause(400); const z3 = barNow();
     if (mode === 'press') {
@@ -246,6 +249,30 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     results.push({ name, ok }); if (!ok) console.log(`${name} DIFF ${JSON.stringify([z2, z3, y4])}`);
     browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(200);
   } }
+// Y2: while a Heading 1 is open, the section draws its spare rows: the new Text's 6 stay under it as it grows and through each
+// Cmd+Z, so the section's height is the oracle's at each step (CAP-Y2BARROWS.json, two runs alike), by real keys. Ours' row count is a
+// row short at the second and third Cmd+Z and the let go: the frozen fall rule brings the Heading back a row short, in the same height.
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-Y2BARROWS.json', import.meta.url))).reads;
+  const secH = () => evalJs(S, `Math.round(document.getElementById('site-frame').contentDocument.querySelector('main#page .page-section').getBoundingClientRect().height * 10) / 10`);
+  goto(S, `${BASE}/index.html`); await pause(1200);
+  evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 2); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; Object.assign(next.sections[1], { blocks: [], rows: { desktop: 8, mobile: 8 } }); fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
+  browser(S, 'press', 'Escape'); await pause(200);
+  evalJs(S, `(() => { const f = document.getElementById('site-frame').contentDocument, s = fe.model.sections[0], id = s.blocks.at(-1).id; fe.edit(s.id, id); f.querySelector('.fe-block[data-block-id="' + id + '"] .sqs-html-content').focus(); return 1; })()`); await pause(300);
+  cdp(S, { op: 'presses', keys: ['a', 'b', 'c'] }); await pause(300);
+  browser(S, 'click', '#text-bar [aria-label="Text Style"]'); await pause(400);
+  browser(S, 'click', '#text-bar [aria-label="Heading 1"]'); await pause(1300);
+  for (const w of [' longer line of words that runs on past the end of the block', ' and then on and on over a second line and more words to fill it', ' and then again on and on over a third line and more words to fill']) {
+    cdp(S, { op: 'presses', keys: [...w].map((c) => (c === ' ' ? 'Space' : c)) }, 300000); await pause(1300);
+  }
+  evalJs(S, `(() => { document.getElementById('site-frame').contentWindow.scrollTo(0, 0); return 1; })()`); await pause(300);
+  const got = [secH()];
+  for (let k = 0; k < 3; k++) { browser(S, 'press', 'Meta+z'); await pause(500); got.push(secH()); }
+  browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(300); got.push(secH());
+  const want = ['typed', 'z1', 'z2', 'z3', 'let go'].map((n) => O[`W1 ${n}`].section.box[3]);
+  const ok = got.every((h, k) => Math.abs(h - want[k]) <= 1);
+  results.push({ name: `Y2 rows: the section's spare rows drawn in the edit, its height the oracle's at 5 of 5 steps (CAP-Y2BARROWS)`, ok });
+  if (!ok) console.log(`Y2 rows DIFF ours ${got.join(' ')} oracle ${want.join(' ')}`);
+}
 // Y2: Cmd+A and Backspace that empty the Heading 1 above take the undo's rows, less the height lost: 30 rows to 2, a row
 // short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json, 4 reads). The typing rule alone gives 3.
 { goto(S, `${BASE}/index.html`); await pause(1200);

@@ -1,0 +1,74 @@
+{
+  "item": "CAP-Y2BARROWS-PREDICTED",
+  "capturedAt": "2026-11-10",
+  "question": "Y2 and R2: predicted before the read of CAP-Y2BARROWS: while a Heading 1 is in its edit, how many section rows does the page draw, against the Heading's rows and ours' model?",
+  "rule": "As built: during the edit the section draws only the rows the blocks reach (the Heading's end, at least the section's 8), though ours' model holds 6 more (the new Text's spare rows, kept as it grows): 30, 18, 8, 8, and 7 after the let go. Rival S: the section draws the spare rows during the edit too, as ours does after the let go: 36, 24, 14, then 8 and 7 (rivalS). Only S fits CAP-Y2BAR's frame holding 523 through two Cmd+Z and falling to 360 on the third.",
+  "from": "Ours replayed by real keys with text-check's Y2 bar steps (a Heading 1 in a new section, typed in 4 steps, the frame to its top, Cmd+Z three times, two Escapes), read by computed grid rows and the section's box. Ours' heights are its own page's (row pitch about 38.5px), so rows decide; heights only say which side. The Heading's areas are CAP-Y2BAR's, which ours matches.",
+  "hit": "sectionRows (the section grid's drawn rows), sectionH (the section's box height, px, about), heading (the Heading's desktop area), frameY (the frame's scroll, at its top all through).",
+  "predicted": {
+    "typed": {
+      "heading": "1/2/31/10",
+      "sectionRows": 30,
+      "sectionH": 1572,
+      "rivalS": {
+        "sectionRows": 36,
+        "sectionH": 1803
+      },
+      "frameY": 0
+    },
+    "z1": {
+      "heading": "1/2/19/10",
+      "sectionRows": 18,
+      "sectionH": 1110,
+      "rivalS": {
+        "sectionRows": 24,
+        "sectionH": 1341
+      },
+      "frameY": 0
+    },
+    "z2": {
+      "heading": "1/2/10/10",
+      "sectionRows": 8,
+      "sectionH": 730,
+      "rivalS": {
+        "sectionRows": 14,
+        "sectionH": 961
+      },
+      "frameY": 0
+    },
+    "z3": {
+      "heading": "1/2/3/10",
+      "sectionRows": 8,
+      "sectionH": 713,
+      "frameY": 0
+    },
+    "let go": {
+      "heading": "1/2/3/10",
+      "sectionRows": 7,
+      "sectionH": 672,
+      "frameY": 0
+    }
+  },
+  "cases": {
+    "typed": [
+      "W1 typed",
+      "W2 typed"
+    ],
+    "z1": [
+      "W1 z1",
+      "W2 z1"
+    ],
+    "z2": [
+      "W1 z2",
+      "W2 z2"
+    ],
+    "z3": [
+      "W1 z3",
+      "W2 z3"
+    ],
+    "let go": [
+      "W1 let go",
+      "W2 let go"
+    ]
+  }
+}

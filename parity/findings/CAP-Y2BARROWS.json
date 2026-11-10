@@ -1,0 +1,1087 @@
+{
+  "item": "CAP-Y2BARROWS",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T19:33:39.806Z",
+  "predictions": {
+    "file": "CAP-Y2BARROWS-PREDICTED.json",
+    "commit": "4db6e9257d9765f2dc44a04ffcd3e72ea9aac6cb",
+    "committedAt": "2026-11-10T20:29:15+01:00",
+    "sha256": "de53f8365af1b72c008558191861865126555fe9d1e13ba45cbc1837ffca03fe"
+  },
+  "engine": "chrome",
+  "question": "Y2 and R2, not read until now: while a Heading 1 is in its edit, does the section draw the spare rows under it? Ours' model holds 6 more section rows than its page draws during the edit (36/24/14 against 30/18/8), and CAP-Y2BAR's frame held 523 through two Cmd+Z, then fell to 360 on the third, which ours' drawn rows can't give. CAP-Y2BAR's Heading 1 typed in 4 steps, the frame to its top, Cmd+Z three times, then let go: the section's box and rows, the page's height and scroll, the Heading's area, each step. Two runs (W1, W2). Predictions pushed first (CAP-Y2BARROWS-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W1 typed",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W1 z1",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W1 z2",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W1 z3",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W1 let go",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "click",
+      "Text Style"
+    ],
+    [
+      "click",
+      "Heading 1"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " longer line of words that runs on past the end of the block"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then on and on over a second line and more words to fill it"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "keysFast",
+      " and then again on and on over a third line and more words to fill"
+    ],
+    [
+      "pause",
+      1300
+    ],
+    [
+      "scrollFrame",
+      0
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W2 typed",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W2 z1",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W2 z2",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "W2 z3",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "W2 let go",
+      {
+        "areas": 0,
+        "section": 0,
+        "panelState": true,
+        "barState": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "W1 typed": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1818.2
+        ],
+        "rows": 36,
+        "rowSizes": "30.1x36",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 2451,
+        "sectionTop": 0,
+        "sectionH": 1818.2,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W1 z1": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1356.1
+        ],
+        "rows": 24,
+        "rowSizes": "31.8x18 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/19/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1989,
+        "sectionTop": 0,
+        "sectionH": 1356.1,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W1 z2": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          976.2
+        ],
+        "rows": 15,
+        "rowSizes": "32.4x9 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1609,
+        "sectionTop": 0,
+        "sectionH": 976.2,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W1 z3": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          672.4
+        ],
+        "rows": 8,
+        "rowSizes": "32.5x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1305,
+        "sectionTop": 0,
+        "sectionH": 672.4,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W1 let go": {
+      "barState": {
+        "bold": [],
+        "focus": "BUTTON",
+        "frameFocus": {
+          "tag": "body",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          672.4
+        ],
+        "rows": 8,
+        "rowSizes": "32.5x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1305,
+        "sectionTop": 0,
+        "sectionH": 672.4,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W2 typed": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 193,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1818.2
+        ],
+        "rows": 36,
+        "rowSizes": "30.1x36",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/31/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 2451,
+        "sectionTop": 0,
+        "sectionH": 1818.2,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W2 z1": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 127,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          1356.1
+        ],
+        "rows": 24,
+        "rowSizes": "31.8x18 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/19/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1989,
+        "sectionTop": 0,
+        "sectionH": 1356.1,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W2 z2": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 63,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          976.2
+        ],
+        "rows": 15,
+        "rowSizes": "32.4x9 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/10/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1609,
+        "sectionTop": 0,
+        "sectionH": 976.2,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W2 z3": {
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              264,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          672.4
+        ],
+        "rows": 8,
+        "rowSizes": "32.5x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1305,
+        "sectionTop": 0,
+        "sectionH": 672.4,
+        "frameH": 945,
+        "active": "IFRAME",
+        "editSection": [
+          [
+            1407,
+            211.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "W2 let go": {
+      "barState": {
+        "bold": [],
+        "focus": "BUTTON",
+        "frameFocus": {
+          "tag": "body",
+          "editable": false,
+          "pm": false
+        },
+        "caret": null,
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          672.4
+        ],
+        "rows": 8,
+        "rowSizes": "32.5x2 30.1x6",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "panelState": {
+        "range": false,
+        "value": null,
+        "field": null,
+        "panel": null,
+        "scrollY": 0,
+        "docH": 1305,
+        "sectionTop": 0,
+        "sectionH": 672.4,
+        "frameH": 945,
+        "active": "BUTTON",
+        "editSection": [
+          [
+            1407,
+            222.6
+          ]
+        ]
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
