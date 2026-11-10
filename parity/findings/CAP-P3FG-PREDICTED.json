@@ -1,0 +1,91 @@
+{
+  "item": "P3",
+  "question": "P3, the named gap 'Flat with that gutter at S, M or L was not read', predictions pushed first. A top press at M leaves the gutter mark (CAP-P3VERT-VA, VC); a Vertical press at Custom sets the flat mark (CAP-P3ALIGN2, VB); the flat mark outlives an M press (VB). Here both marks at once: M, top, Custom, bottom, then M and the three Vertical presses, then Custom.",
+  "setup": "Gestures Probe, unsaved, window 1600 by 1000, a new blank section, its Edit Section panel, named presses only. The run built twice in this capture, Exit Without Saving between.",
+  "rule": "Ours (as built in #521): flat wins over the gutter until Custom or a field change. At M, top and bottom keep no padding, center keeps M's; at Custom, flat has min-height 0 and no padding; the next Custom press ends flat and the gutter shows on the near edge only (none at center).",
+  "predictions": [
+    {
+      "case": "start",
+      "predict": "M, center, as VA start."
+    },
+    {
+      "case": "M",
+      "predict": "M, center."
+    },
+    {
+      "case": "M top",
+      "predict": "M top: padding as CAP-P3VERT-VA 'A M top' (64 px top, 211.2 px bottom at 1600 by 1000)."
+    },
+    {
+      "case": "custom",
+      "predict": "Custom 1: min-height 1vh, top padding the 4vw gutter (64 px), bottom 0.2 vmax (3.2 px); as VC."
+    },
+    {
+      "case": "custom bottom",
+      "predict": "Flat with the gutter at Custom: flat wins, min-height 0, padding 0 on both edges."
+    },
+    {
+      "case": "M after",
+      "predict": "M with both marks, still bottom: flat wins, padding 0 on both edges, M's min-height."
+    },
+    {
+      "case": "M top after",
+      "predict": "Padding 0 on both edges."
+    },
+    {
+      "case": "M bottom after",
+      "predict": "Padding 0 on both edges."
+    },
+    {
+      "case": "M center after",
+      "predict": "M center's own padding (105.6 px each, as VB 'B M center')."
+    },
+    {
+      "case": "custom again",
+      "predict": "Flat ends; Custom 1 at center: min-height 1vh, 0.1 vmax (1.6 px) each edge, no gutter at center."
+    }
+  ],
+  "scoring": "Section min-height and the content wrapper padding (sectionCss), and the pressed Height and Vertical buttons, within 0.5 px. Each case scores only if its two reads agree.",
+  "cases": {
+    "start": [
+      "G start",
+      "G start again"
+    ],
+    "M": [
+      "G M",
+      "G M again"
+    ],
+    "M top": [
+      "G M top",
+      "G M top again"
+    ],
+    "custom": [
+      "G custom",
+      "G custom again"
+    ],
+    "custom bottom": [
+      "G custom bottom",
+      "G custom bottom again"
+    ],
+    "M after": [
+      "G M after",
+      "G M after again"
+    ],
+    "M top after": [
+      "G M top after",
+      "G M top after again"
+    ],
+    "M bottom after": [
+      "G M bottom after",
+      "G M bottom after again"
+    ],
+    "M center after": [
+      "G M center after",
+      "G M center after again"
+    ],
+    "custom again": [
+      "G custom again",
+      "G custom again again"
+    ]
+  }
+}
