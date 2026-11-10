@@ -14,6 +14,8 @@ goto(S, `${BASE}/index.html`);
 await pause(1200);
 
 // Named misses, with no rule read yet.
+// A section's first phone edit keeps the page order (CAP-A2PHONEEDIT), which a sort by phone row can't see.
+const DOM_ORDER = new Set(['CAP-A2PHONEEDIT']);
 const KNOWN = new Set(JSON.parse(readFileSync(new URL('../parity/neworder-known.json', import.meta.url))));
 // npm run textpush-check: the reads of text that grows or shrinks (R2), about 13 min, kept apart for its typing.
 const TEXT = process.argv[2] === '--text', FULL = process.argv[2] === '--full';
@@ -110,9 +112,11 @@ for (const file of FILES) {
       const r = F.reads[step[1]];
       if (!r.stack && !r.areas) continue;
       const z = !!r.stack?.[0]?.z;
-      const rows = (r.stack ? r.stack.map((b) => [b.desktop, b.phone, ...(z ? [Number(b.z[0])] : [])]) : r.areas).sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
+      // Most reads compare blocks by phone row; DOM_ORDER files compare the page order itself.
+      const keep = DOM_ORDER.has(file), byRow = (x) => (keep ? x : x.sort((a, b) => parseInt(a[1]) - parseInt(b[1])));
+      const rows = byRow(r.stack ? r.stack.map((b) => [b.desktop, b.phone, ...(z ? [Number(b.z[0])] : [])]) : r.areas);
       // A text in edit keeps its area out of the model until the edit ends: read that one from the page.
-      const ours = evalJs(S, `(() => { const live = (b, on) => { const e = on && document.getElementById('site-frame').contentDocument.querySelector('.fe-block.is-text-editing[data-block-id="' + b.id + '"]'); return e ? e.style.gridArea.split(' / ').join('/') : ''; }; return JSON.stringify(fe.model.sections[0].blocks.map((b) => [live(b, ${view === 'desktop'}) || b.layout.desktop.area.join('/'), live(b, ${view === 'mobile'}) || b.layout.mobile.area.join('/'), ...(${z} ? [b.layout.desktop.z] : [])]).sort((a, b) => parseInt(a[1]) - parseInt(b[1]))); })()`);
+      const ours = byRow(evalJs(S, `(() => { const live = (b, on) => { const e = on && document.getElementById('site-frame').contentDocument.querySelector('.fe-block.is-text-editing[data-block-id="' + b.id + '"]'); return e ? e.style.gridArea.split(' / ').join('/') : ''; }; return JSON.stringify(fe.model.sections[0].blocks.map((b) => [live(b, ${view === 'desktop'}) || b.layout.desktop.area.join('/'), live(b, ${view === 'mobile'}) || b.layout.mobile.area.join('/'), ...(${z} ? [b.layout.desktop.z] : [])])); })()`));
       const sectionRows = r.section?.rows, ourRows = evalJs(S, `fe.model.sections[0].rows.${view}`);
       const same = JSON.stringify(ours) === JSON.stringify(rows) && (sectionRows === undefined || sectionRows === ourRows);
       // What the phone draws, not only what the model says: stale CSS put a drag 2 rows off (task-62dadddadb37e31f).
