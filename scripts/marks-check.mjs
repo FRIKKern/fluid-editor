@@ -3692,6 +3692,19 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('then a press there changes nothing, and the let go keeps the outline lit', pressed.sid === 'u9s0' && after.sid === 'u9s1' && after.outline === 'u9s1' && still.every((r) => r.length === 1 && r[0] === 1), JSON.stringify({ pressed: pressed.sid, after, frames: still.length, odd: still.find((r) => r.length !== 1 || r[0] !== 1) }));
   browser(S, 'press', 'Escape'); await pause(300);
 
+  // A scroll alone lets the selected block go once it is wholly above the canvas, and the section under the pointer takes
+  // the chrome (CAP-U9B1.json, S, read twice); partly in view it stays (CAP-GROUPBARTOP.json, CAP-PHONEBAR.json).
+  await load(1600, 1400, { 0: [['u9h', 'shape', 1, 14, 6, 6]], 1: [['u9c', 'button', 1, 2, 6, 2]] });
+  await scTo(100);
+  const sh2 = at('u9h');
+  mouse(S, 'move', sh2[0], sh2[1]); await pause(200); mouse(S, 'down', sh2[0], sh2[1], { buttons: 1 }); mouse(S, 'up', sh2[0], sh2[1]); await pause(700);
+  const picked = () => evalJs(S, `(() => { const f = document.querySelector('iframe'), q = f.contentDocument.getElementById('block-u9h').closest('.fe-block'); return JSON.stringify([q.dataset.isSelected === 'true', Math.round(q.getBoundingClientRect().bottom), Math.round(f.contentWindow.scrollY)]); })()`);
+  const below = picked();
+  await scTo(below[2] + below[1] - 50); const part = picked();
+  await scTo(below[2] + below[1] + 383); await pause(300); const gone = picked(), there = on();
+  add('a scroll alone: partly in view the block stays selected, wholly above it lets go and the next section takes the chrome', below[0] && part[0] && part[1] > 0 && !gone[0] && gone[1] < 0 && there.sid === 'u9s1' && there.outline === 'u9s1', JSON.stringify({ below, part, gone, there }));
+  browser(S, 'press', 'Escape'); await pause(300);
+
   // The phone panel keeps its top, and closes on the first step that puts its section's bottom above the canvas's top.
   for (const [w, h, n] of [[1600, 1000, 2], [1600, 800, 1]]) {
     await load(w, h, {});

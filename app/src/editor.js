@@ -668,6 +668,15 @@ toolbar.addEventListener('click', (e) => {
   commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
 });
 
+// A scroll alone lets the selected block go once it is wholly above the canvas: 973 px, its bottom 383 above, read twice
+// (CAP-U9B1.json, S; a press alone changes nothing until the let go, P). Partly in view it stays (CAP-GROUPBARTOP.json,
+// CAP-PHONEBAR.json, its bottom 180 and 50 below the top). Wholly above is the line between them, inferred; below the
+// canvas, a group, and a block being typed in are not read, so they keep it.
+function letGoAboveView() {
+  if (!sel || sel.more?.length || editing || (gesture && gesture.type !== 'pending')) return;
+  const el = blockEl(sel.bid);
+  if (el && el.getBoundingClientRect().bottom <= 0) select(null);
+}
 function select(next) {
   if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
@@ -7433,7 +7442,7 @@ function watchEmptyText() {
 function boot() {
   watchEmptyText();
   frame.contentDocument.addEventListener('keyup', (e) => { if (!editing?.caretGone) return; win.getSelection().removeAllRanges(); if (!e.metaKey && !e.ctrlKey) editing.caretGone = false; });
-  frame.contentWindow.addEventListener('scroll', () => { placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { letGoAboveView(); placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);

@@ -1,0 +1,68 @@
+{
+  "item": "U9",
+  "question": "U9 B1 split, predictions pushed first: in CAP-U9REST.json B1 the capture scrolled the selected Shape 973 px out of view and then pressed a Button in the next section; the Shape read unselected and an Add Section faded in. Which did it: the scroll alone, or the press alone?",
+  "setup": "Gestures Probe, unsaved, window 1600 by 1400, B's build from CAP-U9REST.json (two sections, a Button and a moved Shape in section 0, a Button in section 1). S: frame at 0, select the Shape, then the frame scrolled 973 px (as the tool's scroll in B1), no pointer event, read 0.9 s later. P: frame at 120 so both blocks sit clear of the tool's 150 px scroll margin, select the Shape, press the Button in section 1 with no scroll, 2 px, let go. Each built twice in this capture, Exit Without Saving between.",
+  "bet": "The scroll alone. CAP-U9REST2.json and CAP-U9REST3.json (fresh) read that with one block selected, a press and 2 px in another section change nothing until the let go.",
+  "predictions": [
+    {
+      "case": "S selected",
+      "predict": "Shape selected (control)."
+    },
+    {
+      "case": "S scrolled",
+      "predict": "Shape unselected; an Add Section fades in within about 0.35 s (S add, recorded, not scored)."
+    },
+    {
+      "case": "P selected",
+      "predict": "Shape selected (control)."
+    },
+    {
+      "case": "P pressed",
+      "predict": "Shape still selected; Button not selected."
+    },
+    {
+      "case": "P 2 px",
+      "predict": "Shape still selected."
+    },
+    {
+      "case": "P let go",
+      "predict": "Shape unselected, Button selected. No Add Section fades during the press (P add, recorded, not scored)."
+    }
+  ],
+  "outcomes": "Scroll alone: S scrolled unselected, P as predicted. Press alone: S scrolled still selected, P pressed unselected. Neither alone (it takes both): S scrolled selected and P pressed selected.",
+  "scoring": "data-is-selected of each read, each case only if its two reads agree. The fade watches are recorded and reported, not scored.",
+  "cases": {
+    "S selected": [
+      "S selected, Shape",
+      "S selected, Shape again"
+    ],
+    "S scrolled": [
+      "S scrolled, Shape",
+      "S scrolled, Shape again"
+    ],
+    "P selected": [
+      "P selected, Shape",
+      "P selected, Shape again"
+    ],
+    "P pressed": [
+      "P pressed, Shape",
+      "P pressed, Shape again"
+    ],
+    "P pressed Button": [
+      "P pressed, Button",
+      "P pressed, Button again"
+    ],
+    "P 2 px": [
+      "P 2 px, Shape",
+      "P 2 px, Shape again"
+    ],
+    "P let go": [
+      "P let go, Shape",
+      "P let go, Shape again"
+    ],
+    "P let go Button": [
+      "P let go, Button",
+      "P let go, Button again"
+    ]
+  }
+}
