@@ -121,6 +121,11 @@ export function sectionPanelScrolled({ prev, H, low, high }) {
   if (Math.round(p) > H - 476 && low > prev) p = prev;
   return Math.round(Math.max(Math.min(p, high), 0));
 }
+// View Layouts' opening below the first section (U10, rule O): where Edit Section's opens (sectionPanelTop), then no lower
+// than its band's high edge, the content box bottom + 1 - 476. Round 1, predictions pushed first (CAP-U10OPEN-PREDICT.json): fresh 4 of 5
+// (CAP-U10OPEN.json); the miss, a section near the window's bottom, read 424 against 422 (H - 476, not explained).
+// Seen: V 341 against U9's 380, W 201 (CAP-U10BAND2.json).
+export const layoutsOpenTop = ({ opened, high }) => Math.round(Math.min(opened, high));
 export function sectionPanelTop({ edit, H, secTop, secBottom, prev = null }) {
   let p;
   if (prev != null) p = Math.max(prev, Math.min(edit - 3, H - 476));

@@ -3055,9 +3055,18 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await frameTo(680);
   add('Scrolling: closed at frame 680', shut() === true);
   // It keeps to Edit Section's band while the page scrolls, and closes on it: the oracle's V walk replayed step for step
-  // (window 1600 by 900, no pick; CAP-U10BAND2.json, predictions in CAP-U10BAND-PREDICT.json). Named, not matched: the opening,
-  // ours 380 by the opening rule, the oracle 341 (the band's high edge; short first sections open below it, so no rule).
+  // (window 1600 by 900, no pick; CAP-U10BAND2.json, predictions in CAP-U10BAND-PREDICT.json). It opens at 341, the band's
+  // high edge, by rule O (CAP-U10OPEN.json): U9's opening rule alone gives 380.
   {
+    const { layoutsOpenTop, sectionPanelTop: panelTopU9 } = await import('../app/src/section-chrome.js');
+    const RO = read('CAP-U10OPEN'), offs = [];
+    for (const k of Object.keys(RO).filter((k) => !/again$/.test(k))) {
+      const p = RO[k].panelBox, H = +k.match(/H(\d+)/)[1], high = p.secTop + p.contentBox[0] + p.contentBox[1] + 1 - 476;
+      const opened = panelTopU9({ edit: p.secTop + 29.46, H, secTop: p.secTop, secBottom: p.secTop + p.secH });
+      if (Math.abs(layoutsOpenTop({ opened, high }) - RO[k].tiles.box[1]) > 1.5) offs.push([k, layoutsOpenTop({ opened, high }), RO[k].tiles.box[1]]);
+    }
+    // The one miss stays named: near the window's bottom it reads 424, rule O 422.
+    add('View Layouts opens by rule O: 5 of 6 reads, the miss named', offs.length === 1 && offs[0][0] === 'H900 at 302', JSON.stringify(offs));
     const R2 = read('CAP-U10BAND2');
     await setup({ more: 5, second: true }); viewport(S, 1600, 900); await pause(500);
     const secAt = () => js(`const f = document.getElementById('site-frame'), q = f.contentDocument.querySelectorAll('.page-section')[1].getBoundingClientRect(); return JSON.stringify([f.getBoundingClientRect().top + q.top + f.contentWindow.scrollY, f.getBoundingClientRect().top + q.top]);`);
@@ -3066,6 +3075,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const at = secAt()[1], fl = js(`return JSON.stringify(document.getElementById('site-frame').getBoundingClientRect().left + 800);`);
     mouse(S, 'move', fl, at + 200); await pause(200); await press('#section-chrome [data-sc="layouts"]');
     const t0 = top(), want0 = R2['V open tiles'].tiles.box[1];
+    add('View Layouts opens on V at 341, the band\'s high edge', Math.abs(t0 - want0) <= 1.5, JSON.stringify([t0, want0]));
     let ok = 0, n = 0; const miss = [];
     for (const w of ['down', 'up', 'to close', 'back']) for (const [y, want] of R2[`V ${w}`].seen) {
       await frameTo(y + shift); const t = shut() ? null : top(); n++;

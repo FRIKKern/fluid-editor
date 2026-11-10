@@ -1,0 +1,61 @@
+{
+  "item": "U10",
+  "question": "U10, round D pick 1: where View Layouts' panel opens on a short second section (V's opening, CAP-U10BAND2.json: 341 read, ours 380). Rule O, new, fresh round 1, pushed before the reads.",
+  "rule": "Rule O: the panel opens where U9's opening rule puts it (sectionPanelTop: edit, H, section top and bottom), then no lower than the band's high edge: the section's content box bottom + 1 - 476 (U9's scroll band). edit is the section's Edit Section card top, taken as the section top + 29.46 for a section with no header (CAP-VIEWLAYOUTS.json: View Layouts centre - 72.04). The panel top is the tiles box top (as V's 341), read 1.5 s after the press.",
+  "seen": "V (CAP-U10BAND2.json, H 900, section top 272.6, 557.7 tall, content box + 14.4, 528.9): U9 380, rule O 341, read 341. W (H 1000, after a pick, section top 122.6, 666 tall, content box + 0, 570): U9 201, rule O 201, read 201. PANEL-A's 248 fits only if its first section's content box reaches its bottom: not read.",
+  "setup": "Blocks Probe, unsaved: a new section with a Text, two more new sections, a Text in section 1 (V's steps), the frame scrolled to the case's place, View Layouts opened on section 1 by a real press. Each case built twice in one capture, Exit Without Saving between.",
+  "inputs": "H 900: V's geometry taken to hold (section 1's top at 722.6 - scroll, 557.7 tall, content box + 14.4, 528.9). H 1000: not known; scored by rule O on the read section top, height and content box.",
+  "predictions": [
+    {
+      "case": "H900 at 650",
+      "predict": "141 (section top 72.6; U9 alone 151)"
+    },
+    {
+      "case": "H900 at 572",
+      "predict": "219 (section top 150.6; U9 alone 229)"
+    },
+    {
+      "case": "H900 at 450",
+      "predict": "341, V again (seen: a control, not scored)"
+    },
+    {
+      "case": "H900 at 302",
+      "predict": "422 (section top 420.6; U9 the same, the band edge 489 is lower)"
+    },
+    {
+      "case": "H1000 at 450",
+      "predict": "rule O on the read inputs, within 1.5 px"
+    },
+    {
+      "case": "H1000 at 600",
+      "predict": "rule O on the read inputs, within 1.5 px"
+    }
+  ],
+  "scoring": "Each case scores only if its two reads agree. Within 1.5 px. H900 cases also against the numbers above; if the section geometry differs from V's, the formula on the read inputs counts and the number is reported beside it.",
+  "cases": {
+    "H900 at 650": [
+      "H900 at 650",
+      "H900 at 650 again"
+    ],
+    "H900 at 572": [
+      "H900 at 572",
+      "H900 at 572 again"
+    ],
+    "H900 at 450": [
+      "H900 at 450",
+      "H900 at 450 again"
+    ],
+    "H900 at 302": [
+      "H900 at 302",
+      "H900 at 302 again"
+    ],
+    "H1000 at 450": [
+      "H1000 at 450",
+      "H1000 at 450 again"
+    ],
+    "H1000 at 600": [
+      "H1000 at 600",
+      "H1000 at 600 again"
+    ]
+  }
+}

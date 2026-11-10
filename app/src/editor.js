@@ -10,7 +10,7 @@ import * as fmt from './text-format.js';
 import { LINK_ENDINGS } from './link-endings.js';
 import { cleanPaste, insertPaste } from './paste.js';
 import { toolbarItems, toolbarHtml, toolbarPosition, groupToolbarHtml } from './toolbar.js';
-import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT } from './section-chrome.js';
+import { sectionChromeHtml, sectionChromeLayout, sectionPanelTop, sectionPanelHtml, sectionPanelScrolled, PANEL_BAND_CLOSES_AT, layoutsOpenTop } from './section-chrome.js';
 import { sectionMix, applyLayout, fitLayout, layoutsPanelHtml, layoutsPickTop, sectionLook, layoutTheme, layoutShown, restep } from './section-layouts.js';
 import { artSeg, artShuffled, clampArt } from './section-art-rows.js';
 import { linkKind, linkValue, mailHref, phoneDigits, phoneHref } from './link-kinds.js';
@@ -6101,7 +6101,12 @@ function openLayouts(sid) {
   // From the card's set place: it may still be sliding in.
   const editAt = stage.getBoundingClientRect().top + parseFloat(chrome.querySelector('[data-sc-part="card"]').style.top) + 7;
   // A divider's own height doesn't count: the panel goes by the section above it (CAP-U10READ6.json, 248 at 763.6 with one).
-  layoutsPlace = { top: sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) }), edit: editAt, secTop: fr.top + q.top };
+  // Below the first section, then no lower than its band's high edge (rule O, CAP-U10OPEN.json): V opens at 341, not
+  // U9's 380. A short first section hangs out below that edge (CAP-VIEWLAYOUTS.json, 562 and 603.1 at H 1000): why is not read.
+  const cw = sectionEl(sid).querySelector(':scope > .content-wrapper')?.getBoundingClientRect() || q;
+  const opened = sectionPanelTop({ edit: editAt, H: window.innerHeight, secTop: fr.top + q.top, secBottom: fr.top + q.bottom - dividerPx(S(sid)) });
+  const top = model.sections[0]?.id === sid ? Math.round(opened) : layoutsOpenTop({ opened, high: fr.top + cw.bottom + 1 - 476 });
+  layoutsPlace = { top, edit: editAt, secTop: fr.top + q.top };
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
   readLayoutsLook();
   renderLayouts();
