@@ -671,14 +671,17 @@ toolbar.addEventListener('click', (e) => {
   commit(before, `${btn.getAttribute('aria-label')} on ${bid}`);
 });
 
-// A scroll alone lets the selected block go once it is wholly above the canvas: 973 px, its bottom 383 above, read twice
-// (CAP-U9B1.json, S; a press alone changes nothing until the let go, P). Partly in view it stays (CAP-GROUPBARTOP.json,
-// CAP-PHONEBAR.json, its bottom 180 and 50 below the top). Wholly above is the line between them, inferred; below the
-// canvas, a group, and a block being typed in are not read, so they keep it.
-function letGoAboveView() {
-  if (!sel || sel.more?.length || editing || (gesture && gesture.type !== 'pending')) return;
-  const el = blockEl(sel.bid);
-  if (el && el.getBoundingClientRect().bottom <= 0) select(null);
+// A scroll alone lets the selection go once it is wholly out of the canvas: above (973 px, CAP-U9B1.json, S) or below,
+// one block or a group, and a Text being typed in, whose edit closes; each read twice, predictions pushed first
+// (CAP-U9OFF.json). A press alone changes nothing until the let go (CAP-U9B1.json, P). Partly in view it stays
+// (CAP-GROUPBARTOP.json, CAP-PHONEBAR.json, its bottom 180 and 50 below the top). Wholly out is the line between the reads,
+// inferred; a group partly out, and the Text's words after its edit closes, are not read (ours keeps the words).
+function letGoOutOfView() {
+  if (!sel || (gesture && gesture.type !== 'pending')) return;
+  const H = win.innerHeight, out = (id) => { const q = blockEl(id)?.getBoundingClientRect(); return !!q && (q.bottom <= 0 || q.top >= H); };
+  if (![sel.bid, ...(sel.more || [])].every(out)) return;
+  if (editing) finishTextEdit();
+  select(null);
 }
 function select(next) {
   if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
@@ -7446,7 +7449,7 @@ function watchEmptyText() {
 function boot() {
   watchEmptyText();
   frame.contentDocument.addEventListener('keyup', (e) => { if (!editing?.caretGone) return; win.getSelection().removeAllRanges(); if (!e.metaKey && !e.ctrlKey) editing.caretGone = false; });
-  frame.contentWindow.addEventListener('scroll', () => { letGoAboveView(); placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
+  frame.contentWindow.addEventListener('scroll', () => { letGoOutOfView(); placeToolbar(); placeChrome(); placeLayouts(); placeBlockPanel(); placePhoneLines(); placeThemeChips(); if (editing) renderTextBar(); }, { passive: true });
   // The canvas changes width when the layout switches; place the overlays again once it has.
   // Watch the canvas page itself: it reflows after the canvas element changes width.
   new frame.contentWindow.ResizeObserver(() => { placeToolbar(); placeChrome(); placeBlockPanel(); placePhoneLines(); }).observe(frame.contentDocument.body);

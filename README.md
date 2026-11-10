@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 22 changes
-  - X6: Summary far pulls read twice (CAP-X6SUMMARYFAR2) ([#564](https://github.com/FRIKKern/fluid-editor/pull/564))
-  - R2: undo steps inside one long edit, 10 of 10 fresh (CAP-R2LONGUNDO) ([#563](https://github.com/FRIKKern/fluid-editor/pull/563))
+- **Today** · 25 changes
+  - X2: CAP-X2W39 stands as read, labelled overlapped with chrome (lead's ruling); ours 6 of 17 ([#562](https://github.com/FRIKKern/fluid-editor/pull/562))
+  - P3: with the flat and gutter marks both on, S, M or L keep their own padding (CAP-P3FG, read facts) ([#566](https://github.com/FRIKKern/fluid-editor/pull/566))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
