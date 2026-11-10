@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 18 changes
+- **Today** · 19 changes
+  - R2: narrowing at window 1280, read twice, 68 of 72 fresh (CAP-R2NARROW1280) ([#560](https://github.com/FRIKKern/fluid-editor/pull/560))
   - A2: second phone edits read twice (CAP-A2SECONDEDIT), no rule ([#559](https://github.com/FRIKKern/fluid-editor/pull/559))
-  - R2: note CAP-CORNERNARROW overlapped with chrome and gestures ([#558](https://github.com/FRIKKern/fluid-editor/pull/558))
 - **Yesterday** · 65 changes
   - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
