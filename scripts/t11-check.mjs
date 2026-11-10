@@ -586,6 +586,32 @@ add('Thickness: one undo step', thick().v === '1px', thick().v);
   add('97: back on Top the block is held 5vh down', Math.abs(parseFloat(css) - 0.05 * q(`return JSON.stringify(document.getElementById('site-frame').contentWindow.innerHeight);`)) <= 1, css);
 }
 
+// U4: Remove Pin closes the popover and keeps the pin; the toolbar's Pin puts it back where it was,
+// each option's offset kept (CAP-U4UNPIN.json, CAP-U4REPIN.json, both reads of each case, in their order).
+{
+  const { id } = await fresh('Quote');
+  q(`fe.select(null); await sleep(150); fe.select(fe.model.sections[1].id, '${id}'); await sleep(250); return 'true';`);
+  const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4UNPIN.json', import.meta.url))).reads;
+  const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U4REPIN.json', import.meta.url))).reads;
+  const offs = (r) => (r.panelEls || []).filter((e) => e.label === 'Offset').map((e) => e.value);
+  const on = (r) => (r.radios || []).filter(([, c]) => c).map(([l]) => l);
+  const typed = (v) => q(`const f = document.querySelector('[data-pin-offset]'); f.focus(); f.value = '${v}'; f.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); f.blur(); await sleep(200); return 'true';`);
+  const pick = (k) => q(`document.querySelector('[data-pin="${k}"]').click(); await sleep(200); return 'true';`);
+  const pinBtn = () => q(`document.querySelector('#block-toolbar [data-tb="pin"]').click(); await sleep(250); return 'true';`);
+  const now = () => q(`const open = [...document.querySelectorAll('[data-pin-offset]')].filter((e) => e.getBoundingClientRect().width > 0); return JSON.stringify({ offs: open.length ? [open[0].value, document.querySelector('[data-pin-range]').value] : [], on: open.length ? [...document.querySelectorAll('[data-pin]')].filter((e) => e.getAttribute('aria-checked') === 'true').map((e) => e.getAttribute('aria-label')) : [] });`);
+  let ok = 0, n = 0; const miss = [];
+  const at = (names, wantOn) => { const g = now(); for (const [r, name] of names) { n++; const w = { offs: offs(r[name]), on: wantOn ? on(r[name]) : g.on }; if (JSON.stringify(g) === JSON.stringify(w)) ok++; else miss.push(`${name}: ${JSON.stringify(g)}, oracle ${JSON.stringify(w)}`); } };
+  const both = (r, name, wantOn) => at([[r, name], [r, `${name} again`]], wantOn);
+  pinBtn(); typed('5vh'); both(U, 'U top 5vh');
+  pick('center'); typed('3vh'); both(U, 'U center 3vh');
+  pick('remove'); both(U, 'U removed');
+  pinBtn(); both(U, 'U pinned again'); both(R, 'R pinned again A', true);
+  pick('center'); both(U, 'U center again');
+  pick('top'); both(U, 'U top again'); both(R, 'R top before remove B', true);
+  pick('remove'); pinBtn(); both(R, 'R pinned again B', true);
+  add('U4: Remove Pin closes, Pin puts it back, 18 reads', ok === n && n === 18, `${ok} of ${n}; ${miss.join('; ')}`);
+}
+
 // The shared Design tab (CAP-DESIGNTAB-QUOTE.json, -TEXT.json, -SHAPE2.json, -EFFECTS.json, -EFFECTS2.json): its rows and lines
 // where the oracle's are, a chevron after Blend Mode's Normal, and on a Quote only Effects with an Appear list.
 {
