@@ -1,0 +1,83 @@
+{
+  "item": "CAP-Y2REDOPULL2-PREDICTED",
+  "capturedAt": "2026-11-10",
+  "question": "Y2: predicted before the read of CAP-Y2REDOPULL2 (CAP-Y2REDOPULL's setup with the frame at 523, not its end): the text bar and caret on a Cmd+Shift+Z that pulls the frame's scroll.",
+  "rule": "As built: any undo or redo step inside the edit that leaves the page too short for the frame's scroll pulls it up and takes the text bar and the caret, the edit staying open (Cmd+Z read in CAP-Y2BAR.json, the same code for Cmd+Shift+Z). Rival U: only Cmd+Z takes them; a pulling Cmd+Shift+Z keeps the bar and caret (rivalU).",
+  "from": "Ours replayed by real keys with text-check's Y2 bar setup (a Heading 1 in a new section with the footer under it), 2 runs alike. Ours' scroll numbers are its own page's (1484 to 580), so only pulled or not is predicted. Unchanged from CAP-Y2REDOPULL-PREDICTED.json: no rule changed, only the setup's scroll (ours keeps the bar at any frame scroll, so its predictions are the same).",
+  "hit": "bar (the text bar's Bold shown), caret, open (the editable focused), empty (no text left), pulled (frameY falls on the redo), frameAtTop (frameY 0).",
+  "predicted": {
+    "typed": {
+      "bar": true,
+      "caret": true,
+      "open": true,
+      "empty": false,
+      "setup": true
+    },
+    "frame at its top": {
+      "bar": true,
+      "caret": true,
+      "open": true,
+      "empty": false,
+      "frameAtTop": true
+    },
+    "deleted": {
+      "bar": true,
+      "caret": true,
+      "open": true,
+      "empty": true,
+      "frameAtTop": true
+    },
+    "undo": {
+      "bar": true,
+      "caret": true,
+      "open": true,
+      "empty": false,
+      "frameAtTop": true
+    },
+    "redo": {
+      "bar": false,
+      "caret": false,
+      "open": true,
+      "empty": true,
+      "pulled": true,
+      "rivalU": {
+        "bar": true,
+        "caret": true,
+        "open": true,
+        "pulled": true
+      }
+    },
+    "frame at 523": {
+      "bar": true,
+      "caret": true,
+      "open": true,
+      "empty": false
+    }
+  },
+  "cases": {
+    "typed": [
+      "Q1 typed",
+      "Q2 typed"
+    ],
+    "frame at its top": [
+      "Q1 frame at its top",
+      "Q2 frame at its top"
+    ],
+    "deleted": [
+      "Q1 deleted",
+      "Q2 deleted"
+    ],
+    "undo": [
+      "Q1 undo",
+      "Q2 undo"
+    ],
+    "frame at 523": [
+      "Q1 frame at 523",
+      "Q2 frame at 523"
+    ],
+    "redo": [
+      "Q1 redo",
+      "Q2 redo"
+    ]
+  }
+}
