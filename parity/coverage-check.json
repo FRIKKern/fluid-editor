@@ -1,33 +1,32 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 429,
+ "matched": 529,
  "counts": {
-  "unread": 39,
-  "namedNotOurs": 214,
-  "oursOnly": 506,
-  "proseOnlyOracle": 47,
+  "unread": 5,
+  "namedNotOurs": 84,
+  "oursOnly": 146,
+  "proseOnlyOracle": 9,
   "proseOnlyOurs": 16,
-  "tabs": 26,
+  "tabs": 2,
   "toolbar": 0,
   "bars": 12,
   "kinds": 4,
-  "oursOff": 73
+  "oursOff": 87
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 71,
-  "headings": 31,
-  "outside": 15,
-  "states": 10,
+  "controls": 25,
+  "headings": 8,
+  "outside": 8,
+  "states": 2,
   "byKind": {
-   "button": 12,
+   "button": 7,
    "slider": 1,
-   "choice": 16,
-   "switch": 25,
-   "field": 8,
-   "menu": 8,
-   "area": 1
+   "choice": 9,
+   "switch": 4,
+   "field": 2,
+   "menu": 2
   },
   "tiles": {
    "Text": {
@@ -227,87 +226,64 @@
     "oursOff": []
    },
    "Product": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Image (button, field)",
-     "Title (switch)",
-     "Price (switch)",
-     "Description (switch)",
-     "Add to Cart Button (switch)",
-     "Product Quick View (switch)",
-     "Ratio (button)",
-     "FOCAL POINT (button)",
-     "Block Alignment (choice)"
-    ],
-    "heading": [
-     "Product",
-     "Elements"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [
      "CREATE NEW PRODUCT"
     ],
-    "state": [
-     "Press + to get started"
-    ],
-    "help": 1,
-    "matched": 0,
-    "common": 14,
-    "oursOff": []
+    "state": [],
+    "help": 0,
+    "matched": 26,
+    "common": 0,
+    "oursOff": [
+     "FOCAL POINT"
+    ]
    },
    "Pricing Plan": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Content",
+     "Design"
     ],
     "control": [
-     "GET STARTED (button)",
-     "Alignment (choice)",
-     "Title (switch)",
-     "Description (switch)",
-     "Price (switch)",
-     "Benefits (switch)",
-     "Button (switch)",
-     "Button Text (field)"
+     "GET STARTED (button)"
     ],
-    "heading": [
-     "Pricing Plan",
-     "Elements"
-    ],
+    "heading": [],
     "outside": [],
     "state": [],
-    "help": 1,
-    "matched": 0,
+    "help": 0,
+    "matched": 9,
     "common": 0,
     "oursOff": []
    },
    "Donation": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Content",
+     "Design"
     ],
     "control": [
-     "Button Text (field)",
      "Text (menu)",
      "Lightbox (switch)",
+     "Background (switch)",
+     "Stroke (choice)",
+     "Stroke Color (button)",
      "Thickness (choice)",
      "Corner (field)",
      "Padding (choice)",
@@ -319,72 +295,54 @@
     "heading": [],
     "outside": [
      "Set Up Payment Processor",
-     "Funds",
-     "General Fund",
-     "Fund Dropdown Label"
+     "General Fund"
     ],
     "state": [],
-    "help": 3,
-    "matched": 0,
-    "common": 3,
-    "oursOff": []
+    "help": 1,
+    "matched": 3,
+    "common": 0,
+    "oursOff": [
+     "Funds"
+    ]
    },
    "Scheduling": {
-    "standin": true,
     "oracleTabs": [
      "Content"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Content"
     ],
     "control": [],
     "heading": [],
     "outside": [
-     "Get started with Acuity Scheduling",
      "SET UP",
      "ADD EXISTING SCHEDULE"
     ],
     "state": [],
-    "help": 1,
-    "matched": 0,
+    "help": 0,
+    "matched": 1,
     "common": 0,
     "oursOff": []
    },
    "Summary": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "Content",
+     "Design"
     ],
-    "control": [
-     "Wall (menu)",
-     "Number of Items (field, slider)",
-     "Text (choice)",
-     "Title (switch)",
-     "Featured Image (switch)",
-     "Excerpt (switch)",
-     "Below Content (button)",
-     "Size and Spacing (button)"
-    ],
-    "heading": [
-     "Primary Metadata",
-     "Secondary Metadata",
-     "Elements",
-     "Metadata Position"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [
      "There are no Collection Pages",
      "No metadata found"
     ],
-    "help": 1,
-    "matched": 0,
-    "common": 4,
+    "help": 0,
+    "matched": 16,
+    "common": 0,
     "oursOff": []
    },
    "Newsletter": {
@@ -431,38 +389,25 @@
     "oursOff": []
    },
    "Audio": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
     "control": [
-     "UPLOAD FILE (button)",
-     "Title (field)",
-     "Artist (field)",
-     "Download Link (switch)",
-     "Style (choice)",
-     "Color (choice)"
+     "UPLOAD FILE (button)"
     ],
-    "heading": [
-     "Elements",
-     "Metadata",
-     "Appearance"
-    ],
-    "outside": [
-     "Podcast"
-    ],
-    "state": [
-     "Press + to get started"
-    ],
+    "heading": [],
+    "outside": [],
+    "state": [],
     "help": 0,
-    "matched": 0,
-    "common": 10,
+    "matched": 20,
+    "common": 0,
     "oursOff": []
    },
    "Calendar": {
@@ -506,30 +451,22 @@
     "oursOff": []
    },
    "Menu": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Formatting Help"
     ],
     "oursTabs": [
+     "Content",
      "Design",
-     "Animation"
+     "Formatting Help"
     ],
-    "control": [
-     "Menu text (area)",
-     "Multi-Column (menu)",
-     "Currency Symbol (button)"
-    ],
-    "heading": [
-     "Menu Sections",
-     "Menu Items",
-     "Multiple Menu Pages"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [],
-    "help": 9,
-    "matched": 0,
+    "help": 0,
+    "matched": 6,
     "common": 0,
     "oursOff": []
    },
@@ -635,33 +572,23 @@
     "oursOff": []
    },
    "Search Field": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Search specific page (switch)",
-     "Theme (choice)",
-     "Quick preview (switch)"
-    ],
-    "heading": [
-     "Style",
-     "Behavior",
-     "Appearance"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
-    "state": [
-     "Press + to get started"
-    ],
-    "help": 2,
-    "matched": 0,
-    "common": 14,
+    "state": [],
+    "help": 0,
+    "matched": 21,
+    "common": 0,
     "oursOff": []
    },
    "Page Link": {
@@ -723,40 +650,26 @@
     "oursOff": []
    },
    "Archive": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Group by (menu)",
-     "Dates ascending (switch)",
-     "Item date (switch)",
-     "Group count (switch)",
-     "Layout (menu)",
-     "Columns (choice)",
-     "Alignment (choice)"
-    ],
-    "heading": [
-     "Collection",
-     "Organization",
-     "Elements",
-     "Appearance"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
-    "state": [
-     "No collections found",
-     "Press + to get started"
-    ],
+    "state": [],
     "help": 0,
-    "matched": 0,
-    "common": 14,
-    "oursOff": []
+    "matched": 27,
+    "common": 0,
+    "oursOff": [
+     "Dates ascending"
+    ]
    },
    "Instagram": {
     "dialog": "Grid",
@@ -786,23 +699,20 @@
     ]
    },
    "Tock": {
-    "standin": true,
     "oracleTabs": [
      "(one view)"
     ],
     "oursTabs": [
-     "Design",
-     "Animation"
+     "(one view)"
     ],
     "control": [],
     "heading": [],
     "outside": [
-     "Join Tock",
      "ALREADY A CUSTOMER"
     ],
     "state": [],
-    "help": 1,
-    "matched": 0,
+    "help": 0,
+    "matched": 1,
     "common": 0,
     "oursOff": []
    },
@@ -853,64 +763,50 @@
     ]
    },
    "OpenTable": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Domain (menu)",
-     "Language (menu)",
-     "Title (switch)",
-     "Icons (switch)"
-    ],
-    "heading": [
-     "Localization",
-     "Hide Elements"
-    ],
-    "outside": [
-     "OpenTable Restaurant ID"
-    ],
-    "state": [
-     "Press + to get started"
-    ],
+    "control": [],
+    "heading": [],
+    "outside": [],
+    "state": [],
     "help": 0,
-    "matched": 0,
-    "common": 10,
-    "oursOff": []
+    "matched": 18,
+    "common": 0,
+    "oursOff": [
+     "OpenTable Restaurant ID",
+     "Title",
+     "Icons"
+    ]
    },
    "Zola": {
-    "standin": true,
     "oracleTabs": [
      "Content",
      "Design",
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Items to Display (field, slider)",
-     "Add Padding (switch)"
-    ],
+    "control": [],
     "heading": [],
-    "outside": [
+    "outside": [],
+    "state": [],
+    "help": 0,
+    "matched": 15,
+    "common": 0,
+    "oursOff": [
      "Registry Name"
-    ],
-    "state": [
-     "here",
-     "Press + to get started"
-    ],
-    "help": 1,
-    "matched": 0,
-    "common": 10,
-    "oursOff": []
+    ]
    },
    "Bandsintown": {
     "dialog": "Bandsintown",
@@ -936,84 +832,6 @@
  },
  "unread": [
   {
-   "where": "Pricing Plan > Design",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Content",
-   "name": "Set Up Payment Processor",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Content",
-   "name": "Set Up Payment Processor",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Content",
-   "name": "Get started with Acuity Scheduling",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Content",
-   "name": "SET UP",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Content",
-   "name": "ADD EXISTING SCHEDULE",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Content",
-   "name": "Get started with Acuity Scheduling",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Content",
-   "name": "SET UP",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Content",
-   "name": "ADD EXISTING SCHEDULE",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
    "where": "Map > Content",
    "name": "Additional Terms of Service",
    "kinds": [
@@ -1040,106 +858,6 @@
    "kinds": [
     "button"
    ]
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Menu Sections",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Multiple Menu Pages",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Menu Sections",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Multiple Menu Pages",
-   "kinds": []
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Behavior",
-   "kinds": []
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Behavior",
-   "kinds": []
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Collection",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Content",
-   "name": "No collections found",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Organization",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Collection",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "No collections found",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Organization",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Appearance",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Localization",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Hide Elements",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Localization",
-   "kinds": []
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Hide Elements",
-   "kinds": []
   },
   {
    "where": "Section panel > Design",
@@ -1358,103 +1076,10 @@
   },
   {
    "where": "Product > Content",
-   "name": "Product",
-   "kinds": []
-  },
-  {
-   "where": "Product > Content",
    "name": "CREATE NEW PRODUCT",
    "kinds": [
     "button"
    ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Product > Content",
-   "name": "Image",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Price",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Description",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Add to Cart Button",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Content",
-   "name": "Product Quick View",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Image",
-   "kinds": [
-    "button",
-    "field"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Ratio",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "FOCAL POINT",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Block Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Product",
-   "kinds": []
   },
   {
    "where": "Product phone > Content",
@@ -1464,94 +1089,6 @@
    ]
   },
   {
-   "where": "Product phone > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Image",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Price",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Description",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Add to Cart Button",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "Product Quick View",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Image",
-   "kinds": [
-    "button",
-    "field"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Ratio",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "FOCAL POINT",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Block Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Content",
-   "name": "Pricing Plan",
-   "kinds": []
-  },
-  {
    "where": "Pricing Plan > Content",
    "name": "GET STARTED",
    "kinds": [
@@ -1559,140 +1096,21 @@
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Description",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Price",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Benefits",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Button",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Button Text",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Content",
-   "name": "Pricing Plan",
-   "kinds": []
-  },
-  {
    "where": "Pricing Plan phone > Content",
    "name": "GET STARTED",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Description",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Price",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Benefits",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Button",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Button Text",
-   "kinds": [
-    "field"
    ]
   },
   {
    "where": "Donation > Content",
-   "name": "Funds",
-   "kinds": [
-    "button"
-   ]
+   "name": "Set Up Payment Processor",
+   "kinds": []
   },
   {
    "where": "Donation > Content",
    "name": "General Fund",
    "kinds": []
-  },
-  {
-   "where": "Donation > Content",
-   "name": "Fund Dropdown Label",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Content",
-   "name": "Button Text",
-   "kinds": [
-    "field"
-   ]
   },
   {
    "where": "Donation > Design",
@@ -1717,9 +1135,30 @@
   },
   {
    "where": "Donation > Design",
+   "name": "Stroke",
+   "kinds": [
+    "choice"
+   ]
+  },
+  {
+   "where": "Donation > Design",
+   "name": "Stroke Color",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Donation > Design",
    "name": "Thickness",
    "kinds": [
     "choice"
+   ]
+  },
+  {
+   "where": "Donation > Design",
+   "name": "Corner",
+   "kinds": [
+    "field"
    ]
   },
   {
@@ -1759,29 +1198,13 @@
   },
   {
    "where": "Donation phone > Content",
-   "name": "Funds",
-   "kinds": [
-    "button"
-   ]
+   "name": "Set Up Payment Processor",
+   "kinds": []
   },
   {
    "where": "Donation phone > Content",
    "name": "General Fund",
    "kinds": []
-  },
-  {
-   "where": "Donation phone > Content",
-   "name": "Fund Dropdown Label",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Content",
-   "name": "Button Text",
-   "kinds": [
-    "field"
-   ]
   },
   {
    "where": "Donation phone > Design",
@@ -1806,9 +1229,30 @@
   },
   {
    "where": "Donation phone > Design",
+   "name": "Stroke",
+   "kinds": [
+    "choice"
+   ]
+  },
+  {
+   "where": "Donation phone > Design",
+   "name": "Stroke Color",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Donation phone > Design",
    "name": "Thickness",
    "kinds": [
     "choice"
+   ]
+  },
+  {
+   "where": "Donation phone > Design",
+   "name": "Corner",
+   "kinds": [
+    "field"
    ]
   },
   {
@@ -1847,6 +1291,34 @@
    ]
   },
   {
+   "where": "Scheduling > Content",
+   "name": "SET UP",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scheduling > Content",
+   "name": "ADD EXISTING SCHEDULE",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scheduling phone > Content",
+   "name": "SET UP",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scheduling phone > Content",
+   "name": "ADD EXISTING SCHEDULE",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Summary > Content",
    "name": "There are no Collection Pages",
    "kinds": [
@@ -1855,93 +1327,9 @@
   },
   {
    "where": "Summary > Content",
-   "name": "Primary Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Content",
    "name": "No metadata found",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Summary > Content",
-   "name": "Secondary Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Wall",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Number of Items",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Text",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Featured Image",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Excerpt",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Metadata Position",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Below Content",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Size and Spacing",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -1953,96 +1341,12 @@
   },
   {
    "where": "Summary phone > Content",
-   "name": "Primary Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Content",
    "name": "No metadata found",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Summary phone > Content",
-   "name": "Secondary Metadata",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Wall",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Number of Items",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Text",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Featured Image",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Excerpt",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Metadata Position",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Below Content",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Size and Spacing",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
    "where": "Audio > Content",
    "name": "UPLOAD FILE",
    "kinds": [
@@ -2050,208 +1354,10 @@
    ]
   },
   {
-   "where": "Audio > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Artist",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Download Link",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio > Content",
-   "name": "Podcast",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Style",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
    "where": "Audio phone > Content",
    "name": "UPLOAD FILE",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Title",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Artist",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Download Link",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio phone > Content",
-   "name": "Podcast",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Style",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Menu > Content",
-   "name": "Menu text",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Multi-Column",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Currency Symbol",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Menu Items",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Content",
-   "name": "Menu text",
-   "kinds": [
-    "area"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Multi-Column",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Currency Symbol",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Menu Items",
-   "kinds": []
-  },
-  {
-   "where": "Search Field > Content",
-   "name": "Search specific page",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Style",
-   "kinds": []
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Theme",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Quick preview",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field phone > Content",
-   "name": "Search specific page",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Style",
-   "kinds": []
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Theme",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Quick preview",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -2285,133 +1391,6 @@
    "kinds": []
   },
   {
-   "where": "Archive > Content",
-   "name": "Group by",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Dates ascending",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Item date",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive > Content",
-   "name": "Group count",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Layout",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Columns",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Group by",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Elements",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Dates ascending",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Item date",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive phone > Content",
-   "name": "Group count",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Layout",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Columns",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Alignment",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Background",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock > (one view)",
-   "name": "Join Tock",
-   "kinds": []
-  },
-  {
    "where": "Tock > (one view)",
    "name": "ALREADY A CUSTOMER",
    "kinds": [
@@ -2420,142 +1399,9 @@
   },
   {
    "where": "Tock phone > (one view)",
-   "name": "Join Tock",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > (one view)",
    "name": "ALREADY A CUSTOMER",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "OpenTable Restaurant ID",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Domain",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Language",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable > Content",
-   "name": "Icons",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "OpenTable Restaurant ID",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Domain",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Language",
-   "kinds": [
-    "menu"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Title",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Content",
-   "name": "Icons",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola > Content",
-   "name": "here",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola > Content",
-   "name": "Registry Name",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Zola > Content",
-   "name": "Items to Display",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Add Padding",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola phone > Content",
-   "name": "here",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola phone > Content",
-   "name": "Registry Name",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Zola phone > Content",
-   "name": "Items to Display",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Add Padding",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -2811,10 +1657,16 @@
    ]
   },
   {
-   "where": "Product > Design",
-   "name": "Shape style",
+   "where": "Product > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
-    "button",
+    "button"
+   ]
+  },
+  {
+   "where": "Product > Design",
+   "name": "Corner",
+   "kinds": [
     "choice"
    ]
   },
@@ -2827,28 +1679,9 @@
   },
   {
    "where": "Product > Design",
-   "name": "Stretch",
+   "name": "Original",
    "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Product > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Product > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
+    "menu"
    ]
   },
   {
@@ -2866,1352 +1699,85 @@
    ]
   },
   {
-   "where": "Product phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Product phone > Design",
-   "name": "Color",
+   "where": "Product phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
    "where": "Product phone > Design",
-   "name": "Drop Shadow",
+   "name": "Corner",
    "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
     "choice"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
+   "where": "Product phone > Design",
    "name": "Corner radius",
    "kinds": [
     "field"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Stretch",
+   "where": "Product phone > Design",
+   "name": "Original",
    "kinds": [
-    "switch"
+    "menu"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Color",
+   "where": "Pricing Plan > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Blend Mode",
+   "where": "Pricing Plan phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "More actions",
+   "where": "Donation > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Design",
-   "name": "Position",
+   "where": "Donation phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan > Animation",
-   "name": "Animation list actions",
+   "where": "Scheduling > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Animation",
-   "name": "Add a new animation",
+   "where": "Scheduling phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan > Animation",
-   "name": "Press + to get startedUse a preset or customize",
+   "where": "Summary > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Pricing Plan phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Pricing Plan phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Pricing Plan phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Donation > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Donation phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Donation phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scheduling phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Scheduling phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Summary > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Summary phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Summary phone > Animation",
-   "name": "Add a new animation",
+   "where": "Summary phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
@@ -4231,58 +1797,17 @@
    ]
   },
   {
-   "where": "Audio > Design",
-   "name": "Shape style",
+   "where": "Audio > Content",
+   "name": "Audio Source",
    "kinds": [
-    "button",
     "choice"
    ]
   },
   {
-   "where": "Audio > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Blend Mode",
+   "where": "Audio > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -4300,58 +1825,17 @@
    ]
   },
   {
-   "where": "Audio phone > Design",
-   "name": "Shape style",
+   "where": "Audio phone > Content",
+   "name": "Audio Source",
    "kinds": [
-    "button",
     "choice"
    ]
   },
   {
-   "where": "Audio phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Blend Mode",
+   "where": "Audio phone > Content",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Audio phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -4380,347 +1864,16 @@
   },
   {
    "where": "Menu > Design",
-   "name": "Shape style",
+   "name": "$ Dollar",
    "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Menu > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
+    "menu"
    ]
   },
   {
    "where": "Menu phone > Design",
-   "name": "Shape style",
+   "name": "$ Dollar",
    "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Menu phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Menu phone > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
+    "menu"
    ]
   },
   {
@@ -4894,45 +2047,14 @@
    "kinds": []
   },
   {
-   "where": "Search Field > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Styling",
+   "where": "Search Field > Content",
+   "name": "Page",
    "kinds": []
   },
   {
-   "where": "Search Field > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
+   "where": "Search Field > Content",
+   "name": "No collections found",
+   "kinds": []
   },
   {
    "where": "Search Field > Design",
@@ -4949,45 +2071,14 @@
    ]
   },
   {
-   "where": "Search Field phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Styling",
+   "where": "Search Field phone > Content",
+   "name": "Page",
    "kinds": []
   },
   {
-   "where": "Search Field phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
+   "where": "Search Field phone > Content",
+   "name": "No collections found",
+   "kinds": []
   },
   {
    "where": "Page Link > (one view)",
@@ -5020,44 +2111,17 @@
    "kinds": []
   },
   {
-   "where": "Archive > Design",
-   "name": "Shape style",
+   "where": "Archive > Content",
+   "name": "Month",
    "kinds": [
-    "button",
-    "choice"
+    "menu"
    ]
   },
   {
    "where": "Archive > Design",
-   "name": "Corner radius",
+   "name": "Index",
    "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Archive > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
+    "menu"
    ]
   },
   {
@@ -5075,387 +2139,29 @@
    ]
   },
   {
-   "where": "Archive phone > Design",
-   "name": "Shape style",
+   "where": "Archive phone > Content",
+   "name": "Month",
    "kinds": [
-    "button",
-    "choice"
+    "menu"
    ]
   },
   {
    "where": "Archive phone > Design",
-   "name": "Corner radius",
+   "name": "Index",
    "kinds": [
-    "field"
+    "menu"
    ]
   },
   {
-   "where": "Archive phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Archive phone > Design",
-   "name": "Color",
+   "where": "Tock > (one view)",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
   },
   {
-   "where": "Archive phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "More actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Tock > Animation",
-   "name": "Animation list actions",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Animation",
-   "name": "Add a new animation",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock > Animation",
-   "name": "Press + to get startedUse a preset or customize",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Transforms",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Opacity",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Rotate",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Scale",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Scale X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Scale Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Offset",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Offset X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Offset Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Skew",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Skew X",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Skew Y",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Anchor",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Design",
-   "name": "Position",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Tock phone > Animation",
-   "name": "Triggers",
-   "kinds": []
-  },
-  {
-   "where": "Tock phone > Animation",
-   "name": "Add a new animation",
+   "where": "Tock phone > (one view)",
+   "name": "Needs an outside account (0005)",
    "kinds": [
     "button"
    ]
@@ -5481,66 +2187,14 @@
    "kinds": []
   },
   {
-   "where": "OpenTable > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Styling",
+   "where": "OpenTable > Content",
+   "name": "US and Canada - opentable.com",
    "kinds": []
   },
   {
-   "where": "OpenTable > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
+   "where": "OpenTable > Content",
+   "name": "English",
+   "kinds": []
   },
   {
    "where": "OpenTable > Design",
@@ -5557,128 +2211,14 @@
    ]
   },
   {
-   "where": "OpenTable phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Styling",
+   "where": "OpenTable phone > Content",
+   "name": "US and Canada - opentable.com",
    "kinds": []
   },
   {
-   "where": "OpenTable phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "OpenTable phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Styling",
+   "where": "OpenTable phone > Content",
+   "name": "English",
    "kinds": []
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
-   ]
   },
   {
    "where": "Zola > Design",
@@ -5692,68 +2232,6 @@
    "name": "Animation list actions",
    "kinds": [
     "button"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Shape style",
-   "kinds": [
-    "button",
-    "choice"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Corner radius",
-   "kinds": [
-    "field"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Stretch",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Styling",
-   "kinds": []
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Color",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Blend Mode",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Stroke",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Drop Shadow",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Zola phone > Design",
-   "name": "Blur",
-   "kinds": [
-    "switch"
    ]
   },
   {
@@ -5911,60 +2389,12 @@
    "name": "Receive an email for each form response."
   },
   {
-   "where": "Product > Content",
-   "name": "On hover, a button will appear that lets customers dynamically access product de"
-  },
-  {
-   "where": "Product phone > Content",
-   "name": "On hover, a button will appear that lets customers dynamically access product de"
-  },
-  {
-   "where": "Pricing Plan > Content",
-   "name": "Use pricing plans to sell your digital products. To use this block, create at le"
-  },
-  {
-   "where": "Pricing Plan phone > Content",
-   "name": "Use pricing plans to sell your digital products. To use this block, create at le"
-  },
-  {
    "where": "Donation > Content",
    "name": "This is required to start receiving donations."
   },
   {
-   "where": "Donation > Content",
-   "name": "The dropdown label is shown when there is more than one fund attached to this bl"
-  },
-  {
-   "where": "Donation > Design",
-   "name": "Form style affects all forms on your site."
-  },
-  {
    "where": "Donation phone > Content",
    "name": "This is required to start receiving donations."
-  },
-  {
-   "where": "Donation phone > Content",
-   "name": "The dropdown label is shown when there is more than one fund attached to this bl"
-  },
-  {
-   "where": "Donation phone > Design",
-   "name": "Form style affects all forms on your site."
-  },
-  {
-   "where": "Scheduling > Content",
-   "name": "Allow visitors to directly book appointments"
-  },
-  {
-   "where": "Scheduling phone > Content",
-   "name": "Allow visitors to directly book appointments"
-  },
-  {
-   "where": "Summary > Content",
-   "name": "Display content from other pages on your site, such as blog posts, products, eve"
-  },
-  {
-   "where": "Summary phone > Content",
-   "name": "Display content from other pages on your site, such as blog posts, products, eve"
   },
   {
    "where": "Map > Content",
@@ -5973,110 +2403,6 @@
   {
    "where": "Map phone > Content",
    "name": "Your use of Google Maps is subject to the Google Maps/Google Earth and the Googl"
-  },
-  {
-   "where": "Menu > Content",
-   "name": "Add your menu items, descriptions, and prices. When you follow the format patter"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Use the formatting shown below to create your menu."
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Sections define groups of items on your menu. Section descriptions are optional."
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Section ------- Optional section description"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "To add an item to your menu, type in the following format. Separate multiple men"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Title of Menu Item Description of food item. $10"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Another Menu Item A different description. $20 + Option + Another Option"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Menu blocks can support multi-page menus (lunch, dinner, etc). Menu pages will b"
-  },
-  {
-   "where": "Menu > Formatting Help",
-   "name": "Lunch ======== Optional menu description"
-  },
-  {
-   "where": "Menu phone > Content",
-   "name": "Add your menu items, descriptions, and prices. When you follow the format patter"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Use the formatting shown below to create your menu."
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Sections define groups of items on your menu. Section descriptions are optional."
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Section ------- Optional section description"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "To add an item to your menu, type in the following format. Separate multiple men"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Title of Menu Item Description of food item. $10"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Another Menu Item A different description. $20 + Option + Another Option"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Menu blocks can support multi-page menus (lunch, dinner, etc). Menu pages will b"
-  },
-  {
-   "where": "Menu phone > Formatting Help",
-   "name": "Lunch ======== Optional menu description"
-  },
-  {
-   "where": "Search Field > Content",
-   "name": "Add a search field to your page that returns results from across your site, or l"
-  },
-  {
-   "where": "Search Field > Design",
-   "name": "A dropdown under the search block will allow a quicker access to the search resu"
-  },
-  {
-   "where": "Search Field phone > Content",
-   "name": "Add a search field to your page that returns results from across your site, or l"
-  },
-  {
-   "where": "Search Field phone > Design",
-   "name": "A dropdown under the search block will allow a quicker access to the search resu"
-  },
-  {
-   "where": "Tock > (one view)",
-   "name": "The reservation platform built for hospitality. Restaurants, bars, wineries, and"
-  },
-  {
-   "where": "Tock phone > (one view)",
-   "name": "The reservation platform built for hospitality. Restaurants, bars, wineries, and"
-  },
-  {
-   "where": "Zola > Content",
-   "name": "Enter your Zola registry name to display items from your registry. Sign up for a"
-  },
-  {
-   "where": "Zola phone > Content",
-   "name": "Enter your Zola registry name to display items from your registry. Sign up for a"
   },
   {
    "where": "Section panel > Colors",
@@ -6189,280 +2515,6 @@
     "Design",
     "Animation"
    ]
-  },
-  {
-   "type": "Product",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Product phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Pricing Plan",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Pricing Plan phone",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Donation",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Donation phone",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Scheduling",
-   "oracle": [
-    "Content"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Scheduling phone",
-   "oracle": [
-    "Content"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Summary",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Summary phone",
-   "oracle": [
-    "Content",
-    "Design"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Audio",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Audio phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Menu",
-   "oracle": [
-    "Content",
-    "Design",
-    "Formatting Help"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Menu phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Formatting Help"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Search Field",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Search Field phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Archive",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Archive phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Tock",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Tock phone",
-   "oracle": [
-    "(one view)"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "OpenTable",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "OpenTable phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Zola",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Zola phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
   }
  ],
  "toolbar": [],
@@ -6538,23 +2590,23 @@
  ],
  "kinds": [
   {
-   "where": "Audio > Design",
-   "name": "Color",
+   "where": "Summary > Design",
+   "name": "Below Content",
    "oracle": [
-    "choice"
+    "button"
    ],
    "ours": [
-    "button"
+    "menu"
    ]
   },
   {
-   "where": "Audio phone > Design",
-   "name": "Color",
+   "where": "Summary phone > Design",
+   "name": "Below Content",
    "oracle": [
-    "choice"
+    "button"
    ],
    "ours": [
-    "button"
+    "menu"
    ]
   },
   {
@@ -6644,8 +2696,24 @@
    "name": "Add a new animation"
   },
   {
+   "where": "Product > Design",
+   "name": "FOCAL POINT"
+  },
+  {
+   "where": "Product phone > Design",
+   "name": "FOCAL POINT"
+  },
+  {
    "where": "Product phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Donation > Content",
+   "name": "Funds"
+  },
+  {
+   "where": "Donation phone > Content",
+   "name": "Funds"
   },
   {
    "where": "Newsletter > Storage",
@@ -6722,6 +2790,14 @@
   {
    "where": "Tag Cloud phone > (one view)",
    "name": "Sort By"
+  },
+  {
+   "where": "Archive > Content",
+   "name": "Dates ascending"
+  },
+  {
+   "where": "Archive phone > Content",
+   "name": "Dates ascending"
   },
   {
    "where": "Archive phone > Animation",
@@ -6848,8 +2924,40 @@
    "name": "Lightbox"
   },
   {
+   "where": "OpenTable > Content",
+   "name": "OpenTable Restaurant ID"
+  },
+  {
+   "where": "OpenTable > Content",
+   "name": "Title"
+  },
+  {
+   "where": "OpenTable > Content",
+   "name": "Icons"
+  },
+  {
+   "where": "OpenTable phone > Content",
+   "name": "OpenTable Restaurant ID"
+  },
+  {
+   "where": "OpenTable phone > Content",
+   "name": "Title"
+  },
+  {
+   "where": "OpenTable phone > Content",
+   "name": "Icons"
+  },
+  {
    "where": "OpenTable phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Zola > Content",
+   "name": "Registry Name"
+  },
+  {
+   "where": "Zola phone > Content",
+   "name": "Registry Name"
   },
   {
    "where": "Zola phone > Animation",
