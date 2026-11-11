@@ -1840,7 +1840,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
   // The first pick onto the paragraph list's layout 0: low with more than one line at the start, high with one (read
   // facts). Three lines of code through every read pick (CAP-U10ENDS-ECDA.json, -ECDB alike; CAP-U10CD1.json), and the
-  // first pick of each CAP-U10WORDS.json run and of one-line code (CAP-U10TEXTMIX-C.json): rows and desktop areas.
+  // first pick of each CAP-U10WORDS.json run and of one-line code (CAP-U10TEXTMIX-C.json): rows and desktop areas. Each
+  // Text starts where the reads start, 1/2/3/10 in an 8-row section.
   {
     const errs = [], FJ = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
     const paste = (F, k = 0) => F.steps.filter((x) => x[0] === 'pasteHere')[k][3];
@@ -1851,7 +1852,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     let n = 0;
     for (const [f, html, picks] of runs) {
       await start();
-      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
       await pause(400);
       const btn = await chromeBtn();
       if (!btn || btn.off) { errs.push(`${f} button`); continue; }
