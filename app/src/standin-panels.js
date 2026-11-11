@@ -1,6 +1,7 @@
 // The panels of the stand-ins that keep their plain tile (T12): each tab's rows as the oracle shows them, from
 // CAP-T12PANELS-A.json to -C.json, and what a press does from CAP-T12PRESS-A.json to -D.json. The tile itself stays
-// a sized stand-in (0005): none of these rows changed a block's rows on the oracle, so a press only keeps its value.
+// a sized stand-in (0005), or draws its content (standin-tiles.js). A press keeps its value and the rows: where the oracle's
+// rows move (Product, Menu, Summary, Archive) no rule was found, a named miss in T12.
 // Rows that need an account, a lookup, a collection or a payment are drawn faded and do nothing (0005's stand-in line).
 // Note texts are copied from the read's screenshots.
 import { escapeHtml as esc, richHtml, PLAN_PARTS, planHeight } from './render.js';

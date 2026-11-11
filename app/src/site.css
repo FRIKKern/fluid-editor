@@ -749,6 +749,27 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-tile { display: block; color: inherit; text-decoration: none; }
 .fe-tile > span:first-child { display: block; aspect-ratio: 1; background: #d9d4ca; }
 .fe-tile-title { display: block; margin-top: 7px; font-size: 14px; line-height: 22.4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* The plain stand-ins that draw their content (standin-tiles.js), boxes as read; their rows stay, so content past them is cut.
+   Product (CAP-T12PRESS-A.json at 341.7 wide, -E.json at 165.3): the empty image's fill is ours (not read), its icon 34 round in
+   rgb(242, 242, 242) with our plus, 36 above the image's middle, the words' line 16 under it; the title 16 under the image, the
+   price 4.2 under the title, the description 16 and the cart row 11 under what is above. The quantity box and the button
+   share a line 6 apart when they fit (107.5 + 228.2 at 341.7) and stack full width when not (165.3): where between is
+   inferred, as is the quantity's inset (9.6 at 107.5, 14.2 at 165.3, fitted) and its border. */
+.fe-drawn-tile { position: relative; height: 100%; }
+.fe-drawn-tile > .sqs-block-content { position: absolute; inset: 0; overflow: hidden; }
+.product-image { position: relative; margin-bottom: 16px; background: #d9d4ca; }
+.product-add { position: absolute; top: calc(50% - 36px); left: 0; right: 0; display: flex; flex-direction: column; align-items: center; color: rgb(14, 14, 14); }
+.product-add-icon { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: rgb(242, 242, 242); }
+.product-add-text { margin-top: 16px; font-size: 14px; line-height: 22px; }
+.product-title { width: fit-content; margin-bottom: 4.2px; font-size: 21.04px; line-height: 29.456px; }
+.product-price { font-size: 17.68px; line-height: 24.752px; }
+.product-excerpt p { margin: 16px 0 0; font-size: 16px; line-height: 22.4px; }
+.product-cart { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 11px; }
+.product-quantity { flex: 1 1 107.5px; height: 54.6px; box-shadow: inset 0 0 0 1px currentColor; }
+.product-quantity-row { display: flex; height: 100%; margin: 0 calc(7.96% + 1.04px); align-items: center; justify-content: space-between; }
+.product-quantity button { display: flex; width: 17px; height: 17px; padding: 0; border: 0; background: none; color: inherit; }
+.product-quantity input { box-sizing: border-box; width: 30.1px; height: 27px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 16px; line-height: 27px; text-align: center; }
+.sqs-add-to-cart-button { flex: 1000 1 160px; height: 52.6px; padding: 0; border: 0; background: rgb(0, 0, 0); color: #fff; font: inherit; font-size: 16px; font-weight: 500; line-height: 27px; }
 /* Newsletter (CAP-T12NEWSLETTER.json, read at 10 columns, 576.8 wide). Float puts the email field and the button on one
    line when they fit, a space apart; Stack puts them under each other. The heading is an h2 at Heading 3's size (41.2px),
    1.2 high. Its margins stay
