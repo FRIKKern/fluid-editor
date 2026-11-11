@@ -1561,8 +1561,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // The paragraph list against CAP-U10ROWS-A.json instead: in this order each layout has the span rule P gives it after
   // the one before (CAP-U10ROWSPREDICT.json), read there after the same layout (A17, A21, A11, A15) or at the same span
   // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows as CAP-U10PHONEROWS.json read them: the phone
-  // end line less 1, at layout 0 the end line itself. Built with the
-  // reads' own words: longer words wrap in layout 2's one-row block and ours grows the section.
+  // end line less 1, at layout 0 the end line itself. Built with the reads' own words: longer words wrap in layout 2's
+  // one-row block and ours grows the section.
   const RA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWS-A.json', import.meta.url))).reads;
   const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - (n === 0 ? 0 : 1), places: { p0: [d, p] } }; });
   for (const [key, mix0] of Object.entries(VL.mixes)) {
