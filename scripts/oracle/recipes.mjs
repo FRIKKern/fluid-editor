@@ -1769,6 +1769,15 @@ export const RECIPES = {
       ['enter'], ['blank'], ...add('Text'), ['drag', 0, 'a1', 'middle', 0, 41], ['press', 'Escape'], ['deselect', 0], ...add('Button'), ['select', 0, 'a2'], ['drag', 0, 'a2', 's', 0, 41], ['press', 'Escape'], ['deselect', 0], ...grow(r, 'u', 'a1')];
     return [['toPage', 'Blocks Probe'], ...run('R1'), ...run('R2')];
   })() },
+  'CAP-Y2SOFTROWS': { page: 'Blocks Probe', question: "Y2, from #585's review, not read until now: after one Escape (the text still open, no bar), what does the section draw when the close gives rows back? CAP-A2SHRINKB1 c3: a Line, a new Text moved beside it (588 then 59 right), 'hello' typed by Write: at the let go the Text drops to 1 row and the section to 7 rows (rule B1). Ours drops the Text and the model's rows at the first Escape, and its grid keeps drawing 8 rows until the second. The section's box and rows and both areas of each block, after the typing, after one Escape, after the second and a deselect. Two runs (Y1, Y2), each from a new blank section. Predictions pushed first (CAP-Y2SOFTROWS-PREDICTED.json). No Meta+c, x or v.", steps: (() => {
+    const R = { stack: 0, section: 0 };
+    const add = (type) => [['add', 0, type], ['press', 'Escape'], ['deselect', 0]];
+    const move = (dx) => [['drag', 0, 'new', 'middle', dx, 0], ['press', 'Escape'], ['deselect', 0]];
+    const run = (r) => [['enter'], ['blank'], ...add('Line'), ...add('Text'), ...move(588), ...move(59), ['read', `${r} moved`, R],
+      ['pick', 0, 'new'], ['click', 'Write'], ['keysFast', 'hello'], ['pause', 500], ['read', `${r} typed`, R],
+      ['press', 'Escape'], ['pause', 500], ['read', `${r} one escape`, R], ['press', 'Escape'], ['pause', 300], ['deselect', 0], ['read', `${r} let go`, R], ['exit']];
+    return [['toPage', 'Blocks Probe'], ['window', 1600, 1000], ...run('Y1'), ...run('Y2')];
+  })() },
 };
 // The second read of each A2 fresh case, every layout built again from a new blank section: a case scores only when both reads agree.
 RECIPES['CAP-A2FRESH2'] = { ...RECIPES['CAP-A2FRESH'], question: 'A2: the second read of each CAP-A2FRESH case, the same steps, every layout built again from a new blank section. A case scores only when its two reads agree; if not, it is named unsteady and not scored.' };
