@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 6 changes
+- **Today** · 7 changes
+  - U10: paragraph layout 1 makes the Text a card (CAP-U10PAD1, 8 of 8 stored heights) ([#588](https://github.com/FRIKKern/fluid-editor/pull/588))
   - T12: Scrolling's panel rows from two agreeing reads ([#590](https://github.com/FRIKKern/fluid-editor/pull/590))
-  - T15: a reload keeps no Edit tab, and Chart's dialog keeps none (CAP-T15TABRELOAD) ([#591](https://github.com/FRIKKern/fluid-editor/pull/591))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
