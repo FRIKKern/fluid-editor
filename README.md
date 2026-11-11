@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes
-  - Y2: the rows drop and the phone order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME) ([#599](https://github.com/FRIKKern/fluid-editor/pull/599))
-  - U10: a one-block Text of several lines at the paragraph list's first pick takes layout 0's low span ([#601](https://github.com/FRIKKern/fluid-editor/pull/601))
+- **Today** · 16 changes
+  - U10: the paragraph list's two- and four-line word spans as a read-fact table, and its phone rows (CAP-U10WORDS, CAP-U10PHONEROWS) ([#604](https://github.com/FRIKKern/fluid-editor/pull/604))
+  - T12: Pricing Plan switches refit the phone when pressed there ([#603](https://github.com/FRIKKern/fluid-editor/pull/603))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes

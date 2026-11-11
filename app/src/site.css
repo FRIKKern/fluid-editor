@@ -717,8 +717,13 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .sqs-quote-block-contents blockquote { margin: 0; font-size: 24.4px; line-height: 34.16px; }
 .sqs-quote-block-contents .source { font-size: 16px; line-height: 16px; font-weight: 500; text-align: right; }
 .fe-chart { padding: 15px 0 5.75px; }
-.fe-chart svg { display: block; width: 100%; aspect-ratio: 2 / 1; height: auto; overflow: visible; }
+.fe-chart svg { position: relative; display: block; width: 100%; aspect-ratio: 2 / 1; height: auto; overflow: visible; }
+.fe-chart-plot { position: relative; container-type: inline-size; }
 .fe-chart-rule { stroke: currentColor; stroke-opacity: .15; }
+/* A Bar Chart's lines: boxes 1px thick on whole pixels under the bars (render.js chartHtml). */
+.fe-chart-plot > .fe-chart-rule { position: absolute; display: block; background: currentColor; pointer-events: none; }
+.fe-chart-plot > .fe-chart-grid { opacity: .05; }
+.fe-chart-plot > .fe-chart-axis { opacity: .1; }
 .fe-chart-grid { stroke-opacity: .05; }
 .fe-chart-axis { stroke-opacity: .1; }
 .fe-chart-text { fill: currentColor; fill-opacity: .45; font-size: 16px; }

@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt, phoneHeightOf } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -236,7 +236,7 @@ function undo(button = false) {
     const [json, key, left] = was.get(s.id) || [];
     if (json == null || json === JSON.stringify(s) || !s.blocks.length) continue;
     const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
-    if (m && m.key === key) restep(s, m, left);
+    if (m && m.key === key) restep(s, m, left, wordsAt(s.id));
   }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
@@ -1626,7 +1626,7 @@ function updateResize(e) {
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
     const [, o0, , o1] = g.orig;
     const past = g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols;
-    need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
+    need = Math.max(g.free?.need ?? 1, Math.ceil((phoneHeightOf(held, c1 - c0) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
   }
   // A Text on a corner pull takes the floor its text had one pointer step before, as a side pull does at the drop: narrowed
   // from one row it stays one row, and the text runs over until let go (CAP-TEXTWIDTH7.json f3, CAP-SINGLEAGAIN.json f3,
@@ -2950,15 +2950,20 @@ blockPanel.addEventListener('change', (e) => {
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
 // A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
 // lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
-// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). Phone: not read, rows stay.
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). On the phone the switch refits the phone only, in the
+// phone's least row, 24 + the gap (its rows stretch): the parts lost with a row gap, in rows rounded up, come off whatever the
+// content still needs, and a part back on adds them again (CAP-T12PPPHONE.json, -2.json, two reads of the same steps:
+// Description off at rows of 24, 10 rows to 6; unscored; from a new plan's stretched rows, and a part back on, inferred).
 function setStandinValue(key, v) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
-  const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area, phone = bp === 'mobile';
+  const all = b.label === 'Pricing Plan' && PLAN_PARTS.some(([k]) => k === key) ? (phone ? phoneHeightAt(b.label, a[3] - a[1]) ?? b.phoneHeight : deskHeight(b.label, a[3] - a[1])) : undefined;
   const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
-    const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - Math.ceil(X(h0) - x + 0.05)) : rows);
+    const m = measure(feEl(sel.sid)), pitch = phone ? PHONE_ROW + m.rg : m.pitch, X = (h) => (h + m.rg) / pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
+    const h1 = planHeight(b, all), step = Math.ceil(X(Math.abs(h1 - h0)) - 0.02), lost = Math.ceil(X(h0) - x + 0.05);
+    if (phone) { if (h1 !== h0) setFormRows(b, S(sel.sid), Math.max(1, rows + Math.sign(h1 - h0) * step)); }
+    else setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }
@@ -6300,27 +6305,45 @@ function placeLayouts() {
   layoutsPlace.top = sectionPanelScrolled({ prev: layoutsPlace.top, H: window.innerHeight, low, high });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
+// A Text's lines: the distinct line boxes of its words (a pre's line-height may be 'normal'). Words of another size on
+// the same line sit a few px apart; a new line starts more than half a line lower.
+function countLines(el) {
+  const d = frame.contentDocument, tops = [], walk = d.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = d.createRange();
+  for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+    if (!t.data.trim()) continue;
+    r.selectNodeContents(t);
+    for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+  }
+  tops.sort((a, b) => a - b);
+  return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+}
+const textOf = (b) => blockEl(b.id)?.querySelector('.sqs-html-content');
+// A Text's lines at ten columns of its section's grid, no padding: a hidden copy of its words beside it. None on a grid
+// of ten tracks or fewer (the phone view): the paragraph list's word table is not used there.
+function wordsAt(sid) {
+  return (b) => {
+    const el = textOf(b), fe = sectionEl(sid)?.querySelector('.fluid-engine');
+    if (!el || !fe) return null;
+    const m = measure(fe);
+    if (m.colEnd.length <= 10) return null;
+    const c = el.cloneNode(true);
+    Object.assign(c.style, { position: 'absolute', visibility: 'hidden', left: '0', top: '0', width: `${m.colEnd[10] - m.colStart[1]}px`, padding: '0', boxSizing: 'border-box' });
+    el.parentNode.appendChild(c);
+    const n = countLines(c);
+    c.remove();
+    return n;
+  };
+}
 layoutsPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-layout]');
   const mix = t && S(layoutsSid) && openedMix();
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  // A Text's lines as drawn before the pick: the distinct line boxes of its words (a pre's line-height may be 'normal').
-  const lines = (b) => {
-    const el = blockEl(b.id)?.querySelector('.sqs-html-content'), doc = frame.contentDocument;
-    if (!el) return 1;
-    const tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
-    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
-      if (!t.data.trim()) continue;
-      r.selectNodeContents(t);
-      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
-    }
-    // Words of another size on the same line sit a few px apart; a new line starts more than half a line lower.
-    tops.sort((a, b) => a - b);
-    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
-  };
-  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines);
+  // As drawn before the pick, and at ten columns (countLines, wordsAt).
+  const lines = (b) => { const el = textOf(b); return el ? countLines(el) : 1; };
+  const words = wordsAt(layoutsSid);
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines, words);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);
