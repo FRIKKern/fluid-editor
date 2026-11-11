@@ -1,0 +1,960 @@
+{
+  "item": "R2",
+  "capturedAt": "2026-11-11",
+  "hit": "Scored on the Text's area in the view read (phone for CAP-R2PHONE, desktop for CAP-R2CORNERS), at the drop (held) and after Escape (let go); each case's two reads must agree. The section's rows are read, not scored. A 'before' read off ours' start is a setup miss, named, not scored.",
+  "question": "R2 corners, round F: a taller Text narrowed from each corner. CAP-TEXTWIDTH's long Text (typed and pasted as there, 1/2/7/10 at 1600, 6 rows) narrowed two columns (117.56 px) from its sw, nw, ne and se corners by the named handle, dy 0, each on a new Text in its own edit: its area at the drop (held) and after Escape (let go). CAP-CORNERNARROW.json read a one-row Text only. Two runs (R1, R2), Gestures Probe, unsaved. Predictions pushed first, ours as built. No Meta+c, x or v.",
+  "rule": "Ours as built: a Text narrowed by a corner takes the rows its text needs at the new width already at the drop (the resize's least rows), and keeps them when let go (editor.js startResize, onUp).",
+  "from": "Ours on main, replayed by scripts/lib/r2-width-replay.mjs at 1600 from 1/2/7/10 with the same text, pressed on the block's own corner.",
+  "predicted": {
+    "sw before": {
+      "desktop": "1/2/7/10",
+      "textH": 201.7,
+      "setup": true
+    },
+    "sw narrower 2 held": {
+      "desktop": "1/4/9/10",
+      "textH": 291.3
+    },
+    "sw narrower 2 let go": {
+      "desktop": "1/4/9/10",
+      "textH": 291.3
+    },
+    "nw before": {
+      "desktop": "1/2/7/10",
+      "textH": 201.7,
+      "setup": true
+    },
+    "nw narrower 2 held": {
+      "desktop": "1/4/9/10",
+      "textH": 291.3
+    },
+    "nw narrower 2 let go": {
+      "desktop": "1/4/9/10",
+      "textH": 291.3
+    },
+    "ne before": {
+      "desktop": "1/2/7/10",
+      "textH": 201.7,
+      "setup": true
+    },
+    "ne narrower 2 held": {
+      "desktop": "1/2/9/8",
+      "textH": 291.3
+    },
+    "ne narrower 2 let go": {
+      "desktop": "1/2/9/8",
+      "textH": 291.3
+    },
+    "se before": {
+      "desktop": "1/2/7/10",
+      "textH": 201.7,
+      "setup": true
+    },
+    "se narrower 2 held": {
+      "desktop": "1/2/9/8",
+      "textH": 291.3
+    },
+    "se narrower 2 let go": {
+      "desktop": "1/2/9/8",
+      "textH": 291.3
+    }
+  },
+  "cases": {
+    "sw narrower 2 held": [
+      "R1 sw narrower 2 held",
+      "R2 sw narrower 2 held"
+    ],
+    "sw narrower 2 let go": [
+      "R1 sw narrower 2 let go",
+      "R2 sw narrower 2 let go"
+    ],
+    "nw narrower 2 held": [
+      "R1 nw narrower 2 held",
+      "R2 nw narrower 2 held"
+    ],
+    "nw narrower 2 let go": [
+      "R1 nw narrower 2 let go",
+      "R2 nw narrower 2 let go"
+    ],
+    "ne narrower 2 held": [
+      "R1 ne narrower 2 held",
+      "R2 ne narrower 2 held"
+    ],
+    "ne narrower 2 let go": [
+      "R1 ne narrower 2 let go",
+      "R2 ne narrower 2 let go"
+    ],
+    "se narrower 2 held": [
+      "R1 se narrower 2 held",
+      "R2 se narrower 2 held"
+    ],
+    "se narrower 2 let go": [
+      "R1 se narrower 2 let go",
+      "R2 se narrower 2 let go"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 sw before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "sw",
+      117.56,
+      0,
+      "R1 sw press"
+    ],
+    [
+      "read",
+      "R1 sw narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 sw narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 nw before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "nw",
+      117.56,
+      0,
+      "R1 nw press"
+    ],
+    [
+      "read",
+      "R1 nw narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 nw narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 ne before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "ne",
+      -117.56,
+      0,
+      "R1 ne press"
+    ],
+    [
+      "read",
+      "R1 ne narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 ne narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 se before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "se",
+      -117.56,
+      0,
+      "R1 se press"
+    ],
+    [
+      "read",
+      "R1 se narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 se narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 sw before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "sw",
+      117.56,
+      0,
+      "R2 sw press"
+    ],
+    [
+      "read",
+      "R2 sw narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 sw narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 nw before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "nw",
+      117.56,
+      0,
+      "R2 nw press"
+    ],
+    [
+      "read",
+      "R2 nw narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 nw narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 ne before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "ne",
+      -117.56,
+      0,
+      "R2 ne press"
+    ],
+    [
+      "read",
+      "R2 ne narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 ne narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 se before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "se",
+      -117.56,
+      0,
+      "R2 se press"
+    ],
+    [
+      "read",
+      "R2 se narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 se narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ]
+}
