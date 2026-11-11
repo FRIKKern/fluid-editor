@@ -3802,9 +3802,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     for (let n = 0; n < L.length; n++) {
       const g = pick(n), r = P[`pick ${n}`], lk = r.look, want = r.stack[0];
       if (!g) { errs.push(`${n} no tile`); continue; }
-      // Rows, areas and look, not the section's height: that was read under Blocks Probe's shorter header, and ours
-      // grows a row where a Quote or a wide Video's content is taller than it (named in U10's evidence).
+      // Rows, areas and look; the section's height for a Quote and a Video, within 2px: a pick gives a Quote 3% padding,
+      // so its content fits the span (CAP-U10QUOTEH.json). Code, Accordion and Map's heights: not compared.
       if (g.rows !== lk.rows) errs.push(`${n} rows ${g.rows}`);
+      if ((T === 'Quote' || T === 'Video') && Math.abs(g.h - lk.h) > 2) errs.push(`${n} height ${g.h} read ${lk.h}`);
+      if (T === 'Quote') {
+        const q = FIND('CAP-U10QUOTEH').reads[`A pick ${n}`], at = (x) => x.inside.find((e) => e.cls.split(' ').includes('sqs-block-content')).box;
+        const o = evalJs(S, `(() => { const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, el = d.querySelector('.fe-block-' + s.blocks[0].id), b = el.getBoundingClientRect(), c = el.querySelector('.sqs-block-content').getBoundingClientRect(); return JSON.stringify([c.left - b.left, c.width, c.height].map((v) => Math.round(v * 10) / 10)); })()`);
+        const w = at(q), want = [w[0] - q.block.box[0], w[2], w[3]];
+        if (o.some((v, i) => Math.abs(v - want[i]) > 0.5)) errs.push(`${n} quote inset, width, height ${o} read ${want}`);
+      }
       if (g.at.length !== 1 || g.at[0][0] !== want.desktop || g.at[0][1] !== want.phone) errs.push(`${n} at ${g.at}`);
       if (g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} look ${g.look}`);
     }
