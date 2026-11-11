@@ -1607,6 +1607,29 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // The paragraph list's read word spans (read facts, rule W frozen): CAP-U10WORDS.json's two- and four-line runs from
+  // the start, 16 picks each: rows, desktop and phone areas.
+  {
+    const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
+    const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    let n = 0;
+    for (const [k, w] of [[1, 'W2'], [2, 'W4']]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${w} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of Object.entries(W.reads).filter(([x]) => x.startsWith(`${w} `) && / layout \d/.test(x))) {
+        n++;
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${label.split(' ').pop()}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/'), s.blocks[0].layout.mobile.area.join('/')]); })()`);
+        await pause(150);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0] || g[2] !== r.areas[0][1]) errs.push(`${label} ours ${g} read ${r.look.rows},${r.areas[0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: the two- and four-line words' spans as read (${n} picks)`, errs.length === 0 && n === 32, errs.slice(0, 3).join(' | '));
+  }
   // The paragraph list's layout 1 makes the Text a card (CAP-U10PAD1.json, A and B alike): white, corner 22, padding 12%,
   // its words black and in the middle, on desktop and phone; layout 0 after it takes the card off. Every stored layout 1
   // height with its own words: one, two and four lines, code, three lines of code and two mixed Texts.
