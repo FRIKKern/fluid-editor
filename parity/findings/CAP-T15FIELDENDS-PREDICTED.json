@@ -1,0 +1,71 @@
+{
+ "item": "CAP-T15FIELDENDS-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "T15, predicted before the read of CAP-T15FIELDENDS (Blocks Probe): on a new Shape's Design tab, (a) a value typed past its bar's end, then dragged by the field's top strip, 20 px in steps of 20: Rotate 400 degrees dragged up and (typed again) down, Scale 900% down, Offset 5000px up; (b) Opacity 50% taken, then 33 typed in Skew and not taken (no Enter), then Cmd+Z, and Cmd+Z again. Two runs, each on a new Shape.",
+ "rule": "Ours as built (inferred, 'a value typed past an end is not pulled back by a drag, nor taken further'): the drag moves only toward the bar, 0.4 per px: Rotate 400 +20 stays 400, -20 gives 392; Scale 900 -20 gives 892%; Offset 5000 +20 stays 5,000px. Cmd+Z with Design's typing not taken is left to the field: the typed 33 goes back to 0 in Skew, and no page step is undone, so Opacity stays 50% after both. Rival P: the drag first pulls the value to the bar's end, then moves: 360, 352, 192%, 1,000px. Rival A (as read on Animation's fields, CAP-T15FIELDS2.json): Cmd+Z is the page's undo, the typing goes and the last change is undone, Opacity 50% back to 100%, the field keeping the focus; the second Cmd+Z undoes the step before (Offset 5000 back).",
+ "from": "Ours read in the code (app/src/editor.js, the Design branch of the field drag: min(max(hi, start), max(min(lo, start), start + dx * 0.4)); Design's inputs have no Cmd+Z handler of their own), not replayed.",
+ "hit": "The field's value after each drag (dragRow's after), and Opacity and Skew after each Cmd+Z (rowValues). Each case names the empty read taken right after its drag or values, '<label> done'.",
+ "predicted": {
+  "rotate 400 +20": {
+   "ours": "400°",
+   "rivalP": "360°"
+  },
+  "rotate 400 -20": {
+   "ours": "392°",
+   "rivalP": "352°"
+  },
+  "scale 900 -20": {
+   "ours": "892%",
+   "rivalP": "192%"
+  },
+  "offset 5000 +20": {
+   "ours": "5,000px",
+   "rivalP": "1,000px"
+  },
+  "after Cmd+Z": {
+   "ours": {
+    "Opacity": "50%",
+    "Skew": "0°"
+   },
+   "rivalA": {
+    "Opacity": "100%",
+    "Skew": "0°"
+   }
+  },
+  "after 2nd Cmd+Z": {
+   "ours": {
+    "Opacity": "50%"
+   },
+   "rivalA": {
+    "Opacity": "100%",
+    "Offset": "back from 5,000px"
+   }
+  }
+ },
+ "cases": {
+  "rotate up": [
+   "F1 rotate 400 +20 done",
+   "F2 rotate 400 +20 done"
+  ],
+  "rotate down": [
+   "F1 rotate 400 -20 done",
+   "F2 rotate 400 -20 done"
+  ],
+  "scale down": [
+   "F1 scale 900 -20 done",
+   "F2 scale 900 -20 done"
+  ],
+  "offset up": [
+   "F1 offset 5000 +20 done",
+   "F2 offset 5000 +20 done"
+  ],
+  "after Cmd+Z": [
+   "F1 after Cmd+Z done",
+   "F2 after Cmd+Z done"
+  ],
+  "after 2nd Cmd+Z": [
+   "F1 after 2nd Cmd+Z done",
+   "F2 after 2nd Cmd+Z done"
+  ]
+ }
+}
