@@ -9,6 +9,7 @@ import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './l
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
+import { PIN_READS, pinBar } from './lib/x8-phone-pin.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -997,6 +998,14 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
       const want = ['Stack Blocks', 'Align Group', 'Move Forward', 'Move Backward', 'Duplicate', 'Remove'].filter((l) => P.btnState[l]).map((l) => l + (P.btnState[l].disabled ? ' off' : '')).join();
       await load(apart); pinIt(); await pause(150); const got = bar(...ids);
       groupCases.push({ name: `group bar: ${file} ${read}`, diffs: got === want ? [] : [`oracle ${want}, ours ${got}`] });
+    } }
+  // On a phone, pinned on desktop (A) or in the phone view (B), read on the phone, and B back on desktop (CAP-X8PINPHONE.json, both builds agree).
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X8PINPHONE.json', import.meta.url))).reads;
+    const ONE = ['Edit', 'Align Vertically', 'Pin', 'Move Forward', 'Move Backward', 'Move Up', 'Move Down', 'Duplicate', 'Remove'], GROUP = ['Stack Blocks', 'Align Group', 'Move Forward', 'Move Backward', 'Duplicate', 'Remove'];
+    for (const [v, pinIn, views] of [['A', 'desktop', ['phone']], ['B', 'mobile', ['phone', 'desktop']]]) for (const view of views) for (const [name, ids] of Object.entries(PIN_READS)) {
+      const st = R[`${v}1 ${view} ${name}`].btnState, want = (ids.length > 1 ? GROUP : ONE).filter((l) => st[l]).map((l) => l + (st[l].disabled ? ' off' : '')).join();
+      const got = await pinBar(S, pinIn, view === 'phone' ? 'mobile' : 'desktop', ids);
+      groupCases.push({ name: `pin ${v} (${pinIn === 'desktop' ? 'pinned on desktop' : 'pinned on the phone'}), ${view}: ${name}`, diffs: got === want ? [] : [`oracle ${want}, ours ${got}`] });
     } }
   // On a phone the bar stands beside the phone: first button 27 right of it, 1 under the top block's top for a group, 7 for one block (CAP-PHONE.json, CAP-ACCPHONE.json).
   const barAt = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(), b = document.querySelector('#block-toolbar > .tb-btn').getBoundingClientRect(); return JSON.stringify([Math.round((b.left - q.right) * 10) / 10, Math.round((b.top - q.top - r.top) * 10) / 10]); })()`);
