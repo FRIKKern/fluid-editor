@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 972,
-  "total": 972,
+  "pass": 973,
+  "total": 973,
   "couldNotRun": [],
   "results": [
     {
@@ -582,6 +582,10 @@
     },
     {
       "name": "Y2 drop time: keys 400 ms apart, the rows drop and the order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME G1)",
+      "ok": true
+    },
+    {
+      "name": "Y2 drop time: the caret stays after the save, and Cmd+Z back to the start then the close leaves no step (inferred)",
       "ok": true
     },
     {
