@@ -1,0 +1,3890 @@
+{
+  "item": "CAP-X8PINPHONE",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T06:53:13.066Z",
+  "predictions": {
+    "file": "CAP-X8PINPHONE-PREDICTED.json",
+    "commit": "e6d9c69fd81d1f021ba03ef3c7ce7fae54e49055",
+    "committedAt": "2026-11-11T06:16:41+01:00",
+    "sha256": "16ea980f05f91fedda3a4e8e42a386bdb149e0e5e943bf93832eeaec189cc501"
+  },
+  "engine": "chrome",
+  "question": "X8 phone, round F: does a pin count for a group on a phone, as on desktop it does not (CAP-X8PIN.json, CAP-X8PIN2.json)? CAP-X8PIN2's three Shapes apart (z 1, 3, 2; on the phone stacked in DOM order), the right one pinned with Pin: A, pinned on desktop, then the phone view; B, pinned in the phone view, then read on the phone and back on desktop. Read: one block alone (pin elsewhere), the two groups (pin outside, pin inside) and the pinned block alone, the bar's buttons. Each built twice (A1, A2; B1, B2), Exit Without Saving between, Gestures Probe, nothing saved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "A1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "A1 phone start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "A1 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "A1 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A1 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A1 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "A2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "A2 phone start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "A2 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "A2 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A2 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A2 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "B1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B1 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B1 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B1 desktop one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B1 desktop pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 desktop pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 desktop the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "B2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B2 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B2 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B2 desktop one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B2 desktop pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 desktop pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 desktop the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ]
+  ],
+  "reads": {
+    "A1 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            922.7,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            776.3,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 phone start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 phone one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 phone pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 phone pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A1 phone the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            922.7,
+            357.2,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            776.3,
+            390.2,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 phone start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 phone one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 phone pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 phone pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "A2 phone the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            1150.2,
+            747.7,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            1003.8,
+            780.7,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 phone one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 phone pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 phone pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 phone the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 desktop one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": null,
+        "Move Down": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 desktop pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 desktop pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B1 desktop the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": null,
+        "Move Down": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 start": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 pin panel": {
+      "panelEls": [
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            196.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            230.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            264.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            298.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "",
+          "cls": "css-1h34l1u",
+          "label": "Toggle visibility",
+          "lines": 0,
+          "box": [
+            -42,
+            332.6,
+            12,
+            12
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0px",
+          "cls": "css-1ct4fc",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            1150.2,
+            747.7,
+            58,
+            22
+          ]
+        },
+        {
+          "tag": "input",
+          "value": "0",
+          "cls": "css-15syvlo",
+          "label": "Offset",
+          "lines": 0,
+          "box": [
+            1003.8,
+            780.7,
+            204.5,
+            8
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 pinned": {
+      "zs": [
+        "1",
+        "3",
+        "2"
+      ],
+      "areas": [
+        [
+          "1/2/7/8",
+          "1/2/7/10"
+        ],
+        [
+          "1/8/7/14",
+          "7/2/13/10"
+        ],
+        [
+          "1/14/7/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 phone one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(183, 183, 183)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "none",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 phone pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 phone pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 phone the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Backward": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "none",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Up": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Down": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": true,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(183, 183, 183)",
+            "rgb(183, 183, 183)",
+            "none"
+          ],
+          "cursor": "default",
+          "pointer": "all"
+        },
+        "Duplicate": null,
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 desktop one, pin elsewhere": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": null,
+        "Move Down": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 desktop pin outside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 desktop pin inside": {
+      "btnState": {
+        "Stack Blocks": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Group": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": null,
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(195, 45, 56)",
+            "rgb(195, 45, 56)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "B2 desktop the pinned one": {
+      "btnState": {
+        "Edit": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(49, 49, 49)",
+            "rgb(49, 49, 49)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Align Vertically": null,
+        "Pin": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(14, 14, 14)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Move Forward": null,
+        "Move Backward": null,
+        "Move Up": null,
+        "Move Down": null,
+        "Duplicate": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(14, 14, 14)",
+            "rgb(14, 14, 14)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        },
+        "Remove": {
+          "kids": [],
+          "bg": "rgba(0, 0, 0, 0)",
+          "disabled": false,
+          "aria": null,
+          "opacity": "1",
+          "color": "rgb(62, 62, 62)",
+          "icon": [
+            "rgb(219, 54, 66)",
+            "rgb(219, 54, 66)",
+            "none"
+          ],
+          "cursor": "pointer",
+          "pointer": "all"
+        }
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

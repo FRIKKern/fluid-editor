@@ -1,0 +1,2516 @@
+{
+  "item": "CAP-X2PHONE-F",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T06:24:32.299Z",
+  "predictions": {
+    "file": "CAP-X2PHONE-F-PREDICTED.json",
+    "commit": "401cd4634b4552f00b231aafd5adf57b6c6ec37c",
+    "committedAt": "2026-11-11T07:24:22+01:00",
+    "sha256": "4d9ff67abf63aba86ef6293037c9b87560bfd71ca46da0f2ce93d066b8238151"
+  },
+  "engine": "chrome",
+  "question": "X2 phone, round F, rule P refit 2, the last (rule R, fitted on CAP-X2PHONE-A to E, all 31 seen): in the phone view, by the mouse, any block, a Text too, is not selected after a handle press short of a drag or a resize that leaves its area as it was; past that a block other than a Text lets go below its old bottom, and a Text keeps the desktop rule plus its north-east corner pulled down. Fresh setups: a new Text (made taller by its south side 160 down) pulled by its east side 5 left, its south side pressed with no move and pulled 10 down, its west side 60 right, its south-west corner 60 right; a new Shape's north side pulled 30 down. One block per enter, read twice (R1, R2), Blocks Probe, unsaved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built on this branch. The rule freezes after this round.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text east 5 left taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text east 5 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -5,
+      0,
+      "R1 Text east 5 left pull"
+    ],
+    [
+      "read",
+      "R1 Text east 5 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south pressed, no move taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south pressed, no move before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      0,
+      "R1 Text south pressed, no move pull"
+    ],
+    [
+      "read",
+      "R1 Text south pressed, no move",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south 10 down taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R1 Text south 10 down pull"
+    ],
+    [
+      "read",
+      "R1 Text south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R1 Text west 60 right pull"
+    ],
+    [
+      "read",
+      "R1 Text west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape north 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      30,
+      "R1 Shape north 30 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape north 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south-west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south-west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "sw",
+      60,
+      0,
+      "R1 Text south-west 60 right pull"
+    ],
+    [
+      "read",
+      "R1 Text south-west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text east 5 left taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text east 5 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -5,
+      0,
+      "R2 Text east 5 left pull"
+    ],
+    [
+      "read",
+      "R2 Text east 5 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south pressed, no move taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south pressed, no move before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      0,
+      "R2 Text south pressed, no move pull"
+    ],
+    [
+      "read",
+      "R2 Text south pressed, no move",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south 10 down taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R2 Text south 10 down pull"
+    ],
+    [
+      "read",
+      "R2 Text south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R2 Text west 60 right pull"
+    ],
+    [
+      "read",
+      "R2 Text west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape north 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      30,
+      "R2 Shape north 30 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape north 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south-west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south-west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "sw",
+      60,
+      0,
+      "R2 Text south-west 60 right pull"
+    ],
+    [
+      "read",
+      "R2 Text south-west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "R1 Text east 5 left taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text east 5 left before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378283567_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text east 5 left pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text east 5 left": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378283567_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south pressed, no move taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south pressed, no move before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378351353_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south pressed, no move pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south pressed, no move": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378351353_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south 10 down taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south 10 down before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378407449_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south 10 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south 10 down": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378407449_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text west 60 right taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text west 60 right before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378459985_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text west 60 right pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text west 60 right": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378459985_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape north 30 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378511521_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape north 30 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape north 30 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "2/2/7/10",
+        "box": [
+          25.7,
+          291.5,
+          376.7,
+          164
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378511521_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,77",
+          "col 10x10 at 372.7,77",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,160",
+          "se 10x10 at 372.7,160",
+          "sw 10x10 at -6,160"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south-west 60 right taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south-west 60 right before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378557618_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Text south-west 60 right pull": {
+      "under": {
+        "cursor": "sw-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Text south-west 60 right": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378557618_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 275.9,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text east 5 left taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text east 5 left before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378608294_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text east 5 left pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text east 5 left": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378608294_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south pressed, no move taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south pressed, no move before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378660263_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south pressed, no move pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south pressed, no move": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378660263_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south 10 down taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south 10 down before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378712571_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south 10 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south 10 down": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378712571_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text west 60 right taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text west 60 right before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378766668_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text west 60 right pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text west 60 right": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378766668_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape north 30 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378821134_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape north 30 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape north 30 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "2/2/7/10",
+        "box": [
+          25.7,
+          291.5,
+          376.7,
+          164
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378821134_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "2 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,77",
+          "col 10x10 at 372.7,77",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,160",
+          "se 10x10 at 372.7,160",
+          "sw 10x10 at -6,160"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south-west 60 right taller": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south-west 60 right before": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378872540_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Text south-west 60 right pull": {
+      "under": {
+        "cursor": "sw-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Text south-west 60 right": {
+      "block": {
+        "desktop": "1/2/3/10",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794378872540_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 275.9,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

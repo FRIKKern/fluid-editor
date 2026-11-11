@@ -1,9 +1,12 @@
 // A2: after an edit a section's blocks follow the phone rows, top to bottom, then left to right
-// (parity/findings/CAP-ORDER.json). Blocks with the same z paint in DOM order, so a pair that
-// overlaps with the same z, on desktop or on the phone, keeps its order: a flip would show on
-// screen, now or on a width switch. Held pairs are ours, not measured on the oracle.
+// (parity/findings/CAP-ORDER.json). A pair that overlaps on desktop with the same z follows them too, though blocks
+// with the same z paint in DOM order, so the other one shows on top after: a Cmd+D copy at B's z over B, moved ahead of
+// it by the phone rows at the next desktop move, both runs (CAP-A2SAMEZ.json, ours as built kept the pair, 0 of 2).
+// Read in a section made here (Add Blank), so only there; a saved page's sections can't be read (0005), and there a
+// desktop overlap still holds the pair, as before: ours, not read. A pair that overlaps on the phone with the same z
+// keeps its order, in every section: ours, not read.
 const overlaps = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
-const held = (x, y) => ['desktop', 'mobile'].some((name) => {
+const holdsIn = (names) => (x, y) => names.some((name) => {
   const L = x.layout[name], R = y.layout[name];
   return !!L && !!R && L.z === R.z && overlaps(L.area, R.area);
 });
@@ -12,7 +15,10 @@ const phoneRank = (b) => b.layout.mobile?.area ?? [Infinity, Infinity];
 // Held pairs don't sort on their own: take the first block by phone rows among those with no
 // block held ahead of them still to come. The order that results never swaps a held pair, and a
 // chain of held blocks stays in order even when its two ends don't overlap.
-export function phoneOrder(blocks) {
+// made: the section was made here (its phoneFollows is set, true or false), where a desktop overlap holds nothing;
+// read while it still follows, inferred once it stops.
+export function phoneOrder(blocks, made = false) {
+  const held = holdsIn(made ? ['mobile'] : ['desktop', 'mobile']);
   const left = [...blocks], out = [];
   while (left.length) {
     const free = left.filter((b, k) => !left.slice(0, k).some((o) => held(o, b)));

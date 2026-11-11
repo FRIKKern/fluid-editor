@@ -1,0 +1,1272 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-11",
+  "question": "X2 phone, round F, rule P refit 2, the last (rule R, fitted on CAP-X2PHONE-A to E, all 31 seen): in the phone view, by the mouse, any block, a Text too, is not selected after a handle press short of a drag or a resize that leaves its area as it was; past that a block other than a Text lets go below its old bottom, and a Text keeps the desktop rule plus its north-east corner pulled down. Fresh setups: a new Text (made taller by its south side 160 down) pulled by its east side 5 left, its south side pressed with no move and pulled 10 down, its west side 60 right, its south-west corner 60 right; a new Shape's north side pulled 30 down. One block per enter, read twice (R1, R2), Blocks Probe, unsaved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built on this branch. The rule freezes after this round.",
+  "rule": "Rule R (refit 2 of P, the last; ours on this branch): on a phone, by the mouse or a pen, any block is not selected after a handle press that never becomes a drag or a resize whose area is unchanged; otherwise a block other than a Text is not selected let go below its old bottom (LET_GO_BELOW_PHONE = 0), and a Text keeps the desktop rule and also lets go off its north-east corner pulled down. Touch keeps each.",
+  "from": "editor.js onUp on branch x2-phone-letgo, run in ours' phone view with scripts/lib/phone-letgo.mjs.",
+  "hit": "Scored on the block's data-is-selected after the pull (each case's two reads must agree). A 'before' read not selected is a setup miss, named, not scored.",
+  "predicted": {
+    "Text east 5 left": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Text east 5 left before": {
+      "selected": true,
+      "setup": true
+    },
+    "Text south pressed, no move": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Text south pressed, no move before": {
+      "selected": true,
+      "setup": true
+    },
+    "Text south 10 down": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Text south 10 down before": {
+      "selected": true,
+      "setup": true
+    },
+    "Text west 60 right": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Text west 60 right before": {
+      "selected": true,
+      "setup": true
+    },
+    "Shape north 30 down": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Shape north 30 down before": {
+      "selected": true,
+      "setup": true
+    },
+    "Text south-west 60 right": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Text south-west 60 right before": {
+      "selected": true,
+      "setup": true
+    }
+  },
+  "cases": {
+    "Text east 5 left": [
+      "R1 Text east 5 left",
+      "R2 Text east 5 left"
+    ],
+    "Text south pressed, no move": [
+      "R1 Text south pressed, no move",
+      "R2 Text south pressed, no move"
+    ],
+    "Text south 10 down": [
+      "R1 Text south 10 down",
+      "R2 Text south 10 down"
+    ],
+    "Text west 60 right": [
+      "R1 Text west 60 right",
+      "R2 Text west 60 right"
+    ],
+    "Shape north 30 down": [
+      "R1 Shape north 30 down",
+      "R2 Shape north 30 down"
+    ],
+    "Text south-west 60 right": [
+      "R1 Text south-west 60 right",
+      "R2 Text south-west 60 right"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text east 5 left taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text east 5 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -5,
+      0,
+      "R1 Text east 5 left pull"
+    ],
+    [
+      "read",
+      "R1 Text east 5 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south pressed, no move taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south pressed, no move before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      0,
+      "R1 Text south pressed, no move pull"
+    ],
+    [
+      "read",
+      "R1 Text south pressed, no move",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south 10 down taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R1 Text south 10 down pull"
+    ],
+    [
+      "read",
+      "R1 Text south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R1 Text west 60 right pull"
+    ],
+    [
+      "read",
+      "R1 Text west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape north 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      30,
+      "R1 Shape north 30 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape north 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R1 Text south-west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Text south-west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "sw",
+      60,
+      0,
+      "R1 Text south-west 60 right pull"
+    ],
+    [
+      "read",
+      "R1 Text south-west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text east 5 left taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text east 5 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -5,
+      0,
+      "R2 Text east 5 left pull"
+    ],
+    [
+      "read",
+      "R2 Text east 5 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south pressed, no move taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south pressed, no move before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      0,
+      "R2 Text south pressed, no move pull"
+    ],
+    [
+      "read",
+      "R2 Text south pressed, no move",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south 10 down taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R2 Text south 10 down pull"
+    ],
+    [
+      "read",
+      "R2 Text south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R2 Text west 60 right pull"
+    ],
+    [
+      "read",
+      "R2 Text west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape north 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      30,
+      "R2 Shape north 30 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape north 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      160,
+      "R2 Text south-west 60 right taller"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Text south-west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "sw",
+      60,
+      0,
+      "R2 Text south-west 60 right pull"
+    ],
+    [
+      "read",
+      "R2 Text south-west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ]
+}

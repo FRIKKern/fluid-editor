@@ -1,0 +1,1031 @@
+{
+  "item": "R2",
+  "capturedAt": "2026-11-11",
+  "hit": "Scored on the Text's area in the view read (phone for CAP-R2PHONE, desktop for CAP-R2CORNERS), at the drop (held) and after Escape (let go); each case's two reads must agree. The section's rows are read, not scored. A 'before' read off ours' start is a setup miss, named, not scored.",
+  "question": "R2 phone, round F: on a phone, does a Text that fits its text keep fitting when its east side changes its width, as on desktop (CAP-TEXTWIDTH.json)? A new Text written on desktop ('Short note about the mill road and the birch trees above it.', phone area 1/2/3/10, two lines on the phone), then the phone view: one phone column (48.46 px) narrower four times, then one wider four times, by its east side, each read at the drop (held) and after Escape (let go). Two runs (R1, R2), one per enter, Gestures Probe, unsaved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built. No Meta+c, x or v.",
+  "rule": "Ours as built: on a phone as on desktop, a Text that fits its text (its span is the rows its content needs, or 2) takes the rows its text needs when a side handle narrows it, at the drop, from its height one pointer step before the end; widened, it gives rows back only if its need fell, by the height lost (editor.js fitTextRows). Phone rows are 24 px plus the 11 px gap.",
+  "from": "Ours on main, replayed by scripts/lib/r2-width-replay.mjs in ours' phone view from a start of phone 1/2/3/10 with the same text.",
+  "predicted": {
+    "before": {
+      "phone": "1/2/3/10",
+      "textH": 44.8,
+      "setup": true
+    },
+    "narrower 1 held": {
+      "phone": "1/2/3/9",
+      "textH": 44.8
+    },
+    "narrower 1 let go": {
+      "phone": "1/2/3/9",
+      "textH": 44.8
+    },
+    "narrower 2 held": {
+      "phone": "1/2/3/8",
+      "textH": 44.8
+    },
+    "narrower 2 let go": {
+      "phone": "1/2/3/8",
+      "textH": 44.8
+    },
+    "narrower 3 held": {
+      "phone": "1/2/4/7",
+      "textH": 67.2
+    },
+    "narrower 3 let go": {
+      "phone": "1/2/4/7",
+      "textH": 67.2
+    },
+    "narrower 4 held": {
+      "phone": "1/2/4/6",
+      "textH": 67.2
+    },
+    "narrower 4 let go": {
+      "phone": "1/2/4/6",
+      "textH": 67.2
+    },
+    "wider 1 held": {
+      "phone": "1/2/4/7",
+      "textH": 67.2
+    },
+    "wider 1 let go": {
+      "phone": "1/2/4/7",
+      "textH": 67.2
+    },
+    "wider 2 held": {
+      "phone": "1/2/3/8",
+      "textH": 44.8
+    },
+    "wider 2 let go": {
+      "phone": "1/2/3/8",
+      "textH": 44.8
+    },
+    "wider 3 held": {
+      "phone": "1/2/3/9",
+      "textH": 44.8
+    },
+    "wider 3 let go": {
+      "phone": "1/2/3/9",
+      "textH": 44.8
+    },
+    "wider 4 held": {
+      "phone": "1/2/3/10",
+      "textH": 44.8
+    },
+    "wider 4 let go": {
+      "phone": "1/2/3/10",
+      "textH": 44.8
+    }
+  },
+  "cases": {
+    "narrower 1 held": [
+      "R1 narrower 1 held",
+      "R2 narrower 1 held"
+    ],
+    "narrower 1 let go": [
+      "R1 narrower 1 let go",
+      "R2 narrower 1 let go"
+    ],
+    "narrower 2 held": [
+      "R1 narrower 2 held",
+      "R2 narrower 2 held"
+    ],
+    "narrower 2 let go": [
+      "R1 narrower 2 let go",
+      "R2 narrower 2 let go"
+    ],
+    "narrower 3 held": [
+      "R1 narrower 3 held",
+      "R2 narrower 3 held"
+    ],
+    "narrower 3 let go": [
+      "R1 narrower 3 let go",
+      "R2 narrower 3 let go"
+    ],
+    "narrower 4 held": [
+      "R1 narrower 4 held",
+      "R2 narrower 4 held"
+    ],
+    "narrower 4 let go": [
+      "R1 narrower 4 let go",
+      "R2 narrower 4 let go"
+    ],
+    "wider 1 held": [
+      "R1 wider 1 held",
+      "R2 wider 1 held"
+    ],
+    "wider 1 let go": [
+      "R1 wider 1 let go",
+      "R2 wider 1 let go"
+    ],
+    "wider 2 held": [
+      "R1 wider 2 held",
+      "R2 wider 2 held"
+    ],
+    "wider 2 let go": [
+      "R1 wider 2 let go",
+      "R2 wider 2 let go"
+    ],
+    "wider 3 held": [
+      "R1 wider 3 held",
+      "R2 wider 3 held"
+    ],
+    "wider 3 let go": [
+      "R1 wider 3 let go",
+      "R2 wider 3 let go"
+    ],
+    "wider 4 held": [
+      "R1 wider 4 held",
+      "R2 wider 4 held"
+    ],
+    "wider 4 let go": [
+      "R1 wider 4 let go",
+      "R2 wider 4 let go"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "R1 before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R1 narrower 1 press"
+    ],
+    [
+      "read",
+      "R1 narrower 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 narrower 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R1 narrower 2 press"
+    ],
+    [
+      "read",
+      "R1 narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R1 narrower 3 press"
+    ],
+    [
+      "read",
+      "R1 narrower 3 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 narrower 3 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R1 narrower 4 press"
+    ],
+    [
+      "read",
+      "R1 narrower 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 narrower 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R1 wider 1 press"
+    ],
+    [
+      "read",
+      "R1 wider 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 wider 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R1 wider 2 press"
+    ],
+    [
+      "read",
+      "R1 wider 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 wider 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R1 wider 3 press"
+    ],
+    [
+      "read",
+      "R1 wider 3 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 wider 3 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R1 wider 4 press"
+    ],
+    [
+      "read",
+      "R1 wider 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R1 wider 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "Short note about the mill road and the birch trees above it."
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "R2 before",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R2 narrower 1 press"
+    ],
+    [
+      "read",
+      "R2 narrower 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 narrower 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R2 narrower 2 press"
+    ],
+    [
+      "read",
+      "R2 narrower 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 narrower 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R2 narrower 3 press"
+    ],
+    [
+      "read",
+      "R2 narrower 3 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 narrower 3 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      -48.46,
+      0,
+      "R2 narrower 4 press"
+    ],
+    [
+      "read",
+      "R2 narrower 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 narrower 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R2 wider 1 press"
+    ],
+    [
+      "read",
+      "R2 wider 1 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 wider 1 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R2 wider 2 press"
+    ],
+    [
+      "read",
+      "R2 wider 2 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 wider 2 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R2 wider 3 press"
+    ],
+    [
+      "read",
+      "R2 wider 3 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 wider 3 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "handleDrag",
+      0,
+      0,
+      "e",
+      48.46,
+      0,
+      "R2 wider 4 press"
+    ],
+    [
+      "read",
+      "R2 wider 4 held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 wider 4 let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ]
+}
