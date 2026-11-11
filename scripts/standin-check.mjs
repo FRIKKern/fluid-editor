@@ -282,6 +282,28 @@ viewport(S, 1600, 1400);
   await press('input[data-content="nlButton"]', 200); await key('Meta+a'); await key('N', 600); await key('o'); await key('Tab', 300);
   const typed06 = nlBtn(); await press('#undo', 400); const pv1 = nlBtn();
   add('Newsletter: a second\'s pause in typing ends an undo step, 0.6 s does not', pu1 === 'G' && pu2 === btn0 && typed06 === 'No' && pv1 === btn0, JSON.stringify({ btn0, pu1, pu2, typed06, pv1 }));
+  // Undo and Redo give the rows the content needs, whatever they were before the step (CAP-T12NLUNDO.json; its rule was
+  // pushed in CAP-T12NLUNDO-PREDICTED.json): a Title emptied as typed holds 5 rows (CAP-T12NEWSLETTER.json titleEmpty), a
+  // second's pause, Hi (7); Undo gives the empty Title at 6, Redo Hi at 7.
+  qs(`const next = JSON.parse(JSON.stringify(fe.model)), b = next.sections[1].blocks[0]; for (const k of ['nlTitle', 'nlDesc', 'nlDisc', 'nlButton', 'nlName']) delete b[k]; b.layout.desktop.area[2] = b.layout.desktop.area[0] + 8; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  const nlTitle = () => qs(`return JSON.stringify([p.querySelector('[data-content][aria-label="Title"]').value, fe.model.sections[1].blocks[0].layout.desktop.area.reduce((r, v, i) => (i === 0 ? -v : i === 2 ? r + v : r), 0)]);`);
+  await empty('Title'); const tEmpty = nlTitle(); await pause(1200); await key('H'); await key('i', 300); await key('Tab', 400); const tHi = nlTitle();
+  await press('#undo', 500); const tUndo = nlTitle(); await press('#redo', 500); const tRedo = nlTitle();
+  add('Newsletter: Undo and Redo give the rows the content needs', JSON.stringify([tEmpty, tHi, tUndo, tRedo]) === JSON.stringify([['', 5], ['Hi', 7], ['', 6], ['Hi', 7]]), JSON.stringify([tEmpty, tHi, tUndo, tRedo]));
+  // Redo too: an emptied Title left at 5 rows, Undo (Subscribe, 7 as the content needs, not the 8 it was added at), Redo: 6.
+  const nlReset = (hide = false) => qs(`const next = JSON.parse(JSON.stringify(fe.model)), b = next.sections[1].blocks[0]; for (const k of ['nlTitle', 'nlDesc', 'nlDisc', 'nlButton', 'nlName']) delete b[k]; b.layout.desktop.area[2] = b.layout.desktop.area[0] + 8; if (${hide}) b.layout.mobile.hidden = true; else delete b.layout.mobile.hidden; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  nlReset();
+  await empty('Title'); await key('Tab', 400); const rEmpty = nlTitle();
+  await press('#undo', 500); const rUndo = nlTitle(); await press('#redo', 500); const rRedo = nlTitle();
+  add('Newsletter: Redo gives the rows the content needs too', JSON.stringify([rEmpty, rUndo, rRedo]) === JSON.stringify([['', 5], ['Subscribe', 7], ['', 6]]), JSON.stringify([rEmpty, rUndo, rRedo]));
+  // A Newsletter hidden in the view Undo lands in keeps its rows there: it has no height to read.
+  nlReset(true);
+  const phoneArea = () => qs(`return JSON.stringify(fe.model.sections[1].blocks[0].layout.mobile.area);`), phone0 = phoneArea();
+  await press('[data-content][aria-label="Title"]', 150); await key('Meta+a'); await key('X'); await key('Tab', 400);
+  qs(`fe.setBp('mobile'); await sleep(400); fe.undo(); await sleep(400); fe.setBp('desktop'); await sleep(400); return 'true';`);
+  const phone1 = phoneArea();
+  add('Newsletter: Undo leaves a block hidden in that view at its rows', JSON.stringify(phone1) === JSON.stringify(phone0), JSON.stringify([phone0, phone1]));
+  nlReset();
   if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
   // CAP-T12NLPOST.json: the Form Name tip on hover, 11px above the ?; the rows names add; Post-Submit; the phone view.
   const help = at('.bp-nl-help');
@@ -425,6 +447,24 @@ viewport(S, 1600, 1400);
   const p6 = [];
   for (const k of ['ppTitle', 'ppDesc', 'ppPrice', 'ppBenefits', 'ppButtonOn']) p6.push(await flip(k), await flip(k));
   add('Pricing Plan pulled 8 to 6 columns takes 12 rows; Elements there give 10 12 8 12 9 12 9 12 9 12', JSON.stringify(pulled) === '[1,2,13,8]' && JSON.stringify(p6) === '[10,12,8,12,9,12,9,12,9,12]', JSON.stringify({ pulled, p6 }));
+  // On the phone (CAP-T12PPPHONE.json, -2.json, unscored): a switch refits only the view it is pressed in, and the content
+  // follows the switches in both views (the phone's rows back to 24 after Benefits off on desktop; 6 rows at 30.2 after Description off there).
+  const ppView = () => qs(`const d = document.getElementById('site-frame').contentDocument, s = fe.model.sections[1], b = s.blocks[0], g = getComputedStyle(d.querySelector('section[data-section-id="' + s.id + '"] .fluid-engine')).gridTemplateRows.split(' ').map((v) => Math.round(parseFloat(v) * 10) / 10); return JSON.stringify([b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/'), s.rows.desktop, s.rows.mobile, Math.max(...g)]);`);
+  const ppEdit = (view) => qs(`fe.select(null); fe.setBp(${JSON.stringify(view)}); await sleep(500); const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(fe.model.sections[1].id, 'Pricing Plan'); await sleep(300); return 'true';`);
+  ppEdit('desktop'); await press('[data-btab="Design"]'); await press('input[data-sp-set="ppBenefits"]', 600);
+  ppEdit('mobile'); const ph1 = ppView();
+  await press('[data-btab="Design"]'); await press('input[data-sp-set="ppDesc"]', 600); const ph2 = ppView();
+  qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`); const ph3 = ppView().slice(0, 4);
+  add('Pricing Plan on the phone: Benefits off on desktop leaves the phone at 10 rows of 24; Description off there gives 6 rows at 30.2, desktop keeps 8', JSON.stringify([ph1, ph2, ph3]) === JSON.stringify([['1/2/9/10', '1/2/11/10', 8, 10, 24], ['1/2/9/10', '1/2/7/10', 8, 6, 30.2], ['1/2/9/10', '1/2/7/10', 8, 6]]), JSON.stringify([ph1, ph2, ph3]));
+  // Inferred, not read: from a new plan's stretched phone rows a switch takes the same rows off and puts them back (10, 6, 10);
+  // pulled narrower on the phone with Description off it asks for its smaller content (333.1 at 6 columns: 10 rows, not 14).
+  qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 8, mobile: 8 }; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(fe.model.sections[1].id, 'Pricing Plan'); await sleep(300); return 'true';`);
+  ppEdit('mobile'); await press('[data-btab="Design"]'); await press('input[data-sp-set="ppDesc"]', 600); const pi1 = ppView();
+  await press('input[data-sp-set="ppDesc"]', 600); const pi2 = ppView(); await press('input[data-sp-set="ppDesc"]', 600);
+  const hp = qs(`fe.select(null); await sleep(100); const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); await sleep(200); const f = document.getElementById('site-frame'), o = f.getBoundingClientRect(), d = f.contentDocument, r = d.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(), g = d.defaultView.getComputedStyle(d.querySelector('section[data-section-id="' + s.id + '"] .fluid-engine')), cols = g.gridTemplateColumns.split(' ').map(parseFloat); return JSON.stringify({ x: o.left + r.left + r.width / 2, y: o.top + r.top + r.height / 2, col: cols[3] + parseFloat(g.columnGap) });`);
+  drag(S, [hp.x, hp.y], [hp.x - 2 * hp.col, hp.y]); await pause(400); const pi3 = ppView();
+  add('Pricing Plan on the phone, inferred: a new plan\'s Description off and on give 10 6 10 rows; pulled to 6 columns with it off, 10 rows', JSON.stringify([pi1.slice(1, 4), pi2.slice(1, 4), pi3.slice(1, 2)]) === JSON.stringify([['1/2/7/10', 11, 6], ['1/2/11/10', 11, 10], ['1/2/11/8']]), JSON.stringify([pi1, pi2, pi3]));
   // Product: each row keeps its value, one undo step each. Its rows are not modelled (CAP-T12PRESS-E.json): not checked here.
   placeAndEdit('Product', 6, 10);
   await press('input[data-sp-set="pdImage"]'); await press('input[data-sp-set="pdDesc"]');

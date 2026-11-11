@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
-  - T12: Accordion Escape at a second description length and Pricing Plan phone rows, read twice ([#595](https://github.com/FRIKKern/fluid-editor/pull/595))
-  - U10: paragraph layout 1 makes the Text a card (CAP-U10PAD1, 8 of 8 stored heights) ([#588](https://github.com/FRIKKern/fluid-editor/pull/588))
+- **Today** · 17 changes
+  - X2: phone let-go rule R, refit 2 frozen, 6 of 6 fresh (CAP-X2PHONE-A to F) ([#596](https://github.com/FRIKKern/fluid-editor/pull/596))
+  - U10: the paragraph list's two- and four-line word spans as a read-fact table, and its phone rows (CAP-U10WORDS, CAP-U10PHONEROWS) ([#604](https://github.com/FRIKKern/fluid-editor/pull/604))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes

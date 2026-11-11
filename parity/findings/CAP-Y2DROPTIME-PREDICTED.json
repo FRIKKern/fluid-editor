@@ -1,0 +1,16 @@
+{
+ "item": "CAP-Y2DROPTIME-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "Y2, predicted before the read of CAP-Y2DROPTIME (Blocks Probe): when during typing does the oracle drop the Text to the rows its content needs, give the section its rows back and turn the phone order? CAP-Y2SOFTROWS read it done at its 'typed' read, which keysFast's 1500 ms wait and a 500 ms pause put about 2000 ms after the last key, not 500. Setup as CAP-Y2SOFTROWS (a Line, a new Text moved 588 then 59 right, 'hello' typed after Write). W: the keys in one burst. G: the same keys 400 ms apart, under the 900 to 1000 ms pause that splits typing into undo steps (TEXTUNDO.json). A per-frame watch from just before the first key (gridStart, gridStop) logs each key and input and every change of the section's drawn rows and the blocks' areas and DOM order.",
+ "rule": "H, the step close: nothing changes while the typing runs; the change comes all at once when the typing's undo step closes, 900 to 1000 ms after the last key (TEXTUNDO.json, CAP-Y2GAPS.json), in G as in W. Rival I, each input: the change comes in the frame after the first input. Rival T, a timer from the first key: about 1000 ms after the first key, so in G while keys are still coming. Ours as built: at the first Escape, so never in the watch.",
+ "from": "No replay: the rows and order at the change are CAP-Y2SOFTROWS's typed read (Text 1/13/2/21, 7 rows, the Line first); only the time is predicted.",
+ "hit": "The watch's first change after the first key comes at a time in H's window, 850 to 1100 ms after the last keydown, and that one change holds the Text's 1/13/2/21, 7 drawn rows and the Line first in DOM order; nothing earlier changes. Each case is scored on the watch taken with its typed read (W1 watch with W1 typed, and so on).",
+ "predicted": {
+  "W": { "H": { "changeAfterLastKeyMs": [850, 1100], "text": "1/13/2/21", "rows": 7, "lineFirst": true }, "rivalI": "after the first input", "rivalT": "about 1000 ms after the first key" },
+  "G": { "H": { "changeAfterLastKeyMs": [850, 1100], "text": "1/13/2/21", "rows": 7, "lineFirst": true }, "rivalI": "after the first input", "rivalT": "about 1000 ms after the first key, before the last key (1600 ms)" }
+ },
+ "cases": {
+  "W": ["W1 typed", "W2 typed"],
+  "G": ["G1 typed", "G2 typed"]
+ }
+}

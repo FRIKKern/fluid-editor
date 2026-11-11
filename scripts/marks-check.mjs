@@ -1560,10 +1560,11 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const realClick = async (x, y) => { mouse(S, 'move', x, y); await pause(50); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(250); };
   // The paragraph list against CAP-U10ROWS-A.json instead: in this order each layout has the span rule P gives it after
   // the one before (CAP-U10ROWSPREDICT.json), read there after the same layout (A17, A21, A11, A15) or at the same span
-  // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows by the last-phone-row rule. Built with the
-  // reads' own words: longer words wrap in layout 2's one-row block and ours grows the section.
+  // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows as CAP-U10PHONEROWS.json read them: the phone
+  // end line less 1, at layout 0 the end line itself. Built with the reads' own words: longer words wrap in layout 2's
+  // one-row block and ours grows the section.
   const RA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWS-A.json', import.meta.url))).reads;
-  const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - 1, places: { p0: [d, p] } }; });
+  const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - (n === 0 ? 0 : 1), places: { p0: [d, p] } }; });
   for (const [key, mix0] of Object.entries(VL.mixes)) {
     const mix = key === 'p1' ? { ...mix0, layouts: PARA } : mix0;
     await start(); build(key); await pause(450);
@@ -1606,6 +1607,77 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       browser(S, 'press', 'Escape'); await pause(150);
     }
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // The paragraph list's read word spans (read facts, rule W frozen): CAP-U10WORDS.json's two- and four-line runs from
+  // a start that shows no layout (1/2/3/10 in an 8-row section; the four-line run's own start read 1/2/4/10 in 9 rows,
+  // which shows none either), 16 picks each: rows, desktop and phone areas.
+  {
+    const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
+    const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    let n = 0;
+    for (const [k, w] of [[1, 'W2'], [2, 'W4']]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${w} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of Object.entries(W.reads).filter(([x]) => x.startsWith(`${w} `) && / layout \d/.test(x))) {
+        n++;
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${label.split(' ').pop()}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/'), s.blocks[0].layout.mobile.area.join('/')]); })()`);
+        await pause(150);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0] || g[2] !== r.areas[0][1]) errs.push(`${label} ours ${g} read ${r.look.rows},${r.areas[0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: the two- and four-line words' spans as read (${n} picks)`, errs.length === 0 && n === 32, errs.slice(0, 3).join(' | '));
+  }
+  // Undo onto a two- or four-line Text steps by its own form in the word table (inferred, not read): back onto layout 1,
+  // which has no step at two and four lines (CAP-U10WORDS.json: 4/6/12/22 in 14 rows, 4/6/11/22 in 13), and onto
+  // layout 2 from 3 at its high span (the table's 8/15/11/25 in 10 rows).
+  {
+    const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
+    const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    for (const [k, picks, want] of [[2, [0, 1, 0], [14, '4/6/12/22']], [1, [2, 1, 2], [13, '4/6/11/22']], [1, [1, 2, 3], [10, '8/15/11/25']]]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${k} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const n of picks) { evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); return 'true'; })()`); await pause(200); }
+      evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+      const g = evalJs(S, `(() => { const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+      if (g.join() !== want.join()) errs.push(`${k === 2 ? 'four' : 'two'} lines ${picks} Undo ours ${g} want ${want}`);
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts p1: Undo onto a two- or four-line Text steps by its own form (3 walks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
+  // The paragraph list's phone rows after each pick (CAP-U10PHONEROWS.json, predicted 15 of 18, A and B alike): one, two
+  // and four lines from a fresh Text at 1/2/3/10 in 8 rows (the four-line run's own start was 1/2/4/10 in 9; neither shows
+  // a layout), picks 0 to 5 in order: desktop rows, both areas and the phone rows.
+  {
+    const errs = [], P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10PHONEROWS.json', import.meta.url)));
+    const html = Object.fromEntries(['W1', 'W2', 'W4'].map((w, k) => [w, P.steps.filter((x) => x[0] === 'pasteHere')[k][3]]));
+    let n = 0;
+    for (const w of ['W1', 'W2', 'W4']) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html[w])}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${w} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (let L = 0; L < 6; L++) {
+        n++;
+        const d = P.reads[`A ${w} L${L} desktop`], ph = P.reads[`A ${w} L${L} phone`];
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${L}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/'), s.blocks[0].layout.mobile.area.join('/'), s.rows.mobile]); })()`);
+        await pause(150);
+        const want = [d.look.rows, d.areas[0][0], d.areas[0][1], ph.look.rows];
+        if (g.join() !== want.join()) errs.push(`${w} L${L} ours ${g} read ${want}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: phone rows after each pick, one, two and four lines (${n} picks)`, errs.length === 0 && n === 18, errs.slice(0, 3).join(' | '));
   }
   // The paragraph list's layout 1 makes the Text a card (CAP-U10PAD1.json, A and B alike): white, corner 22, padding 12%,
   // its words black and in the middle, on desktop and phone; layout 0 after it takes the card off. Every stored layout 1
@@ -1837,6 +1909,41 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       browser(S, 'press', 'Escape'); await pause(150);
     }
     add(`View Layouts, a growing list- or quote-first Text with one other Text: areas and rows as read, rule E (${n} picks)`, errs.length === 0 && n === 50, errs.slice(0, 3).join(' | '));
+  }
+  // The first pick onto the paragraph list's layout 0 (fitted on seen reads, unscored): low with a one-block Text of more
+  // than one line at the start, high with one line or several blocks. Three lines of code through every read pick
+  // (CAP-U10ENDS-ECDA.json, -ECDB alike; CAP-U10CD1.json), and the first pick of each CAP-U10WORDS.json run and of one
+  // line with inline code (CAP-U10CD2.json): rows and desktop areas as read. Each Text starts at its run's start read.
+  // The mixed Texts (CAP-U10TEXTMIX-C.json's M, CAP-U10ENDS-EMXA.json and -EMXB) keep layout 0's high span, 5/7/7/21 in
+  // 10 rows; they read taller (rule E's named misses), so this holds ours from the low span, not at the read.
+  {
+    const errs = [], FJ = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+    const paste = (F, k = 0) => F.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    const W = FJ('CAP-U10WORDS'), C = FJ('CAP-U10TEXTMIX-C'), D2 = FJ('CAP-U10CD2'), runs = [];
+    const HIGH = { look: { rows: 10 }, areas: [['5/7/7/21']] };
+    for (const f of ['CAP-U10ENDS-ECDA', 'CAP-U10ENDS-ECDB', 'CAP-U10CD1']) { const F = FJ(f), st = Object.entries(F.reads).find(([k]) => / start/.test(k))[1]; runs.push([f, paste(F), st, Object.entries(F.reads).filter(([k]) => / layout \d/.test(k))]); }
+    for (const [k, w] of [[0, 'W1'], [1, 'W2'], [2, 'W4']]) runs.push([w, paste(W, k), W.reads[`${w} 00 start`], [[`${w} 01 layout 0`, W.reads[`${w} 01 layout 0`]]]]);
+    runs.push(['inline code', paste(D2), D2.reads['I1 start'], [['I1 01 layout 0', D2.reads['I1 01 layout 0']]]]);
+    runs.push(['mixed M', paste(C, 1), C.reads['M 00 start'], [['M 01 layout 0', HIGH]]]);
+    for (const f of ['CAP-U10ENDS-EMXA', 'CAP-U10ENDS-EMXB']) { const F = FJ(f); runs.push([f, paste(F), F.reads['EMX start b0'], [['EMX 01 layout 0', HIGH]]]); }
+    let n = 0;
+    for (const [f, html, st, picks] of runs) {
+      await start();
+      const [da, pa] = st.areas[0].map((a) => a.split('/').map(Number));
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: ${JSON.stringify(da)} }, mobile: { ...t.layout.mobile, area: ${JSON.stringify(pa)} } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: ${st.look.rows} }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${f} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of picks) {
+        n++;
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${label.match(/layout (\d)/)[1]}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+        await pause(150);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0]) errs.push(`${f} ${label} ours ${g} read ${r.look.rows},${r.areas[0][0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: the first pick by the start's lines and blocks, and three lines of code through every read pick (${n} picks)`, errs.length === 0 && n === 22, errs.slice(0, 3).join(' | '));
   }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
@@ -3838,9 +3945,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     for (let n = 0; n < L.length; n++) {
       const g = pick(n), r = P[`pick ${n}`], lk = r.look, want = r.stack[0];
       if (!g) { errs.push(`${n} no tile`); continue; }
-      // Rows, areas and look, not the section's height: that was read under Blocks Probe's shorter header, and ours
-      // grows a row where a Quote or a wide Video's content is taller than it (named in U10's evidence).
+      // Rows, areas and look; the section's height for a Quote and a Video, within 2px: a pick gives a Quote 3% padding,
+      // so its content fits the span (CAP-U10QUOTEH.json). Code, Accordion and Map's heights: not compared.
       if (g.rows !== lk.rows) errs.push(`${n} rows ${g.rows}`);
+      if ((T === 'Quote' || T === 'Video') && Math.abs(g.h - lk.h) > 2) errs.push(`${n} height ${g.h} read ${lk.h}`);
+      if (T === 'Quote') {
+        const q = FIND('CAP-U10QUOTEH').reads[`A pick ${n}`], at = (x) => x.inside.find((e) => e.cls.split(' ').includes('sqs-block-content')).box;
+        const o = evalJs(S, `(() => { const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, el = d.querySelector('.fe-block-' + s.blocks[0].id), b = el.getBoundingClientRect(), c = el.querySelector('.sqs-block-content').getBoundingClientRect(); return JSON.stringify([c.left - b.left, c.width, c.height].map((v) => Math.round(v * 10) / 10)); })()`);
+        const w = at(q), want = [w[0] - q.block.box[0], w[2], w[3]];
+        if (o.some((v, i) => Math.abs(v - want[i]) > 0.5)) errs.push(`${n} quote inset, width, height ${o} read ${want}`);
+      }
       if (g.at.length !== 1 || g.at[0][0] !== want.desktop || g.at[0][1] !== want.phone) errs.push(`${n} at ${g.at}`);
       if (g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} look ${g.look}`);
     }

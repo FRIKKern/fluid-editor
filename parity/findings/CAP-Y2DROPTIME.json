@@ -1,0 +1,1338 @@
+{
+  "item": "CAP-Y2DROPTIME",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T05:02:13.777Z",
+  "predictions": {
+    "file": "CAP-Y2DROPTIME-PREDICTED.json",
+    "commit": "e4de3642d06b789ea1ccc736ef1cc052a1a33a39",
+    "committedAt": "2026-11-11T06:01:27+01:00",
+    "sha256": "7a31e8e17cbdc7e0650f689f924194cf806f2a0bdbf3a23111c8f04160287d26"
+  },
+  "engine": "chrome",
+  "question": "Y2: when during typing does the oracle drop the Text to the rows its content needs, give the section its rows back and turn the phone order? Setup as CAP-Y2SOFTROWS (a Line, a new Text moved 588 then 59 right, 'hello' typed after Write); W: the keys in one burst, G: 400 ms apart. A per-frame watch (gridStart, gridStop) logs each key and input and every change of the drawn rows and the blocks' areas and DOM order. Two runs of each, each from a new blank section. Predictions pushed first (CAP-Y2DROPTIME-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      588,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      59,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "W1 moved",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "gridStart",
+      0
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "gridStop",
+      "W1 watch"
+    ],
+    [
+      "read",
+      "W1 typed",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      588,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      59,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "G1 moved",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "gridStart",
+      0
+    ],
+    [
+      "keysGap",
+      400,
+      [
+        "h",
+        "e",
+        "l",
+        "l",
+        "o"
+      ]
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "gridStop",
+      "G1 watch"
+    ],
+    [
+      "read",
+      "G1 typed",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      588,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      59,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "W2 moved",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "gridStart",
+      0
+    ],
+    [
+      "keysFast",
+      "hello"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "gridStop",
+      "W2 watch"
+    ],
+    [
+      "read",
+      "W2 typed",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      588,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      59,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "G2 moved",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "gridStart",
+      0
+    ],
+    [
+      "keysGap",
+      400,
+      [
+        "h",
+        "e",
+        "l",
+        "l",
+        "o"
+      ]
+    ],
+    [
+      "pause",
+      3000
+    ],
+    [
+      "gridStop",
+      "G2 watch"
+    ],
+    [
+      "read",
+      "G2 typed",
+      {
+        "stack": 0,
+        "section": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "W1 moved": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_631",
+          "type": "csr",
+          "desktop": "1/13/3/21",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "W1 watch": {
+      "columns": [
+        "ms",
+        "drawn rows",
+        "each block in DOM order: id, desktop area, phone area"
+      ],
+      "seen": [
+        [
+          10,
+          8,
+          [
+            [
+              "2_631",
+              "1/13/3/21",
+              "1/2/3/10"
+            ],
+            [
+              "2_420",
+              "1/2/2/6",
+              "3/2/4/10"
+            ]
+          ]
+        ],
+        [
+          1021,
+          8,
+          [
+            [
+              "2_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "2_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ],
+        [
+          1032,
+          7,
+          [
+            [
+              "2_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "2_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ]
+      ],
+      "keys": [
+        [
+          314,
+          "down",
+          "h"
+        ],
+        [
+          326,
+          "input"
+        ],
+        [
+          385,
+          "down",
+          "e"
+        ],
+        [
+          387,
+          "input"
+        ],
+        [
+          419,
+          "down",
+          "l"
+        ],
+        [
+          421,
+          "input"
+        ],
+        [
+          436,
+          "down",
+          "l"
+        ],
+        [
+          437,
+          "input"
+        ],
+        [
+          455,
+          "down",
+          "o"
+        ],
+        [
+          456,
+          "input"
+        ]
+      ]
+    },
+    "W1 typed": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "1/2/2/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "2_631",
+          "type": "csr",
+          "desktop": "1/13/2/21",
+          "phone": "2/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G1 moved": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_631",
+          "type": "csr",
+          "desktop": "1/13/3/21",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G1 watch": {
+      "columns": [
+        "ms",
+        "drawn rows",
+        "each block in DOM order: id, desktop area, phone area"
+      ],
+      "seen": [
+        [
+          18,
+          8,
+          [
+            [
+              "6_631",
+              "1/13/3/21",
+              "1/2/3/10"
+            ],
+            [
+              "6_420",
+              "1/2/2/6",
+              "3/2/4/10"
+            ]
+          ]
+        ],
+        [
+          2698,
+          8,
+          [
+            [
+              "6_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "6_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ],
+        [
+          2720,
+          7,
+          [
+            [
+              "6_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "6_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ]
+      ],
+      "keys": [
+        [
+          384,
+          "down",
+          "h"
+        ],
+        [
+          401,
+          "input"
+        ],
+        [
+          846,
+          "down",
+          "e"
+        ],
+        [
+          848,
+          "input"
+        ],
+        [
+          1272,
+          "down",
+          "l"
+        ],
+        [
+          1275,
+          "input"
+        ],
+        [
+          1701,
+          "down",
+          "l"
+        ],
+        [
+          1702,
+          "input"
+        ],
+        [
+          2117,
+          "down",
+          "o"
+        ],
+        [
+          2118,
+          "input"
+        ]
+      ]
+    },
+    "G1 typed": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "1/2/2/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_631",
+          "type": "csr",
+          "desktop": "1/13/2/21",
+          "phone": "2/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "W2 moved": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "5_631",
+          "type": "csr",
+          "desktop": "1/13/3/21",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "W2 watch": {
+      "columns": [
+        "ms",
+        "drawn rows",
+        "each block in DOM order: id, desktop area, phone area"
+      ],
+      "seen": [
+        [
+          7,
+          8,
+          [
+            [
+              "5_631",
+              "1/13/3/21",
+              "1/2/3/10"
+            ],
+            [
+              "5_420",
+              "1/2/2/6",
+              "3/2/4/10"
+            ]
+          ]
+        ],
+        [
+          1022,
+          8,
+          [
+            [
+              "5_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "5_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ],
+        [
+          1033,
+          7,
+          [
+            [
+              "5_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "5_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ]
+      ],
+      "keys": [
+        [
+          344,
+          "down",
+          "h"
+        ],
+        [
+          347,
+          "input"
+        ],
+        [
+          382,
+          "down",
+          "e"
+        ],
+        [
+          383,
+          "input"
+        ],
+        [
+          430,
+          "down",
+          "l"
+        ],
+        [
+          432,
+          "input"
+        ],
+        [
+          444,
+          "down",
+          "l"
+        ],
+        [
+          445,
+          "input"
+        ],
+        [
+          456,
+          "down",
+          "o"
+        ],
+        [
+          456,
+          "input"
+        ]
+      ]
+    },
+    "W2 typed": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "5_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "1/2/2/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "5_631",
+          "type": "csr",
+          "desktop": "1/13/2/21",
+          "phone": "2/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G2 moved": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_631",
+          "type": "csr",
+          "desktop": "1/13/3/21",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "3/2/4/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G2 watch": {
+      "columns": [
+        "ms",
+        "drawn rows",
+        "each block in DOM order: id, desktop area, phone area"
+      ],
+      "seen": [
+        [
+          4,
+          8,
+          [
+            [
+              "6_631",
+              "1/13/3/21",
+              "1/2/3/10"
+            ],
+            [
+              "6_420",
+              "1/2/2/6",
+              "3/2/4/10"
+            ]
+          ]
+        ],
+        [
+          2388,
+          8,
+          [
+            [
+              "6_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "6_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ],
+        [
+          2410,
+          7,
+          [
+            [
+              "6_420",
+              "1/2/2/6",
+              "1/2/2/10"
+            ],
+            [
+              "6_631",
+              "1/13/2/21",
+              "2/2/4/10"
+            ]
+          ]
+        ]
+      ],
+      "keys": [
+        [
+          175,
+          "down",
+          "h"
+        ],
+        [
+          177,
+          "input"
+        ],
+        [
+          588,
+          "down",
+          "e"
+        ],
+        [
+          589,
+          "input"
+        ],
+        [
+          997,
+          "down",
+          "l"
+        ],
+        [
+          998,
+          "input"
+        ],
+        [
+          1407,
+          "down",
+          "l"
+        ],
+        [
+          1407,
+          "input"
+        ],
+        [
+          1818,
+          "down",
+          "o"
+        ],
+        [
+          1819,
+          "input"
+        ]
+      ]
+    },
+    "G2 typed": {
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          626.5
+        ],
+        "rows": 7,
+        "rowSizes": "30.1x7",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "6_420",
+          "type": "csr",
+          "desktop": "1/2/2/6",
+          "phone": "1/2/2/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_631",
+          "type": "csr",
+          "desktop": "1/13/2/21",
+          "phone": "2/2/4/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

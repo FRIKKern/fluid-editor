@@ -1,0 +1,20 @@
+{
+  "item": "U10",
+  "question": "CAP-U10QUOTEPW-PREDICT",
+  "frozenAt": "2026-11-11T06:40Z",
+  "cases": {
+    "P": ["A P resized", "B P resized"],
+    "N": ["A N resized", "B N resized"]
+  },
+  "what": {
+    "P": "A Quote picked to the Quote list's layout 0 (811.9 wide, padding 24.4 = 3% in CAP-U10QUOTEH.json), then its right handle dragged 470px left, about 8 columns, to about 341.7 wide.",
+    "N": "A new Quote (341.7 wide, padding 20.5 = 6% in CAP-U10QUOTEH.json), then its right handle dragged 470px right, about 8 columns, to about 811.9 wide."
+  },
+  "rules": {
+    "pick": "The pick sets 3% and it stays on the block through a resize: P 3% of its new width, N 6% of its new width. Ours as built in PR 594 (b.quotePad).",
+    "width": "The width sets it, 3% at 459.3 and wider, 6% at 341.7 and narrower: P 6%, N 3%."
+  },
+  "scoring": "Padding = .sqs-block-content left minus the block's left, over the block's width, within 0.2 percentage points; runs A and B must agree.",
+  "predictions": { "P": "3%", "N": "6%" },
+  "predicted": "pick"
+}
