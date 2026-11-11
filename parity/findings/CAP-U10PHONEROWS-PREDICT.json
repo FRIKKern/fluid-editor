@@ -1,0 +1,158 @@
+{
+  "item": "U10",
+  "question": "CAP-U10PHONEROWS-PREDICT",
+  "frozenAt": "2026-11-11T06:55Z",
+  "cases": {
+    "W1 L0": [
+      "A W1 L0 phone",
+      "B W1 L0 phone"
+    ],
+    "W1 L1": [
+      "A W1 L1 phone",
+      "B W1 L1 phone"
+    ],
+    "W1 L2": [
+      "A W1 L2 phone",
+      "B W1 L2 phone"
+    ],
+    "W1 L3": [
+      "A W1 L3 phone",
+      "B W1 L3 phone"
+    ],
+    "W1 L4": [
+      "A W1 L4 phone",
+      "B W1 L4 phone"
+    ],
+    "W1 L5": [
+      "A W1 L5 phone",
+      "B W1 L5 phone"
+    ],
+    "W2 L0": [
+      "A W2 L0 phone",
+      "B W2 L0 phone"
+    ],
+    "W2 L1": [
+      "A W2 L1 phone",
+      "B W2 L1 phone"
+    ],
+    "W2 L2": [
+      "A W2 L2 phone",
+      "B W2 L2 phone"
+    ],
+    "W2 L3": [
+      "A W2 L3 phone",
+      "B W2 L3 phone"
+    ],
+    "W2 L4": [
+      "A W2 L4 phone",
+      "B W2 L4 phone"
+    ],
+    "W2 L5": [
+      "A W2 L5 phone",
+      "B W2 L5 phone"
+    ],
+    "W4 L0": [
+      "A W4 L0 phone",
+      "B W4 L0 phone"
+    ],
+    "W4 L1": [
+      "A W4 L1 phone",
+      "B W4 L1 phone"
+    ],
+    "W4 L2": [
+      "A W4 L2 phone",
+      "B W4 L2 phone"
+    ],
+    "W4 L3": [
+      "A W4 L3 phone",
+      "B W4 L3 phone"
+    ],
+    "W4 L4": [
+      "A W4 L4 phone",
+      "B W4 L4 phone"
+    ],
+    "W4 L5": [
+      "A W4 L5 phone",
+      "B W4 L5 phone"
+    ]
+  },
+  "what": "The paragraph list (one Text) with CAP-U10WORDS.json's one-, two- and four-line words, each from a fresh Text, picks 0 to 5 in order; after each pick the Layouts panel closes, the editor goes to the phone view and reads the section's phone rows and the block's areas, then back to desktop. Runs A and B.",
+  "rules": {
+    "end": "The section's phone rows are the block's phone end line less 1 (the block ends on the last row), as ours' one-line entries have; inferred for the paragraph list in U10's evidence. The phone areas are those CAP-U10WORDS.json read."
+  },
+  "scoring": "Each case: the phone rows (look.rows in the phone view) equal the prediction; runs A and B must agree.",
+  "predictions": {
+    "W1 L0": {
+      "phoneRows": 3,
+      "phoneArea": "2/2/4/10"
+    },
+    "W1 L1": {
+      "phoneRows": 5,
+      "phoneArea": "1/2/6/10"
+    },
+    "W1 L2": {
+      "phoneRows": 3,
+      "phoneArea": "2/2/4/10"
+    },
+    "W1 L3": {
+      "phoneRows": 3,
+      "phoneArea": "2/2/4/10"
+    },
+    "W1 L4": {
+      "phoneRows": 2,
+      "phoneArea": "1/2/3/10"
+    },
+    "W1 L5": {
+      "phoneRows": 2,
+      "phoneArea": "1/2/3/10"
+    },
+    "W2 L0": {
+      "phoneRows": 5,
+      "phoneArea": "2/2/6/10"
+    },
+    "W2 L1": {
+      "phoneRows": 6,
+      "phoneArea": "1/2/7/10"
+    },
+    "W2 L2": {
+      "phoneRows": 5,
+      "phoneArea": "2/2/6/10"
+    },
+    "W2 L3": {
+      "phoneRows": 5,
+      "phoneArea": "2/2/6/10"
+    },
+    "W2 L4": {
+      "phoneRows": 4,
+      "phoneArea": "1/2/5/10"
+    },
+    "W2 L5": {
+      "phoneRows": 4,
+      "phoneArea": "1/2/5/10"
+    },
+    "W4 L0": {
+      "phoneRows": 7,
+      "phoneArea": "2/2/8/10"
+    },
+    "W4 L1": {
+      "phoneRows": 9,
+      "phoneArea": "1/2/10/10"
+    },
+    "W4 L2": {
+      "phoneRows": 7,
+      "phoneArea": "2/2/8/10"
+    },
+    "W4 L3": {
+      "phoneRows": 7,
+      "phoneArea": "2/2/8/10"
+    },
+    "W4 L4": {
+      "phoneRows": 6,
+      "phoneArea": "1/2/7/10"
+    },
+    "W4 L5": {
+      "phoneRows": 6,
+      "phoneArea": "1/2/7/10"
+    }
+  }
+}
