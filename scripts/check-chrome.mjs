@@ -16,8 +16,10 @@ const errors = want.filter(([, opts, w]) => acts(opts) !== w).map(([name, opts, 
 // (CAP-U9ICONS.json, two runs). Our icons are our own (O2); this holds that the two places draw the same one.
 const U9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U9ICONS.json', import.meta.url))).reads;
 const sigs = (reads, x, w) => Object.fromEntries(reads.svgSigs.filter((e) => e.box[0] === x && e.box[2] === w && e.words).map((e) => [e.words, e.sig]));
-const tile = sigs(U9['T1 tiles'], 49, 16), tile2 = sigs(U9['T1 tiles'], 201, 16), row = { ...sigs(U9['A1 layers'], 50, 22), ...sigs(U9['B1 layers'], 50, 22) };
-const shared = Object.keys(row).filter((t) => (tile[t] ?? tile2[t]) === row[t]);
+// Both runs: a type counts where the two runs and the row and the tile all agree.
+const both = (f) => { const a = f('1'), b = f('2'); return Object.fromEntries(Object.entries(a).filter(([t, v]) => b[t] === v)); };
+const tile = both((r) => ({ ...sigs(U9[`T${r} tiles`], 49, 16), ...sigs(U9[`T${r} tiles`], 201, 16) })), row = both((r) => ({ ...sigs(U9[`A${r} layers`], 50, 22), ...sigs(U9[`B${r} layers`], 50, 22) }));
+const shared = Object.keys(row).filter((t) => tile[t] === row[t]);
 const inner = (html) => (html.match(/<svg[^>]*>(.*?)<\/svg>/) || [])[1];
 const menu = addBlockMenuHtml(shared.map((t) => [t]));
 for (const t of shared) {

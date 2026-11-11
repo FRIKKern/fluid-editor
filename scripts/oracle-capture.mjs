@@ -6,7 +6,7 @@
 //   ... node scripts/oracle-capture.mjs --name WHAT --question '...' --steps '[["enter"],["select",2,2],["read","a",{"block":[2,2],"controls":true}]]'
 // Steps: enter | exit | view Mobile|Desktop | window w h (the real window, for a block taller than it) | frame w h | unframe | pause ms | listen
 //   hover i | hoverBlock i k [part] | pressCombo n | pressRow name [i] | rowWalk label names dx dy name drop | rowPath label names path name drop | rowFrames label names dy name [pre] [drop] | select i k (a real click) | pick i k (selects a text block without writing) | deselect i
-//   blank (adds an empty section) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
+//   blank (adds an empty section) | openAdd i (Add Block's menu open, nothing pressed in it) | toPage title | add i type | panel i | editText i k | sectionDrag i dy (hover first; dy 0 is a click)
 //   walkGroup i k part mx my | addFromMenu i type name {frameBy, menu, above, at, look} | handleDrag i k part dx dy name | beforeOf name selector
 //   hoverNamed label | moveAt x y (skips the page check: it presses nothing, and its timing matters) | frameTo y | outlineStart | outlineStop name (every section outline, per frame, between the two) | fadeWatch i name | addStart | addStop name (every Add Section, per frame, between the two) | addSectionWatch i name | scrollWalk name dy n [wait] | scrollTrace name dy n [wait] [sec] [tail] | tipDelay label name [tries] | tipRead label name | searchWords name [words] | searchCrawl name [wait] | rangeKey key
 //   selectKey shown key (focuses the panel's select showing that option and types a key, which picks the next option starting with it, as oracle-rows does) |
