@@ -282,6 +282,14 @@ viewport(S, 1600, 1400);
   await press('input[data-content="nlButton"]', 200); await key('Meta+a'); await key('N', 600); await key('o'); await key('Tab', 300);
   const typed06 = nlBtn(); await press('#undo', 400); const pv1 = nlBtn();
   add('Newsletter: a second\'s pause in typing ends an undo step, 0.6 s does not', pu1 === 'G' && pu2 === btn0 && typed06 === 'No' && pv1 === btn0, JSON.stringify({ btn0, pu1, pu2, typed06, pv1 }));
+  // Undo and Redo give the rows the content needs, whatever they were before the step (CAP-T12NLUNDO.json; its rule was
+  // pushed in CAP-T12NLUNDO-PREDICTED.json): a Title emptied as typed holds 5 rows (CAP-T12NEWSLETTER.json titleEmpty), a
+  // second's pause, Hi (7); Undo gives the empty Title at 6, Redo Hi at 7.
+  qs(`const next = JSON.parse(JSON.stringify(fe.model)), b = next.sections[1].blocks[0]; for (const k of ['nlTitle', 'nlDesc', 'nlDisc', 'nlButton', 'nlName']) delete b[k]; b.layout.desktop.area[2] = b.layout.desktop.area[0] + 8; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  const nlTitle = () => qs(`return JSON.stringify([p.querySelector('[data-content][aria-label="Title"]').value, fe.model.sections[1].blocks[0].layout.desktop.area.reduce((r, v, i) => (i === 0 ? -v : i === 2 ? r + v : r), 0)]);`);
+  await empty('Title'); const tEmpty = nlTitle(); await pause(1200); await key('H'); await key('i', 300); await key('Tab', 400); const tHi = nlTitle();
+  await press('#undo', 500); const tUndo = nlTitle(); await press('#redo', 500); const tRedo = nlTitle();
+  add('Newsletter: Undo and Redo give the rows the content needs', JSON.stringify([tEmpty, tHi, tUndo, tRedo]) === JSON.stringify([['', 5], ['Hi', 7], ['', 6], ['Hi', 7]]), JSON.stringify([tEmpty, tHi, tUndo, tRedo]));
   if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
   // CAP-T12NLPOST.json: the Form Name tip on hover, 11px above the ?; the rows names add; Post-Submit; the phone view.
   const help = at('.bp-nl-help');
