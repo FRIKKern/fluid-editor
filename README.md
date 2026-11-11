@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 2 changes
+- **Today** · 3 changes
+  - R2: the second Cmd+Z removes the new Text in ours too; #580's miss was its replay (CAP-R2UNDOTWO, 12 of 12) ([#587](https://github.com/FRIKKern/fluid-editor/pull/587))
   - Y2: after one Escape the section draws the rows the close gave back (CAP-Y2SOFTROWS, rival F 3 of 4) ([#586](https://github.com/FRIKKern/fluid-editor/pull/586))
-  - Y2: the section draws its spare rows during a text edit (CAP-Y2BARROWS, rival S 3 of 5) ([#585](https://github.com/FRIKKern/fluid-editor/pull/585))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
