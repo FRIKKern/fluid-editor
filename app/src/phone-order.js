@@ -15,7 +15,8 @@ const phoneRank = (b) => b.layout.mobile?.area ?? [Infinity, Infinity];
 // Held pairs don't sort on their own: take the first block by phone rows among those with no
 // block held ahead of them still to come. The order that results never swaps a held pair, and a
 // chain of held blocks stays in order even when its two ends don't overlap.
-// made: the section was made here (its phoneFollows is set), where a desktop overlap holds nothing.
+// made: the section was made here (its phoneFollows is set, true or false), where a desktop overlap holds nothing;
+// read while it still follows, inferred once it stops.
 export function phoneOrder(blocks, made = false) {
   const held = holdsIn(made ? ['mobile'] : ['desktop', 'mobile']);
   const left = [...blocks], out = [];
