@@ -38,6 +38,7 @@ import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed,
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
+import { tileOf } from './standin-tiles.js';
 import { scrollOf, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
@@ -2977,6 +2978,8 @@ function setStandinValue(key, v) {
     if (phone) { if (h1 !== h0) setFormRows(b, S(sel.sid), Math.max(1, rows + Math.sign(h1 - h0) * step)); }
     else setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
   }
+  // A tile that draws its content draws the new value; its rows stay (standin-tiles.js).
+  if (tileOf(b)) renderSectionDom(sel.sid);
   commit(before, `${b.label} ${key} changed`);
 }
 blockPanel.addEventListener('change', (e) => {
