@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - T12: Scrolling's panel rows from two agreeing reads ([#590](https://github.com/FRIKKern/fluid-editor/pull/590))
   - T15: a reload keeps no Edit tab, and Chart's dialog keeps none (CAP-T15TABRELOAD) ([#591](https://github.com/FRIKKern/fluid-editor/pull/591))
-  - U9: a Layers row's icon is its type's Add Block tile icon (CAP-U9ICONS) ([#589](https://github.com/FRIKKern/fluid-editor/pull/589))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
