@@ -178,18 +178,19 @@ export function applyLayout(s, mix, n, base) {
 // on desktop and phone (justify center; the phone's from its screenshot), in the theme's colors for a Text with a
 // Background. The same 12% gives every stored layout 1 height: one, two and four lines of words (CAP-U10WORDS.json), code
 // (CAP-U10CD1.json, CAP-U10ENDS-ECDA.json) and mixed Texts (CAP-U10TEXTMIX-C.json, CAP-U10ENDS-EMXA.json). The next
-// layout takes the card off (layout 0 after 1: 22.4); ours puts the block's own alignment back (not read). A Design set by
-// hand before a pick: not read, ours keeps its other values.
+// layout takes the card off (layout 0 after 1: 22.4); ours puts the block's own alignment, Background, Padding and Corner
+// back (not read).
 const CARD_KEYS = ['background', 'pad', 'corner'];
 function cardText(b, card) {
   if (b.layoutCard && !card) {
     for (const k of CARD_KEYS) delete b.design?.[k];
-    if (b.design && !Object.keys(b.design).length) delete b.design;
+    b.design = { ...b.design, ...b.layoutCard.design };
+    if (!Object.keys(b.design).length) delete b.design;
     for (const bp of ['desktop', 'mobile']) Object.assign(b.layout[bp], b.layoutCard[bp]);
     delete b.layoutCard;
   }
   if (!card) return;
-  const was = b.layoutCard || Object.fromEntries(['desktop', 'mobile'].map((bp) => [bp, { justify: b.layout[bp].justify || 'flex-start', align: b.layout[bp].align || 'flex-start' }]));
+  const was = b.layoutCard || { ...Object.fromEntries(['desktop', 'mobile'].map((bp) => [bp, { justify: b.layout[bp].justify || 'flex-start', align: b.layout[bp].align || 'flex-start' }])), design: Object.fromEntries(CARD_KEYS.filter((k) => b.design && k in b.design).map((k) => [k, b.design[k]])) };
   Object.assign(b, { design: { ...b.design, ...card }, layoutCard: was });
   for (const bp of ['desktop', 'mobile']) Object.assign(b.layout[bp], { justify: 'center', align: 'center' });
 }
