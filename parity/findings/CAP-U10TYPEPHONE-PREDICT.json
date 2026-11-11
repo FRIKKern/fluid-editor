@@ -1,0 +1,139 @@
+{
+  "item": "U10",
+  "question": "CAP-U10TYPEPHONE-PREDICT",
+  "frozenAt": "2026-11-11T07:40Z",
+  "cases": {
+    "Quote L0": [
+      "A Quote L0 phone",
+      "B Quote L0 phone"
+    ],
+    "Quote L1": [
+      "A Quote L1 phone",
+      "B Quote L1 phone"
+    ],
+    "Quote L2": [
+      "A Quote L2 phone",
+      "B Quote L2 phone"
+    ],
+    "Quote L3": [
+      "A Quote L3 phone",
+      "B Quote L3 phone"
+    ],
+    "Quote L4": [
+      "A Quote L4 phone",
+      "B Quote L4 phone"
+    ],
+    "Code L0": [
+      "A Code L0 phone",
+      "B Code L0 phone"
+    ],
+    "Code L1": [
+      "A Code L1 phone",
+      "B Code L1 phone"
+    ],
+    "Code L2": [
+      "A Code L2 phone",
+      "B Code L2 phone"
+    ],
+    "Code L3": [
+      "A Code L3 phone",
+      "B Code L3 phone"
+    ],
+    "Code L4": [
+      "A Code L4 phone",
+      "B Code L4 phone"
+    ],
+    "Video L0": [
+      "A Video L0 phone",
+      "B Video L0 phone"
+    ],
+    "Video L1": [
+      "A Video L1 phone",
+      "B Video L1 phone"
+    ],
+    "Video L2": [
+      "A Video L2 phone",
+      "B Video L2 phone"
+    ],
+    "Video L3": [
+      "A Video L3 phone",
+      "B Video L3 phone"
+    ],
+    "Video L4": [
+      "A Video L4 phone",
+      "B Video L4 phone"
+    ],
+    "Video L5": [
+      "A Video L5 phone",
+      "B Video L5 phone"
+    ],
+    "Video L6": [
+      "A Video L6 phone",
+      "B Video L6 phone"
+    ],
+    "Video L7": [
+      "A Video L7 phone",
+      "B Video L7 phone"
+    ],
+    "Video L8": [
+      "A Video L8 phone",
+      "B Video L8 phone"
+    ],
+    "Video L9": [
+      "A Video L9 phone",
+      "B Video L9 phone"
+    ]
+  },
+  "what": "A new Quote, Code and Video, each alone in a fresh section, through its list's picks in order (Quote and Code 0 to 4, Video 0 to 9); after each pick the Layouts panel closes and the phone view reads the section's rows and the block's areas. Runs A and B.",
+  "rules": {
+    "first": "As the paragraph list read (CAP-U10PHONEROWS.json): at layout 0 the phone rows are the block's phone end line, at the others the end line less 1.",
+    "ours": "Ours now: the end line less 1 at every pick (the last-phone-row rule, inferred)."
+  },
+  "phoneEnds": "Phone end lines from ours' read places (CAP-U10PICK-QUOTE, -CODE, -VIDEO): Quote [7, 7, 7, 6, 6], Code [4, 4, 4, 3, 3], Video [13, 13, 13, 13, 13, 11, 11, 11, 13, 13].",
+  "scoring": "Each case: the phone rows (look.rows in the phone view) equal the prediction; runs A and B must agree.",
+  "predictions": {
+    "Quote L0": 7,
+    "Quote L1": 6,
+    "Quote L2": 6,
+    "Quote L3": 5,
+    "Quote L4": 5,
+    "Code L0": 4,
+    "Code L1": 3,
+    "Code L2": 3,
+    "Code L3": 2,
+    "Code L4": 2,
+    "Video L0": 13,
+    "Video L1": 12,
+    "Video L2": 12,
+    "Video L3": 12,
+    "Video L4": 12,
+    "Video L5": 10,
+    "Video L6": 10,
+    "Video L7": 10,
+    "Video L8": 12,
+    "Video L9": 12
+  },
+  "oursNow": {
+    "Quote L0": 6,
+    "Quote L1": 6,
+    "Quote L2": 6,
+    "Quote L3": 5,
+    "Quote L4": 5,
+    "Code L0": 3,
+    "Code L1": 3,
+    "Code L2": 3,
+    "Code L3": 2,
+    "Code L4": 2,
+    "Video L0": 12,
+    "Video L1": 12,
+    "Video L2": 12,
+    "Video L3": 12,
+    "Video L4": 12,
+    "Video L5": 10,
+    "Video L6": 10,
+    "Video L7": 10,
+    "Video L8": 12,
+    "Video L9": 12
+  },
+  "predicted": "first"
+}
