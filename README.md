@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 23 changes
+- **Today** · 24 changes
+  - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
   - U10: the eight mixes read on (CAP-U10MIXB) as a read-fact table, tiles not built ([#607](https://github.com/FRIKKern/fluid-editor/pull/607))
-  - T12: an Accordion description refits as it is typed ([#606](https://github.com/FRIKKern/fluid-editor/pull/606))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
