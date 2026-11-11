@@ -426,6 +426,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
   line-height: 1.4em; letter-spacing: .01rem; white-space: nowrap; overflow: hidden;
   height: calc(1.4em + var(--marquee-wave, 120px)); display: flex; align-items: center;
 }
+.marquee.is-paragraph { letter-spacing: normal; }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .marquee { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
@@ -710,6 +711,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Content that follows the width (STANDINS.json). The block's rows come from these heights. */
 /* The padding sits on the block, around .sqs-block-content, which holds the figure and its margins (CAP-75QUOTE.json, difference 86). */
 .sqs-block-quote { padding: 6%; box-sizing: border-box; }
+/* After a View Layouts pick a Quote has 3% (CAP-U10QUOTEH.json). */
+.sqs-block-quote.quote-pad-3 { padding: 3%; }
 .sqs-quote-block-contents { margin: 16px 0; }
 .sqs-quote-block-contents blockquote { margin: 0; font-size: 24.4px; line-height: 34.16px; }
 .sqs-quote-block-contents .source { font-size: 16px; line-height: 16px; font-weight: 500; text-align: right; }
@@ -777,5 +780,13 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Stack with names: the names take one field's width, so they stack too (CAP-T12READS-D.json, stackNames). */
 .newsletter-form-wrapper--layoutStack .newsletter-form fieldset { width: 288px; max-width: 100%; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-button-wrapper { display: block; margin: 0; padding: 8px 0; }
-/* A Text's Background on is this class; its white is a sheet's, a picked color the box's attribute (CAP-T15WHERE-A.json, -B). */
-.sqs-block-html.sqs-background-enabled { background-color: rgb(255, 255, 255); }
+/* A Text's Background on is this class; its white is a sheet's, a picked color the box's attribute (CAP-T15WHERE-A.json, -B).
+   The sheet's color is the theme's Background Color row and the words take the "on Background" rows (CAP-THEMEROWS.json;
+   on Dark 1 white and black, read in CAP-U10PAD1.json). */
+.page-section { --text-bg: hsla(var(--white-hsl), 1); --text-on-bg: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="white"] { --text-bg: hsla(var(--lightAccent-hsl), 1); }
+.page-section[data-section-theme="white-bold"] { --text-bg: hsla(var(--lightAccent-hsl), 1); --text-on-bg: hsla(var(--safeDarkAccent-hsl), 1); }
+.page-section[data-section-theme="light-bold"], .page-section[data-section-theme="dark-bold"], .page-section[data-section-theme="black-bold"] { --text-on-bg: hsla(var(--safeDarkAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --text-bg: hsla(var(--accent-hsl), 1); --text-on-bg: hsla(var(--safeInverseAccent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --text-bg: hsla(var(--safeInverseAccent-hsl), 1); --text-on-bg: hsla(var(--accent-hsl), 1); }
+.sqs-block-html.sqs-background-enabled { background-color: var(--text-bg, rgb(255, 255, 255)); --section-ink: var(--text-on-bg); --heading-color: var(--text-on-bg); color: var(--text-on-bg); }

@@ -393,7 +393,7 @@ const STANDIN = {
   },
 };
 const STANDIN_BLOCK = { quote: 'sqs-block-quote quote-block', newsletter: 'sqs-block-newsletter newsletter-block',chart: 'sqs-block-chart chart-block', soundcloud: 'sqs-block-soundcloud soundcloud-block', flickr: 'sqs-block-flickr flickr-block', instagram: 'sqs-block-instagram instagram-block' };
-export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)(b)}</div></div>`;
+export const standinHtml = (b) => `<div class="sqs-block ${STANDIN_BLOCK[b.standin]}${b.standin === 'quote' && b.quotePad === 3 ? ' quote-pad-3' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content">${(STANDIN[b.standin] || STANDIN.gallery)(b)}</div></div>`;
 
 export const mapOf = (b) => ({ style: b.mapStyle ?? 2, labels: b.mapLabels !== false, terrain: !!b.mapTerrain, controls: !!b.mapControls, zoom: b.mapZoom ?? 12 });
 export const mapArt = (labels = true, terrain = false) => `<rect class="m-land" x="-400" y="-400" width="1200" height="1200"/>${terrain ? '<g class="m-hill"><ellipse cx="90" cy="110" rx="90" ry="60"/><ellipse cx="320" cy="310" rx="110" ry="70"/><ellipse cx="310" cy="70" rx="70" ry="45"/></g>' : ''}<path class="m-park" d="M250 150l60-14 22 58-58 20zM60 300l58-10 14 50-60 14z"/><path class="m-water" d="M-400 330C40 300 90 240 150 170S210 30 250-400H330C300 40 260 130 210 200S120 340-400 480z"/><g class="m-road"><path d="M-400 90L800 40M-400 250L800 210M-400 370L800 330M60-400L110 800M300-400L340 800"/><path class="m-thin" d="M-400 150L800 110M-400 310L800 270M-400 30L800-10M10-400L50 800M180-400L220 800M250-400L290 800M370-400L410 800"/></g>${labels ? '<g class="m-label"><text x="262" y="122">Harbor</text><text x="42" y="214">Old Town</text><text x="238" y="286">Riverside</text><text x="120" y="368">South Park</text></g>' : ''}`;
@@ -516,7 +516,10 @@ function blockInner(b, model) {
     case 'scrolling': {
       // Scrolling text (T12): the oracle draws the line along a wave path; its height is
       // the line height (1.4em, heading formula with size value 5) plus 120px. A wave of n adds n px instead (CAP-U10SC1.json).
-      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
+      // Its panel's items (scrolling-panel.js) each take the Item Spacing after them, in em, and Paragraph drops the heading's
+      // letter spacing: "Dream it" 105.8 wide as a heading, 104.5 as a paragraph (CAP-ROWSSCROLLING.json, two reads alike).
+      const words = b.items ? b.items.map((t) => `<span class="marquee-item" style="margin-right:${b.spacing ?? 0.5}em">${escapeHtml(t)}</span>`).join('') : escapeHtml(b.text || '');
+      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee${b.scrollStyle === 'paragraph' ? ' is-paragraph' : ''}" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"><span class="marquee-text">${words}</span></div></div></div>`;
     }
     case 'line': {
       // Line block (T11.json): a 17px content box in the middle of the block, a 1px rule in the middle of that.
@@ -637,7 +640,7 @@ function designRule(b, d, phone, live = false) {
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
       transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' || live ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || (b.type === 'text' ? 'var(--text-bg, rgb(255, 255, 255))' : 'rgb(255, 255, 255)')}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b, live = false, rule = null) {

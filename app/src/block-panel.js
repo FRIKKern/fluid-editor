@@ -12,6 +12,7 @@ import { HITS, resetBtn, ARROWS, barHtml, POSE_RANGE } from './anim-panel.js';
 import { effectPanelHtml } from './effect-panel.js';
 import { formFieldsPanelHtml } from './form-fields.js';
 import { lookBox } from './code-look.js';
+import { scrollingContentHtml, scrollingDesignHtml } from './scrolling-panel.js';
 import { STANDIN_PANELS, standinTabs, standinContentHtml, standinDesignHtml, standinHelpHtml, standinViewHtml } from './standin-panels.js';
 
 const pi = (d) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
@@ -586,7 +587,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   } else if (tab === 'Formatting Help' && content?.kind === 'standin') {
     body = standinHelpHtml(content);
   } else if (tab === 'Content' && content) {
-    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'newsletter' ? newsletterContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
+    body = image ? imageContentHtml(content) : content.kind === 'social' ? socialContentHtml(content, open) : content.kind === 'form' ? formContentHtml(content) : content.kind === 'map' ? mapContentHtml(content) : content.kind === 'quote' ? quoteContentHtml(content) : content.kind === 'newsletter' ? newsletterContentHtml(content) : content.kind === 'markdown' ? markdownContentHtml(content) : content.kind === 'code' ? codeContentHtml(content) : content.kind === 'embed' ? embedContentHtml(content, open) : content.kind === 'accordion' ? accordionContentHtml(content, open) : content.kind === 'scrolling' ? scrollingContentHtml(content) : content.kind === 'video' ? videoContentHtml(content) : buttonContentHtml(content);
   } else if (tab === 'Storage') {
     body = newsletterStorageHtml();
   } else if (tab === 'Design' && content?.kind === 'newsletter') {
@@ -664,7 +665,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
       + blurRows(d)
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('');
-    else body = `<div class="bp-look-rows">${appearanceRows(d)}${blendRow(d.blend || 'normal', open === 'blend', true)}${blurRows(d)}</div>`
+    else body = (content?.kind === 'scrolling' ? scrollingDesignHtml(content) : '') + `<div class="bp-look-rows">${appearanceRows(d)}${blendRow(d.blend || 'normal', open === 'blend', true)}${blurRows(d)}</div>`
       + `<div class="bp-thead"><span>Transforms</span>${MORE}</div>`
       + pairs.join('') + (content?.kind === 'quote' ? effectsRows(content.appear) : '');
   } else {
@@ -673,7 +674,7 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   }
   if (kid && tab === 'Design') body = kidSizeHtml(kid) + body;
   if (content?.kind === 'form' && tab === 'Design') body = formDesignHtml(content, open === 'bstyle') + body;
-  if ((tab === 'Content' && (open === 'embed-data' || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
+  if ((tab === 'Content' && (open === 'embed-data' || (content?.kind === 'scrolling' && content.item != null) || open?.startsWith('acc-item:') || open?.startsWith('soc-row:'))) || open === 'acc-dividers' || open === 'acc-title' || open === 'acc-desc') return `<div class="sp-body">${body}</div>`;
   const tabs = content?.kind === 'standin' ? standinTabs(content.name) : content?.kind === 'markdown' ? ['Content'] : content?.kind === 'newsletter' ? ['Content', 'Design', 'Storage'] : content?.kind === 'accordion' ? ['Content', 'Design'] : content?.kind === 'line' ? ['Design', 'Animation'] : content ? ['Content', 'Design', 'Animation'] : ['Design', 'Animation'];
   // The header is also the drag handle (U13): the oracle labels it Click and drag to reposition block editor form.
   // Tock's panel has no tab row (CAP-T12PANELS-C.json): its body is the whole panel.
