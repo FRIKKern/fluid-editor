@@ -1,0 +1,888 @@
+{
+  "item": "X2",
+  "capturedAt": "2026-11-11",
+  "question": "X2 phone, round F: in the oracle's phone view, which handle pulls leave a Shape selected when let go, by the mouse and by touch (held 150 ms)? Desktop: a Shape let go more than about 32 px below its old bottom by the mouse is not selected (30 stays); a Text let go off a bottom corner is not, off a top corner above its old top is not, pressed with no move is not, off its east side it stays; touch keeps each. Each new Shape added on desktop, then the phone view, where it fills the phone's width, so the corner pull goes 60 left. One block per enter, read twice (R1, R2), Gestures Probe, unsaved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built.",
+  "rule": "Ours as built, on a phone as on desktop: any block but a Text let go by the mouse or a pen more than 32px below its old bottom is not selected; a Text let go by the mouse off a bottom corner, off a top corner more than 1px above its old top, or pressed on a corner with no move, is not selected; touch keeps every block selected.",
+  "from": "Ours on main: editor.js onUp, LET_GO_BELOW, LET_GO_ABOVE and the touch exception; the view (bp) is not looked at. Run in ours' phone view with scripts/lib/phone-letgo.mjs. Read facts: if both reads agree they are built as read.",
+  "hit": "Scored on the block's data-is-selected after the pull (each case's two reads must agree). A 'before' read not selected is a setup miss, named, not scored.",
+  "predicted": {
+    "Shape south 30 down": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Shape south 30 down before": {
+      "selected": true,
+      "setup": true
+    },
+    "Shape south 40 down": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Shape south 40 down before": {
+      "selected": true,
+      "setup": true
+    },
+    "Shape corner 60 left, 60 down": {
+      "selected": false,
+      "asBuilt": false
+    },
+    "Shape corner 60 left, 60 down before": {
+      "selected": true,
+      "setup": true
+    },
+    "Shape corner 60 left, 60 down by touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Shape corner 60 left, 60 down by touch before": {
+      "selected": true,
+      "setup": true
+    },
+    "Shape south 65 down by touch": {
+      "selected": true,
+      "asBuilt": true
+    },
+    "Shape south 65 down by touch before": {
+      "selected": true,
+      "setup": true
+    }
+  },
+  "cases": {
+    "Shape south 30 down": [
+      "R1 Shape south 30 down",
+      "R2 Shape south 30 down"
+    ],
+    "Shape south 40 down": [
+      "R1 Shape south 40 down",
+      "R2 Shape south 40 down"
+    ],
+    "Shape corner 60 left, 60 down": [
+      "R1 Shape corner 60 left, 60 down",
+      "R2 Shape corner 60 left, 60 down"
+    ],
+    "Shape corner 60 left, 60 down by touch": [
+      "R1 Shape corner 60 left, 60 down by touch",
+      "R2 Shape corner 60 left, 60 down by touch"
+    ],
+    "Shape south 65 down by touch": [
+      "R1 Shape south 65 down by touch",
+      "R2 Shape south 65 down by touch"
+    ]
+  },
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      30,
+      "R1 Shape south 30 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape south 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 40 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      40,
+      "R1 Shape south 40 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape south 40 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape corner 60 left, 60 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "se",
+      -60,
+      60,
+      "R1 Shape corner 60 left, 60 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape corner 60 left, 60 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape corner 60 left, 60 down by touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      -60,
+      60,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Shape corner 60 left, 60 down by touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 65 down by touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "s",
+      0,
+      65,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R1 Shape south 65 down by touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 30 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      30,
+      "R2 Shape south 30 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape south 30 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 40 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      40,
+      "R2 Shape south 40 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape south 40 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape corner 60 left, 60 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "se",
+      -60,
+      60,
+      "R2 Shape corner 60 left, 60 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape corner 60 left, 60 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape corner 60 left, 60 down by touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "se",
+      -60,
+      60,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Shape corner 60 left, 60 down by touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 65 down by touch before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "touch",
+      0,
+      "new",
+      "s",
+      0,
+      65,
+      {
+        "holdMs": 150
+      }
+    ],
+    [
+      "read",
+      "R2 Shape south 65 down by touch",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ]
+}

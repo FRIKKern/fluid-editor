@@ -9,6 +9,7 @@ import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './l
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
+import { PHONE_LETGO, phoneLetGo } from './lib/phone-letgo.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -893,6 +894,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     cdp(S, { op: 'drag', from: p, to: [p[0] + dx, p[1] - up], steps: 12, holdMs: 200 }); await pause(150);
     const got = onSel(); groupCases.push({ name: `X2 Text ${dir} ${dx > 0 ? 'right' : 'left'} 60, ${up} up`, diffs: got === false ? [] : [`oracle selected false, ours ${got}`] });
   }
+  // On a phone (CAP-X2PHONE-A to F.json, each read twice, R1 and R2 agreeing; rule R, refit 2, frozen): pressed on the block's own edge or corner.
+  { const R = Object.assign({}, ...['A', 'B', 'C', 'D', 'E', 'F'].map((x) => JSON.parse(readFileSync(new URL(`../parity/findings/CAP-X2PHONE-${x}.json`, import.meta.url))).reads));
+    for (const c of PHONE_LETGO) {
+      const want = R[`R1 ${c[0]}`].block.data['data-is-selected'] === 'true', got = await phoneLetGo(S, c);
+      groupCases.push({ name: `X2 phone ${c[0]}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
+    } }
   // A drag on a selected Text: inside its text it opens the editor and stays, under it the block moves (CAP-TEXTPRESS.json).
   for (const [name, below, moved] of [['on the text', 0, false], ['under the text', 30, true]]) {
     await load('text', '<p>Some text</p>');

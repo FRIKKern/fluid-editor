@@ -1035,7 +1035,7 @@ function onDown(e) {
     // Starting the resize takes the handle out of the page, and a touch's later events stay on it,
     // out of reach of the page's listener. Unprevented, the browser pans and the release is lost.
     if (e.pointerType === 'touch') handle.addEventListener('touchmove', onTouchMove, { passive: false });
-    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
+    gesture = { type: 'pending', resizeDir: handle.dataset.dir, group: !!sel.more?.length, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
   if (!blk) {
@@ -1120,6 +1120,9 @@ function onUp(e) {
     // (CAP-X2LEFT.json), twice each.
     const corner = g.resizeDir || '';
     if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text') { select(null); return; }
+    // On a phone a handle press short of a drag lets the block go, a Text too: a Shape's south side pressed with no move, 5 up,
+    // 5 and 10 down, its east side pressed and 5 left, a Text's east side pressed (CAP-X2PHONE-C/D/E.json, twice each). Refit 2 of rule P.
+    if (corner && bp === 'mobile' && !g.group && e.pointerType !== 'touch') { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1141,12 +1144,18 @@ function onUp(e) {
   }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
-  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > LET_GO_BELOW) select(null);
+  // On a phone a resize that leaves the area as it was lets the block go: a Shape's south side 20 down, its north side 60 up
+  // at the section's top, a Line's south side 20 down (CAP-X2PHONE-C.json, CAP-X2PHONE-E.json, twice each). Refit 2 of rule P.
+  if (g.type === 'resize' && bp === 'mobile' && e.pointerType !== 'touch' && !g.members && g.target.join() === g.orig.join()) select(null);
+  // On a phone the line is the old bottom itself: 10, 20 and 30 below let go, 30 above stays (CAP-X2PHONE-A.json, CAP-X2PHONE-C.json).
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > (bp === 'mobile' ? LET_GO_BELOW_PHONE : LET_GO_BELOW)) select(null);
   // A Text let go off a bottom corner is not selected, whichever way it was pulled: se 5 to 80 right, 60 left, up and
   // down, sw 60 left and down. Off a top corner it stays level with the old top (ne 60 right, nw 60 left) and is not
   // selected from 2 above it (ne, nw 60 up; CAP-X2TOPLINE.json 2 to 8 up). Off its east side it stays (CAP-X2STEPS.json, CAP-X2EDGES.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(se|sw)$/.test(g.dir)) select(null);
-  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && g.top0 - e.clientY > LET_GO_ABOVE) select(null);
+  // On a phone the north-east corner lets it go pulled down too (ne 60 down, CAP-X2PHONE-B.json), while the north-west one keeps
+  // it (nw 60 down, CAP-X2PHONE-D.json), twice each; cause not known. Refit 1 of rule P.
+  if (g.type === 'resize' && e.pointerType !== 'touch' && b.type === 'text' && !g.members && /^(ne|nw)$/.test(g.dir) && (g.top0 - e.clientY > LET_GO_ABOVE || (bp === 'mobile' && g.dir === 'ne' && e.clientY - g.top0 > LET_GO_ABOVE))) select(null);
   if (g.type === 'move' && g.pick) select(g.pick);
   if (g.type === 'move' && g.pageScrolled) scrolledMove = { sid: g.sid, bid: g.bid };
   // After a south resize let go over the block last moved while the page scrolled under it, the page scrolls so that block's
@@ -1166,6 +1175,7 @@ function onUp(e) {
   commit(g.before, `${g.type === 'move' ? 'Moved' : 'Resized'} ${g.bid} to ${g.target.join('/')}`, true);
 }
 const LET_GO_BELOW = 32; // between the two reads: 30 stays selected, 35 does not
+const LET_GO_BELOW_PHONE = 0; // a drag let go 20 below does not stay, 30 above does (CAP-X2PHONE-A/C.json); 0 is inferred
 // A Text's top corners: level with the old top stays selected (CAP-X2EDGES.json), 2, 4, 6, 8, 10, 20, 40, 50 and 60 above do
 // not (CAP-X2TOPLINE.json, CAP-X2UNREAD.json, twice each). The line is between 0 and 2: 1 is inferred (refit 1 of the 5 that
 // CAP-X2TOPLINE-PREDICTED.json scored 3 of 6).
