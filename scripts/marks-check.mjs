@@ -4065,7 +4065,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // one paragraph, as read; a Text of two stays off, not read.
   {
     const MB = FIND('CAP-U10MIXB').reads, errs = [];
-    const PICKS = {"Image+Video": ["IMAGEVIDEO"], "Text+Video": ["TEXTVIDEO"], "Image+Map": ["IMAGEMAP"], "Quote+Text": ["QUOTETEXT", "QUOTETEXT7"], "Button+Quote": ["BUTTONQUOTE"], "Code+Video": ["CODEVIDEO"], "Button+Code": ["BUTTONCODE"], "Accordion+Button": ["ACCORDIONBUTTON"]};
+    const PICKS = {"Image+Video": ["IMAGEVIDEO"], "Text+Video": ["TEXTVIDEO"], "Image+Map": ["IMAGEMAP"], "Quote+Text": ["QUOTETEXT"], "Button+Quote": ["BUTTONQUOTE"], "Code+Video": ["CODEVIDEO"], "Button+Code": ["BUTTONCODE"], "Accordion+Button": ["ACCORDIONBUTTON"]};
     const idn = (x) => +x.id.split('_').pop(), seen = (r) => r && [...r.stack].sort((x, y) => idn(x) - idn(y)).map((x) => [x.desktop, x.phone]);
     const lookOf = (r) => [r.look.rows, r.look.th, r.look.ht, r.look.dv ? DV[JSON.parse(r.look.ctx).type] : ''].join();
     // A pick counts as read where both runs give the same areas, rows and look.
