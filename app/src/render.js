@@ -393,7 +393,8 @@ export const phoneHeightAt = (label, cols) => PHONE_HEIGHTS[label]?.find(([c]) =
 const phoneCols = (b) => { const a = b.layout?.mobile?.area; return a ? a[3] - a[1] : 8; };
 // A Pricing Plan's phone content less the parts its Elements turn off, in both views (CAP-T12PPPHONE.json, -2.json: 24px rows on
 // the phone after Benefits off on desktop, 236.2 high with Benefits and Description off), the parts as on desktop.
-const phoneH = (b) => { const h = phoneHeightAt(b.label, phoneCols(b)) ?? b.phoneHeight; return b.label === 'Pricing Plan' && b.sp ? planHeight(b, h) : h; };
+export const phoneHeightOf = (b, cols) => { const h = phoneHeightAt(b.label, cols) ?? b.phoneHeight; return b.label === 'Pricing Plan' && b.sp ? planHeight(b, h) : h; };
+const phoneH = (b) => phoneHeightOf(b, phoneCols(b));
 const STANDIN = {
   // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
   // shows as a space (CAP-T12QUOTEROWS.json). An empty Source takes the figcaption away.

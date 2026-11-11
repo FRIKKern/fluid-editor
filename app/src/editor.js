@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt, phoneHeightOf } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -1626,7 +1626,7 @@ function updateResize(e) {
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
     const [, o0, , o1] = g.orig;
     const past = g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols;
-    need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
+    need = Math.max(g.free?.need ?? 1, Math.ceil((phoneHeightOf(held, c1 - c0) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
   }
   // A Text on a corner pull takes the floor its text had one pointer step before, as a side pull does at the drop: narrowed
   // from one row it stays one row, and the text runs over until let go (CAP-TEXTWIDTH7.json f3, CAP-SINGLEAGAIN.json f3,
@@ -2950,18 +2950,20 @@ blockPanel.addEventListener('change', (e) => {
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
 // A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
 // lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
-// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). On the phone the switch refits the phone only, and a
-// shrink takes off the part with a row gap, in rows rounded up (CAP-T12PPPHONE.json, -2.json: Description off, 10 rows to 6;
-// unscored, the one phone shrink read; a phone growth is inferred to work as on desktop).
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). On the phone the switch refits the phone only, in the
+// phone's least row, 24 + the gap (its rows stretch): the parts lost with a row gap, in rows rounded up, come off whatever the
+// content still needs, and a part back on adds them again (CAP-T12PPPHONE.json, -2.json, two reads of the same steps:
+// Description off at rows of 24, 10 rows to 6; unscored; from a new plan's stretched rows, and a part back on, inferred).
 function setStandinValue(key, v) {
   const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area, phone = bp === 'mobile';
   const all = b.label === 'Pricing Plan' && PLAN_PARTS.some(([k]) => k === key) ? (phone ? phoneHeightAt(b.label, a[3] - a[1]) ?? b.phoneHeight : deskHeight(b.label, a[3] - a[1])) : undefined;
   const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
-    const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    const lost = phone ? Math.ceil(X(h0 - planHeight(b, all)) - 0.02) : Math.ceil(X(h0) - x + 0.05);
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
+    const m = measure(feEl(sel.sid)), pitch = phone ? PHONE_ROW + m.rg : m.pitch, X = (h) => (h + m.rg) / pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
+    const h1 = planHeight(b, all), step = Math.ceil(X(Math.abs(h1 - h0)) - 0.02), lost = Math.ceil(X(h0) - x + 0.05);
+    if (phone) { if (h1 !== h0) setFormRows(b, S(sel.sid), Math.max(1, rows + Math.sign(h1 - h0) * step)); }
+    else setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }
