@@ -1919,7 +1919,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       }
       browser(S, 'press', 'Escape'); await pause(150);
     }
-    add(`View Layouts p1: the first pick by the start's lines and blocks, and three lines of code through every read pick (${n} picks)`, errs.length === 0 && n === 23, errs.slice(0, 3).join(' | '));
+    add(`View Layouts p1: the first pick by the start's lines and blocks, and three lines of code through every read pick (${n} picks)`, errs.length === 0 && n === 22, errs.slice(0, 3).join(' | '));
   }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
