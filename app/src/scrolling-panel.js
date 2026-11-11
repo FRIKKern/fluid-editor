@@ -57,10 +57,13 @@ export function scrollingDesignHtml(c) {
 export function wireScrolling(panel, api) {
   const DEF = { size: 1.5, direction: 'left', speed: 1, spacing: 0.5 };
   const write = (b, key, v) => { if (v === DEF[key] && key !== 'size') delete b[key]; else b[key] = v; };
+  // The model before a range's drag, for its key and block. A drag that ends where it began fires no change, so any other
+  // press drops it: a later commit never takes an older snapshot.
   let rangeBefore = null;
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
+    if (!e.target.closest('[data-scr-range]')) rangeBefore = null;
     const nav = e.target.closest('[data-scr]');
     if (nav) { const [act, n] = nav.dataset.scr.split(':'); api.view(act === 'open' ? Number(n) : null); return; }
     const o = e.target.closest('button[data-scr-set]');
@@ -72,10 +75,10 @@ export function wireScrolling(panel, api) {
   panel.addEventListener('change', (e) => {
     const b = api.block(), t = e.target;
     if (!b) return;
-    if (t.matches('input[type=checkbox][data-scr-set]')) { const key = t.dataset.scrSet, on = t.checked; api.set((x) => { if (on) x[key] = true; else delete x[key]; }, `${key} ${on ? 'on' : 'off'}`); return; }
+    if (t.matches('input[type=checkbox][data-scr-set]')) { rangeBefore = null; const key = t.dataset.scrSet, on = t.checked; api.set((x) => { if (on) x[key] = true; else delete x[key]; }, `${key} ${on ? 'on' : 'off'}`); return; }
     const r = t.closest('[data-scr-range]'), f = t.closest('[data-scr-field]');
     if (!r && !f) return;
-    const key = (r || f).dataset.scrRange || f.dataset.scrField, before = rangeBefore;
+    const key = (r || f).dataset.scrRange || f.dataset.scrField, before = rangeBefore?.key === key && rangeBefore.bid === b.id ? rangeBefore.snap : null;
     rangeBefore = null;
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
     api.set((x) => write(x, key, v), `${key} ${v}`, before ?? undefined);
@@ -84,8 +87,8 @@ export function wireScrolling(panel, api) {
   panel.addEventListener('input', (e) => {
     const r = e.target.closest('[data-scr-range]'), b = api.block();
     if (!r || !b) return;
-    rangeBefore ??= api.snapshot();
     const key = r.dataset.scrRange, v = Number(r.value);
+    if (rangeBefore?.key !== key || rangeBefore.bid !== b.id) rangeBefore = { key, bid: b.id, snap: api.snapshot() };
     r.style.setProperty('--p', `${((v - r.min) / (r.max - r.min)) * 100}%`);
     const f = panel.querySelector(`[data-scr-field="${key}"]`);
     if (f) f.value = `${num(v)}${f.dataset.unit}`;

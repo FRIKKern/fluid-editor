@@ -58,7 +58,23 @@ add('Item Spacing 0.6em: second word', !!now.words?.[1] && near(now.words[1][0] 
 for (let k = seen.length - 2; k >= 0; k--) {
   qs(`fe.undo(); await sleep(250); return 'true';`);
   const u = state(), want = seen[k];
-  add(`undo to step ${k}`, u.area === want.area && u.rows === want.rows, `${u.area} ${u.rows} (want ${want.area} ${want.rows})`);
+  const words = (x) => (x.words || []).map((w) => w.map((v) => v.toFixed(1)).join(',')).join(' ');
+  add(`undo to step ${k}`, u.area === want.area && u.rows === want.rows && words(u) === words(want), `${u.area} ${u.rows} ${words(u)} (want ${want.area} ${want.rows} ${words(want)})`);
 }
-console.log(`\n${pass}/${total} match`);
-process.exit(pass === total ? 0 : 1);
+// A drag: many inputs show on the block as it goes, letting go is one step. A drag that ends where it began fires no
+// change; a press after it, then another drag, must still undo one step at a time.
+const range = at('#block-panel [data-scr-range="wave"]'), w = qs(`return JSON.stringify(document.querySelector('#block-panel [data-scr-range="wave"]').getBoundingClientRect().width);`);
+const drag = async (to, back = false) => { const x0 = range[0] - w / 2 + 4; mouse(S, 'move', x0, range[1]); await pause(60); mouse(S, 'down', x0, range[1], { buttons: 1 }); for (let n = 1; n <= 10; n++) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } if (back) for (let n = 9; n >= 0; n--) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } const x = back ? x0 : x0 + to - 4; mouse(S, 'up', x, range[1]); await pause(400); };
+const start = state();
+await drag(w * 0.75); const dragged = state();
+qs(`fe.undo(); await sleep(250); return 'true';`); const dragUndo = state();
+add('Wave dragged to 150: one undo step', dragged.area === changeOf('Wave Intensity').area[1] && dragUndo.area === start.area && dragUndo.rows === start.rows, JSON.stringify({ dragged, dragUndo }));
+await drag(w * 0.4, true);
+await press('#block-panel [aria-label="Medium text size"]'); const medium = state();
+await drag(w * 0.75);
+qs(`fe.undo(); await sleep(250); return 'true';`); const back = state();
+add('Drag back to start, Medium, drag: undo takes one step', back.area === medium.area && back.rows === medium.rows, JSON.stringify({ medium, back }));
+// The cases are counted: a findings change that drops a row must not shrink the check unseen.
+const CASES = 26;
+console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
+process.exit(pass === total && total === CASES ? 0 : 1);
