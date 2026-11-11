@@ -467,7 +467,7 @@ function blockInner(b, model) {
       }
     case 'shape': {
       if (b.standin) return standinHtml(b);
-      if (tileOf(b)) return tileHtml(b);
+      if (tileOf(b)) return tileHtml(b, b.phoneHeight ? phoneH(b) : null);
       const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
