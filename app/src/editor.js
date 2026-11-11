@@ -38,6 +38,7 @@ import { rowOn, ownOf, animPhoneOrder, TABS, REST, newAnimation, poseKey, typed,
 import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, POSE_RANGE } from './anim-panel.js';
 import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
+import { scrollOf, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -614,7 +615,7 @@ toolbar.addEventListener('click', (e) => {
   // A button's Edit panel opens on Content (parity/findings/BUTTONEDIT.json).
   if (act === 'edit' && dialogOf(b)) { designOpen = bid; dlgTab = dialogOf(b).tabs?.[0] || null; updateUi(); return; } // T12's older dialogs (dialogs.js)
   // Edit opens on the tab this block type's panel last showed, kept for the session; none yet: the type's first (CAP-T15EDITTAB.json).
-  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = tabOfType.get(b.standin || b.type) || (b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'); updateUi(); return; }
+  if (act === 'edit') { kidSizeOpen = null; designOpen = bid; designTab = tabOfType.get(b.standin || b.type) || (b.type === 'form' || b.type === 'button' || b.type === 'embed' || b.type === 'accordion' || b.type === 'image' || b.type === 'social' || b.type === 'map' || (b.type === 'video' && !b.html) || (b.type === 'code' && b.html != null) || b.type === 'markdown' || b.type === 'scrolling' || b.standin === 'newsletter' || standinPanelOf(b) ? 'Content' : 'Design'); updateUi(); return; }
   // The toolbar link button opens the same link editor, centred under the button and 7px
   // below it (measured 2026-11-04 on the oracle demo button).
   if (act === 'link' && (b.type === 'button' || b.type === 'stack' || b.type === 'image')) {
@@ -1929,6 +1930,7 @@ let embedData = false;
 // A stand-in's view (Audio's Podcast, Summary's Size and Spacing), for the block it was opened on.
 let spView = null;
 let accView = null; // 'acc-item:<n>' or 'acc-dividers'
+let scrView = null; // a Scrolling item's view: { bid, n }
 let accGrew = false; // an edit in the item view on show made the block grow
 let imageView = null; // the image Shape picker's tab, or null
 let fxView = null; // the Image Effect panel: 'list', 'settings' or null
@@ -1948,7 +1950,7 @@ function renderBlockPanel() {
   if (!dialogEl.hidden) { dialogEl.hidden = true; dialogEl.dataset.key = ''; }
   if (!sel || sel.bid !== linkPop.dataset.bid) closeLinkPopover();
   if (!b && accView) for (const li of doc.querySelectorAll('.accordion-item[data-is-open]')) if (li.previousElementSibling || li.parentElement.dataset.isExpandedFirstItem !== 'true') li.removeAttribute('data-is-open');
-  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; spView = null; accView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
+  if (!b) { anim = { ...ANIM_LIST }; syncAnimView(null); blendOpen = false; bstyleOpen = false; fihOpen = false; embedData = false; spView = null; accView = null; scrView = null; imageView = null; ffView = null; showFormPost(null); fxView = null; panelMoved = null; if (!blockPanel.hidden) { blockPanel.hidden = true; } if (designOpen && (!sel || designOpen !== sel.bid)) designOpen = null; return; }
   if (b.type !== 'image' || b.mode !== 'shape' || designTab !== 'Design') imageView = null; // undo can leave Shape
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
@@ -1965,8 +1967,10 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
+    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
+  if (scrView && scrView.bid !== b.id) scrView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -2863,12 +2867,15 @@ function setMap(change, label) {
 }
 // Edit Form Fields (FORMFIELDS.json): one undo step per change. The block's rows follow the form.
 let ffView = null, ffBefore = null;
-function setFormRows(b, s, need) {
+// spare: the rows under the lowest block stay spare as it grows, the section taking as many rows as it does (Scrolling,
+// CAP-ROWSSCROLLING.json and -2: area 3 > 6 takes section rows 8 > 11, two reads alike).
+function setFormRows(b, s, need, spare = false) {
   const a = lay(b).area, rows = a[2] - a[0];
   if (need === rows) return;
   const lowest = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), low = lowest();
   a[2] = a[0] + need;
-  if (need < rows) s.rows[bp] -= low - lowest(); else growRows(s);
+  if (need < rows) s.rows[bp] -= low - lowest();
+  else { if (spare) s.rows[bp] += lowest() - low; growRows(s); }
   renderSectionDom(sel.sid);
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
@@ -3387,8 +3394,8 @@ function renderShapePop() {
     shapePop.innerHTML = `${ffView.startsWith('ff-fu:') ? '' : '<button type="button" data-ff-pop="follow">Add follow-up question</button>'}<button type="button" class="is-red" data-ff-pop="delete">Delete Option</button>`;
     shapePop.style.cssText = `right:${innerWidth - shapeUi.rect.left + 4}px;top:${shapeUi.rect.top + 40}px`;
   } else if (kind === 'accmenu') {
-    const key = shapeUi.key, list = key === 'icon' ? [['plus', 'Plus'], ['arrow', 'Arrow']] : Object.entries(ACCORDION_STYLES).filter(([k]) => key === 'titleStyle' || k[0] === 'p');
-    const cur = key === 'icon' ? b.icon || 'plus' : b[key] || (key === 'titleStyle' ? 'h4' : 'p2'), at = list.findIndex(([k]) => k === cur);
+    const key = shapeUi.key, list = key === 'icon' ? [['plus', 'Plus'], ['arrow', 'Arrow']] : key === 'scrollStyle' ? [['heading', 'Heading'], ['paragraph', 'Paragraph']] : Object.entries(ACCORDION_STYLES).filter(([k]) => key === 'titleStyle' || k[0] === 'p');
+    const cur = key === 'icon' ? b.icon || 'plus' : b[key] || { titleStyle: 'h4', scrollStyle: 'heading' }[key] || 'p2', at = list.findIndex(([k]) => k === cur);
     const icon = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${d}</svg>`;
     const glyph = { plus: '<path d="M4 12h16M12 4v16"/>', arrow: '<path d="M6 9l6 6 6-6"/>' };
     shapePop.innerHTML = list.map(([k, l]) => `<button type="button" role="option" class="${k === cur ? 'is-cur' : ''}" data-acc-opt="${k}" aria-selected="${k === cur}">${key === 'icon' ? `<i>${icon(glyph[k])}</i>` : ''}<span>${l}</span>${k === cur ? icon('<path d="M5 12l5 5 9-10"/>') : ''}</button>`).join('');
@@ -3495,7 +3502,7 @@ shapePop.addEventListener('click', (e) => {
   if (accOpt) {
     const { key } = shapeUi, v = accOpt.dataset.accOpt;
     closeShapePop();
-    setAccordion((b) => { const def = { icon: 'plus', titleStyle: 'h4', descStyle: 'p2' }[key]; if (v === def) delete b[key]; else b[key] = v; }, `${key} ${v}`);
+    (key === 'scrollStyle' ? setScrolling : setAccordion)((b) => { const def = { icon: 'plus', titleStyle: 'h4', descStyle: 'p2', scrollStyle: 'heading' }[key]; if (v === def) delete b[key]; else b[key] = v; }, `${key} ${v}`);
     return;
   }
   const ao = e.target.closest('[data-an-opt]');
@@ -4088,6 +4095,25 @@ function accordionEscape() {
   fitAccordion(b, S(sel.sid), need);
   if (JSON.stringify(model) !== before) { followPhoneRows(before); note('Item closed'); updateUi(); }
 }
+// Scrolling's rows (CAP-ROWSSCROLLING.json and -2.json, two reads alike): a change of its content's height fits the rows to
+// it, both ways, in the view being edited: Wave Intensity 0 to 150 took 2 rows to 5, Medium 7, Small back to 5, Large 9.
+// The other view and the blocks below are not read: the other view stays, as an Accordion's does (inferred).
+function setScrolling(change, label, before = JSON.stringify(model), live = false) {
+  const b = B(sel.sid, sel.bid);
+  change(b);
+  renderSectionDom(sel.sid);
+  const need = contentRows(b, formPitch(b)), a = lay(b).area;
+  if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
+  if (live) return;
+  commit(before, label);
+  renderBlockPanel();
+}
+wireScrolling(blockPanel, {
+  block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
+  set: setScrolling,
+  snapshot: () => JSON.stringify(model),
+  view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
+});
 function setAccordion(change, label, before = JSON.stringify(model)) {
   const b = B(sel.sid, sel.bid), s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   change(b);
@@ -5348,7 +5374,7 @@ const ADD_TYPES = [
   ['Form', 9, 16, () => ({ type: 'form', button: 'Submit', formName: `${pageTitle()} Form`, fields: [{ kind: 'name', label: 'Name', parts: ['First Name(required)', 'Last Name(required)'] }, { kind: 'email', label: 'Email(required)', signup: 'Sign up for news and updates' }, { kind: 'text', label: 'Subject(required)' }, { kind: 'textarea', label: 'Message(required)' }] })],
   ['Accordion', 8, 8, () => ({ type: 'accordion', items: [1, 2, 3].map((n) => ({ title: `Accordion Item ${n}`, description: ACCORDION_DESCRIPTION })) })],
   ['Shape', 6, 6, () => ({ type: 'shape', radius: '0' })],
-  ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', size: 1.5, wave: 0 })],
+  ['Scrolling', 24, 2, () => ({ type: 'scrolling', text: 'Dream it 〰️', items: [...SCROLL_ITEMS], size: 1.5, wave: 0 })],
   ['Line', 4, 1, () => ({ type: 'line' })],
   ['Map', 8, 12, () => ({ type: 'map' })],
   ['Social Links', 4, 2, () => ({ type: 'social', align: 'center' })],

@@ -1,0 +1,48 @@
+/* Scrolling's panel (scrolling-panel.js): every place as read in CAP-T12SCROLLPANEL-A.json to -C.json, in px below the tabs. */
+.bp-scr-list { margin-top: 20px; }
+.bp-scr-grip { flex: none; display: grid; grid-template-columns: 2px 2px; gap: 2px 3px; width: 7px; margin-right: 9px; }
+.bp-scr-grip i { width: 2px; height: 2px; border-radius: 50%; background: #3a3a3a; }
+.bp-scr-add { display: block; width: 276px; height: 44px; padding: 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 500; line-height: 22px; letter-spacing: .5px; text-transform: uppercase; text-align: left; color: #0e0e0e; }
+.bp-scr-cap { height: 16px; margin: 44px -22px 0; padding: 0 22px; font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: .75px; text-transform: uppercase; color: #666; }
+.bp-scr-cap.is-link { margin-top: 22px; }
+.bp-scr-attach { display: block; box-sizing: border-box; width: 276px; height: 44px; margin-top: 6px; border: 1px solid #e7e7e7; border-radius: 6px; background: #fff; font-family: inherit; font-size: 12px; font-weight: 500; line-height: 22px; letter-spacing: .5px; text-transform: uppercase; color: #0e0e0e; }
+.bp-scr-add[disabled], .bp-scr-attach[disabled], .bp-scr-acts button[disabled], .bp-scr-row .bp-acc-trash[disabled] { cursor: default; }
+/* An item's view: Back and its name, then Text, Duplicate and Delete (CAP-T12SCROLLPANEL-B.json and -C.json). */
+.bp-scr-sub { margin-top: -5.5px; height: 46px; }
+.bp-scr-cap.is-text { margin-top: 26.5px; }
+.bp-scr-text { display: block; box-sizing: border-box; width: 276px; height: 44px; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; color: #0e0e0e; outline: none; }
+.bp-scr-line { height: 1px; margin: 0 -5px; background: #e7e7e7; }
+.bp-scr-acts { display: flex; justify-content: space-between; margin-top: 11px; }
+.bp-scr-acts button { height: 36px; padding: 0; border: 0; background: none; font-family: inherit; font-size: 12px; font-weight: 500; line-height: 22px; letter-spacing: .5px; text-transform: uppercase; color: #0e0e0e; }
+.bp-scr-acts .is-red { color: #c32d38; }
+/* Design. */
+.bp-scr > .bp-scr-wave { margin: 25px -5px 0; padding: 0 5px; border-bottom: 1px solid #e7e7e7; }
+.bp-scr .sp-label { color: #0e0e0e; font-size: 14px; line-height: 22px; }
+.bp-scr-wave > .sp-label { display: block; height: 22px; }
+.bp-scr-steps { position: relative; height: 43px; }
+.bp-scr-steps i { position: absolute; top: 18.5px; width: 6px; height: 6px; border-radius: 50%; background: #e7e7e7; pointer-events: none; }
+.bp-scr input[type=range] { display: block; width: 276px; height: 44px; margin: 0; background: none; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.bp-scr-steps input[type=range] { position: absolute; left: 0; top: -0.5px; }
+.bp-scr input[type=range]::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right, #0e0e0e var(--p, 0%), #e7e7e7 var(--p, 0%)); }
+.bp-scr input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 8px; margin-top: -3px; border-radius: 50%; background: #0e0e0e; }
+.bp-scr-style { display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: 298px; height: 46px; margin: 21px -11px 0; padding: 0 11px; border: 0; background: linear-gradient(#e7e7e7, #e7e7e7) bottom / 286px 1px no-repeat; font: inherit; color: #0e0e0e; cursor: pointer; }
+.bp-scr-v { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; color: #3e3e3e; }
+.bp-scr-v svg { width: 16px; height: 16px; margin-right: 2px; }
+.bp-scr-seg { display: grid; box-sizing: border-box; width: 288px; height: 36px; margin: 4px -6px 0; border: 2px solid #f2f2f2; border-radius: 3px; background: #f2f2f2; }
+.bp-scr-seg.is-4 { grid-template-columns: repeat(4, 1fr); }
+.bp-scr-seg.is-3 { grid-template-columns: repeat(3, 1fr); }
+.bp-scr-seg.is-2 { grid-template-columns: repeat(2, 1fr); }
+.bp-scr-opt { display: grid; place-items: center; height: 32px; padding: 0; border: 0; border-radius: 2px; background: none; font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: -0.14px; color: #666; cursor: pointer; }
+.bp-scr-opt.is-on { background: #fff; color: #0e0e0e; }
+.bp-scr-seg + .bp-scr-cap { margin-top: 26px; }
+.bp-scr-seg + .bp-scr-sw { margin-top: 14px; }
+.bp-scr-sw { box-sizing: border-box; min-height: 46px; margin: 0 -5px; padding: 0 5px; }
+.bp-scr-lab { margin: 33px -5px 0; padding: 0 5px; border-bottom: 1px solid #e7e7e7; }
+.bp-scr-seg + .bp-scr-lab { margin-top: 15px; }
+.bp-scr-lab + .bp-scr-cap { margin-top: 22px; }
+.bp-scr-labhead { display: flex; justify-content: space-between; align-items: center; height: 22px; }
+.bp-scr-labhead input { width: 60px; margin-right: 6px; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; text-align: right; color: #0e0e0e; }
+.bp-scr-lab input[type=range] { margin: -0.5px 0 -0.5px; }
+.bp-scr + .bp-look-rows { margin-top: 0; }
+.bp-scr-sw + .bp-scr-sw { min-height: 45px; }
+.bp-scr-row .bp-acc-go svg { width: 22px; height: 22px; }
