@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 12 changes
-  - U10: a one-block Text of several lines at the paragraph list's first pick takes layout 0's low span ([#601](https://github.com/FRIKKern/fluid-editor/pull/601))
-  - T12: Newsletter's Undo and Redo give the rows the content needs ([#593](https://github.com/FRIKKern/fluid-editor/pull/593))
+- **Today** · 14 changes
+  - T12: Bar Chart lines one pixel each, as the oracle's ([#602](https://github.com/FRIKKern/fluid-editor/pull/602))
+  - Y2: the rows drop and the phone order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME) ([#599](https://github.com/FRIKKern/fluid-editor/pull/599))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
