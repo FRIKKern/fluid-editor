@@ -134,10 +134,17 @@ export function variant(L, prev) {
 // The layouts before that give a step's other spans.
 const others = (step) => [...new Set([].concat(step).flatMap((st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1])))];
 
+// The first pick, onto a section that shows no layout: a Text of more than one line at the start takes the paragraph
+// list's layout 0 at its low span, as after layout 1; one line takes the high span (read facts: CAP-U10WORDS.json's W1,
+// W2 and W4 runs at 1, 2 and 5 lines; three lines of code, CAP-U10CD1.json and CAP-U10ENDS-ECDA.json with -ECDB alike,
+// which a pick makes one line; one line of code, CAP-U10TEXTMIX-C.json and CAP-U10CD2.json). Other first picks: not read.
+// lines(b) is the block's line count as drawn before the pick.
+const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && lines(mix.by.p[0]) > 1 ? 1 : null);
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
-export function applyLayout(s, mix, n, base) {
+export function applyLayout(s, mix, n, base, lines) {
   if (mix.list[n].unbuilt) return;
-  const L = variant(mix.list[n], layoutShown(s, mix, null));
+  const L = variant(mix.list[n], layoutShown(s, mix, null) ?? firstPrev(mix, n, lines));
   s.blocks = s.blocks.filter((b) => !dropped(b));
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {

@@ -1838,6 +1838,34 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts, a growing list- or quote-first Text with one other Text: areas and rows as read, rule E (${n} picks)`, errs.length === 0 && n === 50, errs.slice(0, 3).join(' | '));
   }
+  // The first pick onto the paragraph list's layout 0: low with more than one line at the start, high with one (read
+  // facts). Three lines of code through every read pick (CAP-U10ENDS-ECDA.json, -ECDB alike; CAP-U10CD1.json), and the
+  // first pick of each CAP-U10WORDS.json run and of one-line code (CAP-U10TEXTMIX-C.json): rows and desktop areas.
+  {
+    const errs = [], FJ = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+    const paste = (F, k = 0) => F.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    const W = FJ('CAP-U10WORDS'), C = FJ('CAP-U10TEXTMIX-C'), runs = [];
+    for (const f of ['CAP-U10ENDS-ECDA', 'CAP-U10ENDS-ECDB', 'CAP-U10CD1']) { const F = FJ(f); runs.push([f, paste(F), Object.entries(F.reads).filter(([k]) => / layout \d/.test(k))]); }
+    for (const [k, w] of [[0, 'W1'], [1, 'W2'], [2, 'W4']]) runs.push([w, paste(W, k), [[`${w} 01 layout 0`, W.reads[`${w} 01 layout 0`]]]]);
+    runs.push(['code', paste(C, 0), [['C 01 layout 0', C.reads['C 01 layout 0']]]]);
+    let n = 0;
+    for (const [f, html, picks] of runs) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${f} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of picks) {
+        n++;
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${label.match(/layout (\d)/)[1]}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+        await pause(150);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0]) errs.push(`${f} ${label} ours ${g} read ${r.look.rows},${r.areas[0][0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: the first pick by the start's lines, and three lines of code through every read pick (${n} picks)`, errs.length === 0 && n === 19, errs.slice(0, 3).join(' | '));
+  }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
   // the heading's areas where it scrolls, and its kind or tag at every read pick (the other spans follow the words, rule W).

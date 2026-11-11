@@ -6215,7 +6215,21 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  // A Text's lines as drawn before the pick: the distinct line boxes of its words (a pre's line-height may be 'normal').
+  const lines = (b) => {
+    const el = blockEl(b.id)?.querySelector('.sqs-html-content'), doc = frame.contentDocument;
+    if (!el) return 1;
+    const tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+      if (!t.data.trim()) continue;
+      r.selectNodeContents(t);
+      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+    }
+    // Words of another size on the same line sit a few px apart; a new line starts more than half a line lower.
+    tops.sort((a, b) => a - b);
+    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+  };
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);
