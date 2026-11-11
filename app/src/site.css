@@ -426,6 +426,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
   line-height: 1.4em; letter-spacing: .01rem; white-space: nowrap; overflow: hidden;
   height: calc(1.4em + var(--marquee-wave, 120px)); display: flex; align-items: center;
 }
+.marquee.is-paragraph { letter-spacing: normal; }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .marquee { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
