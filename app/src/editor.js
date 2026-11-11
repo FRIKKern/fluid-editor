@@ -2950,15 +2950,18 @@ blockPanel.addEventListener('change', (e) => {
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
 // A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
 // lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
-// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). Phone: not read, rows stay.
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). On the phone the switch refits the phone only, and a
+// shrink takes off the part with a row gap, in rows rounded up (CAP-T12PPPHONE.json, -2.json: Description off, 10 rows to 6;
+// unscored, the one phone shrink read; a phone growth is inferred to work as on desktop).
 function setStandinValue(key, v) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
-  const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area, phone = bp === 'mobile';
+  const all = b.label === 'Pricing Plan' && PLAN_PARTS.some(([k]) => k === key) ? (phone ? phoneHeightAt(b.label, a[3] - a[1]) ?? b.phoneHeight : deskHeight(b.label, a[3] - a[1])) : undefined;
   const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
     const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - Math.ceil(X(h0) - x + 0.05)) : rows);
+    const lost = phone ? Math.ceil(X(h0 - planHeight(b, all)) - 0.02) : Math.ceil(X(h0) - x + 0.05);
+    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }

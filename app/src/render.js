@@ -384,8 +384,16 @@ export const PHONE_HEIGHTS = {
   Bandsintown: [[8, 1011], [7, 1207], [0, 1319]],
   OpenTable: [[4, 270], [0, 316.1]],
 };
+// Pricing Plan's content by its Elements (CAP-T12PRESS-A.json at 8 columns, CAP-T12PRESS-E.json at 6): each part takes its own
+// height, and only the Description wraps with the width, by what the whole content gains (DESK_HEIGHT in editor.js).
+export const PLAN_PARTS = [['ppTitle', 'Title', 46], ['ppDesc', 'Description', 97], ['ppPrice', 'Price', 90.7], ['ppBenefits', 'Benefits', 96.8], ['ppButtonOn', 'Button', 88.6]];
+// The content height with parts off, from the whole height at this width (all on).
+export const planHeight = (b, all) => all - PLAN_PARTS.filter(([k]) => (b.sp || {})[k] === false).reduce((n, [k, , h]) => n + (k === 'ppDesc' ? h + all - 430.1 : h), 0);
 export const phoneHeightAt = (label, cols) => PHONE_HEIGHTS[label]?.find(([c]) => cols >= c)?.[1];
 const phoneCols = (b) => { const a = b.layout?.mobile?.area; return a ? a[3] - a[1] : 8; };
+// A Pricing Plan's phone content less the parts its Elements turn off, in both views (CAP-T12PPPHONE.json, -2.json: 24px rows on
+// the phone after Benefits off on desktop, 236.2 high with Benefits and Description off), the parts as on desktop.
+const phoneH = (b) => { const h = phoneHeightAt(b.label, phoneCols(b)) ?? b.phoneHeight; return b.label === 'Pricing Plan' && b.sp ? planHeight(b, h) : h; };
 const STANDIN = {
   // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
   // shows as a space (CAP-T12QUOTEROWS.json). An empty Source takes the figcaption away.
@@ -481,7 +489,7 @@ function blockInner(b, model) {
       // A phone that draws differently has a container of its own, as a button does.
       const box = (sys, inner) => `<div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_${sys}${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${inner}</div>`;
       const desk = drawnIn('desktop'), phone = b.designMobile ? drawnIn('mobile') : desk;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(phoneHeightAt(b.label, phoneCols(b)) ?? b.phoneHeight)}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(phoneH(b))}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
