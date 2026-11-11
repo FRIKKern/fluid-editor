@@ -144,8 +144,8 @@ const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && li
 // U10 read facts, not a rule (rule W is frozen, its misses named): the paragraph list's spans for words of about 2 and 4
 // lines at ten columns (CAP-U10WORDS.json's W2 and W4, 16 picks each). Each layout's entry holds them under 'words', by
 // those lines: its place, rows and step. Layout 1 has no step there (7 rows with two lines, 8 with four); the others are
-// the read high span over a low one row long after layout 1. Read after 0 to 4 and 1; a step after 5 and an Undo onto
-// them are not read (the step after 5 is taken as high, as with one line). Phone rows, read for one, two and four lines
+// the read high span over a low one row long after layout 1. Each was read high after one layout and low after 1;
+// after the others ours takes it as high, as with one line (not read), and an Undo onto them is not read. Phone rows, read for one, two and four lines
 // (CAP-U10PHONEROWS.json, predicted 15 of 18, runs A and B alike): the phone end line less 1, and at layout 0 the end
 // line itself. Any other count, and a Text of code (a pick makes its lines one), keep the one-line entries.
 // words(b) is the Text's line count at ten columns.

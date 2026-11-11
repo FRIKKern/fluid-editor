@@ -1608,14 +1608,14 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // The paragraph list's read word spans (read facts, rule W frozen): CAP-U10WORDS.json's two- and four-line runs from
-  // the start, 16 picks each: rows, desktop and phone areas.
+  // the start (1/2/3/10 in an 8-row section, as read), 16 picks each: rows, desktop and phone areas.
   {
     const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
     const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
     let n = 0;
     for (const [k, w] of [[1, 'W2'], [2, 'W4']]) {
       await start();
-      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
       await pause(400);
       const btn = await chromeBtn();
       if (!btn || btn.off) { errs.push(`${w} button`); continue; }
@@ -1631,14 +1631,14 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`View Layouts p1: the two- and four-line words' spans as read (${n} picks)`, errs.length === 0 && n === 32, errs.slice(0, 3).join(' | '));
   }
   // The paragraph list's phone rows after each pick (CAP-U10PHONEROWS.json, predicted 15 of 18, A and B alike): one, two
-  // and four lines from a fresh Text, picks 0 to 5 in order: desktop rows, both areas and the phone rows.
+  // and four lines from a fresh Text at the read start, picks 0 to 5 in order: desktop rows, both areas and the phone rows.
   {
     const errs = [], P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10PHONEROWS.json', import.meta.url)));
     const html = Object.fromEntries(['W1', 'W2', 'W4'].map((w, k) => [w, P.steps.filter((x) => x[0] === 'pasteHere')[k][3]]));
     let n = 0;
     for (const w of ['W1', 'W2', 'W4']) {
       await start();
-      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html[w])}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html[w])}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
       await pause(400);
       const btn = await chromeBtn();
       if (!btn || btn.off) { errs.push(`${w} button`); continue; }
