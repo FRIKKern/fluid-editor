@@ -1,0 +1,19 @@
+{
+ "item": "CAP-A2SAMEZ-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "A2, predicted before the read of CAP-A2SAMEZ (Blocks Probe): does a pair that overlaps with the same z ever swap in the DOM on the oracle? Ours never swaps one: blocks with the same z paint in DOM order, so a swap would flip which one shows. Setup, two runs from a new blank section: a Shape (A, 1/2/7/8, z 1), a Button (B, z 2) moved 118 right and 205 down (6/4/8/10, over A's lower part), a Line (L, z 3) moved 452 down (12/2/13/6). Cmd+D on A gives A' one row down and one column right (2/3/8/9) at A's z + 1, so z 2, B's z, overlapping B, and last on the phone. Then L nudged right, then back left: each desktop move sets the phone order again, and phone rows put A' (row 2) before B (row 6).",
+ "rule": "Ours as built (no swap): the held pair keeps its DOM order, B before A', and A' paints over B where they overlap. Rival F (follow): the phone rows win, A' before B, so B paints over A'.",
+ "from": "Ours' rule read in the code (app/src/phone-order.js, phoneOrder's held pairs, and the copy's z from A2's Cmd+D rule), not replayed. The areas are the setup's aim, from Cmd+D's one row down and one column right (Y4).",
+ "hit": "The DOM order of A, B, A' and L (the stack read), and what is on top at B's points [0.25, 0.5] and [0.6, 0.5], inside A' (the hit read: in B or not); [0.95, 0.5] is outside A', in B for both.",
+ "predicted": {
+  "placed": { "dom": ["A", "B", "L"], "z": { "A": 1, "B": 2, "L": 3 } },
+  "copied": { "dom": ["A", "B", "L", "A'"], "z": { "A'": 2 }, "A'": "2/3/8/9", "onTopInOverlap": "A'" },
+  "nudged": { "ours": { "dom": ["A", "B", "A'", "L"], "onTopInOverlap": "A'" }, "rivalF": { "dom": ["A", "A'", "B", "L"], "onTopInOverlap": "B" } },
+  "nudged back": { "ours": { "dom": ["A", "B", "A'", "L"], "onTopInOverlap": "A'" }, "rivalF": { "dom": ["A", "A'", "B", "L"], "onTopInOverlap": "B" } }
+ },
+ "cases": {
+  "copied": ["P1 copied", "P2 copied"],
+  "nudged": ["P1 nudged", "P2 nudged"],
+  "nudged back": ["P1 nudged back", "P2 nudged back"]
+ }
+}
