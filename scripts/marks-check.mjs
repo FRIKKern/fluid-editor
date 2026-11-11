@@ -3830,6 +3830,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const open = async () => { const b = await btn(); mouse(S, 'move', b.x, b.y); await pause(50); mouse(S, 'down', b.x, b.y, { buttons: 1 }); await pause(30); mouse(S, 'up', b.x, b.y); await pause(400); return evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list li')].map((li) => Math.round(li.getBoundingClientRect().height * 10) / 10))`); };
   const pick = (n) => evalJs(S, `(() => { const t = document.querySelector('[data-layout="${n}"]'); if (!t) return 'null'; t.click(); const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, sec = d.querySelector('section[data-section-id="' + s.id + '"]'); return JSON.stringify({ rows: s.rows.desktop, h: sec.getBoundingClientRect().height, ht: (sec.className.match(/section-height--(\\w+)/) || [])[1] || '', look: [s.theme || '', s.divider ? s.dividerShape : ''], at: s.blocks.map((x) => [x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')]) }); })()`);
   const DV = { 'soft-corners': 'soft', rounded: 'rounded' };
+  const TP = FIND('CAP-U10TYPEPHONE').reads;
+  let phones = 0;
   for (const T of ['Code', 'Quote', 'Accordion', 'Video', 'Map']) {
     const P = FIND(`CAP-U10PICK-${T.toUpperCase()}`).reads, L = FIND(`CAP-U10LIST-${T.toUpperCase()}`).reads.open.tileNames.map((x) => x[5]);
     alone(T); await pause(250);
@@ -3843,10 +3845,14 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       if (g.rows !== lk.rows) errs.push(`${n} rows ${g.rows}`);
       if (g.at.length !== 1 || g.at[0][0] !== want.desktop || g.at[0][1] !== want.phone) errs.push(`${n} at ${g.at}`);
       if (g.look.join() !== [lk.th, lk.dv ? DV[JSON.parse(lk.ctx).type] : ''].join()) errs.push(`${n} look ${g.look}`);
+      // The phone rows after each pick, in this order (CAP-U10TYPEPHONE.json, A and B alike): Quote, Code and Video.
+      const ph = TP[`A ${T} L${n} phone`];
+      if (ph) { phones++; const m = evalJs(S, `JSON.stringify(fe.model.sections[0].rows.mobile)`); if (m !== ph.look.rows) errs.push(`${n} phone rows ${m} read ${ph.look.rows}`); }
     }
     add(`View Layouts, ${T} alone: ${L.length} read picks`, errs.length === 0, errs.slice(0, 3).join(' | '));
     browser(S, 'press', 'Escape'); await pause(200);
   }
+  add('View Layouts, Quote, Code and Video alone: the phone rows after each pick as read (20 picks)', phones === 20);
   // Audio alone takes the list Code, Quote and Accordion share; its spans are its own, an inference.
   alone('Audio'); await pause(250);
   const audioTiles = await open(), au0 = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks[0].layout.desktop.area)`), au = pick(2);

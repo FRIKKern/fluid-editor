@@ -38,8 +38,12 @@ function typeList(kind, b) {
   const rows = b.layout.desktop.area[2] - b.layout.desktop.area[0], phone = b.layout.mobile.area[2] - b.layout.mobile.area[0];
   // Only the families the reads put with Code or Video share a list; the rest show their tiles, not built.
   if (!FAMILY.has(kind)) return tiles.map((tile) => ({ tile, unbuilt: true }));
+  // Phone rows (CAP-U10TYPEPHONE.json, runs A and B alike, read for Quote, Code and Video): the block's phone end line
+  // less 1, but layout 0 of the 5-tile list keeps one row below it, and the 10-tile list's places 3 rows down keep two
+  // above and one below (end line + 1). Inferred for these families from the types read.
+  const below = (n, pr) => (tiles.length === 5 && n === 0 ? 1 : tiles.length === 10 && pr === 3 ? 2 : 0);
   return SHARED[tiles.length].map(([r, c0, c1, pr, pc0, pc1, pad, style], n) => ({
-    rows: r + rows - 1 + pad, phoneRows: pr + phone - 1, tile: tiles[n], inferred: true,
+    rows: r + rows - 1 + pad, phoneRows: pr + phone - 1 + below(n, pr), tile: tiles[n], inferred: true,
     places: { t0: [`${r}/${c0}/${r + rows}/${c1}`, `${pr}/${pc0}/${pr + phone}/${pc1}`] }, ...(style && { style }),
   }));
 }
