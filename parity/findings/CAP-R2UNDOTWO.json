@@ -1,0 +1,1552 @@
+{
+  "item": "CAP-R2UNDOTWO",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-10",
+  "startedAt": "2026-11-10T23:42:30.122Z",
+  "predictions": {
+    "file": "CAP-R2UNDOTWO-PREDICTED.json",
+    "commit": "3fae729db20a91ad2280b12025d907ea194a2880",
+    "committedAt": "2026-11-11T00:37:35+01:00",
+    "sha256": "6ff9806ada134ca126e4be55d5c9aa804b5bf9617f0185edf81007500748e2d5"
+  },
+  "engine": "chrome",
+  "question": "R2, from #580: on case b of CAP-R2ONTOP the oracle's second Cmd+Z after the let go removes the new Text, which #580 read as ours keeping it, and on s one run removed it while the other brought back the state before the edit. Causes, predicted first: A, as built: the add is a step and the typing one step, so the second Cmd+Z removes the Text and a third the other block (#580's replay added blocks with no undo step, so ours had nothing to undo there); T, the typing went in as two steps (a pause in the keys), so the second Cmd+Z leaves part of the words; X, one more step with no words (the press, the Write, a block loading), so the second Cmd+Z brings back the empty Text and a third removes it. CAP-R2ONTOP's b and s, each twice from a new blank section, Cmd+Z three times after the let go: both areas of each block, the section, and the Text's words. Predictions pushed first (CAP-R2UNDOTWO-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 b before",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "pick",
+      0,
+      "a2"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+    ],
+    [
+      "read",
+      "P1 b typed",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 b let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 b undo",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 b undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 b undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Social Links"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 s before",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "pick",
+      0,
+      "a2"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+    ],
+    [
+      "read",
+      "P1 s typed",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 s let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 s undo",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 s undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P1 s undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 b before",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "pick",
+      0,
+      "a2"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+    ],
+    [
+      "read",
+      "P2 b typed",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 b let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 b undo",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 b undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 b undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Social Links"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 s before",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "pick",
+      0,
+      "a2"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keysFast",
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore"
+    ],
+    [
+      "read",
+      "P2 s typed",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 s let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 s undo",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 s undo 2",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "P2 s undo 3",
+      {
+        "stack": 0,
+        "section": 0,
+        "htmlOf": "main#page .sqs-html-content"
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "P1 b before": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"90b0afde-5ec9-4231-8690-feca9f437a01\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_644",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 b typed": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"90b0afde-5ec9-4231-8690-feca9f437a01\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror ProseMirror-focused\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div><span tabindex=\"-1\" aria-hidden=\"true\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" data-floating-ui-focus-guard=\"\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span aria-owns=\":r16:\" style=\"clip-path: inset(50%); position: fixed; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" d",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_644",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/5/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 b let go": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"90b0afde-5ec9-4231-8690-feca9f437a01\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_644",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "3/2/5/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 b undo": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"90b0afde-5ec9-4231-8690-feca9f437a01\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "4_644",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "2/2/4/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 b undo 2": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "4_420",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 b undo 3": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "stack": [],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s before": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"248d0036-fec5-4845-924b-249019b186ed\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s typed": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"248d0036-fec5-4845-924b-249019b186ed\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror ProseMirror-focused\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div><span tabindex=\"-1\" aria-hidden=\"true\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" data-floating-ui-focus-guard=\"\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span aria-owns=\":r31:\" style=\"clip-path: inset(50%); position: fixed; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" d",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "3/2/5/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s let go": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"248d0036-fec5-4845-924b-249019b186ed\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "3/2/5/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s undo": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"248d0036-fec5-4845-924b-249019b186ed\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "2/2/4/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s undo 2": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/6",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P1 s undo 3": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "stack": [],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b before": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"0218942f-3671-42df-afec-1328a12665d3\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "8_644",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b typed": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"0218942f-3671-42df-afec-1328a12665d3\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror ProseMirror-focused\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div><span tabindex=\"-1\" aria-hidden=\"true\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" data-floating-ui-focus-guard=\"\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span aria-owns=\":r4u:\" style=\"clip-path: inset(50%); position: fixed; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" d",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "8_644",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "3/2/5/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b let go": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"0218942f-3671-42df-afec-1328a12665d3\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "8_644",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "3/2/5/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b undo": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"0218942f-3671-42df-afec-1328a12665d3\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "8_644",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "2/2/4/8",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b undo 2": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/3/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 b undo 3": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "stack": [],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s before": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"3cc2b739-c0b2-4585-957b-7f6d8a4a43dc\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s typed": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"3cc2b739-c0b2-4585-957b-7f6d8a4a43dc\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror ProseMirror-focused\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div><span tabindex=\"-1\" aria-hidden=\"true\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" data-floating-ui-focus-guard=\"\" style=\"border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;\"></span><span aria-owns=\":r6p:\" style=\"clip-path: inset(50%); position: fixed; top: 0px; left: 0px;\"></span><span data-type=\"outside\" tabindex=\"0\" aria-hidden=\"true\" d",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "3/2/5/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s let go": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"3cc2b739-c0b2-4585-957b-7f6d8a4a43dc\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          749.8
+        ],
+        "rows": 10,
+        "rowSizes": "30.1x10",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/5/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "3/2/5/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s undo": {
+      "htmlOf": "<div data-id=\"rte-input-ref-box\" data-rte-id=\"3cc2b739-c0b2-4585-957b-7f6d8a4a43dc\" class=\"css-roynbj\"><div data-test=\"rte-input\" data-id=\"text-block-rte-input\" class=\"sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-prevent-block-focus-change sqs-editing text-block-rte-toolbar-1ohh1g2\"><div><div contenteditable=\"true\" translate=\"no\" role=\"textbox\" tabindex=\"0\" class=\"tiptap ProseMirror\"><p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\" data-placeholder=\"Write here...\" class=\"is-empty is-editor-empty\"><br class=\"ProseMirror-trailingBreak\"></p></div></div></div></div>",
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          708.7
+        ],
+        "rows": 9,
+        "rowSizes": "30.1x9",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 2
+      },
+      "stack": [
+        {
+          "id": "2_657",
+          "type": "csr",
+          "desktop": "1/2/2/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "2/2/4/6",
+          "phone": "3/2/5/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s undo 2": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_420",
+          "type": "csr",
+          "desktop": "1/2/3/6",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "P2 s undo 3": {
+      "htmlOf": null,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          667.6
+        ],
+        "rows": 8,
+        "rowSizes": "30.1x8",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 0
+      },
+      "stack": [],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
