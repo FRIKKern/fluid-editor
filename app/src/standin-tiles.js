@@ -25,5 +25,5 @@ function productHtml(b) {
 
 const TILES = { Product: ['sqs-block-product product-block-tile', productHtml] };
 // A plain stand-in that draws its content: a Shape with the Add Block menu's name and no content type of its own.
-export const tileOf = (b) => (b.type === 'shape' && !b.standin && TILES[b.label] ? b.label : null);
+export const tileOf = (b) => (b.type === 'shape' && !b.standin && Object.hasOwn(TILES, b.label) ? b.label : null);
 export const tileHtml = (b) => { const [cls, draw] = TILES[b.label]; return `<div class="sqs-block fe-drawn-tile ${cls}" data-block-type="1337" id="block-${esc(b.id)}"><div class="sqs-block-content">${draw(b)}</div></div>`; };
