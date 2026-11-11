@@ -320,9 +320,10 @@ function chartHtml(b) {
   const axis = c.type === 'Pie Chart' ? '' : (isBar ? '' : lines) + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${line ? px(n) : L + band * (n + 0.5)}" y="${B + (line ? 19 : 24)}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (k) => pal[k % pal.length];
   let marks = '';
-  // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch).
+  // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch),
+  // along the baseline's middle (B + 0.5, as the baseline's box).
   // Two series' bars stand 2.5 apart in the band (the same shot, by pixel; one read).
-  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (per - 1)) / per, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B}H${x + w}" stroke="${colour(k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
+  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (per - 1)) / per, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B + 0.5}H${x + w}" stroke="${colour(k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
   if (c.type === 'Bar Chart') marks = groups.map(([, vs], n) => vs.map((v, k) => bar(n, k, v)).join('')).join('');
   // The line is a smooth curve through every point: at a point between two others it runs along the chord from the one before to
   // the one after, its handles a fifth of that chord long; at the ends it leaves straight (curve type inferred: fitted on the
