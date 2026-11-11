@@ -1,0 +1,464 @@
+{
+  "item": "CAP-U10MIXPICK2-QUOTETEXT7",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T15:42:16.648Z",
+  "predictions": {
+    "file": "CAP-U10MIXPICK2-QUOTETEXT7-PREDICT.json",
+    "commit": "f5b3eb76cce9dc6c68f9ce7a659bc83733c5d24e",
+    "committedAt": "2026-11-11T15:59:53+01:00",
+    "sha256": "fb7262fe0ef659005a34714797601ee59468b8d24af6fd4b41928068ad6a4c0d"
+  },
+  "engine": "chrome",
+  "question": "U10: a pick on QUOTETEXT7 from the same start (a fresh blank section each pick), every tile, runs A and B; read the blocks' desktop and phone areas and the section's rows and look. Predictions pushed first.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A Quote+Text before",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "listTo",
+      7
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressLayout",
+      7
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "A Quote+Text pick 7",
+      {
+        "stack": 0,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B Quote+Text before",
+      {
+        "stack": 0,
+        "look": 0,
+        "sections": true
+      }
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1000
+    ],
+    [
+      "listTo",
+      7
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "pressLayout",
+      7
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "B Quote+Text pick 7",
+      {
+        "stack": 0,
+        "look": 0
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "A Quote+Text before": {
+      "sections": [
+        {
+          "id": "91ec9f",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "26_438",
+            "26_657"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_657",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A Quote+Text pick 7": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 790.9,
+        "rows": 11,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "6_438",
+          "type": "csr",
+          "desktop": "4/4/6/13",
+          "phone": "3/3/5/9",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "6_657",
+          "type": "csr",
+          "desktop": "4/15/9/24",
+          "phone": "5/3/11/9",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B Quote+Text before": {
+      "sections": [
+        {
+          "id": "6bfecd",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "87_420",
+            "87_639"
+          ],
+          "h": 667.6
+        }
+      ],
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "1/2/3/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_639",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "3/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B Quote+Text pick 7": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 790.9,
+        "rows": 11,
+        "blocks": 2,
+        "ctx": "[\"divider\"]"
+      },
+      "stack": [
+        {
+          "id": "7_420",
+          "type": "csr",
+          "desktop": "4/4/6/13",
+          "phone": "3/3/5/9",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "7_639",
+          "type": "csr",
+          "desktop": "4/15/9/24",
+          "phone": "5/3/11/9",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": []
+}

@@ -1,0 +1,15 @@
+{
+  "item": "U10",
+  "question": "CAP-U10MIXPICK2-QUOTETEXT7-PREDICT",
+  "frozenAt": "2026-11-11T14:59Z",
+  "cases": {
+    "Quote+Text pick 7": [
+      "A Quote+Text pick 7",
+      "B Quote+Text pick 7"
+    ]
+  },
+  "what": "Quote+Text's tile 7 again (CAP-U10MIXPICK2-QUOTETEXT stopped before it: a blank section did not appear), from the same start, runs A and B.",
+  "oursNow": "No change: ours greys these tiles out (PR #607), so a pick leaves every block's areas and the rows as at the start (CAP-U10MIXB's before reads: {\"A\": {\"stack\": [[\"1/2/3/10\", \"1/2/3/10\"], [\"1/2/7/8\", \"3/2/9/10\"]], \"rows\": 8}, \"B\": {\"stack\": [[\"1/2/3/10\", \"1/2/3/10\"], [\"1/2/7/8\", \"3/2/9/10\"]], \"rows\": 8}}).",
+  "rival": "R1: every pick changes at least one block's desktop area or the section's rows (the oracle lays the blocks out, as on every list read so far).",
+  "scoring": "Per case: ours-now scores if both reads equal the start; R1 scores if both reads differ from the start. A and B must agree for the case to count."
+}
