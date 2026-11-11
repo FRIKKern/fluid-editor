@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
+- **Today** · 9 changes
+  - U10: a Quote after a View Layouts pick keeps 3% padding (CAP-U10QUOTEH) ([#594](https://github.com/FRIKKern/fluid-editor/pull/594))
   - T12: Accordion Escape at a second description length and Pricing Plan phone rows, read twice ([#595](https://github.com/FRIKKern/fluid-editor/pull/595))
-  - U10: paragraph layout 1 makes the Text a card (CAP-U10PAD1, 8 of 8 stored heights) ([#588](https://github.com/FRIKKern/fluid-editor/pull/588))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
