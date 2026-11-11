@@ -1,7 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
-import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS, MIX_TILES } from './section-layouts-types.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS, MIX_TILES, MIX_PICKS } from './section-layouts-types.js';
 import { dividerEdge } from './render.js';
 import { setStyleProp } from './text-format.js';
 
@@ -48,9 +48,10 @@ function typeList(kind, b) {
   }));
 }
 
-// The mixes read on with no picks read (MIX_TILES, CAP-U10MIXB.json): exactly those keys, and a Text in them only as read,
-// one paragraph (a single P); any other Text keeps the mix off, not read. Their tiles show, not built; a tile whose
-// height is not read is drawn TILE_NOT_READ tall, a placeholder.
+// The mixes read on (MIX_TILES, CAP-U10MIXB.json): exactly those keys, and a Text in them only as read, one paragraph
+// (a single P); any other Text keeps the mix off, not read. A tile whose pick was read (MIX_PICKS, CAP-U10MIXPICK2-*.json)
+// is built from that read; the rest show, not built. A tile whose height is not read is drawn TILE_NOT_READ tall, a
+// placeholder.
 const TILE_NOT_READ = 140;
 const onePara = (b) => {
   if (typeof document === 'undefined') return false;
@@ -60,7 +61,7 @@ const onePara = (b) => {
   return k.length === 1 && k[0].tagName === 'P';
 };
 const readOn = (key, kept) => (MIX_TILES[key] && kept.every((b) => kindOf(b) || roleOf(b) !== 'p' || onePara(b))
-  ? MIX_TILES[key].map((tile) => ({ tile: tile ?? TILE_NOT_READ, unbuilt: true })) : null);
+  ? MIX_TILES[key].map((tile, n) => ({ tile: tile ?? TILE_NOT_READ, ...(MIX_PICKS[key]?.[n] || { unbuilt: true }) })) : null);
 
 // The blocks by role in section order, and the mix's key: 'h1p1i1b1'. No key for an empty section or
 // a block type outside the mixes.

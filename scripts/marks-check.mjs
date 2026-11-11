@@ -4059,30 +4059,57 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const ib = await btn();
   add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
   // Eight more mixes read on, one per reload, the typed block added last (CAP-U10MIXB.json, A and B alike): on, the tile
-  // count read, every tile not built (no picks read; a press changes nothing), each tile's height the gap to the next
-  // tile's top less 16 where the runs agree within 0.2, else the 140 placeholder. The Text is one paragraph, as read; a
-  // Text of two stays off, not read.
+  // count read, each tile's height the gap to the next tile's top less 16 where the runs agree within 0.2, else the 140
+  // placeholder. A tile is built where its pick was read from the same start, runs A and B alike (CAP-U10MIXPICK2-*.json,
+  // a fresh blank section each pick); every other tile stays not built, and a press on one changes nothing. The Text is
+  // one paragraph, as read; a Text of two stays off, not read.
   {
     const MB = FIND('CAP-U10MIXB').reads, errs = [];
+    const PICKS = {"Image+Video": ["IMAGEVIDEO"], "Text+Video": ["TEXTVIDEO"], "Image+Map": ["IMAGEMAP"], "Quote+Text": ["QUOTETEXT", "QUOTETEXT7"], "Button+Quote": ["BUTTONQUOTE"], "Code+Video": ["CODEVIDEO"], "Button+Code": ["BUTTONCODE"], "Accordion+Button": ["ACCORDIONBUTTON"]};
+    const idn = (x) => +x.id.split('_').pop(), seen = (r) => r && [...r.stack].sort((x, y) => idn(x) - idn(y)).map((x) => [x.desktop, x.phone]);
+    const lookOf = (r) => [r.look.rows, r.look.th, r.look.ht, r.look.dv ? DV[JSON.parse(r.look.ctx).type] : ''].join();
+    // A pick counts as read where both runs give the same areas, rows and look.
+    const readPick = (key, n) => { const R = PICKS[key] && Object.assign({}, ...PICKS[key].map((t) => FIND(`CAP-U10MIXPICK2-${t}`).reads)), a = R?.[`A ${key} pick ${n}`], b = R?.[`B ${key} pick ${n}`]; return a && b && JSON.stringify(seen(a)) === JSON.stringify(seen(b)) && lookOf(a) === lookOf(b) ? a : null; };
     const para = (html) => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); for (const x of m.sections[0].blocks) if (x.type === 'text') x.html = ${JSON.stringify(html)}; fe.load(m); fe.select(null); return 'true'; })()`);
-    for (const [a, b, key] of [['Button', 'Quote', 'Button+Quote'], ['Button', 'Code', 'Button+Code'], ['Button', 'Accordion', 'Accordion+Button'], ['Text', 'Video', 'Text+Video'], ['Text', 'Quote', 'Quote+Text'], ['Image', 'Video', 'Image+Video'], ['Code', 'Video', 'Code+Video'], ['Image', 'Map', 'Image+Map']]) {
+    const MIXES = [['Button', 'Quote', 'Button+Quote'], ['Button', 'Code', 'Button+Code'], ['Button', 'Accordion', 'Accordion+Button'], ['Text', 'Video', 'Text+Video'], ['Text', 'Quote', 'Quote+Text'], ['Image', 'Video', 'Image+Video'], ['Code', 'Video', 'Code+Video'], ['Image', 'Map', 'Image+Map']];
+    const fresh = async (a, b) => { pair(a, b); await pause(250); if (a === 'Text') { para('<p>Paragraph words for a probe</p>'); await pause(250); } };
+    let built = 0;
+    const perr = [];
+    for (const [a, b, key] of MIXES) {
       const tops = (r) => MB[`${r} ${key} open`].tiles.tiles.map((t) => t[1]), A = tops('A'), B = tops('B');
       const want = A.map((t, n) => { const da = A[n + 1] - t, db = B[n + 1] - B[n]; return n + 1 < A.length && Math.abs(da - db) <= 0.2 ? Math.round((da - 16) * 10) / 10 : 140; });
-      pair(a, b); await pause(250);
-      if (a === 'Text') { para('<p>Paragraph words for a probe</p>'); await pause(250); }
+      const read = A.map((_, n) => !!readPick(key, n));
+      await fresh(a, b);
       const v = await btn();
       if (!v || v.off || MB[`A ${key} hover`].btnByText['View Layouts'].disabled !== false) { errs.push(`${key} ${v ? 'off' : 'none'}`); continue; }
       const tiles = await open();
       const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled && t.classList.contains('lo-unbuilt')))`);
-      if (tiles.length !== B.length || tiles.join() !== want.join() || off.some((x) => !x)) errs.push(`${key} ${tiles} ${off}`);
-      // A press on a tile: ours has no pick there (not read on the oracle), so the section stays as it was.
-      const was = evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`), t0 = evalJs(S, `(() => { const r = document.querySelector('.lo-list .lo-tile').getBoundingClientRect(); return JSON.stringify([r.left + 40, r.top + 20]); })()`);
-      mouse(S, 'move', t0[0], t0[1]); await pause(50); mouse(S, 'down', t0[0], t0[1], { buttons: 1 }); await pause(30); mouse(S, 'up', t0[0], t0[1]); await pause(300);
-      if (evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`) !== was) errs.push(`${key} a tile press changed the section`);
+      if (tiles.length !== B.length || tiles.join() !== want.join() || off.some((x, n) => x === read[n])) errs.push(`${key} ${tiles} ${off}`);
+      // A press on a tile not read: ours has no pick there, so the section stays as it was.
+      const u = off.indexOf(true);
+      if (u >= 0) {
+        const was = evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`), t0 = evalJs(S, `(() => { const r = document.querySelectorAll('.lo-list .lo-tile')[${u}]; r.scrollIntoView({ block: 'nearest' }); const q = r.getBoundingClientRect(); return JSON.stringify([q.left + 40, q.top + 20]); })()`);
+        mouse(S, 'move', t0[0], t0[1]); await pause(50); mouse(S, 'down', t0[0], t0[1], { buttons: 1 }); await pause(30); mouse(S, 'up', t0[0], t0[1]); await pause(300);
+        if (evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`) !== was) errs.push(`${key} a press on tile ${u} changed the section`);
+      }
       browser(S, 'press', 'Escape'); await pause(200);
+      // Each read pick from the same start: every block's areas by its type, the rows, the look and the height class; the
+      // section's height within 2px where a pick drops the class.
+      for (let n = 0; n < A.length; n++) {
+        const r = readPick(key, n);
+        if (!r) continue;
+        built++;
+        await fresh(a, b); await open();
+        const g = pick(n);
+        const want2 = seen(r).map((x, k) => [[a, b][k].toLowerCase(), ...x].join(' ')).sort().join();
+        const got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [(x.type === 'shape' ? x.label : x.type).toLowerCase(), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+        if (!g || got !== want2 || g.rows !== r.look.rows || g.ht !== r.look.ht || g.look.join() !== [r.look.th, r.look.dv ? DV[JSON.parse(r.look.ctx).type] : ''].join() || (r.look.ht === '' && Math.abs(g.h - r.look.h) > 2)) perr.push(`${key} ${n} ${got} ${g && [g.rows, g.ht, g.look, Math.round(g.h)]}`);
+        browser(S, 'press', 'Escape'); await pause(200);
+      }
     }
-    add('View Layouts, eight more mixes: on with their tile counts as read, not built (CAP-U10MIXB)', errs.length === 0, errs.slice(0, 3).join(' | '));
-    pair('Text', 'Video'); await pause(250); para('<p>One paragraph</p><p>and another</p>'); await pause(250);
+    add('View Layouts, eight more mixes: on with their tile counts as read, built only where a pick was read (CAP-U10MIXB)', errs.length === 0, errs.slice(0, 3).join(' | '));
+    add(`View Layouts, those mixes: each read pick from the same start, as read (${built} picks, CAP-U10MIXPICK2)`, perr.length === 0 && built === 57, perr.slice(0, 3).join(' | '));
+    await fresh('Text', 'Video'); para('<p>One paragraph</p><p>and another</p>'); await pause(250);
     const tv = await btn();
     add('View Layouts, a Text of two paragraphs + Video: off, not read', !!tv && tv.off, JSON.stringify(tv));
   }
