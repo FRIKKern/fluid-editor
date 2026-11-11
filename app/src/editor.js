@@ -132,7 +132,7 @@ function followPhoneRows(before) {
     // Rule R (fitted on CAP-A2SECONDEDIT; predictions first, CAP-A2RESIZEAHEAD-PREDICTED.json: 6 of 6 fresh, two reads each):
     // on a later phone edit, a block resized on the phone goes to its row's place, then ahead of the first block it overlaps.
     // Misses seen corpus rebuild reads (CAP-A2CORPUS1STEPS s5, CAP-A2CORPUS2 p1).
-    const next = (bp === 'mobile' && s.phoneFollows != null && resizedAhead(s.blocks, was.blocks)) || phoneOrder(s.blocks);
+    const next = (bp === 'mobile' && s.phoneFollows != null && resizedAhead(s.blocks, was.blocks)) || phoneOrder(s.blocks, s.phoneFollows != null);
     if (next.every((b, k) => b === s.blocks[k])) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     s.blocks.splice(0, s.blocks.length, ...next);
     if (softening) continue; // The text stays open, in its place in the page; the close draws this
