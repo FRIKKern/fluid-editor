@@ -163,6 +163,10 @@ export function applyLayout(s, mix, n, base) {
       // QHB, read twice alike, and CAP-U10SC3.json). Read with one heading only.
       if (r === 'p' && mix.key === 'h1p1' && listFirst(b)) b.html = b.html.replace(/<(\/?)p(?=[\s>])/g, '<$1h4');
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
+      // A pick gives a Quote 3% padding where a new one has 6% (CAP-U10QUOTEH.json, picks 0 to 4, runs A and B alike: 24.4 at
+      // 811.9 wide, 17.3 at 576.8, 13.8 at 459.3; new, 20.5 at 341.7). Its content then fits the layout's span and the section
+      // doesn't grow. Whether the pick or the width sets it is not read: every read away from a pick is 341.7 wide.
+      if (b.standin === 'quote') b.quotePad = 3;
       cardText(b, L.design?.[r + k]);
     });
   }

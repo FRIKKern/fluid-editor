@@ -1,6 +1,6 @@
 {
-  "pass": 397,
-  "total": 397,
+  "pass": 408,
+  "total": 408,
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -347,7 +347,7 @@
       "ok": true
     },
     {
-      "what": "A drag on from 2,000px stays at 2,000px (inferred, as Design: not pulled back, not taken further)",
+      "what": "A drag on from 2,000px is pulled to 1,000px (inferred, as Design: CAP-T15FIELDENDS.json)",
       "ok": true
     },
     {
@@ -464,6 +464,50 @@
     },
     {
       "what": "A second Cmd+Z: the value before the typing, focus stays, as read",
+      "ok": true
+    },
+    {
+      "what": "Design rotate typed 400 shows 400°, as read",
+      "ok": true
+    },
+    {
+      "what": "Design rotate 400 dragged 20px is 360°, as read",
+      "ok": true
+    },
+    {
+      "what": "Design rotate typed 400 shows 400°, as read",
+      "ok": true
+    },
+    {
+      "what": "Design rotate 400 dragged -20px is 352°, as read",
+      "ok": true
+    },
+    {
+      "what": "Design sx typed 900 shows 900%, as read",
+      "ok": true
+    },
+    {
+      "what": "Design sx 900 dragged -20px is 192%, as read",
+      "ok": true
+    },
+    {
+      "what": "Design tx typed 5000 shows 5,000px, as read",
+      "ok": true
+    },
+    {
+      "what": "Design tx 5000 dragged 20px is 1,000px, as read",
+      "ok": true
+    },
+    {
+      "what": "Cmd+Z with typing untaken: Opacity 100%, 33 kept and focused, as read",
+      "ok": true
+    },
+    {
+      "what": "A second Cmd+Z: Offset 5,000px, 33 still kept, as read",
+      "ok": true
+    },
+    {
+      "what": "Enter takes the kept 33: Rotate 33° (inferred)",
       "ok": true
     },
     {
