@@ -1607,6 +1607,42 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
+  // The paragraph list's layout 1 makes the Text a card (CAP-U10PAD1.json, A and B alike): white, corner 22, padding 12%,
+  // its words black and in the middle, on desktop and phone; layout 0 after it takes the card off. Every stored layout 1
+  // height with its own words: one, two and four lines, code, three lines of code and two mixed Texts.
+  {
+    const errs = [], FJ = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+    const paste = (F, n = 0) => F.steps.filter((x) => x[0] === 'pasteHere')[n][3];
+    const W = FJ('CAP-U10WORDS'), C = FJ('CAP-U10TEXTMIX-C'), PAD = FJ('CAP-U10PAD1');
+    const cases = [['W1', paste(W, 0), W.reads['W1 02 layout 1']], ['W2', paste(W, 1), W.reads['W2 02 layout 1']], ['W4', paste(W, 2), W.reads['W4 02 layout 1']],
+      ['code', paste(C, 0), C.reads['C 02 layout 1']], ['mixed', paste(C, 1), C.reads['M 02 layout 1']], ['CD1', paste(FJ('CAP-U10CD1')), FJ('CAP-U10CD1').reads['CL 03 layout 1']],
+      ['EMX', paste(FJ('CAP-U10ENDS-EMXA')), FJ('CAP-U10ENDS-EMXA').reads['EMX 03 layout 1 b0']], ['PAD1', paste(PAD), PAD.reads['A layout 1']]];
+    const boxes = () => evalJs(S, `(() => { const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, W = d.defaultView, el = d.querySelector('.fe-block-' + s.blocks[0].id), R = (e) => { const q = e.getBoundingClientRect(); return [q.left, q.top, q.width, q.height].map((v) => Math.round(v * 10) / 10); }; const blk = el.querySelector('.sqs-block'), c = W.getComputedStyle(blk); return JSON.stringify({ card: blk.classList.contains('sqs-background-enabled'), block: R(blk), text: R(el.querySelector('.sqs-html-content')), p: R(el.querySelector('p')), bg: c.backgroundColor, radius: c.borderRadius, justify: c.justifyContent, ink: W.getComputedStyle(el.querySelector('p')).color }); })()`);
+    for (const [name, html, r] of cases) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'c0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const b = await chromeBtn(); await realClick(b.x, b.y);
+      evalJs(S, `(() => { document.querySelector('[data-layout="1"]').click(); return 'true'; })()`); await pause(300);
+      const g = boxes();
+      if (Math.abs(g.text[3] - r.contentH) > 0.5) errs.push(`${name} text ${g.text[3]} read ${r.contentH}`);
+      if (name !== 'PAD1') { browser(S, 'press', 'Escape'); await pause(150); continue; }
+      // The read boxes: the block, its content box and the line, frame pixels at a 1600 by 1000 window.
+      const at = (cls) => r.inside.find((x) => x.cls.split(' ').includes(cls)).box, near = (a, w) => a.every((v, i) => Math.abs(v - w[i]) <= 0.5);
+      const ins = r.inside.find((x) => x.tag === 'p').box, blk = r.inside.find((x) => x.cls.includes('sqs-block-html'));
+      if (!g.card || !near(g.block, blk.box) || !near(g.text, at('sqs-html-content')) || !near(g.p, ins)) errs.push(`card boxes ${JSON.stringify(g)}`);
+      if (g.bg !== blk.css.backgroundColor || g.radius !== blk.css.borderRadius || g.justify !== blk.css.justifyContent || g.ink !== r.inside.find((x) => x.tag === 'p').css.color) errs.push(`card look ${g.bg} ${g.radius} ${g.justify} ${g.ink}`);
+      evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(700);
+      const ph = boxes();
+      if (Math.abs(ph.text[3] - PAD.reads['A phone layout 1'].contentH) > 0.5 || !ph.card || ph.justify !== 'center') errs.push(`phone ${JSON.stringify(ph)}`);
+      evalJs(S, `(() => { fe.setBp('desktop'); return 'true'; })()`); await pause(500);
+      evalJs(S, `(() => { document.querySelector('[data-layout="0"]').click(); return 'true'; })()`); await pause(300);
+      const off = boxes();
+      if (off.card || Math.abs(off.text[3] - PAD.reads['A layout 0 after 1'].contentH) > 0.5) errs.push(`layout 0 after 1 ${JSON.stringify(off)}`);
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: layout 1's card as read, and its text heights (${cases.length} Texts)`, errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // The heading list through the walk with every layout after every other (CAP-U10STEP-A.json): the heading's area, and
   // the rows as they move from the layout's most common count (ours has longer paragraph words, so its counts differ by
   // the words, not the step).

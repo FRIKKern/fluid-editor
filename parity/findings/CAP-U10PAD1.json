@@ -1,0 +1,2040 @@
+{
+  "item": "CAP-U10PAD1",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T05:08:37.214Z",
+  "engine": "chrome",
+  "question": "U10: the paragraph list layout 1 text, 245.5 tall for one line where ours is 22.4 (CAP-U10ENDS-ECDA.json): a paragraph alone, read at layout 1 for its drawn box (where, style, inside), on the phone at layout 1, and at layout 0 after 1. Runs A and B the same steps. Nothing saved.",
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A start",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ],
+        "style": [
+          0,
+          0
+        ],
+        "inside": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "A-layout1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "A phone layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "A-phone1"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "A layout 0 after 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "editText",
+      0,
+      "new"
+    ],
+    [
+      "pasteHere",
+      0,
+      "new",
+      "<p>Paragraph words for a probe</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B start",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B open",
+      {
+        "tiles": true
+      }
+    ],
+    [
+      "pressLayout",
+      1
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ],
+        "style": [
+          0,
+          0
+        ],
+        "inside": [
+          0,
+          0
+        ],
+        "html": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "B-layout1"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "B phone layout 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "shot",
+      "B-phone1"
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "pressEl",
+      "[data-test=\"toolbar-layout-switcher\"]"
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "pressLayout",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      28
+    ],
+    [
+      "pause",
+      1200
+    ],
+    [
+      "read",
+      "B layout 0 after 1",
+      {
+        "look": 0,
+        "areas": 0,
+        "textH": [
+          0,
+          0
+        ],
+        "contentH": [
+          0,
+          0
+        ],
+        "where": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      500
+    ]
+  ],
+  "reads": {
+    "A start": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            435.9,
+            ""
+          ],
+          [
+            "2",
+            595.1,
+            ""
+          ],
+          [
+            "3",
+            735.5,
+            ""
+          ],
+          [
+            "4",
+            872.3,
+            ""
+          ],
+          [
+            "5",
+            1006,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A layout 1": {
+      "style": {
+        "transform": "none",
+        "origin": "464.75px 158.875px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": null,
+        "stroke": null,
+        "rx": null,
+        "tagName": null,
+        "inner": [
+          929.5,
+          245.5
+        ],
+        "vars": "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            335.3,
+            367.5,
+            929.5,
+            317.8
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            335.3,
+            367.5,
+            929.5,
+            317.8
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(242, 184, 180)",
+            "borderRadius": "22px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            335.3,
+            367.5,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            336.3,
+            368.5,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A phone layout 1": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 112.8,
+      "contentH": 112.8,
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A layout 0 after 1": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B start": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 667.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "1/2/3/10",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B open": {
+      "tiles": {
+        "open": true,
+        "box": [
+          1258,
+          248,
+          320,
+          476
+        ],
+        "tiles": [
+          [
+            "0",
+            304,
+            ""
+          ],
+          [
+            "1",
+            435.9,
+            ""
+          ],
+          [
+            "2",
+            595.1,
+            ""
+          ],
+          [
+            "3",
+            735.5,
+            ""
+          ],
+          [
+            "4",
+            870.1,
+            ""
+          ],
+          [
+            "5",
+            993,
+            ""
+          ]
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B layout 1": {
+      "style": {
+        "transform": "none",
+        "origin": "464.75px 158.875px",
+        "opacity": "1",
+        "radius": "0px",
+        "border": "0px none rgb(0, 0, 0)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fill": null,
+        "stroke": null,
+        "rx": null,
+        "tagName": null,
+        "inner": [
+          929.5,
+          245.5
+        ],
+        "vars": "--block-transform: none; --opacity: 100%; --translate-x: 0px; --translate-y: 0px; --rotation: 0deg; --scale-x: 100%; --scale-y: 100%; --skew-x: 0deg; --skew-y: 0deg; --origin-x: 50%; --origin-y: 50%;"
+      },
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 245.5,
+      "contentH": 245.5,
+      "inside": [
+        {
+          "tag": "div",
+          "cls": "fluid-engine-block-contents accept-pointer-events",
+          "box": [
+            335.3,
+            367.5,
+            929.5,
+            317.8
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "2",
+            "opacity": "1",
+            "color": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(255, 255, 255)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(255, 255, 255)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-csr sqs-block-website-component sqs-block website-component-block sqs-block-html",
+          "box": [
+            335.3,
+            367.5,
+            929.5,
+            317.8
+          ],
+          "css": {
+            "display": "flex",
+            "position": "relative",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderTopColor": "rgb(242, 184, 180)",
+            "borderRadius": "22px",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "column",
+            "justifyContent": "center"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-website-component-content sqs-block-content",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-text-block-container",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-html-content",
+          "box": [
+            335.3,
+            403.7,
+            929.5,
+            245.5
+          ],
+          "css": {
+            "display": "block",
+            "position": "relative",
+            "zIndex": "0",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "css-roynbj",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-dd-invalid-handle sqs-prevent-block-focus-change escmanager-ignore sqs-editing text-bl",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "tiptap ProseMirror",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "p",
+          "cls": "",
+          "box": [
+            446.8,
+            515.2,
+            706.4,
+            22.4
+          ],
+          "css": {
+            "display": "block",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopColor": "rgb(0, 0, 0)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-outline",
+          "box": [
+            335.3,
+            367.5,
+            6,
+            6
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "0",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "3px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        },
+        {
+          "tag": "div",
+          "cls": "sqs-block-resizing-inner",
+          "box": [
+            336.3,
+            368.5,
+            4,
+            4
+          ],
+          "css": {
+            "display": "block",
+            "position": "absolute",
+            "opacity": "1",
+            "color": "rgb(0, 0, 0)",
+            "borderTopWidth": "2px",
+            "borderTopStyle": "solid",
+            "borderTopColor": "rgba(112, 151, 228, 0.7)",
+            "outlineWidth": "3px",
+            "outlineColor": "rgb(0, 0, 0)",
+            "fontSize": "16px",
+            "flexDirection": "row"
+          }
+        }
+      ],
+      "html": "<p class=\"\" style=\"text-align: center; white-space: pre-wrap\" data-rte-preserve-empty=\"true\">Paragraph words for a probe</p>",
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B phone layout 1": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "block",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "background-color",
+            "value": "rgb(255, 255, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.yui3-widget.yui3-block-base.sqs-block-csr",
+            "prop": "border-top-left-radius",
+            "value": "22px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [
+          "div.yui3-widget.yui3-block-base.sqs-block-csr sqs-background-enabled"
+        ],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 112.8,
+      "contentH": 112.8,
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B layout 0 after 1": {
+      "where": {
+        "unread": 18,
+        "drawn": [
+          {
+            "part": "div.sqs-block-outline",
+            "prop": "border-top-width",
+            "value": "1px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "border-top-width",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-outline",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "div.sqs-block-resizing-inner",
+            "prop": "border-top-width",
+            "value": "2px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "background-color",
+            "value": "rgb(2, 122, 255)",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "border-top-left-radius",
+            "value": "3px",
+            "inline": "",
+            "from": []
+          },
+          {
+            "part": "span.sqs-block-label-tag.sqs-block-label-tag-floated-pill",
+            "prop": "opacity",
+            "value": "0",
+            "inline": "",
+            "from": []
+          }
+        ],
+        "marks": [],
+        "inlines": [
+          {
+            "part": "block",
+            "props": "--block-transform --opacity --translate-x --translate-y --rotation --scale-x --scale-y --skew-x --skew-y --origin-x --origin-y"
+          },
+          {
+            "part": "div.fluid-engine-block-contents.accept-pointer-events",
+            "props": "z-index position height pointer-events"
+          },
+          {
+            "part": "p.",
+            "props": "text-align white-space-collapse text-wrap-mode"
+          }
+        ]
+      },
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "textH": 22.4,
+      "contentH": 22.4,
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ]
+}
