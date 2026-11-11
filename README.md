@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 19 changes
+- **Today** · 20 changes
+  - X8: a pin on a phone, ours 12 of 12 (CAP-X8PINPHONE) ([#598](https://github.com/FRIKKern/fluid-editor/pull/598))
   - R2: phones and a taller Text's corners read, ours 15 of 16 and 8 of 8 (CAP-R2PHONE, CAP-R2CORNERS) ([#597](https://github.com/FRIKKern/fluid-editor/pull/597))
-  - A2: a same-z pair over each other on desktop swaps by the phone rows (CAP-A2SAMEZ) ([#600](https://github.com/FRIKKern/fluid-editor/pull/600))
 - **Yesterday** · 43 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **This week** · 65 changes
