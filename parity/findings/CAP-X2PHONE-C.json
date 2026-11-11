@@ -1,0 +1,2224 @@
+{
+  "item": "CAP-X2PHONE-C",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T05:42:54.403Z",
+  "predictions": {
+    "file": "CAP-X2PHONE-C-PREDICTED.json",
+    "commit": "5129c7cdf6242b5aa3d61a28b833abff0e291eff",
+    "committedAt": "2026-11-11T06:20:05+01:00",
+    "sha256": "2e6b838ebc9154456cad11e957df032aec9dde7c495e792c5649bbb6462c3444"
+  },
+  "engine": "chrome",
+  "question": "X2 phone, round F, second read: where is a Shape's let-go line in the phone view? CAP-X2PHONE-A.json read a phone Shape pulled 30 down by its south side let go (not selected), where desktop keeps it to 32 px. Each new Shape added on desktop, then the phone view, pulled by the mouse: south 10 and 20 down, south 30 up, north 60 down, east 60 left, west 60 right. One block per enter, read twice (R1, R2), Blocks Probe (the predictions named Gestures Probe; it was held, so Blocks Probe was taken), unsaved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built (the 32 px line).",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R1 Shape south 10 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 20 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      20,
+      "R1 Shape south 20 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape south 20 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape south 30 up before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      -30,
+      "R1 Shape south 30 up pull"
+    ],
+    [
+      "read",
+      "R1 Shape south 30 up",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape north 60 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      60,
+      "R1 Shape north 60 down pull"
+    ],
+    [
+      "read",
+      "R1 Shape north 60 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape east 60 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -60,
+      0,
+      "R1 Shape east 60 left pull"
+    ],
+    [
+      "read",
+      "R1 Shape east 60 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R1 Shape west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R1 Shape west 60 right pull"
+    ],
+    [
+      "read",
+      "R1 Shape west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 10 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      10,
+      "R2 Shape south 10 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape south 10 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 20 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      20,
+      "R2 Shape south 20 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape south 20 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape south 30 up before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "s",
+      0,
+      -30,
+      "R2 Shape south 30 up pull"
+    ],
+    [
+      "read",
+      "R2 Shape south 30 up",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape north 60 down before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "n",
+      0,
+      60,
+      "R2 Shape north 60 down pull"
+    ],
+    [
+      "read",
+      "R2 Shape north 60 down",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape east 60 left before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "e",
+      -60,
+      0,
+      "R2 Shape east 60 left pull"
+    ],
+    [
+      "read",
+      "R2 Shape east 60 left",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "read",
+      "R2 Shape west 60 right before",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "handleDrag",
+      0,
+      "new",
+      "w",
+      60,
+      0,
+      "R2 Shape west 60 right pull"
+    ],
+    [
+      "read",
+      "R2 Shape west 60 right",
+      {
+        "block": [
+          0,
+          "new"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ]
+  ],
+  "reads": {
+    "R1 Shape south 10 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375788383_438",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape south 10 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape south 10 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375788383_438",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape south 20 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375845732_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape south 20 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape south 20 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375845732_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape south 30 up before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375898998_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape south 30 up pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape south 30 up": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/6/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          164
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375898998_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 6 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,77",
+          "col 10x10 at 372.7,77",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,160",
+          "se 10x10 at 372.7,160",
+          "sw 10x10 at -6,160"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape north 60 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375949508_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape north 60 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape north 60 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "3/2/7/10",
+        "box": [
+          25.7,
+          326.5,
+          376.7,
+          129
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794375949508_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "3 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,59.5",
+          "col 10x10 at 372.7,59.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,125",
+          "se 10x10 at 372.7,125",
+          "sw 10x10 at -6,125"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape east 60 left before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376002849_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape east 60 left pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape east 60 left": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/9",
+        "box": [
+          25.7,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376002849_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 9",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape west 60 right before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376057845_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R1 Shape west 60 right pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R1 Shape west 60 right": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376057845_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 10 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376106991_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 10 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape south 10 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376106991_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 20 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376158440_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 20 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape south 20 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376158440_420",
+          "data-is-selected": "false",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "row 22x22 at 324.3,188"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 30 up before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376212738_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape south 30 up pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape south 30 up": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/6/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          164
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376212738_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 6 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,77",
+          "col 10x10 at 372.7,77",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,160",
+          "se 10x10 at 372.7,160",
+          "sw 10x10 at -6,160"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape north 60 down before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376264888_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape north 60 down pull": {
+      "under": {
+        "cursor": "row-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape north 60 down": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "3/2/7/10",
+        "box": [
+          25.7,
+          326.5,
+          376.7,
+          129
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376264888_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "3 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,59.5",
+          "col 10x10 at 372.7,59.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,125",
+          "se 10x10 at 372.7,125",
+          "sw 10x10 at -6,125"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape east 60 left before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376314506_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape east 60 left pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape east 60 left": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/9",
+        "box": [
+          25.7,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376314506_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 9",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape west 60 right before": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/2/7/10",
+        "box": [
+          25.7,
+          256.5,
+          376.7,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376362729_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 2 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 372.7,94.5",
+          "ne 10x10 at 372.7,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 183.3,-6",
+          "row 10x10 at 183.3,195",
+          "se 10x10 at 372.7,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 Shape west 60 right pull": {
+      "under": {
+        "cursor": "col-resize",
+        "size": [
+          10,
+          10
+        ]
+      },
+      "pressed": true
+    },
+    "R2 Shape west 60 right": {
+      "block": {
+        "desktop": "1/2/7/8",
+        "mobile": "1/3/7/10",
+        "box": [
+          74.1,
+          256.5,
+          328.2,
+          199
+        ],
+        "cls": "fe-block is-transitioning-visibility",
+        "data": {
+          "data-is-locked": "false",
+          "data-fluid-engine-block": "true",
+          "data-test": "yui_3_17_2_1_1794376362729_420",
+          "data-is-selected": "true",
+          "data-is-matching-width": "false",
+          "data-is-matching-height": "false",
+          "data-is-near-dragged-block": "false"
+        },
+        "css": {
+          "display": "block",
+          "position": "relative",
+          "zIndex": "1",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "borderTopColor": "rgb(0, 0, 0)",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "fontSize": "16px",
+          "gridArea": "1 / 3 / 7 / 10",
+          "flexDirection": "row"
+        },
+        "handles": [
+          "col 10x10 at -6,94.5",
+          "col 10x10 at 324.2,94.5",
+          "ne 10x10 at 324.2,-6",
+          "nw 10x10 at -6,-6",
+          "row 10x10 at 159.1,-6",
+          "row 10x10 at 159.1,195",
+          "se 10x10 at 324.2,195",
+          "sw 10x10 at -6,195"
+        ]
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

@@ -1,15 +1,16 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1204,
+  "pass": 1264,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
     "hold CAP-X2T9 R1 w6 1545 -20",
     "R2 wider 5",
+    "R2 phone wider 2, at the drop",
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1210,
+  "total": 1271,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4313,6 +4314,105 @@
       "diffs": []
     },
     {
+      "name": "R2 phone narrower 1, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 1, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 2, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 2, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 3, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 3, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 4, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 4, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 1, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 1, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 2, at the drop",
+      "diffs": [
+        "phone area: oracle 1/2/4/8, ours 1/2/3/8"
+      ],
+      "known": "the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)"
+    },
+    {
+      "name": "R2 phone wider 2, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 3, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 3, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 4, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 4, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its sw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its sw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its nw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its nw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its ne corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its ne corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its se corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its se corner, let go",
+      "diffs": []
+    },
+    {
       "name": "R2 c1 Line 1 row under, widened 3",
       "diffs": []
     },
@@ -4778,6 +4878,154 @@
     },
     {
       "name": "X2 Text nw left 60, 6 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 30 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 40 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape corner 60 left, 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape corner 60 left, 60 down by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 65 down by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text corner 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text corner 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-east 60 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-east 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-west pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text east 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text corner 60 down by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-east 60 up by touch",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 10 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 20 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 30 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape north 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape east 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape west 60 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 5 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south 5 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape south pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-east 60 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-west 60 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape east pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape east 5 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape north 60 up",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Line south 20 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-east 100 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text north-west 100 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text east pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text east 5 left",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text south pressed, no move",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text south 10 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text west 60 right",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Shape north 30 down",
+      "diffs": []
+    },
+    {
+      "name": "X2 phone Text south-west 60 right",
       "diffs": []
     },
     {

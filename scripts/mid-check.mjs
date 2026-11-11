@@ -10,6 +10,8 @@ import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
 import { PIN_READS, pinBar } from './lib/x8-phone-pin.mjs';
+import { T3, PHONE_STEPS, CORNER_STEPS, loadText, pull } from './lib/r2-width-replay.mjs';
+import { PHONE_LETGO, phoneLetGo } from './lib/phone-letgo.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const dir = new URL('../traces/', import.meta.url);
@@ -670,8 +672,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await view('desktop');
 }
 // A2: after an edit the block DOM follows the phone rows (CAP-ORDER.json). A saved page stays as it
-// loads. A pair that overlaps with the same z, on desktop or on the phone, keeps its order so nothing
-// repaints (held pairs are ours, not measured on the oracle).
+// loads. In a saved page a pair that overlaps with the same z, on desktop or on the phone, keeps its order so
+// nothing repaints (ours, not read); in a section made here only a phone overlap holds (CAP-A2SAMEZ, neworder-check).
 { const bl = (id, d, m, z = 1, zm = z) => ({ id, type: 'shape', label: id, fill: '#ccc', radius: '0', layout: { desktop: { area: d, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: m, z: zm, justify: 'flex-start', align: 'flex-start' } } });
   const sec = (id, blocks) => ({ id, theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 14, mobile: 20 }, blocks });
   const load = async (...sections) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: ${JSON.stringify(sections)} }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60); };
@@ -781,6 +783,28 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         const r = read(), w = C[`A ${c} narrower 4 ${when}`];
         groupCases.push({ name: `R2 one-row Text narrowed from its ${c} corner, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: [r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
       }
+    }
+  }
+  // On a phone, the written Text narrowed and widened a phone column at a time by its east side (CAP-R2PHONE.json, R1 and R2 agree),
+  // from the oracle's start: the phone area and rows of the before read.
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2PHONE.json', import.meta.url))).reads, b = R['R1 before'];
+    loadText(S, { html: `<p>${T3}</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: 8, mobile: b.section.rows }, bp: 'mobile' }); await pause(200);
+    for (const [name, part, dx] of PHONE_STEPS) {
+      const got = await pull(S, part, dx);
+      // Named miss: widened back to 7 columns the oracle keeps the third row at the drop and lets it go with the block, as
+      // desktop's wider 5 (R2 rule S, frozen, is for one line only; this text is two lines).
+      const known = name === 'wider 2' ? { held: 'the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)' } : {};
+      for (const [when, r] of [['held', got.held], ['let go', got.letGo]]) { const w = R[`R1 ${name} ${when}`].stack[0].phone; groupCases.push({ name: `R2 phone ${name}, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: r.phone === w ? [] : [`phone area: oracle ${w}, ours ${r.phone}`], ...(known[when] ? { known: known[when] } : {}) }); }
+    }
+    evalJs(S, `fe.setBp('desktop')`); await pause(100);
+  }
+  // A taller Text narrowed two columns from each corner (CAP-R2CORNERS.json, R1 and R2 agree), from its before read.
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2CORNERS.json', import.meta.url))).reads;
+    for (const [c, dx] of CORNER_STEPS) {
+      const b = R[`R1 ${c} before`];
+      loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200);
+      const got = await pull(S, c, dx);
+      for (const [when, r] of [['held', got.held], ['let go', got.letGo]]) { const w = R[`R1 ${c} narrower 2 ${when}`].stack[0].desktop; groupCases.push({ name: `R2 taller Text narrowed from its ${c} corner, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: r.desktop === w ? [] : [`area: oracle ${w}, ours ${r.desktop}`] }); }
     }
   }
   // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.
@@ -894,6 +918,12 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     cdp(S, { op: 'drag', from: p, to: [p[0] + dx, p[1] - up], steps: 12, holdMs: 200 }); await pause(150);
     const got = onSel(); groupCases.push({ name: `X2 Text ${dir} ${dx > 0 ? 'right' : 'left'} 60, ${up} up`, diffs: got === false ? [] : [`oracle selected false, ours ${got}`] });
   }
+  // On a phone (CAP-X2PHONE-A to F.json, each read twice, R1 and R2 agreeing; rule R, refit 2, frozen): pressed on the block's own edge or corner.
+  { const R = Object.assign({}, ...['A', 'B', 'C', 'D', 'E', 'F'].map((x) => JSON.parse(readFileSync(new URL(`../parity/findings/CAP-X2PHONE-${x}.json`, import.meta.url))).reads));
+    for (const c of PHONE_LETGO) {
+      const want = R[`R1 ${c[0]}`].block.data['data-is-selected'] === 'true', got = await phoneLetGo(S, c);
+      groupCases.push({ name: `X2 phone ${c[0]}`, diffs: got === want ? [] : [`oracle selected ${want}, ours ${got}`] });
+    } }
   // A drag on a selected Text: inside its text it opens the editor and stays, under it the block moves (CAP-TEXTPRESS.json).
   for (const [name, below, moved] of [['on the text', 0, false], ['under the text', 30, true]]) {
     await load('text', '<p>Some text</p>');

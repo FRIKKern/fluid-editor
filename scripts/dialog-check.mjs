@@ -2,9 +2,10 @@
 // CAP-ROWS*.json changes. A new block of each of the nine through the menu, then Edit: the box by the block's right edge,
 // the title, the tabs, and every read row's box. Then the close (a press beside it), Escape and a press on the block, and
 // the rows 0005 keeps in scope. Writes parity/dialog-check.json. FLUID_SURFACE=cdp:<port> npm run dialog-check.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, ensureVisible, mouse, browser, drag } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { pngPixels } from './lib/png-pixels.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const read = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}`, import.meta.url)));
@@ -333,15 +334,26 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   const plusSeries = q(`dl.querySelector('[data-dl-add="series"]')?.click(); await sleep(300); const b = fe.model.sections[1].blocks.find((o) => o.id === '${id}'); const a = document.activeElement, L = dl.getBoundingClientRect().left, p = dl.querySelector('[data-dl-add="series"]'); return JSON.stringify([b.chartData?.map((r) => r.at(-1)), a.dataset.dlCell, Math.round(a.getBoundingClientRect().left - L), Math.round(p?.getBoundingClientRect().left - L), d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar').length]);`);
   add('Chart + after the series: 0s, its name cell focused at 275, the + at 385, two bars a label', JSON.stringify(plusSeries) === JSON.stringify([['', '0', '0', '0'], '0,2', 275, 385, 6]), JSON.stringify(plusSeries));
   // A 0 bar is a 1px line on the baseline, as wide as a bar, in its series' colour: the second swatch, rgb(191, 191, 191) in Grayscale (CAP-T12CHARTCELLS3.json headplus shot).
-  const zero = q(`const z = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-zero')], bars = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')], rule = d.querySelector('.fe-block[data-block-id="${id}"] .fe-chart-rule').getBoundingClientRect(); return JSON.stringify(z.map((p) => { const r = p.getBoundingClientRect(), b = bars[1].getBoundingClientRect(); return [getComputedStyle(p).stroke === getComputedStyle(bars[1]).fill, Math.abs(r.width - b.width) < 0.5, Math.abs(r.top - rule.top) < 0.6]; }));`);
+  const zero = q(`const z = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-zero')], bars = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')], rule = d.querySelector('.fe-block[data-block-id="${id}"] .fe-chart-rule').getBoundingClientRect(); return JSON.stringify(z.map((p) => { const r = p.getBoundingClientRect(), b = bars[1].getBoundingClientRect(); return [getComputedStyle(p).stroke === getComputedStyle(bars[1]).fill, Math.abs(r.width - b.width) < 0.5, Math.abs(r.top - (rule.top + rule.height / 2)) < 0.2]; }));`);
   add('Chart 0 bars: three 1px lines on the baseline, bar wide, in the second series colour', JSON.stringify(zero) === JSON.stringify(Array(3).fill([true, true, true])), JSON.stringify(zero));
   // The lines, from the axis's top left in px (CAP-T12CHARTCELLS3.json headplus shot, by pixel): band edges at 124 and 247, the grid
   // and the axis from 3 above the top value, the axis and the edge ticks 4 below the baseline, value ticks 5 long; grid .05, axis .1.
-  const lines = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] svg'); if (!g.querySelector('.fe-chart-axis + .fe-chart-axis')) return 'null'; const V = f.contentWindow, R = (e) => e.getBoundingClientRect(), ax = R(g.querySelector('.fe-chart-axis + .fe-chart-axis')), base = R(g.querySelector('.fe-chart-axis'));
-    const v = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.width < 1).map((r) => [Math.round(r.left - ax.left), Math.round(r.top - ax.top), Math.round(r.bottom - base.top)]);
-    const ticks = [...g.querySelectorAll('.fe-chart-axis')].map(R).filter((r) => r.height < 1 && r.width < 10).map((r) => Math.round(r.width));
-    const hz = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.height < 1).length; return JSON.stringify({ hz, v: v.slice(0, 2), axis: [Math.round(base.top - ax.top), Math.round(ax.bottom - base.top)], ticks, op: [V.getComputedStyle(g.querySelector('.fe-chart-grid')).strokeOpacity, V.getComputedStyle(g.querySelector('.fe-chart-axis')).strokeOpacity] });`);
+  const lines = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] .fe-chart-plot'); if (!g.querySelector('.fe-chart-axis + .fe-chart-axis')) return 'null'; const V = f.contentWindow, R = (e) => e.getBoundingClientRect(), ax = R(g.querySelector('.fe-chart-axis + .fe-chart-axis')), base = R(g.querySelector('.fe-chart-axis'));
+    const v = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.width < 1.5).map((r) => [Math.round(r.left - ax.left), Math.round(r.top - ax.top), Math.round(r.bottom - base.top)]);
+    const ticks = [...g.querySelectorAll('.fe-chart-axis')].map(R).filter((r) => r.height < 1.5 && r.width < 10).map((r) => Math.round(r.width));
+    const hz = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.height < 1.5).length; return JSON.stringify({ hz, v: v.slice(0, 2), axis: [Math.round(base.top - ax.top), Math.round(ax.bottom - base.top)], ticks, op: [V.getComputedStyle(g.querySelector('.fe-chart-grid')).opacity, V.getComputedStyle(g.querySelector('.fe-chart-axis')).opacity] });`);
   add('Chart lines: band edges, the axis and its ticks where the oracle draws them', !!lines && JSON.stringify(lines.v) === JSON.stringify([[124, 0, 0], [247, 0, 0]]) && near(lines.axis, [170, 4], 1) && lines.ticks.length === lines.hz && lines.hz >= 2 && lines.ticks.every((w) => near([w], [5], 0.5)) && JSON.stringify(lines.op) === JSON.stringify(['0.05', '0.1']), JSON.stringify(lines));
+  // Each line one pixel wide, at the oracle's pixels from the axis's and the baseline's (CAP-T12CHARTCELLS.json P1 shot, by pixel:
+  // grid rows 167, 111 and 55 above the baseline for 300, 200 and 100, band edges 124 and 247 right of the axis). The data here tops
+  // at 200, so its rows are the top's 167 and floor(167 / 2) (inferred, one picture); ours drew each line across two pixels before.
+  // Each line is a box the browser paints at its rounded place, so the axis's and the baseline's pixels are their rounded edges.
+  const at1 = q(`const o = f.getBoundingClientRect(), g = d.querySelector('.fe-block[data-block-id="${id}"] .fe-chart-plot'), R = (e) => e.getBoundingClientRect(); return JSON.stringify([Math.round(o.left + R(g.querySelector('.fe-chart-axis + .fe-chart-axis')).left), Math.round(o.top + R(g.querySelector('.fe-chart-axis')).top)]);`);
+  const shot1 = `/tmp/dialog-check-chart-${process.pid}.png`; browser(S, 'screenshot', '--out', shot1);
+  const pix = pngPixels(shot1); rmSync(shot1, { force: true }); const [ax0, by0] = at1, bg = pix(ax0 + 60, by0 - 150), isLine = (c) => Math.abs(c[0] - bg[0]) + Math.abs(c[1] - bg[1]) + Math.abs(c[2] - bg[2]) > 4;
+  const runs = (n, at) => { const out = []; for (let k = 0; k < n.length; k++) if (isLine(at(n[k]))) { const last = out.at(-1); if (last && last[0] + last[1] === n[k]) last[1]++; else out.push([n[k], 1]); } return out; };
+  const span = (a, b) => Array.from({ length: b - a }, (_, k) => a + k);
+  const px1 = { rows: runs(span(by0 - 180, by0 + 2), (y) => pix(ax0 + 2, y)).map(([y, w]) => [y - by0, w]), cols: runs(span(ax0 - 2, ax0 + 260), (x) => pix(x, by0 - 150)).map(([x, w]) => [x - ax0, w]) };
+  add('Chart lines: each one pixel, at the oracle\'s pixels', JSON.stringify(px1) === JSON.stringify({ rows: [[-167, 1], [-83, 1], [0, 1]], cols: [[0, 1], [124, 1], [247, 1]] }), JSON.stringify(px1));
   // Two series' bars stand apart, and each + is a 12px cross a little above its box's middle (CAP-T12CHARTCELLS3.json headplus shot, by pixel:
   // bars 54 wide 2.6 apart in a 123.5 band; the cross 12 by 12, its middle 17.2 across and 21.1 down the 35.6 by 44 box).
   const pair = q(`const r = [...d.querySelectorAll('.fe-block[data-block-id="${id}"] .fe-chart-bar')].slice(0, 2).map((e) => [+e.getAttribute('x'), +e.getAttribute('width')]); return JSON.stringify([Math.round(r[0][1] * 10) / 10, Math.round(r[1][1] * 10) / 10, Math.round((r[1][0] - r[0][0] - r[0][1]) * 10) / 10]);`);

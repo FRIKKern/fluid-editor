@@ -1,0 +1,1262 @@
+{
+  "item": "CAP-A2SAMEZ",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T05:18:41.621Z",
+  "predictions": {
+    "file": "CAP-A2SAMEZ-PREDICTED.json",
+    "commit": "e039bcb298fa9b7a5a5c5f5bd71515334deb1ccf",
+    "committedAt": "2026-11-11T06:16:41+01:00",
+    "sha256": "9fbbe359f5624cb0a245a7da161dfe6e0d7ad85b009450eda0f71f90278944e9"
+  },
+  "engine": "chrome",
+  "question": "A2: does a pair that overlaps with the same z ever swap in the DOM? A Shape (A), a Button (B) moved 118 right and 205 down over A's lower part, a Line (L) moved 452 down; Cmd+D on A gives A' at A's z + 1, B's z, overlapping B, last on the phone; then L nudged right and back left, each setting the phone order again, whose rows put A' before B. The DOM order and z (stack) and what is on top at B's points (hit) after each. Two runs, each from a new blank section, on Gestures Probe (the predictions file names Blocks Probe, which was held). Predictions pushed first (CAP-A2SAMEZ-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      118,
+      205
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      452
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 placed",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a1"
+    ],
+    [
+      "press",
+      "Meta+d"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 copied",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 nudged",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P1 nudged back",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      118,
+      205
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Line"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      0,
+      452
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 placed",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a1"
+    ],
+    [
+      "press",
+      "Meta+d"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 copied",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "press",
+      "ArrowRight"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 nudged",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "select",
+      0,
+      "a3"
+    ],
+    [
+      "press",
+      "ArrowLeft"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "P2 nudged back",
+      {
+        "stack": 0,
+        "section": 0,
+        "hit": [
+          0,
+          "a2",
+          [
+            [
+              0.25,
+              0.5
+            ],
+            [
+              0.6,
+              0.5
+            ],
+            [
+              0.95,
+              0.5
+            ]
+          ]
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "P1 placed": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 copied": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "a61a9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "10/2/16/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 nudged": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "a61a9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "13/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_879",
+          "type": "csr",
+          "desktop": "12/3/13/7",
+          "phone": "15/2/16/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P1 nudged back": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "8_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "a61a9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "13/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "8_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "15/2/16/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 placed": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 3
+      },
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 copied": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": false
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "7/2/9/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "9/2/10/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        },
+        {
+          "id": "84db9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "10/2/16/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 nudged": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "84db9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "13/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_879",
+          "type": "csr",
+          "desktop": "12/3/13/7",
+          "phone": "15/2/16/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "P2 nudged back": {
+      "hit": [
+        {
+          "at": [
+            0.25,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.6,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        },
+        {
+          "at": [
+            0.95,
+            0.5
+          ],
+          "tag": "div",
+          "cls": "sqs-editing-overlay",
+          "cursor": "grab",
+          "inBlock": true
+        }
+      ],
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 4
+      },
+      "stack": [
+        {
+          "id": "9_420",
+          "type": "csr",
+          "desktop": "1/2/7/8",
+          "phone": "1/2/7/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "84db9",
+          "type": "csr",
+          "desktop": "2/3/8/9",
+          "phone": "7/2/13/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_641",
+          "type": "csr",
+          "desktop": "6/4/8/10",
+          "phone": "13/2/15/10",
+          "z": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "9_879",
+          "type": "csr",
+          "desktop": "12/2/13/6",
+          "phone": "15/2/16/10",
+          "z": [
+            "3",
+            "3"
+          ]
+        }
+      ],
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": false,
+  "exitSteps": [],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}

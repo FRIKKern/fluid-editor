@@ -281,7 +281,8 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
 }
 // Y2: after one Escape the section draws the rows the close left. CAP-A2SHRINKB1 c3 (a Line, a Text moved beside it, 'hello'
 // typed): rule B1 drops the Text to 1 row and the section to 7, drawn at the first Escape and the let go (CAP-Y2SOFTROWS.json,
-// two runs alike), by the real mouse and keys, in a new section as the probe page's. Named, not built: the oracle has dropped them already while typing.
+// two runs alike), by the real mouse and keys, in a new section as the probe page's. The Escape here comes 500 ms after the
+// last key, before the save while typing (CAP-Y2DROPTIME, next case), so the close does it.
 { const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-Y2SOFTROWS.json', import.meta.url))).reads;
   const at = (id, fx = 0.5) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width * ${fx}, r.top + q.top + q.height / 2]); })()`);
   const now = (id) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, g = d.querySelector('main#page .page-section .fluid-engine'); return JSON.stringify([d.defaultView.getComputedStyle(g).gridTemplateRows.split(' ').length, d.querySelector('.fe-block[data-block-id="${id}"]').style.gridArea.split(' / ').join('/') || fe.model.sections[0].blocks.find((b) => b.id === '${id}').layout.desktop.area.join('/')]); })()`);
@@ -299,6 +300,51 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   const ok = JSON.stringify(got) === JSON.stringify(want);
   results.push({ name: `Y2 soft rows: after one Escape the section draws the rows the close gave back (CAP-Y2SOFTROWS)`, ok });
   if (!ok) console.log(`Y2 soft rows DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(want)}`);
+}
+// Y2: the drop comes while typing, about 565 ms after the last key (CAP-Y2DROPTIME.json: 565, 566, 569, 580 ms, a burst and
+// keys 400 ms apart, two runs each): the Line goes first in the DOM, the Text to 1/13/2/21 and the section to 7 rows, the
+// edit still open. Read under 565 ms after the last key (nothing yet, so nothing between the keys 400 ms apart either) and after.
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-Y2DROPTIME.json', import.meta.url))).reads;
+  const at = (id) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width / 2, r.top + q.top + q.height / 2]); })()`);
+  // Drawn rows, the Text's desktop area, whether the Line is first in the DOM, and whether the edit is open.
+  const now = (id) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, g = d.querySelector('main#page .page-section .fluid-engine'), els = [...g.querySelectorAll(':scope > .fe-block')]; return JSON.stringify([d.defaultView.getComputedStyle(g).gridTemplateRows.split(' ').length, (els.find((e) => e.dataset.blockId === '${id}').style.gridArea.split(' / ').join('/') || fe.model.sections[0].blocks.find((b) => b.id === '${id}').layout.desktop.area.join('/')), els[0].dataset.blockId !== '${id}', !!d.querySelector('[contenteditable=true]')]); })()`);
+  // The oracle's watch: the state before the change, and after it, with the time after the last key.
+  const want = (n) => { const w = O[`${n} watch`], last = w.keys.filter((k) => k[1] === 'down').at(-1)[0], st = (row, open) => [row[1], row[2].find((b) => b[1].startsWith('1/13/'))[1], !row[2][0][1].startsWith('1/13/'), open]; return { before: st(w.seen[0], true), after: st(w.seen.at(-1), true), ms: w.seen.findIndex((r, k) => k && r[0] > last) >= 0 ? w.seen.find((r, k) => k && r[0] > last)[0] - last : null }; };
+  const setup = async () => {
+    goto(S, `${BASE}/index.html`); await pause(1200);
+    const id = evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 300)); const s = fe.model.sections[0]; fe.addBlock(s.id, 'Line', true); fe.addBlock(s.id, 'Text', true); return JSON.stringify(s.blocks.find((b) => b.type === 'text').id); })()`);
+    browser(S, 'press', 'Escape'); await pause(200);
+    for (const dx of [588, 59]) { const p = at(id); drag(S, p, [p[0] + dx, p[1]], { steps: 12, holdMs: 200 }); await pause(200); browser(S, 'press', 'Escape'); await pause(200); }
+    const p = at(id); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400);
+    const w = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]')?.getBoundingClientRect(); return JSON.stringify(q ? [q.left + q.width / 2, q.top + q.height / 2] : null); })()`);
+    if (w) { mouse(S, 'move', w[0], w[1]); mouse(S, 'down', w[0], w[1], { buttons: 1 }); mouse(S, 'up', w[0], w[1]); await pause(250); }
+    return id;
+  };
+  for (const [n, gap] of [['W1', 0], ['G1', 400]]) {
+    const id = await setup();
+    const got = {};
+    // One process for the keys: a process per key waits longer than the gap.
+    cdp(S, { op: 'presses', keys: ['h', 'e', 'l', 'l', 'o'], gapMs: gap });
+    await pause(250); got.before = now(id);
+    await pause(500); got.after = now(id);
+    browser(S, 'press', 'Escape'); await pause(300); browser(S, 'press', 'Escape'); await pause(300); got.letGo = now(id);
+    const o = want(n), ok = JSON.stringify(got.before) === JSON.stringify(o.before) && JSON.stringify(got.after) === JSON.stringify(o.after) 
+      && JSON.stringify(got.letGo.slice(0, 3)) === JSON.stringify(o.after.slice(0, 3)) && o.ms > 400 && o.ms < 750;
+    results.push({ name: `Y2 drop time: ${gap ? 'keys 400 ms apart' : 'a burst'}, the rows drop and the order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME ${n})`, ok });
+    if (!ok) console.log(`Y2 drop time ${n} DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(o)}`);
+  }
+  // Ours, inferred: after the save the caret is where it was, and a Cmd+Z back to the start puts the order back, so the
+  // close leaves no step (an undo after the save is not read).
+  const id = await setup();
+  const st = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, ce = d.querySelector('[contenteditable=true]'), sel = d.getSelection(); return JSON.stringify({ depth: fe.undoDepth, order: fe.model.sections[0].blocks.map((b) => b.id).join(), dom: [...d.querySelectorAll('main#page .page-section .fluid-engine > .fe-block')].map((e) => e.dataset.blockId).join(), caret: !!ce && d.activeElement === ce && ce.contains(sel.anchorNode) && sel.isCollapsed }); })()`);
+  const s0 = st();
+  cdp(S, { op: 'presses', keys: ['h', 'e', 'l', 'l', 'o'], gapMs: 0 });
+  await pause(800); const s1 = st();
+  browser(S, 'press', 'Meta+z'); await pause(300); const s2 = st();
+  browser(S, 'press', 'Escape'); await pause(300); browser(S, 'press', 'Escape'); await pause(300); const s3 = st();
+  const ok = s1.order !== s0.order && s1.caret && s2.order === s0.order && s2.dom === s0.order && s3.depth === s0.depth && s3.order === s0.order;
+  results.push({ name: 'Y2 drop time: the caret stays after the save, and Cmd+Z back to the start then the close leaves no step (inferred)', ok });
+  if (!ok) console.log(`Y2 drop time undo DIFF ${JSON.stringify([s0, s1, s2, s3])}`);
 }
 // Y2: Cmd+A and Backspace that empty the Heading 1 above take the undo's rows, less the height lost: 30 rows to 2, a row
 // short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json, 4 reads). The typing rule alone gives 3.
