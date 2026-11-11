@@ -154,10 +154,27 @@ const oneBlock = (b) => {
 };
 const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && oneBlock(mix.by.p[0]) && lines(mix.by.p[0]) > 1 ? 1 : null);
 
+// U10 read facts, not a rule (rule W is frozen, its misses named): the paragraph list's spans for words of about 2 and 4
+// lines at ten columns (CAP-U10WORDS.json's W2 and W4, 16 picks each). Each layout's entry holds them under 'words', by
+// those lines: its place, rows and step. Layout 1 has no step there (7 rows with two lines, 8 with four); the others are
+// the read high span over a low one row long after layout 1. Each was read high after one layout and low after 1;
+// after the others ours takes it as high, as with one line (not read), and an Undo onto them is not read. Phone rows,
+// read for one, two and four lines (CAP-U10PHONEROWS.json, predicted 15 of 18, runs A and B alike): the phone end line
+// less 1, and at layout 0 the end line itself. Any other count, a Text of several blocks, and a Text of code (a pick
+// makes its lines one) keep the one-line entries. words(b) is the Text's line count at ten columns.
+const wordsKey = (mix, words) => {
+  const b = mix.key === 'p1' && words && mix.by.p[0];
+  const n = b && oneBlock(b) && !/^\s*<pre[\s>]/.test(b.html || '') ? words(b) : null;
+  return n ? String(n) : null;
+};
+const byWords = (L, k) => (k && L.words?.[k] ? { ...L, ...L.words[k] } : L);
+// Every form a layout can take: its one-line entry and the read word spans.
+const forms = (L) => [L, ...Object.keys(L.words || {}).map((k) => byWords(L, k))];
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
-export function applyLayout(s, mix, n, base, lines) {
+export function applyLayout(s, mix, n, base, lines, words) {
   if (mix.list[n].unbuilt) return;
-  const L = variant(mix.list[n], layoutShown(s, mix, null) ?? firstPrev(mix, n, lines));
+  const L = variant(byWords(mix.list[n], wordsKey(mix, words)), layoutShown(s, mix, null) ?? firstPrev(mix, n, lines));
   s.blocks = s.blocks.filter((b) => !dropped(b));
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {
@@ -222,15 +239,16 @@ function cardText(b, card) {
 // Undo onto a layout puts its step again, from the layout it leaves (CAP-U10WALK2.json: from 1 back to 0 gives 9;
 // CAP-U10UNDO.json: from 3 back to 0 gives 10), with the Layouts panel open or closed (CAP-U10UNDOCLOSED-A.json and
 // -B.json: from 0 back to 1 gives 13). Redo brings back the state Undo left, so it has none.
-export function restep(s, mix, prev) {
+export function restep(s, mix, prev, words) {
   const n = layoutShown(s, mix, null);
   // A mix whose Texts grow (rule E): Undo onto it is not read, the state Undo gives is kept.
   if (mix.grows) return;
   // An Undo that stays on the same layout (a text edit in it, say) keeps the state as it was: not read.
   if (n === prev) return;
   if (n == null) return startStep(s, mix, prev);
-  if (!mix.list[n].step) return;
-  const L = variant(mix.list[n], prev), moved = [].concat(L.step).flatMap(({ block, push = [] }) => [block, ...push]);
+  const F = shownForm(s, mix, n, wordsKey(mix, words));
+  if (!F.step) return;
+  const L = variant(F, prev), moved = [].concat(L.step).flatMap(({ block, push = [] }) => [block, ...push]);
   if (!mix.by[moved[0][0]]?.[+moved[0].slice(1)]) return;
   for (const k of moved) { const b = mix.by[k[0]]?.[+k.slice(1)]; if (b) b.layout.desktop.area = area(L.places[k][0]); }
   s.rows = { ...s.rows, desktop: L.rows };
@@ -292,14 +310,25 @@ function growLayout(s, mix, n, span) {
   s.rows = { ...s.rows, desktop: s.rows.desktop + Math.max(...blocks.map(([, b]) => b.layout.desktop.area[2])) - lowWas };
 }
 
+// Whether the section stands as layout form L shows it.
+// A fitted block matches by its start line and columns, and the rows by its end line.
+// A mix whose Texts grow matches by columns alone (each layout's are its own).
+function fitsAt(s, mix, L) {
+  const at = (r, k, a) => { const w = L.places[r + k][0]; if (mix.grows) { const [, c0, , c1] = area(w); return a[1] === c0 && a[3] === c1; } if (L.fit?.block !== r + k) return a.join('/') === w; const [r0, c0, , c1] = area(w); return a[0] === r0 && a[1] === c0 && a[3] === c1 && s.rows?.desktop === a[2] + L.fit.past; };
+  return (!!L.fit || !!mix.grows || s.rows?.desktop === L.rows) && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => at(r, k, b.layout.desktop.area)));
+}
+// Any of a step's spans.
+const formFits = (s, mix, F) => fitsAt(s, mix, F) || (!!F.step && others(F.step).some((p) => fitsAt(s, mix, variant(F, p))));
+// The form of layout n the section shows: the Text's own (its words at ten columns, k) if it fits, else the first that
+// fits, the one-line entry first. Undo onto a two- or four-line Text steps by its own form (inferred, not read).
+const shownForm = (s, mix, n, k) => {
+  const own = byWords(mix.list[n], k);
+  return (own !== mix.list[n] && formFits(s, mix, own) && own) || forms(mix.list[n]).find((F) => formFits(s, mix, F)) || mix.list[n];
+};
+
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
-  // A fitted block matches by its start line and columns, and the rows by its end line.
-  // A mix whose Texts grow matches by columns alone (each layout's are its own).
-  const at = (L, r, k, a) => { const w = L.places[r + k][0]; if (mix.grows) { const [, c0, , c1] = area(w); return a[1] === c0 && a[3] === c1; } if (L.fit?.block !== r + k) return a.join('/') === w; const [r0, c0, , c1] = area(w); return a[0] === r0 && a[1] === c0 && a[3] === c1 && s.rows?.desktop === a[2] + L.fit.past; };
-  const fitsAt = (L) => (!!L.fit || !!mix.grows || s.rows?.desktop === L.rows) && Object.keys(mix.by).every((r) => mix.by[r].every((b, k) => at(L, r, k, b.layout.desktop.area)));
-  // Any of a step's spans.
-  const fits = (n) => !mix.list[n].unbuilt && (fitsAt(mix.list[n]) || (!!mix.list[n].step && others(mix.list[n].step).some((p) => fitsAt(variant(mix.list[n], p)))));
+  const fits = (n) => !mix.list[n].unbuilt && forms(mix.list[n]).some((F) => formFits(s, mix, F));
   if (last != null && fits(last)) return last;
   const n = mix.list.findIndex((_, k) => fits(k));
   return n < 0 ? null : n;

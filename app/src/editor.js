@@ -1,7 +1,7 @@
 // Editor shell. The page renders inside an iframe (like #sqs-site-frame), so
 // media queries see the preview width. All gestures write to the model only
 // on commit; during a gesture we change inline styles and editor layers.
-import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt } from './render.js';
+import { DIVIDER_WIDTHS, DIVIDER_HEIGHTS, artDefaults, bindVideoPlayer, watchShapeRects, rectPath, cornerFor, shapeFill, phoneOwn, FOLLOW_DESKTOP, setLiveView, ruleForget, quoteOf, newsletterOf, PHONE_HEIGHTS, phoneHeightAt, phoneHeightOf } from './render.js';
 import { imageShapeById } from './image-shapes.js';
 import { openImageEditor } from './image-editor.js';
 import { EFFECTS, IMAGE_EFFECT_SCRIPT, effectData, effectDefaults, paintEffectTiles, shuffleEffect } from './image-effects.js';
@@ -107,11 +107,12 @@ function note(text) {
 }
 
 // force: a drop that moves nothing is still an undo step on the oracle (GROUPRESIZE.json, TEXTUNDO.json).
-function commit(before, label, force = false) {
+// base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
+function commit(before, label, force = false, base = before) {
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(before);
+  followPhoneRows(base);
   note(label);
   updateUi();
 }
@@ -235,7 +236,7 @@ function undo(button = false) {
     const [json, key, left] = was.get(s.id) || [];
     if (json == null || json === JSON.stringify(s) || !s.blocks.length) continue;
     const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
-    if (m && m.key === key) restep(s, m, left);
+    if (m && m.key === key) restep(s, m, left, wordsAt(s.id));
   }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
@@ -1625,7 +1626,7 @@ function updateResize(e) {
     // its floor and 32 past it, from either side (CAP-X6FARSETTLE.json, 7 of 7 predicted).
     const [, o0, , o1] = g.orig;
     const past = g.dir === 'e' ? snapColumn(m, o1, dx, o0 + 1, LAST_LINE[bp]) < o0 + leastCols : snapColumn(m, o0, dx, 1, o1 - 1) > o1 - leastCols;
-    need = Math.max(g.free?.need ?? 1, Math.ceil(((phoneHeightAt(held.label, c1 - c0) ?? held.phoneHeight) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
+    need = Math.max(g.free?.need ?? 1, Math.ceil((phoneHeightOf(held, c1 - c0) + m.rg) / (PHONE_ROW + m.rg) - (past ? 0.02 : 0.13)));
   }
   // A Text on a corner pull takes the floor its text had one pointer step before, as a side pull does at the drop: narrowed
   // from one row it stays one row, and the text runs over until let go (CAP-TEXTWIDTH7.json f3, CAP-SINGLEAGAIN.json f3,
@@ -2949,15 +2950,20 @@ blockPanel.addEventListener('change', (e) => {
 // A stand-in panel's rows (standin-panels.js): each change keeps its value on the block, one undo step; the tile stays.
 // A Pricing Plan's Elements switches move its rows on desktop: growth to what the content needs, a shrink by the content
 // lost, in rows, rounded up (CAP-T12PPROWS-PREDICTED3.json, refit 2, frozen: 45 of 46 unseen in CAP-T12READS-H.json;
-// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). Phone: not read, rows stay.
+// the miss: Benefits off from 5 rows at 8 columns, the oracle kept 5). On the phone the switch refits the phone only, in the
+// phone's least row, 24 + the gap (its rows stretch): the parts lost with a row gap, in rows rounded up, come off whatever the
+// content still needs, and a part back on adds them again (CAP-T12PPPHONE.json, -2.json, two reads of the same steps:
+// Description off at rows of 24, 10 rows to 6; unscored; from a new plan's stretched rows, and a part back on, inferred).
 function setStandinValue(key, v) {
-  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area;
-  const all = b.label === 'Pricing Plan' && bp === 'desktop' && PLAN_PARTS.some(([k]) => k === key) ? deskHeight(b.label, a[3] - a[1]) : undefined;
+  const b = B(sel.sid, sel.bid), before = JSON.stringify(model), a = lay(b).area, phone = bp === 'mobile';
+  const all = b.label === 'Pricing Plan' && PLAN_PARTS.some(([k]) => k === key) ? (phone ? phoneHeightAt(b.label, a[3] - a[1]) ?? b.phoneHeight : deskHeight(b.label, a[3] - a[1])) : undefined;
   const h0 = all === undefined ? 0 : planHeight(b, all);
   b.sp = { ...b.sp, [key]: v };
   if (all !== undefined) {
-    const m = measure(feEl(sel.sid)), X = (h) => (h + m.rg) / m.pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
-    setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - Math.ceil(X(h0) - x + 0.05)) : rows);
+    const m = measure(feEl(sel.sid)), pitch = phone ? PHONE_ROW + m.rg : m.pitch, X = (h) => (h + m.rg) / pitch, x = X(planHeight(b, all)), rows = a[2] - a[0], up = Math.max(1, Math.ceil(x - 0.02));
+    const h1 = planHeight(b, all), step = Math.ceil(X(Math.abs(h1 - h0)) - 0.02), lost = Math.ceil(X(h0) - x + 0.05);
+    if (phone) { if (h1 !== h0) setFormRows(b, S(sel.sid), Math.max(1, rows + Math.sign(h1 - h0) * step)); }
+    else setFormRows(b, S(sel.sid), x > X(h0) ? Math.max(rows, up) : up < rows ? Math.max(1, rows - lost) : rows);
   }
   commit(before, `${b.label} ${key} changed`);
 }
@@ -5054,6 +5060,11 @@ function showTextStep(ed, snap) {
     if (o !== b) setArea(blockEl(o.id), lay(o).area);
   }
   Object.assign(s, was, { blocks: s.blocks });
+  // The step's block order too, which textSave may have turned (inferred: an undo after it is not read).
+  const ix = new Map(was.blocks.map((o, k) => [o.id, k])), order = s.blocks.map((o) => o.id).join();
+  s.blocks.sort((x, y) => (ix.get(x.id) ?? Infinity) - (ix.get(y.id) ?? Infinity));
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
+  b.html = wasB.html;
   drawRows(ed.sid);
   ed.area = [...wasB.layout[bp].area];
   setArea(blockEl(ed.bid), ed.area);
@@ -5071,6 +5082,8 @@ function showTextStep(ed, snap) {
   ed.lastInput = 0;
   ed.stepNext = true;
   ed.strikeNext = null;
+  clearTimeout(ed.saveTimer);
+  ed.laid = null;
   renderTextBar();
 }
 const hasText = (ed, snap) => JSON.parse(snap).sections.find((o) => o.id === ed.sid)?.blocks.some((o) => o.id === ed.bid);
@@ -5096,6 +5109,7 @@ function textOnly(ed, snap) {
     b.html = '';
     s.rows = 0;
     for (const o of s.blocks) for (const k of Object.keys(o.layout)) o.layout[k].area = 0;
+    s.blocks.sort((x, y) => (x.id < y.id ? -1 : x.id > y.id ? 1 : 0)); // the order textSave turned is the text's too
     return JSON.stringify(m);
   };
   const a = bare(snap);
@@ -5203,6 +5217,43 @@ function onTextInput(e) {
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
   ed.prevHeight = textHeight(b);
+  clearTimeout(ed.saveTimer);
+  if (bp === 'desktop') ed.saveTimer = setTimeout(() => textSave(ed), TEXT_SAVE);
+}
+
+// The oracle lays the section out while the text is still open, about 565 ms after the last key and not at each key: 565,
+// 566, 569 and 580 ms after the last input, in a burst and with keys 400 ms apart (CAP-Y2DROPTIME.json, two runs each).
+// What the close would do then happens there: the phone order turns and rule B1 gives rows back. Ours keeps the edit, its
+// bar and its undo steps as they were (inferred: the capture sent nothing that closes the edit, but did not read its bar
+// or steps). The close then compares with this, so the order turns once. Read on desktop with one burst; a second burst
+// in the same edit, the phone view (ours waits for the close) and an undo after it (ours goes back to the step's order) are inferred.
+const TEXT_SAVE = 565;
+function textSave(ed) {
+  if (editing !== ed) return;
+  const s = S(ed.sid), b = B(ed.sid, ed.bid);
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(s);
+  const base = ed.laid ?? ed.before, order = s.blocks.map((o) => o.id).join();
+  editing = null; softening = true;
+  followPhoneRows(base);
+  softening = false; editing = ed;
+  if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; ed.prevArea = [...ed.area]; ed.need = contentRows(b, ed.m); setArea(blockEl(ed.bid), ed.area); }
+  drawRows(ed.sid);
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
+  ed.laid = JSON.stringify(model);
+}
+// The section's blocks in the DOM in the model's order, the focus and the caret kept. The caret is kept as nodes and
+// offsets: a Range collapses when the text's own block moves.
+function orderBlocksDom(ed) {
+  const fe = feEl(ed.sid), sel = win.getSelection();
+  const kept = sel.rangeCount ? [sel.anchorNode, sel.anchorOffset, sel.focusNode, sel.focusOffset] : null;
+  let at = fe.querySelector(':scope > .fe-block');
+  for (const el of S(ed.sid).blocks.map((o) => fe.querySelector(`:scope > .fe-block[data-block-id="${o.id}"]`)).filter(Boolean)) {
+    if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
+  }
+  if (doc.activeElement !== ed.ce) ed.ce.focus();
+  if (kept && ed.ce.contains(kept[0]) && ed.ce.contains(kept[2])) sel.setBaseAndExtent(...kept);
 }
 
 // Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
@@ -5249,6 +5300,7 @@ function finishTextEdit() {
   if (!ed) return;
   closeLinkPopover();
   editing = null;
+  clearTimeout(ed.saveTimer);
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
   const b = B(ed.sid, ed.bid);
@@ -5274,7 +5326,7 @@ function commitTextSteps(ed, height) {
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
   const undone = [...redoStack];
-  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`, false, ed.laid ?? steps.at(-1) ?? ed.before);
   redoStack.push(...undone.slice(redoStack.length));
   updateUi();
   return now;
@@ -5287,6 +5339,7 @@ function softenTextEdit() {
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
+  clearTimeout(ed.saveTimer);
   softening = true;
   commitTextSteps(ed, height);
   softening = false;
@@ -5299,7 +5352,7 @@ function softenTextEdit() {
   // The section draws the rows the commit left, given back ones too: 7 after one Escape, not the edit's 8 (CAP-Y2SOFTROWS.json, two runs).
   drawRows(ed.sid);
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
+  Object.assign(ed, { soft: true, before: now, laid: null, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
@@ -6252,27 +6305,45 @@ function placeLayouts() {
   layoutsPlace.top = sectionPanelScrolled({ prev: layoutsPlace.top, H: window.innerHeight, low, high });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
+// A Text's lines: the distinct line boxes of its words (a pre's line-height may be 'normal'). Words of another size on
+// the same line sit a few px apart; a new line starts more than half a line lower.
+function countLines(el) {
+  const d = frame.contentDocument, tops = [], walk = d.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = d.createRange();
+  for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+    if (!t.data.trim()) continue;
+    r.selectNodeContents(t);
+    for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+  }
+  tops.sort((a, b) => a - b);
+  return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+}
+const textOf = (b) => blockEl(b.id)?.querySelector('.sqs-html-content');
+// A Text's lines at ten columns of its section's grid, no padding: a hidden copy of its words beside it. None on a grid
+// of ten tracks or fewer (the phone view): the paragraph list's word table is not used there.
+function wordsAt(sid) {
+  return (b) => {
+    const el = textOf(b), fe = sectionEl(sid)?.querySelector('.fluid-engine');
+    if (!el || !fe) return null;
+    const m = measure(fe);
+    if (m.colEnd.length <= 10) return null;
+    const c = el.cloneNode(true);
+    Object.assign(c.style, { position: 'absolute', visibility: 'hidden', left: '0', top: '0', width: `${m.colEnd[10] - m.colStart[1]}px`, padding: '0', boxSizing: 'border-box' });
+    el.parentNode.appendChild(c);
+    const n = countLines(c);
+    c.remove();
+    return n;
+  };
+}
 layoutsPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-layout]');
   const mix = t && S(layoutsSid) && openedMix();
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  // A Text's lines as drawn before the pick: the distinct line boxes of its words (a pre's line-height may be 'normal').
-  const lines = (b) => {
-    const el = blockEl(b.id)?.querySelector('.sqs-html-content'), doc = frame.contentDocument;
-    if (!el) return 1;
-    const tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
-    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
-      if (!t.data.trim()) continue;
-      r.selectNodeContents(t);
-      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
-    }
-    // Words of another size on the same line sit a few px apart; a new line starts more than half a line lower.
-    tops.sort((a, b) => a - b);
-    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
-  };
-  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines);
+  // As drawn before the pick, and at ten columns (countLines, wordsAt).
+  const lines = (b) => { const el = textOf(b); return el ? countLines(el) : 1; };
+  const words = wordsAt(layoutsSid);
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines, words);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);
@@ -7619,6 +7690,7 @@ function boot() {
     get bp() { return bp; },
     get gesture() { return gesture; },
     get canUndo() { return undoStack.length > 0; },
+    get undoDepth() { return undoStack.length; },
     load(next) {
       model = JSON.parse(JSON.stringify(next));
       ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)

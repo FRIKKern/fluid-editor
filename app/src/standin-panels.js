@@ -3,7 +3,7 @@
 // a sized stand-in (0005): none of these rows changed a block's rows on the oracle, so a press only keeps its value.
 // Rows that need an account, a lookup, a collection or a payment are drawn faded and do nothing (0005's stand-in line).
 // Note texts are copied from the read's screenshots.
-import { escapeHtml as esc, richHtml } from './render.js';
+import { escapeHtml as esc, richHtml, PLAN_PARTS, planHeight } from './render.js';
 import { IMAGE_SHAPE_TABS, imageShapesOf } from './image-shapes.js';
 
 const pi = (p) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
@@ -94,11 +94,8 @@ const balign = (key, label) => (v) => `<div class="sp-row bp-sp-erow bp-sp-balig
 
 // Per block: its tabs (Animation is the shared list), its Content rows, and its Design rows before the shared ones.
 // look: the shared Appearance rows follow (with an Appearance head); transforms: the Transforms rows follow.
-// Pricing Plan's content by its Elements (CAP-T12PRESS-A.json at 8 columns, CAP-T12PRESS-E.json at 6): each part takes its own
-// height, and only the Description wraps with the width, by what the whole content gains (DESK_HEIGHT in editor.js).
-export const PLAN_PARTS = [['ppTitle', 'Title', 46], ['ppDesc', 'Description', 97], ['ppPrice', 'Price', 90.7], ['ppBenefits', 'Benefits', 96.8], ['ppButtonOn', 'Button', 88.6]];
-// The content height with parts off, from the whole height at this width (all on).
-export const planHeight = (b, all) => all - PLAN_PARTS.filter(([k]) => (b.sp || {})[k] === false).reduce((n, [k, , h]) => n + (k === 'ppDesc' ? h + all - 430.1 : h), 0);
+// Pricing Plan's parts and its height with parts off live in render.js, which draws the phone's.
+export { PLAN_PARTS, planHeight };
 export const STANDIN_PANELS = {
   Zola: {
     content: [note(`Enter your Zola registry name to display items<br>from your registry. ${link('Learn more')}<br>Sign up for a Zola registry ${link('here')}.`), field('zolaName', 'Registry Name', 'johnandjane', true), range('zolaItems', 'Items to Display', 4, 1, 12)],

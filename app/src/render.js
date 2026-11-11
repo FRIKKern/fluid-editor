@@ -299,18 +299,31 @@ function chartHtml(b) {
   // A Bar Chart's lines (CAP-T12CHARTCELLS3.json headplus shot, CAP-T12CHARTCELLS.json P1 shot, by pixel): a faint grid at each
   // value and each band's edge, from 3 above the top value down to the baseline; the axis, the baseline and 5px ticks past them
   // twice as dark. The right edge's line is under the dialog in both shots (inferred).
-  const up = y(ticks.at(-1)) - 3, ln = (d, k) => `<path d="${d}" class="fe-chart-rule fe-chart-${k}"/>`;
+  // Each Bar Chart line takes one pixel (the same shots, by pixel). An SVG line at a fractional place is shaded across two pixels
+  // and headless Chrome ignores crispEdges, so a Bar Chart's lines are boxes 1px thick over the picture, which the browser puts on
+  // whole pixels; the picture's bars draw over them. The grid rows stand floor((B - T - 1) * t / top) above the baseline, 55, 111
+  // and 167 for 100, 200 and 300 (one picture; other data inferred); the axis is the pixel after L, a band's edge the one after its
+  // rounded place: 124 and 247 to the axis's right; the axis and the edges' ticks run 4 past the baseline's pixel. The bars keep y.
+  // A Line Chart keeps its SVG lines, at its own places (CAP-T12LINECHART.json).
+  const isBar = !line, cx = (v) => (isBar ? Math.round(v) + 0.5 : v), ex = (v) => (isBar ? Math.round(v) : v);
+  const yl = (t) => (isBar ? B + 0.5 - Math.floor(((B - T - 1) * (t - base)) / (end - base)) : y(t)), past = isBar ? 5 : 4;
+  const up = isBar ? yl(ticks.at(-1)) - 3.5 : y(ticks.at(-1)) - 3;
+  // A place in the picture's units as a length: the picture is 459 wide, and its 229 high units sit 0.25 down its 229.5 (2:1).
+  const u = (v, d = 0) => `calc(${+(v + d).toFixed(3)} * 100cqw / 459)`, box = (k, l, t, w, h) => `<i class="fe-chart-rule fe-chart-${k}" style="left:${l};top:${t};width:${w};height:${h}"></i>`;
+  const hl = (x0, x1, yc, k) => (isBar ? box(k, u(x0), u(yc - 0.5, 0.25), u(x1 - x0), '1px') : `<path d="M${x0} ${yc}H${x1}" class="fe-chart-rule fe-chart-${k}"/>`);
+  const vl = (xc, y0, y1, k) => (isBar ? box(k, u(xc - 0.5), u(y0, 0.25), '1px', u(y1 - y0)) : `<path d="M${xc} ${y0}V${y1}" class="fe-chart-rule fe-chart-${k}"/>`);
   // A Line Chart has the same lines, with an upright one at each point after the first (CAP-T12LINECHART.json, by pixel).
   const edges = line ? groups.slice(1).map((_, n) => px(n + 1)) : groups.map((_, n) => L + band * (n + 1));
-  const lines = ln(`M${L - 5} ${B}H${R}`, 'axis') + ln(`M${L} ${up}V${B + 4}`, 'axis')
-      + ticks.filter((t) => t > base).map((t) => ln(`M${L} ${y(t)}H${R}`, 'grid') + ln(`M${L - 5} ${y(t)}H${L}`, 'axis')).join('')
-      + edges.map((x) => { return ln(`M${x} ${up}V${B}`, 'grid') + ln(`M${x} ${B}V${B + 4}`, 'axis'); }).join('');
-  const axis = c.type === 'Pie Chart' ? '' : lines + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${line ? px(n) : L + band * (n + 0.5)}" y="${B + (line ? 19 : 24)}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
+  const lines = c.type === 'Pie Chart' ? '' : hl(ex(L - 5), ex(R), yl(base), 'axis') + vl(cx(L), up, B + past, 'axis')
+      + ticks.filter((t) => t > base).map((t) => hl(ex(L), ex(R), yl(t), 'grid') + hl(ex(L - 5), ex(L), yl(t), 'axis')).join('')
+      + edges.map((x) => vl(cx(x), up, B, 'grid') + vl(cx(x), B, B + past, 'axis')).join('');
+  const axis = c.type === 'Pie Chart' ? '' : (isBar ? '' : lines) + ticks.map((t) => `<text x="${L - 10}" y="${y(t) + 5}" text-anchor="end" class="fe-chart-text">${t}</text>`).join('') + groups.map(([l], n) => `<text x="${line ? px(n) : L + band * (n + 0.5)}" y="${B + (line ? 19 : 24)}" text-anchor="middle" class="fe-chart-text">${escapeHtml(l)}</text>`).join('');
   const colour = (k) => pal[k % pal.length];
   let marks = '';
-  // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch).
+  // A 0 is drawn as a 1px line on the baseline in its colour (CAP-T12CHARTCELLS3.json headplus shot: 54 wide, the second swatch),
+  // along the baseline's middle (B + 0.5, as the baseline's box).
   // Two series' bars stand 2.5 apart in the band (the same shot, by pixel; one read).
-  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (per - 1)) / per, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B}H${x + w}" stroke="${colour(k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
+  const bar = (n, k, v) => { const w = (band * 0.89 - 2.5 * (per - 1)) / per, x = L + band * n + band * 0.055 + k * (w + 2.5); return `<rect x="${x}" y="${y(v)}" width="${w}" height="${B - y(v)}" fill="${colour(k)}" class="fe-chart-bar"/>${v ? '' : `<path d="M${x} ${B + 0.5}H${x + w}" stroke="${colour(k)}" stroke-width="1" vector-effect="non-scaling-stroke" class="fe-chart-zero"/>`}`; };
   if (c.type === 'Bar Chart') marks = groups.map(([, vs], n) => vs.map((v, k) => bar(n, k, v)).join('')).join('');
   // The line is a smooth curve through every point: at a point between two others it runs along the chord from the one before to
   // the one after, its handles a fifth of that chord long; at the ends it leaves straight (curve type inferred: fitted on the
@@ -331,7 +344,7 @@ function chartHtml(b) {
   // two and three series, the switch on; CAP-T12CHARTASK.json, CAP-T12CHARTLOOK.json: one series).
   const keys = c.flip ? c.data.slice(1).map((r) => r[0] || '') : Array.from({ length: ns }, (_, k) => c.data[0][k + 1] || '');
   const legend = c.legend && (!c.flip || ns > 1) ? `<div class="chart-block-legend"><figcaption class="legend-content"><ul class="${c.type === 'Line Chart' ? 'line' : 'bar'}-legend">${keys.map((t, k) => `<li><span style="background-color:${pal[k % pal.length]}"></span>${escapeHtml(t)}</li>`).join('')}</ul></figcaption></div>` : '';
-  return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
+  return `${c.title ? `<h2 class="fe-chart-title">${escapeHtml(c.title)}</h2>` : ''}<div class="fe-chart"><div class="fe-chart-plot">${isBar ? lines : ''}<svg viewBox="0 0 459 229" aria-hidden="true">${axis}${marks}</svg></div></div>${legend}${c.caption ? `<div class="chart-block-caption"><figcaption>${escapeHtml(c.caption)}</figcaption></div>` : ''}`;
 }
 export const QUOTE_TEXT = { quote: 'Whatever it is, the way you tell your story online can make all the difference.', source: 'Quote Source' };
 export const quoteOf = (b) => ({ quote: b.quote ?? QUOTE_TEXT.quote, source: b.source ?? QUOTE_TEXT.source });
@@ -371,8 +384,17 @@ export const PHONE_HEIGHTS = {
   Bandsintown: [[8, 1011], [7, 1207], [0, 1319]],
   OpenTable: [[4, 270], [0, 316.1]],
 };
+// Pricing Plan's content by its Elements (CAP-T12PRESS-A.json at 8 columns, CAP-T12PRESS-E.json at 6): each part takes its own
+// height, and only the Description wraps with the width, by what the whole content gains (DESK_HEIGHT in editor.js).
+export const PLAN_PARTS = [['ppTitle', 'Title', 46], ['ppDesc', 'Description', 97], ['ppPrice', 'Price', 90.7], ['ppBenefits', 'Benefits', 96.8], ['ppButtonOn', 'Button', 88.6]];
+// The content height with parts off, from the whole height at this width (all on).
+export const planHeight = (b, all) => all - PLAN_PARTS.filter(([k]) => (b.sp || {})[k] === false).reduce((n, [k, , h]) => n + (k === 'ppDesc' ? h + all - 430.1 : h), 0);
 export const phoneHeightAt = (label, cols) => PHONE_HEIGHTS[label]?.find(([c]) => cols >= c)?.[1];
 const phoneCols = (b) => { const a = b.layout?.mobile?.area; return a ? a[3] - a[1] : 8; };
+// A Pricing Plan's phone content less the parts its Elements turn off, in both views (CAP-T12PPPHONE.json, -2.json: 24px rows on
+// the phone after Benefits off on desktop, 236.2 high with Benefits and Description off), the parts as on desktop.
+export const phoneHeightOf = (b, cols) => { const h = phoneHeightAt(b.label, cols) ?? b.phoneHeight; return b.label === 'Pricing Plan' && b.sp ? planHeight(b, h) : h; };
+const phoneH = (b) => phoneHeightOf(b, phoneCols(b));
 const STANDIN = {
   // Quote and Source as typed (CAP-T12QUOTE.json): a new line in Quote is a <br>; in Source it stays a plain newline, which
   // shows as a space (CAP-T12QUOTEROWS.json). An empty Source takes the figcaption away.
@@ -468,7 +490,7 @@ function blockInner(b, model) {
       // A phone that draws differently has a container of its own, as a button does.
       const box = (sys, inner) => `<div class="sqs-shape-block-container sqs-block-alignment-wrapper sqs-shape-block-container-system_${sys}${stretched ? '' : ' is-contained'}" data-shape-name="${kind.id}">${inner}</div>`;
       const desk = drawnIn('desktop'), phone = b.designMobile ? drawnIn('mobile') : desk;
-      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(phoneHeightAt(b.label, phoneCols(b)) ?? b.phoneHeight)}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
+      return `<div class="sqs-block shape-block sqs-block-shape${stretched ? ' sqs-stretched' : ''}" data-block-type="1337" id="block-${b.id}"><div class="sqs-block-content"${b.phoneHeight ? ` style="--phone-h:${Number(phoneH(b))}px"` : ''}><div class="sqs-shape-block-outer-container">${box('desktop', desk)}${phone !== desk ? box('mobile', phone) : ''}</div></div></div>`;
     }
     case 'stack': {
       // A Stack (S3): one grid block whose children flow in a flex box, measured on the oracle
