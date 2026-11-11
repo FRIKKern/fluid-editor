@@ -28,7 +28,9 @@ export const anchorPopHtml = (x, y) => `<div class="an-anchor-head">Position</di
   return `<button type="button" role="radio" class="an-anchor-row${on ? ' is-on' : ''}" aria-checked="${on}" data-anchor-at="${px},${py}">${anchorGlyph(px, py)}<span>${name}</span></button>`;
 }).join('')}</div>`;
 
-export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -360, 360], ['sx', 'Scale', '%', 0, 1000, 'X'], ['sy', 'Scale', '%', 0, 1000, 'Y'],
+// A field's typed range; the drag bar has its own (designRange). Rotate keeps 400° typed (CAP-T15FIELDENDS.json, "from"), as
+// Animation's keeps 2,000° (CAP-T15CHEAP.json); its typed limit is not read, so ours takes Offset's, 10,000.
+export const DESIGN_FIELDS = [['opacity', 'Opacity', '%', 0, 100], ['rotate', 'Rotate', '°', -10000, 10000], ['sx', 'Scale', '%', 0, 1000, 'X'], ['sy', 'Scale', '%', 0, 1000, 'Y'],
   ['tx', 'Offset', 'px', -10000, 10000, 'X'], ['ty', 'Offset', 'px', -10000, 10000, 'Y'], ['kx', 'Skew', '°', -89, 89, 'X'], ['ky', 'Skew', '°', -89, 89, 'Y']];
 // What a transform field shows, one text with its unit (CAP-T6FIELDS.json), and its drag bar's range.
 export const designText = (k, v) => `${Number(v).toLocaleString('en-US', { maximumFractionDigits: 3 })}${DESIGN_FIELDS.find((x) => x[0] === k)[2]}`;

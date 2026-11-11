@@ -193,19 +193,23 @@ function phoneFollowsMove(s, was) {
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
 // value undone, keeps the focus and puts the caret at its end (CAP-T15CHEAP.json, read on Design; inferred on Animation's fields).
+// Typing not yet taken in a Design field stays there through the undo, still not taken (CAP-T15FIELDENDS.json): the field
+// shows its value before the blur, so the blur takes nothing, and gets the typing back after the redraw.
 const leaveField = () => {
   const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
   if (!f) return null;
+  const q = f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+  const text = f.dataset.design && f.value !== f.defaultValue ? f.value : null;
+  if (text !== null) f.value = f.defaultValue;
   f.blur();
-  return f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+  return { q, text };
 };
-// Typing not yet taken in a Design field stays there through the undo (CAP-T15FIELDENDS.json): keptTyped holds it.
-let keptTyped = null;
-const backToField = (q) => {
-  const f = q && blockPanel.querySelector(q);
-  if (f && keptTyped?.q === q) f.value = keptTyped.text;
-  keptTyped = null;
-  if (f) caretAtEnd(f);
+const backToField = (held) => {
+  const f = held && blockPanel.querySelector(held.q);
+  if (!f) return;
+  // A value set by script is not one the field's change sees, so Enter or the blur takes it by hand (keptField below).
+  if (held.text !== null) { f.value = held.text; f.dataset.kept = '1'; }
+  caretAtEnd(f);
 };
 function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
@@ -2335,8 +2339,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
       let v = scrubbed(start, dx, key);
       const pose = /:(\d)/.exec(key);
       // A drag stops at its bar's ends, as Design's: Opacity 100%, Scale 0 and 200%, Offset 1,000px, Skew 60°, read twice
-      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2). A value typed past an end is pulled to it at
-      // the drag's first step, as on Design (CAP-T15FIELDENDS.json); inferred here.
+      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2). A value typed past an end moves from the bar's
+      // end, as on Design (CAP-T15FIELDENDS.json); inferred here.
       if (pose) {
         const [lo, hi] = POSE_RANGE[pose[1]], s0 = parseFloat(String(start).replace(/,/g, '')), n = parseFloat(v), unit = String(v).replace(/^-?[\d.]+/, '');
         const at = Math.min(hi, Math.max(lo, s0));
@@ -2348,7 +2352,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
       shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
       // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). A value typed past an
-      // end is pulled to it at the drag's first step, then moves: Rotate 400° dragged +20px is 360°, -20px 352°, Scale 900%
+      // end moves from the bar's end: Rotate 400° dragged +20px is 360°, -20px 352°, Scale 900%
       // -20px 192%, Offset 5,000px +20px 1,000px (CAP-T15FIELDENDS.json, two runs alike).
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), s0 = parseFloat(start.replace(/,/g, '')), [lo, hi] = designRange(dk) || [f[3], f[4]];
       const v = Math.min(hi, Math.max(lo, Math.round((Math.min(hi, Math.max(lo, s0)) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
@@ -4324,13 +4328,20 @@ async function readPicture(file) {
 // Cmd+Z in an Animation field is the page's undo even with typing not yet taken: the typing goes, the last change is undone,
 // and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
 // not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
-const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && e.target.matches('input[data-afield], input[type="text"][data-design]');
+// Not read, so left to the field: Cmd+Shift+Z in a Design field with typing not yet taken, and Cmd+Z there with nothing to undo.
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]')
+  || (e.target.matches('input[type="text"][data-design]') && (e.target.value === e.target.defaultValue || (!e.shiftKey && undoStack.length > 0))));
+// The typing kept through an undo is taken by Enter or the blur, as typing is; inferred, not read.
+const keptField = (e) => {
+  if (!e.target.dataset?.kept) return;
+  delete e.target.dataset.kept;
+  if (e.target.value !== e.target.defaultValue) e.target.dispatchEvent(new Event('change', { bubbles: true }));
+};
+blockPanel.addEventListener('input', (e) => { if (e.target.dataset?.kept) delete e.target.dataset.kept; });
+blockPanel.addEventListener('focusout', keptField);
 blockPanel.addEventListener('keydown', (e) => {
-  // Not read: Cmd+Z in a Design field with nothing to undo; the typing is left as it is.
-  if (pageUndoIn(e) && e.target.value !== e.target.defaultValue && (e.target.matches('input[data-afield]') || undoStack.length)) {
-    if (e.target.matches('input[data-design]')) keptTyped = { q: `input[type="text"][data-design="${e.target.dataset.design}"]`, text: e.target.value };
-    e.target.value = e.target.defaultValue;
-  }
+  if (pageUndoIn(e) && e.target.matches('input[data-afield]')) e.target.value = e.target.defaultValue;
+  if (e.key === 'Enter') keptField(e);
   if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation();
 });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });

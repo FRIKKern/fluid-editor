@@ -227,7 +227,7 @@ add('End Offset X typed 2000 shows 2,000px, as read', fieldsNow()[4] === '2,000p
 await typeInto(1, '2000');
 add('End Rotate typed 2000 shows 2,000°, as read', fieldsNow()[1] === '2,000°', fieldsNow());
 await drag(`panel.querySelectorAll('.an-box')[4].querySelector('.sc-r')`, 20);
-add('A drag on from 2,000px stays at 2,000px (inferred, as Design: not pulled back, not taken further)', fieldsNow()[4] === '2,000px', fieldsNow());
+add('A drag on from 2,000px is pulled to 1,000px (inferred, as Design: CAP-T15FIELDENDS.json)', fieldsNow()[4] === '1,000px', fieldsNow());
 // A drag stops at the bar's ends on Animation's fields, the focus left on the input with the caret at its end (CAP-T15FIELDS2.json, read twice;
 // Rotate in CAP-Y2BAR.json, R1 and R2).
 // Opacity goes by its left edge: from its right one, 50px on is over the page's frame, which takes the let-go.
@@ -295,11 +295,13 @@ add('Cmd+Z in the field: 10°, the focus stays, caret 3, as read', u.v === '10°
 browser(S, 'press', 'Meta+z'); await pause(250);
 u = rf();
 add('A second Cmd+Z: the value before the typing, focus stays, as read', u.v === `${rot0}°` && u.focused, JSON.stringify(u));
-// A value typed past an end is pulled to it at the drag's first step, then moves (CAP-T15FIELDENDS.json, F1 and F2 alike).
+// A value typed past an end is kept as typed, and a drag moves it from the bar's end (CAP-T15FIELDENDS.json, F1 and F2 alike).
 const E = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15FIELDENDS.json', import.meta.url), 'utf8')).reads;
 const dshow = (k) => q(`return JSON.stringify(panel.querySelector('input[data-design="${k}"]').value);`);
 for (const [k, from, dx, read] of [['rotate', '400', 20, 'rotate 400 +20'], ['rotate', '400', -20, 'rotate 400 -20'], ['sx', '900', -20, 'scale 900 -20'], ['tx', '5000', 20, 'offset 5000 +20']]) {
   setD(k, from);
+  const was = dshow(k), from1 = E[`F1 ${read}`].from;
+  add(`Design ${k} typed ${from} shows ${from1}, as read`, was === from1 && E[`F2 ${read}`].from === from1, was);
   await drag(`${dbox(k)}.querySelector('.sc-l')`, dx);
   const want = E[`F1 ${read}`].after;
   add(`Design ${k} ${from} dragged ${dx}px is ${want}, as read`, dshow(k) === want && E[`F2 ${read}`].after === want, dshow(k));
@@ -318,6 +320,9 @@ add('Cmd+Z with typing untaken: Opacity 100%, 33 kept and focused, as read', sam
 browser(S, 'press', 'Meta+z'); await pause(300);
 u = drows();
 add('A second Cmd+Z: Offset 5,000px, 33 still kept, as read', same(u, E['F1 after 2nd Cmd+Z']) && same(u, E['F2 after 2nd Cmd+Z']), JSON.stringify(u));
+browser(S, 'press', 'Enter'); await pause(300);
+u = drows();
+add('Enter takes the kept 33: Rotate 33° (inferred)', u.Rotate === '33°' && u.Offset === '5,000px', JSON.stringify(u));
 
 // The other triggers' Timing rows.
 await fresh();
