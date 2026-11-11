@@ -39,6 +39,13 @@ export const PHONE_LETGO = [
   ['Text north-east 100 down', 'text', 'ne', 0, 100, 'mouse'],
   ['Text north-west 100 down', 'text', 'nw', 0, 100, 'mouse'],
   ['Text east pressed, no move', 'text', 'e', 0, 0, 'mouse'],
+  // CAP-X2PHONE-F.json, refit 2, the last (rule R, fitted on A to E).
+  ['Text east 5 left', 'text', 'e', -5, 0, 'mouse'],
+  ['Text south pressed, no move', 'text', 's', 0, 0, 'mouse'],
+  ['Text south 10 down', 'text', 's', 0, 10, 'mouse'],
+  ['Text west 60 right', 'text', 'w', 60, 0, 'mouse'],
+  ['Shape north 30 down', 'shape', 'n', 0, 30, 'mouse'],
+  ['Text south-west 60 right', 'text', 'sw', 60, 0, 'mouse'],
 ];
 
 // Ours: the block alone in a section under an empty one (the oracle's site header keeps a pull up inside the frame), phone view,

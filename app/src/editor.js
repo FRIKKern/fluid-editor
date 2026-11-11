@@ -1105,9 +1105,9 @@ function onUp(e) {
     // (CAP-X2LEFT.json), twice each.
     const corner = g.resizeDir || '';
     if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text') { select(null); return; }
-    // On a phone a handle press short of a drag lets any block but a Text go: a Shape's south side pressed with no move, 5 up,
-    // 5 and 10 down (CAP-X2PHONE-C.json, CAP-X2PHONE-D.json, twice each). Refit 1 of rule P.
-    if (corner && bp === 'mobile' && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type !== 'text') { select(null); return; }
+    // On a phone a handle press short of a drag lets the block go, a Text too: a Shape's south side pressed with no move, 5 up,
+    // 5 and 10 down, its east side pressed and 5 left, a Text's east side pressed (CAP-X2PHONE-C/D/E.json, twice each). Refit 2 of rule P.
+    if (corner && bp === 'mobile' && !g.members && e.pointerType !== 'touch') { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
@@ -1129,6 +1129,9 @@ function onUp(e) {
   }
   // A mouse or pen let go well below the block's old bottom lands on the grid, not on the block's
   // overlay, and the block ends up not selected; touch keeps it, and so does text (HANDLEUP.json).
+  // On a phone a resize that leaves the area as it was lets the block go: a Shape's south side 20 down, its north side 60 up
+  // at the section's top, a Line's south side 20 down (CAP-X2PHONE-C.json, CAP-X2PHONE-E.json, twice each). Refit 2 of rule P.
+  if (g.type === 'resize' && bp === 'mobile' && e.pointerType !== 'touch' && !g.members && g.target.join() === g.orig.join()) select(null);
   // On a phone the line is the old bottom itself: 10, 20 and 30 below let go, 30 above stays (CAP-X2PHONE-A.json, CAP-X2PHONE-C.json).
   if (g.type === 'resize' && e.pointerType !== 'touch' && b.type !== 'text' && !g.members && e.clientY - g.bottom0 > (bp === 'mobile' ? LET_GO_BELOW_PHONE : LET_GO_BELOW)) select(null);
   // A Text let go off a bottom corner is not selected, whichever way it was pulled: se 5 to 80 right, 60 left, up and
