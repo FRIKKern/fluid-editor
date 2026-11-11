@@ -163,6 +163,7 @@ export function applyLayout(s, mix, n, base) {
       // QHB, read twice alike, and CAP-U10SC3.json). Read with one heading only.
       if (r === 'p' && mix.key === 'h1p1' && listFirst(b)) b.html = b.html.replace(/<(\/?)p(?=[\s>])/g, '<$1h4');
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
+      cardText(b, L.design?.[r + k]);
     });
   }
   s.rows = { ...s.rows, desktop: L.rows, mobile: L.phoneRows };
@@ -170,6 +171,27 @@ export function applyLayout(s, mix, n, base) {
   // A divider a layout sets has no stroke (CAP-U10UNDO.json, the section's context reads style none).
   // Its flips go off too, and a layout with no divider of its own puts the start's back (CAP-U10FLIP.json: Flip X; Flip Y inferred).
   Object.assign(s, base, L.style?.theme && { theme: layoutTheme(base.theme) }, L.style?.height && { height: L.style.height }, L.style?.divider && { divider: true, dividerShape: L.style.divider, dividerStroke: 'none', dividerFlip: undefined, dividerFlipY: undefined });
+}
+
+// The paragraph list's layout 1 makes the Text a card (CAP-U10PAD1.json, runs A and B alike): Background on, Corner 22,
+// Padding L (12% of its width: one line 245.5 tall at 929.5 wide, on the phone 112.8), its words in the middle of the box
+// on desktop and phone (justify center; the phone's from its screenshot), in the theme's colors for a Text with a
+// Background. The same 12% gives every stored layout 1 height: one, two and four lines of words (CAP-U10WORDS.json), code
+// (CAP-U10CD1.json, CAP-U10ENDS-ECDA.json) and mixed Texts (CAP-U10TEXTMIX-C.json, CAP-U10ENDS-EMXA.json). The next
+// layout takes the card off (layout 0 after 1: 22.4); ours puts the block's own alignment back (not read). A Design set by
+// hand before a pick: not read, ours keeps its other values.
+const CARD_KEYS = ['background', 'pad', 'corner'];
+function cardText(b, card) {
+  if (b.layoutCard && !card) {
+    for (const k of CARD_KEYS) delete b.design?.[k];
+    if (b.design && !Object.keys(b.design).length) delete b.design;
+    for (const bp of ['desktop', 'mobile']) Object.assign(b.layout[bp], b.layoutCard[bp]);
+    delete b.layoutCard;
+  }
+  if (!card) return;
+  const was = b.layoutCard || Object.fromEntries(['desktop', 'mobile'].map((bp) => [bp, { justify: b.layout[bp].justify || 'flex-start', align: b.layout[bp].align || 'flex-start' }]));
+  Object.assign(b, { design: { ...b.design, ...card }, layoutCard: was });
+  for (const bp of ['desktop', 'mobile']) Object.assign(b.layout[bp], { justify: 'center', align: 'center' });
 }
 
 // Undo onto a layout puts its step again, from the layout it leaves (CAP-U10WALK2.json: from 1 back to 0 gives 9;

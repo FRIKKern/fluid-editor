@@ -637,7 +637,7 @@ function designRule(b, d, phone, live = false) {
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
       transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' || live ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || (b.type === 'text' ? 'var(--text-bg, rgb(255, 255, 255))' : 'rgb(255, 255, 255)')}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b, live = false, rule = null) {

@@ -777,5 +777,13 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 /* Stack with names: the names take one field's width, so they stack too (CAP-T12READS-D.json, stackNames). */
 .newsletter-form-wrapper--layoutStack .newsletter-form fieldset { width: 288px; max-width: 100%; }
 .newsletter-form-wrapper--layoutStack .newsletter-form-button-wrapper { display: block; margin: 0; padding: 8px 0; }
-/* A Text's Background on is this class; its white is a sheet's, a picked color the box's attribute (CAP-T15WHERE-A.json, -B). */
-.sqs-block-html.sqs-background-enabled { background-color: rgb(255, 255, 255); }
+/* A Text's Background on is this class; its white is a sheet's, a picked color the box's attribute (CAP-T15WHERE-A.json, -B).
+   The sheet's color is the theme's Background Color row and the words take the "on Background" rows (CAP-THEMEROWS.json;
+   on Dark 1 white and black, read in CAP-U10PAD1.json). */
+.page-section { --text-bg: hsla(var(--white-hsl), 1); --text-on-bg: hsla(var(--black-hsl), 1); }
+.page-section[data-section-theme="white"] { --text-bg: hsla(var(--lightAccent-hsl), 1); }
+.page-section[data-section-theme="white-bold"] { --text-bg: hsla(var(--lightAccent-hsl), 1); --text-on-bg: hsla(var(--safeDarkAccent-hsl), 1); }
+.page-section[data-section-theme="light-bold"], .page-section[data-section-theme="dark-bold"], .page-section[data-section-theme="black-bold"] { --text-on-bg: hsla(var(--safeDarkAccent-hsl), 1); }
+.page-section[data-section-theme="bright-inverse"] { --text-bg: hsla(var(--accent-hsl), 1); --text-on-bg: hsla(var(--safeInverseAccent-hsl), 1); }
+.page-section[data-section-theme="bright"] { --text-bg: hsla(var(--safeInverseAccent-hsl), 1); --text-on-bg: hsla(var(--accent-hsl), 1); }
+.sqs-block-html.sqs-background-enabled { background-color: var(--text-bg, rgb(255, 255, 255)); --section-ink: var(--text-on-bg); --heading-color: var(--text-on-bg); color: var(--text-on-bg); }
