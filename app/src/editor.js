@@ -194,13 +194,24 @@ function phoneFollowsMove(s, was) {
 
 // A focused field keeps the panel from redrawing, so Undo and Redo let go of it, then give it back: the field shows the
 // value undone, keeps the focus and puts the caret at its end (CAP-T15CHEAP.json, read on Design; inferred on Animation's fields).
+// Typing not yet taken in a Design field stays there through the undo, still not taken (CAP-T15FIELDENDS.json): the field
+// shows its value before the blur, so the blur takes nothing, and gets the typing back after the redraw.
 const leaveField = () => {
   const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
   if (!f) return null;
+  const q = f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+  const text = f.dataset.design && f.value !== f.defaultValue ? f.value : null;
+  if (text !== null) f.value = f.defaultValue;
   f.blur();
-  return f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
+  return { q, text };
 };
-const backToField = (q) => { if (q) caretAtEnd(blockPanel.querySelector(q)); };
+const backToField = (held) => {
+  const f = held && blockPanel.querySelector(held.q);
+  if (!f) return;
+  // A value set by script is not one the field's change sees, so Enter or the blur takes it by hand (keptField below).
+  if (held.text !== null) { f.value = held.text; f.dataset.kept = '1'; }
+  caretAtEnd(f);
+};
 function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
@@ -234,6 +245,7 @@ function undo(button = false) {
   if (shown.length === 2) heightShown = [secSid(), ...shown];
   if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
+  refitUndone(now);
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
 }
@@ -249,6 +261,7 @@ function redo() {
   model = JSON.parse(redoStack.pop());
   note('Redo');
   renderAll();
+  refitUndone(undoStack.at(-1));
   syncLayouts();
   if (ed) { select(null); return; }
   // A block that comes back comes back selected (CAP-Y2KEYS.json).
@@ -2332,20 +2345,23 @@ blockPanel.addEventListener('pointerdown', (e) => {
       let v = scrubbed(start, dx, key);
       const pose = /:(\d)/.exec(key);
       // A drag stops at its bar's ends, as Design's: Opacity 100%, Scale 0 and 200%, Offset 1,000px, Skew 60°, read twice
-      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2); a value typed past an end is not pulled back.
+      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2). A value typed past an end moves from the bar's
+      // end, as on Design (CAP-T15FIELDENDS.json); inferred here.
       if (pose) {
         const [lo, hi] = POSE_RANGE[pose[1]], s0 = parseFloat(String(start).replace(/,/g, '')), n = parseFloat(v), unit = String(v).replace(/^-?[\d.]+/, '');
-        v = `${Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), n))}${unit}`;
+        const at = Math.min(hi, Math.max(lo, s0));
+        v = `${Math.min(hi, Math.max(lo, Math.round((at + n - s0) * 10) / 10))}${unit}`;
       }
       input.value = commas(v);
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
       shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). Inferred: a value typed
-      // past an end is not pulled back by the drag, which only moves it toward the bar.
+      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). A value typed past an
+      // end moves from the bar's end: Rotate 400° dragged +20px is 360°, -20px 352°, Scale 900%
+      // -20px 192%, Offset 5,000px +20px 1,000px (CAP-T15FIELDENDS.json, two runs alike).
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), s0 = parseFloat(start.replace(/,/g, '')), [lo, hi] = designRange(dk) || [f[3], f[4]];
-      const v = Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), Math.round((s0 + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      const v = Math.min(hi, Math.max(lo, Math.round((Math.min(hi, Math.max(lo, s0)) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
       input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
@@ -2866,7 +2882,23 @@ function setFormRows(b, s, need, spare = false) {
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest();
   else { if (spare) s.rows[bp] += lowest() - low; growRows(s); }
-  renderSectionDom(sel.sid);
+  renderSectionDom(s.id);
+}
+// Newsletter's Undo and Redo (CAP-T12NLUNDO.json, its six reads all fit the rule pushed beside the predictions in
+// CAP-T12NLUNDO-PREDICTED.json): a step that changes the block's content gives it the rows that content needs, ceil(x - 0.02),
+// whatever they were before the step. A Title emptied as typed held 5 rows (CAP-T12NEWSLETTER.json titleEmpty) and comes
+// back by Undo at 6. In the view being edited; the other view is not read (inferred: it stays).
+// Only a step on what the reads changed: the fields of newsletterOf (text, Name Field, Layout, Alignment). A Design or Animation
+// step, and a block hidden in this view (no height to read), keep their rows. Inferred: Undo back to the saved page can
+// leave Save on when the rows it gives differ from the saved ones (not read).
+function refitUndone(prev) {
+  const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
+  const own = (b) => JSON.stringify(newsletterOf(b));
+  for (const s of model.sections) for (const b of s.blocks) {
+    const o = was.get(b.id);
+    if (b.standin !== 'newsletter' || !o || own(o) === own(b) || lay(b).hidden || !blockEl(b.id)?.offsetHeight) continue;
+    setFormRows(b, s, Math.max(1, Math.ceil(contentRows(b, formPitch(b), false, false, true) - 0.02)));
+  }
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
 // Quote's fields (CAP-T12QUOTE.json) and Newsletter's (CAP-T12NEWSLETTER.json): each key shows on the block at once, the
@@ -4337,12 +4369,23 @@ async function readPicture(file) {
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
 // Cmd+Z in a transform field with nothing typed in it is the page's: the last step goes and the focus stays (CAP-T15CHEAP.json).
-// Not read: with typing not yet taken, so the field keeps it.
 // Cmd+Z in an Animation field is the page's undo even with typing not yet taken: the typing goes, the last change is undone,
-// and the field keeps the focus (CAP-T15FIELDS3.json, read twice). Design's fields: only with nothing typed (not read).
-const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]') || (e.target.matches('input[type="text"][data-design]') && e.target.value === e.target.defaultValue));
+// and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
+// not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
+// Not read, so left to the field: Cmd+Shift+Z in a Design field with typing not yet taken, and Cmd+Z there with nothing to undo.
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]')
+  || (e.target.matches('input[type="text"][data-design]') && (e.target.value === e.target.defaultValue || (!e.shiftKey && undoStack.length > 0))));
+// The typing kept through an undo is taken by Enter or the blur, as typing is; inferred, not read.
+const keptField = (e) => {
+  if (!e.target.dataset?.kept) return;
+  delete e.target.dataset.kept;
+  if (e.target.value !== e.target.defaultValue) e.target.dispatchEvent(new Event('change', { bubbles: true }));
+};
+blockPanel.addEventListener('input', (e) => { if (e.target.dataset?.kept) delete e.target.dataset.kept; });
+blockPanel.addEventListener('focusout', keptField);
 blockPanel.addEventListener('keydown', (e) => {
   if (pageUndoIn(e) && e.target.matches('input[data-afield]')) e.target.value = e.target.defaultValue;
+  if (e.key === 'Enter') keptField(e);
   if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation();
 });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });
@@ -6215,7 +6258,21 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  // A Text's lines as drawn before the pick: the distinct line boxes of its words (a pre's line-height may be 'normal').
+  const lines = (b) => {
+    const el = blockEl(b.id)?.querySelector('.sqs-html-content'), doc = frame.contentDocument;
+    if (!el) return 1;
+    const tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+      if (!t.data.trim()) continue;
+      r.selectNodeContents(t);
+      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+    }
+    // Words of another size on the same line sit a few px apart; a new line starts more than half a line lower.
+    tops.sort((a, b) => a - b);
+    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+  };
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);

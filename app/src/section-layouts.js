@@ -138,10 +138,26 @@ export function variant(L, prev) {
 // The layouts before that give a step's other spans.
 const others = (step) => [...new Set([].concat(step).flatMap((st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1])))];
 
+// The first pick, onto a section that shows no layout, fitted on seen reads, unscored: a Text of one block (a single P or
+// PRE) with more than one line at the start takes the paragraph list's layout 0 at its low span, as after layout 1, and
+// one line its high span. Low: CAP-U10WORDS.json's W2 (2 lines, 1/2/3/10) and W4 (5 lines, 1/2/4/10), three lines of
+// code (CAP-U10CD1.json, CAP-U10ENDS-ECDA.json with -ECDB alike, which a pick makes one line). High: W1 and one line
+// with inline code (CAP-U10CD2.json). A Text of several blocks keeps the high span (CAP-U10TEXTMIX-C.json's M and
+// CAP-U10ENDS-EMXA.json with -EMXB read taller still, rule E's named misses). Other first picks: not read.
+// lines(b) is the block's line count as drawn before the pick.
+const oneBlock = (b) => {
+  if (typeof document === 'undefined') return false;
+  const t = document.createElement('template');
+  t.innerHTML = b.html || '';
+  const k = [...t.content.children];
+  return k.length === 1 && (k[0].tagName === 'P' || k[0].tagName === 'PRE');
+};
+const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && oneBlock(mix.by.p[0]) && lines(mix.by.p[0]) > 1 ? 1 : null);
+
 // One pick: every block's areas, the rows, the heading's tag; dropped blocks go. One undo step is the caller's.
-export function applyLayout(s, mix, n, base) {
+export function applyLayout(s, mix, n, base, lines) {
   if (mix.list[n].unbuilt) return;
-  const L = variant(mix.list[n], layoutShown(s, mix, null));
+  const L = variant(mix.list[n], layoutShown(s, mix, null) ?? firstPrev(mix, n, lines));
   s.blocks = s.blocks.filter((b) => !dropped(b));
   for (const r of Object.keys(mix.by)) {
     mix.by[r].forEach((b, k) => {
@@ -167,6 +183,10 @@ export function applyLayout(s, mix, n, base) {
       // QHB, read twice alike, and CAP-U10SC3.json). Read with one heading only.
       if (r === 'p' && mix.key === 'h1p1' && listFirst(b)) b.html = b.html.replace(/<(\/?)p(?=[\s>])/g, '<$1h4');
       if (r === 'h' || r === 'p') alignText(b, centred(desk));
+      // A pick gives a Quote 3% padding where a new one has 6% (CAP-U10QUOTEH.json, picks 0 to 4, runs A and B alike: 24.4 at
+      // 811.9 wide, 17.3 at 576.8, 13.8 at 459.3; new, 20.5 at 341.7). Its content then fits the layout's span and the section
+      // doesn't grow. Whether the pick or the width sets it is not read: every read away from a pick is 341.7 wide.
+      if (b.standin === 'quote') b.quotePad = 3;
       cardText(b, L.design?.[r + k]);
     });
   }
