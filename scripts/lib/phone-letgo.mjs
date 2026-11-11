@@ -25,6 +25,12 @@ export const PHONE_LETGO = [
   ['Shape north 60 down', 'shape', 'n', 0, 60, 'mouse'],
   ['Shape east 60 left', 'shape', 'e', -60, 0, 'mouse'],
   ['Shape west 60 right', 'shape', 'w', 60, 0, 'mouse'],
+  // CAP-X2PHONE-D.json, the phone rule's first round (fitted on A to C): the line at the old bottom, any Text corner.
+  ['Shape south 5 down', 'shape', 's', 0, 5, 'mouse'],
+  ['Shape south 5 up', 'shape', 's', 0, -5, 'mouse'],
+  ['Shape south pressed, no move', 'shape', 's', 0, 0, 'mouse'],
+  ['Text north-east 60 left', 'text', 'ne', -60, 0, 'mouse'],
+  ['Text north-west 60 down', 'text', 'nw', 0, 60, 'mouse'],
 ];
 
 // Ours: the block alone in a section under an empty one (the oracle's site header keeps a pull up inside the frame), phone view,
