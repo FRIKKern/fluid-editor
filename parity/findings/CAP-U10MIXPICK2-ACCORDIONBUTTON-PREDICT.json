@@ -1,0 +1,31 @@
+{
+  "item": "U10",
+  "question": "CAP-U10MIXPICK2-ACCORDIONBUTTON-PREDICT",
+  "frozenAt": "2026-11-11T13:41Z",
+  "cases": {
+    "Accordion+Button pick 0": [
+      "A Accordion+Button pick 0",
+      "B Accordion+Button pick 0"
+    ],
+    "Accordion+Button pick 1": [
+      "A Accordion+Button pick 1",
+      "B Accordion+Button pick 1"
+    ],
+    "Accordion+Button pick 2": [
+      "A Accordion+Button pick 2",
+      "B Accordion+Button pick 2"
+    ],
+    "Accordion+Button pick 3": [
+      "A Accordion+Button pick 3",
+      "B Accordion+Button pick 3"
+    ],
+    "Accordion+Button pick 4": [
+      "A Accordion+Button pick 4",
+      "B Accordion+Button pick 4"
+    ]
+  },
+  "what": "Accordion+Button (blocks added Button then Accordion, the typed block last, as CAP-U10MIXB): each of its 5 tiles picked from the same start, a fresh blank section each time, runs A and B. Read: every block's desktop and phone area, the section's rows and look.",
+  "oursNow": "No change: ours greys these tiles out (PR #607), so a pick leaves every block's areas and the rows as at the start (CAP-U10MIXB's before reads: {\"A\": {\"stack\": [[\"1/2/9/10\", \"1/2/6/10\"], [\"1/2/3/8\", \"6/2/8/10\"]], \"rows\": 8}, \"B\": {\"stack\": [[\"1/2/9/10\", \"1/2/6/10\"], [\"1/2/3/8\", \"6/2/8/10\"]], \"rows\": 8}}).",
+  "rival": "R1: every pick changes at least one block's desktop area or the section's rows (the oracle lays the blocks out, as on every list read so far).",
+  "scoring": "Per case: ours-now scores if both reads equal the start; R1 scores if both reads differ from the start. A and B must agree for the case to count."
+}
