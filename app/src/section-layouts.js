@@ -134,12 +134,21 @@ export function variant(L, prev) {
 // The layouts before that give a step's other spans.
 const others = (step) => [...new Set([].concat(step).flatMap((st) => (st.grow ? Object.keys(st.grow).map(Number) : [st.read === 'high' ? st.lowAfter[0] : -1])))];
 
-// The first pick, onto a section that shows no layout: a Text of more than one line at the start takes the paragraph
-// list's layout 0 at its low span, as after layout 1; one line takes the high span (read facts: CAP-U10WORDS.json's W1,
-// W2 and W4 runs at 1, 2 and 5 lines; three lines of code, CAP-U10CD1.json and CAP-U10ENDS-ECDA.json with -ECDB alike,
-// which a pick makes one line; one line of code, CAP-U10TEXTMIX-C.json and CAP-U10CD2.json). Other first picks: not read.
+// The first pick, onto a section that shows no layout, fitted on seen reads, unscored: a Text of one block (a single P or
+// PRE) with more than one line at the start takes the paragraph list's layout 0 at its low span, as after layout 1, and
+// one line its high span. Low: CAP-U10WORDS.json's W2 (2 lines, 1/2/3/10) and W4 (5 lines, 1/2/4/10), three lines of
+// code (CAP-U10CD1.json, CAP-U10ENDS-ECDA.json with -ECDB alike, which a pick makes one line). High: W1 and one line
+// with inline code (CAP-U10CD2.json). A Text of several blocks keeps the high span (CAP-U10TEXTMIX-C.json's M and
+// CAP-U10ENDS-EMXA.json with -EMXB read taller still, rule E's named misses). Other first picks: not read.
 // lines(b) is the block's line count as drawn before the pick.
-const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && lines(mix.by.p[0]) > 1 ? 1 : null);
+const oneBlock = (b) => {
+  if (typeof document === 'undefined') return false;
+  const t = document.createElement('template');
+  t.innerHTML = b.html || '';
+  const k = [...t.content.children];
+  return k.length === 1 && (k[0].tagName === 'P' || k[0].tagName === 'PRE');
+};
+const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && oneBlock(mix.by.p[0]) && lines(mix.by.p[0]) > 1 ? 1 : null);
 
 // U10 read facts, not a rule (rule W is frozen, its misses named): the paragraph list's spans for words of about 2 and 4
 // lines at ten columns (CAP-U10WORDS.json's W2 and W4, 16 picks each). Each layout's entry holds them under 'words', by
