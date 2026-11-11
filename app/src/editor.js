@@ -2874,12 +2874,15 @@ function setFormRows(b, s, need, spare = false) {
 // CAP-T12NLUNDO-PREDICTED.json): a step that changes the block's content gives it the rows that content needs, ceil(x - 0.02),
 // whatever they were before the step. A Title emptied as typed held 5 rows (CAP-T12NEWSLETTER.json titleEmpty) and comes
 // back by Undo at 6. In the view being edited; the other view is not read (inferred: it stays).
+// Only a step on what the reads changed: the fields of newsletterOf (text, Name Field, Layout, Alignment). A Design or Animation
+// step, and a block hidden in this view (no height to read), keep their rows. Inferred: Undo back to the saved page can
+// leave Save on when the rows it gives differ from the saved ones (not read).
 function refitUndone(prev) {
   const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
-  const own = (b) => JSON.stringify({ ...b, layout: null });
+  const own = (b) => JSON.stringify(newsletterOf(b));
   for (const s of model.sections) for (const b of s.blocks) {
     const o = was.get(b.id);
-    if (b.standin !== 'newsletter' || !o || own(o) === own(b) || !blockEl(b.id)) continue;
+    if (b.standin !== 'newsletter' || !o || own(o) === own(b) || lay(b).hidden || !blockEl(b.id)?.offsetHeight) continue;
     setFormRows(b, s, Math.max(1, Math.ceil(contentRows(b, formPitch(b), false, false, true) - 0.02)));
   }
 }

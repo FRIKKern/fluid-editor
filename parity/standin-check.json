@@ -1,7 +1,7 @@
 {
  "check": "content that follows the width",
- "pass": 209,
- "total": 211,
+ "pass": 211,
+ "total": 213,
  "results": [
   {
    "what": "Quote at span 6: the block",
@@ -577,6 +577,14 @@
   },
   {
    "what": "Newsletter: Undo and Redo give the rows the content needs",
+   "ok": true
+  },
+  {
+   "what": "Newsletter: Redo gives the rows the content needs too",
+   "ok": true
+  },
+  {
+   "what": "Newsletter: Undo leaves a block hidden in that view at its rows",
    "ok": true
   },
   {

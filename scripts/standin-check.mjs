@@ -290,6 +290,20 @@ viewport(S, 1600, 1400);
   await empty('Title'); const tEmpty = nlTitle(); await pause(1200); await key('H'); await key('i', 300); await key('Tab', 400); const tHi = nlTitle();
   await press('#undo', 500); const tUndo = nlTitle(); await press('#redo', 500); const tRedo = nlTitle();
   add('Newsletter: Undo and Redo give the rows the content needs', JSON.stringify([tEmpty, tHi, tUndo, tRedo]) === JSON.stringify([['', 5], ['Hi', 7], ['', 6], ['Hi', 7]]), JSON.stringify([tEmpty, tHi, tUndo, tRedo]));
+  // Redo too: an emptied Title left at 5 rows, Undo (Subscribe, 7 as the content needs, not the 8 it was added at), Redo: 6.
+  const nlReset = (hide = false) => qs(`const next = JSON.parse(JSON.stringify(fe.model)), b = next.sections[1].blocks[0]; for (const k of ['nlTitle', 'nlDesc', 'nlDisc', 'nlButton', 'nlName']) delete b[k]; b.layout.desktop.area[2] = b.layout.desktop.area[0] + 8; if (${hide}) b.layout.mobile.hidden = true; else delete b.layout.mobile.hidden; fe.load(next); await sleep(350); fe.select(${JSON.stringify(sid)}, 'one'); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+  nlReset();
+  await empty('Title'); await key('Tab', 400); const rEmpty = nlTitle();
+  await press('#undo', 500); const rUndo = nlTitle(); await press('#redo', 500); const rRedo = nlTitle();
+  add('Newsletter: Redo gives the rows the content needs too', JSON.stringify([rEmpty, rUndo, rRedo]) === JSON.stringify([['', 5], ['Subscribe', 7], ['', 6]]), JSON.stringify([rEmpty, rUndo, rRedo]));
+  // A Newsletter hidden in the view Undo lands in keeps its rows there: it has no height to read.
+  nlReset(true);
+  const phoneArea = () => qs(`return JSON.stringify(fe.model.sections[1].blocks[0].layout.mobile.area);`), phone0 = phoneArea();
+  await press('[data-content][aria-label="Title"]', 150); await key('Meta+a'); await key('X'); await key('Tab', 400);
+  qs(`fe.setBp('mobile'); await sleep(400); fe.undo(); await sleep(400); fe.setBp('desktop'); await sleep(400); return 'true';`);
+  const phone1 = phoneArea();
+  add('Newsletter: Undo leaves a block hidden in that view at its rows', JSON.stringify(phone1) === JSON.stringify(phone0), JSON.stringify([phone0, phone1]));
+  nlReset();
   if (process.env.NEWSLETTER_SHOT) screenshot(S, process.env.NEWSLETTER_SHOT);
   // CAP-T12NLPOST.json: the Form Name tip on hover, 11px above the ?; the rows names add; Post-Submit; the phone view.
   const help = at('.bp-nl-help');
