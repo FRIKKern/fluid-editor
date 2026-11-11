@@ -4204,7 +4204,10 @@ let accTyping = null;
 function settleAccTyping() {
   const T = accTyping;
   accTyping = null;
-  if (T) commit(T.before, 'Item description changed');
+  if (!T) return;
+  // Typed back to its start: no step, and the rows that grew while typing don't count as grown for Escape.
+  if (JSON.stringify(model) === T.before) { accGrew = T.grew; return; }
+  commit(T.before, 'Item description changed');
 }
 // Before an undo or redo the typing becomes its own step and the field lets go, so the panel redraws with the value undone.
 function settleAccField() {
@@ -4219,7 +4222,7 @@ blockPanel.addEventListener('input', (e) => {
   if (!t || !sel) return;
   const n = Number(t.dataset.n), b = B(sel.sid, sel.bid);
   if (!b?.items?.[n]) return;
-  if (accTyping?.bid !== sel.bid || accTyping.n !== n) { settleAccTyping(); accTyping = { sid: sel.sid, bid: sel.bid, n, before: JSON.stringify(model) }; }
+  if (accTyping?.bid !== sel.bid || accTyping.n !== n) { settleAccTyping(); accTyping = { sid: sel.sid, bid: sel.bid, n, before: JSON.stringify(model), grew: accGrew }; }
   const s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   b.items[n].description = t.value;
   renderSectionDom(sel.sid);
@@ -4232,7 +4235,7 @@ blockPanel.addEventListener('change', (e) => {
   if (t && accTyping && t.dataset.content === 'accDescription') {
     // The typed block, even when a press on another block has already moved the selection.
     const T = accTyping, b = B(T.sid, T.bid);
-    if (b?.items?.[T.n]) b.items[T.n].description = t.value;
+    if (b?.items?.[T.n] && Number(t.dataset.n) === T.n) b.items[T.n].description = t.value;
     t.blur(); settleAccTyping(); if (sel) renderBlockPanel(); return;
   }
   if (t && sel) {

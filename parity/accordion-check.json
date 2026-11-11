@@ -1,7 +1,7 @@
 {
   "check": "accordion block",
-  "pass": 87,
-  "total": 89,
+  "pass": 90,
+  "total": 90,
   "results": [
     {
       "what": "Opens on Content",
@@ -341,11 +341,15 @@
     },
     {
       "what": "Typed, an undo, the blur: one redo and one undo stay right",
-      "ok": false
+      "ok": true
+    },
+    {
+      "what": "Typed back to its start, the blur: one undo gives the item view back",
+      "ok": true
     },
     {
       "what": "Typed, then a press on the Shape: the Accordion keeps it, one undo step",
-      "ok": false
+      "ok": true
     },
     {
       "what": "Desktop bar and spacing",

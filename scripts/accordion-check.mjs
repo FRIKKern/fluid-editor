@@ -230,6 +230,10 @@ const zA = [stack(), descOf()];
 browser(S, 'press', 'Meta+Shift+z'); await pause(400); const zB = [stack(), descOf()];
 browser(S, 'press', 'Meta+z'); await pause(400); const zC = [stack(), descOf()];
 add('Typed, an undo, the blur: one redo and one undo stay right', JSON.stringify([zA, zB, zC]) === JSON.stringify([[pair(D['item view']), DEF], [pair(D['long description']), DESC], [pair(D['item view']), DEF]]), JSON.stringify([zA, zB, zC]));
+// Typed back to its start, then the blur (no change fires): the focusout settles it, and one undo gives the item view back.
+await start('mobile'); await openPanel(); await pressAcc('open:0'); typeDesc();
+Q(`const t = panel.querySelector('[data-content="accDescription"]'); t.value = '${DEF}'; t.dispatchEvent(new Event('input', { bubbles: true })); await sleep(300); t.blur(); await sleep(300); fe.undo(); await sleep(400); return 'true';`);
+add('Typed back to its start, the blur: one undo gives the item view back', stack() === pair(D['item view']) && descOf() === DEF, stack());
 // A press on the Shape below while typing: the typing stays on the Accordion, one undo step, the Shape untouched.
 await start('mobile'); await openPanel(); await pressAcc('open:0'); typeDesc();
 const sp = Q(`const o = fr.getBoundingClientRect(), s = blocks().find((b) => b !== acc()), e = d.querySelector('.fe-block[data-block-id="' + s.id + '"]'); e.scrollIntoView({ block: 'center' }); await sleep(150); const r = e.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width / 2, o.top + r.top + r.height / 2]);`);
