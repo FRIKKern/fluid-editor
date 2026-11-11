@@ -106,11 +106,12 @@ function note(text) {
 }
 
 // force: a drop that moves nothing is still an undo step on the oracle (GROUPRESIZE.json, TEXTUNDO.json).
-function commit(before, label, force = false) {
+// base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
+function commit(before, label, force = false, base = before) {
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(before);
+  followPhoneRows(base);
   note(label);
   updateUi();
 }
@@ -5002,6 +5003,8 @@ function showTextStep(ed, snap) {
   ed.lastInput = 0;
   ed.stepNext = true;
   ed.strikeNext = null;
+  clearTimeout(ed.saveTimer);
+  ed.laid = null;
   renderTextBar();
 }
 const hasText = (ed, snap) => JSON.parse(snap).sections.find((o) => o.id === ed.sid)?.blocks.some((o) => o.id === ed.bid);
@@ -5134,6 +5137,38 @@ function onTextInput(e) {
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
   ed.prevHeight = textHeight(b);
+  clearTimeout(ed.saveTimer);
+  if (bp === 'desktop') ed.saveTimer = setTimeout(() => textSave(ed), TEXT_SAVE);
+}
+
+// The oracle lays the section out while the text is still open, about 565 ms after the last key and not at each key: 565,
+// 566, 569 and 580 ms after the last input, in a burst and with keys 400 ms apart (CAP-Y2DROPTIME.json, two runs each).
+// What the close would do then happens there: the phone order turns and rule B1 gives rows back, while the bar stays and
+// the undo steps are as they were. The close then compares with this, so the order turns once. Read on desktop with
+// one burst; a second burst in the same edit, and the phone view, are inferred (ours: the phone waits for the close).
+const TEXT_SAVE = 565;
+function textSave(ed) {
+  if (editing !== ed) return;
+  const s = S(ed.sid), b = B(ed.sid, ed.bid), fe = feEl(ed.sid);
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(s);
+  const base = ed.laid ?? ed.before, order = s.blocks.map((o) => o.id).join();
+  editing = null; softening = true;
+  followPhoneRows(base);
+  softening = false; editing = ed;
+  if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; ed.prevArea = [...ed.area]; ed.need = contentRows(b, ed.m); setArea(blockEl(ed.bid), ed.area); }
+  drawRows(ed.sid);
+  if (s.blocks.map((o) => o.id).join() !== order) {
+    const sel = win.getSelection(), r = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+    let at = fe.querySelector(':scope > .fe-block');
+    for (const el of s.blocks.map((o) => fe.querySelector(`:scope > .fe-block[data-block-id="${o.id}"]`)).filter(Boolean)) {
+      if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
+    }
+    if (doc.activeElement !== ed.ce) ed.ce.focus();
+    if (r) { sel.removeAllRanges(); sel.addRange(r); }
+  }
+  ed.laid = JSON.stringify(model);
 }
 
 // Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
@@ -5180,6 +5215,7 @@ function finishTextEdit() {
   if (!ed) return;
   closeLinkPopover();
   editing = null;
+  clearTimeout(ed.saveTimer);
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
   const b = B(ed.sid, ed.bid);
@@ -5205,7 +5241,7 @@ function commitTextSteps(ed, height) {
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
   const undone = [...redoStack];
-  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`, false, ed.laid ?? steps.at(-1) ?? ed.before);
   redoStack.push(...undone.slice(redoStack.length));
   updateUi();
   return now;
@@ -5218,6 +5254,7 @@ function softenTextEdit() {
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
+  clearTimeout(ed.saveTimer);
   softening = true;
   commitTextSteps(ed, height);
   softening = false;
@@ -5230,7 +5267,7 @@ function softenTextEdit() {
   // The section draws the rows the commit left, given back ones too: 7 after one Escape, not the edit's 8 (CAP-Y2SOFTROWS.json, two runs).
   drawRows(ed.sid);
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
+  Object.assign(ed, { soft: true, before: now, laid: null, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
