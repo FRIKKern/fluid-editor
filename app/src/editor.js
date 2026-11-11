@@ -245,6 +245,7 @@ function undo(button = false) {
   if (shown.length === 2) heightShown = [secSid(), ...shown];
   if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
+  refitUndone(now);
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
 }
@@ -260,6 +261,7 @@ function redo() {
   model = JSON.parse(redoStack.pop());
   note('Redo');
   renderAll();
+  refitUndone(undoStack.at(-1));
   syncLayouts();
   if (ed) { select(null); return; }
   // A block that comes back comes back selected (CAP-Y2KEYS.json).
@@ -2880,7 +2882,23 @@ function setFormRows(b, s, need, spare = false) {
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest();
   else { if (spare) s.rows[bp] += lowest() - low; growRows(s); }
-  renderSectionDom(sel.sid);
+  renderSectionDom(s.id);
+}
+// Newsletter's Undo and Redo (CAP-T12NLUNDO.json, its six reads all fit the rule pushed beside the predictions in
+// CAP-T12NLUNDO-PREDICTED.json): a step that changes the block's content gives it the rows that content needs, ceil(x - 0.02),
+// whatever they were before the step. A Title emptied as typed held 5 rows (CAP-T12NEWSLETTER.json titleEmpty) and comes
+// back by Undo at 6. In the view being edited; the other view is not read (inferred: it stays).
+// Only a step on what the reads changed: the fields of newsletterOf (text, Name Field, Layout, Alignment). A Design or Animation
+// step, and a block hidden in this view (no height to read), keep their rows. Inferred: Undo back to the saved page can
+// leave Save on when the rows it gives differ from the saved ones (not read).
+function refitUndone(prev) {
+  const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
+  const own = (b) => JSON.stringify(newsletterOf(b));
+  for (const s of model.sections) for (const b of s.blocks) {
+    const o = was.get(b.id);
+    if (b.standin !== 'newsletter' || !o || own(o) === own(b) || lay(b).hidden || !blockEl(b.id)?.offsetHeight) continue;
+    setFormRows(b, s, Math.max(1, Math.ceil(contentRows(b, formPitch(b), false, false, true) - 0.02)));
+  }
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
 // Quote's fields (CAP-T12QUOTE.json) and Newsletter's (CAP-T12NEWSLETTER.json): each key shows on the block at once, the
