@@ -4058,6 +4058,29 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   pair('Instagram', 'Button'); await pause(250);
   const ib = await btn();
   add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
+  // Eight more mixes read on, one per reload, the typed block added last (CAP-U10MIXB.json, A and B alike): on, the tile
+  // count read, every tile not built (no picks read), each tile's height the gap to the next tile's top less 16 where the
+  // runs agree within 0.2, else the 140 placeholder. The Text is one paragraph, as read; a Text of two stays off, not read.
+  {
+    const MB = FIND('CAP-U10MIXB').reads, errs = [];
+    const para = (html) => evalJs(S, `(() => { const m = JSON.parse(JSON.stringify(fe.model)); for (const x of m.sections[0].blocks) if (x.type === 'text') x.html = ${JSON.stringify(html)}; fe.load(m); fe.select(null); return 'true'; })()`);
+    for (const [a, b, key] of [['Button', 'Quote', 'Button+Quote'], ['Button', 'Code', 'Button+Code'], ['Button', 'Accordion', 'Accordion+Button'], ['Text', 'Video', 'Text+Video'], ['Text', 'Quote', 'Quote+Text'], ['Image', 'Video', 'Image+Video'], ['Code', 'Video', 'Code+Video'], ['Image', 'Map', 'Image+Map']]) {
+      const tops = (r) => MB[`${r} ${key} open`].tiles.tiles.map((t) => t[1]), A = tops('A'), B = tops('B');
+      const want = A.map((t, n) => { const da = A[n + 1] - t, db = B[n + 1] - B[n]; return n + 1 < A.length && Math.abs(da - db) <= 0.2 && da > 16.5 ? Math.round((da - 16) * 10) / 10 : 140; });
+      pair(a, b); await pause(250);
+      if (a === 'Text') { para('<p>Paragraph words for a probe</p>'); await pause(250); }
+      const v = await btn();
+      if (!v || v.off || MB[`A ${key} hover`].btnByText['View Layouts'].disabled !== false) { errs.push(`${key} ${v ? 'off' : 'none'}`); continue; }
+      const tiles = await open();
+      const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled && t.classList.contains('lo-unbuilt')))`);
+      if (tiles.length !== B.length || tiles.join() !== want.join() || off.some((x) => !x)) errs.push(`${key} ${tiles} ${off}`);
+      browser(S, 'press', 'Escape'); await pause(200);
+    }
+    add('View Layouts, eight more mixes: on with their tile counts as read, not built (CAP-U10MIXB)', errs.length === 0, errs.slice(0, 3).join(' | '));
+    pair('Text', 'Video'); await pause(250); para('<p>One paragraph</p><p>and another</p>'); await pause(250);
+    const tv = await btn();
+    add('View Layouts, a Text of two paragraphs + Video: off, not read', !!tv && tv.off, JSON.stringify(tv));
+  }
 }
 console.log(`Marks: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails }, null, 2)}\n`);
