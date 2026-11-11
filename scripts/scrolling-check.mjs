@@ -74,7 +74,12 @@ await press('#block-panel [aria-label="Medium text size"]'); const medium = stat
 await drag(w * 0.75);
 qs(`fe.undo(); await sleep(250); return 'true';`); const back = state();
 add('Drag back to start, Medium, drag: undo takes one step', back.area === medium.area && back.rows === medium.rows, JSON.stringify({ medium, back }));
+await drag(w * 0.4, true);
+qs(`fe.undo(); await sleep(250); return 'true';`); const undone = state();
+await drag(w * 0.75);
+qs(`fe.undo(); await sleep(250); return 'true';`); const back2 = state();
+add('Drag back to start, Cmd+Z, drag: undo takes one step', back2.area === undone.area && back2.rows === undone.rows && undone.area !== medium.area, JSON.stringify({ undone, back2 }));
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 26;
+const CASES = 27;
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
