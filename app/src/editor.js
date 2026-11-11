@@ -214,6 +214,7 @@ const backToField = (held) => {
   caretAtEnd(f);
 };
 function undo(button = false) {
+  settleAccField();
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
   // The Undo button lets a block selected with only its toolbar go as well; Cmd+Z keeps it (CAP-E7REOPEN3.json "Clear, Undo",
@@ -251,6 +252,7 @@ function undo(button = false) {
   if (ed || bare) select(null); else backToField(held);
 }
 function redo() {
+  settleAccField();
   const ed = editing;
   if (ed) finishTextEdit();
   if (!redoStack.length) { if (ed) select(null); return; }
@@ -4194,16 +4196,30 @@ blockPanel.addEventListener('click', (e) => {
   if (act === 'del') setAccordion((b) => { b.items.splice(n, 1); }, 'Item deleted');
   if (act === 'dup') setAccordion((b) => { b.items.splice(n + 1, 0, { ...b.items[n] }); }, 'Item duplicated');
 });
-// A description refits as it is typed, the field still focused (CAP-T12ACCDESC.json, -2.json, 900 ms after the last key);
-// the change then commits it as one undo step from before the first key. A title's typing is not read: it waits for the change.
+// A description refits as it is typed, the field still focused (CAP-T12ACCDESC.json and CAP-T12ACCDESC2.json, read once each
+// 900 ms after the last key; on each input, inferred). The typing is one undo step from before the first key (inferred: no
+// undo was read) on the block it was typed in, kept with it: it settles at the change, at the field's focusout (typed back
+// to the start fires no change), and before an undo or redo. A title's typing is not read: it waits for its change.
 let accTyping = null;
-blockPanel.addEventListener('focusin', (e) => { if (e.target.matches?.('[data-content="accDescription"]')) accTyping = null; });
+function settleAccTyping() {
+  const T = accTyping;
+  accTyping = null;
+  if (T) commit(T.before, 'Item description changed');
+}
+// Before an undo or redo the typing becomes its own step and the field lets go, so the panel redraws with the value undone.
+function settleAccField() {
+  const f = document.activeElement;
+  if (accTyping && f?.matches?.('#block-panel [data-content="accDescription"]')) f.blur();
+  settleAccTyping();
+}
+blockPanel.addEventListener('focusin', (e) => { if (e.target.matches?.('[data-content="accDescription"]')) settleAccTyping(); });
+blockPanel.addEventListener('focusout', (e) => { if (e.target.matches?.('[data-content="accDescription"]')) settleAccTyping(); });
 blockPanel.addEventListener('input', (e) => {
   const t = e.target.closest('[data-content="accDescription"]');
   if (!t || !sel) return;
   const n = Number(t.dataset.n), b = B(sel.sid, sel.bid);
   if (!b?.items?.[n]) return;
-  if (accTyping?.bid !== sel.bid || accTyping.n !== n) accTyping = { bid: sel.bid, n, before: JSON.stringify(model) };
+  if (accTyping?.bid !== sel.bid || accTyping.n !== n) { settleAccTyping(); accTyping = { sid: sel.sid, bid: sel.bid, n, before: JSON.stringify(model) }; }
   const s = S(sel.sid), was = contentRows(b, measure(feEl(sel.sid)));
   b.items[n].description = t.value;
   renderSectionDom(sel.sid);
@@ -4213,10 +4229,15 @@ blockPanel.addEventListener('input', (e) => {
 });
 blockPanel.addEventListener('change', (e) => {
   const t = e.target.closest('[data-content="accTitle"], [data-content="accDescription"]');
+  if (t && accTyping && t.dataset.content === 'accDescription') {
+    // The typed block, even when a press on another block has already moved the selection.
+    const T = accTyping, b = B(T.sid, T.bid);
+    if (b?.items?.[T.n]) b.items[T.n].description = t.value;
+    t.blur(); settleAccTyping(); if (sel) renderBlockPanel(); return;
+  }
   if (t && sel) {
     const n = Number(t.dataset.n), key = t.dataset.content === 'accTitle' ? 'title' : 'description', v = t.value;
-    const typed = key === 'description' && accTyping?.bid === sel.bid && accTyping.n === n ? accTyping.before : undefined;
-    accTyping = null; t.blur(); setAccordion((b) => { b.items[n][key] = v; }, `Item ${key} changed`, typed); return;
+    t.blur(); setAccordion((b) => { b.items[n][key] = v; }, `Item ${key} changed`); return;
   }
   const c = e.target.closest('input[data-acc-set]');
   if (!c || !sel) return;
