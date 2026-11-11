@@ -18,6 +18,13 @@ export const PHONE_LETGO = [
   ['Text east 60 left', 'text', 'e', -60, 0, 'mouse'],
   ['Text corner 60 down by touch', 'text', 'se', 0, 60, 'touch'],
   ['Text north-east 60 up by touch', 'text', 'ne', 0, -60, 'touch'],
+  // CAP-X2PHONE-C.json: where the Shape's line is on a phone, since 30 down lets it go there (CAP-X2PHONE-A.json).
+  ['Shape south 10 down', 'shape', 's', 0, 10, 'mouse'],
+  ['Shape south 20 down', 'shape', 's', 0, 20, 'mouse'],
+  ['Shape south 30 up', 'shape', 's', 0, -30, 'mouse'],
+  ['Shape north 60 down', 'shape', 'n', 0, 60, 'mouse'],
+  ['Shape east 60 left', 'shape', 'e', -60, 0, 'mouse'],
+  ['Shape west 60 right', 'shape', 'w', 60, 0, 'mouse'],
 ];
 
 // Ours: the block alone in a section under an empty one (the oracle's site header keeps a pull up inside the frame), phone view,
