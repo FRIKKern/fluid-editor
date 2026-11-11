@@ -199,7 +199,14 @@ const leaveField = () => {
   f.blur();
   return f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
 };
-const backToField = (q) => { if (q) caretAtEnd(blockPanel.querySelector(q)); };
+// Typing not yet taken in a Design field stays there through the undo (CAP-T15FIELDENDS.json): keptTyped holds it.
+let keptTyped = null;
+const backToField = (q) => {
+  const f = q && blockPanel.querySelector(q);
+  if (f && keptTyped?.q === q) f.value = keptTyped.text;
+  keptTyped = null;
+  if (f) caretAtEnd(f);
+};
 function undo(button = false) {
   // The Undo button during an edit: the edit closes, its last step goes, and the block lets go (CAP-Y2EDIT.json, CAP-ESC1.json).
   const ed = editing;
@@ -2328,20 +2335,23 @@ blockPanel.addEventListener('pointerdown', (e) => {
       let v = scrubbed(start, dx, key);
       const pose = /:(\d)/.exec(key);
       // A drag stops at its bar's ends, as Design's: Opacity 100%, Scale 0 and 200%, Offset 1,000px, Skew 60°, read twice
-      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2); a value typed past an end is not pulled back.
+      // (CAP-T15FIELDS2.json), Rotate -360° and 360° (CAP-Y2BAR.json, R1 and R2). A value typed past an end is pulled to it at
+      // the drag's first step, as on Design (CAP-T15FIELDENDS.json); inferred here.
       if (pose) {
         const [lo, hi] = POSE_RANGE[pose[1]], s0 = parseFloat(String(start).replace(/,/g, '')), n = parseFloat(v), unit = String(v).replace(/^-?[\d.]+/, '');
-        v = `${Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), n))}${unit}`;
+        const at = Math.min(hi, Math.max(lo, s0));
+        v = `${Math.min(hi, Math.max(lo, Math.round((at + n - s0) * 10) / 10))}${unit}`;
       }
       input.value = commas(v);
       animPut(b.animations, anim.i, key, v);
       syncAnimView(b);
       shown(v, pose && POSE_RANGE[pose[1]], pose ? v !== REST[pose[1]] : v !== defaultOf(animRows()[anim.i], key));
     } else {
-      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). Inferred: a value typed
-      // past an end is not pulled back by the drag, which only moves it toward the bar.
+      // A drag stops at its bar's ends: Scale 0 and 200%, Offset 1,000px, Skew 60° (CAP-T15CHEAP.json). A value typed past an
+      // end is pulled to it at the drag's first step, then moves: Rotate 400° dragged +20px is 360°, -20px 352°, Scale 900%
+      // -20px 192%, Offset 5,000px +20px 1,000px (CAP-T15FIELDENDS.json, two runs alike).
       const f = DESIGN_FIELDS.find((x) => x[0] === dk), s0 = parseFloat(start.replace(/,/g, '')), [lo, hi] = designRange(dk) || [f[3], f[4]];
-      const v = Math.min(Math.max(hi, s0), Math.max(Math.min(lo, s0), Math.round((s0 + dx * 0.4) * 10) / 10)), bag = designBag(bp);
+      const v = Math.min(hi, Math.max(lo, Math.round((Math.min(hi, Math.max(lo, s0)) + dx * 0.4) * 10) / 10)), bag = designBag(bp);
       input.value = designText(dk, v);
       b[bag] = { ...(b[bag] || {}), [dk]: v };
       renderSectionDom(sel.sid);
@@ -4311,12 +4321,16 @@ async function readPicture(file) {
 }
 // Keys typed in a panel field stay in the field: a Backspace there must not remove the block.
 // Cmd+Z in a transform field with nothing typed in it is the page's: the last step goes and the focus stays (CAP-T15CHEAP.json).
-// Not read: with typing not yet taken, so the field keeps it.
 // Cmd+Z in an Animation field is the page's undo even with typing not yet taken: the typing goes, the last change is undone,
-// and the field keeps the focus (CAP-T15FIELDS3.json, read twice). Design's fields: only with nothing typed (not read).
-const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]') || (e.target.matches('input[type="text"][data-design]') && e.target.value === e.target.defaultValue));
+// and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
+// not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && e.target.matches('input[data-afield], input[type="text"][data-design]');
 blockPanel.addEventListener('keydown', (e) => {
-  if (pageUndoIn(e) && e.target.matches('input[data-afield]')) e.target.value = e.target.defaultValue;
+  // Not read: Cmd+Z in a Design field with nothing to undo; the typing is left as it is.
+  if (pageUndoIn(e) && e.target.value !== e.target.defaultValue && (e.target.matches('input[data-afield]') || undoStack.length)) {
+    if (e.target.matches('input[data-design]')) keptTyped = { q: `input[type="text"][data-design="${e.target.dataset.design}"]`, text: e.target.value };
+    e.target.value = e.target.defaultValue;
+  }
   if (e.key !== 'Escape' && e.target.matches('input, textarea, select, [contenteditable]') && !pageUndoIn(e)) e.stopPropagation();
 });
 blockPanel.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('input[data-content]')) e.target.dispatchEvent(new Event('change', { bubbles: true })); });

@@ -295,6 +295,29 @@ add('Cmd+Z in the field: 10°, the focus stays, caret 3, as read', u.v === '10°
 browser(S, 'press', 'Meta+z'); await pause(250);
 u = rf();
 add('A second Cmd+Z: the value before the typing, focus stays, as read', u.v === `${rot0}°` && u.focused, JSON.stringify(u));
+// A value typed past an end is pulled to it at the drag's first step, then moves (CAP-T15FIELDENDS.json, F1 and F2 alike).
+const E = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15FIELDENDS.json', import.meta.url), 'utf8')).reads;
+const dshow = (k) => q(`return JSON.stringify(panel.querySelector('input[data-design="${k}"]').value);`);
+for (const [k, from, dx, read] of [['rotate', '400', 20, 'rotate 400 +20'], ['rotate', '400', -20, 'rotate 400 -20'], ['sx', '900', -20, 'scale 900 -20'], ['tx', '5000', 20, 'offset 5000 +20']]) {
+  setD(k, from);
+  await drag(`${dbox(k)}.querySelector('.sc-l')`, dx);
+  const want = E[`F1 ${read}`].after;
+  add(`Design ${k} ${from} dragged ${dx}px is ${want}, as read`, dshow(k) === want && E[`F2 ${read}`].after === want, dshow(k));
+}
+// Cmd+Z with typing not yet taken in a Design field: the page's undo; the typing stays, focused, caret at its end.
+setD('opacity', '50');
+await clickSel(`${dbox('rotate')}.querySelector('input')`); await pause(120);
+q(`panel.querySelector('input[data-design="rotate"]').select(); return 'true';`);
+for (const k of '33') browser(S, 'press', k);
+await pause(150);
+const drows = () => q(`const v = (k) => panel.querySelector('input[data-design="' + k + '"]').value; const a = document.activeElement; return JSON.stringify({ Opacity: v('opacity'), Rotate: v('rotate'), Offset: v('tx'), focus: a?.dataset?.design === 'rotate' ? { value: a.value, caret: a.selectionStart } : null });`);
+const same = (o, r) => o.Opacity === r.Opacity[0] && o.Rotate === r.Rotate[0] && o.Offset === r.Offset[0] && o.focus?.value === r.focus.value && o.focus?.caret === r.focus.caret;
+browser(S, 'press', 'Meta+z'); await pause(300);
+u = drows();
+add('Cmd+Z with typing untaken: Opacity 100%, 33 kept and focused, as read', same(u, E['F1 after Cmd+Z']) && same(u, E['F2 after Cmd+Z']), JSON.stringify(u));
+browser(S, 'press', 'Meta+z'); await pause(300);
+u = drows();
+add('A second Cmd+Z: Offset 5,000px, 33 still kept, as read', same(u, E['F1 after 2nd Cmd+Z']) && same(u, E['F2 after 2nd Cmd+Z']), JSON.stringify(u));
 
 // The other triggers' Timing rows.
 await fresh();
