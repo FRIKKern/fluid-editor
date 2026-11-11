@@ -1,0 +1,1576 @@
+{
+  "item": "X8",
+  "capturedAt": "2026-11-11",
+  "question": "X8 phone, round F: does a pin count for a group on a phone, as on desktop it does not (CAP-X8PIN.json, CAP-X8PIN2.json)? CAP-X8PIN2's three Shapes apart (z 1, 3, 2; on the phone stacked in DOM order), the right one pinned with Pin: A, pinned on desktop, then the phone view; B, pinned in the phone view, then read on the phone and back on desktop. Read: one block alone (pin elsewhere), the two groups (pin outside, pin inside) and the pinned block alone, the bar's buttons. Each built twice (A1, A2; B1, B2), Exit Without Saving between, Gestures Probe, nothing saved; the view goes back to Desktop before each exit. Predictions pushed first, ours as built.",
+  "rule": "Ours as built: a pin belongs to its layout (layout[bp].sticky). In that layout one block's bar shows Move Forward and Backward when any block in the section is pinned; a group's bar shows them only when a member overlaps a block outside the group, pin or not; on a phone the group bar has no Duplicate and one block's bar has Move Up and Down (editor.js zInfo, groupZ; toolbar.js toolbarItems).",
+  "from": "Ours on main, replayed by scripts/lib/x8-phone-pin.mjs: the read's buttons that are present, joined, ' off' on a disabled one.",
+  "hit": "Scored on the buttons present in each btnState read and whether each is disabled; each case's two reads must agree.",
+  "predicted": {
+    "A phone one, pin elsewhere": "Edit,Pin,Move Up off,Move Down,Remove",
+    "A phone pin outside": "Stack Blocks,Align Group,Remove",
+    "A phone pin inside": "Stack Blocks,Align Group,Remove",
+    "A phone the pinned one": "Edit,Pin,Move Up,Move Down off,Remove",
+    "B phone one, pin elsewhere": "Edit,Pin,Move Forward,Move Backward off,Move Up off,Move Down,Remove",
+    "B phone pin outside": "Stack Blocks,Align Group,Remove",
+    "B phone pin inside": "Stack Blocks,Align Group,Remove",
+    "B phone the pinned one": "Edit,Pin,Move Forward,Move Backward,Move Up,Move Down off,Remove",
+    "B desktop one, pin elsewhere": "Edit,Pin,Duplicate,Remove",
+    "B desktop pin outside": "Stack Blocks,Align Group,Duplicate,Remove",
+    "B desktop pin inside": "Stack Blocks,Align Group,Duplicate,Remove",
+    "B desktop the pinned one": "Edit,Pin,Duplicate,Remove"
+  },
+  "cases": {
+    "A phone one, pin elsewhere": [
+      "A1 phone one, pin elsewhere",
+      "A2 phone one, pin elsewhere"
+    ],
+    "A phone pin outside": [
+      "A1 phone pin outside",
+      "A2 phone pin outside"
+    ],
+    "A phone pin inside": [
+      "A1 phone pin inside",
+      "A2 phone pin inside"
+    ],
+    "A phone the pinned one": [
+      "A1 phone the pinned one",
+      "A2 phone the pinned one"
+    ],
+    "B phone one, pin elsewhere": [
+      "B1 phone one, pin elsewhere",
+      "B2 phone one, pin elsewhere"
+    ],
+    "B phone pin outside": [
+      "B1 phone pin outside",
+      "B2 phone pin outside"
+    ],
+    "B phone pin inside": [
+      "B1 phone pin inside",
+      "B2 phone pin inside"
+    ],
+    "B phone the pinned one": [
+      "B1 phone the pinned one",
+      "B2 phone the pinned one"
+    ],
+    "B desktop one, pin elsewhere": [
+      "B1 desktop one, pin elsewhere",
+      "B2 desktop one, pin elsewhere"
+    ],
+    "B desktop pin outside": [
+      "B1 desktop pin outside",
+      "B2 desktop pin outside"
+    ],
+    "B desktop pin inside": [
+      "B1 desktop pin inside",
+      "B2 desktop pin inside"
+    ],
+    "B desktop the pinned one": [
+      "B1 desktop the pinned one",
+      "B2 desktop the pinned one"
+    ]
+  },
+  "steps": [
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "A1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "A1 phone start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "A1 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "A1 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A1 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A1 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "A2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "A2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "read",
+      "A2 phone start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "A2 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "A2 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A2 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "A2 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "B1 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B1 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B1 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B1 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B1 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B1 desktop one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B1 desktop pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 desktop pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B1 desktop the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      700,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "select",
+      0,
+      "new"
+    ],
+    [
+      "drag",
+      0,
+      "new",
+      "middle",
+      350,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "B2 start",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Mobile"
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Pin"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B2 pin panel",
+      {
+        "panelEls": "input"
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      400
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "read",
+      "B2 pinned",
+      {
+        "areas": 0,
+        "zs": 0
+      }
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B2 phone one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B2 phone pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 phone pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 phone the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "view",
+      "Desktop"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "read",
+      "B2 desktop one, pin elsewhere",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "read",
+      "B2 desktop pin outside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 desktop pin inside",
+      {
+        "btnState": [
+          "Stack Blocks",
+          "Align Group",
+          "Move Forward",
+          "Move Backward",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      2
+    ],
+    [
+      "read",
+      "B2 desktop the pinned one",
+      {
+        "btnState": [
+          "Edit",
+          "Align Vertically",
+          "Pin",
+          "Move Forward",
+          "Move Backward",
+          "Move Up",
+          "Move Down",
+          "Duplicate",
+          "Remove"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ]
+  ]
+}
