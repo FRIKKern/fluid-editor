@@ -43,7 +43,8 @@ const compare = (map, leaves, got) => {
 const by = (cls, tag) => (l) => (cls == null || l.cls.startsWith(cls)) && (!tag || l.tag === tag);
 
 // Product (CAP-T12PRESS-A.json at 6 columns, -E.json pulled to 3): the title's width and the description's height follow
-// the font and the description's unread text, so they are left out; the words are compared by their centres.
+// the font and the description's unread text, so they are left out; the words are compared by their centres. Not compared:
+// the paths inside the icon and buttons (ours are our own), the quantity's 4px highlight (clear) and the editor's overlays.
 const PRODUCT = [
   [by('product-block-action-menu', 'svg'), '.product-add-icon', ['x', 'y', 'w', 'h']],
   [by('fs-unmask', 'SPAN'), '.product-add-text', ['cx', 'cy']],
