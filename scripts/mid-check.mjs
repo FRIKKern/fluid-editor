@@ -9,6 +9,7 @@ import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './l
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
+import { T3, PHONE_STEPS, CORNER_STEPS, loadText, pull } from './lib/r2-width-replay.mjs';
 import { PHONE_LETGO, phoneLetGo } from './lib/phone-letgo.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -781,6 +782,28 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         const r = read(), w = C[`A ${c} narrower 4 ${when}`];
         groupCases.push({ name: `R2 one-row Text narrowed from its ${c} corner, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: [r.a !== w.stack[0].desktop && `area: oracle ${w.stack[0].desktop}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
       }
+    }
+  }
+  // On a phone, the written Text narrowed and widened a phone column at a time by its east side (CAP-R2PHONE.json, R1 and R2 agree),
+  // from the oracle's start: the phone area and rows of the before read.
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2PHONE.json', import.meta.url))).reads, b = R['R1 before'];
+    loadText(S, { html: `<p>${T3}</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: 8, mobile: b.section.rows }, bp: 'mobile' }); await pause(200);
+    for (const [name, part, dx] of PHONE_STEPS) {
+      const got = await pull(S, part, dx);
+      // Named miss: widened back to 7 columns the oracle keeps the third row at the drop and lets it go with the block, as
+      // desktop's wider 5 (R2 rule S, frozen, is for one line only; this text is two lines).
+      const known = name === 'wider 2' ? { held: 'the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)' } : {};
+      for (const [when, r] of [['held', got.held], ['let go', got.letGo]]) { const w = R[`R1 ${name} ${when}`].stack[0].phone; groupCases.push({ name: `R2 phone ${name}, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: r.phone === w ? [] : [`phone area: oracle ${w}, ours ${r.phone}`], ...(known[when] ? { known: known[when] } : {}) }); }
+    }
+    evalJs(S, `fe.setBp('desktop')`); await pause(100);
+  }
+  // A taller Text narrowed two columns from each corner (CAP-R2CORNERS.json, R1 and R2 agree), from its before read.
+  { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2CORNERS.json', import.meta.url))).reads;
+    for (const [c, dx] of CORNER_STEPS) {
+      const b = R[`R1 ${c} before`];
+      loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200);
+      const got = await pull(S, c, dx);
+      for (const [when, r] of [['held', got.held], ['let go', got.letGo]]) { const w = R[`R1 ${c} narrower 2 ${when}`].stack[0].desktop; groupCases.push({ name: `R2 taller Text narrowed from its ${c} corner, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: r.desktop === w ? [] : [`area: oracle ${w}, ours ${r.desktop}`] }); }
     }
   }
   // A widening fall moves the blocks below as a typing shrink does (CAP-R2WIDEFALL.json), from each case's before read.

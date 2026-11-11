@@ -1,15 +1,16 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1241,
+  "pass": 1264,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
     "hold CAP-X2T9 R1 w6 1545 -20",
     "R2 wider 5",
+    "R2 phone wider 2, at the drop",
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1247,
+  "total": 1271,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4310,6 +4311,105 @@
     },
     {
       "name": "R2 one-row Text narrowed from its se corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 1, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 1, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 2, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 2, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 3, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 3, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 4, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone narrower 4, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 1, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 1, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 2, at the drop",
+      "diffs": [
+        "phone area: oracle 1/2/4/8, ours 1/2/3/8"
+      ],
+      "known": "the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)"
+    },
+    {
+      "name": "R2 phone wider 2, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 3, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 3, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 4, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 phone wider 4, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its sw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its sw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its nw corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its nw corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its ne corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its ne corner, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its se corner, at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 taller Text narrowed from its se corner, let go",
       "diffs": []
     },
     {
