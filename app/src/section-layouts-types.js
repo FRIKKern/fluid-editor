@@ -22,5 +22,5 @@ export const MIX_LAYOUTS = {"Code+Image":[{"rows":10,"phoneRows":10,"tile":118.8
 // Eight more mixes read on, with their tile counts (CAP-U10MIXB.json, one per reload, the typed block added last, runs A
 // and B alike): a read-fact table, unscored, no rule, the key as above. Their picks are not read, so the tiles show,
 // not built. A tile's height is the gap from its top to the next one's less 16 (the lists' gap, CAP-U10LIST-QUOTE.json)
-// where runs A and B agree within 0.2 (28 of 57); null where they differ (the list still drawing) and for the last tile: not read.
+// where runs A and B agree within 0.2 (28 of 57); null where they differ (why: not read) and for the last tile: not read.
 export const MIX_TILES = {"Button+Quote":[150.6,165,167,124.6,null],"Button+Code":[129.6,146.1,148.2,105.7,null],"Accordion+Button":[183.6,200.1,null,null,null],"Text+Video":[136.4,136.5,162.2,null,null,null,null],"Quote+Text":[null,null,null,null,87.3,null,null,null],"Image+Video":[158.6,190.6,164.5,null,null,214.5,276.8,276.8,null,null],"Code+Video":[136.4,136.5,162.2,null,null,null,null],"Image+Map":[158.6,190.6,164.5,164.5,null,null,null,null,292.1,null]};
