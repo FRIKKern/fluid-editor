@@ -1021,7 +1021,7 @@ function onDown(e) {
     // Starting the resize takes the handle out of the page, and a touch's later events stay on it,
     // out of reach of the page's listener. Unprevented, the browser pans and the release is lost.
     if (e.pointerType === 'touch') handle.addEventListener('touchmove', onTouchMove, { passive: false });
-    gesture = { type: 'pending', resizeDir: handle.dataset.dir, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
+    gesture = { type: 'pending', resizeDir: handle.dataset.dir, group: !!sel.more?.length, sid: sel.sid, bid: sel.bid, pointerId: e.pointerId, t0: e.timeStamp, x0: e.clientX, y0: e.clientY, py0: e.clientY - feEl(sel.sid).getBoundingClientRect().top, before: JSON.stringify(model) };
     return;
   }
   if (!blk) {
@@ -1108,7 +1108,7 @@ function onUp(e) {
     if (/^(se|sw|ne|nw)$/.test(corner) && !g.members && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text') { select(null); return; }
     // On a phone a handle press short of a drag lets the block go, a Text too: a Shape's south side pressed with no move, 5 up,
     // 5 and 10 down, its east side pressed and 5 left, a Text's east side pressed (CAP-X2PHONE-C/D/E.json, twice each). Refit 2 of rule P.
-    if (corner && bp === 'mobile' && !g.members && e.pointerType !== 'touch') { select(null); return; }
+    if (corner && bp === 'mobile' && !g.group && e.pointerType !== 'touch') { select(null); return; }
     if ((g.wasSelected || g.escDrag) && B(g.sid, g.bid)?.type === 'text') startTextEdit(g.sid, g.bid);
     return;
   }
