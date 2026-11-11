@@ -1,7 +1,7 @@
 {
   "check": "accordion block",
-  "pass": 84,
-  "total": 84,
+  "pass": 90,
+  "total": 90,
   "results": [
     {
       "what": "Opens on Content",
@@ -325,6 +325,30 @@
     },
     {
       "what": "Escape with no edit keeps them",
+      "ok": true
+    },
+    {
+      "what": "Item 1 open on the phone",
+      "ok": true
+    },
+    {
+      "what": "A typed description, still focused",
+      "ok": true
+    },
+    {
+      "what": "Its change is one undo step",
+      "ok": true
+    },
+    {
+      "what": "Typed, an undo, the blur: one redo and one undo stay right",
+      "ok": true
+    },
+    {
+      "what": "Typed back to its start, the blur: one undo gives the item view back",
+      "ok": true
+    },
+    {
+      "what": "Typed, then a press on the Shape: the Accordion keeps it, one undo step",
       "ok": true
     },
     {

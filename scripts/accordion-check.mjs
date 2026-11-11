@@ -211,6 +211,36 @@ await start('mobile'); await openPanel(); await pressAcc('add'); await pressAcc(
 add('Add Item, an item opened', stack() === pair(P10['item view']), stack());
 await esc();
 add('Escape with no edit keeps them', stack() === pair(P10['then Escape']), stack());
+// A longer description typed on the phone refits with the field still focused (CAP-T12ACCDESC.json, CAP-T12ACCDESC2.json); the
+// typing is one undo step from its first key (inferred), on the block it was typed in, through Cmd+Z and a press on another block.
+const D = FIND('CAP-T12ACCDESC'), DESC = 'A longer description for this first item, written to run onto several lines on the phone so that the open item takes more room than the default one does.';
+const DEF = 'Description text goes here', descOf = () => Q(`return JSON.stringify(acc().items[0].description);`);
+const typeDesc = () => Q(`const t = panel.querySelector('[data-content="accDescription"]'); t.focus(); for (const v of ['${DESC.slice(0, 60)}', '${DESC}']) { t.value = v; t.dispatchEvent(new Event('input', { bubbles: true })); await sleep(250); } await sleep(200); return JSON.stringify(document.activeElement === t);`);
+await start('mobile'); await openPanel(); await pressAcc('open:0');
+add('Item 1 open on the phone', stack() === pair(D['item view']), stack());
+const kept = typeDesc();
+add('A typed description, still focused', stack() === pair(D['long description']) && kept === true, `${stack()} ${kept}`);
+Q(`panel.querySelector('[data-content="accDescription"]').dispatchEvent(new Event('change', { bubbles: true })); await sleep(400); fe.undo(); await sleep(400); return 'true';`);
+add('Its change is one undo step', stack() === pair(D['item view']) && descOf() === DEF, stack());
+// An undo while the field still has the typing (fe.undo, as the page's Undo runs; Cmd+Z in the field stays the field's own):
+// the typing goes as one step, the blur after it takes nothing, then one redo brings it back and one undo takes it again.
+await start('mobile'); await openPanel(); await pressAcc('open:0'); typeDesc();
+Q(`fe.undo(); await sleep(400); document.activeElement?.blur(); await sleep(400); return 'true';`);
+const zA = [stack(), descOf()];
+browser(S, 'press', 'Meta+Shift+z'); await pause(400); const zB = [stack(), descOf()];
+browser(S, 'press', 'Meta+z'); await pause(400); const zC = [stack(), descOf()];
+add('Typed, an undo, the blur: one redo and one undo stay right', JSON.stringify([zA, zB, zC]) === JSON.stringify([[pair(D['item view']), DEF], [pair(D['long description']), DESC], [pair(D['item view']), DEF]]), JSON.stringify([zA, zB, zC]));
+// Typed back to its start, then the blur (no change fires): the focusout settles it, and one undo gives the item view back.
+await start('mobile'); await openPanel(); await pressAcc('open:0'); typeDesc();
+Q(`const t = panel.querySelector('[data-content="accDescription"]'); t.value = '${DEF}'; t.dispatchEvent(new Event('input', { bubbles: true })); await sleep(300); t.blur(); await sleep(300); fe.undo(); await sleep(400); return 'true';`);
+add('Typed back to its start, the blur: one undo gives the item view back', stack() === pair(D['item view']) && descOf() === DEF, stack());
+// A press on the Shape below while typing: the typing stays on the Accordion, one undo step, the Shape untouched.
+await start('mobile'); await openPanel(); await pressAcc('open:0'); typeDesc();
+const sp = Q(`const o = fr.getBoundingClientRect(), s = blocks().find((b) => b !== acc()), e = d.querySelector('.fe-block[data-block-id="' + s.id + '"]'); e.scrollIntoView({ block: 'center' }); await sleep(150); const r = e.getBoundingClientRect(); return JSON.stringify([o.left + r.left + r.width / 2, o.top + r.top + r.height / 2]);`);
+mouse(S, 'move', sp[0], sp[1]); await pause(60); mouse(S, 'down', sp[0], sp[1], { buttons: 1 }); await pause(40); mouse(S, 'up', sp[0], sp[1]); await pause(500);
+const pA = [descOf(), Q(`return JSON.stringify(blocks().find((b) => b !== acc()).items ?? null);`)];
+Q(`fe.undo(); await sleep(400); return 'true';`); const pB = descOf();
+add('Typed, then a press on the Shape: the Accordion keeps it, one undo step', pA[0] === DESC && pA[1] === null && pB === DEF, JSON.stringify([pA, pB]));
 // The toolbar.
 await start('desktop', true); await pick();
 add('Desktop bar and spacing', ours() === theirs(BAR['desktop bar'], 90), ours());
