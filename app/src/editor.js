@@ -235,7 +235,7 @@ function undo(button = false) {
     const [json, key, left] = was.get(s.id) || [];
     if (json == null || json === JSON.stringify(s) || !s.blocks.length) continue;
     const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
-    if (m && m.key === key) restep(s, m, left);
+    if (m && m.key === key) restep(s, m, left, wordsAt(s.id));
   }
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
@@ -6252,38 +6252,44 @@ function placeLayouts() {
   layoutsPlace.top = sectionPanelScrolled({ prev: layoutsPlace.top, H: window.innerHeight, low, high });
   layoutsPanel.style.top = `${layoutsPlace.top}px`;
 }
-layoutsPanel.addEventListener('click', (e) => {
-  const t = e.target.closest('[data-layout]');
-  const mix = t && S(layoutsSid) && openedMix();
-  if (!mix) return;
-  const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
-  layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  // A Text's lines: the distinct line boxes of its words (a pre's line-height may be 'normal'). Words of another size on
-  // the same line sit a few px apart; a new line starts more than half a line lower.
-  const countLines = (el) => {
-    const doc = frame.contentDocument, tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
-    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
-      if (!t.data.trim()) continue;
-      r.selectNodeContents(t);
-      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
-    }
-    tops.sort((a, b) => a - b);
-    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
-  };
-  const textOf = (b) => blockEl(b.id)?.querySelector('.sqs-html-content');
-  // As drawn before the pick.
-  const lines = (b) => (textOf(b) ? countLines(textOf(b)) : 1);
-  // At ten columns of this grid, no padding: a hidden copy of its words beside it.
-  const words = (b) => {
-    const el = textOf(b), fe = feEl(layoutsSid);
-    if (!el || !fe) return 1;
-    const m = measure(fe), c = el.cloneNode(true);
+// A Text's lines: the distinct line boxes of its words (a pre's line-height may be 'normal'). Words of another size on
+// the same line sit a few px apart; a new line starts more than half a line lower.
+function countLines(el) {
+  const d = frame.contentDocument, tops = [], walk = d.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = d.createRange();
+  for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+    if (!t.data.trim()) continue;
+    r.selectNodeContents(t);
+    for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+  }
+  tops.sort((a, b) => a - b);
+  return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+}
+const textOf = (b) => blockEl(b.id)?.querySelector('.sqs-html-content');
+// A Text's lines at ten columns of its section's grid, no padding: a hidden copy of its words beside it. None on a grid
+// of ten tracks or fewer (the phone view): the paragraph list's word table is not used there.
+function wordsAt(sid) {
+  return (b) => {
+    const el = textOf(b), fe = sectionEl(sid)?.querySelector('.fluid-engine');
+    if (!el || !fe) return null;
+    const m = measure(fe);
+    if (m.colEnd.length <= 10) return null;
+    const c = el.cloneNode(true);
     Object.assign(c.style, { position: 'absolute', visibility: 'hidden', left: '0', top: '0', width: `${m.colEnd[10] - m.colStart[1]}px`, padding: '0', boxSizing: 'border-box' });
     el.parentNode.appendChild(c);
     const n = countLines(c);
     c.remove();
     return n;
   };
+}
+layoutsPanel.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-layout]');
+  const mix = t && S(layoutsSid) && openedMix();
+  if (!mix) return;
+  const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
+  layoutsPicked = layoutsLast = Number(t.dataset.layout);
+  // As drawn before the pick, and at ten columns (countLines, wordsAt).
+  const lines = (b) => { const el = textOf(b); return el ? countLines(el) : 1; };
+  const words = wordsAt(layoutsSid);
   applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines, words);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {

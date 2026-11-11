@@ -1560,10 +1560,11 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const realClick = async (x, y) => { mouse(S, 'move', x, y); await pause(50); mouse(S, 'down', x, y, { buttons: 1 }); await pause(30); mouse(S, 'up', x, y); await pause(250); };
   // The paragraph list against CAP-U10ROWS-A.json instead: in this order each layout has the span rule P gives it after
   // the one before (CAP-U10ROWSPREDICT.json), read there after the same layout (A17, A21, A11, A15) or at the same span
-  // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows by the last-phone-row rule. Built with the
+  // (A02: 0 after the start is not read; A01: 3 after the start). Phone rows as CAP-U10PHONEROWS.json read them: the phone
+  // end line less 1, at layout 0 the end line itself. Built with the
   // reads' own words: longer words wrap in layout 2's one-row block and ours grows the section.
   const RA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10ROWS-A.json', import.meta.url))).reads;
-  const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - 1, places: { p0: [d, p] } }; });
+  const PARA = ['A02 layout 0', 'A17 layout 1', 'A21 layout 2', 'A01 layout 3', 'A11 layout 4', 'A15 layout 5'].map((k, n) => { const r = RA[k], [d, p] = r.areas[0]; return { ...VL.mixes.p1.layouts[n], rows: r.look.rows, h: r.look.h, phoneRows: +p.split('/')[2] - (n === 0 ? 0 : 1), places: { p0: [d, p] } }; });
   for (const [key, mix0] of Object.entries(VL.mixes)) {
     const mix = key === 'p1' ? { ...mix0, layouts: PARA } : mix0;
     await start(); build(key); await pause(450);
@@ -1608,7 +1609,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`View Layouts p1: rule P through the three read orders (${runs.flat().length} picks)`, errs.length === 0, errs.slice(0, 3).join(' | '));
   }
   // The paragraph list's read word spans (read facts, rule W frozen): CAP-U10WORDS.json's two- and four-line runs from
-  // the start (1/2/3/10 in an 8-row section, as read), 16 picks each: rows, desktop and phone areas.
+  // a start that shows no layout (1/2/3/10 in an 8-row section; the four-line run's own start read 1/2/4/10 in 9 rows,
+  // which shows none either), 16 picks each: rows, desktop and phone areas.
   {
     const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
     const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
@@ -1630,8 +1632,30 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts p1: the two- and four-line words' spans as read (${n} picks)`, errs.length === 0 && n === 32, errs.slice(0, 3).join(' | '));
   }
+  // Undo onto a two- or four-line Text steps by its own form in the word table (inferred, not read): back onto layout 1,
+  // which has no step at two and four lines (CAP-U10WORDS.json: 4/6/12/22 in 14 rows, 4/6/11/22 in 13), and onto
+  // layout 2 from 3 at its high span (the table's 8/15/11/25 in 10 rows).
+  {
+    const errs = [], W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10WORDS.json', import.meta.url)));
+    const paste = (k) => W.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    for (const [k, picks, want] of [[2, [0, 1, 0], [14, '4/6/12/22']], [1, [2, 1, 2], [13, '4/6/11/22']], [1, [1, 2, 3], [10, '8/15/11/25']]]) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(paste(k))}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: [1, 2, 3, 10] }, mobile: { ...t.layout.mobile, area: [1, 2, 3, 10] } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: 8 }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${k} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const n of picks) { evalJs(S, `(() => { document.querySelector('[data-layout="${n}"]').click(); return 'true'; })()`); await pause(200); }
+      evalJs(S, `(() => { fe.undo(); return 'true'; })()`); await pause(300);
+      const g = evalJs(S, `(() => { const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+      if (g.join() !== want.join()) errs.push(`${k === 2 ? 'four' : 'two'} lines ${picks} Undo ours ${g} want ${want}`);
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add('View Layouts p1: Undo onto a two- or four-line Text steps by its own form (3 walks)', errs.length === 0, errs.slice(0, 3).join(' | '));
+  }
   // The paragraph list's phone rows after each pick (CAP-U10PHONEROWS.json, predicted 15 of 18, A and B alike): one, two
-  // and four lines from a fresh Text at the read start, picks 0 to 5 in order: desktop rows, both areas and the phone rows.
+  // and four lines from a fresh Text at 1/2/3/10 in 8 rows (the four-line run's own start was 1/2/4/10 in 9; neither shows
+  // a layout), picks 0 to 5 in order: desktop rows, both areas and the phone rows.
   {
     const errs = [], P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10PHONEROWS.json', import.meta.url)));
     const html = Object.fromEntries(['W1', 'W2', 'W4'].map((w, k) => [w, P.steps.filter((x) => x[0] === 'pasteHere')[k][3]]));

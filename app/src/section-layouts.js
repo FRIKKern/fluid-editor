@@ -160,7 +160,8 @@ const firstPrev = (mix, n, lines) => (mix.key === 'p1' && n === 0 && lines && on
 // makes its lines one) keep the one-line entries. words(b) is the Text's line count at ten columns.
 const wordsKey = (mix, words) => {
   const b = mix.key === 'p1' && words && mix.by.p[0];
-  return b && oneBlock(b) && !/^\s*<pre[\s>]/.test(b.html || '') ? String(words(b)) : null;
+  const n = b && oneBlock(b) && !/^\s*<pre[\s>]/.test(b.html || '') ? words(b) : null;
+  return n ? String(n) : null;
 };
 const byWords = (L, k) => (k && L.words?.[k] ? { ...L, ...L.words[k] } : L);
 // Every form a layout can take: its one-line entry and the read word spans.
@@ -234,14 +235,14 @@ function cardText(b, card) {
 // Undo onto a layout puts its step again, from the layout it leaves (CAP-U10WALK2.json: from 1 back to 0 gives 9;
 // CAP-U10UNDO.json: from 3 back to 0 gives 10), with the Layouts panel open or closed (CAP-U10UNDOCLOSED-A.json and
 // -B.json: from 0 back to 1 gives 13). Redo brings back the state Undo left, so it has none.
-export function restep(s, mix, prev) {
+export function restep(s, mix, prev, words) {
   const n = layoutShown(s, mix, null);
   // A mix whose Texts grow (rule E): Undo onto it is not read, the state Undo gives is kept.
   if (mix.grows) return;
   // An Undo that stays on the same layout (a text edit in it, say) keeps the state as it was: not read.
   if (n === prev) return;
   if (n == null) return startStep(s, mix, prev);
-  const F = shownForm(s, mix, n);
+  const F = shownForm(s, mix, n, wordsKey(mix, words));
   if (!F.step) return;
   const L = variant(F, prev), moved = [].concat(L.step).flatMap(({ block, push = [] }) => [block, ...push]);
   if (!mix.by[moved[0][0]]?.[+moved[0].slice(1)]) return;
@@ -314,8 +315,12 @@ function fitsAt(s, mix, L) {
 }
 // Any of a step's spans.
 const formFits = (s, mix, F) => fitsAt(s, mix, F) || (!!F.step && others(F.step).some((p) => fitsAt(s, mix, variant(F, p))));
-// The form of layout n the section shows: the first that fits, the one-line entry first.
-const shownForm = (s, mix, n) => forms(mix.list[n]).find((F) => formFits(s, mix, F)) || mix.list[n];
+// The form of layout n the section shows: the Text's own (its words at ten columns, k) if it fits, else the first that
+// fits, the one-line entry first. Undo onto a two- or four-line Text steps by its own form (inferred, not read).
+const shownForm = (s, mix, n, k) => {
+  const own = byWords(mix.list[n], k);
+  return (own !== mix.list[n] && formFits(s, mix, own) && own) || forms(mix.list[n]).find((F) => formFits(s, mix, F)) || mix.list[n];
+};
 
 // Which layout the section now shows, for the tile's mark after Undo and Redo: the last one picked if it still fits.
 export function layoutShown(s, mix, last) {
