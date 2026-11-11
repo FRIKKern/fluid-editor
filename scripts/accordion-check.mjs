@@ -211,6 +211,14 @@ await start('mobile'); await openPanel(); await pressAcc('add'); await pressAcc(
 add('Add Item, an item opened', stack() === pair(P10['item view']), stack());
 await esc();
 add('Escape with no edit keeps them', stack() === pair(P10['then Escape']), stack());
+// A longer description typed on the phone refits with the field still focused (CAP-T12ACCDESC.json, -2.json); its change is one undo step.
+const D = FIND('CAP-T12ACCDESC'), DESC = 'A longer description for this first item, written to run onto several lines on the phone so that the open item takes more room than the default one does.';
+await start('mobile'); await openPanel(); await pressAcc('open:0');
+add('Item 1 open on the phone', stack() === pair(D['item view']), stack());
+Q(`const t = panel.querySelector('[data-content="accDescription"]'); t.focus(); t.value = '${DESC}'; t.dispatchEvent(new Event('input', { bubbles: true })); await sleep(450); return 'true';`);
+add('A typed description, still focused', stack() === pair(D['long description']), stack());
+Q(`panel.querySelector('[data-content="accDescription"]').dispatchEvent(new Event('change', { bubbles: true })); await sleep(400); fe.undo(); await sleep(400); return 'true';`);
+add('Its change is one undo step', stack() === pair(D['item view']) && Q(`return JSON.stringify(acc().items[0].description);`) === 'Description text goes here', stack());
 // The toolbar.
 await start('desktop', true); await pick();
 add('Desktop bar and spacing', ours() === theirs(BAR['desktop bar'], 90), ours());
