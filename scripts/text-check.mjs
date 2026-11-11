@@ -310,7 +310,7 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   const now = (id) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, g = d.querySelector('main#page .page-section .fluid-engine'), els = [...g.querySelectorAll(':scope > .fe-block')]; return JSON.stringify([d.defaultView.getComputedStyle(g).gridTemplateRows.split(' ').length, (els.find((e) => e.dataset.blockId === '${id}').style.gridArea.split(' / ').join('/') || fe.model.sections[0].blocks.find((b) => b.id === '${id}').layout.desktop.area.join('/')), els[0].dataset.blockId !== '${id}', !!d.querySelector('[contenteditable=true]')]); })()`);
   // The oracle's watch: the state before the change, and after it, with the time after the last key.
   const want = (n) => { const w = O[`${n} watch`], last = w.keys.filter((k) => k[1] === 'down').at(-1)[0], st = (row, open) => [row[1], row[2].find((b) => b[1].startsWith('1/13/'))[1], !row[2][0][1].startsWith('1/13/'), open]; return { before: st(w.seen[0], true), after: st(w.seen.at(-1), true), ms: w.seen.findIndex((r, k) => k && r[0] > last) >= 0 ? w.seen.find((r, k) => k && r[0] > last)[0] - last : null }; };
-  for (const [n, gap] of [['W1', 0], ['G1', 400]]) {
+  const setup = async () => {
     goto(S, `${BASE}/index.html`); await pause(1200);
     const id = evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 300)); const s = fe.model.sections[0]; fe.addBlock(s.id, 'Line', true); fe.addBlock(s.id, 'Text', true); return JSON.stringify(s.blocks.find((b) => b.type === 'text').id); })()`);
     browser(S, 'press', 'Escape'); await pause(200);
@@ -318,6 +318,10 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     const p = at(id); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400);
     const w = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]')?.getBoundingClientRect(); return JSON.stringify(q ? [q.left + q.width / 2, q.top + q.height / 2] : null); })()`);
     if (w) { mouse(S, 'move', w[0], w[1]); mouse(S, 'down', w[0], w[1], { buttons: 1 }); mouse(S, 'up', w[0], w[1]); await pause(250); }
+    return id;
+  };
+  for (const [n, gap] of [['W1', 0], ['G1', 400]]) {
+    const id = await setup();
     const got = {};
     // One process for the keys: a process per key waits longer than the gap.
     cdp(S, { op: 'presses', keys: ['h', 'e', 'l', 'l', 'o'], gapMs: gap });
@@ -329,6 +333,18 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
     results.push({ name: `Y2 drop time: ${gap ? 'keys 400 ms apart' : 'a burst'}, the rows drop and the order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME ${n})`, ok });
     if (!ok) console.log(`Y2 drop time ${n} DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(o)}`);
   }
+  // Ours, inferred: after the save the caret is where it was, and a Cmd+Z back to the start puts the order back, so the
+  // close leaves no step (an undo after the save is not read).
+  const id = await setup();
+  const st = () => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, ce = d.querySelector('[contenteditable=true]'), sel = d.getSelection(); return JSON.stringify({ depth: fe.undoDepth, order: fe.model.sections[0].blocks.map((b) => b.id).join(), dom: [...d.querySelectorAll('main#page .page-section .fluid-engine > .fe-block')].map((e) => e.dataset.blockId).join(), caret: !!ce && d.activeElement === ce && ce.contains(sel.anchorNode) && sel.isCollapsed }); })()`);
+  const s0 = st();
+  cdp(S, { op: 'presses', keys: ['h', 'e', 'l', 'l', 'o'], gapMs: 0 });
+  await pause(800); const s1 = st();
+  browser(S, 'press', 'Meta+z'); await pause(300); const s2 = st();
+  browser(S, 'press', 'Escape'); await pause(300); browser(S, 'press', 'Escape'); await pause(300); const s3 = st();
+  const ok = s1.order !== s0.order && s1.caret && s2.order === s0.order && s2.dom === s0.order && s3.depth === s0.depth && s3.order === s0.order;
+  results.push({ name: 'Y2 drop time: the caret stays after the save, and Cmd+Z back to the start then the close leaves no step (inferred)', ok });
+  if (!ok) console.log(`Y2 drop time undo DIFF ${JSON.stringify([s0, s1, s2, s3])}`);
 }
 // Y2: Cmd+A and Backspace that empty the Heading 1 above take the undo's rows, less the height lost: 30 rows to 2, a row
 // short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json, 4 reads). The typing rule alone gives 3.

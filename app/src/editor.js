@@ -5012,6 +5012,11 @@ function showTextStep(ed, snap) {
     if (o !== b) setArea(blockEl(o.id), lay(o).area);
   }
   Object.assign(s, was, { blocks: s.blocks });
+  // The step's block order too, which textSave may have turned (inferred: an undo after it is not read).
+  const ix = new Map(was.blocks.map((o, k) => [o.id, k])), order = s.blocks.map((o) => o.id).join();
+  s.blocks.sort((x, y) => (ix.get(x.id) ?? Infinity) - (ix.get(y.id) ?? Infinity));
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
+  b.html = wasB.html;
   drawRows(ed.sid);
   ed.area = [...wasB.layout[bp].area];
   setArea(blockEl(ed.bid), ed.area);
@@ -5056,6 +5061,7 @@ function textOnly(ed, snap) {
     b.html = '';
     s.rows = 0;
     for (const o of s.blocks) for (const k of Object.keys(o.layout)) o.layout[k].area = 0;
+    s.blocks.sort((x, y) => (x.id < y.id ? -1 : x.id > y.id ? 1 : 0)); // the order textSave turned is the text's too
     return JSON.stringify(m);
   };
   const a = bare(snap);
@@ -5169,13 +5175,14 @@ function onTextInput(e) {
 
 // The oracle lays the section out while the text is still open, about 565 ms after the last key and not at each key: 565,
 // 566, 569 and 580 ms after the last input, in a burst and with keys 400 ms apart (CAP-Y2DROPTIME.json, two runs each).
-// What the close would do then happens there: the phone order turns and rule B1 gives rows back, while the bar stays and
-// the undo steps are as they were. The close then compares with this, so the order turns once. Read on desktop with
-// one burst; a second burst in the same edit, and the phone view, are inferred (ours: the phone waits for the close).
+// What the close would do then happens there: the phone order turns and rule B1 gives rows back. Ours keeps the edit, its
+// bar and its undo steps as they were (inferred: the capture sent nothing that closes the edit, but did not read its bar
+// or steps). The close then compares with this, so the order turns once. Read on desktop with one burst; a second burst
+// in the same edit, the phone view (ours waits for the close) and an undo after it (ours goes back to the step's order) are inferred.
 const TEXT_SAVE = 565;
 function textSave(ed) {
   if (editing !== ed) return;
-  const s = S(ed.sid), b = B(ed.sid, ed.bid), fe = feEl(ed.sid);
+  const s = S(ed.sid), b = B(ed.sid, ed.bid);
   b.html = ed.ce.innerHTML;
   lay(b).area = [...ed.area];
   growRows(s);
@@ -5185,16 +5192,20 @@ function textSave(ed) {
   softening = false; editing = ed;
   if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; ed.prevArea = [...ed.area]; ed.need = contentRows(b, ed.m); setArea(blockEl(ed.bid), ed.area); }
   drawRows(ed.sid);
-  if (s.blocks.map((o) => o.id).join() !== order) {
-    const sel = win.getSelection(), r = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
-    let at = fe.querySelector(':scope > .fe-block');
-    for (const el of s.blocks.map((o) => fe.querySelector(`:scope > .fe-block[data-block-id="${o.id}"]`)).filter(Boolean)) {
-      if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
-    }
-    if (doc.activeElement !== ed.ce) ed.ce.focus();
-    if (r) { sel.removeAllRanges(); sel.addRange(r); }
-  }
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
   ed.laid = JSON.stringify(model);
+}
+// The section's blocks in the DOM in the model's order, the focus and the caret kept. The caret is kept as nodes and
+// offsets: a Range collapses when the text's own block moves.
+function orderBlocksDom(ed) {
+  const fe = feEl(ed.sid), sel = win.getSelection();
+  const kept = sel.rangeCount ? [sel.anchorNode, sel.anchorOffset, sel.focusNode, sel.focusOffset] : null;
+  let at = fe.querySelector(':scope > .fe-block');
+  for (const el of S(ed.sid).blocks.map((o) => fe.querySelector(`:scope > .fe-block[data-block-id="${o.id}"]`)).filter(Boolean)) {
+    if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
+  }
+  if (doc.activeElement !== ed.ce) ed.ce.focus();
+  if (kept && ed.ce.contains(kept[0]) && ed.ce.contains(kept[2])) sel.setBaseAndExtent(...kept);
 }
 
 // Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
@@ -7599,6 +7610,7 @@ function boot() {
     get bp() { return bp; },
     get gesture() { return gesture; },
     get canUndo() { return undoStack.length > 0; },
+    get undoDepth() { return undoStack.length; },
     load(next) {
       model = JSON.parse(JSON.stringify(next));
       ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)
