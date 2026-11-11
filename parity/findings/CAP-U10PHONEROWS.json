@@ -2,7 +2,7 @@
   "item": "CAP-U10PHONEROWS",
   "oracle": "/blocks-probe",
   "capturedAt": "2026-11-11",
-  "startedAt": "2026-11-11T06:46:09.368Z",
+  "startedAt": "2026-11-11T06:55:35.811Z",
   "predictions": {
     "file": "CAP-U10PHONEROWS-PREDICT.json",
     "commit": "38490c2c15551aecf9a5638320a987a243607cde",
@@ -10,7 +10,7 @@
     "sha256": "7314ce986c96d8e71985d56a62cba35da4c840d602c81b60a57de1aab2fa3659"
   },
   "engine": "chrome",
-  "question": "U10: the paragraph list phone rows after each pick. One Text with CAP-U10WORDS one-, two- and four-line words, each from a fresh Text, picks 0 to 5 in order; after each pick the panel closes and the phone view reads the section rows and the block areas. Runs A and B. Predictions pushed first (CAP-U10PHONEROWS-PREDICT.json).",
+  "question": "U10: the paragraph list phone rows after each pick. One Text with CAP-U10WORDS one-, two- and four-line words, each from a fresh Text, picks 0 to 5 in order; after each pick the panel closes and the phone view reads the section rows and the block areas. Runs A and B. Predictions pushed first (CAP-U10PHONEROWS-PREDICT.json). Second run: the first stopped at W4 pick 5 (layout 5 covered); the frame now goes to the top before each reopen.",
   "steps": [
     [
       "window",
@@ -51,6 +51,19 @@
       "moveAt",
       800,
       28
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
     ],
     [
       "pause",
@@ -132,6 +145,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -205,6 +231,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -282,6 +321,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -357,6 +409,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -430,6 +495,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -549,6 +627,19 @@
       600
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -622,6 +713,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -699,6 +803,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -772,6 +889,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -849,6 +979,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -922,6 +1065,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1041,6 +1197,19 @@
       600
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1114,6 +1283,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1191,6 +1373,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1264,6 +1459,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1341,6 +1549,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1414,6 +1635,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1539,6 +1773,19 @@
       600
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1612,6 +1859,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1689,6 +1949,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1762,6 +2035,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -1839,6 +2125,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -1912,6 +2211,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2031,6 +2343,19 @@
       600
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2104,6 +2429,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2181,6 +2519,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2254,6 +2605,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2331,6 +2695,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2404,6 +2781,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2523,6 +2913,19 @@
       600
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2596,6 +2999,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2673,6 +3089,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2746,6 +3175,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -2823,6 +3265,19 @@
       1500
     ],
     [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
       "hoverBlock",
       0,
       0
@@ -2896,6 +3351,19 @@
     [
       "pause",
       1500
+    ],
+    [
+      "frameTo",
+      0
+    ],
+    [
+      "moveAt",
+      800,
+      300
+    ],
+    [
+      "pause",
+      600
     ],
     [
       "hoverBlock",
@@ -3721,12 +4189,845 @@
       ],
       "path": "/blocks-probe",
       "save": "changed"
+    },
+    "A W4 L5 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/7/18",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A W4 L5 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/7/18",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L0 desktop": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 749.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L0 phone": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 4,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/7/21",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L1 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L1 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L2 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L2 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 3,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L3 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/5/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L3 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 3,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/5/13",
+          "2/2/4/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L4 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/6/19",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L4 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 2,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/6/19",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L5 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.861,
+        "edge": "curve",
+        "h": 681.4,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/5/18",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W1 L5 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 2,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/5/18",
+          "1/2/3/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L0 desktop": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 708.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L0 phone": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L1 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 873,
+        "rows": 13,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L1 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/11/22",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L2 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.878,
+        "edge": "curve",
+        "h": 778.3,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L2 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L3 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/6/13",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L3 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 5,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/6/13",
+          "2/2/6/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L4 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.882,
+        "edge": "curve",
+        "h": 804.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/7/19",
+          "1/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L4 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 4,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/7/19",
+          "1/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L5 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.869,
+        "edge": "curve",
+        "h": 722.5,
+        "rows": 7,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/6/18",
+          "1/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W2 L5 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 4,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/6/18",
+          "1/2/5/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L0 desktop": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 745.8,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L0 phone": {
+      "look": {
+        "top": 55,
+        "th": "",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "5/7/6/21",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L1 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 914.1,
+        "rows": 14,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/10/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L1 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": false,
+        "edgeY": null,
+        "edge": null,
+        "h": 623.7,
+        "rows": 9,
+        "blocks": 1,
+        "ctx": "[\"divider\"]"
+      },
+      "areas": [
+        [
+          "4/6/12/22",
+          "1/2/10/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L2 desktop": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.885,
+        "edge": "curve",
+        "h": 823.1,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L2 phone": {
+      "look": {
+        "top": 55,
+        "th": "dark",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 7,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"soft-corners\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "8/15/9/25",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L3 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.888,
+        "edge": "curve",
+        "h": 845.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/7/13",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L3 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 7,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/3/7/13",
+          "2/2/8/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L4 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.888,
+        "edge": "curve",
+        "h": 845.8,
+        "rows": 10,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/8/19",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L4 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "4/9/8/19",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L5 desktop": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.876,
+        "edge": "curve",
+        "h": 763.6,
+        "rows": 8,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/7/18",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B W4 L5 phone": {
+      "look": {
+        "top": 55,
+        "th": "bright-inverse",
+        "ht": "medium",
+        "dv": true,
+        "edgeY": 0.96,
+        "edge": "curve",
+        "h": 623.7,
+        "rows": 6,
+        "blocks": 1,
+        "ctx": "{\"enabled\":true,\"type\":\"rounded\",\"isFlipX\":false,\"isFlipY\":false,\"offset\":{\"value\":0,\"unit\":\"px\"},\"stroke\":{\"style\":\"none\",\"color\":{\"type\":\"THEME_COLOR\"},\"thickness\":{\"value\":6,\"unit\":\"px\"},\"dashLength\":{\"value\":5,\"unit\":\"px\"},\"gapLength\":{\"value\":15,\"unit\":\"px\"},\"linecap\":\"square\"},\"height\":{\"value\":6,\"unit\":\"vw\"},\"width\":{\"value\":100,\"unit\":\"vw\"}}"
+      },
+      "areas": [
+        [
+          "3/10/7/18",
+          "1/2/7/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
     }
   },
-  "errors": [
-    "pressLayout [5]: layout 5 is covered",
-    "stopped after pressLayout: it failed, so the 330 later steps did not run"
-  ],
+  "errors": [],
   "leftDirty": true,
   "exitSteps": [
     "top Exit",
