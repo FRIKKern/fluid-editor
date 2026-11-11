@@ -1,7 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
-import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS } from './section-layouts-types.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS, MIX_TILES } from './section-layouts-types.js';
 import { dividerEdge } from './render.js';
 import { setStyleProp } from './text-format.js';
 
@@ -48,6 +48,20 @@ function typeList(kind, b) {
   }));
 }
 
+// The mixes read on with no picks read (MIX_TILES, CAP-U10MIXB.json): exactly those keys, and a Text in them only as read,
+// one paragraph (a single P); any other Text keeps the mix off, not read. Their tiles show, not built; a tile whose
+// height is not read is drawn TILE_NOT_READ tall, a placeholder.
+const TILE_NOT_READ = 140;
+const onePara = (b) => {
+  if (typeof document === 'undefined') return false;
+  const t = document.createElement('template');
+  t.innerHTML = asText(b).html || '';
+  const k = [...t.content.children];
+  return k.length === 1 && k[0].tagName === 'P';
+};
+const readOn = (key, kept) => (MIX_TILES[key] && kept.every((b) => kindOf(b) || roleOf(b) !== 'p' || onePara(b))
+  ? MIX_TILES[key].map((tile) => ({ tile: tile ?? TILE_NOT_READ, unbuilt: true })) : null);
+
 // The blocks by role in section order, and the mix's key: 'h1p1i1b1'. No key for an empty section or
 // a block type outside the mixes.
 export function sectionMix(s) {
@@ -57,10 +71,11 @@ export function sectionMix(s) {
     const list = typeList(kindOf(kept[0]), kept[0]);
     return list ? { key: kindOf(kept[0]), by: { t: kept }, list } : null;
   }
-  // One of those types with other blocks: the mixes read (CAP-U10MIX-*.json), by the blocks' names; the rest off.
+  // One of those types with other blocks: the mixes read (CAP-U10MIX-*.json, and on with no picks CAP-U10MIXB.json), by
+  // the blocks' names; the rest off.
   if (kept.some(kindOf)) {
     const ROLE = { i: 'Image', b: 'Button', h: 'Heading', p: 'Text' };
-    const key = kept.map((b) => kindOf(b) || ROLE[roleOf(b)]).sort().join('+'), list = MIX_LAYOUTS[key];
+    const key = kept.map((b) => kindOf(b) || ROLE[roleOf(b)]).sort().join('+'), list = MIX_LAYOUTS[key] || readOn(key, kept);
     if (!list) return null;
     const by = {};
     for (const b of kept) (by[kindOf(b) ? 't' : roleOf(b)] ||= []).push(b);
