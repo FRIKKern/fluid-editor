@@ -516,7 +516,10 @@ function blockInner(b, model) {
     case 'scrolling': {
       // Scrolling text (T12): the oracle draws the line along a wave path; its height is
       // the line height (1.4em, heading formula with size value 5) plus 120px. A wave of n adds n px instead (CAP-U10SC1.json).
-      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"><span class="marquee-text">${escapeHtml(b.text || '')}</span></div></div></div>`;
+      // Its panel's items (scrolling-panel.js) each take the Item Spacing after them, in em, and Paragraph drops the heading's
+      // letter spacing: "Dream it" 105.8 wide as a heading, 104.5 as a paragraph (CAP-ROWSSCROLLING.json, two reads alike).
+      const words = b.items ? b.items.map((t) => `<span class="marquee-item" style="margin-right:${b.spacing ?? 0.5}em">${escapeHtml(t)}</span>`).join('') : escapeHtml(b.text || '');
+      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee${b.scrollStyle === 'paragraph' ? ' is-paragraph' : ''}" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"><span class="marquee-text">${words}</span></div></div></div>`;
     }
     case 'line': {
       // Line block (T11.json): a 17px content box in the middle of the block, a 1px rule in the middle of that.
@@ -637,7 +640,7 @@ function designRule(b, d, phone, live = false) {
       opacity: var(--opacity, 1);
       transform: var(--block-transform);
       transform-origin: var(--origin-x) var(--origin-y);${b.type === 'shape' || live ? '' : d.blur ? `\n      ${d.blurKind === 'element' ? 'filter' : 'backdrop-filter'}: blur(${d.blurPx ?? 15}px);${phone && off ? ` ${d.blurKind === 'element' ? 'backdrop-filter' : 'filter'}: none;` : ''}` : off ? '\n      backdrop-filter: none; filter: none;' : ''}
-    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || 'rgb(255, 255, 255)'}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
+    }${contentsBlur}${live ? '' : d.background ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: ${d.bgClear ? 'transparent' : d.bgColor || (b.type === 'text' ? 'var(--text-bg, rgb(255, 255, 255))' : 'rgb(255, 255, 255)')}; }` : clear ? `\n    .fe-block-${b.id}${b.type === 'stack' ? ' >' : ''} .sqs-block { background-color: transparent; }` : ''}
   `;
 }
 export function designCss(b, live = false, rule = null) {

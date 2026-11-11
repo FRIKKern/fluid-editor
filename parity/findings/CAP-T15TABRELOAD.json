@@ -1,0 +1,613 @@
+{
+  "item": "CAP-T15TABRELOAD",
+  "oracle": "/gestures-probe",
+  "capturedAt": "2026-11-11",
+  "startedAt": "2026-11-11T05:42:28.600Z",
+  "predictions": {
+    "file": "CAP-T15TABRELOAD-PREDICTED.json",
+    "commit": "13c8e6a1a18955660b0bc78e8021768407f3821a",
+    "committedAt": "2026-11-11T06:42:17+01:00",
+    "sha256": "fe0f7d8cc196a1468b5e5bef52183b97d1452be8d9cfaa773ba1348c57df2c29"
+  },
+  "engine": "chrome",
+  "question": "T15: does a reload keep the tab a block type's Edit last showed, and does T12's Chart dialog keep its tab? R1: a Button's Edit, Design picked, Exit Without Saving, a reload (toPage), a new Button's Edit; R2 the same with Animation; C: three Charts' Edit, Design and Import / Export picked between. Read by the words each tab shows. Predictions pushed first (CAP-T15TABRELOAD-PREDICTED.json). No Meta+c, x or v.",
+  "steps": [
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R1 b1 first",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "R1 b1 picked",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R1 b2 after reload",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R2 b1 first",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Animation"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "R2 b1 picked",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "toPage",
+      "Gestures Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Button"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "R2 b2 after reload",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "exit"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "C c1 first",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Design"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C c1 picked",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "C c2 same session",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Import / Export"
+    ],
+    [
+      "pause",
+      900
+    ],
+    [
+      "read",
+      "C c2 picked",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      800
+    ],
+    [
+      "add",
+      0,
+      "Chart"
+    ],
+    [
+      "pause",
+      2000
+    ],
+    [
+      "pressNamed",
+      "Edit"
+    ],
+    [
+      "pause",
+      1500
+    ],
+    [
+      "read",
+      "C c3 same session",
+      {
+        "has": [
+          "Attach link",
+          "Layout",
+          "Triggers",
+          "Chart Type",
+          "Chart Title",
+          "Import or Export Chart Data"
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "R1 b1 first": {
+      "has": {
+        "Attach link": true,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 b1 picked": {
+      "has": {
+        "Attach link": false,
+        "Layout": true,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R1 b2 after reload": {
+      "has": {
+        "Attach link": true,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 b1 first": {
+      "has": {
+        "Attach link": true,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 b1 picked": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": true,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "R2 b2 after reload": {
+      "has": {
+        "Attach link": true,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C c1 first": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": true,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C c1 picked": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": true,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C c2 same session": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": true,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C c2 picked": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": false,
+        "Chart Title": false,
+        "Import or Export Chart Data": true
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    },
+    "C c3 same session": {
+      "has": {
+        "Attach link": false,
+        "Layout": false,
+        "Triggers": false,
+        "Chart Type": true,
+        "Chart Title": false,
+        "Import or Export Chart Data": false
+      },
+      "path": "/gestures-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Gestures Probe",
+  "leftDirty": "exit failed: exitWithoutSaving: the top bar still has Exit after pressing it (ran: top Exit). Still in edit mode, nothing saved.",
+  "exitSteps": [
+    "top Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/gestures-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
