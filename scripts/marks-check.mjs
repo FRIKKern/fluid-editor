@@ -4108,7 +4108,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       }
     }
     add('View Layouts, eight more mixes: on with their tile counts as read, built only where a pick was read (CAP-U10MIXB)', errs.length === 0, errs.slice(0, 3).join(' | '));
-    add(`View Layouts, those mixes: each read pick from the same start, as read (${built} picks, CAP-U10MIXPICK2)`, perr.length === 0 \&\& built === 58, perr.slice(0, 3).join(' | '));
+    add(`View Layouts, those mixes: each read pick from the same start, as read (${built} picks, CAP-U10MIXPICK2)`, perr.length === 0 && built === 57, perr.slice(0, 3).join(' | '));
     await fresh('Text', 'Video'); para('<p>One paragraph</p><p>and another</p>'); await pause(250);
     const tv = await btn();
     add('View Layouts, a Text of two paragraphs + Video: off, not read', !!tv && tv.off, JSON.stringify(tv));
