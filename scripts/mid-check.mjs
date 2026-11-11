@@ -670,8 +670,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   await view('desktop');
 }
 // A2: after an edit the block DOM follows the phone rows (CAP-ORDER.json). A saved page stays as it
-// loads. A pair that overlaps with the same z, on desktop or on the phone, keeps its order so nothing
-// repaints (held pairs are ours, not measured on the oracle).
+// loads. In a saved page a pair that overlaps with the same z, on desktop or on the phone, keeps its order so
+// nothing repaints (ours, not read); in a section made here only a phone overlap holds (CAP-A2SAMEZ, neworder-check).
 { const bl = (id, d, m, z = 1, zm = z) => ({ id, type: 'shape', label: id, fill: '#ccc', radius: '0', layout: { desktop: { area: d, z, justify: 'flex-start', align: 'flex-start' }, mobile: { area: m, z: zm, justify: 'flex-start', align: 'flex-start' } } });
   const sec = (id, blocks) => ({ id, theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 14, mobile: 20 }, blocks });
   const load = async (...sections) => { evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: ${JSON.stringify(sections)} }); await new Promise((r) => setTimeout(r, 120)); return 1; })()`); await pause(60); };
