@@ -107,11 +107,12 @@ function note(text) {
 }
 
 // force: a drop that moves nothing is still an undo step on the oracle (GROUPRESIZE.json, TEXTUNDO.json).
-function commit(before, label, force = false) {
+// base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
+function commit(before, label, force = false, base = before) {
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(before);
+  followPhoneRows(base);
   note(label);
   updateUi();
 }
@@ -245,6 +246,7 @@ function undo(button = false) {
   if (shown.length === 2) heightShown = [secSid(), ...shown];
   if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
+  refitUndone(now);
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
 }
@@ -260,6 +262,7 @@ function redo() {
   model = JSON.parse(redoStack.pop());
   note('Redo');
   renderAll();
+  refitUndone(undoStack.at(-1));
   syncLayouts();
   if (ed) { select(null); return; }
   // A block that comes back comes back selected (CAP-Y2KEYS.json).
@@ -2880,7 +2883,23 @@ function setFormRows(b, s, need, spare = false) {
   a[2] = a[0] + need;
   if (need < rows) s.rows[bp] -= low - lowest();
   else { if (spare) s.rows[bp] += lowest() - low; growRows(s); }
-  renderSectionDom(sel.sid);
+  renderSectionDom(s.id);
+}
+// Newsletter's Undo and Redo (CAP-T12NLUNDO.json, its six reads all fit the rule pushed beside the predictions in
+// CAP-T12NLUNDO-PREDICTED.json): a step that changes the block's content gives it the rows that content needs, ceil(x - 0.02),
+// whatever they were before the step. A Title emptied as typed held 5 rows (CAP-T12NEWSLETTER.json titleEmpty) and comes
+// back by Undo at 6. In the view being edited; the other view is not read (inferred: it stays).
+// Only a step on what the reads changed: the fields of newsletterOf (text, Name Field, Layout, Alignment). A Design or Animation
+// step, and a block hidden in this view (no height to read), keep their rows. Inferred: Undo back to the saved page can
+// leave Save on when the rows it gives differ from the saved ones (not read).
+function refitUndone(prev) {
+  const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
+  const own = (b) => JSON.stringify(newsletterOf(b));
+  for (const s of model.sections) for (const b of s.blocks) {
+    const o = was.get(b.id);
+    if (b.standin !== 'newsletter' || !o || own(o) === own(b) || lay(b).hidden || !blockEl(b.id)?.offsetHeight) continue;
+    setFormRows(b, s, Math.max(1, Math.ceil(contentRows(b, formPitch(b), false, false, true) - 0.02)));
+  }
 }
 const fitForm = (b, s) => setFormRows(b, s, contentRows(b, measure(feEl(sel.sid))));
 // Quote's fields (CAP-T12QUOTE.json) and Newsletter's (CAP-T12NEWSLETTER.json): each key shows on the block at once, the
@@ -5036,6 +5055,11 @@ function showTextStep(ed, snap) {
     if (o !== b) setArea(blockEl(o.id), lay(o).area);
   }
   Object.assign(s, was, { blocks: s.blocks });
+  // The step's block order too, which textSave may have turned (inferred: an undo after it is not read).
+  const ix = new Map(was.blocks.map((o, k) => [o.id, k])), order = s.blocks.map((o) => o.id).join();
+  s.blocks.sort((x, y) => (ix.get(x.id) ?? Infinity) - (ix.get(y.id) ?? Infinity));
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
+  b.html = wasB.html;
   drawRows(ed.sid);
   ed.area = [...wasB.layout[bp].area];
   setArea(blockEl(ed.bid), ed.area);
@@ -5053,6 +5077,8 @@ function showTextStep(ed, snap) {
   ed.lastInput = 0;
   ed.stepNext = true;
   ed.strikeNext = null;
+  clearTimeout(ed.saveTimer);
+  ed.laid = null;
   renderTextBar();
 }
 const hasText = (ed, snap) => JSON.parse(snap).sections.find((o) => o.id === ed.sid)?.blocks.some((o) => o.id === ed.bid);
@@ -5078,6 +5104,7 @@ function textOnly(ed, snap) {
     b.html = '';
     s.rows = 0;
     for (const o of s.blocks) for (const k of Object.keys(o.layout)) o.layout[k].area = 0;
+    s.blocks.sort((x, y) => (x.id < y.id ? -1 : x.id > y.id ? 1 : 0)); // the order textSave turned is the text's too
     return JSON.stringify(m);
   };
   const a = bare(snap);
@@ -5185,6 +5212,43 @@ function onTextInput(e) {
   ed.prevHtml = ed.ce.innerHTML;
   ed.prevArea = [...ed.area];
   ed.prevHeight = textHeight(b);
+  clearTimeout(ed.saveTimer);
+  if (bp === 'desktop') ed.saveTimer = setTimeout(() => textSave(ed), TEXT_SAVE);
+}
+
+// The oracle lays the section out while the text is still open, about 565 ms after the last key and not at each key: 565,
+// 566, 569 and 580 ms after the last input, in a burst and with keys 400 ms apart (CAP-Y2DROPTIME.json, two runs each).
+// What the close would do then happens there: the phone order turns and rule B1 gives rows back. Ours keeps the edit, its
+// bar and its undo steps as they were (inferred: the capture sent nothing that closes the edit, but did not read its bar
+// or steps). The close then compares with this, so the order turns once. Read on desktop with one burst; a second burst
+// in the same edit, the phone view (ours waits for the close) and an undo after it (ours goes back to the step's order) are inferred.
+const TEXT_SAVE = 565;
+function textSave(ed) {
+  if (editing !== ed) return;
+  const s = S(ed.sid), b = B(ed.sid, ed.bid);
+  b.html = ed.ce.innerHTML;
+  lay(b).area = [...ed.area];
+  growRows(s);
+  const base = ed.laid ?? ed.before, order = s.blocks.map((o) => o.id).join();
+  editing = null; softening = true;
+  followPhoneRows(base);
+  softening = false; editing = ed;
+  if (!same(lay(b).area, ed.area)) { ed.area = [...lay(b).area]; ed.prevArea = [...ed.area]; ed.need = contentRows(b, ed.m); setArea(blockEl(ed.bid), ed.area); }
+  drawRows(ed.sid);
+  if (s.blocks.map((o) => o.id).join() !== order) orderBlocksDom(ed);
+  ed.laid = JSON.stringify(model);
+}
+// The section's blocks in the DOM in the model's order, the focus and the caret kept. The caret is kept as nodes and
+// offsets: a Range collapses when the text's own block moves.
+function orderBlocksDom(ed) {
+  const fe = feEl(ed.sid), sel = win.getSelection();
+  const kept = sel.rangeCount ? [sel.anchorNode, sel.anchorOffset, sel.focusNode, sel.focusOffset] : null;
+  let at = fe.querySelector(':scope > .fe-block');
+  for (const el of S(ed.sid).blocks.map((o) => fe.querySelector(`:scope > .fe-block[data-block-id="${o.id}"]`)).filter(Boolean)) {
+    if (el === at) { do at = at.nextElementSibling; while (at && !at.matches('.fe-block')); } else fe.insertBefore(el, at);
+  }
+  if (doc.activeElement !== ed.ce) ed.ce.focus();
+  if (kept && ed.ce.contains(kept[0]) && ed.ce.contains(kept[2])) sel.setBaseAndExtent(...kept);
 }
 
 // Text that grows or shrinks moves other blocks, in this view only (CAP-TEXTPUSH.json to CAP-TEXTPUSH7.json).
@@ -5231,6 +5295,7 @@ function finishTextEdit() {
   if (!ed) return;
   closeLinkPopover();
   editing = null;
+  clearTimeout(ed.saveTimer);
   doc.removeEventListener('selectionchange', onTextSelection);
   renderTextBar();
   const b = B(ed.sid, ed.bid);
@@ -5256,7 +5321,7 @@ function commitTextSteps(ed, height) {
   for (const m of steps.slice(0, -1)) undoStack.push(m);
   // What Cmd+Z took stays for Redo after the edit closes (CAP-Y2KEYS.json).
   const undone = [...redoStack];
-  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`);
+  commit(steps.at(-1) ?? ed.before, `Edited text in ${ed.bid}`, false, ed.laid ?? steps.at(-1) ?? ed.before);
   redoStack.push(...undone.slice(redoStack.length));
   updateUi();
   return now;
@@ -5269,6 +5334,7 @@ function softenTextEdit() {
   lay(b).area = [...ed.area];
   growRows(S(ed.sid));
   editing = null; // The phone order follows now: this is the edit's close
+  clearTimeout(ed.saveTimer);
   softening = true;
   commitTextSteps(ed, height);
   softening = false;
@@ -5281,7 +5347,7 @@ function softenTextEdit() {
   // The section draws the rows the commit left, given back ones too: 7 after one Escape, not the edit's 8 (CAP-Y2SOFTROWS.json, two runs).
   drawRows(ed.sid);
   editing = ed;
-  Object.assign(ed, { soft: true, before: now, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
+  Object.assign(ed, { soft: true, before: now, laid: null, marks: [now], atMark: true, lastInput: 0, prevHtml: b.html, prevArea: [...ed.area], height0: height, prevHeight: height });
   blockEl(ed.bid).classList.remove('is-text-editing');
   renderTextBar();
   placeToolbar();
@@ -6240,7 +6306,21 @@ layoutsPanel.addEventListener('click', (e) => {
   if (!mix) return;
   const before = JSON.stringify(model), top = layoutsPanel.querySelector('.lo-list').scrollTop;
   layoutsPicked = layoutsLast = Number(t.dataset.layout);
-  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase);
+  // A Text's lines as drawn before the pick: the distinct line boxes of its words (a pre's line-height may be 'normal').
+  const lines = (b) => {
+    const el = blockEl(b.id)?.querySelector('.sqs-html-content'), doc = frame.contentDocument;
+    if (!el) return 1;
+    const tops = [], walk = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT), r = doc.createRange();
+    for (let t = walk.nextNode(); t; t = walk.nextNode()) {
+      if (!t.data.trim()) continue;
+      r.selectNodeContents(t);
+      for (const x of r.getClientRects()) if (x.height > 0) tops.push(x.top);
+    }
+    // Words of another size on the same line sit a few px apart; a new line starts more than half a line lower.
+    tops.sort((a, b) => a - b);
+    return tops.filter((y, i) => !i || y - tops[i - 1] > 8).length || 1;
+  };
+  applyLayout(S(layoutsSid), mix, layoutsPicked, layoutsBase, lines);
   // A fitted pick: draw it at its new place, then fit its end line to the content (fitLayout), in the same step.
   if (mix.list[layoutsPicked].fit || mix.grows) {
     renderSectionDom(layoutsSid);
@@ -7587,6 +7667,7 @@ function boot() {
     get bp() { return bp; },
     get gesture() { return gesture; },
     get canUndo() { return undoStack.length > 0; },
+    get undoDepth() { return undoStack.length; },
     load(next) {
       model = JSON.parse(JSON.stringify(next));
       ruleForget(); // a loaded page's rules hold its values (render.js ruleValues)

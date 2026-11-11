@@ -1838,6 +1838,41 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts, a growing list- or quote-first Text with one other Text: areas and rows as read, rule E (${n} picks)`, errs.length === 0 && n === 50, errs.slice(0, 3).join(' | '));
   }
+  // The first pick onto the paragraph list's layout 0 (fitted on seen reads, unscored): low with a one-block Text of more
+  // than one line at the start, high with one line or several blocks. Three lines of code through every read pick
+  // (CAP-U10ENDS-ECDA.json, -ECDB alike; CAP-U10CD1.json), and the first pick of each CAP-U10WORDS.json run and of one
+  // line with inline code (CAP-U10CD2.json): rows and desktop areas as read. Each Text starts at its run's start read.
+  // The mixed Texts (CAP-U10TEXTMIX-C.json's M, CAP-U10ENDS-EMXA.json and -EMXB) keep layout 0's high span, 5/7/7/21 in
+  // 10 rows; they read taller (rule E's named misses), so this holds ours from the low span, not at the read.
+  {
+    const errs = [], FJ = (n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url)));
+    const paste = (F, k = 0) => F.steps.filter((x) => x[0] === 'pasteHere')[k][3];
+    const W = FJ('CAP-U10WORDS'), C = FJ('CAP-U10TEXTMIX-C'), D2 = FJ('CAP-U10CD2'), runs = [];
+    const HIGH = { look: { rows: 10 }, areas: [['5/7/7/21']] };
+    for (const f of ['CAP-U10ENDS-ECDA', 'CAP-U10ENDS-ECDB', 'CAP-U10CD1']) { const F = FJ(f), st = Object.entries(F.reads).find(([k]) => / start/.test(k))[1]; runs.push([f, paste(F), st, Object.entries(F.reads).filter(([k]) => / layout \d/.test(k))]); }
+    for (const [k, w] of [[0, 'W1'], [1, 'W2'], [2, 'W4']]) runs.push([w, paste(W, k), W.reads[`${w} 00 start`], [[`${w} 01 layout 0`, W.reads[`${w} 01 layout 0`]]]]);
+    runs.push(['inline code', paste(D2), D2.reads['I1 start'], [['I1 01 layout 0', D2.reads['I1 01 layout 0']]]]);
+    runs.push(['mixed M', paste(C, 1), C.reads['M 00 start'], [['M 01 layout 0', HIGH]]]);
+    for (const f of ['CAP-U10ENDS-EMXA', 'CAP-U10ENDS-EMXB']) { const F = FJ(f); runs.push([f, paste(F), F.reads['EMX start b0'], [['EMX 01 layout 0', HIGH]]]); }
+    let n = 0;
+    for (const [f, html, st, picks] of runs) {
+      await start();
+      const [da, pa] = st.areas[0].map((a) => a.split('/').map(Number));
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html)}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa', layout: { desktop: { ...t.layout.desktop, area: ${JSON.stringify(da)} }, mobile: { ...t.layout.mobile, area: ${JSON.stringify(pa)} } } }]; m.sections[0].rows = { ...m.sections[0].rows, desktop: ${st.look.rows} }; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${f} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (const [label, r] of picks) {
+        n++;
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${label.match(/layout (\d)/)[1]}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/')]); })()`);
+        await pause(150);
+        if (g[0] !== r.look.rows || g[1] !== r.areas[0][0]) errs.push(`${f} ${label} ours ${g} read ${r.look.rows},${r.areas[0][0]}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: the first pick by the start's lines and blocks, and three lines of code through every read pick (${n} picks)`, errs.length === 0 && n === 22, errs.slice(0, 3).join(' | '));
+  }
   // The full-width heading of the heading list's 3 and the two-paragraph list's 4 becomes a Scrolling block, size 8's
   // half (4), no wave, and the next pick makes it the Text again with the read tag (CAP-U10TEXTMIX-A.json, -A2, CAP-U10SC2.json):
   // the heading's areas where it scrolls, and its kind or tag at every read pick (the other spans follow the words, rule W).
