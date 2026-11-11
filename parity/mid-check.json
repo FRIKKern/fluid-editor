@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1264,
+  "pass": 1276,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
@@ -10,7 +10,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1271,
+  "total": 1283,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -5230,6 +5230,54 @@
     },
     {
       "name": "group bar: CAP-X8PIN2 R1 pin inside",
+      "diffs": []
+    },
+    {
+      "name": "pin A (pinned on desktop), phone: one, pin elsewhere",
+      "diffs": []
+    },
+    {
+      "name": "pin A (pinned on desktop), phone: pin outside",
+      "diffs": []
+    },
+    {
+      "name": "pin A (pinned on desktop), phone: pin inside",
+      "diffs": []
+    },
+    {
+      "name": "pin A (pinned on desktop), phone: the pinned one",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), phone: one, pin elsewhere",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), phone: pin outside",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), phone: pin inside",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), phone: the pinned one",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), desktop: one, pin elsewhere",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), desktop: pin outside",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), desktop: pin inside",
+      "diffs": []
+    },
+    {
+      "name": "pin B (pinned on the phone), desktop: the pinned one",
       "diffs": []
     },
     {
