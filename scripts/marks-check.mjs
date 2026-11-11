@@ -1630,6 +1630,31 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add(`View Layouts p1: the two- and four-line words' spans as read (${n} picks)`, errs.length === 0 && n === 32, errs.slice(0, 3).join(' | '));
   }
+  // The paragraph list's phone rows after each pick (CAP-U10PHONEROWS.json, predicted 15 of 18, A and B alike): one, two
+  // and four lines from a fresh Text, picks 0 to 5 in order: desktop rows, both areas and the phone rows.
+  {
+    const errs = [], P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U10PHONEROWS.json', import.meta.url)));
+    const html = Object.fromEntries(['W1', 'W2', 'W4'].map((w, k) => [w, P.steps.filter((x) => x[0] === 'pasteHere')[k][3]]));
+    let n = 0;
+    for (const w of ['W1', 'W2', 'W4']) {
+      await start();
+      evalJs(S, `(() => { const s = fe.model.sections[0]; fe.addBlock(s.id, 'Text'); const t = JSON.parse(JSON.stringify(fe.model.sections[0].blocks.find((b) => b.type === 'text'))); const m = JSON.parse(JSON.stringify(fe.model)); m.sections[0].blocks = [{ ...t, html: ${JSON.stringify(html[w])}, id: 'd0aaaaaaaaaaaaaaaaaaaaaa' }]; fe.load(m); return 'true'; })()`);
+      await pause(400);
+      const btn = await chromeBtn();
+      if (!btn || btn.off) { errs.push(`${w} button`); continue; }
+      await realClick(btn.x, btn.y);
+      for (let L = 0; L < 6; L++) {
+        n++;
+        const d = P.reads[`A ${w} L${L} desktop`], ph = P.reads[`A ${w} L${L} phone`];
+        const g = evalJs(S, `(() => { document.querySelector('[data-layout="${L}"]').click(); const s = fe.model.sections[0]; return JSON.stringify([s.rows.desktop, s.blocks[0].layout.desktop.area.join('/'), s.blocks[0].layout.mobile.area.join('/'), s.rows.mobile]); })()`);
+        await pause(150);
+        const want = [d.look.rows, d.areas[0][0], d.areas[0][1], ph.look.rows];
+        if (g.join() !== want.join()) errs.push(`${w} L${L} ours ${g} read ${want}`);
+      }
+      browser(S, 'press', 'Escape'); await pause(150);
+    }
+    add(`View Layouts p1: phone rows after each pick, one, two and four lines (${n} picks)`, errs.length === 0 && n === 18, errs.slice(0, 3).join(' | '));
+  }
   // The paragraph list's layout 1 makes the Text a card (CAP-U10PAD1.json, A and B alike): white, corner 22, padding 12%,
   // its words black and in the middle, on desktop and phone; layout 0 after it takes the card off. Every stored layout 1
   // height with its own words: one, two and four lines, code, three lines of code and two mixed Texts.
