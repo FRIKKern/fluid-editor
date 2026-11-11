@@ -1,7 +1,7 @@
 // View Layouts (parity/findings/CAP-VIEWLAYOUTS.json): the Layouts panel lists a section's own blocks
 // re-laid out, from the list its mix of blocks has. Mixes not read on the oracle have no list here.
 import { LAYOUTS } from './section-layouts-data.js';
-import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS, MIX_TILES, MIX_PICKS } from './section-layouts-types.js';
+import { TYPE_LAYOUTS, TYPE_TILES, MIX_LAYOUTS, MIX_TILES, MIX_TILES_MEAN, MIX_PICKS } from './section-layouts-types.js';
 import { dividerEdge } from './render.js';
 import { setStyleProp } from './text-format.js';
 
@@ -50,9 +50,13 @@ function typeList(kind, b) {
 
 // The mixes read on (MIX_TILES, CAP-U10MIXB.json): exactly those keys, and a Text in them only as read, one paragraph
 // (a single P); any other Text keeps the mix off, not read. A tile whose pick was read (MIX_PICKS, CAP-U10MIXPICK2-*.json)
-// is built from that read; the rest show, not built. A tile whose height is not read is drawn TILE_NOT_READ tall, a
-// placeholder.
-const TILE_NOT_READ = 140;
+// is built from that read; the rest show, not built. A tile's height: as read where the runs agree (MIX_TILES), else their
+// mean (MIX_TILES_MEAN). The 11 left, the last tile of each list among them, are drawn to fit their layout's rows with the
+// tightest read tile's room (inferred, not read): rows x 41.09 at the tile's scale plus 36.4, Quote+Text's tile 4.
+const TILE_SCALE = 283 / 1600, TILE_NOT_READ = 140;
+const rowsTall = (rows) => rows * 41.09 * TILE_SCALE;
+const TILE_ROOM = Math.min(...Object.entries(MIX_TILES).flatMap(([key, tiles]) => tiles.flatMap((t, n) => (t != null && MIX_PICKS[key]?.[n] ? [t - rowsTall(MIX_PICKS[key][n].rows)] : []))));
+const tileOf = (key, n) => MIX_TILES[key][n] ?? MIX_TILES_MEAN[key]?.[n] ?? (MIX_PICKS[key]?.[n] ? Math.round((rowsTall(MIX_PICKS[key][n].rows) + TILE_ROOM) * 10) / 10 : TILE_NOT_READ);
 const onePara = (b) => {
   if (typeof document === 'undefined') return false;
   const t = document.createElement('template');
@@ -61,7 +65,9 @@ const onePara = (b) => {
   return k.length === 1 && k[0].tagName === 'P';
 };
 const readOn = (key, kept) => (MIX_TILES[key] && kept.every((b) => kindOf(b) || roleOf(b) !== 'p' || onePara(b))
-  ? MIX_TILES[key].map((tile, n) => ({ tile: tile ?? TILE_NOT_READ, ...(MIX_PICKS[key]?.[n] || { unbuilt: true }) })) : null);
+  ? MIX_TILES[key].map((_, n) => ({ tile: tileOf(key, n), ...(MIX_PICKS[key]?.[n] || { unbuilt: true }) })) : null);
+// Those mixes' tiles as built, for npm run check (the Text test needs a page).
+export const mixTiles = (key) => readOn(key, []);
 
 // The blocks by role in section order, and the mix's key: 'h1p1i1b1'. No key for an empty section or
 // a block type outside the mixes.
