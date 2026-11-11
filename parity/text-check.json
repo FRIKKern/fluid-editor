@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 963,
-  "total": 963,
+  "pass": 973,
+  "total": 973,
   "couldNotRun": [],
   "results": [
     {
@@ -541,6 +541,22 @@
       "ok": true
     },
     {
+      "name": "R2 Button under a new Text: moved at the let go, the first Cmd+Z the typing's (CAP-R2ONTOP b)",
+      "ok": true
+    },
+    {
+      "name": "R2 Button under a new Text: the second Cmd+Z removes the Text, the third the Button (CAP-R2UNDOTWO b)",
+      "ok": true
+    },
+    {
+      "name": "R2 Social Links under a new Text: moved at the let go, the first Cmd+Z the typing's (CAP-R2ONTOP s)",
+      "ok": true
+    },
+    {
+      "name": "R2 Social Links under a new Text: the second Cmd+Z removes the Text, the third the Social Links (CAP-R2UNDOTWO s)",
+      "ok": true
+    },
+    {
       "name": "Y2 bar: the third Cmd+Z pulls the scroll up, the bar and caret go, a redo brings only the caret (CAP-Y2BAR)",
       "ok": true
     },
@@ -550,6 +566,30 @@
     },
     {
       "name": "Y2 bar: after that Cmd+Z, the frame back at its top brings nothing, a grab cursor, a press closes the edit, the block selected (CAP-Y2BAR3)",
+      "ok": true
+    },
+    {
+      "name": "Y2 rows: the section's spare rows drawn in the edit, its height the oracle's at 5 of 5 steps (CAP-Y2BARROWS)",
+      "ok": true
+    },
+    {
+      "name": "Y2 soft rows: after one Escape the section draws the rows the close gave back (CAP-Y2SOFTROWS)",
+      "ok": true
+    },
+    {
+      "name": "Y2 drop time: a burst, the rows drop and the order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME W1)",
+      "ok": true
+    },
+    {
+      "name": "Y2 drop time: keys 400 ms apart, the rows drop and the order turns about 565 ms after the last key, the edit open (CAP-Y2DROPTIME G1)",
+      "ok": true
+    },
+    {
+      "name": "Y2 drop time: the caret stays after the save, and Cmd+Z back to the start then the close leaves no step (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Y2: Cmd+A and Backspace empty a 30-row Heading 1 to 2 rows, a row short (CAP-Y2REDOPULL2)",
       "ok": true
     },
     {
