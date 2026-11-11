@@ -1,0 +1,18 @@
+{
+ "item": "CAP-T15TABRELOAD-PREDICTED",
+ "capturedAt": "2026-11-11",
+ "question": "T15, predicted before the read of CAP-T15TABRELOAD (Blocks Probe): does a reload keep the tab a block type's Edit last showed, and do the older dialogs (T12's Chart) keep theirs at all? Two runs in one browser session. R1: a Button's Edit, Design picked, Escape; a Chart's Edit, Design picked, Escape; a second Chart's Edit (same session); then a reload (toPage: Exit Without Saving and the page list loaded again), a new Button's Edit and a new Chart's Edit. R2 the same with Animation and Import / Export picked. Read by the words each tab shows: Attach link (Button Content), Layout (Button Design), Triggers (Animation), Chart Type (Data), Chart Title (Design), Import or Export Chart Data (Import / Export).",
+ "rule": "Ours as built: the Edit panels keep each type's last tab in memory, so a reload starts with none kept: a Button opens on Content after it; T12's older dialogs always open on their first tab, a Chart on Data, in the same session too. Rival K: the tab is kept through the reload, and a Chart keeps its last tab like the Edit panels.",
+ "from": "Ours read in the code (app/src/editor.js: tabOfType, a Map in memory; dlgTab set to the first tab on each Edit), not replayed.",
+ "hit": "Which tab shows, by its words, at each read named in cases. 'first' means Content for a Button and Data for a Chart; 'kept' means the run's pick.",
+ "predicted": {
+  "c2 same session": { "ours": "first (Chart Type)", "rivalK": "kept (R1 Chart Title, R2 Import or Export Chart Data)" },
+  "b2 after reload": { "ours": "first (Attach link)", "rivalK": "kept (R1 Layout, R2 Triggers)" },
+  "c3 after reload": { "ours": "first (Chart Type)", "rivalK": "kept (R1 Chart Title, R2 Import or Export Chart Data)" }
+ },
+ "cases": {
+  "chart same session": ["R1 c2 same session", "R2 c2 same session"],
+  "button after reload": ["R1 b2 after reload", "R2 b2 after reload"],
+  "chart after reload": ["R1 c3 after reload", "R2 c3 after reload"]
+ }
+}
