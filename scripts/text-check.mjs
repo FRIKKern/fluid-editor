@@ -5,7 +5,7 @@
 // Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab), under 2 min.
 // npm run text-check -- --full also replays every CAP-E4 file with real keys, about 7 min.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser, mouse, drag } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
 import { takesText } from './oracle/takes-text.mjs';
@@ -278,6 +278,27 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   const ok = got.every((h, k) => Math.abs(h - want[k]) <= 1);
   results.push({ name: `Y2 rows: the section's spare rows drawn in the edit, its height the oracle's at 5 of 5 steps (CAP-Y2BARROWS)`, ok });
   if (!ok) console.log(`Y2 rows DIFF ours ${got.join(' ')} oracle ${want.join(' ')}`);
+}
+// Y2: after one Escape the section draws the rows the close left. CAP-A2SHRINKB1 c3 (a Line, a Text moved beside it, 'hello'
+// typed): rule B1 drops the Text to 1 row and the section to 7, drawn at the first Escape and the let go (CAP-Y2SOFTROWS.json,
+// two runs alike), by the real mouse and keys, in a new section as the probe page's. Named, not built: the oracle has dropped them already while typing.
+{ const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-Y2SOFTROWS.json', import.meta.url))).reads;
+  const at = (id, fx = 0.5) => evalJs(S, `(() => { const f = document.getElementById('site-frame'), r = f.getBoundingClientRect(), q = f.contentDocument.querySelector('.fe-block[data-block-id="${id}"]').getBoundingClientRect(); return JSON.stringify([r.left + q.left + q.width * ${fx}, r.top + q.top + q.height / 2]); })()`);
+  const now = (id) => evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument, g = d.querySelector('main#page .page-section .fluid-engine'); return JSON.stringify([d.defaultView.getComputedStyle(g).gridTemplateRows.split(' ').length, d.querySelector('.fe-block[data-block-id="${id}"]').style.gridArea.split(' / ').join('/') || fe.model.sections[0].blocks.find((b) => b.id === '${id}').layout.desktop.area.join('/')]); })()`);
+  goto(S, `${BASE}/index.html`); await pause(1200);
+  const id = evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'medium', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 8, mobile: 2 }, phoneFollows: true, blocks: [] }] }); await new Promise((r) => setTimeout(r, 300)); const s = fe.model.sections[0]; fe.addBlock(s.id, 'Line', true); fe.addBlock(s.id, 'Text', true); return JSON.stringify(s.blocks.find((b) => b.type === 'text').id); })()`);
+  browser(S, 'press', 'Escape'); await pause(200);
+  for (const dx of [588, 59]) { const p = at(id); drag(S, p, [p[0] + dx, p[1]], { steps: 12, holdMs: 200 }); await pause(200); browser(S, 'press', 'Escape'); await pause(200); }
+  const p = at(id); mouse(S, 'move', p[0], p[1]); mouse(S, 'down', p[0], p[1], { buttons: 1 }); mouse(S, 'up', p[0], p[1]); await pause(400);
+  const w = evalJs(S, `(() => { const q = document.querySelector('[data-tb="write"]')?.getBoundingClientRect(); return JSON.stringify(q ? [q.left + q.width / 2, q.top + q.height / 2] : null); })()`);
+  if (w) { mouse(S, 'move', w[0], w[1]); mouse(S, 'down', w[0], w[1], { buttons: 1 }); mouse(S, 'up', w[0], w[1]); await pause(250); }
+  cdp(S, { op: 'presses', keys: ['h', 'e', 'l', 'l', 'o'] }); await pause(500);
+  browser(S, 'press', 'Escape'); await pause(500); const got = [now(id)];
+  browser(S, 'press', 'Escape'); await pause(300); got.push(now(id));
+  const want = ['one escape', 'let go'].map((n) => [O[`Y1 ${n}`].section.rows, O[`Y1 ${n}`].stack.find((b) => b.desktop.startsWith('1/13/')).desktop]);
+  const ok = JSON.stringify(got) === JSON.stringify(want);
+  results.push({ name: `Y2 soft rows: after one Escape the section draws the rows the close gave back (CAP-Y2SOFTROWS)`, ok });
+  if (!ok) console.log(`Y2 soft rows DIFF ours ${JSON.stringify(got)} oracle ${JSON.stringify(want)}`);
 }
 // Y2: Cmd+A and Backspace that empty the Heading 1 above take the undo's rows, less the height lost: 30 rows to 2, a row
 // short (CAP-Y2REDOPULL.json, CAP-Y2REDOPULL2.json, 4 reads). The typing rule alone gives 3.
