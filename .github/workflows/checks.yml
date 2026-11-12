@@ -8,9 +8,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      # Full history: npm run check compares "N of M" claims with the history of parity/<x>-check.json (about 3 s against 1 s shallow).
       - uses: actions/checkout@v5
-        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v5
         with: { node-version: 22 }
       - run: npm run check
