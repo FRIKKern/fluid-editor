@@ -26,37 +26,39 @@ jobs:
     outputs:
       matrix: ${{ steps.pick.outputs.matrix }}
     steps:
-      # name, extra args, job time limit in minutes. Longest first, so they start first.
+      # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
+      # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
       - id: pick
-        env: { ONLY: '${{ inputs.checks }}' }
+        env: { ONLY: "${{ inputs.checks || 'mid-check,code-check,standin-check,text-check,coverage-check' }}" } # TEMP list
         run: |
           node -e '
+          const L = "ubuntu-24.04", M = "macos-15";
           const all = [
-            ["neworder-check", "--full", 60], ["marks-check", "", 45], ["textpush-check", "", 45],
-            ["code-check", "--full", 40], ["mid-check", "", 40], ["row-check", "--full", 30],
-            ["text-check", "--full", 30], ["x6-check", "", 30], ["form-check", "", 30],
-            ["dialog-check", "", 30], ["anim-check", "", 30], ["standin-check", "", 30],
-            ["t11-check", "", 30], ["block-design-check", "", 30], ["video-check", "", 30],
-            ["shape-check", "", 30], ["snap-check", "", 30], ["paste-check", "--full", 20],
-            ["chrome-check", "", 20], ["section-check", "", 20], ["design-edit-check", "", 20],
-            ["accordion-check", "", 20], ["accordion-styles-check", "", 20], ["scrolling-check", "", 20],
-            ["tiles-check", "", 20], ["fold-check", "", 20], ["rows-fit-check", "", 20],
-            ["resize-check", "", 20], ["image-check", "", 20], ["image-design-check", "", 20],
-            ["image-effect-check", "", 20], ["image-editor-check", "", 20], ["image-import-check", "", 20],
-            ["image-shape-check", "", 20], ["site-styles-check", "", 20], ["button-check", "", 20],
-            ["menu-check", "", 20], ["near-check", "", 20], ["autoscroll-check", "", 20], ["coverage-check", "", 20],
+            ["neworder-check", "--full", 60, L], ["marks-check", "", 45, L], ["textpush-check", "", 45, L],
+            ["code-check", "--full", 40, M], ["mid-check", "", 40, L], ["row-check", "--full", 30, L],
+            ["text-check", "--full", 30, M], ["x6-check", "", 40, L], ["form-check", "", 30, L],
+            ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],
+            ["t11-check", "", 30, L], ["block-design-check", "", 30, L], ["video-check", "", 30, L],
+            ["shape-check", "", 30, L], ["snap-check", "", 30, L], ["paste-check", "--full", 20, L],
+            ["chrome-check", "", 20, L], ["section-check", "", 20, L], ["design-edit-check", "", 20, L],
+            ["accordion-check", "", 20, L], ["accordion-styles-check", "", 20, L], ["scrolling-check", "", 20, L],
+            ["tiles-check", "", 20, L], ["fold-check", "", 20, L], ["rows-fit-check", "", 20, L],
+            ["resize-check", "", 20, L], ["image-check", "", 20, L], ["image-design-check", "", 20, L],
+            ["image-effect-check", "", 20, L], ["image-editor-check", "", 20, L], ["image-import-check", "", 20, L],
+            ["image-shape-check", "", 20, L], ["site-styles-check", "", 20, L], ["button-check", "", 20, L],
+            ["menu-check", "", 20, L], ["near-check", "", 20, L], ["autoscroll-check", "", 20, L], ["coverage-check", "", 20, M],
           ];
           const only = process.env.ONLY.split(",").map((s) => s.trim()).filter(Boolean);
           const unknown = only.filter((n) => !all.some(([c]) => c === n));
           if (unknown.length) { console.error(`not in the list: ${unknown.join(", ")}`); process.exit(1); }
-          const include = all.filter(([c]) => !only.length || only.includes(c)).map(([check, args, minutes]) => ({ check, args, minutes }));
+          const include = all.filter(([c]) => !only.length || only.includes(c)).map(([check, args, minutes, os]) => ({ check, args, minutes, os }));
           require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include })}\n`);
-          console.log(include.map((c) => c.check).join(" "));
+          console.log(include.map((c) => `${c.check} (${c.os})`).join(", "));
           '
   check:
     needs: plan
     name: ${{ matrix.check }}
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.os }}
     timeout-minutes: ${{ matrix.minutes }}
     strategy:
       fail-fast: false
@@ -75,16 +77,19 @@ jobs:
       # The Mac lanes run Chrome 157; the same major here.
       - id: chrome
         uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0
-        with: { chrome-version: 157, install-dependencies: true }
+        with: { chrome-version: 157, install-dependencies: "${{ runner.os == 'Linux' }}" }
       - name: Fonts and Chrome
         env: { CHROME_BIN: '${{ steps.chrome.outputs.chrome-path }}' }
         run: |
-          # The runner's user namespaces are locked down (AppArmor), so Chrome's sandbox can't start: a throwaway VM runs without it.
-          printf '#!/bin/sh\nexec "%s" --no-sandbox "$@"\n' "$CHROME_BIN" > "$RUNNER_TEMP/chrome"
+          flags=
+          # Linux only. The runner's user namespaces are locked down (AppArmor), so Chrome's sandbox can't start: a throwaway
+          # VM runs without it. Linux Chrome turns a touch drag the page doesn't take into Back or a reload; a Mac doesn't.
+          [ "$RUNNER_OS" = Linux ] && flags='--no-sandbox --overscroll-history-navigation=0 --pull-to-refresh=0'
+          printf '#!/bin/sh\nexec "%s" %s "$@"\n' "$CHROME_BIN" "$flags" > "$RUNNER_TEMP/chrome"
           chmod +x "$RUNNER_TEMP/chrome"
           echo "CHROME=$RUNNER_TEMP/chrome" >> "$GITHUB_ENV"
           "$CHROME_BIN" --version
-          for f in 'Helvetica Neue' Helvetica Arial sans-serif monospace Menlo; do echo "$f -> $(fc-match "$f")"; done
+          if command -v fc-match > /dev/null; then for f in 'Helvetica Neue' Helvetica sans-serif monospace; do echo "$f -> $(fc-match "$f")"; done; fi
       - name: Run ${{ matrix.check }}
         run: |
           mkdir -p "$RUNNER_TEMP/out"
@@ -92,10 +97,10 @@ jobs:
           for i in $(seq 50); do curl -fs "http://127.0.0.1:$FLUID_PORT/" > /dev/null && break; sleep 0.2; done
           node scripts/headless.mjs
           set -o pipefail
-          start=$(date +%s)
-          npm run ${{ matrix.check }} ${{ matrix.args && format('-- {0}', matrix.args) }} 2>&1 | tee "$RUNNER_TEMP/out/${{ matrix.check }}.log"
-          code=$?
-          echo "took $(( $(date +%s) - start )) s"
+          touch "$RUNNER_TEMP/started"
+          start=$(date +%s) code=0
+          npm run ${{ matrix.check }} ${{ matrix.args && format('-- {0}', matrix.args) }} 2>&1 | tee "$RUNNER_TEMP/out/${{ matrix.check }}.log" || code=$?
+          echo "exit $code, took $(( $(date +%s) - start )) s"
           exit $code
       - name: Count against main
         if: always()
@@ -105,10 +110,11 @@ jobs:
           const file = `parity/${process.argv[1]}.json`;
           const count = (j) => j && Number.isFinite(j.pass) ? `${j.pass}/${j.total}` : "no count";
           let ci = null, mac = null;
-          try { ci = JSON.parse(fs.readFileSync(file, "utf8")); } catch {}
+          // Only a file this run wrote counts: the checkout already holds main's.
+          try { if (fs.statSync(file).mtimeMs > fs.statSync(`${process.env.RUNNER_TEMP}/started`).mtimeMs) ci = JSON.parse(fs.readFileSync(file, "utf8")); } catch {}
           try { mac = JSON.parse(execFileSync("git", ["show", `HEAD:${file}`], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })); } catch {}
           const changed = ci && mac && JSON.stringify(ci) !== JSON.stringify(mac);
-          const line = `| ${process.argv[1]} | ${count(ci)} | ${count(mac)} | ${ci ? (changed ? "result file differs" : "same file") : "no result file"} |`;
+          const line = `| ${process.argv[1]} | ${count(ci)} | ${count(mac)} | ${ci ? (changed ? "result file differs" : "same file") : "this run wrote no result file"} |`;
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `| check | CI | stored (Mac) | |\n|---|---|---|---|\n${line}\n`);
           console.log(line);
           ' ${{ matrix.check }}
