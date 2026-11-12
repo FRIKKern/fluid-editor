@@ -4060,8 +4060,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const ib = await btn();
   add('View Layouts, Instagram + Button: off, as read', !!ib && ib.off, JSON.stringify(ib));
   // Eight more mixes read on, one per reload, the typed block added last (CAP-U10MIXB.json, A and B alike): on, the tile
-  // count read, each tile's height the gap to the next tile's top less 16 where the runs agree within 0.2, else the 140
-  // placeholder. A tile is built where its pick was read from the same start, runs A and B alike (CAP-U10MIXPICK2-*.json,
+  // count read, each tile's height the gap to the next tile's top less 16 where the runs agree within 0.2, else the mean
+  // of the two where both read a gap; any other tile fitted to its read pick's rows plus 36.4 (inferred). A tile is built where its pick was read from the same start, runs A and B alike (CAP-U10MIXPICK2-*.json,
   // a fresh blank section each pick); every other tile stays not built, and a press on one changes nothing. The Text is
   // one paragraph, as read; a Text of two stays off, not read.
   {
@@ -4078,14 +4078,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const perr = [];
     for (const [a, b, key] of MIXES) {
       const tops = (r) => MB[`${r} ${key} open`].tiles.tiles.map((t) => t[1]), A = tops('A'), B = tops('B');
-      const want = A.map((t, n) => { const da = A[n + 1] - t, db = B[n + 1] - B[n]; return n + 1 < A.length && Math.abs(da - db) <= 0.2 ? Math.round((da - 16) * 10) / 10 : 140; });
+      const want = A.map((t, n) => { const da = A[n + 1] - t - 16, db = B[n + 1] - B[n] - 16; return n + 1 >= A.length ? null : Math.abs(da - db) <= 0.2 ? Math.round(da * 10) / 10 : da > 0 && db > 0 ? Math.round((da + db) * 5) / 10 : null; });
       const read = A.map((_, n) => !!readPick(key, n));
+      // A fitted tile: its read pick's rows at the tile's scale plus 36.4, the tightest read tile's room (inferred).
+      const holds = (h, n) => { const r = readPick(key, n); return want[n] != null ? h === want[n] : !!r && h === Math.round((r.look.rows * 41.09 * 283 / 1600 + 36.4) * 10) / 10; };
       await fresh(a, b);
       const v = await btn();
       if (!v || v.off || MB[`A ${key} hover`].btnByText['View Layouts'].disabled !== false) { errs.push(`${key} ${v ? 'off' : 'none'}`); continue; }
       const tiles = await open();
       const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled && t.classList.contains('lo-unbuilt')))`);
-      if (tiles.length !== B.length || tiles.join() !== want.join() || off.some((x, n) => x === read[n])) errs.push(`${key} ${tiles} ${off}`);
+      if (tiles.length !== B.length || !tiles.every(holds) || off.some((x, n) => x === read[n])) errs.push(`${key} ${tiles} ${off}`);
       // A press on a tile not read: ours has no pick there, so the section stays as it was.
       const u = off.indexOf(true);
       if (u >= 0) {

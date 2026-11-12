@@ -25,6 +25,12 @@ export const MIX_LAYOUTS = {"Code+Image":[{"rows":10,"phoneRows":10,"tile":118.8
 // CAP-U10LIST-QUOTE.json) where runs A and B agree within 0.2 (28 of 57); null where they differ (why: not read) and for
 // the last tile: not read.
 export const MIX_TILES = {"Button+Quote":[150.6,165,167,124.6,null],"Button+Code":[129.6,146.1,148.2,105.7,null],"Accordion+Button":[183.6,200.1,null,null,null],"Text+Video":[136.4,136.5,162.2,null,null,null,null],"Quote+Text":[null,null,null,null,87.3,null,null,null],"Image+Video":[158.6,190.6,164.5,null,null,214.5,276.8,276.8,null,null],"Code+Video":[136.4,136.5,162.2,null,null,null,null],"Image+Map":[158.6,190.6,164.5,164.5,null,null,null,null,292.1,null]};
+// Where the runs differ, both read a gap from a tile's top to the next one's (18 tiles, by 0.8 to 18.3, why: not read):
+// the mean of runs A and B less 16. In 5 of these 6 mixes the tops agree again further down (Text+Video's tile 6 at 1509.8,
+// Image+Map's 8 at 2243.5 in both), so the means keep the read total; Accordion+Button's never agree again (its last tile
+// at 1114.5 and 1133.6). Null where either run reads no gap (0, the next tile not laid
+// out yet) and for the last tile.
+export const MIX_TILES_MEAN = {"Accordion+Button":[null,null,202.6,169.7,null],"Text+Video":[null,null,null,200.1,230,244.6,null],"Quote+Text":[87.2,87.9,94.1,77.7,null,null,null,null],"Image+Video":[null,null,null,169.9,247.1,null,null,null,null,null],"Code+Video":[null,null,null,204.2,222.7,247.8,null],"Image+Map":[null,null,null,null,234.9,248.8,316.1,309.5,null,null]};
 // The picks read on those mixes, each from the same start (a fresh blank section each pick, the typed block added last),
 // runs A and B alike (CAP-U10MIXPICK2-*.json): a read-fact table by tile, unscored, no rule. Areas and rows as read; the
 // look from the section's theme, divider and height class; phoneRows is the last phone row less 1, the rule the other
