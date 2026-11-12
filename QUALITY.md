@@ -108,6 +108,26 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 | O3 | Fixtures in git hold CSS only: ids and grid numbers. Raw pages with other people's content stay in `fixtures/raw/`, which git ignores |
 | O4 | A Squarespace change that breaks a gate is a finding, not a failure to hide. Recapture and record it |
 
+## A new trial
+
+```
+owner: trial + cmux login ─► Poppins (0004) ─► two probe pages
+lane:  FLUID_ORACLE_SITE ─► profile 9350 ─► oracle-setup-check ─► compare, then store the bases
+```
+
+1. The owner starts a trial, logs in in a cmux tab and notes `<name>.squarespace.com` and the day.
+2. `export FLUID_ORACLE_SITE=<name>.squarespace.com`. Every oracle script reads it from `scripts/lib/oracle-site.mjs`.
+3. Log in the headless profile with the cmux tab open: `eval "$(CDP_PORT=9350 node scripts/oracle-headless.mjs)"`. Lanes copy `/tmp/fluid-editor-chrome-9350`; nobody deletes it.
+4. The owner sets Site Styles fonts to Poppins: headings, paragraphs, miscellaneous text and the three button styles (docs/decisions/0004). This saves site-wide, so it is the owner's step.
+5. The owner makes two blank pages under Not Linked, titled exactly `Blocks Probe` and `Gestures Probe` (`/blocks-probe`, `/gestures-probe`). Recipes open them by title.
+6. `node scripts/oracle-setup-check.mjs --since <day>` lists what is still missing. Add `--live` once `ORACLE_SURFACE` is set: login, pages, bases.
+7. `ORACLE_SURFACE=cdp:9350 node scripts/oracle-readback.mjs`, before storing anything. Each difference from the old site is a finding (O4).
+8. Store the bases on the clean site, before any probe:
+   - `CAP-FOOTER`: `oracle-readback.mjs --footer-only --store-footer`.
+   - `CAP-STYLEROWS`: `oracle-readback.mjs --store`.
+   - `CAP-THEMEROWS`: no flag stores it. If step 7 shows its rows differ, the palette is not the old one: record it, don't hand-edit the file.
+9. `oracle-readback.mjs` again: exit 0. The demo page is not needed for probes; rebuilding it (`scripts/oracle-build.mjs`) saves a page that isn't a probe page, so that's the owner's call.
+
 ## Docs
 
 - Picture first: README, docs and decisions open with a picture, a table or a diagram.

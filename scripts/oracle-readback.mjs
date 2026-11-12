@@ -3,7 +3,7 @@
 // the closed lists against CAP-STYLEROWS.json. Read only: it presses only the names it allows, needs Save off at every read,
 // and leaves by Exit. Never Reset, a pick or a slider. Run it after a probe:
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs
-// --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads. Only for a site known to be as it should be.
+// --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads, and its capturedAt. Only for a site known to be as it should be.
 // It reads the site footer first, against CAP-FOOTER.json (scripts/oracle/footer.mjs). --footer-only stops after that;
 // --store-footer replaces that base.
 // Exit 0: all read and the same. Exit 1: differences, listed. Exit 2: the same where read, with the sets it could not read
@@ -268,7 +268,7 @@ families = listsRead['Fonts > Headings']?.families;
 if (listsRead['Fonts > Headings']) delete listsRead['Fonts > Headings'].families;
 if (STORE) {
   if (notRead.length) { console.log('not stored: sets not read'); report(); process.exit(2); }
-  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
+  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, capturedAt: new Date().toISOString().slice(0, 10), views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
 } else {
   // Lists and font names compare only where their view was read; a view not read is already listed.
   for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }
