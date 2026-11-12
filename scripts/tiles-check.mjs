@@ -30,13 +30,14 @@ const ours = (sels) => qs(`const d = document.getElementById('site-frame').conte
 // A read leaf: "TAG | class | text | ... | x,y,w,h | font | color | background".
 const leaf = (l) => { const f = l.split(' | '); return { tag: f[0].trim(), cls: f[1].trim(), text: f[2], box: f[4].split(',').map(Number) }; };
 // Fields compared: a box (x, y, w, h), or a centre where the box is the font's (cx, cy), within 1.5px.
-const FIELDS = { x: (b) => b[0], y: (b) => b[1], w: (b) => b[2], h: (b) => b[3], cx: (b) => b[0] + b[2] / 2, cy: (b) => b[1] + b[3] / 2 };
+// wb: the width only where the read box is a block's (over 100), not a word's.
+const FIELDS = { x: (b) => b[0], y: (b) => b[1], w: (b) => b[2], wb: (b) => b[2], h: (b) => b[3], cx: (b) => b[0] + b[2] / 2, cy: (b) => b[1] + b[3] / 2 };
 const compare = (map, leaves, got) => {
   const miss = [];
   for (const [test, sel, fields] of map) {
     const want = leaves.map(leaf).filter(test), have = got[sel];
     if (want.length !== have.length) { miss.push(`${sel}: ${have.length} for ${want.length}`); continue; }
-    want.forEach((w, i) => { const bad = fields.filter((k) => Math.abs(FIELDS[k](w.box) - FIELDS[k](have[i])) > 1.5); if (bad.length) miss.push(`${sel}[${i}] ${bad.join('')}: ${have[i].map((v) => v.toFixed(1))} read ${w.box}`); });
+    want.forEach((w, i) => { const bad = fields.filter((k) => !(k === 'wb' && w.box[2] <= 100) && Math.abs(FIELDS[k](w.box) - FIELDS[k](have[i])) > 1.5); if (bad.length) miss.push(`${sel}[${i}] ${bad.join('')}: ${have[i].map((v) => v.toFixed(1))} read ${w.box}`); });
   }
   return miss;
 };
@@ -68,10 +69,19 @@ const MENU = [
   [by('menu-item-description'), '.menu-item-description', ['x', 'y', 'w', 'h']],
   [by('currency-sign'), '.currency-sign', ['x', 'y', 'w', 'h']],
 ];
+// Archive (CAP-T12PRESS-B.json at 8 columns): a name with its count is no leaf in the read, so ours is taken without one; the
+// count is compared by its line. Not drawn: the status box (its title is a leaf in the read, its look is not read).
+const ARCHIVE_MAP = [
+  [by('archive-group-name-link', 'A'), '.archive-group-name-link:not(:has(.archive-group-count))', ['x', 'y', 'wb', 'h']],
+  [by('archive-group-count'), '.archive-group-count', ['y', 'h']],
+  [by('archive-item-link'), '.archive-item-link', ['x', 'y', 'w', 'h']],
+  [by('archive-item-date-after'), '.archive-item-date-after', ['x', 'y', 'w', 'h']],
+];
 const RUNS = [
   { name: 'Product at 6 columns', file: 'CAP-T12PRESS-A', block: 'Product', span: 6, rows: 10, map: PRODUCT },
   { name: 'Product at 3 columns', file: 'CAP-T12PRESS-E', block: 'Product', span: 3, rows: 10, map: PRODUCT },
   { name: 'Menu at 12 columns', file: 'CAP-T12PRESS-C', block: 'Menu', span: 12, rows: 28, map: MENU },
+  { name: 'Archive at 8 columns', file: 'CAP-T12PRESS-B', block: 'Archive', span: 8, rows: 21, map: ARCHIVE_MAP },
 ];
 // A step of the read, pressed on our panel: a switch by its key, a menu by its value.
 const act = async (block, step, tab) => {
@@ -81,6 +91,9 @@ const act = async (block, step, tab) => {
   // The menu's text as typed and left (one change); Layout and Currency Symbol by their menus.
   if (block === 'Menu' && step.type) return qs(`const t = p.querySelector('textarea[data-sp-field="mnText"]'); t.focus(); t.value = ${JSON.stringify(step.value)}; t.dispatchEvent(new Event('input', { bubbles: true })); t.dispatchEvent(new Event('change', { bubbles: true })); t.blur(); await sleep(300); return 'true';`);
   if (block === 'Menu' && step.menu) return pick(step.menu === 'Multi-Column' ? 'mnLayout' : 'mnCurrency', step.pick);
+  if (block === 'Archive' && step.sw) return press(step.sw === 'Dates ascending' ? 'input[aria-label="Dates ascending"]' : `input[data-sp-set="${step.sw === 'Item date' ? 'arDate' : 'arCount'}"]`);
+  if (block === 'Archive' && step.radio) return press(`button[data-sp-set="${step.radio === 'Columns' ? 'arColumns' : 'arAlign'}"][data-v="${step.value}"]`);
+  if (block === 'Archive' && step.menu) return pick(step.menu === 'Month' ? 'arGroup' : 'arLayout', step.pick);
   throw new Error(`no press for ${JSON.stringify(step)}`);
 };
 
@@ -93,7 +106,7 @@ for (const run of RUNS) {
   for (const [i, s] of R.steps.entries()) {
     await act(run.block, { ...s.step, pick: s.note?.pick }, tab);
     miss = compare(run.map, s.after.leaves, ours(sels));
-    const what = s.step.sw ? `${s.step.sw} ${s.note.now ? 'on' : 'off'}` : s.step.type ? `${s.step.type} typed` : `${s.step.menu} ${s.note.pick}`;
+    const what = s.step.sw ? `${s.step.sw} ${s.note.now ? 'on' : 'off'}` : s.step.type ? `${s.step.type} typed` : s.step.radio ? `${s.step.radio} ${s.step.value}` : `${s.step.menu} ${s.note.pick}`;
     add(`${run.name}, step ${i + 1}: ${what}`, !miss.length, miss.join(' | '));
   }
 }
@@ -103,6 +116,14 @@ placeAndEdit('Menu', 12, 28);
 const items = () => qs(`const e = document.getElementById('site-frame').contentDocument.querySelector('#block-one .menu-items'); return JSON.stringify(e && Math.round(e.getBoundingClientRect().height * 10) / 10);`);
 const cols = items(); await press('[data-btab="Design"]'); pick('mnLayout', 'Centered'); const centred = items();
 add('Menu: the first section 276.8 high in two columns, 395.2 Centered', cols != null && Math.abs(cols - 276.8) <= 1.5 && centred != null && Math.abs(centred - 395.2) <= 1.5, JSON.stringify({ cols, centred }));
+
+// A second run (CAP-ROWSARCHIVE.json, by Year, List): Alignment centre puts each name at its column's middle (99.8 of 199.6);
+// Columns off makes one column, the groups 459.3 wide.
+placeAndEdit('Archive', 8, 21);
+pick('arGroup', 'Year'); await press('[data-btab="Design"]'); pick('arLayout', 'List'); await press('button[data-sp-set="arAlign"][data-v="center"]');
+const arBox = (sel) => qs(`const d = document.getElementById('site-frame').contentDocument, b = d.getElementById('block-one'), e = b && b.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const q = b.getBoundingClientRect(), r = e.getBoundingClientRect(); return JSON.stringify([r.left - q.left, r.width]);`);
+const named = arBox('.archive-group-name-link'); await press('button[data-sp-set="arColumns"][data-v="false"]'); const one = arBox('.archive-group');
+add('Archive by Year in List: a name centred in its column; Columns off, one column', named != null && Math.abs(named[0] + named[1] / 2 - 99.8) <= 1.5 && one != null && Math.abs(one[1] - 459.3) <= 1.5, JSON.stringify({ named, one }));
 
 // Undo and Redo take the drawing back and forth with the value.
 placeAndEdit('Product', 6, 10);

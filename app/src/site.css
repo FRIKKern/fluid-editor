@@ -789,6 +789,24 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .menu-layout-centered .menu-item-title { padding-right: 0; }
 .menu-layout-centered .menu-item-description { margin-right: 0; }
 .menu-layout-centered .menu-item-price-bottom { position: static; margin: 7px 0 9px; }
+/* Archive (CAP-T12PRESS-B.json, CAP-ROWSARCHIVE.json, read at 459.3 wide): a group's name 22.4px on 31.36 lines, its items 22.4
+   under it, 44.8 after each group; an item's link 5 short of the right, its date under it, items 22.4 apart, or 11.2 with no
+   dates. List: the names 16px in two columns 60 apart. The count's brackets are inferred from its width. */
+.archive-groups, .archive-group-list { margin: 0; padding: 0; list-style: none; }
+.archive-group { padding-bottom: 44.8px; }
+.archive-group-name { font-size: 22.4px; line-height: 31.36px; }
+.archive-group-name-link { color: inherit; }
+.archive-columns.archive-layout-index .archive-group-name-link { display: block; }
+.archive-group-count::before { content: "("; }
+.archive-group-count::after { content: ")"; }
+.archive-group-list { margin-top: 22.4px; font-size: 16px; line-height: 22.4px; }
+.archive-item + .archive-item { margin-top: 11.2px; }
+.archive-dates .archive-item + .archive-item { margin-top: 22.4px; }
+.archive-item-link { display: block; margin-right: 5px; color: inherit; }
+.archive-item-date-after { display: block; }
+.archive-layout-list .archive-group { padding-bottom: 0; break-inside: avoid; }
+.archive-layout-list .archive-group-name { font-size: 16px; line-height: 22.4px; }
+.archive-layout-list.archive-columns .archive-groups { column-count: 2; column-gap: 60px; }
 /* Newsletter (CAP-T12NEWSLETTER.json, read at 10 columns, 576.8 wide). Float puts the email field and the button on one
    line when they fit, a space apart; Stack puts them under each other. The heading is an h2 at Heading 3's size (41.2px),
    1.2 high. Its margins stay
