@@ -30,14 +30,14 @@ const ours = (sels) => qs(`const d = document.getElementById('site-frame').conte
 // A read leaf: "TAG | class | text | ... | x,y,w,h | font | color | background".
 const leaf = (l) => { const f = l.split(' | '); return { tag: f[0].trim(), cls: f[1].trim(), text: f[2], box: f[4].split(',').map(Number) }; };
 // Fields compared: a box (x, y, w, h), or a centre where the box is the font's (cx, cy), within 1.5px.
-// wb: the width only where the read box is a block's (over 100), not a word's.
+// wb: the width, left out only where both boxes are a word's (100 or under, they follow the font).
 const FIELDS = { x: (b) => b[0], y: (b) => b[1], w: (b) => b[2], wb: (b) => b[2], h: (b) => b[3], cx: (b) => b[0] + b[2] / 2, cy: (b) => b[1] + b[3] / 2 };
 const compare = (map, leaves, got) => {
   const miss = [];
   for (const [test, sel, fields] of map) {
     const want = leaves.map(leaf).filter(test), have = got[sel];
     if (want.length !== have.length) { miss.push(`${sel}: ${have.length} for ${want.length}`); continue; }
-    want.forEach((w, i) => { const bad = fields.filter((k) => !(k === 'wb' && w.box[2] <= 100) && Math.abs(FIELDS[k](w.box) - FIELDS[k](have[i])) > 1.5); if (bad.length) miss.push(`${sel}[${i}] ${bad.join('')}: ${have[i].map((v) => v.toFixed(1))} read ${w.box}`); });
+    want.forEach((w, i) => { const bad = fields.filter((k) => !(k === 'wb' && w.box[2] <= 100 && have[i][2] <= 100) && Math.abs(FIELDS[k](w.box) - FIELDS[k](have[i])) > 1.5); if (bad.length) miss.push(`${sel}[${i}] ${bad.join('')}: ${have[i].map((v) => v.toFixed(1))} read ${w.box}`); });
   }
   return miss;
 };
