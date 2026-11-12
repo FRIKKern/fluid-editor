@@ -1,8 +1,8 @@
 // T12: a new Scrolling block's Design rows replayed from the oracle's rows walk (CAP-ROWSSCROLLING2.json; CAP-ROWSSCROLLING.json
 // read alike): Wave Intensity to 150, Text Style to Paragraph, Medium and Large each and back to Small, Item Spacing 0.6em.
 // After each: the block's area, the section's rows and the first two words' boxes (left and width); then each Cmd+Z goes back
-// one step to the new block. Presses are real mouse input. Usage: FLUID_SURFACE=cdp:<port> npm run scrolling-check.
-import { readFileSync } from 'node:fs';
+// one step to the new block. Presses are real mouse input. Writes parity/scrolling-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run scrolling-check.
+import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, mouse } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
@@ -10,7 +10,8 @@ if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
 const S = process.env.FLUID_SURFACE;
 const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ROWSSCROLLING2.json', import.meta.url))).tabs.Design.rows;
 let pass = 0, total = 0;
-const add = (what, ok, detail) => { total++; if (ok) pass++; console.log(`${what.padEnd(40)} ${ok ? 'match' : `DIFF ${detail}`}`); };
+const results = [];
+const add = (what, ok, detail) => { total++; if (ok) pass++; results.push({ what, ok: !!ok }); console.log(`${what.padEnd(40)} ${ok ? 'match' : `DIFF ${detail}`}`); };
 // The read's "area a > b", "section rows a > b" and word boxes for a row, by its press name.
 const changeOf = (name) => {
   const ch = R.find((r) => r.name === name && r.change).change, two = (p) => ch.find((c) => c.startsWith(p))?.split(' > ');
@@ -81,5 +82,6 @@ qs(`fe.undo(); await sleep(250); return 'true';`); const back2 = state();
 add('Drag back to start, Cmd+Z, drag: undo takes one step', back2.area === undone.area && back2.rows === undone.rows && undone.area !== medium.area, JSON.stringify({ undone, back2 }));
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
 const CASES = 27;
+writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
