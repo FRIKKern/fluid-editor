@@ -12,9 +12,12 @@ const root = process.env.CLAIMS_ROOT ? `${process.env.CLAIMS_ROOT.replace(/\/$/,
 // No GIT_* from a hook: they would name the hook's repo, not root.
 const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_')));
 const git = (args, opts = {}) => spawnSync('git', args, { cwd: root, env, encoding: 'utf8', maxBuffer: 1 << 28, ...opts });
-// A claim: the check's name (".mjs" allowed), then ": ", ", ", " reads ", " unchanged, " or a space, then "N of M".
-// "x-check's known list, 4 of 664" or "x-check misses 2 of 147" count something else.
-const CLAIM = /\b([a-z0-9]+(?:-[a-z0-9]+)*-check)(?:\.mjs)?(?::|,| reads| unchanged,)? (\d+) of (\d+)/g;
+// A claim: the check's name (".mjs" allowed), then one of JOINS, then "N of M". Each join is a form items.json uses for a
+// whole run. Not claims, as they count something else: "x-check's known list, 4 of 664", "x-check misses 2 of 147",
+// "x-check on CAP-A and CAP-B, 25 of 25", "x-check holds all 18 (6 of 18", "x-check checks each, with ours then 12 of 14".
+const JOINS = [' ', ': ', ', ', ' reads ', ' unchanged, ', ' matches the oracle HTML (', ' compares all six with the oracle HTML ('];
+const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const CLAIM = new RegExp(`\\b([a-z0-9]+(?:-[a-z0-9]+)*-check)(?:\\.mjs)?(?:${JOINS.map(esc).join('|')})(\\d+) of (\\d+)`, 'g');
 const strings = (v) => (typeof v === 'string' ? [v] : v && typeof v === 'object' ? Object.values(v).flatMap(strings) : []);
 const claims = [];
 for (const it of JSON.parse(readFileSync(`${root}parity/items.json`, 'utf8'))) {

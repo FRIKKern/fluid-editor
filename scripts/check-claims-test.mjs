@@ -45,6 +45,12 @@ try {
   r = run(); add('"misses 2 of 147" and "\'s known list, 4 of 664" are no claims', r.code === 0 && /0 of 0 named/.test(r.out), r.out);
   claim('near-check.mjs: 74 of 74', 'resize-check reads 1 of 2', 'textpush-check unchanged, 1 of 2');
   r = run(); add('".mjs: ", " reads " and " unchanged, " forms are claims', r.code === 1 && /"near-check\.mjs: 74 of 74": .* ever said/.test(r.out) && /resize-check reads/.test(r.out) && /textpush-check unchanged/.test(r.out), r.out);
+  claim('near-check matches the oracle HTML (99 of 99)', 'near-check compares all six with the oracle HTML (98 of 98');
+  r = run(); add('" matches the oracle HTML (" and " compares all six with the oracle HTML (" are claims', r.code === 1 && /HTML \(99 of 99": .* ever said 99 of 99/.test(r.out) && /HTML \(98 of 98": .* ever said 98 of 98/.test(r.out), r.out);
+  claim('near-check matches the oracle HTML (72 of 72)');
+  r = run(); add('" matches the oracle HTML (72 of 72" that main stored passes', r.code === 0 && /1 of 1 named/.test(r.out), r.out);
+  claim('neworder-check on CAP-X and CAP-Y, 25 of 25', 'near-check holds all 18 (6 of 18', 'near-check checks each, with ours then 12 of 14');
+  r = run(); add('subset counts ("on CAP-…, ", "holds all 18 (", "with ours then ") are no claims', r.code === 0 && /0 of 0 named/.test(r.out), r.out);
   put('cover-check.json', { matched: 5 }); claim('cover-check 5 of 5');
   r = run(); add('a result file with no pass and total is listed, not failed', r.code === 0 && /has no pass and total/.test(r.out), r.out);
   put('cover-check.json', '{ "pass": 5,'); claim('cover-check 5 of 5');
@@ -62,4 +68,4 @@ try {
   for (const d of [dir, decoy]) rmSync(d, { recursive: true, force: true });
 }
 console.log(`check-claims cases: ${pass} of ${total}`);
-process.exit(pass === total && total === 12 ? 0 : 1);
+process.exit(pass === total && total === 15 ? 0 : 1);
