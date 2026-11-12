@@ -25,7 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
+- **Today** · 2 changes
+  - oracle-readback --store-themes stores CAP-THEMEROWS for a new trial ([#627](https://github.com/FRIKKern/fluid-editor/pull/627))
   - A new trial: oracle-setup-check.mjs and a runbook in QUALITY.md ([#626](https://github.com/FRIKKern/fluid-editor/pull/626))
 - **Yesterday** · 17 changes
   - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
