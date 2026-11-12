@@ -8,7 +8,8 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, statSync } from 'node:fs';
 
 const [name, codeArg, started] = process.argv.slice(2);
-const code = Number(codeArg);
+// No exit code (the step ran out of time or never got to the check) is red, never green.
+const code = /^\d+$/.test(codeArg ?? '') ? Number(codeArg) : null;
 const file = `parity/${name}.json`;
 const count = (j) => (j && Number.isFinite(j.pass) ? `${j.pass} of ${j.total}` : 'no count');
 let ci = null, stored = null;
@@ -16,10 +17,10 @@ let ci = null, stored = null;
 try { if (statSync(file).mtimeMs > statSync(started).mtimeMs) ci = JSON.parse(readFileSync(file, 'utf8')); } catch {}
 try { stored = JSON.parse(execFileSync('git', ['show', `HEAD:${file}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })); } catch {}
 const same = ci && stored && JSON.stringify(ci) === JSON.stringify(stored);
-const red = code !== 0 && !same;
-const note = code === 0 ? 'passed' : same ? 'failed, with the same result as stored (red on the Mac too)' : ci ? 'failed, result differs from stored' : 'failed, wrote no result file';
-const row = `| ${name} | exit ${code} | ${ci ? count(ci) : '-'} | ${count(stored)} | ${note} |`;
+const red = code === null || (code !== 0 && !same);
+const note = code === null ? 'no exit code: ran out of time or never ran' : code === 0 ? 'passed' : same ? 'failed, with the same result as stored (red on the Mac too)' : ci ? 'failed, result differs from stored' : 'failed, wrote no result file';
+const row = `| ${name} | exit ${code ?? '-'} | ${ci ? count(ci) : '-'} | ${count(stored)} | ${note} |`;
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `| check | exit | CI | stored | |\n|---|---|---|---|---|\n${row}\n`);
 console.log(row);
-if (code !== 0 && same) console.log(`::warning::${name} exits ${code} with the result main stores: no change from main`);
+if (code !== null && code !== 0 && same) console.log(`::warning::${name} exits ${code} with the result main stores: no change from main`);
 process.exit(red ? 1 : 0);

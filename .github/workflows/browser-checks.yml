@@ -16,9 +16,10 @@ on:
         default: ''
 permissions:
   contents: read
-# One run at a time per branch; a newer push waits, and replaces any run still waiting.
+# One run at a time per branch and event; a newer one waits, and replaces any run still waiting. A hand-run subset
+# never replaces a push run.
 concurrency:
-  group: browser-checks-${{ github.ref }}
+  group: browser-checks-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: false
 jobs:
   plan:
@@ -55,7 +56,7 @@ jobs:
           const only = process.env.ONLY.split(",").map((s) => s.trim()).filter(Boolean);
           const unknown = only.filter((n) => !all.some(([c]) => c === n));
           if (unknown.length) { console.error(`not in the list: ${unknown.join(", ")}`); process.exit(1); }
-          const include = all.filter(([c]) => !only.length || only.includes(c)).map(([check, args, minutes, os]) => ({ check, args, minutes, os }));
+          const include = all.filter(([c]) => !only.length || only.includes(c)).map(([check, args, minutes, os]) => ({ check, args, minutes, joblimit: minutes + 5, os }));
           require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include })}\n`);
           console.log(include.map((c) => `${c.check} (${c.os})`).join(", "));
           '
@@ -63,7 +64,8 @@ jobs:
     needs: plan
     name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    timeout-minutes: ${{ matrix.minutes }}
+    # The check's own limit is on its step, so Count still reports a check that ran out of time.
+    timeout-minutes: ${{ matrix.joblimit }}
     strategy:
       fail-fast: false
       # The account's runners are shared with other repos' PR checks: leave most of them free.
@@ -95,6 +97,7 @@ jobs:
           "$CHROME_BIN" --version
           if command -v fc-match > /dev/null; then for f in 'Helvetica Neue' Helvetica sans-serif monospace; do echo "$f -> $(fc-match "$f")"; done; fi
       - name: Run ${{ matrix.check }}
+        timeout-minutes: ${{ matrix.minutes }}
         run: |
           mkdir -p "$RUNNER_TEMP/out"
           node scripts/serve.mjs > "$RUNNER_TEMP/out/serve.log" 2>&1 &
@@ -108,10 +111,11 @@ jobs:
           echo "$code" > "$RUNNER_TEMP/code"
       # Red or green is decided here, against main's stored result file (scripts/ci-count.mjs says how).
       - name: Count against main
+        if: always()
         run: |
           cp parity/${{ matrix.check }}.json "$RUNNER_TEMP/out/" 2>/dev/null || true
-          node scripts/ci-count.mjs ${{ matrix.check }} "$(cat "$RUNNER_TEMP/code")" "$RUNNER_TEMP/started"
-      - if: failure()
+          node scripts/ci-count.mjs ${{ matrix.check }} "$(cat "$RUNNER_TEMP/code" 2>/dev/null)" "$RUNNER_TEMP/started"
+      - if: failure() || cancelled()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
