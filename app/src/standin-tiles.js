@@ -28,7 +28,8 @@ function productHtml(b) {
 // more menus put their names above, the first one shown; one menu has none (one read). Multi-Column flows the items down two
 // columns; Centered stacks them, the price under the description (CAP-T12PRESS-C.json and CAP-ROWSMENU.json, the same steps of
 // 131.7 an item). The Currency Symbol changes the sign alone. Not read: the second menu's look, options (+), a section's or
-// menu's description, a price with words (they draw as text).
+// menu's description, a price with words (a $-line is the price: the sign is swapped on its first $ only), the tile on a phone
+// (drawn in two columns, its height as read).
 const CURRENCY = { '$ Dollar': '$', '€ Euro': '€', '£ Pound': '£', '¥ Yen': '¥' };
 export function menuParse(text) {
   const lines = String(text).split('\n').map((l) => l.trim()), menus = [];
@@ -57,7 +58,23 @@ function menuHtml(b) {
 // The default text, as the panel's box holds it (CAP-ROWSMENU.json).
 export const MENU_TEXT = 'MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle';
 
-const TILES = { Product: ['sqs-block-product product-block-tile', productHtml], Menu: ['sqs-block-menu menu-block-tile', menuHtml] };
+// Archive: the site's posts grouped by month or year, as read (CAP-T12PRESS-B.json, CAP-ROWSARCHIVE.json, the same groups, items
+// and boxes). Index: each group's name, then its items with their dates; Item date off takes the dates and closes the items up
+// (22.4 apart to 11.2); Group count adds the count after the name (in brackets, inferred from its width). List: the names
+// alone, in two columns 60 apart, or one with Columns off. Alignment aligns the text. In Index, Columns off makes the name an
+// inline link, as read. Not read: Author, Category and Tag (drawn as Month), Drop down (drawn as Index), the status box's look.
+const ARCHIVE = {
+  Month: [['January 2026', [['Aenean eu leo Quam', 'Jan  5, 2026'], ['Cursus Amet', 'Jan 28, 2026']]], ['February 2026', [['Pellentesque Risus Ridiculus', 'Feb 12, 2026']]], ['April 2025', [['Porta', 'Apr 17, 2025'], ['Elit Condimentum', 'Apr 22, 2025']]], ['September 2025', [['Etiam Ultricies', 'Sep 26, 2025']]], ['March 2024', [['Vulputate Commodo Ligula', 'Mar 11, 2024']]]],
+  Year: [['2026', [['Pellentesque Risus Ridiculus', 'Feb 12, 2026'], ['Cursus Amet', 'Jan 28, 2026'], ['Aenean eu leo Quam', 'Jan  5, 2026']]], ['2025', [['Etiam Ultricies', 'Sep 26, 2025'], ['Elit Condimentum', 'Apr 22, 2025'], ['Porta', 'Apr 17, 2025']]], ['2024', [['Vulputate Commodo Ligula', 'Mar 11, 2024']]]],
+};
+function archiveHtml(b) {
+  const v = b.sp || {}, groups = ARCHIVE[v.arGroup] || ARCHIVE.Month, date = v.arDate !== false, list = v.arLayout === 'List';
+  const cls = `archive-block archive-layout-${list ? 'list' : 'index'}${(v.arColumns ?? 'true') === 'true' ? ' archive-columns' : ''}${date ? ' archive-dates' : ''}`;
+  const group = ([name, items]) => `<li class="archive-group"><div class="archive-group-name"><a class="archive-group-name-link">${esc(name)}${v.arCount ? ` <span class="archive-group-count">${items.length}</span>` : ''}</a></div>${list ? '' : `<ul class="archive-group-list">${items.map(([t, d]) => `<li class="archive-item"><a class="archive-item-link">${esc(t)}</a>${date ? `<span class="archive-item-date-after">${esc(d)}</span>` : ''}</li>`).join('')}</ul>`}</li>`;
+  return `<div class="${cls}" style="text-align:${['left', 'center', 'right'].includes(v.arAlign) ? v.arAlign : 'left'}"><ul class="archive-groups">${groups.map(group).join('')}</ul></div>`;
+}
+
+const TILES = { Product: ['sqs-block-product product-block-tile', productHtml], Menu: ['sqs-block-menu menu-block-tile', menuHtml], Archive: ['sqs-block-archive archive-block-tile', archiveHtml] };
 // A plain stand-in that draws its content: a Shape with the Add Block menu's name and no content type of its own.
 export const tileOf = (b) => (b.type === 'shape' && !b.standin && Object.hasOwn(TILES, b.label) ? b.label : null);
 // phone: the height the oracle's block draws on a phone, where it has one (render.js PHONE_HEIGHTS).
