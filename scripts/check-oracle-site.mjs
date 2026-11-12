@@ -47,7 +47,11 @@ const setupCases = [
     (r) => r.code === 1 && r.out.includes(`ok       site     ${sq('new-trial')}`) && /^missing +base +CAP-FOOTER .*--store-footer$/m.test(r.out) && /^missing +base +CAP-STYLEROWS .*--store$/m.test(r.out) && /^skip +base +CAP-THEMEROWS /m.test(r.out) && /^missing +profile +\/tmp\/fluid-editor-chrome-1 does not exist/m.test(r.out)],
   ['bases stored after the trial started: ok', setup({ FLUID_ORACLE_SITE: 'new-trial' }, '--since', '2000-01-01'), (r) => ['CAP-FOOTER', 'CAP-THEMEROWS', 'CAP-STYLEROWS'].every((n) => new RegExp(`^ok +base +${n} stored`, 'm').test(r.out))],
   ['a bad --since: exit 2', setup({}, '--since', 'nov'), (r) => r.code === 2],
+  ['--live with no site set stops before the site', setup({ ORACLE_SURFACE: `cdp:${port}` }, '--live'), (r) => r.code === 1 && /^missing +live +needs a valid FLUID_ORACLE_SITE/m.test(r.out) && !/^\S+ +login /m.test(r.out)],
 ];
+// --since reads capturedAt, so each store in oracle-readback (live only, not run here) must set it.
+const readback = readFileSync(`${root}/scripts/oracle-readback.mjs`, 'utf8').split('\n');
+for (const file of ['STYLE_FILE', 'FOOTER_FILE']) if (!readback.some((l) => l.includes(`writeFileSync(${file},`) && /capturedAt: new Date\(\)/.test(l))) errors.push(`scripts/oracle-readback.mjs: the store to ${file} does not set capturedAt to today`);
 if (!existsSync(SETUP)) errors.push('scripts/oracle-setup-check.mjs: missing');
 else for (const [name, r, ok] of setupCases) if (!ok(r)) errors.push(`oracle-setup-check, ${name}: exit ${r.code}\n${r.out}`);
 

@@ -72,12 +72,12 @@ async function livePages(S, s) {
 function liveBases(S) {
   const r = spawnSync(process.execPath, [`${root}/scripts/oracle-readback.mjs`], { env: { ...process.env, ORACLE_SURFACE: S }, encoding: 'utf8', timeout: 30 * 60000 });
   const tail = `${r.stdout || ''}${r.stderr || ''}`.trim().split('\n').slice(-3).join(' | ');
-  return [r.status === 0 ? 'ok' : 'missing', `oracle-readback exit ${r.status}${r.status === 1 ? ' (differs from the bases)' : r.status === 2 ? ' (some sets not read)' : ''}: ${tail}`];
+  return [r.status === 0 ? 'ok' : 'missing', `oracle-readback ${r.status === null ? 'timed out' : `exit ${r.status}`}${r.status === 1 ? ' (differs from the bases)' : r.status === 2 ? ' (some sets not read)' : ''}: ${tail}`];
 }
 
 const S = process.env.ORACLE_SURFACE;
 if (!LIVE) say('skip', 'live', 'login, probe pages and bases on the site: run again with --live');
-else if (!site || !/^cdp:\d+$/.test(S || '')) say('missing', 'live', 'needs a valid FLUID_ORACLE_SITE and ORACLE_SURFACE=cdp:<port> (eval "$(CDP_PORT=<port> node scripts/oracle-headless.mjs)")');
+else if (!site || !process.env.FLUID_ORACLE_SITE || !/^cdp:\d+$/.test(S || '')) say('missing', 'live', 'needs a valid FLUID_ORACLE_SITE and ORACLE_SURFACE=cdp:<port> (eval "$(CDP_PORT=<port> node scripts/oracle-headless.mjs)")');
 else {
   const login = await liveLogin(S, site);
   say(login[0], 'login', login[1]);
