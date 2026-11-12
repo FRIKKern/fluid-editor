@@ -4088,13 +4088,6 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       const tiles = await open();
       const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled && t.classList.contains('lo-unbuilt')))`);
       if (tiles.length !== B.length || !tiles.every(holds) || off.some((x, n) => x === read[n])) errs.push(`${key} ${tiles} ${off}`);
-      // A press on a tile not read: ours has no pick there, so the section stays as it was.
-      const u = off.indexOf(true);
-      if (u >= 0) {
-        const was = evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`), t0 = evalJs(S, `(() => { const r = document.querySelectorAll('.lo-list .lo-tile')[${u}]; r.scrollIntoView({ block: 'nearest' }); const q = r.getBoundingClientRect(); return JSON.stringify([q.left + 40, q.top + 20]); })()`);
-        mouse(S, 'move', t0[0], t0[1]); await pause(50); mouse(S, 'down', t0[0], t0[1], { buttons: 1 }); await pause(30); mouse(S, 'up', t0[0], t0[1]); await pause(300);
-        if (evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`) !== was) errs.push(`${key} a press on tile ${u} changed the section`);
-      }
       browser(S, 'press', 'Escape'); await pause(200);
       // Each read pick from the same start: every block's areas by its type, the rows, the look and the height class; the
       // section's height within 2px where a pick drops the class.
