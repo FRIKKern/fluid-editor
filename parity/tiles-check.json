@@ -1,7 +1,7 @@
 {
  "check": "what the plain stand-in tiles draw",
  "pass": 48,
- "total": 48,
+ "total": 49,
  "results": [
   {
    "what": "Product at 6 columns: as added",
@@ -194,6 +194,10 @@
   {
    "what": "Product: Image off, Undo draws it again, Redo takes it away",
    "ok": true
+  },
+  {
+   "what": "Product stacked with a Text: H Hug 150 tall, then W Hug 300 wide",
+   "ok": false
   }
  ]
 }

@@ -132,6 +132,19 @@ const image = () => qs(`return JSON.stringify(!!document.getElementById('site-fr
 const off = image(); qs(`document.getElementById('undo').click(); await sleep(400); return '1';`); const back = image(); qs(`document.getElementById('redo').click(); await sleep(400); return '1';`);
 add('Product: Image off, Undo draws it again, Redo takes it away', !off && back && !image(), JSON.stringify({ off, back }));
 
+// A tile in a Stack is a Shape child (S3.json): a Product stacked with a Text by Shift+S, then H typed Hug is 150 tall and
+// W typed Hug 300 wide, as the plain stand-in was before it drew its content (#609 took the Shape class off it: 20 by 20).
+qs(`const next = JSON.parse(JSON.stringify(fe.model)), s = next.sections[1], at = (a) => ({ area: a, z: 1, justify: 'flex-start', align: 'flex-start' }); s.rows = { desktop: 40, mobile: 40 }; s.blocks = [{ id: 't', type: 'text', html: '<p>one</p>', layout: { desktop: at([1, 2, 3, 8]), mobile: at([1, 2, 3, 10]) } }, { id: 'one', type: 'shape', fill: '#d9d4ca', radius: '0', label: 'Product', layout: { desktop: at([4, 2, 12, 8]), mobile: at([4, 2, 12, 10]) } }]; fe.load(next); await sleep(350);
+  const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, e = d.querySelector('.fe-block[data-block-id="one"]'), r = e.getBoundingClientRect(), o = { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, button: 0, pointerId: 1, isPrimary: true, shiftKey: true };
+  fe.select(null); await sleep(40); fe.select(${JSON.stringify(sid)}, 't'); await sleep(60); e.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, buttons: 1 })); d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, buttons: 0 })); await sleep(80);
+  d.dispatchEvent(new KeyboardEvent('keydown', { key: 'S', code: 'KeyS', shiftKey: true, bubbles: true, cancelable: true })); await sleep(300);
+  fe.select(${JSON.stringify(sid)}, 'one'); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(300); return 'true';`);
+const kidBox = () => qs(`const st = fe.model.sections[1].blocks.find((b) => b.type === 'stack'), e = st && document.getElementById('site-frame').contentDocument.getElementById('block-' + st.id + '-one'), c = e && e.closest('.stack-child-container'); if (!c) return 'null'; const r = c.getBoundingClientRect(); return JSON.stringify({ kids: st.children.map((k) => k.id), cls: e.className, size: st.children.find((k) => k.id === 'one').size, w: Math.round(r.width), h: Math.round(r.height) });`);
+await press('[data-btab="Design"]');
+const typeSize = (axis) => qs(`const i = p.querySelector('input[data-stack-field="k${axis}"]'); if (!i) return 'false'; i.value = 'Hug'; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return 'true';`);
+const hTyped = typeSize('h'), hHug = kidBox(), wTyped = typeSize('w'), both = kidBox();
+add('Product stacked with a Text: H Hug 150 tall, then W Hug 300 wide', hTyped && wTyped && hHug?.kids.join() === 't,one' && hHug.h === 150 && both?.h === 150 && both.w === 300, JSON.stringify({ hHug, both }));
+
 writeFileSync(new URL('../parity/tiles-check.json', import.meta.url), `${JSON.stringify({ check: 'what the plain stand-in tiles draw', pass, total, results }, null, 1)}\n`);
 console.log(`Tiles: ${pass} of ${total} checks match`);
 process.exit(pass === total ? 0 : 1);
