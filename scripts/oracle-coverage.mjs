@@ -9,12 +9,13 @@ import { evalJs, pause, goto } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { enterEdit, exitWithoutSaving, addSection, addBlock, sectionCount, escape, select, openSectionPanel, hoverSection } from './oracle/ui.mjs';
 import { rowsJs, tabsJs, labelsJs } from './lib/panel-rows.mjs';
+import { EDITOR, BLOCKS_PROBE } from './lib/oracle-site.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S?.startsWith('cdp:')) { console.error('oracle-coverage: set ORACLE_SURFACE=cdp:<port>'); process.exit(2); }
 const args = process.argv.slice(2);
 const opt = (n) => { const i = args.indexOf(`--${n}`); return i < 0 ? null : args[i + 1]; };
-const PAGE = opt('page') || 'Blocks Probe', PHONE = args.includes('--phone'), BATCH = Number(opt('batch')) || 6;
+const PAGE = opt('page') || BLOCKS_PROBE.title, PHONE = args.includes('--phone'), BATCH = Number(opt('batch')) || 6;
 const FILE = new URL('../parity/findings/CAP-COVERAGE.json', import.meta.url);
 const TILES = ['Text', 'Image', 'Button', 'Video', 'Form', 'Accordion', 'Shape', 'Scrolling', 'Line', 'Product', 'Pricing Plan', 'Donation', 'Scheduling', 'Summary', 'Newsletter', 'Quote', 'Audio', 'Calendar', 'Map', 'Menu', 'Chart', 'Code', 'Markdown', 'Embed', 'Social Links', 'Search Field', 'Page Link', 'Tag Cloud', 'RSS', 'Archive', 'Instagram', 'Tock', 'SoundCloud', 'Flickr', 'OpenTable', 'Zola', 'Bandsintown'];
 const out = existsSync(FILE) ? JSON.parse(readFileSync(FILE)) : { item: 'CAP-COVERAGE', question: 'Coverage walk: what each tile, panel tab and bar offers, by name and kind.', types: {}, chrome: {}, errors: [] };
@@ -22,7 +23,7 @@ out.capturedAt = new Date().toISOString().slice(0, 10);
 // Labels only: an address the panel shows as its value isn't one, nor is a placeholder with a scheme.
 const save = () => writeFileSync(FILE, `${JSON.stringify(out, null, 1).replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '(an email)').replace(/https?:\/\//g, '')}\n`);
 
-const PAGES = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages';
+const PAGES = EDITOR;
 const js = (b) => evalJs(S, b);
 const FRAME = `document.getElementById('sqs-site-frame')`;
 const labels = () => js(labelsJs(FRAME));

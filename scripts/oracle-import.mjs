@@ -10,15 +10,15 @@ import { evalJs } from './lib/cmux.mjs';
 import { parseSectionCss } from './lib/parse.mjs';
 import { IMAGE_READ, imageContent } from './lib/image-read.mjs';
 import { designOf } from './lib/design-read.mjs';
+import { HOST, DEMO } from './lib/oracle-site.mjs';
 
 const args = process.argv.slice(2);
 const surface = args.includes('--surface') ? args[args.indexOf('--surface') + 1] : process.env.ORACLE_SURFACE || 'surface:40';
-const HOST = 'halibut-keyboard-jlhd.squarespace.com';
 // --title "Home" --slug home imports another page of the trial site; the default is the demo page.
 const opt = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
 const SLUG = opt('slug', 'demo');
-const TITLE = opt('title', 'How Fluid Engine works');
-let PAGE = '/how-fluid-engine-works';
+const TITLE = opt('title', DEMO.title);
+let PAGE = DEMO.path;
 const today = new Date().toISOString().slice(0, 10);
 
 const READ = `(() => {
@@ -78,7 +78,7 @@ const READ = `(() => {
 })()`;
 
 // --path /about: load that page in the editor's site frame (read only, not edit mode).
-const wantPath = opt('path', SLUG === 'demo' ? '/how-fluid-engine-works' : null);
+const wantPath = opt('path', SLUG === 'demo' ? DEMO.path : null);
 if (wantPath) {
   const { waitFor } = await import('./lib/cmux.mjs');
   evalJs(surface, `(() => { const f = document.getElementById('sqs-site-frame'); if (f.contentDocument.location.pathname !== ${JSON.stringify(wantPath)}) f.src = ${JSON.stringify(wantPath)}; return 'true'; })()`);

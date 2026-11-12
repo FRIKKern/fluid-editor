@@ -11,8 +11,9 @@
 import { execFileSync } from 'node:child_process';
 import { startChrome } from './lib/chrome.mjs';
 import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
+import { EDITOR, HOST, HOST_RE } from './lib/oracle-site.mjs';
 
-const ORACLE = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages';
+const ORACLE = EDITOR;
 const args = process.argv.slice(2);
 const port = Number(process.env.CDP_PORT);
 const say = (m) => console.error(`oracle-headless: ${m}`);
@@ -21,7 +22,7 @@ if (!port) { say('set CDP_PORT to your lane\'s oracle port: eval "$(CDP_PORT=<po
 function findTab() {
   if (args.includes('--from')) return args[args.indexOf('--from') + 1];
   try {
-    return execFileSync('cmux', ['tree'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\n').map((l) => l.match(/surface (surface:\d+) \[browser\].*halibut-keyboard-jlhd\.squarespace\.com/)).find(Boolean)?.[1] || null;
+    return execFileSync('cmux', ['tree'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\n').map((l) => HOST_RE.test(l) && l.match(/surface (surface:\d+) \[browser\]/)).find(Boolean)?.[1] || null;
   } catch { return null; }
 }
 
@@ -55,11 +56,11 @@ if (tab) {
 
 viewport(S, 1600, 1000);
 const at = evalJs(S, '(() => JSON.stringify(location.host))()');
-if (!String(at).includes('halibut-keyboard-jlhd')) {
+if (String(at) !== HOST) {
   goto(S, ORACLE);
   await pause(4000);
 }
 const state = evalJs(S, `(() => JSON.stringify({ host: location.host, login: !!document.querySelector('input[type=password]') }))()`);
-if (state.login || !state.host.includes('halibut-keyboard-jlhd')) { say(`not logged in (at ${state.host})`); process.exit(1); }
+if (state.login || state.host !== HOST) { say(`not logged in (at ${state.host})`); process.exit(1); }
 console.log(`export ORACLE_SURFACE=${S}`);
 if (pid) console.log(`export ORACLE_CHROME_PID=${pid}`);

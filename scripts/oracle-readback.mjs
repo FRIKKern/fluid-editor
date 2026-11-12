@@ -15,10 +15,11 @@ import { exitWithoutSaving } from './oracle/ui.mjs';
 import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, STYLES, STYLE_FILE } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
 import { FOOTER_FILE, FOOTER_PATHS, FOOTER_READ, compareFooter } from './oracle/footer.mjs';
+import { EDITOR, ORIGIN, BLOCKS_PROBE } from './lib/oracle-site.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S) { console.error('oracle-readback: set ORACLE_SURFACE'); process.exit(2); }
-const PAGES = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', PAGE = 'Blocks Probe', PAGE_PATH = '/blocks-probe';
+const PAGES = EDITOR, PAGE = BLOCKS_PROBE.title, PAGE_PATH = BLOCKS_PROBE.path;
 const VARS = ['white', 'black', 'accent', 'lightAccent', 'darkAccent', 'safeLightAccent', 'safeDarkAccent', 'safeInverseAccent', 'safeInverseLightAccent', 'safeInverseDarkAccent'];
 // All it may press. The panel's back button has no label: its words are the view it goes back to.
 const PRESS = new Set([PAGE, 'Toggle Site Styles editing', 'Open Colors style disclosure', 'Colors', 'Site Styles', ...THEMES.map((t) => `AA ${t}`),
@@ -150,7 +151,7 @@ let sink = diffs, families = null;
 // The footer first: read only, on a load of each page, no press. --footer-only stops after it, --store-footer stores it.
 const FOOTER_ONLY = process.argv.includes('--footer-only'), STORE_FOOTER = process.argv.includes('--store-footer'), footers = {};
 async function readFooter(path) {
-  goto(S, PAGES.replace('/config/pages', path));
+  goto(S, ORIGIN + path);
   for (let i = 0; i < 30; i++) { await pause(1000); if (evalJs(S, FOOTER_READ)) { await pause(2000); return evalJs(S, FOOTER_READ); } }
   return null;
 }
