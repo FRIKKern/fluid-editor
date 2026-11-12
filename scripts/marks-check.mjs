@@ -4062,7 +4062,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // Eight more mixes read on, one per reload, the typed block added last (CAP-U10MIXB.json, A and B alike): on, the tile
   // count read, each tile's height the gap to the next tile's top less 16 where the runs agree within 0.2, else the mean
   // of the two where both read a gap; any other tile fitted to its read pick's rows plus 36.4 (inferred). A tile is built where its pick was read from the same start, runs A and B alike (CAP-U10MIXPICK2-*.json,
-  // a fresh blank section each pick); every other tile stays not built, and a press on one changes nothing. The Text is
+  // a fresh blank section each pick); since #608 every tile's pick is read, so none is drawn not built. The Text is
   // one paragraph, as read; a Text of two stays off, not read.
   {
     const MB = FIND('CAP-U10MIXB').reads, errs = [];
@@ -4088,13 +4088,6 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
       const tiles = await open();
       const off = evalJs(S, `JSON.stringify([...document.querySelectorAll('.lo-list .lo-tile')].map((t) => t.disabled && t.classList.contains('lo-unbuilt')))`);
       if (tiles.length !== B.length || !tiles.every(holds) || off.some((x, n) => x === read[n])) errs.push(`${key} ${tiles} ${off}`);
-      // A press on a tile not read: ours has no pick there, so the section stays as it was.
-      const u = off.indexOf(true);
-      if (u >= 0) {
-        const was = evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`), t0 = evalJs(S, `(() => { const r = document.querySelectorAll('.lo-list .lo-tile')[${u}]; r.scrollIntoView({ block: 'nearest' }); const q = r.getBoundingClientRect(); return JSON.stringify([q.left + 40, q.top + 20]); })()`);
-        mouse(S, 'move', t0[0], t0[1]); await pause(50); mouse(S, 'down', t0[0], t0[1], { buttons: 1 }); await pause(30); mouse(S, 'up', t0[0], t0[1]); await pause(300);
-        if (evalJs(S, `JSON.stringify(JSON.stringify(fe.model.sections[0]))`) !== was) errs.push(`${key} a press on tile ${u} changed the section`);
-      }
       browser(S, 'press', 'Escape'); await pause(200);
       // Each read pick from the same start: every block's areas by its type, the rows, the look and the height class; the
       // section's height within 2px where a pick drops the class.
