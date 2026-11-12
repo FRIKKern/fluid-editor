@@ -55,7 +55,7 @@ function typeList(kind, b) {
 // tightest read tile's room (inferred, not read): rows x 41.09 at the tile's scale plus 36.4, Quote+Text's tile 4.
 const TILE_SCALE = 283 / 1600, TILE_NOT_READ = 140;
 const rowsTall = (rows) => rows * 41.09 * TILE_SCALE;
-const TILE_ROOM = Math.min(...Object.entries(MIX_TILES).flatMap(([key, tiles]) => tiles.flatMap((t, n) => (t != null && MIX_PICKS[key]?.[n] ? [t - rowsTall(MIX_PICKS[key][n].rows)] : []))));
+const TILE_ROOM = Math.round(Math.min(...Object.entries(MIX_TILES).flatMap(([key, tiles]) => tiles.flatMap((t, n) => (t != null && MIX_PICKS[key]?.[n] ? [t - rowsTall(MIX_PICKS[key][n].rows)] : [])))) * 10) / 10;
 const tileOf = (key, n) => MIX_TILES[key][n] ?? MIX_TILES_MEAN[key]?.[n] ?? (MIX_PICKS[key]?.[n] ? Math.round((rowsTall(MIX_PICKS[key][n].rows) + TILE_ROOM) * 10) / 10 : TILE_NOT_READ);
 const onePara = (b) => {
   if (typeof document === 'undefined') return false;
