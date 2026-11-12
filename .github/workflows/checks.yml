@@ -8,7 +8,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      # Full history: check-claims looks for each claimed count in parity/<x>-check.json on main, and fails in CI without it.
       - uses: actions/checkout@v5
+        with: { fetch-depth: 0 }
       - uses: actions/setup-node@v5
         with: { node-version: 22 }
       - run: npm run check
