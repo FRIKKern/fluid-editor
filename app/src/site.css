@@ -210,20 +210,21 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   justify-content: var(--stack-justify-content, flex-start); align-items: var(--stack-align-items, flex-start);
 }
 /* In a column every child is as wide as the stack; a Shape takes the height left, at least 150px.
+   A drawn Product, Menu or Archive tile (standin-tiles.js) is a plain Shape here too.
    W and H by child: Fill, Hug (a Shape is 300 by 150) or a size. In a row the children
    share the width evenly and take their own height, and a Shape fills the stack's height
    (parity/findings/S3.json). */
 .stack-child-container { align-self: stretch; min-height: 20px; min-width: 20px; display: flex; flex-direction: column; }
 .stack-child-container > .sqs-block { flex: 1 1 auto; }
-.stack-child-container:has(> .sqs-block-shape) { min-height: 150px; }
+.stack-child-container:has(> :is(.sqs-block-shape, .fe-drawn-tile)) { min-height: 150px; }
 @media (min-width: 768px) {
   .stack-child-container[data-h="fill"] { flex: 1 1 auto; }
   .stack-child-container[data-h="fixed"] { flex: 0 0 var(--kid-h); min-height: 0; }
   .stack-child-container[data-w="fixed"] { align-self: auto; width: var(--kid-w); }
   .stack-child-container[data-w="hug"] { align-self: auto; width: fit-content; }
-  .stack-child-container[data-w="hug"]:has(> .sqs-block-shape.sqs-stretched) { width: 300px; }
+  .stack-child-container[data-w="hug"]:has(> :is(.sqs-block-shape.sqs-stretched, .fe-drawn-tile)) { width: 300px; }
   .stack-child-container .sqs-shape-block-container.is-contained { align-items: var(--kid-align, center); }
-  .stack-child-container[data-h="hug"]:has(> .sqs-block-shape) { height: 150px; flex: 0 0 auto; }
+  .stack-child-container[data-h="hug"]:has(> :is(.sqs-block-shape, .fe-drawn-tile)) { height: 150px; flex: 0 0 auto; }
   .stack-d-row > .stack-child-container { flex: 1 1 0; align-self: auto; width: auto; }
   .stack-d-row > .stack-child-container[data-h="fill"] { align-self: stretch; }
   .stack-d-row > .stack-child-container[data-w="fixed"] { flex: 0 0 var(--kid-w); width: var(--kid-w); }
@@ -237,9 +238,9 @@ svg.sqs-shape:not(.is-square) { position: absolute; inset: 0; }
   .stack-child-container[data-mh="fixed"] { flex: 0 0 var(--kid-mh); min-height: 0; }
   .stack-child-container[data-mw="fixed"] { align-self: auto; width: var(--kid-mw); }
   .stack-child-container[data-mw="hug"] { align-self: auto; width: fit-content; }
-  .stack-child-container[data-mw="hug"]:has(> .sqs-block-shape.sqs-stretched) { width: 300px; }
+  .stack-child-container[data-mw="hug"]:has(> :is(.sqs-block-shape.sqs-stretched, .fe-drawn-tile)) { width: 300px; }
   .stack-child-container .sqs-shape-block-container.is-contained { align-items: var(--kid-malign, center); }
-  .stack-child-container[data-mh="hug"]:has(> .sqs-block-shape) { height: 150px; flex: 0 0 auto; }
+  .stack-child-container[data-mh="hug"]:has(> :is(.sqs-block-shape, .fe-drawn-tile)) { height: 150px; flex: 0 0 auto; }
   .stack-m-row > .stack-child-container { flex: 1 1 0; align-self: auto; width: auto; }
   .stack-m-row > .stack-child-container[data-mh="fill"] { align-self: stretch; }
   .stack-m-row > .stack-child-container[data-mw="fixed"] { flex: 0 0 var(--kid-mw); width: var(--kid-mw); }
