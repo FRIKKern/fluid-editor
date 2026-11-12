@@ -7,7 +7,7 @@
 name: browser-checks
 on:
   push:
-    branches: [main, ci-browser-checks] # TEMP: measuring before merge, dispatch needs the file on main
+    branches: [main]
   workflow_dispatch:
     inputs:
       checks:
@@ -29,13 +29,16 @@ jobs:
     steps:
       # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
       # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
+      # text-check runs twice: its 2-min sample on Linux, its --full replay on macOS (Meta+u underlines only on a Mac).
+      # Left out: marks-check. Its fades are read frame by frame and its tip by the ms; on hosted runners 15 of those reads
+      # and one panel place miss (1706 of 1722 on macOS, with font misses too on Linux), and it takes 50 min.
       - id: pick
-        env: { ONLY: "${{ inputs.checks || 'coverage-check' }}" } # TEMP list
+        env: { ONLY: "${{ inputs.checks }}" }
         run: |
           node -e '
           const L = "ubuntu-24.04", M = "macos-15";
           const all = [
-            ["neworder-check", "--full", 60, L], ["marks-check", "", 60, M], ["textpush-check", "", 45, L],
+            ["neworder-check", "--full", 60, L], ["textpush-check", "", 45, L],
             ["code-check", "--full", 40, M], ["mid-check", "", 40, M], ["row-check", "--full", 30, L],
             ["text-check", "--full", 60, M], ["text-check", "", 20, L], ["x6-check", "", 40, L], ["form-check", "", 30, L],
             ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],
