@@ -1,7 +1,8 @@
-# The headless browser checks on a Linux runner, one job per check, after every push to main and on demand.
+# The headless browser checks on GitHub runners (Linux, or macOS where Linux drifts), one job per check, after every push to main and on demand.
 # Phase 1: it reports only. No pull_request trigger and no required check, so it never blocks a PR.
 # Each job serves app/, starts its own headless Chrome (scripts/lib/chrome.mjs) and runs one check. The job's
 # summary has the check's pass count here and in main's stored result file; a red job uploads its log and result.
+# Red means the check failed with a result other than the one main stores (scripts/ci-count.mjs).
 # Run a few by hand: gh workflow run browser-checks --ref <branch> -f checks=text-check,mid-check
 name: browser-checks
 on:
@@ -29,7 +30,7 @@ jobs:
       # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
       # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
       - id: pick
-        env: { ONLY: "${{ inputs.checks || 'mid-check' }}" } # TEMP list
+        env: { ONLY: "${{ inputs.checks || 'mid-check,standin-check' }}" } # TEMP list
         run: |
           node -e '
           const L = "ubuntu-24.04", M = "macos-15";
@@ -101,24 +102,12 @@ jobs:
           start=$(date +%s) code=0
           npm run ${{ matrix.check }} ${{ matrix.args && format('-- {0}', matrix.args) }} 2>&1 | tee "$RUNNER_TEMP/out/${{ matrix.check }}.log" || code=$?
           echo "exit $code, took $(( $(date +%s) - start )) s"
-          exit $code
+          echo "$code" > "$RUNNER_TEMP/code"
+      # Red or green is decided here, against main's stored result file (scripts/ci-count.mjs says how).
       - name: Count against main
-        if: always()
         run: |
-          node -e '
-          const { execFileSync } = require("child_process"); const fs = require("fs");
-          const file = `parity/${process.argv[1]}.json`;
-          const count = (j) => j && Number.isFinite(j.pass) ? `${j.pass}/${j.total}` : "no count";
-          let ci = null, mac = null;
-          // Only a file this run wrote counts: the checkout already holds main's.
-          try { if (fs.statSync(file).mtimeMs > fs.statSync(`${process.env.RUNNER_TEMP}/started`).mtimeMs) ci = JSON.parse(fs.readFileSync(file, "utf8")); } catch {}
-          try { mac = JSON.parse(execFileSync("git", ["show", `HEAD:${file}`], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] })); } catch {}
-          const changed = ci && mac && JSON.stringify(ci) !== JSON.stringify(mac);
-          const line = `| ${process.argv[1]} | ${count(ci)} | ${count(mac)} | ${ci ? (changed ? "result file differs" : "same file") : "this run wrote no result file"} |`;
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `| check | CI | stored (Mac) | |\n|---|---|---|---|\n${line}\n`);
-          console.log(line);
-          ' ${{ matrix.check }}
           cp parity/${{ matrix.check }}.json "$RUNNER_TEMP/out/" 2>/dev/null || true
+          node scripts/ci-count.mjs ${{ matrix.check }} "$(cat "$RUNNER_TEMP/code")" "$RUNNER_TEMP/started"
       - if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
