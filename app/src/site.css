@@ -740,6 +740,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
    Flickr's and Instagram's tiles go two to a row, 178.3 square: 6 rows at 376.7 wide make the oracle's 1190 (CAP-X6FLICKRPHONE.json, CAP-X6PHONEROWS.json). */
 @media (max-width: 767px) {
   .sqs-block-shape .sqs-block-content[style*="--phone-h"] { height: var(--phone-h); }
+  .fe-drawn-tile[style*="--phone-h"] { height: var(--phone-h); }
   .sqs-block-flickr .fe-tiles, .sqs-block-instagram .fe-tiles { grid-template-columns: repeat(2, 1fr); }
 }
 .fe-status { position: absolute; inset: 0 0 auto; box-sizing: border-box; padding: 22px 56px 22px 22px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 2px; background: #fff; color: rgb(62, 62, 62); text-align: left; }
@@ -770,6 +771,24 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .product-quantity button { display: flex; width: 17px; height: 17px; padding: 0; border: 0; background: none; color: inherit; }
 .product-quantity input { box-sizing: border-box; width: 30.1px; height: 27px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 16px; line-height: 27px; text-align: center; }
 .sqs-add-to-cart-button { flex: 1000 1 160px; height: 52.6px; padding: 0; border: 0; background: rgb(0, 0, 0); color: #fff; font: inherit; font-size: 16px; font-weight: 500; line-height: 27px; }
+/* Menu (CAP-T12PRESS-C.json, CAP-ROWSMENU.json, read at 694.4 wide): menu names 16px 500 on 16px lines, 3 down, centred; the
+   menus 16 under the top, or under a 54.4 band of names and 16; a section title at 41.2px, its items 48 under it, sections 80 apart; an
+   item's title 26.08px, its description 5 under it, 32 after each item. Multi-Column: two columns 48 apart, the price at the
+   title's top right, the title and description 48 short of it. Centered: the price 7 under the description, 9 above the 32. */
+.menu-selects { box-sizing: border-box; height: 54.4px; padding-top: 3px; text-align: center; font-size: 16px; line-height: 16px; font-weight: 500; }
+.menu-select-labels { display: inline-block; }
+.menus { padding-top: 16px; }
+.menu-section + .menu-section { margin-top: 80px; }
+.menu-section-title { margin-bottom: 48px; font-size: 41.2px; line-height: 53.56px; }
+.menu-items { column-count: 2; column-gap: 48px; }
+.menu-item { position: relative; padding-bottom: 32px; break-inside: avoid; }
+.menu-item-title { padding-right: 48px; font-size: 26.08px; line-height: 33.904px; }
+.menu-item-description { margin: 5px 48px 0 0; font-size: 16px; line-height: 22.4px; }
+.menu-item-price-bottom { position: absolute; top: -1px; right: 0; font-size: 16px; line-height: 22.4px; }
+.menu-layout-centered .menu-items { column-count: 1; text-align: center; }
+.menu-layout-centered .menu-item-title { padding-right: 0; }
+.menu-layout-centered .menu-item-description { margin-right: 0; }
+.menu-layout-centered .menu-item-price-bottom { position: static; margin: 7px 0 9px; }
 /* Newsletter (CAP-T12NEWSLETTER.json, read at 10 columns, 576.8 wide). Float puts the email field and the button on one
    line when they fit, a space apart; Stack puts them under each other. The heading is an h2 at Heading 3's size (41.2px),
    1.2 high. Its margins stay

@@ -59,15 +59,28 @@ const PRODUCT = [
   [by('add-to-cart-text'), '.add-to-cart-text', ['cx', 'cy']],
 ];
 const PRODUCT_KEYS = { Image: 'pdImage', Title: 'pdTitle', Price: 'pdPrice', Description: 'pdDesc', 'Add to Cart Button': 'pdCart', 'Product Quick View': 'pdQuick' };
+// Menu (CAP-T12PRESS-C.json at 12 columns; the default's boxes the same in CAP-T12PANELS-B.json and CAP-T12READS-E.json): the
+// menu names' widths follow the font, so only their line is compared. The price's number is a text node, not a leaf.
+const MENU = [
+  [by('menu-select-labels', 'LABEL'), '.menu-select-labels', ['y', 'h']],
+  [by('menu-section-title'), '.menu-section-title', ['x', 'y', 'w', 'h']],
+  [by('menu-item-title'), '.menu-item-title', ['x', 'y', 'w', 'h']],
+  [by('menu-item-description'), '.menu-item-description', ['x', 'y', 'w', 'h']],
+  [by('currency-sign'), '.currency-sign', ['x', 'y', 'w', 'h']],
+];
 const RUNS = [
   { name: 'Product at 6 columns', file: 'CAP-T12PRESS-A', block: 'Product', span: 6, rows: 10, map: PRODUCT },
   { name: 'Product at 3 columns', file: 'CAP-T12PRESS-E', block: 'Product', span: 3, rows: 10, map: PRODUCT },
+  { name: 'Menu at 12 columns', file: 'CAP-T12PRESS-C', block: 'Menu', span: 12, rows: 28, map: MENU },
 ];
 // A step of the read, pressed on our panel: a switch by its key, a menu by its value.
 const act = async (block, step, tab) => {
   if (step.tab !== tab.now) { await press(`[data-btab="${step.tab}"]`); tab.now = step.tab; }
   if (block === 'Product' && step.sw) return press(`input[data-sp-set="${PRODUCT_KEYS[step.sw]}"]`);
   if (block === 'Product' && step.menu) return pick('pdRatio', step.pick);
+  // The menu's text as typed and left (one change); Layout and Currency Symbol by their menus.
+  if (block === 'Menu' && step.type) return qs(`const t = p.querySelector('textarea[data-sp-field="mnText"]'); t.focus(); t.value = ${JSON.stringify(step.value)}; t.dispatchEvent(new Event('input', { bubbles: true })); t.dispatchEvent(new Event('change', { bubbles: true })); t.blur(); await sleep(300); return 'true';`);
+  if (block === 'Menu' && step.menu) return pick(step.menu === 'Multi-Column' ? 'mnLayout' : 'mnCurrency', step.pick);
   throw new Error(`no press for ${JSON.stringify(step)}`);
 };
 
@@ -80,10 +93,16 @@ for (const run of RUNS) {
   for (const [i, s] of R.steps.entries()) {
     await act(run.block, { ...s.step, pick: s.note?.pick }, tab);
     miss = compare(run.map, s.after.leaves, ours(sels));
-    const what = s.step.sw ? `${s.step.sw} ${s.note.now ? 'on' : 'off'}` : `${s.step.menu} ${s.note.pick}`;
+    const what = s.step.sw ? `${s.step.sw} ${s.note.now ? 'on' : 'off'}` : s.step.type ? `${s.step.type} typed` : `${s.step.menu} ${s.note.pick}`;
     add(`${run.name}, step ${i + 1}: ${what}`, !miss.length, miss.join(' | '));
   }
 }
+
+// A second run (CAP-ROWSMENU.json, the default text): the first section's items 276.8 high in two columns, 395.2 when Centered.
+placeAndEdit('Menu', 12, 28);
+const items = () => qs(`const e = document.getElementById('site-frame').contentDocument.querySelector('#block-one .menu-items'); return JSON.stringify(e && Math.round(e.getBoundingClientRect().height * 10) / 10);`);
+const cols = items(); await press('[data-btab="Design"]'); pick('mnLayout', 'Centered'); const centred = items();
+add('Menu: the first section 276.8 high in two columns, 395.2 Centered', cols != null && Math.abs(cols - 276.8) <= 1.5 && centred != null && Math.abs(centred - 395.2) <= 1.5, JSON.stringify({ cols, centred }));
 
 // Undo and Redo take the drawing back and forth with the value.
 placeAndEdit('Product', 6, 10);

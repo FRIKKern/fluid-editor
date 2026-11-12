@@ -6,6 +6,7 @@
 // Note texts are copied from the read's screenshots.
 import { escapeHtml as esc, richHtml, PLAN_PARTS, planHeight } from './render.js';
 import { IMAGE_SHAPE_TABS, imageShapesOf } from './image-shapes.js';
+import { MENU_TEXT } from './standin-tiles.js';
 
 const pi = (p) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const CHEV = pi('<path d="M9 6l6 6-6 6"/>');
@@ -56,7 +57,7 @@ const EACH = [['TL', 'Top left'], ['TR', 'Top right'], ['BR', 'Bottom right'], [
 const select = (key, label, opts, def) => (v) => `<label class="sp-row bp-sp-erow bp-sp-sel"><span class="sp-label">${label}</span><span class="bp-sp-selv">${esc(v[key] ?? def)}${pi('<path d="M7 10l5 5 5-5"/>')}</span><select aria-label="${label}" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
 const focal = () => () => `<button type="button" class="bp-sp-focal" disabled>${pi('<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><circle cx="12" cy="12" r="1.5"/>')}<span>Focal Point</span></button>`;
 // Menu's rows: the menu's text in a code box that grows with it, a layout tile with its menu, help texts with code boxes.
-const MENU_TEXT = 'MEALS\n=========\n\nSandwiches\n----------\n\nLE PAYSAN\nSmoked Turkey, Brie & apple chutney\n$14\n\nSOHO MEDITERRANEAN SANDWICH\nHummus, grilled vegetables & halloumi cheese\n$15\n\nSTEAK SANDWICH\nSteak w/ onions, bacon & cheddar\n$18\n\n\nPasta\n------\n\nGRAMIGNA\nmacaroni, pork sausage, swiss chard, black pepper\n$20\n\nGARGANELLI\npasta quills, cream, peas, truffle butter, prosciutto\n$22\n\nSPALLINA\ndouble ravioli, squacquerone cheese, rabbit, porcini\n$24\n\n\nDRINKS\n=========\n\nWine\n----\n\nSauvignon Blanc, Kim Crawford, Imalborough\n$12.00 glass /  $45.00 bottle\n\nMeursault, Mat Rot, Burgundy, France\n$13 glass / $80 bottle';
+// The default text lives with the tile that draws it (standin-tiles.js).
 const code = (key, label, def) => (v) => `<div class="bp-sp-code"><textarea aria-label="${label}" data-sp-field="${key}" spellcheck="false">${esc(v[key] ?? def)}</textarea></div>`;
 const LAYOUT_ICON = '<path d="M5 7h3M5 12h3M5 17h3M11 7h8M11 12h8M11 17h8"/>';
 const layout = (key, opts, def, icon = LAYOUT_ICON) => (v) => `<label class="bp-sp-layout"><span class="bp-sp-ltile">${pi(icon)}</span><span class="bp-sp-lname">${esc(v[key] ?? def)}</span>${pi('<path d="M7 10l5 5 5-5"/>')}<select aria-label="Layout" data-sp-set="${key}">${opts.map((o) => `<option${(v[key] ?? def) === o ? ' selected' : ''}>${o}</option>`).join('')}</select></label>`;
@@ -125,7 +126,7 @@ export const STANDIN_PANELS = {
     design: [cap('Alignment'), icons('ppAlign', 'Alignment', ['left', 'center', 'right'], 'left'), cap('Elements'), ...PLAN_PARTS.map(([k, l]) => erow(k, l, true)), field('ppButton', 'Button Text', 'Sign Up')],
   },
   Menu: {
-    // What the text does to the block is not drawn: the tile stays a stand-in (CAP-T12PRESS-C.json reads it).
+    // What the text, Layout and Currency Symbol draw: standin-tiles.js (CAP-T12PRESS-C.json).
     tabs: ['Content', 'Design', 'Formatting Help'],
     content: [note('Add your menu items, descriptions, and prices.<br>When you follow the format patterns below, your<br>text will transform into different menu sections.', ' bp-sp-mnote'), code('mnText', 'Menu text', MENU_TEXT)],
     design: [layout('mnLayout', ['Centered', 'Multi-Column'], 'Multi-Column'), select('mnCurrency', 'Currency Symbol', ['$ Dollar', '€ Euro', '£ Pound', '¥ Yen'], '$ Dollar')],
