@@ -37,7 +37,7 @@ jobs:
           const all = [
             ["neworder-check", "--full", 60, L], ["marks-check", "", 60, M], ["textpush-check", "", 45, L],
             ["code-check", "--full", 40, M], ["mid-check", "", 40, M], ["row-check", "--full", 30, L],
-            ["text-check", "--full", 60, M], ["x6-check", "", 40, L], ["form-check", "", 30, L],
+            ["text-check", "--full", 60, M], ["text-check", "", 20, L], ["x6-check", "", 40, L], ["form-check", "", 30, L],
             ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],
             ["t11-check", "", 30, L], ["block-design-check", "", 30, L], ["video-check", "", 30, L],
             ["shape-check", "", 30, L], ["snap-check", "", 30, L], ["paste-check", "--full", 20, L],
@@ -58,7 +58,7 @@ jobs:
           '
   check:
     needs: plan
-    name: ${{ matrix.check }}
+    name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: ${{ matrix.minutes }}
     strategy:
@@ -111,6 +111,6 @@ jobs:
       - if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ${{ matrix.check }}
+          name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
           path: ${{ runner.temp }}/out/
           retention-days: 14
