@@ -1,32 +1,31 @@
 {
  "check": "coverage",
  "oracleCaptured": "2026-11-07",
- "matched": 529,
+ "matched": 541,
  "counts": {
   "unread": 5,
-  "namedNotOurs": 84,
-  "oursOnly": 146,
+  "namedNotOurs": 60,
+  "oursOnly": 152,
   "proseOnlyOracle": 9,
   "proseOnlyOurs": 16,
-  "tabs": 2,
+  "tabs": 0,
   "toolbar": 0,
   "bars": 12,
   "kinds": 4,
-  "oursOff": 87
+  "oursOff": 91
  },
  "summary": {
   "note": "Desktop. On a stand-in every oracle row counts: ours shows a Shape's rows there.",
-  "controls": 25,
-  "headings": 8,
+  "controls": 14,
+  "headings": 7,
   "outside": 8,
   "states": 2,
   "byKind": {
-   "button": 7,
-   "slider": 1,
-   "choice": 9,
-   "switch": 4,
-   "field": 2,
-   "menu": 2
+   "button": 3,
+   "menu": 2,
+   "switch": 2,
+   "choice": 6,
+   "field": 1
   },
   "tiles": {
    "Text": {
@@ -181,31 +180,21 @@
      "Animation"
     ],
     "oursTabs": [
+     "Content",
      "Design",
      "Animation"
     ],
-    "control": [
-     "Dream it (button)",
-     "ADD ITEM (button)",
-     "ATTACH LINK (button)",
-     "Wave Intensity (slider)",
-     "Text Style (button)",
-     "Text Size (choice)",
-     "Direction (choice)",
-     "Speed (choice)",
-     "Pause on hover (switch)",
-     "Fade edges (switch)",
-     "Item Spacing (field, slider)"
-    ],
-    "heading": [
-     "Link"
-    ],
+    "control": [],
+    "heading": [],
     "outside": [],
     "state": [],
     "help": 0,
-    "matched": 15,
+    "matched": 27,
     "common": 0,
-    "oursOff": []
+    "oursOff": [
+     "ADD ITEM",
+     "ATTACH LINK"
+    ]
    },
    "Line": {
     "oracleTabs": [
@@ -909,172 +898,6 @@
    "kinds": []
   },
   {
-   "where": "Scrolling > Content",
-   "name": "Dream it",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Content",
-   "name": "ADD ITEM",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Content",
-   "name": "Link",
-   "kinds": []
-  },
-  {
-   "where": "Scrolling > Content",
-   "name": "ATTACH LINK",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Wave Intensity",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Text Style",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Text Size",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Direction",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Speed",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Pause on hover",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Fade edges",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scrolling > Design",
-   "name": "Item Spacing",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Content",
-   "name": "Dream it",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Content",
-   "name": "ADD ITEM",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Content",
-   "name": "Link",
-   "kinds": []
-  },
-  {
-   "where": "Scrolling phone > Content",
-   "name": "ATTACH LINK",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Wave Intensity",
-   "kinds": [
-    "slider"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Text Style",
-   "kinds": [
-    "button"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Text Size",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Direction",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Speed",
-   "kinds": [
-    "choice"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Pause on hover",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Fade edges",
-   "kinds": [
-    "switch"
-   ]
-  },
-  {
-   "where": "Scrolling phone > Design",
-   "name": "Item Spacing",
-   "kinds": [
-    "field",
-    "slider"
-   ]
-  },
-  {
    "where": "Product > Content",
    "name": "CREATE NEW PRODUCT",
    "kinds": [
@@ -1629,6 +1452,25 @@
    ]
   },
   {
+   "where": "Scrolling > Content",
+   "name": "T",
+   "kinds": []
+  },
+  {
+   "where": "Scrolling > Content",
+   "name": "Delete Dream it",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scrolling > Content",
+   "name": "Delete 〰️",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
    "where": "Scrolling > Design",
    "name": "More actions",
    "kinds": [
@@ -1638,6 +1480,25 @@
   {
    "where": "Scrolling > Animation",
    "name": "Animation list actions",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scrolling phone > Content",
+   "name": "T",
+   "kinds": []
+  },
+  {
+   "where": "Scrolling phone > Content",
+   "name": "Delete Dream it",
+   "kinds": [
+    "button"
+   ]
+  },
+  {
+   "where": "Scrolling phone > Content",
+   "name": "Delete 〰️",
    "kinds": [
     "button"
    ]
@@ -2491,32 +2352,7 @@
    "kinds": []
   }
  ],
- "tabs": [
-  {
-   "type": "Scrolling",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  },
-  {
-   "type": "Scrolling phone",
-   "oracle": [
-    "Content",
-    "Design",
-    "Animation"
-   ],
-   "ours": [
-    "Design",
-    "Animation"
-   ]
-  }
- ],
+ "tabs": [],
  "toolbar": [],
  "bars": [
   {
@@ -2686,6 +2522,22 @@
   {
    "where": "Shape phone > Animation",
    "name": "Add a new animation"
+  },
+  {
+   "where": "Scrolling > Content",
+   "name": "ADD ITEM"
+  },
+  {
+   "where": "Scrolling > Content",
+   "name": "ATTACH LINK"
+  },
+  {
+   "where": "Scrolling phone > Content",
+   "name": "ADD ITEM"
+  },
+  {
+   "where": "Scrolling phone > Content",
+   "name": "ATTACH LINK"
   },
   {
    "where": "Scrolling phone > Animation",
