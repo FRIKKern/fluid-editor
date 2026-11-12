@@ -109,11 +109,12 @@ function note(text) {
 
 // force: a drop that moves nothing is still an undo step on the oracle (GROUPRESIZE.json, TEXTUNDO.json).
 // base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
-function commit(before, label, force = false, base = before) {
+// placed: a section whose phone places the edit set itself (a View Layouts pick), so it doesn't follow desktop then.
+function commit(before, label, force = false, base = before, placed = null) {
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(base);
+  followPhoneRows(base, placed);
   note(label);
   updateUi();
 }
@@ -121,7 +122,7 @@ function commit(before, label, force = false, base = before) {
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
 let softening = false; // one Escape: the model follows, the page isn't touched
-function followPhoneRows(before) {
+function followPhoneRows(before, placed = null) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
     const was = old.sections.find((o) => o.id === s.id);
@@ -129,7 +130,10 @@ function followPhoneRows(before) {
     // The first phone edit of a section that still follows desktop keeps the DOM order, even when a block moves
     // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A later edit follows rule R or sorts again.
     const first = bp === 'mobile' && was.phoneFollows === true && !was.phoneEdited;
-    const reflowed = phoneFollowsMove(s, was);
+    // A View Layouts pick on a section made here keeps the phone places it sets: every CAP-U10MIXPICK2 pick was read on
+    // an Add Blank section, and the phone areas right after it are the layout's (57 of 57), where following desktop would
+    // restack 8 of them. Whether the section follows desktop again on a later edit: not read, ours still does.
+    const reflowed = s.id !== placed && phoneFollowsMove(s, was);
     if (first && s.phoneEdited) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     // Rule R (fitted on CAP-A2SECONDEDIT; predictions first, CAP-A2RESIZEAHEAD-PREDICTED.json: 6 of 6 fresh, two reads each):
     // on a later phone edit, a block resized on the phone goes to its row's place, then ahead of the first block it overlaps.
@@ -6409,7 +6413,7 @@ layoutsPanel.addEventListener('click', (e) => {
     fitLayout(S(layoutsSid), mix, layoutsPicked, (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.getBoundingClientRect().height ?? 0, { rg: m.rg, pitch: rowFloor(fe) + m.rg });
   }
   if (sel?.sid === layoutsSid) select(null);
-  commit(before, `Layout ${layoutsPicked + 1}`);
+  commit(before, `Layout ${layoutsPicked + 1}`, false, before, layoutsSid);
   renderAll();
   pickMovesLayouts();
   layoutsMix = openedMix();

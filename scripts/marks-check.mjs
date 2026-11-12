@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { blankSection } from '../app/src/add-section.js';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/MARKS.json', import.meta.url)));
@@ -4109,6 +4110,30 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }
     add('View Layouts, eight more mixes: on with their tile counts as read, built only where a pick was read (CAP-U10MIXB)', errs.length === 0, errs.slice(0, 3).join(' | '));
     add(`View Layouts, those mixes: each read pick from the same start, as read (${built} picks, CAP-U10MIXPICK2)`, perr.length === 0 && built === 57, perr.slice(0, 3).join(' | '));
+    // The same picks from the reads' own start: a section made with Add Blank, which follows desktop on the phone
+    // (phoneFollows), the two blocks added to it. A pick keeps the phone places it sets, as read; following desktop
+    // after it put 8 of them elsewhere, some on negative rows (Image+Video and Image+Map 3, 7, 9; Text+Video and Code+Video 1).
+    const blank = async (a, b) => {
+      evalJs(S, `(() => { const m = ${JSON.stringify(base)}; m.sections[0] = ${JSON.stringify(blankSection('u10blank'))}; fe.load(m); fe.addBlock('u10blank', ${JSON.stringify(a)}); fe.addBlock('u10blank', ${JSON.stringify(b)}); fe.select(null); return 'true'; })()`);
+      await pause(250);
+      if (a === 'Text') { para('<p>Paragraph words for a probe</p>'); await pause(250); }
+      return evalJs(S, `JSON.stringify(fe.model.sections[0].phoneFollows === true)`);
+    };
+    let made = 0;
+    const berr = [];
+    for (const [a, b, key] of MIXES) for (let n = 0; n < 10; n++) {
+      const r = readPick(key, n);
+      if (!r) continue;
+      made++;
+      if (!(await blank(a, b))) { berr.push(`${key} ${n} the start does not follow desktop`); continue; }
+      await open();
+      const g = pick(n);
+      const want2 = seen(r).map((x, k) => [[a, b][k].toLowerCase(), ...x].join(' ')).sort().join();
+      const got = g && evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.map((x) => [(x.type === 'shape' ? x.label : x.type).toLowerCase(), x.layout.desktop.area.join('/'), x.layout.mobile.area.join('/')].join(' ')))`).sort().join();
+      if (got !== want2) berr.push(`${key} ${n} ${got}`);
+      browser(S, 'press', 'Escape'); await pause(200);
+    }
+    add(`View Layouts, those mixes: each read pick on an Add Blank section keeps both areas, as read (${made} picks, CAP-U10MIXPICK2)`, berr.length === 0 && made === 57, `${berr.length} of ${made}: ${berr.slice(0, 3).join(' | ')}`);
     await fresh('Text', 'Video'); para('<p>One paragraph</p><p>and another</p>'); await pause(250);
     const tv = await btn();
     add('View Layouts, a Text of two paragraphs + Video: off, not read', !!tv && tv.off, JSON.stringify(tv));
