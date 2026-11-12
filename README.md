@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 9 changes
+- **Today** · 10 changes
+  - check-claims: E4's "matches the oracle HTML (N of M" forms are claims, by a named list of joins ([#619](https://github.com/FRIKKern/fluid-editor/pull/619))
   - T12: npm run check matches each <x>-check N of M claim to a stored run; scrolling claim says 27 of 27 ([#617](https://github.com/FRIKKern/fluid-editor/pull/617))
-  - S3: a Product, Menu or Archive tile in a Stack is a Shape child again ([#616](https://github.com/FRIKKern/fluid-editor/pull/616))
 - **Yesterday** · 24 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
 - **This week** · 108 changes
