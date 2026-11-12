@@ -30,14 +30,14 @@ jobs:
       # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
       # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
       - id: pick
-        env: { ONLY: "${{ inputs.checks || 'mid-check,standin-check' }}" } # TEMP list
+        env: { ONLY: "${{ inputs.checks }}" }
         run: |
           node -e '
           const L = "ubuntu-24.04", M = "macos-15";
           const all = [
             ["neworder-check", "--full", 60, L], ["marks-check", "", 60, M], ["textpush-check", "", 45, L],
             ["code-check", "--full", 40, M], ["mid-check", "", 40, M], ["row-check", "--full", 30, L],
-            ["text-check", "--full", 30, M], ["x6-check", "", 40, L], ["form-check", "", 30, L],
+            ["text-check", "--full", 60, M], ["x6-check", "", 40, L], ["form-check", "", 30, L],
             ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],
             ["t11-check", "", 30, L], ["block-design-check", "", 30, L], ["video-check", "", 30, L],
             ["shape-check", "", 30, L], ["snap-check", "", 30, L], ["paste-check", "--full", 20, L],
