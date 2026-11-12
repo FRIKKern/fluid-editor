@@ -143,7 +143,7 @@ const kidBox = () => qs(`const st = fe.model.sections[1].blocks.find((b) => b.ty
 await press('[data-btab="Design"]');
 const typeSize = (axis) => qs(`const i = p.querySelector('input[data-stack-field="k${axis}"]'); if (!i) return 'false'; i.value = 'Hug'; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(250); return 'true';`);
 const hTyped = typeSize('h'), hHug = kidBox(), wTyped = typeSize('w'), both = kidBox();
-add('Product stacked with a Text: H Hug 150 tall, then W Hug 300 wide', hTyped && wTyped && hHug?.kids.join() === 't,one' && hHug.h === 150 && both?.h === 150 && both.w === 300, JSON.stringify({ hHug, both }));
+add('Product stacked with a Text: H Hug 150 tall, then W Hug 300 wide', hTyped && wTyped && hHug?.kids.join() === 't,one' && /\bfe-drawn-tile\b/.test(hHug.cls) && hHug.size?.h === 'Hug' && hHug.h === 150 && both?.h === 150 && both.w === 300 && JSON.stringify(both.size) === '{"h":"Hug","w":"Hug"}', JSON.stringify({ hHug, both }));
 
 writeFileSync(new URL('../parity/tiles-check.json', import.meta.url), `${JSON.stringify({ check: 'what the plain stand-in tiles draw', pass, total, results }, null, 1)}\n`);
 console.log(`Tiles: ${pass} of ${total} checks match`);
