@@ -30,7 +30,7 @@ jobs:
       # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
       # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
       - id: pick
-        env: { ONLY: "${{ inputs.checks }}" }
+        env: { ONLY: "${{ inputs.checks || 'coverage-check' }}" } # TEMP list
         run: |
           node -e '
           const L = "ubuntu-24.04", M = "macos-15";
@@ -47,7 +47,7 @@ jobs:
             ["resize-check", "", 20, L], ["image-check", "", 20, L], ["image-design-check", "", 20, L],
             ["image-effect-check", "", 20, L], ["image-editor-check", "", 20, L], ["image-import-check", "", 20, L],
             ["image-shape-check", "", 20, L], ["site-styles-check", "", 20, L], ["button-check", "", 20, L],
-            ["menu-check", "", 20, L], ["near-check", "", 20, L], ["autoscroll-check", "", 20, L], ["coverage-check", "", 20, M],
+            ["menu-check", "", 20, L], ["near-check", "", 20, L], ["autoscroll-check", "", 20, L], ["coverage-check", "", 20, L],
           ];
           const only = process.env.ONLY.split(",").map((s) => s.trim()).filter(Boolean);
           const unknown = only.filter((n) => !all.some(([c]) => c === n));
