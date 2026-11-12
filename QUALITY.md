@@ -124,8 +124,7 @@ lane:  FLUID_ORACLE_SITE ─► profile 9350 ─► oracle-setup-check ─► co
 7. `ORACLE_SURFACE=cdp:9350 node scripts/oracle-readback.mjs`, before storing anything. Each difference from the old site is a finding (O4).
 8. Store the bases on the clean site, before any probe:
    - `CAP-FOOTER`: `oracle-readback.mjs --footer-only --store-footer`.
-   - `CAP-STYLEROWS`: `oracle-readback.mjs --store`.
-   - `CAP-THEMEROWS`: no flag stores it. If step 7 shows its rows differ, the palette is not the old one: record it, don't hand-edit the file.
+   - `CAP-STYLEROWS` and `CAP-THEMEROWS`, in one run so Forms > Colors and the theme rows agree: `oracle-readback.mjs --store --store-themes`. It stores no theme rows if a row name changed: record that, don't hand-edit the file.
 9. `oracle-readback.mjs` again: exit 0. The demo page is not needed for probes; rebuilding it (`scripts/oracle-build.mjs`) saves a page that isn't a probe page, so that's the owner's call.
 
 ## Docs

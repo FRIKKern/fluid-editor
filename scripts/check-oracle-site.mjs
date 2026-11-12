@@ -43,8 +43,8 @@ const setup = (env, ...a) => {
 const port = 1; // a port whose profile folder no lane has
 const setupCases = [
   ['no site set: listed, exit 1', setup({}), (r) => r.code === 1 && /^missing +site +FLUID_ORACLE_SITE is not set/m.test(r.out) && /^skip +live /m.test(r.out) && !/^\S+ +login /m.test(r.out)],
-  ['bases stored before the trial: footer and styles to store, theme rows left to --live', setup({ FLUID_ORACLE_SITE: 'new-trial', CDP_PORT: String(port) }, '--since', '2999-01-01'),
-    (r) => r.code === 1 && r.out.includes(`ok       site     ${sq('new-trial')}`) && /^missing +base +CAP-FOOTER .*--store-footer$/m.test(r.out) && /^missing +base +CAP-STYLEROWS .*--store$/m.test(r.out) && /^skip +base +CAP-THEMEROWS /m.test(r.out) && /^missing +profile +\/tmp\/fluid-editor-chrome-1 does not exist/m.test(r.out)],
+  ['bases stored before the trial: each listed with the flag that stores it', setup({ FLUID_ORACLE_SITE: 'new-trial', CDP_PORT: String(port) }, '--since', '2999-01-01'),
+    (r) => r.code === 1 && r.out.includes(`ok       site     ${sq('new-trial')}`) && /^missing +base +CAP-FOOTER .*--store-footer$/m.test(r.out) && /^missing +base +CAP-STYLEROWS .*--store$/m.test(r.out) && /^missing +base +CAP-THEMEROWS .*--store-themes$/m.test(r.out) && /^missing +profile +\/tmp\/fluid-editor-chrome-1 does not exist/m.test(r.out)],
   ['bases stored after the trial started: ok', setup({ FLUID_ORACLE_SITE: 'new-trial' }, '--since', '2000-01-01'), (r) => ['CAP-FOOTER', 'CAP-THEMEROWS', 'CAP-STYLEROWS'].every((n) => new RegExp(`^ok +base +${n} stored`, 'm').test(r.out))],
   ['a bad --since: exit 2', setup({}, '--since', 'nov'), (r) => r.code === 2],
   ['--live with no site set stops before the site', setup({ ORACLE_SURFACE: `cdp:${port}` }, '--live'), (r) => r.code === 1 && /^missing +live +needs a valid FLUID_ORACLE_SITE/m.test(r.out) && !/^\S+ +login /m.test(r.out)],
@@ -52,8 +52,25 @@ const setupCases = [
 // --since reads capturedAt, so each store in oracle-readback (live only, not run here) must set it.
 const readback = readFileSync(`${root}/scripts/oracle-readback.mjs`, 'utf8').split('\n');
 for (const file of ['STYLE_FILE', 'FOOTER_FILE']) if (!readback.some((l) => l.includes(`writeFileSync(${file},`) && /capturedAt: new Date\(\)/.test(l))) errors.push(`scripts/oracle-readback.mjs: the store to ${file} does not set capturedAt to today`);
+if (!readback.some((l) => l.includes('writeFileSync(THEME_FILE,') && /themeStore\(FINDING, themeRead, new Date\(\)/.test(l))) errors.push('scripts/oracle-readback.mjs: --store-themes does not write themeStore(FINDING, themeRead, today) to THEME_FILE');
+
+// themeStore (scripts/oracle/readback.mjs): what --store-themes writes, from reads made up here.
+const { themeStore } = await import(`${root}/scripts/oracle/readback.mjs`);
+const TR = JSON.parse(readFileSync(`${root}/parity/findings/CAP-THEMEROWS.json`, 'utf8')), T = Object.keys(TR.rows.A), N = TR.rowGroups.flatMap(([, r]) => r);
+const asRead = () => ({ vars: { ...TR.palette.vars0 }, rows: Object.fromEntries(T.map((t) => [t, TR.rows.A[t].split(',').map((i, k) => [N[k], TR.rows.colors[Number(i)]])])) });
+const store = (read) => { try { return themeStore(TR, read, '2030-01-02'); } catch (e) { return e.message; } };
+const themeCases = [
+  ['the stored rows read back store the same, with the new date', () => { const s = store(asRead()); return s.capturedAt === '2030-01-02' && JSON.stringify(s.rows) === JSON.stringify(TR.rows) && JSON.stringify(s.palette) === JSON.stringify(TR.palette) && s.rowGroups === TR.rowGroups; }],
+  ['a recolored row and palette are stored; old colors keep their index', () => { const r = asRead(); r.rows[T[0]][0][1] = 'rgb(1, 2, 3)'; r.vars.accent = '1, 2%, 3%'; const s = store(r); const i = Number(s.rows.A[T[0]].split(',')[0]); return s.rows.colors[i] === 'rgb(1, 2, 3)' && s.rows.colors.slice(0, TR.rows.colors.length).join() === TR.rows.colors.join() && s.palette.vars0.accent === '1, 2%, 3%' && s.rows.A[T[1]] === TR.rows.A[T[1]] && s.rows.B === TR.rows.B; }],
+  ['a renamed row stores nothing', () => { const r = asRead(); r.rows[T[2]][5][0] = 'Renamed'; return /row names differ/.test(store(r)); }],
+  ['a dropped row stores nothing', () => { const r = asRead(); r.rows[T[2]].pop(); return /row names differ/.test(store(r)); }],
+  ['a theme not read stores nothing', () => { const r = asRead(); delete r.rows[T[3]]; return /was not read/.test(store(r)); }],
+  ['a palette value not read stores nothing', () => { const r = asRead(); r.vars.accent = ''; return /palette/.test(store(r)); }],
+];
+if (typeof themeStore !== 'function') errors.push('scripts/oracle/readback.mjs: no themeStore, so --store-themes has nothing to write');
+else for (const [name, ok] of themeCases) { let pass = false; try { pass = ok(); } catch {} if (!pass) errors.push(`themeStore: ${name}`); }
 if (!existsSync(SETUP)) errors.push('scripts/oracle-setup-check.mjs: missing');
 else for (const [name, r, ok] of setupCases) if (!ok(r)) errors.push(`oracle-setup-check, ${name}: exit ${r.code}\n${r.out}`);
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`oracle site ok: ${files.length} scripts name no site, ${MODULE} reads FLUID_ORACLE_SITE, oracle-setup-check ${setupCases.length} of ${setupCases.length}`);
+console.log(`oracle site ok: ${files.length} scripts name no site, ${MODULE} reads FLUID_ORACLE_SITE, oracle-setup-check ${setupCases.length} of ${setupCases.length}, themeStore ${themeCases.length} of ${themeCases.length}`);
