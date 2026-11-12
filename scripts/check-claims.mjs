@@ -8,7 +8,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const root = process.env.CLAIMS_ROOT ? `${process.env.CLAIMS_ROOT.replace(/\/$/, '')}/` : new URL('..', import.meta.url).pathname;
-const git = (args, opts = {}) => spawnSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, ...opts });
+// No GIT_* from a hook: they would name the hook's repo, not root.
+const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_')));
+const git = (args, opts = {}) => spawnSync('git', args, { cwd: root, env, encoding: 'utf8', maxBuffer: 1 << 28, ...opts });
 // A claim: the check's name (".mjs" allowed), then ": ", ", ", " reads ", " unchanged, " or a space, then "N of M".
 // "x-check's known list, 4 of 664" or "x-check misses 2 of 147" count something else.
 const CLAIM = /\b([a-z0-9]+(?:-[a-z0-9]+)*-check)(?:\.mjs)?(?::|,| reads| unchanged,)? (\d+) of (\d+)/g;
