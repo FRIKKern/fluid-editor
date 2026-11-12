@@ -1,0 +1,123 @@
+# The headless browser checks on GitHub runners (Linux, or macOS where Linux drifts), one job per check, after every push to main and on demand.
+# Phase 1: it reports only. No pull_request trigger and no required check, so it never blocks a PR.
+# Each job serves app/, starts its own headless Chrome (scripts/lib/chrome.mjs) and runs one check. The job's
+# summary has the check's pass count here and in main's stored result file; a red job uploads its log and result.
+# Red means the check failed with a result other than the one main stores (scripts/ci-count.mjs).
+# Run a few by hand: gh workflow run browser-checks --ref <branch> -f checks=text-check,mid-check
+name: browser-checks
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      checks:
+        description: 'Comma list of checks to run (blank: all)'
+        required: false
+        default: ''
+permissions:
+  contents: read
+# One run at a time per branch and event; a newer one waits, and replaces any run still waiting. A hand-run subset
+# never replaces a push run.
+concurrency:
+  group: browser-checks-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+    steps:
+      # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
+      # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
+      # text-check runs twice: its 2-min sample on Linux, its --full replay on macOS (Meta+u underlines only on a Mac).
+      # Left out: marks-check. Its fades are read frame by frame and its tip by the ms; on hosted runners 15 of those reads
+      # and one panel place miss (1706 of 1722 on macOS, with font misses too on Linux), and it takes 50 min.
+      - id: pick
+        env: { ONLY: "${{ inputs.checks }}" }
+        run: |
+          node -e '
+          const L = "ubuntu-24.04", M = "macos-15";
+          const all = [
+            ["neworder-check", "--full", 60, L], ["textpush-check", "", 45, L],
+            ["code-check", "--full", 40, M], ["mid-check", "", 40, M], ["row-check", "--full", 30, L],
+            ["text-check", "--full", 60, M], ["text-check", "", 20, L], ["x6-check", "", 40, L], ["form-check", "", 30, L],
+            ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],
+            ["t11-check", "", 30, L], ["block-design-check", "", 30, L], ["video-check", "", 30, L],
+            ["shape-check", "", 30, L], ["snap-check", "", 30, L], ["paste-check", "--full", 20, L],
+            ["chrome-check", "", 20, L], ["section-check", "", 20, L], ["design-edit-check", "", 20, L],
+            ["accordion-check", "", 20, L], ["accordion-styles-check", "", 20, L], ["scrolling-check", "", 20, L],
+            ["tiles-check", "", 20, L], ["fold-check", "", 20, L], ["rows-fit-check", "", 20, L],
+            ["resize-check", "", 20, L], ["image-check", "", 20, L], ["image-design-check", "", 20, L],
+            ["image-effect-check", "", 20, L], ["image-editor-check", "", 20, L], ["image-import-check", "", 20, L],
+            ["image-shape-check", "", 20, L], ["site-styles-check", "", 20, L], ["button-check", "", 20, L],
+            ["menu-check", "", 20, L], ["near-check", "", 20, L], ["autoscroll-check", "", 20, L], ["coverage-check", "", 20, L],
+          ];
+          const only = process.env.ONLY.split(",").map((s) => s.trim()).filter(Boolean);
+          const unknown = only.filter((n) => !all.some(([c]) => c === n));
+          if (unknown.length) { console.error(`not in the list: ${unknown.join(", ")}`); process.exit(1); }
+          const include = all.filter(([c]) => !only.length || only.includes(c)).map(([check, args, minutes, os]) => ({ check, args, minutes, joblimit: minutes + 5, os }));
+          require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include })}\n`);
+          console.log(include.map((c) => `${c.check} (${c.os})`).join(", "));
+          '
+  check:
+    needs: plan
+    name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    # The check's own limit is on its step, so Count still reports a check that ran out of time.
+    timeout-minutes: ${{ matrix.joblimit }}
+    strategy:
+      fail-fast: false
+      # The account's runners are shared with other repos' PR checks: leave most of them free.
+      max-parallel: 8
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      FLUID_PORT: 5178
+      CDP_PORT: 9333
+      FLUID_SURFACE: cdp:9333
+      TMPDIR: /tmp/
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 22 }
+      # The Mac lanes run Chrome 157; the same major here.
+      - id: chrome
+        uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0
+        with: { chrome-version: 157, install-dependencies: "${{ runner.os == 'Linux' }}" }
+      - name: Fonts and Chrome
+        env: { CHROME_BIN: '${{ steps.chrome.outputs.chrome-path }}' }
+        run: |
+          flags=
+          # Linux only. The runner's user namespaces are locked down (AppArmor), so Chrome's sandbox can't start: a throwaway
+          # VM runs without it. Linux Chrome turns a touch drag the page doesn't take into Back or a reload; a Mac doesn't.
+          [ "$RUNNER_OS" = Linux ] && flags='--no-sandbox --overscroll-history-navigation=0 --pull-to-refresh=0'
+          printf '#!/bin/sh\nexec "%s" %s "$@"\n' "$CHROME_BIN" "$flags" > "$RUNNER_TEMP/chrome"
+          chmod +x "$RUNNER_TEMP/chrome"
+          echo "CHROME=$RUNNER_TEMP/chrome" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+          if command -v fc-match > /dev/null; then for f in 'Helvetica Neue' Helvetica sans-serif monospace; do echo "$f -> $(fc-match "$f")"; done; fi
+      - name: Run ${{ matrix.check }}
+        timeout-minutes: ${{ matrix.minutes }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          node scripts/serve.mjs > "$RUNNER_TEMP/out/serve.log" 2>&1 &
+          for i in $(seq 50); do curl -fs "http://127.0.0.1:$FLUID_PORT/" > /dev/null && break; sleep 0.2; done
+          node scripts/headless.mjs
+          set -o pipefail
+          touch "$RUNNER_TEMP/started"
+          start=$(date +%s) code=0
+          npm run ${{ matrix.check }} ${{ matrix.args && format('-- {0}', matrix.args) }} 2>&1 | tee "$RUNNER_TEMP/out/${{ matrix.check }}.log" || code=$?
+          echo "exit $code, took $(( $(date +%s) - start )) s"
+          echo "$code" > "$RUNNER_TEMP/code"
+      # Red or green is decided here, against main's stored result file (scripts/ci-count.mjs says how).
+      - name: Count against main
+        if: always()
+        run: |
+          cp parity/${{ matrix.check }}.json "$RUNNER_TEMP/out/" 2>/dev/null || true
+          node scripts/ci-count.mjs ${{ matrix.check }} "$(cat "$RUNNER_TEMP/code" 2>/dev/null)" "$RUNNER_TEMP/started"
+      - if: failure() || cancelled()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ matrix.check }}${{ matrix.args && format(' {0}', matrix.args) }} (${{ matrix.os }})
+          path: ${{ runner.temp }}/out/
+          retention-days: 14
