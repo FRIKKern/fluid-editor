@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - X2: the dead !g.members guards out of the let-go code, a group's corner press named unread ([#614](https://github.com/FRIKKern/fluid-editor/pull/614))
   - U10: the eight mixes' View Layouts tiles hold their rows ([#613](https://github.com/FRIKKern/fluid-editor/pull/613))
-  - U10: a View Layouts pick on an Add Blank section keeps its phone places ([#610](https://github.com/FRIKKern/fluid-editor/pull/610))
 - **Yesterday** · 24 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
 - **This week** · 108 changes
