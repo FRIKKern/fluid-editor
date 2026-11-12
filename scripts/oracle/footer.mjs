@@ -1,9 +1,10 @@
 // The site footer is site-wide: a stray press once opened it for editing (2026-11-07). oracle-readback reads it on
 // fresh loads of the pages in FOOTER_PATHS and compares with this base, so a change shows as a diff, not by eye.
 import { readFileSync } from 'node:fs';
+import { GESTURES_PROBE } from '../lib/oracle-site.mjs';
 
 export const FOOTER_FILE = new URL('../../parity/findings/CAP-FOOTER.json', import.meta.url);
-export const FOOTER_PATHS = ['/', '/gestures-probe'];
+export const FOOTER_PATHS = ['/', GESTURES_PROBE.path];
 export const FOOTER = (() => { try { return JSON.parse(readFileSync(FOOTER_FILE, 'utf8')); } catch { return { reads: {} }; } })();
 
 // Read in the page or its edit frame. Emails come out as "(an email)" and no link targets are kept (O2).

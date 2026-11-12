@@ -13,6 +13,7 @@ import { BUTTON } from './oracle/snippets.mjs';
 import { trackedBy } from './lib/coverage.mjs';
 import { select, click, escape, deselect, hoverSection, openSectionPanel, blockIds } from './oracle/ui.mjs';
 import { BASE } from './lib/base.mjs';
+import { EDITOR, HOST } from './lib/oracle-site.mjs';
 
 // It clicks in the demo page's editor, and a click there can land on anything (0006). Say so to run it.
 if (!process.env.ORACLE_DEMO_WRITES) { console.error('inventory refused, nothing ran: it clicks in edit mode on the demo page. Set ORACLE_DEMO_WRITES=1 only if the lead has asked for this run (0006).'); process.exit(2); }
@@ -91,7 +92,7 @@ async function oEnsureDemo() {
   // Exit can land on the dashboard: the page list with our page lives at /config/pages.
   const linkVisible = () => evalJs(O, `(() => JSON.stringify(!![...document.querySelectorAll('*')].find((x) => x.childElementCount === 0 && x.textContent.trim() === ${JSON.stringify(PAGE_TITLE)} && x.getBoundingClientRect().width > 0 && x.getBoundingClientRect().left < 400)))()`);
   if (!s.title.includes(PAGE_TITLE) && linkVisible() !== true) {
-    goto(O, 'https://halibut-keyboard-jlhd.squarespace.com/config/pages');
+    goto(O, EDITOR);
     for (let k = 0; k < 20 && linkVisible() !== true; k++) await pause(1000);
   }
   if (!s.title.includes(PAGE_TITLE)) {
@@ -229,7 +230,7 @@ const STATES = [
 // ---------- coverage ---------- (scripts/lib/coverage.mjs)
 
 // ---------- run ----------
-const report = { capturedAt: new Date().toISOString().slice(0, 10), oracle: 'halibut-keyboard-jlhd.squarespace.com, demo page, 1600 by 1000 window', ours: 'app/index.html, canvas 1600 wide', states: [] };
+const report = { capturedAt: new Date().toISOString().slice(0, 10), oracle: `${HOST}, demo page, 1600 by 1000 window`, ours: 'app/index.html, canvas 1600 wide', states: [] };
 const file = new URL('../parity/inventory.json', import.meta.url);
 // The file is written after every state, so a failure later never loses what was measured.
 // A partial run (--only) keeps the other states of the previous file.

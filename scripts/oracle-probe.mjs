@@ -6,12 +6,13 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { browser, evalJs, waitFor, reload, pause, engine } from './lib/cmux.mjs';
 import { READY, LOADED, ENTER_EDIT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { select, click, editText, pasteHtml, escape, deselect, addSection, addBlock, removeBlock, sectionCount, area, hold, release, blockEl, pitch, blockIds, exitWithoutSaving, openSectionPanel } from './oracle/ui.mjs';
+import { DEMO } from './lib/oracle-site.mjs';
 
 // Its probes press and write, unsaved, on the demo page, and it can't run elsewhere (0006). Say so to run it.
 if (!process.env.ORACLE_DEMO_WRITES) { console.error('oracle-probe refused, nothing ran: it writes unsaved on the demo page. Set ORACLE_DEMO_WRITES=1 only if the lead has asked for this probe (0006).'); process.exit(2); }
 const S = process.env.ORACLE_SURFACE || 'surface:40';
 const which = process.argv[2];
-const PAGE = '/how-fluid-engine-works';
+const PAGE = DEMO.path;
 const today = new Date().toISOString().slice(0, 10);
 
 const FRAME = `const f = document.getElementById('sqs-site-frame'); const d = f.contentDocument; const W = f.contentWindow;`;
