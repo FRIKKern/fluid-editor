@@ -4062,7 +4062,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // Eight more mixes read on, one per reload, the typed block added last (CAP-U10MIXB.json, A and B alike): on, the tile
   // count read, each tile's height the gap to the next tile's top less 16 where the runs agree within 0.2, else the mean
   // of the two where both read a gap; any other tile fitted to its read pick's rows plus 36.4 (inferred). A tile is built where its pick was read from the same start, runs A and B alike (CAP-U10MIXPICK2-*.json,
-  // a fresh blank section each pick); every other tile stays not built, and a press on one changes nothing. The Text is
+  // a fresh blank section each pick); since #608 every tile's pick is read, so none is drawn not built. The Text is
   // one paragraph, as read; a Text of two stays off, not read.
   {
     const MB = FIND('CAP-U10MIXB').reads, errs = [];
