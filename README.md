@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 11 changes
-  - Gate A: check-claims fails without history in CI, and checks.yml checks out the full history ([#618](https://github.com/FRIKKern/fluid-editor/pull/618))
-  - check-claims: E4's "matches the oracle HTML (N of M" forms are claims, by a named list of joins ([#619](https://github.com/FRIKKern/fluid-editor/pull/619))
+- **Today** · 13 changes
+  - T12: coverage-check list stored again: 36 Scrolling rows moved by #590 ([#621](https://github.com/FRIKKern/fluid-editor/pull/621))
+  - U10, X2: evidence drops stale "not built" clauses for rules built since ([#620](https://github.com/FRIKKern/fluid-editor/pull/620))
 - **Yesterday** · 24 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
 - **This week** · 108 changes
