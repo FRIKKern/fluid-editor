@@ -1124,8 +1124,9 @@ function onUp(e) {
     if (pressFresh) { pressFresh = false; placeChrome(); }
     // A Text's corner let go short of a drag is not selected, any corner: a bottom one pulled 5 or 10 px (CAP-X2EDGES.json),
     // se and ne pressed with no move (CAP-X2UNREAD.json), sw and nw pressed with no move, ne 5 and 9 px right, nw 5 up
-    // (CAP-X2LEFT.json), twice each. A group's corner reaches this rule too when its first-selected block is a Text, and the
-    // group goes; with another block first it stays. A group's handle let go is not read (no X2 or X8 read holds a group's
+    // (CAP-X2LEFT.json), twice each. A group's corner reaches this rule too when sel.bid is a Text (the selection's first id:
+    // the first block shift-clicked, the first in DOM order for a marquee, the member pressed inside a group), and the group
+    // goes; with another type there it stays. A group's handle let go is not read (no X2 or X8 read holds a group's
     // selection), so that stays as built.
     const corner = g.resizeDir || '';
     if (/^(se|sw|ne|nw)$/.test(corner) && e.pointerType !== 'touch' && B(g.sid, g.bid)?.type === 'text') { select(null); return; }
@@ -1143,7 +1144,7 @@ function onUp(e) {
   growRows(s);
   endGesture();
   renderSectionDom(g.sid);
-  // Below, g.type 'resize' is a lone block: a group's resize is 'gresize' (startResize), so no lone let-go rule reaches a group.
+  // Below, g.type 'resize' is a lone block: a group's resize is 'gresize' (startResize), so no lone rule here reaches a group.
   if (g.type === 'gresize') stored = storedRows(g);
   // 98, candidate R1 under test (CAP-98SPLIT-PREDICTED.json): a lone Text made wider and left short arms the
   // stored rows too, worked out at the next layout gesture, so a block added since counts (CAP-98.json).
