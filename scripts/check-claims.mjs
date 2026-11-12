@@ -3,7 +3,8 @@
 // own commits don't count, since a squash merge drops them). It proves a claim was true at some commit, not that it is true
 // now: evidence keeps the count of its own day, and checks grow after it. Listed, not failed: a claim whose check stores
 // no result file or one with no pass and total, and, with no history to look in (a shallow clone, no origin/main), a
-// claim that differs from today's file. Test: scripts/check-claims-test.mjs. CLAIMS_ROOT=<dir> checks another repo.
+// claim that differs from today's file. With CI set, no history fails instead: there the listing went unread, and a
+// depth-1 checkout passed every false claim. Test: scripts/check-claims-test.mjs. CLAIMS_ROOT=<dir> checks another repo.
 import { existsSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
@@ -59,6 +60,7 @@ for (const c of claims) {
   else if (run === BAD) errors.push(`${where}: ${file} doesn't parse`);
   else if (run === NOCOUNT) listed.push(`${where}: ${file} has no pass and total, so the claim cannot be checked`);
   else if (run === c.said || past[c.name]?.has(c.said)) continue;
+  else if (noHistory && process.env.CI) errors.push(`${where}: ${file} says ${run}, and ${noHistory} (CI needs the full history: fetch-depth 0)`);
   else if (noHistory) listed.push(`${where}: ${file} says ${run}, and ${noHistory}`);
   else errors.push(`${where}: ${file} says ${run}, and no version of it on main (from ${base.slice(0, 8)}) ever said ${c.said}`);
 }
