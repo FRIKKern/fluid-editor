@@ -20,7 +20,8 @@ Object.assign(process.env, { GIT_DIR: join(decoy, '.git'), GIT_WORK_TREE: decoy,
 const put = (f, v) => { mkdirSync(join(dir, 'parity'), { recursive: true }); writeFileSync(join(dir, 'parity', f), typeof v === 'string' ? v : JSON.stringify(v)); };
 const store = (n, msg) => { put('near-check.json', { pass: n, total: n }); git('add', '-A'); git('commit', '-qm', msg); };
 const claim = (...evidence) => put('items.json', evidence.map((e, i) => ({ id: `X${i}`, evidence: e })));
-const run = () => { const r = spawnSync('node', [script], { env: { ...clean(), CLAIMS_ROOT: dir }, encoding: 'utf8' }); return { code: r.status, out: r.stdout + r.stderr }; };
+// CI comes only from a case that sets it: GitHub Actions sets CI for this test too.
+const run = (root = dir, more = {}) => { const { CI, ...env } = clean(); const r = spawnSync('node', [script], { env: { ...env, CLAIMS_ROOT: root, ...more }, encoding: 'utf8' }); return { code: r.status, out: r.stdout + r.stderr }; };
 
 let pass = 0, total = 0;
 const add = (what, ok, detail) => { total++; if (ok) pass++; console.log(`${what.padEnd(64)} ${ok ? 'ok' : `FAIL ${detail}`}`); };
@@ -52,9 +53,13 @@ try {
   r = run(); add('a claim with no result file is listed, not failed', r.code === 0 && /no parity\/gone-check\.json/.test(r.out), r.out);
   put('cover-check.json', { pass: 5, total: 5 }); git('update-ref', '-d', 'refs/remotes/origin/main'); claim('near-check, 72 of 72');
   r = run(); add('no origin/main: a past count is listed, not failed', r.code === 0 && /no merge base/.test(r.out), r.out);
+  // A depth-1 clone, as actions/checkout makes by default: today's file says 75, the claim 74 was never stored.
+  const shallow = join(dir, 'shallow'); claim('near-check 74 of 74'); git('commit', '-qam', 'claims 74');
+  gitIn(dir, 'clone', '-q', '--depth', '1', '--branch', 'branch', `file://${dir}`, shallow);
+  r = run(shallow, { CI: '1' }); add('CI=1 in a depth-1 clone fails a never-stored claim', r.code === 1 && /"near-check 74 of 74": .*a shallow clone/.test(r.out), r.out);
   add('a repo named in GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE is left as it was', decoyState() === before, 'the decoy changed');
 } finally {
   for (const d of [dir, decoy]) rmSync(d, { recursive: true, force: true });
 }
 console.log(`check-claims cases: ${pass} of ${total}`);
-process.exit(pass === total && total === 11 ? 0 : 1);
+process.exit(pass === total && total === 12 ? 0 : 1);
