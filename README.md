@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 13 changes
+- **Today** · 14 changes
+  - CI: run the headless browser checks on GitHub Actions after each push to main ([#622](https://github.com/FRIKKern/fluid-editor/pull/622))
   - T12: coverage-check list stored again: 36 Scrolling rows moved by #590 ([#621](https://github.com/FRIKKern/fluid-editor/pull/621))
-  - U10, X2: evidence drops stale "not built" clauses for rules built since ([#620](https://github.com/FRIKKern/fluid-editor/pull/620))
 - **Yesterday** · 24 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
 - **This week** · 108 changes
