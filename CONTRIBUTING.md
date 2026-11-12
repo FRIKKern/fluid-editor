@@ -20,6 +20,10 @@ item in parity/items.json ─► trace on the oracle (if unknown) ─► branch 
 npm run check
 ```
 
+## After a merge
+
+The `browser-checks` workflow runs the headless checks on main after every push, one job per check. A red job means main is red: its summary gives the check's count in CI next to the count stored in `parity/`, and its log is attached. It never runs on, or blocks, a PR. To run some by hand: `gh workflow run browser-checks -f checks=text-check,mid-check`.
+
 ## Decisions
 
 A decision gets its own page in `docs/decisions/NNNN-title.md`. A page is superseded by a new page, never edited.
