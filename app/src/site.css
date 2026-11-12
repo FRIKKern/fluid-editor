@@ -740,6 +740,7 @@ body.is-preview .image-lightbox img { cursor: pointer; }
    Flickr's and Instagram's tiles go two to a row, 178.3 square: 6 rows at 376.7 wide make the oracle's 1190 (CAP-X6FLICKRPHONE.json, CAP-X6PHONEROWS.json). */
 @media (max-width: 767px) {
   .sqs-block-shape .sqs-block-content[style*="--phone-h"] { height: var(--phone-h); }
+  .fe-drawn-tile[style*="--phone-h"] { height: var(--phone-h); }
   .sqs-block-flickr .fe-tiles, .sqs-block-instagram .fe-tiles { grid-template-columns: repeat(2, 1fr); }
 }
 .fe-status { position: absolute; inset: 0 0 auto; box-sizing: border-box; padding: 22px 56px 22px 22px; border: 1px solid rgba(0, 0, 0, .12); border-radius: 2px; background: #fff; color: rgb(62, 62, 62); text-align: left; }
@@ -749,6 +750,63 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 .fe-tile { display: block; color: inherit; text-decoration: none; }
 .fe-tile > span:first-child { display: block; aspect-ratio: 1; background: #d9d4ca; }
 .fe-tile-title { display: block; margin-top: 7px; font-size: 14px; line-height: 22.4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* The plain stand-ins that draw their content (standin-tiles.js), boxes as read; their rows stay, so content past them is cut.
+   Product (CAP-T12PRESS-A.json at 341.7 wide, -E.json at 165.3): the empty image's fill is ours (not read), its icon 34 round in
+   rgb(242, 242, 242) with our plus, 36 above the image's middle, the words' line 16 under it; the title 16 under the image, the
+   price 4.2 under the title, the description 16 and the cart row 11 under what is above. The quantity box and the button
+   share a line 6 apart when they fit (107.5 + 228.2 at 341.7) and stack full width when not (165.3): where between is
+   inferred, as is the quantity's inset (9.6 at 107.5, 14.2 at 165.3, fitted) and its border. */
+.fe-drawn-tile { position: relative; height: 100%; }
+.fe-drawn-tile > .sqs-block-content { position: absolute; inset: 0; overflow: hidden; }
+.product-image { position: relative; margin-bottom: 16px; background: #d9d4ca; }
+.product-add { position: absolute; top: calc(50% - 36px); left: 0; right: 0; display: flex; flex-direction: column; align-items: center; color: rgb(14, 14, 14); }
+.product-add-icon { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: rgb(242, 242, 242); }
+.product-add-text { margin-top: 16px; font-size: 14px; line-height: 22px; }
+.product-title { width: fit-content; margin-bottom: 4.2px; font-size: 21.04px; line-height: 29.456px; }
+.product-price { font-size: 17.68px; line-height: 24.752px; }
+.product-excerpt p { margin: 16px 0 0; font-size: 16px; line-height: 22.4px; }
+.product-cart { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 11px; }
+.product-quantity { flex: 1 1 107.5px; height: 54.6px; box-shadow: inset 0 0 0 1px currentColor; }
+.product-quantity-row { display: flex; height: 100%; margin: 0 calc(7.96% + 1.04px); align-items: center; justify-content: space-between; }
+.product-quantity button { display: flex; width: 17px; height: 17px; padding: 0; border: 0; background: none; color: inherit; }
+.product-quantity input { box-sizing: border-box; width: 30.1px; height: 27px; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 16px; line-height: 27px; text-align: center; }
+.sqs-add-to-cart-button { flex: 1000 1 160px; height: 52.6px; padding: 0; border: 0; background: rgb(0, 0, 0); color: #fff; font: inherit; font-size: 16px; font-weight: 500; line-height: 27px; }
+/* Menu (CAP-T12PRESS-C.json, CAP-ROWSMENU.json, read at 694.4 wide): menu names 16px 500 on 16px lines, 3 down, centred; the
+   menus 16 under the top, or under a 54.4 band of names and 16; a section title at 41.2px, its items 48 under it, sections 80 apart; an
+   item's title 26.08px, its description 5 under it, 32 after each item. Multi-Column: two columns 48 apart, the price at the
+   title's top right, the title and description 48 short of it. Centered: the price 7 under the description, 9 above the 32. */
+.menu-selects { box-sizing: border-box; height: 54.4px; padding-top: 3px; text-align: center; font-size: 16px; line-height: 16px; font-weight: 500; }
+.menu-select-labels { display: inline-block; }
+.menus { padding-top: 16px; }
+.menu-section + .menu-section { margin-top: 80px; }
+.menu-section-title { margin-bottom: 48px; font-size: 41.2px; line-height: 53.56px; }
+.menu-items { column-count: 2; column-gap: 48px; }
+.menu-item { position: relative; padding-bottom: 32px; break-inside: avoid; }
+.menu-item-title { padding-right: 48px; font-size: 26.08px; line-height: 33.904px; }
+.menu-item-description { margin: 5px 48px 0 0; font-size: 16px; line-height: 22.4px; }
+.menu-item-price-bottom { position: absolute; top: -1px; right: 0; font-size: 16px; line-height: 22.4px; }
+.menu-layout-centered .menu-items { column-count: 1; text-align: center; }
+.menu-layout-centered .menu-item-title { padding-right: 0; }
+.menu-layout-centered .menu-item-description { margin-right: 0; }
+.menu-layout-centered .menu-item-price-bottom { position: static; margin: 7px 0 9px; }
+/* Archive (CAP-T12PRESS-B.json, CAP-ROWSARCHIVE.json, read at 459.3 wide): a group's name 22.4px on 31.36 lines, its items 22.4
+   under it, 44.8 after each group; an item's link 5 short of the right, its date under it, items 22.4 apart, or 11.2 with no
+   dates. List: the names 16px in two columns 60 apart. The count's brackets are inferred from its width. */
+.archive-groups, .archive-group-list { margin: 0; padding: 0; list-style: none; }
+.archive-group { padding-bottom: 44.8px; }
+.archive-group-name { font-size: 22.4px; line-height: 31.36px; }
+.archive-group-name-link { color: inherit; }
+.archive-columns.archive-layout-index .archive-group-name-link { display: block; }
+.archive-group-count::before { content: "("; }
+.archive-group-count::after { content: ")"; }
+.archive-group-list { margin-top: 22.4px; font-size: 16px; line-height: 22.4px; }
+.archive-item + .archive-item { margin-top: 11.2px; }
+.archive-dates .archive-item + .archive-item { margin-top: 22.4px; }
+.archive-item-link { display: block; margin-right: 5px; color: inherit; }
+.archive-item-date-after { display: block; }
+.archive-layout-list .archive-group { padding-bottom: 0; break-inside: avoid; }
+.archive-layout-list .archive-group-name { font-size: 16px; line-height: 22.4px; }
+.archive-layout-list.archive-columns .archive-groups { column-count: 2; column-gap: 60px; }
 /* Newsletter (CAP-T12NEWSLETTER.json, read at 10 columns, 576.8 wide). Float puts the email field and the button on one
    line when they fit, a space apart; Stack puts them under each other. The heading is an h2 at Heading 3's size (41.2px),
    1.2 high. Its margins stay

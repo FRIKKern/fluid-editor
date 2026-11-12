@@ -25,13 +25,13 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 24 changes
+- **Today** · 3 changes
+  - T12: Archive's tile draws its groups, items and every Design press as read ([#612](https://github.com/FRIKKern/fluid-editor/pull/612))
+  - T12: Menu's tile draws its text, Layout and Currency Symbol as read (tiles-check 33 of 33) ([#611](https://github.com/FRIKKern/fluid-editor/pull/611))
+- **Yesterday** · 24 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
-  - U10: the eight mixes read on (CAP-U10MIXB) as a read-fact table, tiles not built ([#607](https://github.com/FRIKKern/fluid-editor/pull/607))
-- **Yesterday** · 43 changes
+- **This week** · 108 changes
   - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
-- **This week** · 65 changes
-  - R2: rule S refit 1 (left edge) read: 10 of 12 fresh, ties S, S stays ([#541](https://github.com/FRIKKern/fluid-editor/pull/541))
 - **Last week** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
 

@@ -8,6 +8,7 @@ import { formFieldHtml, formLightboxHtml, formPostHtml, formSubmitJs, formView, 
 import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
 import { ASPECTS, galleryOf, chartOf, CHART_PALETTES } from './dialogs.js';
+import { tileOf, tileHtml } from './standin-tiles.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -466,6 +467,7 @@ function blockInner(b, model) {
       }
     case 'shape': {
       if (b.standin) return standinHtml(b);
+      if (tileOf(b)) return tileHtml(b, b.phoneHeight ? phoneH(b) : null);
       const kind = shapeById(b.shape), rect = !kind.d, stretched = b.stretch !== false;
       const label = b.label ? `<span class="sqs-shape-label">${escapeHtml(b.label)}</span>` : '';
       // Stroke (SHAPESTYLES.json): black, 2, 6 or 15px unless set, dashes of 5 with a gap of the width
