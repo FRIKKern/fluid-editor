@@ -33,11 +33,10 @@ else if (!existsSync(`/tmp/fluid-editor-chrome-${port}`)) say('missing', 'profil
 else say('ok', 'profile', `/tmp/fluid-editor-chrome-${port} exists; the login itself is checked by --live`);
 
 // 3. The stored bases oracle-readback compares with: there, whole, and stored after the trial started.
-// CAP-THEMEROWS has no store flag: an old one is fine if --live's oracle-readback matches it.
 const FOOTER_PATHS = site ? (await import('./oracle/footer.mjs')).FOOTER_PATHS : [];
 const BASES = {
   'CAP-FOOTER': { store: 'oracle-readback --store-footer', whole: (b) => FOOTER_PATHS.length > 0 && FOOTER_PATHS.every((p) => b.reads?.[p]?.blocks) },
-  'CAP-THEMEROWS': { store: null, whole: (b) => Array.isArray(b.rowGroups) && b.rows?.A && b.palette },
+  'CAP-THEMEROWS': { store: 'oracle-readback --store-themes', whole: (b) => Array.isArray(b.rowGroups) && b.rows?.A && b.palette },
   'CAP-STYLEROWS': { store: 'oracle-readback --store', whole: (b) => ['views', 'lists', 'families', 'formColors'].every((k) => b[k]) },
 };
 function readBase(name) {
@@ -48,7 +47,6 @@ function readBase(name) {
   if (name === 'CAP-FOOTER' && !site) return { state: 'skip', note: 'CAP-FOOTER: its pages come from the site setting, fix that first' };
   if (!BASES[name].whole(b)) return { state: 'missing', note: `${name}.json lacks parts oracle-readback reads` };
   const old = SINCE && !(b.capturedAt >= SINCE), when = `${name} stored ${b.capturedAt || 'on no date'}`;
-  if (old && !BASES[name].store) return { state: 'skip', note: `${when}, before ${SINCE}; no flag stores it, so --live's oracle-readback decides` };
   if (old) return { state: 'missing', note: `${when}, before ${SINCE}: from the old site. Store: ${BASES[name].store}` };
   return { state: 'ok', note: `${when}${SINCE ? '' : ' (no --since, so not compared with the trial start)'}` };
 }
