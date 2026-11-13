@@ -30,7 +30,20 @@ const CASES = [...Object.entries(OURS).map(([name, [act, value]]) => [name, act,
 const norm = (h) => h.replace(/ data-text-attribute-id="[^"]*"/g, ' data-text-attribute-id="id"').replace(/ data-rte-preserve-empty="true"/g, '').replace(/ style="white-space: ?pre-wrap;?"/g, '').replace(/\s+/g, ' ').trim();
 
 ensureVisible(S);
+// The window the oracle read in, 1600 by 945, set and read back. A section's height floor is in vh, so a taller window shows
+// only where a section is short: run 43323739189 on a macos-15 runner got Y2 rows' third Cmd+Z at 776.2, the 66vh floor of a
+// window 1231 high: at that size all five heights come back alike and no other case here changes. How it got there is not read.
+const sized = (where) => {
+  for (let k = 0; ; k++) {
+    const got = evalJs(S, 'JSON.stringify([innerWidth, innerHeight])');
+    if (got[0] === 1600 && got[1] === 945) return true;
+    console.log(`window ${got.join('x')} at ${where}, not 1600x945${k < 3 ? ': set again' : ''}`);
+    if (k === 3) return false;
+    viewport(S, 1600, 945);
+  }
+};
 viewport(S, 1600, 945);
+sized('the start');
 const results = [];
 for (const [name, act, value, oracleHtml] of CASES) {
   const o = { html: oracleHtml };
@@ -260,6 +273,8 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
 // row short at the second and third Cmd+Z and the let go: the frozen fall rule brings the Heading back a row short, in the same height.
 { const O = JSON.parse(readFileSync(new URL('../parity/findings/CAP-Y2BARROWS.json', import.meta.url))).reads;
   const secH = () => evalJs(S, `Math.round(document.getElementById('site-frame').contentDocument.querySelector('main#page .page-section').getBoundingClientRect().height * 10) / 10`);
+  // Its third Cmd+Z and let go are short enough to show the section's 66vh floor: the window first.
+  sized('Y2 rows');
   goto(S, `${BASE}/index.html`); await pause(1200);
   evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections = next.sections.slice(0, 2); next.sections[0].blocks = []; next.sections[0].rows = { desktop: 8, mobile: 8 }; Object.assign(next.sections[1], { blocks: [], rows: { desktop: 8, mobile: 8 } }); fe.setBp('desktop'); fe.load(next); await new Promise((r) => setTimeout(r, 300)); fe.addBlock(fe.model.sections[0].id, 'Text', true); return 1; })()`);
   browser(S, 'press', 'Escape'); await pause(200);
@@ -277,7 +292,7 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   const want = ['typed', 'z1', 'z2', 'z3', 'let go'].map((n) => O[`W1 ${n}`].section.box[3]);
   const ok = got.every((h, k) => Math.abs(h - want[k]) <= 1);
   results.push({ name: `Y2 rows: the section's spare rows drawn in the edit, its height the oracle's at 5 of 5 steps (CAP-Y2BARROWS)`, ok });
-  if (!ok) console.log(`Y2 rows DIFF ours ${got.join(' ')} oracle ${want.join(' ')}`);
+  if (!ok) console.log(`Y2 rows DIFF ours ${got.join(' ')} oracle ${want.join(' ')}, frame ${evalJs(S, `document.getElementById('site-frame').contentWindow.innerHeight`)} high`);
 }
 // Y2: after one Escape the section draws the rows the close left. CAP-A2SHRINKB1 c3 (a Line, a Text moved beside it, 'hello'
 // typed): rule B1 drops the Text to 1 row and the section to 7, drawn at the first Escape and the let go (CAP-Y2SOFTROWS.json,
