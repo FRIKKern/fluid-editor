@@ -65,10 +65,11 @@ export const STEPS = `window.__steps = (T, read, parts) => {
       const stopped = prev.some((a) => !all.includes(a) || (ran.includes(a) && !run.includes(a) && a.playState !== 'finished'));
       if (!scrolled && !all.some((a) => !prev.includes(a)) && (first != null || !stopped)) for (const [j, row] of ahead) if (!rows.has(j) && last + j * STEP < now - STEP / 2 && (first == null || last + j * STEP < first - STEP / 2)) rows.set(j, row);
     }
-    // Ahead from this frame, for the next call: up to 8 steps, none past an animation's end. None while one waits to start:
-    // its start time is set later, and may be set back to before the next frame.
-    const end = run.length > seek.length ? -Infinity : Math.min(...seek.map((a) => a.startTime + a.effect.getComputedTiming().endTime / Math.abs(a.playbackRate || 1)));
-    for (let j = 1; j <= 8 && now + j * STEP < end; j++) {
+    // Ahead from this frame, for the next call: up to 6 steps, none past an animation's end, only while one runs (with
+    // none running the reads back cover the gap). None while one waits to start: its start time is set later, and may be
+    // set back to before the next frame.
+    const end = !seek.length || run.length > seek.length ? -Infinity : Math.min(...seek.map((a) => a.startTime + a.effect.getComputedTiming().endTime / Math.abs(a.playbackRate || 1)));
+    for (let j = 1; j <= 6 && now + j * STEP < end; j++) {
       seek.forEach((a, i) => { a.currentTime = was[i] + j * STEP * a.playbackRate; });
       T.stepAhead.push([j, read(now + j * STEP)]);
     }
