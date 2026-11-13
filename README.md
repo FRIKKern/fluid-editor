@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 3 changes
+- **Today** · 4 changes
+  - New-trial docs: README names FLUID_ORACLE_SITE, runbook names the Agaro template, demo page built by oracle-build ([#631](https://github.com/FRIKKern/fluid-editor/pull/631))
   - oracle-setup-check reads the port from ORACLE_SURFACE=cdp:<port> ([#629](https://github.com/FRIKKern/fluid-editor/pull/629))
-  - oracle-readback --store-themes stores CAP-THEMEROWS for a new trial ([#627](https://github.com/FRIKKern/fluid-editor/pull/627))
 - **Yesterday** · 17 changes
   - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
 - **This week** · 132 changes
