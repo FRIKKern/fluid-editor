@@ -45,6 +45,9 @@ const setupCases = [
   ['no site set: listed, exit 1', setup({}), (r) => r.code === 1 && /^missing +site +FLUID_ORACLE_SITE is not set/m.test(r.out) && /^skip +live /m.test(r.out) && !/^\S+ +login /m.test(r.out)],
   ['bases stored before the trial: each listed with the flag that stores it', setup({ FLUID_ORACLE_SITE: 'new-trial', CDP_PORT: String(port) }, '--since', '2999-01-01'),
     (r) => r.code === 1 && r.out.includes(`ok       site     ${sq('new-trial')}`) && /^missing +base +CAP-FOOTER .*--store-footer$/m.test(r.out) && /^missing +base +CAP-STYLEROWS .*--store$/m.test(r.out) && /^missing +base +CAP-THEMEROWS .*--store-themes$/m.test(r.out) && /^missing +profile +\/tmp\/fluid-editor-chrome-1 does not exist/m.test(r.out)],
+  // Runbook step 3 exports only ORACLE_SURFACE; CDP_PORT was set for oracle-headless alone. The port comes from it.
+  ['ORACLE_SURFACE=cdp:<port> with no CDP_PORT: that port\'s profile', setup({ FLUID_ORACLE_SITE: 'new-trial', ORACLE_SURFACE: `cdp:${port}` }), (r) => /^missing +profile +\/tmp\/fluid-editor-chrome-1 does not exist/m.test(r.out)],
+  ['CDP_PORT and ORACLE_SURFACE on two ports: listed', setup({ FLUID_ORACLE_SITE: 'new-trial', CDP_PORT: '2', ORACLE_SURFACE: `cdp:${port}` }), (r) => r.code === 1 && /^missing +profile +CDP_PORT is 2 but ORACLE_SURFACE is cdp:1/m.test(r.out)],
   ['bases stored after the trial started: ok', setup({ FLUID_ORACLE_SITE: 'new-trial' }, '--since', '2000-01-01'), (r) => ['CAP-FOOTER', 'CAP-THEMEROWS', 'CAP-STYLEROWS'].every((n) => new RegExp(`^ok +base +${n} stored`, 'm').test(r.out))],
   ['a bad --since: exit 2', setup({}, '--since', 'nov'), (r) => r.code === 2],
   ['--live with no site set stops before the site', setup({ ORACLE_SURFACE: `cdp:${port}` }, '--live'), (r) => r.code === 1 && /^missing +live +needs a valid FLUID_ORACLE_SITE/m.test(r.out) && !/^\S+ +login /m.test(r.out)],

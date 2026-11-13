@@ -1,5 +1,5 @@
 // What a new oracle trial still needs, as a list. The steps are in QUALITY.md, "A new trial".
-//   FLUID_ORACLE_SITE=<name>.squarespace.com CDP_PORT=<port> node scripts/oracle-setup-check.mjs [--since YYYY-MM-DD] [--live]
+//   FLUID_ORACLE_SITE=<name>.squarespace.com ORACLE_SURFACE=cdp:<port> node scripts/oracle-setup-check.mjs [--since YYYY-MM-DD] [--live]
 // Offline (the default) it reads only the environment and files in this repo: the site setting, whether the port's
 // Chrome profile folder exists (read, never touched), and the three stored bases. --since is the day the trial started:
 // a base stored before it is from the old site.
@@ -27,8 +27,11 @@ if (site) {
 }
 
 // 2. The Chrome profile that holds the login, one per port (scripts/lib/chrome.mjs). Only its folder is looked at.
-const port = Number(process.env.CDP_PORT);
-if (!port) say('missing', 'profile', 'CDP_PORT is not set: the port of the Chrome that holds the trial login');
+// The port is CDP_PORT or, as runbook step 3 exports it, ORACLE_SURFACE=cdp:<port>.
+const surfacePort = Number(/^cdp:(\d+)$/.exec(process.env.ORACLE_SURFACE || '')?.[1]), envPort = Number(process.env.CDP_PORT);
+const port = envPort || surfacePort;
+if (!port) say('missing', 'profile', 'neither CDP_PORT nor ORACLE_SURFACE=cdp:<port> is set: the port of the Chrome that holds the trial login');
+else if (envPort && surfacePort && envPort !== surfacePort) say('missing', 'profile', `CDP_PORT is ${envPort} but ORACLE_SURFACE is cdp:${surfacePort}: set one port`);
 else if (!existsSync(`/tmp/fluid-editor-chrome-${port}`)) say('missing', 'profile', `/tmp/fluid-editor-chrome-${port} does not exist: log in there first`);
 else say('ok', 'profile', `/tmp/fluid-editor-chrome-${port} exists; the login itself is checked by --live`);
 
