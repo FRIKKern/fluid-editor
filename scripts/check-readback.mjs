@@ -161,8 +161,12 @@ is('no link target or email in the footer base', !/https?:|@/.test(JSON.stringif
   const clean = run({}, '--store', '--store-themes');
   is('a clean read stores both bases', clean.code === 0 && clean.stored === 'styles.json,themes.json');
   for (const flag of ['--store', '--store-themes']) { const r = run(saveOn, flag); is(`a Save-on diff stores nothing with ${flag}`, r.code === 1 && r.stored === ''); }
-  const asks = run({ exitAsks: true }, '--store', '--store-themes');
+  const asks = run({ exit: 'asks' }, '--store', '--store-themes');
   is('an Exit that asks about unsaved changes stores nothing', asks.code === 1 && asks.stored === '');
+  const stays = run({ exit: 'stays' }, '--store', '--store-themes');
+  is('a page still being edited after Exit stores nothing', stays.code === 1 && stays.stored === '');
+  const throws = run({ exit: 'throws' }, '--store', '--store-themes');
+  is('an Exit that fails stores nothing', throws.code === 2 && throws.stored === '');
   const notRead = run({ notRead: ['Fonts: press: none'] }, '--store');
   is('a set not read stores nothing', notRead.code === 2 && notRead.stored === '');
 }
