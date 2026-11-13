@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { STEPS } from './lib/page-steps.mjs';
 import { blankSection } from '../app/src/add-section.js';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -30,9 +31,12 @@ const [dx, dy] = F.panelMove.dragBy;
 drag(S, grab(first), [grab(first)[0] + dx, grab(first)[1] + dy]); await pause(200);
 const moved = box();
 add('panel follows the drag', near(moved, [first[0] + dx, first[1] + dy, first[2], first[3]]), `${moved} from ${first}`);
+// What the drag starts from, in the detail: the window and the panel's box when the press lands (a macos-15 runner once
+// stopped it at 808, not 522).
+evalJs(S, `(() => { window.__pd = null; document.querySelector('#block-panel').addEventListener('pointerdown', () => { const q = document.querySelector('#block-panel').getBoundingClientRect(); window.__pd = [innerWidth, innerHeight, q.top, q.height]; }, { capture: true, once: true }); return 'true'; })()`);
 drag(S, grab(moved), [1590, 990]); await pause(200);
 let b = box();
-add('panel stops toward the bottom right', near(b.slice(0, 2), [1600 + 6 - b[2], 1000 + 22 - b[3]]), String(b));
+add('panel stops toward the bottom right', near(b.slice(0, 2), [1600 + 6 - b[2], 1000 + 22 - b[3]]), `${b} at the press: window, panel top and height ${evalJs(S, `(() => JSON.stringify(window.__pd))()`)}`);
 drag(S, grab(b), [5, 5]); await pause(200);
 b = box();
 add('panel stops toward the top left', near(b.slice(0, 2), F.panelMove.towardTopLeft.slice(0, 2)), String(b));
@@ -391,7 +395,7 @@ const fading = evalJs(S, `(() => { const c = getComputedStyle(document.querySele
 add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0.17s' && fading.outline === 'sc-outline-in' && fading.least < 0.9 && fading.last === 1, JSON.stringify(fading));
 // The outline's border color, frame by frame, one way and back: alpha only, in about 0.2 s, against CAP-U9FADE.json.
 const outlineWatch = async (x, y) => {
-  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null]); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { ${STEPS} const T = window.__ow = { t0: document.timeline.currentTime, seen: [], stop: false }; const read = (t) => { const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); return [Math.round(t - T.t0), e ? getComputedStyle(e).borderTopColor : null]; }; const tick = () => { if (T.stop) return __stepsEnd(T); T.seen.push(...__steps(T, read, '.sc-outline'), read(document.timeline.currentTime)); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
   const seen = evalJs(S, `(() => { const T = window.__ow; T.stop = true; return JSON.stringify(T.seen); })()`);
   const part = seen.filter(([, c]) => c).map(([t, c]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join()]; });
@@ -430,7 +434,7 @@ const lit = evalJs(S, `(() => { const c = document.getElementById('section-chrom
 add('outline stays lit through a rebuild', lit.rebuilt === 'true' && lit.name === 'none' && lit.color === 'rgb(72, 148, 255)', JSON.stringify(lit));
 // Add Section: opacity over 0.2 s, ease-in-out, both ways, no slide, against CAP-U9ADDFADE.json's series.
 const addWatch = async (x, y) => {
-  evalJs(S, `(() => { const T = window.__aw = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) [data-sc="add-section-below"]'); if (e) { const c = getComputedStyle(e); T.seen.push([Math.round(performance.now() - T.t0), +c.opacity, Math.round(e.getBoundingClientRect().top * 10) / 10]); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { ${STEPS} const T = window.__aw = { t0: document.timeline.currentTime, seen: [], stop: false }; const read = (t) => { const e = document.querySelector('#section-chrome:not([hidden]) [data-sc="add-section-below"]'); if (!e) return null; const c = getComputedStyle(e); return [Math.round(t - T.t0), +c.opacity, Math.round(e.getBoundingClientRect().top * 10) / 10]; }; const tick = () => { if (T.stop) return __stepsEnd(T); T.seen.push(...[...__steps(T, read, '[data-sc="add-section-below"]'), read(document.timeline.currentTime)].filter(Boolean)); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
   const seen = evalJs(S, `(() => { const T = window.__aw; T.stop = true; return JSON.stringify(T.seen); })()`);
   const mid = seen.filter(([, o]) => o > 0 && o < 1);
@@ -446,7 +450,7 @@ const addOut = await addWatch(800, 20);
 add('Add Section fades out over 0.2 s, ease-in-out, no slide', addOk(addOut) && addOut.values.every((v, i, a) => !i || v <= a[i - 1]), JSON.stringify(addOut));
 // The old Add Section fades as a copy left behind, and comes back on letting go of a block, on CAP-U9ADDFADE2.json and CAP-U9ADDFADE3.json.
 const addCross = async (act, ms = 600) => {
-  evalJs(S, `(() => { const T = window.__acw = { t0: performance.now(), seen: [], timing: null, stop: false }; const tick = () => { if (T.stop) return; const g = [...document.querySelectorAll('.sc-add-gone')], c = document.getElementById('section-chrome'), o = c.hidden ? null : c.querySelector('[data-sc="add-section-below"]'); if (g[0] && !T.timing) { const t = g[0].getAnimations()[0].effect.getTiming(); T.timing = [t.duration, t.easing]; } T.seen.push([g.length, g[0] ? +getComputedStyle(g[0]).opacity : null, o ? +getComputedStyle(o).opacity : null, !!c.hidden, g[0] ? getComputedStyle(g[0]).pointerEvents : null]); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  evalJs(S, `(() => { ${STEPS} const T = window.__acw = { t0: performance.now(), seen: [], timing: null, stop: false }; const read = () => { const g = [...document.querySelectorAll('.sc-add-gone')], c = document.getElementById('section-chrome'), o = c.hidden ? null : c.querySelector('[data-sc="add-section-below"]'); return [g.length, g[0] ? +getComputedStyle(g[0]).opacity : null, o ? +getComputedStyle(o).opacity : null, !!c.hidden, g[0] ? getComputedStyle(g[0]).pointerEvents : null]; }; const tick = () => { if (T.stop) return __stepsEnd(T); const g = document.querySelector('.sc-add-gone'); if (g && !T.timing) { const t = g.getAnimations()[0].effect.getTiming(); T.timing = [t.duration, t.easing]; } T.seen.push(...__steps(T, read, '.sc-add-gone, [data-sc="add-section-below"]'), read()); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
   await act(); await pause(ms);
   const T = evalJs(S, `(() => { const T = window.__acw; T.stop = true; return JSON.stringify({ seen: T.seen, timing: T.timing }); })()`);
   const gone = T.seen.map((r) => r[1]).filter((a) => a !== null && a > 0 && a < 1), lit = T.seen.map((r) => r[2]).filter((a) => a !== null && a > 0 && a < 1);
@@ -485,7 +489,7 @@ await fresh(); await hoverBar(800, 20); await pause(300);
 // The old outline fades as a copy left behind: straight to another section, and in a gesture (CAP-U9CLOSE.json).
 const alpha = (c) => { if (!c) return null; const n = c.match(/[\d.]+/g).map(Number); return n.length > 3 ? n[3] : 1; };
 const crossWatch = async (act, ms = 600) => {
-  evalJs(S, `(() => { const T = window.__cw = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const g = document.querySelector('.sc-outline-gone'), c = document.getElementById('section-chrome'), o = c.querySelector('.sc-outline'); T.seen.push([g ? getComputedStyle(g).borderTopColor : null, !c.hidden && o ? getComputedStyle(o).borderTopColor : null, c.hidden]); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { ${STEPS} const T = window.__cw = { t0: performance.now(), seen: [], stop: false }; const read = () => { const g = document.querySelector('.sc-outline-gone'), c = document.getElementById('section-chrome'), o = c.querySelector('.sc-outline'); return [g ? getComputedStyle(g).borderTopColor : null, !c.hidden && o ? getComputedStyle(o).borderTopColor : null, c.hidden]; }; const tick = () => { if (T.stop) return __stepsEnd(T); T.seen.push(...__steps(T, read, '.sc-outline, .sc-outline-gone'), read()); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   await act(); await pause(ms);
   const seen = evalJs(S, `(() => { const T = window.__cw; T.stop = true; return JSON.stringify(T.seen); })()`);
   const gone = seen.map((r) => alpha(r[0])).filter((a) => a !== null && a > 0 && a < 1), lit = seen.map((r) => alpha(r[1])).filter((a) => a !== null && a > 0 && a < 1);
@@ -3741,14 +3745,15 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const sy = () => evalJs(S, `document.querySelector('iframe').contentWindow.scrollY`);
   const place = async () => { await scTo(0); const t = secTop(1); await scTo(t - 125); const b = secTop(2); return [90, 225, b + 60]; };
   const go = async (y) => { mouse(S, 'move', 800, y); mouse(S, 'move', 802, y); await pause(500); };
-  const start = () => evalJs(S, `(() => { const T = window.__f = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const c = document.getElementById('section-chrome'); const row = (e) => [Math.round(e.getBoundingClientRect().top), +getComputedStyle(e).opacity]; const line = (e) => [Math.round(e.getBoundingClientRect().top), getComputedStyle(e).borderTopColor]; T.seen.push({ ms: performance.now() - T.t0, sid: c.hidden ? null : c.dataset.key.split('|')[0], lit: c.hidden ? [] : [...c.querySelectorAll('.sc-add-section')].map(row), gone: [...document.querySelectorAll('.sc-add-gone')].map(row), ol: c.hidden ? null : line(c.querySelector('.sc-outline')), olGone: [...document.querySelectorAll('.sc-outline-gone')].map(line), times: [...document.querySelectorAll('.sc-add-gone, .sc-outline-gone')].map((e) => { const a = e.getAnimations()[0]; return a ? [e.className.includes('outline') ? 'o' : 'a', Math.round(a.effect.getTiming().duration)] : null; }) }); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  const start = () => evalJs(S, `(() => { ${STEPS} const T = window.__f = { t0: document.timeline.currentTime, seen: [], stop: false }; const read = (t) => { const c = document.getElementById('section-chrome'); const row = (e) => [Math.round(e.getBoundingClientRect().top), +getComputedStyle(e).opacity]; const line = (e) => [Math.round(e.getBoundingClientRect().top), getComputedStyle(e).borderTopColor]; return { ms: t - T.t0, sid: c.hidden ? null : c.dataset.key.split('|')[0], lit: c.hidden ? [] : [...c.querySelectorAll('.sc-add-section')].map(row), gone: [...document.querySelectorAll('.sc-add-gone')].map(row), ol: c.hidden ? null : line(c.querySelector('.sc-outline')), olGone: [...document.querySelectorAll('.sc-outline-gone')].map(line), times: [...document.querySelectorAll('.sc-add-gone, .sc-outline-gone')].map((e) => { const a = e.getAnimations()[0]; return a ? [e.className.includes('outline') ? 'o' : 'a', Math.round(a.effect.getTiming().duration)] : null; }) }; }; const tick = () => { if (T.stop) return __stepsEnd(T); T.seen.push(...__steps(T, read, '.sc-add-section, .sc-add-gone, .sc-outline, .sc-outline-gone'), { ...read(document.timeline.currentTime), drawn: true }); requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
   const stop = () => evalJs(S, `(() => { const T = window.__f; T.stop = true; return JSON.stringify(T.seen); })()`);
   const up = (a) => a.every((v, i) => !i || v >= a[i - 1]), down = (a) => a.every((v, i) => !i || v <= a[i - 1]);
   const [y1, y2, y3] = await place();
 
   // The second move is sent in the page on the first frame the new pair passes 0.3, so a slow machine can't push it
-  // past the 0.2 s fade; the real pointer follows it there.
-  const midway = (y) => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), sid0 = c.dataset.key?.split('|')[0]; const T = window.__mid = { done: false }; const tick = () => { if (T.done) return; const o = c.hidden ? null : c.querySelector('.sc-add-section'), sid = c.dataset.key?.split('|')[0]; if (o && sid !== sid0) { const v = +getComputedStyle(o).opacity; if (v > 0.3 && v < 0.7) { T.done = true; ${y === 'bar' ? "document.querySelector('.bar').dispatchEvent(new PointerEvent('pointerenter'));" : y === 'scroll' ? "document.getElementById('site-frame').contentWindow.scrollBy(0, 60);" : `const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 800 - fr.left, yy = ${y} - fr.top; f.contentDocument.elementFromPoint(x, yy).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: yy }));`} return; } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
+  // past the 0.2 s fade; the real pointer follows it there. Under 0.7 on a machine that draws every 1/60 s; a slow one
+  // can step over 0.3 to 0.7 in one frame (a macos-15 runner did), so there it goes on that frame, still mid-fade.
+  const midway = (y) => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), sid0 = c.dataset.key?.split('|')[0]; const T = window.__mid = { done: false }; const tick = () => { if (T.done) return; const o = c.hidden ? null : c.querySelector('.sc-add-section'), sid = c.dataset.key?.split('|')[0]; if (o && sid !== sid0) { const v = +getComputedStyle(o).opacity; if (v > 0.3 && v < 1) { T.done = true; T.sent = performance.now(); ${y === 'bar' ? "document.querySelector('.bar').dispatchEvent(new PointerEvent('pointerenter'));" : y === 'scroll' ? "document.getElementById('site-frame').contentWindow.scrollBy(0, 60);" : `const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), x = 800 - fr.left, yy = ${y} - fr.top; f.contentDocument.elementFromPoint(x, yy).dispatchEvent(new f.contentWindow.PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: yy }));`} return; } } requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`);
   const cross = async (y, to, toY) => { midway(to); mouse(S, 'move', 800, y); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); mouse(S, 'move', 800, toY); await pause(500); };
   await go(y1); start(); await cross(y2, y3, y3); let f = stop();
   const short = [...new Set(f.flatMap((r) => r.times.filter((x) => x && x[0] === 'a').map((x) => x[1])))];
@@ -3761,12 +3766,19 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const s0 = f[0].sid, mid = f.findIndex((r) => r.sid && r.sid !== s0), backAt = mid > 0 ? f.findIndex((r, i) => i > mid && r.sid === s0) : -1;
   const back = backAt > 0 ? f.slice(backAt).map((r) => r.lit[0][1]) : [];
   const backGone = backAt > 0 ? f[backAt].gone.length : -1;
-  add('back to the first during a fade: it runs back from where it is', back.length > 3 && back[0] > 0 && back[0] < 1 && up(back) && back.at(-1) === 1 && backGone === 2 && f.slice(backAt).find((r) => r.lit[0][1] === 1).ms - f[backAt].ms <= 200 * (1 - back[0]) + 40, JSON.stringify({ backAt, backGone, first: back[0], frames: back.length }));
+  // Timed from the run back's start: its last row still where it was, no later than the next drawn frame. A new run starts
+  // on the frame after the one that drew the switch, 1/60 s later on a fast machine and 50 ms or more on a slow one.
+  const nextDrawn = f.findIndex((r, i) => i > backAt && r.drawn), still = backAt + Math.max(0, back.findIndex((v) => v !== back[0]) - 1);
+  const moveAt = nextDrawn > 0 ? Math.min(still, nextDrawn) : still;
+  add('back to the first during a fade: it runs back from where it is', back.length > 3 && back[0] > 0 && back[0] < 1 && up(back) && back.at(-1) === 1 && backGone === 2 && f.slice(backAt).find((r) => r.lit[0][1] === 1).ms - f[moveAt].ms <= 200 * (1 - back[0]) + 40, JSON.stringify({ backAt, backGone, first: back[0], frames: back.length }));
 
   await go(y1); start(); await cross(y2, 'bar', 20); f = stop();
   const midSid = f.find((r) => r.sid && r.sid !== f[0].sid)?.sid, risen = f.filter((r) => r.sid === midSid && r.lit.length).map((r) => r.lit[0][1]);
   const peak = Math.max(...risen.slice(0, -1)), peakAt = risen.indexOf(peak), fall = risen.slice(peakAt);
-  add('rising, then off every section: it falls from where it is, no jump, in a shorter time', peak > 0 && peak < 1 && fall.length >= 3 && down(fall) && fall[1] > peak * 0.7 && f.filter((r) => r.sid === midSid && r.lit.length).at(-1).ms - f.filter((r) => r.sid === midSid && r.lit.length)[peakAt].ms <= 200 * peak + 150, JSON.stringify({ peak, frames: fall.length }));
+  // Timed from the pointer going off, on the page's clock: the frame that drew the peak, on a machine that draws every
+  // 1/60 s; a slow machine sends it in a later task than that frame.
+  const offAt = evalJs(S, `(() => JSON.stringify(window.__mid.sent - window.__f.t0))()`);
+  add('rising, then off every section: it falls from where it is, no jump, in a shorter time', peak > 0 && peak < 1 && fall.length >= 3 && down(fall) && fall[1] > peak * 0.7 && f.filter((r) => r.sid === midSid && r.lit.length).at(-1).ms - Math.max(offAt, f.filter((r) => r.sid === midSid && r.lit.length)[peakAt].ms) <= 200 * peak + 150, JSON.stringify({ peak, frames: fall.length }));
 
   // A scroll mid-fade, sent in the page as the others are; the oracle's wheel and script scrolls read the same (CAP-U9FADE4.json).
   await go(y1); start(); midway('scroll'); mouse(S, 'move', 800, y2); for (let w = 0; w < 40 && !evalJs(S, `window.__mid.done`); w++) await pause(25); await pause(500); f = stop();
@@ -3824,7 +3836,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   const named = (l) => evalJs(S, `(() => { const e = [...document.querySelectorAll('#section-chrome [aria-label="${l}"]')].find((x) => x.getBoundingClientRect().width > 0); if (!e) return JSON.stringify(null); const q = e.getBoundingClientRect(); return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
   const on = () => evalJs(S, `(() => { const c = document.getElementById('section-chrome'), ly = c.querySelector('[data-sc-part="layers"]'), ol = c.querySelector('.sc-outline'); return JSON.stringify({ sid: c.hidden ? null : c.dataset.key.split('|')[0], outline: c.dataset.outline, layersTop: ly ? Math.round(ly.getBoundingClientRect().top) : null, olTop: ol ? Math.round(ol.getBoundingClientRect().top) : null, card: !!c.querySelector('[data-sc-part="card"]'), add: c.querySelectorAll('.sc-add-section').length }); })()`);
   const at = (id) => evalJs(S, `(() => { const f = document.querySelector('iframe'), o = f.getBoundingClientRect(), q = f.contentDocument.getElementById('block-${id}').getBoundingClientRect(); return JSON.stringify([o.left + q.left + q.width / 2, o.top + q.top + q.height / 2]); })()`);
-  const lit = () => evalJs(S, `(() => { const T = window.__u9 = { seen: [], stop: false }; const a = (o) => { const p = (getComputedStyle(o).borderTopColor.match(/\\(([^)]*)\\)/) || [, ''])[1].split(','); return p.length === 4 ? Number(p[3]) : 1; }; const tick = () => { if (T.stop) return; T.seen.push([...document.querySelectorAll('#section-chrome .sc-outline, .sc-outline-gone')].map(a)); requestAnimationFrame(tick); }; tick(); return 'true'; })()`);
+  const lit = () => evalJs(S, `(() => { ${STEPS} const T = window.__u9 = { seen: [], stop: false }; const a = (o) => { const p = (getComputedStyle(o).borderTopColor.match(/\\(([^)]*)\\)/) || [, ''])[1].split(','); return p.length === 4 ? Number(p[3]) : 1; }; const read = () => [...document.querySelectorAll('#section-chrome .sc-outline, .sc-outline-gone')].map(a); const tick = () => { if (T.stop) return __stepsEnd(T); T.seen.push(...__steps(T, read, '.sc-outline, .sc-outline-gone'), read()); requestAnimationFrame(tick); }; tick(); return 'true'; })()`);
   const litStop = () => evalJs(S, `(() => { window.__u9.stop = true; return JSON.stringify(window.__u9.seen); })()`);
 
   await load(1600, 1400, { 1: [['u9b', 'button', 1, 2, 6, 2]] });
