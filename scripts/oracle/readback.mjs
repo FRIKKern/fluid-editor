@@ -106,6 +106,13 @@ export async function runSets(sets, { restart, begin = () => {}, log = () => {},
   }
   return { diffs, notRead };
 }
+// --store and --store-themes: why a run stores nothing, or null. A Save that turned on at any read or at Exit means a
+// read may be of a change and not of the site; a set not read leaves the base part old.
+export function storeRefusal({ diffs, notRead }) {
+  const unsafe = diffs.filter((x) => SAFETY.test(x));
+  if (unsafe.length) return `not stored: Save turned on (${unsafe.length}): ${unsafe[0]}`;
+  return notRead.length ? 'not stored: sets not read' : null;
+}
 // 0: all read and the same. 1: any difference. 2: the same where read, with sets not read.
 export const exitCode = ({ diffs, notRead }) => (diffs.length ? 1 : notRead.length ? 2 : 0);
 

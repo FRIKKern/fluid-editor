@@ -7,13 +7,14 @@
 // It reads the site footer first, against CAP-FOOTER.json (scripts/oracle/footer.mjs). --footer-only stops after that;
 // --store-footer replaces that base. --store-themes replaces CAP-THEMEROWS.json's palette and theme rows and its capturedAt
 // (themeStore in scripts/oracle/readback.mjs); it stores nothing if a row name changed. --store and --store-themes go together.
+// Neither stores anything if a set was not read or Save turned on at a read or at Exit (storeRefusal).
 // Exit 0: all read and the same. Exit 1: differences, listed. Exit 2: the same where read, with the sets it could not read
 // listed. Each set (a theme, a view, a row) runs on its own: one that fails under load is listed and the run goes on.
 import { writeFileSync } from 'node:fs';
 import { browser, evalJs, goto, mouse, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
-import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, STYLES, STYLE_FILE, FINDING, THEME_FILE, themeStore } from './oracle/readback.mjs';
+import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, storeRefusal, STYLES, STYLE_FILE, FINDING, THEME_FILE, themeStore } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
 import { FOOTER_FILE, FOOTER_PATHS, FOOTER_READ, compareFooter } from './oracle/footer.mjs';
 import { EDITOR, ORIGIN, BLOCKS_PROBE } from './lib/oracle-site.mjs';
@@ -270,23 +271,26 @@ sink = diffs;
 diffs.push(...done.diffs); notRead.push(...done.notRead);
 families = listsRead['Fonts > Headings']?.families;
 if (listsRead['Fonts > Headings']) delete listsRead['Fonts > Headings'].families;
-if ((STORE || STORE_THEMES) && notRead.length) { console.log('not stored: sets not read'); report(); process.exit(2); }
-if (STORE_THEMES) {
-  try { writeFileSync(THEME_FILE, `${JSON.stringify(themeStore(FINDING, themeRead, new Date().toISOString().slice(0, 10)), null, 1)}\n`); console.log('theme rows and palette stored'); } catch (e) { console.log(e.message); report(); process.exit(2); }
-}
-if (STORE) {
-  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, capturedAt: new Date().toISOString().slice(0, 10), views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
-} else {
+if (!STORE) {
   // Lists and font names compare only where their view was read; a view not read is already listed.
   for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }
   if (families) { const found = compareFamilies(families); diffs.push(...found); console.log(`${families.length} font names, ${found.length} differ`); } else notRead.push('font names: Fonts > Headings was not read');
 }
+// Exit before any store: a question there means a Save was on, and then nothing is stored (storeRefusal).
 try {
   if (topBar()?.exit && await exitWithoutSaving()) diffs.push('Exit asked about unsaved changes');
   await pause(1500);
   if (!closed()) diffs.push(`the page is still being edited after Exit: ${JSON.stringify(topBar())}`);
 } catch (e) { notRead.push(`the last Exit: ${e.message}`); }
 goto(S, PAGES);
+if (STORE || STORE_THEMES) {
+  const refused = storeRefusal({ diffs, notRead });
+  if (refused) { console.log(refused); report(); process.exit(exitCode({ diffs, notRead })); }
+}
+if (STORE_THEMES) {
+  try { writeFileSync(THEME_FILE, `${JSON.stringify(themeStore(FINDING, themeRead, new Date().toISOString().slice(0, 10)), null, 1)}\n`); console.log('theme rows and palette stored'); } catch (e) { console.log(e.message); report(); process.exit(2); }
+}
+if (STORE) writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, capturedAt: new Date().toISOString().slice(0, 10), views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
 report();
 process.exit(exitCode({ diffs, notRead }));
 
