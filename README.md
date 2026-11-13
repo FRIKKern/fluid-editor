@@ -25,13 +25,13 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 16 changes
-  - Docs: AGENTS.md says to read browser-checks after a merge ([#624](https://github.com/FRIKKern/fluid-editor/pull/624))
-  - T4: image-design-check result stored again, 59 of 59 (the phone Corner case from #320 was never stored) ([#623](https://github.com/FRIKKern/fluid-editor/pull/623))
-- **Yesterday** · 24 changes
+- **Today** · 2 changes
+  - oracle-readback --store-themes stores CAP-THEMEROWS for a new trial ([#627](https://github.com/FRIKKern/fluid-editor/pull/627))
+  - A new trial: oracle-setup-check.mjs and a runbook in QUALITY.md ([#626](https://github.com/FRIKKern/fluid-editor/pull/626))
+- **Yesterday** · 17 changes
+  - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
+- **This week** · 132 changes
   - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
-- **This week** · 108 changes
-  - X2: Code, Map and Accordion keep the selection by touch and lose it by mouse (CAP-X2TOUCH3, 6 of 6) ([#584](https://github.com/FRIKKern/fluid-editor/pull/584))
 - **Last week** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
 

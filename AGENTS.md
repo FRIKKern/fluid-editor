@@ -10,7 +10,8 @@ item status      ─► parity/items.json (one row per item, evidence on done)
 what "works"     ─► JOURNEYS.md (J01–J14)
 how good         ─► QUALITY.md (gates A, B, C and oracle rules O1–O4)
 why              ─► docs/decisions/NNNN-*.md (supersede, never edit)
-the oracle       ─► halibut-keyboard-jlhd.squarespace.com, headless: scripts/oracle-headless.mjs
+the oracle       ─► FLUID_ORACLE_SITE (scripts/lib/oracle-site.mjs), headless: scripts/oracle-headless.mjs
+a new trial      ─► QUALITY.md, "A new trial"; scripts/oracle-setup-check.mjs
 ```
 
 ## Loop

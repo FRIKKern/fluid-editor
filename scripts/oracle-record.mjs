@@ -9,6 +9,7 @@ import { browser, evalJs, waitFor, reload, pause, engine } from './lib/cmux.mjs'
 import { READY, LOADED, ENTER_EDIT, READ, SELECT, KEY, BUTTON } from './oracle/snippets.mjs';
 import { validate, diffStates } from './lib/trace.mjs';
 import { pitch, hold, release, blockEl, handleEl, click } from './oracle/ui.mjs';
+import { EDITOR, DEMO } from './lib/oracle-site.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => {
@@ -19,11 +20,11 @@ const surface = arg('surface', process.env.ORACLE_SURFACE || 'surface:40');
 const index = Number(arg('section', '0'));
 const keys = arg('keys', 'ArrowRight').split(',');
 const id = arg('id');
-const pageTitle = arg('page', 'How Fluid Engine works');
-const pagePath = arg('path', '/how-fluid-engine-works');
+const pageTitle = arg('page', DEMO.title);
+const pagePath = arg('path', DEMO.path);
 if (!id) throw new Error('--id is required, like T0001-key-right');
 // A recording presses and undoes on its page. The traces name the demo page's blocks, so it stays the default, but say so (0006).
-if (pageTitle === 'How Fluid Engine works' && !process.env.ORACLE_DEMO_WRITES) { console.error('oracle-record refused, nothing ran: on the demo page it writes unsaved. Pass --page and --path, or set ORACLE_DEMO_WRITES=1 only if the lead has asked for this recording (0006).'); process.exit(2); }
+if (pageTitle === DEMO.title && !process.env.ORACLE_DEMO_WRITES) { console.error('oracle-record refused, nothing ran: on the demo page it writes unsaved. Pass --page and --path, or set ORACLE_DEMO_WRITES=1 only if the lead has asked for this recording (0006).'); process.exit(2); }
 
 // The editor opens on Home after a reload; pick our page in the pages panel.
 function ensurePage() {
@@ -135,7 +136,7 @@ const trace = {
   id,
   journey: arg('journey', 'J07'),
   items: arg('items', 'R1').split(','),
-  oracle: { editor: 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', page: pagePath, capturedAt: new Date().toISOString().slice(0, 10), frameWidth: before.frameWidth, engine: engine(surface) },
+  oracle: { editor: EDITOR, page: pagePath, capturedAt: new Date().toISOString().slice(0, 10), frameWidth: before.frameWidth, engine: engine(surface) },
   layout: before.layout,
   section: { id: before.sectionId, index, gap: before.gap, rowGap: before.rowGap },
   view,

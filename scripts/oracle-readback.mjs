@@ -3,22 +3,24 @@
 // the closed lists against CAP-STYLEROWS.json. Read only: it presses only the names it allows, needs Save off at every read,
 // and leaves by Exit. Never Reset, a pick or a slider. Run it after a probe:
 //   ORACLE_SURFACE=cdp:<port> node scripts/oracle-readback.mjs
-// --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads. Only for a site known to be as it should be.
+// --store replaces CAP-STYLEROWS.json's views, lists, families and formColors with what it reads, and its capturedAt. Only for a site known to be as it should be.
 // It reads the site footer first, against CAP-FOOTER.json (scripts/oracle/footer.mjs). --footer-only stops after that;
-// --store-footer replaces that base.
+// --store-footer replaces that base. --store-themes replaces CAP-THEMEROWS.json's palette and theme rows and its capturedAt
+// (themeStore in scripts/oracle/readback.mjs); it stores nothing if a row name changed. --store and --store-themes go together.
 // Exit 0: all read and the same. Exit 1: differences, listed. Exit 2: the same where read, with the sets it could not read
 // listed. Each set (a theme, a view, a row) runs on its own: one that fails under load is listed and the run goes on.
 import { writeFileSync } from 'node:fs';
 import { browser, evalJs, goto, mouse, viewport, pause } from './lib/cmux.mjs';
 import { pressOnTop } from './oracle/press.mjs';
 import { exitWithoutSaving } from './oracle/ui.mjs';
-import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, STYLES, STYLE_FILE } from './oracle/readback.mjs';
+import { THEMES, NAMES, compareRows, comparePalette, compareView, settledRead, compareLists, compareFamilies, compareFormColors, runSets, exitCode, STYLES, STYLE_FILE, FINDING, THEME_FILE, themeStore } from './oracle/readback.mjs';
 import { VIEWS, DEEP, DEEP_BACK, LISTS, READ_VIEW } from './oracle/style-views.mjs';
 import { FOOTER_FILE, FOOTER_PATHS, FOOTER_READ, compareFooter } from './oracle/footer.mjs';
+import { EDITOR, ORIGIN, BLOCKS_PROBE } from './lib/oracle-site.mjs';
 
 const S = process.env.ORACLE_SURFACE;
 if (!S) { console.error('oracle-readback: set ORACLE_SURFACE'); process.exit(2); }
-const PAGES = 'https://halibut-keyboard-jlhd.squarespace.com/config/pages', PAGE = 'Blocks Probe', PAGE_PATH = '/blocks-probe';
+const PAGES = EDITOR, PAGE = BLOCKS_PROBE.title, PAGE_PATH = BLOCKS_PROBE.path;
 const VARS = ['white', 'black', 'accent', 'lightAccent', 'darkAccent', 'safeLightAccent', 'safeDarkAccent', 'safeInverseAccent', 'safeInverseLightAccent', 'safeInverseDarkAccent'];
 // All it may press. The panel's back button has no label: its words are the view it goes back to.
 const PRESS = new Set([PAGE, 'Toggle Site Styles editing', 'Open Colors style disclosure', 'Colors', 'Site Styles', ...THEMES.map((t) => `AA ${t}`),
@@ -145,12 +147,13 @@ async function readLists(view) {
 }
 
 // diffs: the footer's and every set's that finished. sink: the set running now (runSets hands each its own).
-const diffs = [], notRead = [], read = {}, listsRead = {}, formColors = {};
+const diffs = [], notRead = [], read = {}, listsRead = {}, formColors = {}, themeRead = { vars: null, rows: {} };
+const STORE_THEMES = process.argv.includes('--store-themes');
 let sink = diffs, families = null;
 // The footer first: read only, on a load of each page, no press. --footer-only stops after it, --store-footer stores it.
 const FOOTER_ONLY = process.argv.includes('--footer-only'), STORE_FOOTER = process.argv.includes('--store-footer'), footers = {};
 async function readFooter(path) {
-  goto(S, PAGES.replace('/config/pages', path));
+  goto(S, ORIGIN + path);
   for (let i = 0; i < 30; i++) { await pause(1000); if (evalJs(S, FOOTER_READ)) { await pause(2000); return evalJs(S, FOOTER_READ); } }
   return null;
 }
@@ -222,7 +225,8 @@ const sets = [
     await press('Open Colors style disclosure', FIND.named('Open Colors style disclosure'), 1300);
     const vars = js(`${frame} const a = W.getComputedStyle(d.documentElement), b = W.getComputedStyle(d.body), o = {}; for (const n of ${JSON.stringify(VARS)}) o[n] = (a.getPropertyValue('--' + n + '-hsl') || b.getPropertyValue('--' + n + '-hsl')).trim(); return JSON.stringify(o);`);
     if (!vars || typeof vars !== 'object') throw new Error('no palette read');
-    sink.push(...comparePalette(vars));
+    themeRead.vars = vars;
+    if (!STORE_THEMES) sink.push(...comparePalette(vars));
     await goBack('Site Styles');
   }],
   ...THEMES.map((t) => [`Colors > ${t}`, async () => {
@@ -232,7 +236,8 @@ const sets = [
     if (!settled) throw new Error(`${t}: the list kept moving`);
     if (!/^Aa/.test(two?.[0]?.[0] || '')) throw new Error(`${t}: no head row, read ${JSON.stringify(two?.[0])}`);
     if (!saveOff()) sink.push(`${t}: Save is not off: ${JSON.stringify(topBar())}`);
-    const found = compareRows(t, two.slice(1)); sink.push(...found);
+    themeRead.rows[t] = two.slice(1);
+    const found = STORE_THEMES ? [] : compareRows(t, two.slice(1)); sink.push(...found);
     console.log(`${t.padEnd(11)} ${two.length - 1} rows, ${found.length} differ`);
     await goBack('Colors'); await goBack('Site Styles');
   }]),
@@ -265,9 +270,12 @@ sink = diffs;
 diffs.push(...done.diffs); notRead.push(...done.notRead);
 families = listsRead['Fonts > Headings']?.families;
 if (listsRead['Fonts > Headings']) delete listsRead['Fonts > Headings'].families;
+if ((STORE || STORE_THEMES) && notRead.length) { console.log('not stored: sets not read'); report(); process.exit(2); }
+if (STORE_THEMES) {
+  try { writeFileSync(THEME_FILE, `${JSON.stringify(themeStore(FINDING, themeRead, new Date().toISOString().slice(0, 10)), null, 1)}\n`); console.log('theme rows and palette stored'); } catch (e) { console.log(e.message); report(); process.exit(2); }
+}
 if (STORE) {
-  if (notRead.length) { console.log('not stored: sets not read'); report(); process.exit(2); }
-  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
+  writeFileSync(STYLE_FILE, `${JSON.stringify({ ...STYLES, capturedAt: new Date().toISOString().slice(0, 10), views: read, lists: listsRead, families, formColors }, null, 1)}\n`);
 } else {
   // Lists and font names compare only where their view was read; a view not read is already listed.
   for (const [k, v] of Object.entries(listsRead)) { const found = compareLists(k, v); diffs.push(...found); console.log(`${k.padEnd(28)} lists, ${found.length} differ`); }

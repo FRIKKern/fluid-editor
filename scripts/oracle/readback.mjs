@@ -2,7 +2,8 @@
 // The stored list is parity/findings/CAP-THEMEROWS.json: rowGroups for the names, rows.A and rows.colors for the colors.
 import { existsSync, readFileSync } from 'node:fs';
 
-export const FINDING = JSON.parse(readFileSync(new URL('../../parity/findings/CAP-THEMEROWS.json', import.meta.url)));
+export const THEME_FILE = new URL('../../parity/findings/CAP-THEMEROWS.json', import.meta.url);
+export const FINDING = JSON.parse(readFileSync(THEME_FILE));
 export const THEMES = Object.keys(FINDING.rows.A);
 export const NAMES = FINDING.rowGroups.flatMap(([, rows]) => rows);
 export const colorsOf = (theme) => FINDING.rows.A[theme].split(',').map((i) => FINDING.rows.colors[Number(i)]);
@@ -107,3 +108,21 @@ export async function runSets(sets, { restart, begin = () => {}, log = () => {},
 }
 // 0: all read and the same. 1: any difference. 2: the same where read, with sets not read.
 export const exitCode = ({ diffs, notRead }) => (diffs.length ? 1 : notRead.length ? 2 : 0);
+
+// --store-themes: CAP-THEMEROWS with the palette and every theme's rows as read, and today's capturedAt. Only rows.A,
+// rows.colors and palette.vars0 change: colors already listed keep their index, so the older reads (rows.B, C, Q) still
+// point at the right colors. rowGroups can't be rebuilt from a read, so a theme missing, or a row renamed, added or
+// dropped, stores nothing: the names are a finding to record (O4), not a store.
+export function themeStore(finding, { vars, rows }, date) {
+  const themes = Object.keys(finding.rows.A), names = finding.rowGroups.flatMap(([, r]) => r);
+  if (!vars || Object.keys(finding.palette.vars0).some((k) => !vars[k])) throw new Error('not stored: the palette was not read in full');
+  for (const t of themes) {
+    const got = rows[t];
+    if (!got) throw new Error(`not stored: ${t} was not read`);
+    if (got.length !== names.length || got.some(([n], i) => n !== names[i])) throw new Error(`not stored: ${t}'s row names differ from rowGroups`);
+  }
+  const colors = [...finding.rows.colors], at = (c) => { if (!colors.includes(c)) colors.push(c); return colors.indexOf(c); };
+  const A = Object.fromEntries(themes.map((t) => [t, rows[t].map(([, c]) => at(c)).join(',')]));
+  const vars0 = Object.fromEntries(Object.keys(finding.palette.vars0).map((k) => [k, vars[k]]));
+  return { ...finding, capturedAt: date, palette: { ...finding.palette, vars0 }, rows: { ...finding.rows, A, colors } };
+}

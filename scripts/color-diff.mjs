@@ -4,12 +4,13 @@
 import { writeFileSync } from 'node:fs';
 import { evalJs, waitFor, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { DEMO } from './lib/oracle-site.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => (args.includes(`--${n}`) ? args[args.indexOf(`--${n}`) + 1] : d);
 const oracle = arg('oracle-frame', process.env.ORACLE_SURFACE || 'surface:40');
 const surface = arg('surface', process.env.FLUID_SURFACE || 'surface:59');
-const path = arg('path', '/how-fluid-engine-works');
+const path = arg('path', DEMO.path);
 const ours = arg('ours', `${BASE}/page.html`);
 const slug = arg('slug', 'demo');
 
