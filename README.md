@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 7 changes
+- **Today** · 8 changes
+  - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
   - cdp viewport op: poll for the inner size, throw when it is not reached ([#633](https://github.com/FRIKKern/fluid-editor/pull/633))
-  - Y2 rows: text-check sets the window back to 1600x945 before the case (the macos-15 flake was a 1231-high window) ([#632](https://github.com/FRIKKern/fluid-editor/pull/632))
 - **Yesterday** · 17 changes
   - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
 - **This week** · 132 changes
