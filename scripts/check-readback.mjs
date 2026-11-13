@@ -1,5 +1,9 @@
 // The read-back's comparison can't pass a narrowed read: oracle-readback.mjs is only as honest as this.
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { FONT_GROUPS, OTHER_FONTS } from '../app/src/font-names.js';
 import { ASSIGN_GROUPS } from '../app/src/assign-names.js';
 import { THEMES, NAMES, colorsOf, compareRows, comparePalette, compareView, compareLists, compareFamilies, compareFormColors, settledRead, runSets, exitCode, STYLES, FINDING } from './oracle/readback.mjs';
@@ -143,6 +147,28 @@ is('no link target or email in the footer base', !/https?:|@/.test(JSON.stringif
   is('a short list that grows is read in full', (await settledRead(reads(half, half, full, full), noWait, 6, 3)).rows.length === 3);
   is('a short list that holds still 8 reads counts', (await settledRead(() => half, noWait, 6, 3)).rows.length === 1);
   is('a list that never holds still is not settled', !(await settledRead(() => [Math.random()], noWait, 6, 3)).settled);
+}
+// --store and --store-themes on a stand-in site (scripts/oracle/readback-stub.mjs): a Save that turned on anywhere stores nothing.
+{
+  const run = (stub, ...flags) => {
+    const dir = mkdtempSync(join(tmpdir(), 'readback-store-'));
+    const r = spawnSync(process.execPath, ['--import', fileURLToPath(new URL('./oracle/readback-stub.mjs', import.meta.url)), fileURLToPath(new URL('./oracle-readback.mjs', import.meta.url)), ...flags], { env: { ...process.env, ORACLE_SURFACE: 'cdp:1', READBACK_STUB: JSON.stringify({ dir, ...stub }) }, encoding: 'utf8', timeout: 30000 });
+    const stored = readdirSync(dir).sort().join();
+    rmSync(dir, { recursive: true });
+    return { code: r.status, stored };
+  };
+  const saveOn = { diffs: ['Fonts > Headings: Save is not off: {"edit":false,"exit":true,"save":"on"}'] };
+  const clean = run({}, '--store', '--store-themes');
+  is('a clean read stores both bases', clean.code === 0 && clean.stored === 'styles.json,themes.json');
+  for (const flag of ['--store', '--store-themes']) { const r = run(saveOn, flag); is(`a Save-on diff stores nothing with ${flag}`, r.code === 1 && r.stored === ''); }
+  const asks = run({ exit: 'asks' }, '--store', '--store-themes');
+  is('an Exit that asks about unsaved changes stores nothing', asks.code === 1 && asks.stored === '');
+  const stays = run({ exit: 'stays' }, '--store', '--store-themes');
+  is('a page still being edited after Exit stores nothing', stays.code === 1 && stays.stored === '');
+  const throws = run({ exit: 'throws' }, '--store', '--store-themes');
+  is('an Exit that fails stores nothing', throws.code === 2 && throws.stored === '');
+  const notRead = run({ notRead: ['Fonts: press: none'] }, '--store');
+  is('a set not read stores nothing', notRead.code === 2 && notRead.stored === '');
 }
 if (bad.length) { console.error(`read-back compare: ${bad.join('; ')}`); process.exit(1); }
 // Fonts > Buttons and Miscellaneous hold the same lists as Paragraphs, Buttons three times over; a form font holds Style and Size.
