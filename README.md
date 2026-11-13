@@ -73,4 +73,4 @@ node scripts/replay.mjs           # Gate C: replay every trace in our editor
 eval "$(npm run -s surfaces)"; npm run review   # gap inventory, pixel diff, Barkpark paper
 ```
 
-The oracle is the page "How Fluid Engine works" on `halibut-keyboard-jlhd.squarespace.com`, driven through cmux ([0004](docs/decisions/0004-oracle-page-and-preview-frame.md)). `app/page.html` is our published version of it.
+The oracle is a Squarespace trial site, set by `FLUID_ORACLE_SITE` and driven through cmux. A new trial follows [QUALITY.md, "A new trial"](QUALITY.md#a-new-trial). Its page "How Fluid Engine works" is built by `scripts/oracle-build.mjs` ([0004](docs/decisions/0004-oracle-page-and-preview-frame.md)). `app/page.html` is our published version of it.

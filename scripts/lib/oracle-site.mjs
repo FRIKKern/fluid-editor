@@ -24,7 +24,7 @@ export const EDITOR = `${ORIGIN}/config/pages`;
 export const HOST_RE = new RegExp(HOST.replace(/\./g, '\\.'));
 
 // The pages the oracle scripts open by default. Squarespace makes the path from the title, so a new trial
-// names them exactly so. The demo page comes with the template; the two probe pages are made by hand (0006).
+// names them exactly so. The demo page is built by scripts/oracle-build.mjs (0004); the two probe pages are made by hand (0006).
 export const DEMO = { title: 'How Fluid Engine works', path: '/how-fluid-engine-works' };
 export const BLOCKS_PROBE = { title: 'Blocks Probe', path: '/blocks-probe' };
 export const GESTURES_PROBE = { title: 'Gestures Probe', path: '/gestures-probe' };

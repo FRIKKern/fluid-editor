@@ -1,6 +1,6 @@
 // The oracle's trial site lives in scripts/lib/oracle-site.mjs and nowhere else in scripts/: a new trial sets
-// FLUID_ORACLE_SITE once and every script follows. Fails if another script names a *.squarespace.com site (in code,
-// a regex or a comment) or the module's own site name, and checks that the module reads the variable.
+// FLUID_ORACLE_SITE once and every script follows. Fails if another script, README.md or QUALITY.md names a
+// *.squarespace.com site (in code, a regex or a comment) or the module's own site name, and checks that the module reads the variable.
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,12 +13,14 @@ const sq = (name) => `${name}.squarespace` + '.com';
 const errors = [];
 
 const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', 'scripts'], { cwd: root, encoding: 'utf8' }).trim().split('\n').filter((f) => f && f !== MODULE && existsSync(`${root}/${f}`));
+// The docs a new trial is set up from. Decisions (docs/decisions) keep the site they were written on.
+const DOCS = ['README.md', 'QUALITY.md'];
 // The module's own site names, so a bare name (location.host.includes('<name>')) is caught too.
 const names = existsSync(`${root}/${MODULE}`) ? [...new Set([...readFileSync(`${root}/${MODULE}`, 'utf8').matchAll(SITE)].map((m) => m[0].split(/\\?\./)[0].toLowerCase()))] : [];
-for (const f of files) {
+for (const f of [...files, ...DOCS]) {
   readFileSync(`${root}/${f}`, 'utf8').split('\n').forEach((line, i) => {
     const hit = line.match(SITE)?.[0] || names.find((n) => line.toLowerCase().includes(n));
-    if (hit) errors.push(`${f}:${i + 1}: names the trial site (${hit}); use ${MODULE}`);
+    if (hit) errors.push(`${f}:${i + 1}: names the trial site (${hit}); ${DOCS.includes(f) ? 'name FLUID_ORACLE_SITE' : `use ${MODULE}`}`);
   });
 }
 
@@ -76,4 +78,4 @@ if (!existsSync(SETUP)) errors.push('scripts/oracle-setup-check.mjs: missing');
 else for (const [name, r, ok] of setupCases) if (!ok(r)) errors.push(`oracle-setup-check, ${name}: exit ${r.code}\n${r.out}`);
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`oracle site ok: ${files.length} scripts name no site, ${MODULE} reads FLUID_ORACLE_SITE, oracle-setup-check ${setupCases.length} of ${setupCases.length}, themeStore ${themeCases.length} of ${themeCases.length}`);
+console.log(`oracle site ok: ${files.length} scripts and ${DOCS.length} docs name no site, ${MODULE} reads FLUID_ORACLE_SITE, oracle-setup-check ${setupCases.length} of ${setupCases.length}, themeStore ${themeCases.length} of ${themeCases.length}`);

@@ -111,11 +111,11 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 ## A new trial
 
 ```
-owner: trial + cmux login ─► Poppins (0004) ─► two probe pages
+owner: Agaro trial + cmux login ─► Poppins (0004) ─► two probe pages
 lane:  FLUID_ORACLE_SITE ─► profile 9350 ─► oracle-setup-check ─► compare, then store the bases
 ```
 
-1. The owner starts a trial, logs in in a cmux tab and notes `<name>.squarespace.com` and the day.
+1. The owner starts a trial on the Agaro template, logs in in a cmux tab and notes `<name>.squarespace.com` and the day. The old site was Agaro (its footer says "Agaro Collective", `parity/findings/CAP-FOOTER.json`). Another template brings another footer, other themes and other pages, so every stored base would differ.
 2. `export FLUID_ORACLE_SITE=<name>.squarespace.com`. Every oracle script reads it from `scripts/lib/oracle-site.mjs`.
 3. Log in the headless profile with the cmux tab open: `eval "$(CDP_PORT=9350 node scripts/oracle-headless.mjs)"`. Lanes copy `/tmp/fluid-editor-chrome-9350`; nobody deletes it.
 4. The owner sets Site Styles fonts to Poppins: headings, paragraphs, miscellaneous text and the three button styles (docs/decisions/0004). This saves site-wide, so it is the owner's step.
