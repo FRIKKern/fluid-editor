@@ -163,8 +163,10 @@ try {
     // Window bounds persist after this connection closes. The window includes Chrome's own frame, and the page's inner
     // size follows a new window size some time later: a fixed 250 ms wait read a stale size on a CI runner and left the
     // window 1600x1231 for 1600x945 (run 43323739189). So: window = size wanted + frame (window minus inner, read now),
-    // then poll the inner size until it is the one wanted. Not there in 1.5 s: read the frame again and set again.
-    // Never there: throw, with the size wanted and the size got.
+    // then poll the inner size until it is the one wanted. A set lands at the size wanted, or wrong (the frame changed):
+    // moved, then still for 300 ms. Then read the frame again and set again. Never a second set while one may still be on
+    // its way: its frame read would be stale, and the two land in turn at the wrong size. So a window that has not moved
+    // in 4 s is not set again (held: an emulation, a clamp). Not there: throw, with the size wanted and the size got.
     const { result: { windowId } } = await send('Browser.getWindowForTarget', { targetId: page.id });
     const inner = async () => JSON.parse(await evaluateIn(undefined, 'JSON.stringify([innerWidth, innerHeight])'));
     const at = ([iw, ih]) => iw === cmd.w && ih === cmd.h;
@@ -173,8 +175,15 @@ try {
       const { result: { bounds } } = await send('Browser.getWindowBounds', { windowId });
       const r = await send('Browser.setWindowBounds', { windowId, bounds: { windowState: 'normal', width: cmd.w + bounds.width - got[0], height: cmd.h + bounds.height - got[1] } });
       if (r.error) err = `, ${r.error.message}`;
-      const end = Date.now() + 1500;
-      do { await sleep(50); got = await inner(); } while (!at(got) && Date.now() < end);
+      const end = Date.now() + 4000;
+      let moved = 0;
+      while (!at(got) && Date.now() < end && !(moved && Date.now() - moved >= 300)) {
+        await sleep(50);
+        const now = await inner();
+        if (now[0] !== got[0] || now[1] !== got[1]) moved = Date.now();
+        got = now;
+      }
+      if (!moved) break;
     }
     if (!at(got)) throw new Error(`viewport: wanted ${cmd.w}x${cmd.h}, got ${got.join('x')}${err}`);
   }
