@@ -160,17 +160,23 @@ try {
       if ((await evaluateIn(undefined, 'innerWidth')) !== cmd.w) throw new Error(`could not emulate ${cmd.w}px`);
       ws.close(); process.exit(0);
     }
-    // Window bounds persist after this connection closes.
-    const { result } = await send('Browser.getWindowForTarget', { targetId: page.id });
-    // The window includes Chrome's own frame: set it, read the inner size, correct, repeat.
-    let w = cmd.w, h = cmd.h;
-    for (let k = 0; k < 4; k++) {
-      await send('Browser.setWindowBounds', { windowId: result.windowId, bounds: { windowState: 'normal', width: w, height: h } });
-      await sleep(250);
-      const [iw, ih] = JSON.parse(await evaluateIn(undefined, 'JSON.stringify([innerWidth, innerHeight])'));
-      if (iw === cmd.w && ih === cmd.h) break;
-      w += cmd.w - iw; h += cmd.h - ih;
+    // Window bounds persist after this connection closes. The window includes Chrome's own frame, and the page's inner
+    // size follows a new window size some time later: a fixed 250 ms wait read a stale size on a CI runner and left the
+    // window 1600x1231 for 1600x945 (run 43323739189). So: window = size wanted + frame (window minus inner, read now),
+    // then poll the inner size until it is the one wanted. Not there in 1.5 s: read the frame again and set again.
+    // Never there: throw, with the size wanted and the size got.
+    const { result: { windowId } } = await send('Browser.getWindowForTarget', { targetId: page.id });
+    const inner = async () => JSON.parse(await evaluateIn(undefined, 'JSON.stringify([innerWidth, innerHeight])'));
+    const at = ([iw, ih]) => iw === cmd.w && ih === cmd.h;
+    let got = await inner(), err = '';
+    for (let k = 0; k < 3 && !at(got); k++) {
+      const { result: { bounds } } = await send('Browser.getWindowBounds', { windowId });
+      const r = await send('Browser.setWindowBounds', { windowId, bounds: { windowState: 'normal', width: cmd.w + bounds.width - got[0], height: cmd.h + bounds.height - got[1] } });
+      if (r.error) err = `, ${r.error.message}`;
+      const end = Date.now() + 1500;
+      do { await sleep(50); got = await inner(); } while (!at(got) && Date.now() < end);
     }
+    if (!at(got)) throw new Error(`viewport: wanted ${cmd.w}x${cmd.h}, got ${got.join('x')}${err}`);
   }
   if (cmd.op === 'screenshot') { const r = await send('Page.captureScreenshot', { format: 'png' }); writeFileSync(cmd.file, Buffer.from(r.result.data, 'base64')); }
   if (cmd.op === 'click') await clickAt(await centerOf(cmd.sel, { guard: true }));
