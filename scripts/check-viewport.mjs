@@ -1,13 +1,14 @@
 // The cdp viewport op (scripts/lib/cdp-run.mjs) must leave the page at the inner size asked for, or fail. Against a stand-in
 // for Chrome's DevTools port, so it needs no browser: a window with an 87 px frame whose inner size follows a new window
-// size 400 ms late (a fixed 250 ms wait read the old size and left the window wrong, run 43323739189), and one held at
-// 1600x1231 that no window size moves (the op used to exit 0 there).
+// size 400 ms late (a fixed 250 ms wait read the old size and left the window wrong, run 43323739189), the same 1.6 s late
+// (a second set sent while the first was on its way read a stale frame and ended at the wrong size, exit 0), 1.6 s late with
+// a frame that turns 120 px (a retry is needed), and one held at 1600x1231 that no window size moves (used to exit 0).
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 
 // The smallest WebSocket server cdp-run.mjs needs: text frames, client frames masked, replies under 64 KB.
-function standIn({ lagMs, held }) {
+function standIn({ lagMs, held, frame = 87 }) {
   const s = { bounds: { left: 0, top: 0, width: 1880, height: 1000, windowState: 'normal' }, inner: held || [1880, 913] };
   const reply = (sock, obj) => {
     const body = Buffer.from(JSON.stringify(obj));
@@ -20,7 +21,7 @@ function standIn({ lagMs, held }) {
     if (method === 'Browser.setWindowBounds') {
       Object.assign(s.bounds, params.bounds);
       const { width, height } = s.bounds;
-      if (!held) setTimeout(() => { s.inner = [width, height - 87]; }, lagMs);
+      if (!held) setTimeout(() => { s.inner = [width, height - frame]; }, lagMs);
       return {};
     }
     if (method === 'Runtime.evaluate') {
@@ -61,15 +62,18 @@ const op = (port) => new Promise((r) => execFile(process.execPath, [new URL('./l
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const bad = [];
 
-// Both at once: the one it cannot reach takes its full 4.5 s.
+// All at once: the one it cannot reach waits its full 4 s for the window to move.
+const reaches = async (what, opts) => {
+  const { server, s, port } = await standIn(opts);
+  const r = await op(port);
+  await wait(opts.lagMs + 300); // a set still on its way shows up here
+  if (r.code !== 0 || s.inner.join('x') !== '1600x945') bad.push(`${what}: want exit 0 at 1600x945, got exit ${r.code} at ${s.inner.join('x')} ${r.err.trim()}`);
+  server.close();
+};
 await Promise.all([
-  (async () => {
-    const { server, s, port } = await standIn({ lagMs: 400 });
-    const r = await op(port);
-    await wait(500); // a set still on its way shows up here
-    if (r.code !== 0 || s.inner.join('x') !== '1600x945') bad.push(`a window whose inner size follows 400 ms late: want exit 0 at 1600x945, got exit ${r.code} at ${s.inner.join('x')} ${r.err.trim()}`);
-    server.close();
-  })(),
+  reaches('a window whose inner size follows 400 ms late', { lagMs: 400 }),
+  reaches('one 1.6 s late', { lagMs: 1600 }),
+  reaches('one 1.6 s late whose frame turns 120 px', { lagMs: 1600, frame: 120 }),
   (async () => {
     const { server, port } = await standIn({ held: [1600, 1231] });
     const r = await op(port);
@@ -79,5 +83,5 @@ await Promise.all([
 ]);
 
 if (bad.length) { console.error(`check-viewport: ${bad.length} failed\n  ${bad.join('\n  ')}`); process.exit(1); }
-console.log('check-viewport: the viewport op reaches a late window size, and fails loudly on one it cannot reach');
+console.log("check-viewport: the viewport op reaches a window size that lands late, also after a retry, and fails loudly on one it cannot reach");
 process.exit(0);
