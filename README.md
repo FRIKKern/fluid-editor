@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 5 changes
+- **Today** · 6 changes
+  - Y2 rows: text-check sets the window back to 1600x945 before the case (the macos-15 flake was a 1231-high window) ([#632](https://github.com/FRIKKern/fluid-editor/pull/632))
   - oracle-readback stores nothing when Save turned on ([#630](https://github.com/FRIKKern/fluid-editor/pull/630))
-  - New-trial docs: README names FLUID_ORACLE_SITE, runbook names the Agaro template, demo page built by oracle-build ([#631](https://github.com/FRIKKern/fluid-editor/pull/631))
 - **Yesterday** · 17 changes
   - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
 - **This week** · 132 changes
