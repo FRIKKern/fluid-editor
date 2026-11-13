@@ -391,18 +391,22 @@ const fading = evalJs(S, `(() => { const c = getComputedStyle(document.querySele
 add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0.17s' && fading.outline === 'sc-outline-in' && fading.least < 0.9 && fading.last === 1, JSON.stringify(fading));
 // The outline's border color, frame by frame, one way and back: alpha only, in about 0.2 s, against CAP-U9FADE.json.
 const outlineWatch = async (x, y) => {
-  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null]); requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
-  const seen = evalJs(S, `(() => { const T = window.__ow; T.stop = true; return JSON.stringify(T.seen); })()`);
+  const { seen, runs } = evalJs(S, `(() => { const T = window.__ow; T.stop = true; return JSON.stringify({ seen: T.seen, runs: [...T.runs].sort() }); })()`);
   const part = seen.filter(([, c]) => c).map(([t, c]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join()]; });
   const mid = part.filter(([, a]) => a > 0 && a < 1);
-  return { frames: mid.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), near: mid.some(([, a]) => Math.abs(a - 0.5) < 0.12) };
+  return { frames: mid.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), near: mid.some(([, a]) => Math.abs(a - 0.5) < 0.12), last: part.at(-1)?.[1], runs };
 };
 await hoverBar(800, 20); await pause(300);
 const outIn = await outlineWatch(60, 400);
 add('outline fades in over 0.2 s on its alpha', outIn.frames >= 6 && outIn.span >= 110 && outIn.span <= 230 && outIn.hue.join() === '72,148,255' && outIn.rising && outIn.near, JSON.stringify(outIn));
 const outOut = await outlineWatch(800, 20);
 add('outline fades out over 0.2 s on its alpha', outOut.frames >= 6 && outOut.span >= 110 && outOut.span <= 230 && outOut.hue.join() === '72,148,255' && outOut.falling && outOut.near, JSON.stringify(outOut));
+// The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it: a longer fade
+// passes them. The fade's own timing doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
+const outRuns = ['bottom', 'left', 'right', 'top'].map((s) => `CSSTransition border-${s}-color 200 ease-in-out`);
+add('outline fade-out runs its own 0.2 s ease-in-out', outOut.runs.join() === outRuns.join(), JSON.stringify(outOut.runs));
 add('chrome gone after the outline', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
 // Back on the section during the fade, the outline runs back: no new fade from nothing.
 // The way back has to beat the chrome's 200 ms timer, and each mouse call takes time, more under load, so each try reads its real gap.
