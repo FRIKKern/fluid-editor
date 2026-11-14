@@ -139,8 +139,10 @@ export async function replay(S, finding, add) {
       const btnWant = finding.reads[a[0]]?.btnState, btnGot = btnWant && evalJs(S, `JSON.stringify({ Undo: document.getElementById('undo').disabled, Redo: document.getElementById('redo').disabled })`);
       const btnSame = !btnWant || ['Undo', 'Redo'].every((k) => btnWant[k]?.disabled === btnGot[k]);
       // has: is the text bar's Bold showing, is the toolbar's Write?
-      const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
-      const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
+      // Any other name: is something with that label showing outside the page, found as oracle-capture.mjs finds it (LABEL).
+      const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `(() => { const shown = (L) => [...document.querySelectorAll('[aria-label], [title], body *')].some((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); });
+        return JSON.stringify(Object.fromEntries(${JSON.stringify(Object.keys(hasWant || {}))}.map((k) => [k, k === 'Bold' ? !document.getElementById('text-bar').hidden : k === 'Write' ? !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') : shown(k)]))); })()`);
+      const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
       add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
