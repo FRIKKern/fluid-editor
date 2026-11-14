@@ -410,7 +410,7 @@ add('outline fade-out runs its own 0.2 s ease-in-out', outOut.runs.join() === ou
 add('chrome gone after the outline', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
 // Back on the section during the fade, the outline runs back: no new fade from nothing.
 // The way back has to beat the chrome's 200 ms timer, and each mouse call takes time, more under load, so each try reads its real gap.
-// The chrome going on a gap that long is a fresh fade, which is right, and tests nothing: try again, and say so if none came short enough.
+// The chrome going on a gap that long is a fresh fade, which is right, and tests nothing: try again, and fail the row if none came short enough.
 // The chrome going on a shorter gap is a real miss. Every try's read goes in the line.
 const backTries = [];
 let backOn = null;
@@ -425,8 +425,9 @@ for (let tries = 0; tries < 5 && !backOn; tries++) {
   backTries.push({ gap, ...read });
   if (read.hid && gap >= 150) { mouse(S, 'move', 800, 20); await pause(400); } else backOn = read;
 }
+// No try short enough means the row was not run: that counts against the run, never as a pass (QUALITY.md, no skip-pass).
 if (backOn) add('outline back on during its fade runs back', !backOn.hid && !backOn.hidden && backOn.name === 'none' && backOn.color === 'rgb(72, 148, 255)', JSON.stringify(backTries));
-else console.log(`NOT RUN outline back on during its fade runs back: no try's gap came under 150 ms ${JSON.stringify(backTries)}`);
+else add('outline back on during its fade runs back', false, `NOT RUN: no try's gap came under 150 ms ${JSON.stringify(backTries)}`);
 // The try above can end with the pointer away, so come back and let it settle first.
 mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(500);
 // A rebuild in place, on selecting a block, keeps the outline lit.
