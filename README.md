@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 18 changes
+- **Today** · 19 changes
+  - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
   - mid-check: X11 handle touches move 20 px a step, so the shrink row tests the hold ([#652](https://github.com/FRIKKern/fluid-editor/pull/652))
-  - text-check: a read's controls are compared, label by label in order ([#651](https://github.com/FRIKKern/fluid-editor/pull/651))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
