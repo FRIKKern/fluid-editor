@@ -44,6 +44,9 @@ const VOID = (file, read) => (file === 'CAP-X6DESKROWS' && /^Summary e (8|back)/
 // On a phone, as a start row or a pull: Summary's content moves between runs (1170, 1689, 1958), and its south pull took effect
 // at the next press (CAP-X6PHONEROWS.json). The others draw the oracle's phone height by width (CAP-68PULL.json, CAP-X6PHONEROWS.json).
 const PHONE_ROWS_UNBUILT = /^Summary /;
+// The oracle's own step failed before this read (CAP-X6PHONEFLOORS.json errors: its e drag found no block), so the read holds no
+// area: nothing to compare, named. Any other read with no oracle area is a miss, so a findings change can't shrink the total.
+const NO_AREA = new Set(['CAP-X6PHONEFLOORS Summary e far in']);
 let known = 0;
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
@@ -66,7 +69,8 @@ for (const file of FILES) {
       const pick = !['CAP-X6DESKROWS', 'CAP-X6PHONEROWS', 'CAP-X6FARSETTLE'].includes(file) || all.length < 2 ? all[0] : (last ? changed.find(same) : changed.find(isNew)) ?? changed[0] ?? all.find((a) => a === last) ?? all[0];
       seen = all; last = pick;
       const want = pick?.split('/').map(Number), have = area();
-      if (!want || VOID(file, step[1])) continue;
+      if (VOID(file, step[1]) || (!want && NO_AREA.has(`${file} ${step[1]}`))) continue;
+      if (!want) { total++; console.log(`DIFF ${file} ${step[1]}: the oracle's read holds no area`); results.push({ file, read: step[1], ok: false }); continue; }
       off ??= want[0] - have[0];
       const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || /^CAP-X6SUMMARY(WALK|FAR2?)$/.test(file) || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
       const ok = named ? want[1] === have[1] && want[3] === have[3] : w === have.join('/');
