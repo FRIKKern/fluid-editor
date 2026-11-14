@@ -3,7 +3,7 @@
 // argv[2] is JSON: { port, op, frame?, ... }
 //   eval js | wait js timeoutSec | goto url | reload | viewport w h | screenshot file
 //   click sel | dblclick sel | hover sel | press key | fill sel text | dialog accept
-//   mouse type x y buttons mods | moves points gapMs | drag from to steps holdMs mods pointerType | touch from to steps holdMs
+//   mouse type x y buttons mods | moves points gapMs | drag from to steps holdMs mods pointerType | touch from to steps holdMs stamped
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
 import { execFileSync, spawn } from 'node:child_process';
@@ -222,12 +222,17 @@ try {
     // No Emulation.setTouchEmulationEnabled: turning it on throws the oracle out of edit mode.
     const a = await toPage(...cmd.from), b = await toPage(...cmd.to);
     const at = (p) => [{ x: p.x, y: p.y, id: 1 }];
-    await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: at(a) });
+    // stamped: each event carries the time it is meant to have (Input.dispatchTouchEvent's timestamp), so the page's
+    // e.timeStamp gap from the press to the first move is holdMs, not holdMs plus however long Chrome took to take the
+    // press on a busy machine. The editor's hold goes by e.timeStamp (TOUCH_HOLD, app/src/editor.js). The moves are
+    // stamped half a ms late: event clocks are coarse (to 0.1 ms), and a 100 ms hold must never read as 99.9.
+    const t0 = Date.now() / 1000, when = (ms) => (cmd.stamped ? { timestamp: t0 + ms / 1000 } : {});
+    await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: at(a), ...when(0) });
     if (cmd.holdMs) await sleep(cmd.holdMs);
-    const steps = cmd.steps ?? 12;
-    for (let k = 1; k <= steps; k++) { await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at({ x: a.x + (b.x - a.x) * k / steps, y: a.y + (b.y - a.y) * k / steps }) }); await sleep(25); }
+    const steps = cmd.steps ?? 12, hold = cmd.holdMs ?? 0;
+    for (let k = 1; k <= steps; k++) { await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at({ x: a.x + (b.x - a.x) * k / steps, y: a.y + (b.y - a.y) * k / steps }), ...when(hold + 0.5 + 25 * (k - 1)) }); await sleep(25); }
     if (steps) await sleep(200);
-    await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [], ...when(hold + 25 * steps + (steps ? 200 : 0)) });
     await sleep(300);
   }
   if (cmd.op === 'drag') {

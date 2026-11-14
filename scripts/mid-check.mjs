@@ -358,7 +358,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 'k').layout.desktop.area.join('/'))`);
   const handles = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length)`);
   const cancels = () => evalJs(S, `JSON.stringify(window.__c)`);
-  const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs });
+  const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs, stamped: true });
   const walk = [[70, 0, 0, '1/3/7/9'], [125, 0, 0, '1/4/7/10'], [150, 0, 0, '1/4/7/10'], [200, 0, 0, '1/2/7/8', true], [200, 0, 30, '1/2/7/8', true], [200, 0, 60, '1/2/7/8', true], [200, 0, 100, '1/5/7/11'], [200, 0, 800, '1/5/7/11'], [0, 125, 0, '4/2/10/8'], [0, 200, 0, '1/2/7/8', true]];
   // A cancel needs a first move inside the hold. On a busy machine the press can sit past it, and
   // that run tests nothing: read the real gap, try again, and fail the row if it never came.
