@@ -31,3 +31,10 @@ export function toggleStates(root, sel) {
     ...Object.fromEntries(['left', 'center', 'right', 'justify'].map((a) => [`align:${a}`, !!b && align === a])),
   };
 }
+
+// Sets the bar's aria-checked to the selection in place, for when the bar is not redrawn (a menu open, Cmd+B and
+// Cmd+I): nothing else on the bar changes.
+export function syncToggles(bar, root, sel) {
+  const on = toggleStates(root, sel);
+  for (const b of bar.querySelectorAll('[role=checkbox][data-fmt]')) if (b.dataset.fmt in on) b.setAttribute('aria-checked', String(on[b.dataset.fmt]));
+}

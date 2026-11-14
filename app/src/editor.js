@@ -22,7 +22,7 @@ import { anchorPopHtml, APPEAR, anchorText, blockPanelHtml, blockPanelPosition, 
 import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
-import { toggleStates } from './text-toggles.js';
+import { toggleStates, syncToggles } from './text-toggles.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
@@ -1750,7 +1750,7 @@ function onKey(e) {
     // Option changes e.key on macOS.
     const STYLE_KEYS = { Digit6: 'h1', Digit5: 'h2', Digit4: 'h3', Digit3: 'h4', Digit2: 'p.sqsrte-large', Digit1: 'p', Digit0: 'p.sqsrte-small', KeyM: 'pre' };
     if (mod && e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); applyFormat('style', STYLE_KEYS[e.code]); renderTextBar(); return; }
-    if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); return; }
+    if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); if (editing) syncToggles(textBar, editing.ce, win.getSelection()); return; }
     return;
   }
   // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
@@ -5360,7 +5360,8 @@ function moveWithText(s, b, a, d) {
 
 function onTextSelection() {
   if (editing?.strikeNext && String(fmt.caretPlace(editing.ce, win.getSelection())) !== editing.strikeNext.at) editing.strikeNext = null;
-  if (editing && !textMenu) renderTextBar();
+  // With a menu open the bar is not redrawn, so its menu stays as it is; only the toggles' aria-checked follow.
+  if (editing && !textMenu) renderTextBar(); else if (editing) syncToggles(textBar, editing.ce, win.getSelection());
 }
 function finishTextEdit() {
   const ed = editing;

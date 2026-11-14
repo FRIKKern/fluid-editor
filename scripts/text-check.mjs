@@ -381,6 +381,27 @@ for (const file of ['CAP-E4ENDS2', 'CAP-E4ENDS3']) {
   results.push({ name, ok: typed === '1/2/31/10' && emptied === '1/2/3/10' }); if (typed !== '1/2/31/10' || emptied !== '1/2/3/10') console.log(`${name} DIFF typed ${typed}, emptied ${emptied}`);
   browser(S, 'press', 'Escape'); await pause(200); browser(S, 'press', 'Escape'); await pause(200);
 }
+// The toggles' aria-checked (role=checkbox, text-toggles.js) follow Cmd+B, Cmd+I and the selection while the Text Alignment or
+// Text Style menu stays open, by real keys and presses on 'abc def' in a new Text (inferred: the oracle's checked values were not read).
+// Shift+ArrowRight takes in the plain space, Shift+ArrowLeft gives it back; a press on the menu's button closes it and redraws the bar.
+for (const [m, steps] of [['Text Alignment', [['Meta+b', 'Bold', true], ['Meta+i', 'Italic', true], ['close', 'Bold', true]]],
+  ['Text Style', [['Meta+i', 'Italic', true], ['Shift+ArrowRight', 'Italic', false], ['Shift+ArrowLeft', 'Italic', true], ['close', 'Italic', true]]]]) {
+  fresh();
+  const id = evalJs(S, `(() => { const s = fe.model.sections[1], had = new Set(s.blocks.map((b) => b.id)); fe.addBlock(s.id, 'Text', true); const id = s.blocks.find((b) => !had.has(b.id)).id;
+    fe.edit(s.id, id); const c = document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + id + '"] .sqs-html-content');
+    c.innerHTML = '<p style="white-space:pre-wrap;">abc def</p>'; c.focus(); const t = c.querySelector('p').firstChild; c.ownerDocument.getSelection().setBaseAndExtent(t, 0, t, 3); return JSON.stringify(id); })()`);
+  await pause(350);
+  browser(S, 'click', `#text-bar [aria-label="${m}"]`); await pause(350);
+  const read = (label) => evalJs(S, `JSON.stringify({ checked: document.querySelector('#text-bar [role=checkbox][aria-label="${label}"]')?.getAttribute('aria-checked'), open: document.querySelector('#text-bar [aria-label="${m}"]').getAttribute('aria-expanded'),
+    html: document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="${id}"] .sqs-html-content').innerHTML })`);
+  for (const [key, label, want] of steps) {
+    if (key === 'close') browser(S, 'click', `#text-bar [aria-label="${m}"]`); else cdp(S, { op: 'presses', keys: [key] });
+    await pause(450);
+    const got = read(label), ok = got.checked === String(want) && got.open === String(key !== 'close');
+    results.push({ name: `Toggles with ${m} open: after ${key === 'close' ? 'a press that closes it' : key} ${label} reads aria-checked ${want}, the menu ${key === 'close' ? 'closed' : 'open'} (inferred)`, ok }); if (!ok) console.log(`Toggles ${m} ${key} DIFF ${JSON.stringify(got)}`);
+  }
+}
+
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 const noRun = [];
 const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y', 'rows S1 2 z', 'rows S1 3 z', 'rows S2 3 z', 'rows S5 1 z', 'rows S5 2 z', 'rows S5 3 y']; // Named in Y2's evidence
