@@ -3,7 +3,7 @@
 // argv[2] is JSON: { port, op, frame?, ... }
 //   eval js | wait js timeoutSec | goto url | reload | viewport w h | screenshot file
 //   click sel | dblclick sel | hover sel | press key | fill sel text | dialog accept
-//   mouse type x y buttons mods | drag from to steps holdMs mods pointerType | touch from to steps holdMs
+//   mouse type x y buttons mods | moves points gapMs | drag from to steps holdMs mods pointerType | touch from to steps holdMs
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
 import { execFileSync, spawn } from 'node:child_process';
@@ -125,7 +125,7 @@ async function fill(sel, text) {
 let out = '';
 try {
   // A tab behind another is hidden: it stops answering input, and the editor stops booting.
-  if (['click', 'dblclick', 'hover', 'press', 'fill', 'mouse', 'drag', 'viewport', 'goto'].includes(cmd.op)) await send('Page.bringToFront');
+  if (['click', 'dblclick', 'hover', 'press', 'fill', 'mouse', 'moves', 'drag', 'viewport', 'goto'].includes(cmd.op)) await send('Page.bringToFront');
   if (cmd.op === 'eval') { const v = await evaluate(cmd.js); out = typeof v === 'string' ? v : JSON.stringify(v ?? null); }
   if (cmd.op === 'wait') {
     const end = Date.now() + (cmd.timeoutSec || 45) * 1000; let ok = false;
@@ -204,6 +204,15 @@ try {
     const p = await toPage(cmd.x, cmd.y);
     const pressed = cmd.type === 'down' || cmd.type === 'up';
     await mouseEvent({ move: 'mouseMoved', down: 'mousePressed', up: 'mouseReleased' }[cmd.type], p, { button: pressed ? 'left' : cmd.buttons ? 'left' : 'none', buttons: cmd.type === 'down' || (cmd.type === 'move' && cmd.buttons) ? 1 : 0, clickCount: pressed ? 1 : 0, mods: cmd.mods });
+  }
+  // Plain moves through each point in one process, gapMs apart: the time between them is the gap, not a node start
+  // each (marks-check's way back has to beat the chrome's 200 ms timer). Prints the ms from the first move to the last.
+  if (cmd.op === 'moves') {
+    const ps = [];
+    for (const [x, y] of cmd.points) ps.push(await toPage(x, y));
+    const at = [];
+    for (const [n, p] of ps.entries()) { if (n && cmd.gapMs) await sleep(cmd.gapMs); await mouseEvent('mouseMoved', p); at.push(performance.now()); }
+    out = JSON.stringify(Math.round(at.at(-1) - at[0]));
   }
   if (cmd.op === 'wheel') {
     const p = await toPage(cmd.x, cmd.y);
