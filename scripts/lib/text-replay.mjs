@@ -53,6 +53,12 @@ const STAMP = (ce) => `(() => { window.__stamps = []; const ce = ${ce}; const st
 
 export async function replay(S, finding, add) {
   let id = null, newId = null, segment = null;
+  // A read the finding doesn't hold is only fine when the capture said why: an error on that step, or set aside.
+  // Anything else fails, never a silent skip (QUALITY.md, no skip-pass).
+  const unread = (op, key) => {
+    const why = (finding.errors || []).find((e) => e.startsWith(`${op} [${JSON.stringify(key)}`)) || (finding.setAside && key in finding.setAside && 'set aside');
+    if (!why) add(key, false, `NOT READ: the finding has no read "${key}", and no error or setAside names it`);
+  };
   const sid = () => evalJs(S, `JSON.stringify(fe.model.sections[1].id)`);
   const fresh = async () => {
     goto(S, `${BASE}/index.html`); await pause(1200);
@@ -109,7 +115,7 @@ export async function replay(S, finding, add) {
     else if (op === 'drag') { const [x, y] = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const b = ce.closest('.fe-block'); b.scrollIntoView({ block: 'center' }); const f = document.getElementById('site-frame').getBoundingClientRect(); const q = b.getBoundingClientRect(); return JSON.stringify([f.left + q.left + q.width / 2, f.top + q.top + (${a[2] === 's' ? 'q.height' : 'q.height / 2'})]); })()`); cdp(S, { op: 'drag', from: [x, y], to: [x + a[3], y + a[4]], steps: 12, holdMs: 200, mods: [] }); await pause(200); }
     else if (op === 'clickAt') { cdp(S, { op: 'drag', from: [a[0], a[1]], to: [a[0], a[1]], steps: 1, holdMs: 50, mods: [] }); await pause(200); }
     else if (op === 'beforeOf' || op === 'hintOf') {
-      const read = finding.reads[a[0]]; if (read === undefined) continue;
+      const read = finding.reads[a[0]]; if (read === undefined) { unread(op, a[0]); continue; }
       const want = (Array.isArray(read) ? read : []).filter((x) => /Write here/.test(x.content)).map(({ box, ...rest }) => rest), got = hintHere();
       const first = (v) => String(v).split(',')[0]; // Of the font stack, its first name: the rest is ours
       add(a[0], want.length === got.length && want.every((w, n) => Object.keys(w).every((key) => (key === 'font' ? first(w[key]) === first(got[n][key]) : w[key] === got[n][key]))), `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(got)}`);
@@ -121,7 +127,9 @@ export async function replay(S, finding, add) {
       add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
     }
     else if (op === 'read') {
-      const want = finding.reads[a[0]]?.html; if (want === undefined && !finding.reads[a[0]]?.areas) continue;
+      if (finding.reads[a[0]] === undefined) { unread(op, a[0]); continue; }
+      // A read with nothing compared here (only stamps or controls) is checked elsewhere. One with only the bar's state is a row.
+      const want = finding.reads[a[0]].html; if (want === undefined && !finding.reads[a[0]].areas && !finding.reads[a[0]].has && !finding.reads[a[0]].btnState) continue;
       // A read of another block, by its place in the section.
       const other = a[1]?.html?.[1], who = typeof other === 'number' ? evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${other}].id)`) : id;
       const got = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', who)}; return JSON.stringify(ce ? ce.innerHTML : null); })()`);
@@ -135,7 +143,8 @@ export async function replay(S, finding, add) {
       const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
       add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
-    else if (op === 'undoWalk') await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k);
+    // A missing undo read still walks undo, so the steps after it start where the oracle's did.
+    else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k); }
     if (paced && changesIn([op, ...a])) lastChange = Date.now();
   }
 }
