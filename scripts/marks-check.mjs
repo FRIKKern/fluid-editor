@@ -1,7 +1,7 @@
 // Small marks of the editor chrome against parity/findings/MARKS.json, TOPBAR.json, SECTIONBAR.json, P3.json, PIN.json, TOOLBARS.json, CAP-HEADER.json, S3.json, U5.json, CAP-DIVSHAPES.json and CAP-ADDSECTIONVIEWS.json, with real input in our editor.
 // Writes parity/marks-check.json. Usage: npm run marks-check (FLUID_SURFACE=cdp:<port> FLUID_PORT=<port>).
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, browser, drag, mouse, wheel } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, browser, drag, mouse, moves, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { blankSection } from '../app/src/add-section.js';
 
@@ -409,7 +409,8 @@ const outRuns = ['bottom', 'left', 'right', 'top'].map((s) => `CSSTransition bor
 add('outline fade-out runs its own 0.2 s ease-in-out', outOut.runs.join() === outRuns.join(), JSON.stringify(outOut.runs));
 add('chrome gone after the outline', evalJs(S, `(() => JSON.stringify(document.getElementById('section-chrome').hidden))()`));
 // Back on the section during the fade, the outline runs back: no new fade from nothing.
-// The way back has to beat the chrome's 200 ms timer, and each mouse call takes time, more under load, so each try reads its real gap.
+// The way back has to beat the chrome's 200 ms timer. Off and back on go in one call, 60 ms apart, so the fade is under way and
+// the gap doesn't wait on a node start per move (task-4b72f92bafed5957); each try still reads its real gap.
 // The chrome going on a gap that long is a fresh fade, which is right, and tests nothing: try again, and fail the row if none came short enough.
 // The chrome going on a shorter gap is a real miss. Every try's read goes in the line.
 const backTries = [];
@@ -417,9 +418,7 @@ let backOn = null;
 for (let tries = 0; tries < 5 && !backOn; tries++) {
   mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(500);
   evalJs(S, `(() => { const T = window.__bo = { hid: false, stop: false }, c = document.getElementById('section-chrome'); const tick = () => { if (T.stop) return; if (c.hidden) T.hid = true; requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
-  const left = Date.now();
-  mouse(S, 'move', 800, 20); mouse(S, 'move', 60, 400);
-  const gap = Date.now() - left;
+  const gap = moves(S, [[800, 20], [60, 400]], { gapMs: 60 });
   mouse(S, 'move', 62, 401); await pause(350);
   const read = evalJs(S, `(() => { const T = window.__bo; T.stop = true; const c = document.getElementById('section-chrome'); const o = getComputedStyle(c.querySelector('.sc-outline')); return JSON.stringify({ hid: T.hid, hidden: c.hidden, name: o.animationName, color: o.borderTopColor }); })()`);
   backTries.push({ gap, ...read });

@@ -46,6 +46,11 @@ export function mouse(surface, type, x, y, { buttons = 0, mods = [] } = {}) {
   if (!isCdp(surface)) throw new Error('mouse needs a cdp surface');
   return cdp(surface, { op: 'mouse', type, x, y, buttons, mods });
 }
+// moves: plain moves through each [x, y] in one call, gapMs apart; returns the ms from the first move to the last.
+export function moves(surface, points, { gapMs = 0 } = {}) {
+  if (!isCdp(surface)) throw new Error('moves needs a cdp surface');
+  return Number(cdp(surface, { op: 'moves', points, gapMs }));
+}
 export function wheel(surface, x, y, dy) {
   if (!isCdp(surface)) throw new Error('wheel needs a cdp surface');
   return cdp(surface, { op: 'wheel', x, y, dy });
