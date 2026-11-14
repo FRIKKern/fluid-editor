@@ -2100,7 +2100,9 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   hit('#section-panel .ar-tab[data-v="custom"]'); await pause(100);
   add('Images: Custom image tab', evalJs(S, `(() => JSON.stringify(document.querySelector('#section-panel .ar-add')?.textContent))()`) === 'Add an Image');
   await back();
-  // Presets and Shuffle (CAP-ARTROWS.json presets, CAP-ARTSHUFFLE.json): every preset's values reach its sliders; a row on a preset holds them.
+  // Presets and Shuffle (CAP-ARTROWS.json presets, CAP-ARTSHUFFLE.json): every preset's values reach its sliders; each preset row opens on
+  // its read mark (on), and a row on a preset holds them. On conic, contours, shapes and isometric every row opens on More, so the mark is all
+  // there is to read: before, those four rows compared nothing and passed (task-97eb1dbc19f1d405).
   const AS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-ARTSHUFFLE.json', import.meta.url)));
   const openFolds = () => evalJs(S, `(() => { document.querySelectorAll('#section-panel .ar-fold-b[aria-expanded="false"]').forEach((b) => b.click()); return 'true'; })()`);
   const allFolds = async () => { for (let n = 0; n < 4; n++) { openFolds(); await pause(40); } };
@@ -2111,15 +2113,18 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   for (const [id, T] of Object.entries(AR.tiles)) {
     await tileOpen(id); await allFolds();
     const miss = [], starts = [];
-    let compared = 0; // A tile whose rows carry no presets compares nothing: that fails, never passes (QUALITY.md, no skip-pass).
+    let compared = 0, marks = 0; // A tile whose rows carry no presets compares nothing: that fails, never passes (QUALITY.md, no skip-pass).
     for (const [r, k] of artKey(T, id)) {
       if (!r.presets) continue;
       compared += r.presets.length;
+      marks++;
+      const mark = isOn(k);
+      if (mark !== String(r.on)) starts.push([k, String(r.on), mark, 'mark']);
       if (r.on !== 'more') { const was = String(r.on); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[r.on])) starts.push([k, was, under(k)]); }
       for (let o = 0; o < r.presets.length; o++) { pressK(k, o); await pause(30); if (isOn(k) !== String(o)) miss.push([k, o, 'mark']); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[o])) miss.push([k, o, under(k)]); }
     }
     add(`Art ${id}: every preset's values`, compared > 0 && miss.length === 0, JSON.stringify({ compared, miss: miss.slice(0, 4) }));
-    add(`Art ${id}: a marked preset holds its values`, starts.length === 0, JSON.stringify(starts.slice(0, 4)));
+    add(`Art ${id}: a marked preset holds its values`, marks > 0 && starts.length === 0, JSON.stringify({ marks, starts: starts.slice(0, 4) }));
     await back();
     hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
   }
