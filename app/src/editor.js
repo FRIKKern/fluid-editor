@@ -22,6 +22,7 @@ import { anchorPopHtml, APPEAR, anchorText, blockPanelHtml, blockPanelPosition, 
 import { dialogOf, dialogHtml, DIALOG_DEFAULTS, chartOf, chartCsv, parseCsv } from './dialogs.js';
 import { addBlockMenuHtml, layersPanelHtml, contextMenuHtml, arrangeMenuHtml, copyPropsMenuHtml, pastePropsMenuHtml, buttonStyleMenuHtml } from './menus.js';
 import { textBarHtml, textBarPosition } from './text-bar.js';
+import { toggleStates } from './text-toggles.js';
 import { addSectionPanelHtml, blankSection } from './add-section.js';
 import { SUB as SS_SUB, siteStylesHtml, stylePopoverHtml, stylePopoverPosition, packFontLinks } from './site-styles.js';
 import { TIERS, TIER_NAMES, CUSTOM_RADIUS, tierValues } from './button-tiers.js';
@@ -4903,7 +4904,7 @@ function currentColorKey() {
 }
 function renderTextBar() {
   if (!editing || editing.soft || editing.barGone || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
-  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null);
+  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null, toggleStates(editing.ce, win.getSelection()));
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
   const cp = textBar.querySelector('.tx-colors'), cb = textBar.querySelector('[data-fmt="color-menu"]');

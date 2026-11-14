@@ -51,11 +51,11 @@ const STAMP = (ce) => `(() => { window.__stamps = []; const ce = ${ce}; const st
   document.getElementById('text-bar').addEventListener('click', (e) => { const b = e.target.closest('button[data-fmt], input[data-fmt]'); if (b && !b.dataset.fmt.endsWith('-menu')) stamp(); }, { capture: true, signal });
   return 1; })()`;
 
-// controls: the labels of the controls showing outside the page, in order, read by oracle-capture.mjs's rule (CONTROLS).
-// Labels only: boxes are where our chrome sits, and roles are compared nowhere yet.
-const CONTROL_LABELS = `(() => { const vis = (e) => { const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2 || q.bottom < 0 || q.top > innerHeight) return false; const c = getComputedStyle(e); if (c.visibility === 'hidden' || Number(c.opacity) <= 0.05 || e.closest('#site-frame')) return false; const top = document.elementFromPoint(Math.min(q.left + q.width / 2, innerWidth - 1), Math.min(Math.max(q.top + q.height / 2, 0), innerHeight - 1)); return !!top && (top === e || e.contains(top) || top.contains(e)); };
+// controls: the role and label of each control showing outside the page, in order, read by oracle-capture.mjs's rule
+// (CONTROLS). Not boxes: they are where our chrome sits.
+const CONTROLS = `(() => { const vis = (e) => { const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2 || q.bottom < 0 || q.top > innerHeight) return false; const c = getComputedStyle(e); if (c.visibility === 'hidden' || Number(c.opacity) <= 0.05 || e.closest('#site-frame')) return false; const top = document.elementFromPoint(Math.min(q.left + q.width / 2, innerWidth - 1), Math.min(Math.max(q.top + q.height / 2, 0), innerHeight - 1)); return !!top && (top === e || e.contains(top) || top.contains(e)); };
   const clean = (t) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, 48);
-  return JSON.stringify([...document.querySelectorAll('button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=switch], [role=slider], [role=checkbox], [role=option], [role=radio]')].filter(vis).map((e) => clean(e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('placeholder') || e.textContent))); })()`;
+  return JSON.stringify([...document.querySelectorAll('button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=switch], [role=slider], [role=checkbox], [role=option], [role=radio]')].filter(vis).map((e) => (e.getAttribute('role') || (e.tagName === 'INPUT' ? 'input:' + e.type : e.tagName.toLowerCase())) + ' ' + clean(e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('placeholder') || e.textContent))); })()`;
 
 export async function replay(S, finding, add) {
   let id = null, newId = null, segment = null;
@@ -149,7 +149,7 @@ export async function replay(S, finding, add) {
       const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `(() => { const shown = (L) => [...document.querySelectorAll('[aria-label], [title], body *')].some((e) => { const q = e.getBoundingClientRect(); return q.width > 0 && q.height > 0 && !e.closest('#site-frame') && (e.getAttribute('aria-label') === L || e.getAttribute('title') === L || (e.childElementCount === 0 && e.textContent.trim() === L)); });
         return JSON.stringify(Object.fromEntries(${JSON.stringify(Object.keys(hasWant || {}))}.map((k) => [k, k === 'Bold' ? !document.getElementById('text-bar').hidden : k === 'Write' ? !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') : shown(k)]))); })()`);
       const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
-      const ctlWant = finding.reads[a[0]].controls?.map((c) => c.label), ctlGot = ctlWant && evalJs(S, CONTROL_LABELS);
+      const ctlWant = finding.reads[a[0]].controls?.map((c) => `${c.role} ${c.label}`), ctlGot = ctlWant && evalJs(S, CONTROLS);
       const ctlSame = !ctlWant || JSON.stringify(ctlWant) === JSON.stringify(ctlGot);
       add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame && ctlSame, `${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
