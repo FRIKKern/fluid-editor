@@ -1,9 +1,11 @@
 // For .github/workflows/browser-checks.yml: after one check ran, compare the result file it wrote with the one main
 // stores, write a row to the job summary, and say whether the job is red.
-// Usage: node scripts/ci-count.mjs <name>-check <check's exit code> <file touched just before the check started>
+// Usage: node scripts/ci-count.mjs <name>-check <check's exit code> <file touched just before the check started>. Test: scripts/check-ci-count.mjs
 // Red: the check failed and its result differs from main's stored one, or it wrote none. A check that fails with a result
 // identical to the stored one fails on the Mac too (named misses kept in the stored file): that job stays green with a warning,
 // so the job turns red when a merge changes what a check finds, not because main already stored misses.
+// Also red, whatever the exit code: the result has fewer rows (a smaller total) than the stored one, so rows were dropped
+// unseen (not run, skipped). More rows is fine. A check that writes no file on a plain run (text-check's sample) is not counted.
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, statSync } from 'node:fs';
 
@@ -17,10 +19,12 @@ let ci = null, stored = null;
 try { if (statSync(file).mtimeMs > statSync(started).mtimeMs) ci = JSON.parse(readFileSync(file, 'utf8')); } catch {}
 try { stored = JSON.parse(execFileSync('git', ['show', `HEAD:${file}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })); } catch {}
 const same = ci && stored && JSON.stringify(ci) === JSON.stringify(stored);
-const red = code === null || (code !== 0 && !same);
-const note = code === null ? 'no exit code: ran out of time or never ran' : code === 0 ? 'passed' : same ? 'failed, with the same result as stored (red on the Mac too)' : ci ? 'failed, result differs from stored' : 'failed, wrote no result file';
+const fewer = !!ci && Number.isFinite(stored?.total) && !(Number.isFinite(ci.total) && ci.total >= stored.total);
+const red = code === null || fewer || (code !== 0 && !same);
+const note = code === null ? 'no exit code: ran out of time or never ran' : fewer ? `fewer rows than stored: ${ci.total ?? 'no'} total, main stores ${stored.total}` : code === 0 ? 'passed' : same ? 'failed, with the same result as stored (red on the Mac too)' : ci ? 'failed, result differs from stored' : 'failed, wrote no result file';
 const row = `| ${name} | exit ${code ?? '-'} | ${ci ? count(ci) : '-'} | ${count(stored)} | ${note} |`;
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `| check | exit | CI | stored | |\n|---|---|---|---|---|\n${row}\n`);
 console.log(row);
+if (fewer) console.log(`::error::${name} ran ${ci.total ?? 'no'} rows, main stores ${stored.total}: ${Number.isFinite(ci.total) ? stored.total - ci.total : 'all'} rows were dropped`);
 if (code !== null && code !== 0 && same) console.log(`::warning::${name} exits ${code} with the result main stores: no change from main`);
 process.exit(red ? 1 : 0);

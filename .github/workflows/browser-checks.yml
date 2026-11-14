@@ -2,7 +2,7 @@
 # Phase 1: it reports only. No pull_request trigger and no required check, so it never blocks a PR.
 # Each job serves app/, starts its own headless Chrome (scripts/lib/chrome.mjs) and runs one check. The job's
 # summary has the check's pass count here and in main's stored result file; a red job uploads its log and result.
-# Red means the check failed with a result other than the one main stores (scripts/ci-count.mjs).
+# Red means the check failed with a result other than the one main stores, or wrote fewer rows than it (scripts/ci-count.mjs).
 # Run a few by hand: gh workflow run browser-checks --ref <branch> -f checks=text-check,mid-check
 name: browser-checks
 on:
