@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 6 changes
+- **Today** · 7 changes
+  - marks-check: 'a marked preset holds its values' reads each preset row's mark, so no tile compares nothing ([#641](https://github.com/FRIKKern/fluid-editor/pull/641))
   - cdp moves op: marks-check's way back in one call, so the back-on row runs under load ([#640](https://github.com/FRIKKern/fluid-editor/pull/640))
-  - marks-check: a row with nothing to compare fails instead of passing (Art presets, Scrolling stills) ([#639](https://github.com/FRIKKern/fluid-editor/pull/639))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
