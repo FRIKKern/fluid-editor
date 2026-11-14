@@ -2112,12 +2112,14 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   for (const [id, T] of Object.entries(AR.tiles)) {
     await tileOpen(id); await allFolds();
     const miss = [], starts = [];
+    let compared = 0; // A tile whose rows carry no presets compares nothing: that fails, never passes (QUALITY.md, no skip-pass).
     for (const [r, k] of artKey(T, id)) {
       if (!r.presets) continue;
+      compared += r.presets.length;
       if (r.on !== 'more') { const was = String(r.on); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[r.on])) starts.push([k, was, under(k)]); }
       for (let o = 0; o < r.presets.length; o++) { pressK(k, o); await pause(30); if (isOn(k) !== String(o)) miss.push([k, o, 'mark']); pressK(k, 'more'); await pause(30); if (JSON.stringify(under(k)) !== JSON.stringify(r.presets[o])) miss.push([k, o, under(k)]); }
     }
-    add(`Art ${id}: every preset's values`, miss.length === 0, JSON.stringify(miss.slice(0, 4)));
+    add(`Art ${id}: every preset's values`, compared > 0 && miss.length === 0, JSON.stringify({ compared, miss: miss.slice(0, 4) }));
     add(`Art ${id}: a marked preset holds its values`, starts.length === 0, JSON.stringify(starts.slice(0, 4)));
     await back();
     hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
@@ -3181,13 +3183,16 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const open0 = top(), want0 = W[`${tag} open`].tiles.box[1];
     add(`Scrolling, ${rows} rows: opens as read`, Math.abs(open0 - want0) <= 1.5, JSON.stringify([open0, want0]));
     const off = [];
+    let compared = 0; // No ' still' read compared means nothing was checked: that fails, never passes (QUALITY.md, no skip-pass).
     for (const [k, v] of Object.entries(W)) {
       if (!k.startsWith(`${tag} `) || !k.endsWith(' still')) continue;
       await frameTo(Number(k.split(' ')[2].slice(1)));
       const ours = top(), oracle = v.tiles.box[1];
-      if (!AHEAD.includes(k.slice(0, 4)) && Math.abs(ours - oracle) > 1.5) off.push([k, ours, oracle]);
+      if (AHEAD.includes(k.slice(0, 4))) continue;
+      compared++;
+      if (Math.abs(ours - oracle) > 1.5) off.push([k, ours, oracle]);
     }
-    add(`Scrolling, ${rows} rows: down with the section's bottom, up with its top + 140`, off.length === 0, JSON.stringify(off));
+    add(`Scrolling, ${rows} rows: down with the section's bottom, up with its top + 140`, compared > 0 && off.length === 0, JSON.stringify({ compared, off }));
   }
   // On a section with no header, the way up: its content box's top + 1, by the band (CAP-U10SECOND.json, s: + 48.4 on this unpicked section;
   // CAP-U10SECOND2.json's + 1.4 came after a pick, its content box from + 0.4).
