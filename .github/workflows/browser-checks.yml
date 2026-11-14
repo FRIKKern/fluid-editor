@@ -31,15 +31,17 @@ jobs:
       # name, extra args, job time limit in minutes, runner. Longest first, so they start first. A check that measures
       # text in the editor's own font (Helvetica Neue, which Linux has no match for) or leans on a Mac key runs on macOS.
       # text-check runs twice: its 2-min sample on Linux, its --full replay on macOS (Meta+u underlines only on a Mac).
-      # Left out: marks-check. Its fades are read frame by frame and its tip by the ms; on hosted runners 15 of those reads
-      # and one panel place miss (1706 of 1722 on macOS, with font misses too on Linux), and it takes 50 min.
+      # marks-check runs on Linux only (about 45 min). Its fades are read frame by frame and its tip by the ms: the macOS
+      # runner draws 2 to 4 frames in a 0.2 s fade, so 17 fade and tip rows missed in each of 3 runs (1704 to 1706 of 1723,
+      # 2026-11-14). Linux ran every fade and timer row clean 3 of 3; only 5 rows that measure Helvetica Neue text miss
+      # there, named in scripts/marks-check.mjs (LINUX_FONT) and scored in full on a Mac (task-0e8236be179cc5c4).
       - id: pick
         env: { ONLY: "${{ inputs.checks }}" }
         run: |
           node -e '
           const L = "ubuntu-24.04", M = "macos-15";
           const all = [
-            ["neworder-check", "--full", 60, L], ["textpush-check", "", 45, L],
+            ["marks-check", "", 75, L], ["neworder-check", "--full", 60, L], ["textpush-check", "", 45, L],
             ["code-check", "--full", 40, M], ["mid-check", "", 40, M], ["row-check", "--full", 30, L],
             ["text-check", "--full", 60, M], ["text-check", "", 20, L], ["x6-check", "", 40, L], ["form-check", "", 30, L],
             ["dialog-check", "", 30, L], ["anim-check", "", 30, L], ["standin-check", "", 30, M],

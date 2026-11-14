@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 7 changes
-  - marks-check: 'a marked preset holds its values' reads each preset row's mark, so no tile compares nothing ([#641](https://github.com/FRIKKern/fluid-editor/pull/641))
-  - cdp moves op: marks-check's way back in one call, so the back-on row runs under load ([#640](https://github.com/FRIKKern/fluid-editor/pull/640))
+- **Today** · 13 changes
+  - text-check: a read with only the bar's state is a row, and a missing read fails unless named ([#648](https://github.com/FRIKKern/fluid-editor/pull/648))
+  - browser-checks: marks-check on Linux, its 5 Helvetica Neue rows named known misses there; macOS stays out ([#647](https://github.com/FRIKKern/fluid-editor/pull/647))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
