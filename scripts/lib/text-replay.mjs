@@ -51,6 +51,12 @@ const STAMP = (ce) => `(() => { window.__stamps = []; const ce = ${ce}; const st
   document.getElementById('text-bar').addEventListener('click', (e) => { const b = e.target.closest('button[data-fmt], input[data-fmt]'); if (b && !b.dataset.fmt.endsWith('-menu')) stamp(); }, { capture: true, signal });
   return 1; })()`;
 
+// controls: the labels of the controls showing outside the page, in order, read by oracle-capture.mjs's rule (CONTROLS).
+// Labels only: boxes are where our chrome sits, and roles are compared nowhere yet.
+const CONTROL_LABELS = `(() => { const vis = (e) => { const q = e.getBoundingClientRect(); if (q.width < 2 || q.height < 2 || q.bottom < 0 || q.top > innerHeight) return false; const c = getComputedStyle(e); if (c.visibility === 'hidden' || Number(c.opacity) <= 0.05 || e.closest('#site-frame')) return false; const top = document.elementFromPoint(Math.min(q.left + q.width / 2, innerWidth - 1), Math.min(Math.max(q.top + q.height / 2, 0), innerHeight - 1)); return !!top && (top === e || e.contains(top) || top.contains(e)); };
+  const clean = (t) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, 48);
+  return JSON.stringify([...document.querySelectorAll('button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=switch], [role=slider], [role=checkbox], [role=option], [role=radio]')].filter(vis).map((e) => clean(e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('placeholder') || e.textContent))); })()`;
+
 export async function replay(S, finding, add) {
   let id = null, newId = null, segment = null;
   // A read the finding doesn't hold is only fine when the capture said why: an error on that step, or set aside.
@@ -128,8 +134,8 @@ export async function replay(S, finding, add) {
     }
     else if (op === 'read') {
       if (finding.reads[a[0]] === undefined) { unread(op, a[0]); continue; }
-      // A read with nothing compared here (only stamps or controls) is checked elsewhere. One with only the bar's state is a row.
-      const want = finding.reads[a[0]].html; if (want === undefined && !finding.reads[a[0]].areas && !finding.reads[a[0]].has && !finding.reads[a[0]].btnState) continue;
+      // A read with only stamps is the timing tables' (WAITS, COST), not compared here. One with only the bar's state or controls is a row.
+      const want = finding.reads[a[0]].html; if (want === undefined && !finding.reads[a[0]].areas && !finding.reads[a[0]].has && !finding.reads[a[0]].btnState && !finding.reads[a[0]].controls) continue;
       // A read of another block, by its place in the section.
       const other = a[1]?.html?.[1], who = typeof other === 'number' ? evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${other}].id)`) : id;
       const got = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', who)}; return JSON.stringify(ce ? ce.innerHTML : null); })()`);
@@ -141,7 +147,9 @@ export async function replay(S, finding, add) {
       // has: is the text bar's Bold showing, is the toolbar's Write?
       const hasWant = finding.reads[a[0]]?.has, hasGot = hasWant && evalJs(S, `JSON.stringify({ Bold: !document.getElementById('text-bar').hidden, Write: !document.getElementById('block-toolbar').hidden && !!document.querySelector('#block-toolbar [aria-label="Write"]') })`);
       const hasSame = !hasWant || ['Bold', 'Write'].every((k) => hasWant[k] === undefined || hasWant[k] === hasGot[k]);
-      add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame, `oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
+      const ctlWant = finding.reads[a[0]].controls?.map((c) => c.label), ctlGot = ctlWant && evalJs(S, CONTROL_LABELS);
+      const ctlSame = !ctlWant || JSON.stringify(ctlWant) === JSON.stringify(ctlGot);
+      add(a[0], (want === undefined || textNorm(got) === textNorm(want)) && hasSame && areasSame && btnSame && ctlSame, `${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`);
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
     else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k); }
