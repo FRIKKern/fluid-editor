@@ -9,16 +9,22 @@ const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/MARKS.json', import.meta.url)));
 let pass = 0, total = 0;
 const fails = [], known = [];
-// Linux only (browser-checks runs marks-check on ubuntu-24.04): these rows measure text drawn in Helvetica Neue, which Linux
-// lacks, so a stand-in font draws it a few px wider (Newsletter 90.1 against 87.2), the same in every run (task-0e8236be179cc5c4).
-// There a miss on them is a named known miss: printed every run, never a pass, not a failed run. On a Mac they're scored in full.
+// Linux only (browser-checks runs marks-check on ubuntu-24.04): five rows measure text drawn in Helvetica Neue, which Linux
+// lacks, so a stand-in font draws it a few px wider or narrower (Newsletter 90.1 against 87.2), the same in every run (task-0e8236be179cc5c4).
+// Those rows go through fontRow, with the width part apart from the rest (text, top, height, count, place). On Linux a row whose
+// width alone is off, by no more than 8px (the most read is 5.04), is a named known miss: printed every run, never a pass, not a
+// failed run. Any other miss on them fails on Linux too (task-d62e4d36dda2bc16). On a Mac they're scored in full.
 // Every other row, fades and timers included, fails on Linux as anywhere.
-const LINUX_FONT = process.platform === 'linux' ? ['label read Newsletter', 'label read Search Field', 'tooltip Mobile View', 'tooltip Preview', 'Font Packs: tabs'] : [];
+const LINUX = process.platform === 'linux';
 const add = (what, ok, detail = '') => {
   total++;
   if (ok) pass++;
-  else if (LINUX_FONT.includes(what)) { known.push(what); console.log(`${what.padEnd(48)} KNOWN MISS (Linux: no Helvetica Neue) ${detail}`); }
   else { fails.push(what); console.log(`${what.padEnd(48)} DIFF ${detail}`); }
+};
+const FONT_ROOM = 8;
+const fontRow = (what, rest, width, inRoom, detail = '') => {
+  if (!(LINUX && rest && !width && inRoom)) return add(what, rest && width, detail);
+  total++; known.push(what); console.log(`${what.padEnd(48)} KNOWN MISS (Linux: no Helvetica Neue, width only) ${detail}`);
 };
 const fresh = async () => {
   goto(S, `${BASE}/index.html`); await pause(800);
@@ -231,7 +237,10 @@ const labelled = evalJs(S, `(async () => { const sleep = (ms) => new Promise((re
   return JSON.stringify(out); })()`);
 // Donation is 74.6 on the oracle and 72.05 here: same name and size in a fallback font, whose letters run narrower for this word (inferred). No other word passes 2.
 const LABEL_ROOM = { Donation: 3 };
-for (const [n, [txt, w]] of Object.entries(labelled)) { const want = LBL[n].frameEls[0]; add(`label read ${n}`, txt === want.label && Math.abs(w - want.box[2]) <= (LABEL_ROOM[n] ?? 2), `${txt} ${w} oracle ${want.label} ${want.box[2]}`); }
+for (const [n, [txt, w]] of Object.entries(labelled)) {
+  const want = LBL[n].frameEls[0], named = txt === want.label, wide = Math.abs(w - want.box[2]) <= (LABEL_ROOM[n] ?? 2), detail = `${txt} ${w} oracle ${want.label} ${want.box[2]}`;
+  if (n === 'Newsletter' || n === 'Search Field') fontRow(`label read ${n}`, named, wide, Math.abs(w - want.box[2]) <= FONT_ROOM, detail); else add(`label read ${n}`, named && wide, detail);
+}
 
 // U6: the top bar's looks, tooltips, keys and the exit dialog (parity/findings/TOPBAR.json).
 const T = JSON.parse(readFileSync(new URL('../parity/findings/TOPBAR.json', import.meta.url)));
@@ -253,7 +262,10 @@ const tipCases = [['Desktop View', 1413], ['Mobile View', 1459], ['Site Styles',
 for (const [name, x] of tipCases) {
   await hoverBar(x);
   const t = barTip(), want = T.tips.boxes[name];
-  add(`tooltip ${name}`, t && t.text === name && t.box[1] === want[1] && t.box[3] === want[3] && near4(t.box, want), JSON.stringify(t));
+  const rest = !!t && t.text === name && t.box[1] === want[1] && t.box[3] === want[3];
+  // Under a font row the tip's middle still has to sit within 4px of the oracle's: its left follows its width.
+  if (name === 'Mobile View' || name === 'Preview') fontRow(`tooltip ${name}`, rest && Math.abs(t.box[0] + t.box[2] / 2 - (want[0] + want[2] / 2)) <= 4, near4(t.box, want), Math.abs(t.box[2] - want[2]) <= FONT_ROOM, JSON.stringify(t));
+  else add(`tooltip ${name}`, rest && near4(t.box, want), JSON.stringify(t));
 }
 await hoverBar(1560);
 add('Preview tooltip keeps 22px from the right', barTip().box[0] + barTip().box[2] === 1578, JSON.stringify(barTip().box));
@@ -1542,7 +1554,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await start(); await go('Fonts', 'FontPacks');
   const fp = boxes('.ss-pack');
   add('Font Packs: tiles', near(fp[0], L.FontPacks.tile) && Math.abs(fp[1][1] - fp[0][1] - L.FontPacks.pitch) <= 1, JSON.stringify(fp[0]));
-  add('Font Packs: tabs', near(boxes('.ss-tab').map((b) => b[2]), L.FontPacks.tabs.map((t) => t[3]), 3), JSON.stringify(boxes('.ss-tab')));
+  fontRow('Font Packs: tabs', boxes('.ss-tab').length === L.FontPacks.tabs.length, near(boxes('.ss-tab').map((b) => b[2]), L.FontPacks.tabs.map((t) => t[3]), 3), near(boxes('.ss-tab').map((b) => b[2]), L.FontPacks.tabs.map((t) => t[3]), FONT_ROOM), JSON.stringify(boxes('.ss-tab')));
   await click('.ss-pack[data-v="manrope"]');
   add('Font Packs: a tile is a pick', evalJs(S, `(() => JSON.stringify(fe.model.siteStyles.font))()`) === 'manrope' && /Manrope/.test(evalJs(S, `(() => document.getElementById('site-frame').contentWindow.getComputedStyle(document.getElementById('site-frame').contentDocument.querySelector('h2')).fontFamily)()`)));
   await click('.ss-back'); await click('.ss-back'); await go('Buttons', 'ButtonPacks');

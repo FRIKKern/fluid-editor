@@ -34,7 +34,7 @@ jobs:
       # marks-check runs on Linux only (about 45 min). Its fades are read frame by frame and its tip by the ms: the macOS
       # runner draws 2 to 4 frames in a 0.2 s fade, so 17 fade and tip rows missed in each of 3 runs (1704 to 1706 of 1723,
       # 2026-11-14). Linux ran every fade and timer row clean 3 of 3; only 5 rows that measure Helvetica Neue text miss
-      # there, named in scripts/marks-check.mjs (LINUX_FONT) and scored in full on a Mac (task-0e8236be179cc5c4).
+      # there, by their width alone, excused for that only (fontRow in scripts/marks-check.mjs) and scored in full on a Mac.
       - id: pick
         env: { ONLY: "${{ inputs.checks }}" }
         run: |
