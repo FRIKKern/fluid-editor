@@ -25,13 +25,12 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
+- **Today** · 1 change
+  - marks-check: the outline fade-out's own 0.2 s timing, which the chrome's timer hides ([#634](https://github.com/FRIKKern/fluid-editor/pull/634))
+- **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
-  - cdp viewport op: poll for the inner size, throw when it is not reached ([#633](https://github.com/FRIKKern/fluid-editor/pull/633))
-- **Yesterday** · 17 changes
+- **This week** · 149 changes
   - Oracle site in one setting: FLUID_ORACLE_SITE in scripts/lib/oracle-site.mjs ([#625](https://github.com/FRIKKern/fluid-editor/pull/625))
-- **This week** · 132 changes
-  - U10: a pick on the eight mixes read from the same start (CAP-U10MIXPICK2), 57 of 57 ([#608](https://github.com/FRIKKern/fluid-editor/pull/608))
 - **Last week** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
 
