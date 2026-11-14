@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 2 changes
+- **Today** · 3 changes
+  - marks-check: a NOT RUN outline back-on row fails the run, not a silent pass ([#638](https://github.com/FRIKKern/fluid-editor/pull/638))
   - parity: marks-check 1723 of 1723 on main (ffeb892a) ([#637](https://github.com/FRIKKern/fluid-editor/pull/637))
-  - marks-check: the outline fade-out's own 0.2 s timing, which the chrome's timer hides ([#634](https://github.com/FRIKKern/fluid-editor/pull/634))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
