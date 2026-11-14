@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 4 changes
+- **Today** · 5 changes
+  - marks-check: a row with nothing to compare fails instead of passing (Art presets, Scrolling stills) ([#639](https://github.com/FRIKKern/fluid-editor/pull/639))
   - cdp viewport op: signal narrow.pid only while it is our narrow process, then drop the file ([#636](https://github.com/FRIKKern/fluid-editor/pull/636))
-  - marks-check: a NOT RUN outline back-on row fails the run, not a silent pass ([#638](https://github.com/FRIKKern/fluid-editor/pull/638))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
