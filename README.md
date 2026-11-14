@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 15 changes
+- **Today** · 16 changes
+  - text-check: a read compares every name its has holds, not only Bold and Write ([#650](https://github.com/FRIKKern/fluid-editor/pull/650))
   - mid-check: X11 touches carry their own times, so a busy machine can't push the first move past the hold ([#649](https://github.com/FRIKKern/fluid-editor/pull/649))
-  - ci-count: a check that writes fewer rows than main stores is red, even on exit 0 ([#643](https://github.com/FRIKKern/fluid-editor/pull/643))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
