@@ -224,12 +224,13 @@ try {
     const at = (p) => [{ x: p.x, y: p.y, id: 1 }];
     // stamped: each event carries the time it is meant to have (Input.dispatchTouchEvent's timestamp), so the page's
     // e.timeStamp gap from the press to the first move is holdMs, not holdMs plus however long Chrome took to take the
-    // press on a busy machine. The editor's hold goes by e.timeStamp (TOUCH_HOLD, app/src/editor.js).
+    // press on a busy machine. The editor's hold goes by e.timeStamp (TOUCH_HOLD, app/src/editor.js). The moves are
+    // stamped half a ms late: event clocks are coarse (to 0.1 ms), and a 100 ms hold must never read as 99.9.
     const t0 = Date.now() / 1000, when = (ms) => (cmd.stamped ? { timestamp: t0 + ms / 1000 } : {});
     await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: at(a), ...when(0) });
     if (cmd.holdMs) await sleep(cmd.holdMs);
     const steps = cmd.steps ?? 12, hold = cmd.holdMs ?? 0;
-    for (let k = 1; k <= steps; k++) { await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at({ x: a.x + (b.x - a.x) * k / steps, y: a.y + (b.y - a.y) * k / steps }), ...when(hold + 25 * (k - 1)) }); await sleep(25); }
+    for (let k = 1; k <= steps; k++) { await send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: at({ x: a.x + (b.x - a.x) * k / steps, y: a.y + (b.y - a.y) * k / steps }), ...when(hold + 0.5 + 25 * (k - 1)) }); await sleep(25); }
     if (steps) await sleep(200);
     await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [], ...when(hold + 25 * steps + (steps ? 200 : 0)) });
     await sleep(300);
