@@ -3,8 +3,11 @@
 // size 400 ms late (a fixed 250 ms wait read the old size and left the window wrong, run 43323739189), the same 1.6 s late
 // (a second set sent while the first was on its way read a stale frame and ended at the wrong size, exit 0), 1.6 s late with
 // a frame that turns 120 px (a retry is needed), and one held at 1600x1231 that no window size moves (used to exit 0).
-import { execFile } from 'node:child_process';
+// Also narrow.pid: the op ends the narrow process it names, but spares a PID that now belongs to something else (it got
+// SIGTERM: the file was never removed, so every call after a phone-width one signalled whatever held that PID).
+import { execFile, spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, rmdirSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 
 // The smallest WebSocket server cdp-run.mjs needs: text frames, client frames masked, replies under 64 KB.
@@ -58,7 +61,8 @@ function standIn({ lagMs, held, frame = 87 }) {
   return new Promise((r) => server.listen(0, '127.0.0.1', () => r({ server, s, port: server.address().port })));
 }
 
-const op = (port) => new Promise((r) => execFile(process.execPath, [new URL('./lib/cdp-run.mjs', import.meta.url).pathname, JSON.stringify({ port, op: 'viewport', w: 1600, h: 945 })], { timeout: 30000 }, (e, out, err) => r({ code: e ? e.code ?? 1 : 0, err: String(err) })));
+const cdpRun = new URL('./lib/cdp-run.mjs', import.meta.url).pathname;
+const op = (port) => new Promise((r) => execFile(process.execPath, [cdpRun, JSON.stringify({ port, op: 'viewport', w: 1600, h: 945 })], { timeout: 30000 }, (e, out, err) => r({ code: e ? e.code ?? 1 : 0, err: String(err) })));
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const bad = [];
 
@@ -80,8 +84,26 @@ await Promise.all([
     if (r.code === 0 || !/wanted 1600x945, got 1600x1231/.test(r.err)) bad.push(`a size it cannot reach: want it to fail with "wanted 1600x945, got 1600x1231", got exit ${r.code} ${r.err.trim()}`);
     server.close();
   })(),
+  ...[['a stale narrow.pid naming an unrelated process', false], ['narrow.pid naming its narrow process', true]].map(async ([what, narrow]) => {
+    const { server, port } = await standIn({ lagMs: 100 });
+    const dir = `/tmp/fluid-editor-chrome-${port}`, file = `${dir}/narrow.pid`;
+    const child = narrow
+      ? spawn(process.execPath, [cdpRun, JSON.stringify({ port, op: 'narrow', w: 428, h: 926 })], { stdio: 'ignore' })
+      : spawn('sleep', ['30'], { stdio: 'ignore' });
+    let ended = null;
+    child.on('exit', (code, sig) => { ended = sig || code; });
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(file, String(child.pid));
+    const r = await op(port);
+    await wait(100);
+    const want = narrow ? 'SIGTERM' : null;
+    if (r.code !== 0 || ended !== want || existsSync(file)) bad.push(`${what}: want exit 0, the process ${narrow ? 'ended' : 'alive'} and the file gone, got exit ${r.code}, ended ${ended}, file ${existsSync(file) ? 'left' : 'gone'} ${r.err.trim()}`);
+    if (ended === null) child.kill();
+    try { rmdirSync(dir); } catch {}
+    server.close();
+  }),
 ]);
 
 if (bad.length) { console.error(`check-viewport: ${bad.length} failed\n  ${bad.join('\n  ')}`); process.exit(1); }
-console.log("check-viewport: the viewport op reaches a window size that lands late, also after a retry, and fails loudly on one it cannot reach");
+console.log("check-viewport: the viewport op reaches a window size that lands late, also after a retry, fails loudly on one it cannot reach, and signals only its own narrow process");
 process.exit(0);

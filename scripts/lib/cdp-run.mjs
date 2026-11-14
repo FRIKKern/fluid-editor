@@ -6,8 +6,8 @@
 //   mouse type x y buttons mods | drag from to steps holdMs mods pointerType | touch from to steps holdMs
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
-import { spawn } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { execFileSync, spawn } from 'node:child_process';
+import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { isClipKey, CLIP_EVENTS, STUBBED_JS, ARM_JS, fireJs, refusal } from './clip-guard.mjs';
 
 const cmd = JSON.parse(process.argv[2]);
@@ -143,11 +143,16 @@ try {
   }
   if (cmd.op === 'viewport') {
     const narrowPid = `/tmp/fluid-editor-chrome-${cmd.port}/narrow.pid`;
-    // Wait until it is gone: its override ends when its connection closes.
+    // Wait until it is gone: its override ends when its connection closes. The file outlives that process, and its PID
+    // may since belong to anything: signal it only while it is still a narrow op for this port, then drop the file.
     try {
       const old = Number(readFileSync(narrowPid, 'utf8'));
-      process.kill(old);
-      for (let k = 0; k < 40; k++) { process.kill(old, 0); await sleep(50); }
+      unlinkSync(narrowPid);
+      const ours = JSON.stringify({ port: cmd.port, op: 'narrow' }).slice(0, -1) + ',';
+      if (old > 0 && execFileSync('ps', ['-ww', '-o', 'command=', '-p', String(old)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).includes(ours)) {
+        process.kill(old);
+        for (let k = 0; k < 40; k++) { process.kill(old, 0); await sleep(50); }
+      }
     } catch {}
     // Chrome's window is at least 500px wide, so narrower sizes are emulated by a background process.
     if (cmd.w < 500) {
