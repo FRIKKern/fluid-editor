@@ -84,7 +84,7 @@ await tab('Design');
 await act(`P.querySelector('[data-image-mode="fill"]').click()`, 250);
 rowsMatch('Fill', F.rows.fill);
 const modes = R(`[...P.querySelectorAll('.bp-modes button')].map((e) => { const r = e.getBoundingClientRect(); return [r.left - P0.left, r.top - P0.top, r.width, r.height]; })`);
-add('Fit, Fill, Shape boxes', modes.every((b, i) => near(b, F.rows.fill[i].slice(1), 1.5)), JSON.stringify(modes));
+add('Fit, Fill, Shape boxes', modes.length === 3 && modes.every((b, i) => near(b, F.rows.fill[i].slice(1), 1.5)), JSON.stringify(modes));
 
 // Overlay.
 await press(`P.querySelector('input[aria-label="Overlay"]').closest('label')`);
@@ -129,7 +129,7 @@ rowsMatch('Individual', F.rows.individual);
 const four = () => R(`[...P.querySelectorAll('.sh-corner')].map((e) => e.value)`);
 add('Individual starts from the value', JSON.stringify(four().map(Number)) === JSON.stringify(F.corner.individualFrom24), JSON.stringify(four()));
 const inputs = R(`[...P.querySelectorAll('.sh-corner')].map((e) => { const r = e.getBoundingClientRect(); return [r.left - P0.left + 6, r.top - P0.top, r.width - 12, r.height]; })`);
-add('Four fields where measured', inputs.every((b, i) => near(b, F.corner.individualInputs[i], 1.5)), JSON.stringify(inputs));
+add('Four fields where measured', inputs.length === F.corner.individualInputs.length && inputs.every((b, i) => near(b, F.corner.individualInputs[i], 1.5)), JSON.stringify(inputs));
 await setField(`P.querySelector('input[aria-label="Top left corner radius"]')`, '40');
 add('Top left 40', radius() === '40px 24px 24px 24px', radius());
 add('The main field reads Mixed', R(`P.querySelector('input[aria-label="Corner"]').value`) === 'Mixed');

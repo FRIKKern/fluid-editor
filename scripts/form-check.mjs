@@ -189,7 +189,7 @@ add('List: Delete at 241, 36 square', near(list.del[0], [241, 72, 36, 36], 1), l
 add('List: Add Field under the rows', near(list.add, [22, 297, 276, 44], 1), list.add);
 const tiles = inPage(`await ff('add'); return JSON.stringify([...P.querySelectorAll('.bp-ff-tile')].map((e) => [e.textContent, ...box(e)]));`);
 add('Add Field: the tiles in order', tiles.map((t) => t[0]).join() === FF.addField.tiles.join(), tiles.map((t) => t[0]).join());
-add('Add Field: 125 by 44, two columns', tiles.every((t, i) => near(t.slice(1), [i % 2 ? 168 : 27, 55 + 44 * Math.floor(i / 2), 125, 44], 1)), JSON.stringify(tiles.slice(0, 3)));
+add('Add Field: 125 by 44, two columns', tiles.length === FF.addField.tiles.length && tiles.every((t, i) => near(t.slice(1), [i % 2 ? 168 : 27, 55 + 44 * Math.floor(i / 2), 125, 44], 1)), `${tiles.length} tiles ${JSON.stringify(tiles.slice(0, 3))}`);
 
 // Each kind in its editor, against what the oracle's panel showed.
 const LONG = /^(Contacts|SMS Subscribers|SMS subscription|Select a plan|View plans|Learn More|To fill|If no value|Variable)/;
