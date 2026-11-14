@@ -358,7 +358,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   const area = () => evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 'k').layout.desktop.area.join('/'))`);
   const handles = () => evalJs(S, `JSON.stringify(document.getElementById('site-frame').contentDocument.querySelectorAll('.fe-handle').length)`);
   const cancels = () => evalJs(S, `JSON.stringify(window.__c)`);
-  const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs, stamped: true });
+  const touch = (p, dx, dy, holdMs = 0, steps = 12) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps, holdMs, stamped: true });
   const walk = [[70, 0, 0, '1/3/7/9'], [125, 0, 0, '1/4/7/10'], [150, 0, 0, '1/4/7/10'], [200, 0, 0, '1/2/7/8', true], [200, 0, 30, '1/2/7/8', true], [200, 0, 60, '1/2/7/8', true], [200, 0, 100, '1/5/7/11'], [200, 0, 800, '1/5/7/11'], [0, 125, 0, '4/2/10/8'], [0, 200, 0, '1/2/7/8', true]];
   // A cancel needs a first move inside the hold. On a busy machine the press can sit past it, and
   // that run tests nothing: read the real gap, try again, and fail the row if it never came.
@@ -379,9 +379,10 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   groupCases.push({ name: 'a tap selects', diffs: [handles() !== 8 && `${handles()} handles`, area() !== '1/2/7/8' && area()].filter(Boolean) });
   touch(at(1, 1), 70, 70); await pause(150); const h1 = area(), s1 = handles(); touch(at(1, 1), 125, 75); await pause(150); const h2 = area();
   groupCases.push({ name: 'a touch on a handle resizes', diffs: [h1 !== '1/2/9/9' && `oracle 1/2/9/9, ours ${h1}`, h2 !== '1/2/11/11' && `oracle 1/2/11/11, ours ${h2}`, s1 !== 8 && 'not selected after'].filter(Boolean) });
-  // At 20 px a move a handle needs the hold a body needs (CAP-X11FAST.json).
+  // At 20 px a move a handle needs the hold a body needs (CAP-X11FAST.json). Every move here is 20 px, as the oracle's were
+  // (240 px in 12): a shorter one stays under the browser's 15 px pan distance and tests no hold.
   for (const [fx, fy, dx, dy, hold, want, cancelled] of [[1, 0.5, 240, 0, 0, '1/2/7/8', true], [1, 0.5, 240, 0, 60, '1/2/7/8', true], [1, 0.5, 240, 0, 100, '1/2/7/12'], [1, 0.5, 240, 0, 300, '1/2/7/12'], [0.5, 1, 0, 240, 0, '1/2/7/8', true], [0.5, 1, 0, 240, 100, '1/2/13/8'], [1, 0.5, -240, 0, 0, '1/2/7/8', true], [1, 0.5, -120, 0, 100, '1/2/7/6']]) {
-    await touchCase(`touch on a handle ${dx},${dy} after ${hold} ms`, want, cancelled, async () => { await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); touch(at(fx, fy), dx, dy, hold); });
+    await touchCase(`touch on a handle ${dx},${dy} after ${hold} ms`, want, cancelled, async () => { await load(); evalJs(S, `fe.select('s', 'k')`); await pause(80); touch(at(fx, fy), dx, dy, hold, Math.abs(dx || dy) / 20); });
   }
   await load(); { const p = at(1, 0); touch([p[0] + 300, p[1] + 60], 70, 70); await pause(150); }
   groupCases.push({ name: 'a touch on the empty grid', diffs: [area() !== '1/2/7/8' && area(), cancels() !== 1 && `${cancels()} cancels`, handles() !== 0 && 'selected'].filter(Boolean) });
