@@ -13,7 +13,7 @@ export const STYLES = [
 const TEXT_BLOCK = 'h1, h2, h3, h4, p, pre';
 
 // The text blocks (h1-h4, p, pre) the selection touches, in document order.
-function selectedBlocks(root, sel) {
+export function selectedBlocks(root, sel) {
   if (!sel.rangeCount) return [];
   const range = sel.getRangeAt(0);
   const all = [...root.querySelectorAll(TEXT_BLOCK)].filter((e) => !e.parentElement.closest('pre'));
@@ -132,7 +132,7 @@ export function setStyle(doc, root, sel, style) {
 }
 
 // Marks.
-const MARKS = {
+export const MARKS = {
   bold: { tag: 'strong', test: (e) => e.tagName === 'STRONG' },
   italic: { tag: 'em', test: (e) => e.tagName === 'EM' },
   underline: { tag: 'u', test: (e) => e.tagName === 'U' }, // the form's Message box only (FORMFIELDS.json, postSubmit.messageBox)

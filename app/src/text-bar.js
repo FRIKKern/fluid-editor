@@ -30,7 +30,10 @@ const I = {
   ai: '<circle cx="8" cy="8" r="3" fill="currentColor"/><circle cx="16" cy="11" r="2" fill="currentColor"/><circle cx="9" cy="16" r="1.5" fill="currentColor"/>',
   chevron: '<path d="M8 10l4 4 4-4"/>',
 };
-const btn = (act, label, opts = {}) => `<button type="button" class="tx-btn${opts.on ? ' is-on' : ''}" data-fmt="${act}" aria-label="${label}" title="${label}"${opts.unbuilt ? ' data-unbuilt disabled' : ''}>${svg(I[opts.icon || act])}</button>`;
+// A toggle is role=checkbox with aria-checked, as the oracle's are (text-toggles.js). A <button> still
+// takes Space and Enter, so the keys and presses stay as they were.
+const TOGGLES = new Set(['bold', 'italic', 'underline', 'scaled', 'quote', 'bullet', 'numbered', 'strike', 'align:left', 'align:center', 'align:right', 'align:justify']);
+const btn = (act, label, opts = {}) => `<button type="button"${TOGGLES.has(act) ? ` role="checkbox" aria-checked="${!!opts.checked}"` : ''} class="tx-btn${opts.on ? ' is-on' : ''}" data-fmt="${act}" aria-label="${label}" title="${label}"${opts.unbuilt ? ' data-unbuilt disabled' : ''}>${svg(I[opts.icon || act])}</button>`;
 const sep = '<span class="tx-sep" aria-hidden="true"></span>';
 
 // The oracle lists each style's shortcut: Cmd+Opt+6 to 3 for headings, 2 to 0 for paragraphs, M.
@@ -43,7 +46,7 @@ const STYLE_WIDTHS = { h1: 106, h2: 108, h3: 108, h4: 108, 'p.sqsrte-large': 119
 // controls 4 apart. `on` holds what shows as pressed, `linkOff` fades Link in an empty box.
 export function messageBarHtml(style, open, on = {}, linkOff = false) {
   const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
-  const mark = (act, label) => btn(act, label, { on: on[act] });
+  const mark = (act, label) => btn(act, label, { on: on[act], checked: on[act] });
   const items = [
     `<button type="button" class="tx-btn" aria-label="Squarespace AI" title="Squarespace AI (out of scope)" data-unbuilt disabled>${svg(I.ai)}</button>`,
     sep,
@@ -57,27 +60,28 @@ export function messageBarHtml(style, open, on = {}, linkOff = false) {
   return `<div class="tx-row">${items}</div>${open === 'style' ? styleMenuHtml(style) : ''}`;
 }
 
-export function textBarHtml(style, open, color = null, custom = null) {
+// `checked` holds which toggles are on (text-toggles.js), for their aria-checked only: nothing here shows lit.
+export function textBarHtml(style, open, color = null, custom = null, checked = {}) {
   const styleLabel = (STYLES.find(([, v]) => v === style) || STYLES[5])[0];
   const items = [
     `<button type="button" class="tx-btn" aria-label="Squarespace AI" title="Squarespace AI (out of scope)" data-unbuilt disabled>${svg(I.ai)}</button>`,
     sep,
     `<button type="button" class="tx-style" data-fmt="style-menu" aria-label="Text Style" aria-expanded="${open === 'style'}">${styleLabel}${svg(I.chevron)}</button>`,
     sep,
-    btn('bold', 'Bold'), btn('italic', 'Italic'), `<button type="button" class="tx-btn" data-fmt="color-menu" aria-label="Text Color" title="Text Color" aria-expanded="${open === 'color'}">${svg(I.color)}</button>`, btn('scaled', 'Scaled Text'), btn('highlight', 'Text Highlight'), btn('link', 'Link'),
+    btn('bold', 'Bold', { checked: checked.bold }), btn('italic', 'Italic', { checked: checked.italic }), `<button type="button" class="tx-btn" data-fmt="color-menu" aria-label="Text Color" title="Text Color" aria-expanded="${open === 'color'}">${svg(I.color)}</button>`, btn('scaled', 'Scaled Text', { checked: checked.scaled }), btn('highlight', 'Text Highlight'), btn('link', 'Link'),
     sep,
     `<button type="button" class="tx-btn" data-fmt="align-menu" aria-label="Text Alignment" aria-expanded="${open === 'align'}">${svg(I['align:left'])}</button>`,
     sep,
-    btn('quote', 'Quote'), btn('bullet', 'Bullet List'), btn('numbered', 'Numbered List'),
+    btn('quote', 'Quote', { checked: checked.quote }), btn('bullet', 'Bullet List', { checked: checked.bullet }), btn('numbered', 'Numbered List', { checked: checked.numbered }),
     sep,
-    btn('strike', 'Strike'),
+    btn('strike', 'Strike', { checked: checked.strike }),
     sep,
     btn('outdent', 'Outdent'), btn('indent', 'Indent'),
     sep,
     btn('clear', 'Clear Formatting'),
   ].join('');
   const styleMenu = open === 'style' ? styleMenuHtml(style) : '';
-  const alignMenu = open === 'align' ? `<div class="tx-pop tx-aligns" role="menu">${['left', 'center', 'right', 'justify'].map((a) => btn(`align:${a}`, `Text align: ${a}`)).join('')}</div>` : '';
+  const alignMenu = open === 'align' ? `<div class="tx-pop tx-aligns" role="menu">${['left', 'center', 'right', 'justify'].map((a) => btn(`align:${a}`, `Text align: ${a}`, { checked: checked[`align:${a}`] })).join('')}</div>` : '';
   // Text Color (parity/findings/TEXTCOLOR.json): Palette and Custom tabs, five 34px swatches
   // named after the site colors, the current one checked. Custom: a color map, a hue bar, Hex and
   // an Alpha field that changes nothing (`custom` holds the tab's color, null for Palette).
