@@ -398,8 +398,10 @@ for (const name of ['Spring .3', 'Ease', 'In Out', 'In Back', 'Out Back', 'In Ou
   const ours = fr.filter((x) => x[1] !== 'none').map((x) => [x[0], (scale(x[1]) - 1) / 0.1]);
   const at = (t) => { const a = ours.filter((x) => x[0] <= t).pop(), b = ours.find((x) => x[0] >= t); if (!a || !b) return null; return a[1] + (b[1] - a[1]) * (b[0] === a[0] ? 0 : (t - a[0]) / (b[0] - a[0])); };
   // Each side's start is known to a frame or so: take the best lag within 30 ms. An oracle point
-  // with no frame of ours around it is a miss, not a match: a preview that never moves has none.
-  const worstAt = (lag) => Math.max(...F.curves[name].map(([t, v]) => { const o = at(t + lag); return o == null ? Infinity : Math.abs(o - v); }));
+  // before our first frame isn't compared, if that frame came in the first 40 ms. Any other point
+  // with no frame of ours around it is a miss: a preview that never moves, or stops early, has none.
+  const first = ours[0]?.[0];
+  const worstAt = (lag) => Math.max(...F.curves[name].map(([t, v]) => { const o = at(t + lag); if (o != null) return Math.abs(o - v); return first <= 40 && t + lag < first ? 0 : Infinity; }));
   const worst = Math.min(...[-30, -20, -10, 0, 10, 20, 30].map(worstAt));
   add(`Preview, ${name}: the curve within .08`, worst <= 0.08, `${worst.toFixed(3)} (${ours.length} frames of ours, ${ours[0]?.[0] ?? '-'}..${ours.at(-1)?.[0] ?? '-'} ms)`);
 }
