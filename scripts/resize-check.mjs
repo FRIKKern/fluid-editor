@@ -45,7 +45,12 @@ for (const [name, want] of Object.entries(F.types)) {
   const spot = empty();
   mouse(S, 'move', spot[0], spot[1]); await pause(350);
   const id = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const had = new Set(fe.model.sections[1].blocks.map((x) => x.id)); document.querySelector('[data-sc="add-block"]').click(); await sleep(200); const t = document.querySelector('button[data-add="${name}"]'); if (!t) { document.getElementById('add-block-menu').hidden = true; return JSON.stringify(null); } t.click(); await sleep(350); return JSON.stringify(fe.model.sections[1].blocks.find((x) => !had.has(x.id)).id); })()`);
-  if (!id) continue; // not built here
+  // A type the menu has no button for keeps its rows, as misses: a lost menu entry must not shrink the total.
+  if (!id) {
+    add(`${name} lands where the oracle's does`, false, 'not in the Add Block menu');
+    for (const [dir, cols, rows] of want.drags) add(`${name} ${dir} ${cols},${rows}`, false, 'not in the Add Block menu');
+    continue;
+  }
   const lands = FRESH(name) ?? want.area, down = want.area[0] - lands[0];
   add(`${name} lands where the oracle's does`, same(areaOf(id), lands), `${areaOf(id).join('/')} want ${lands.join('/')}`);
   for (const [dir, cols, rows, , to] of want.drags) {

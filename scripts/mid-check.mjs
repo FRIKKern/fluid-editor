@@ -361,15 +361,18 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   const touch = (p, dx, dy, holdMs = 0) => cdp(S, { op: 'touch', from: p, to: [p[0] + dx, p[1] + dy], steps: 12, holdMs });
   const walk = [[70, 0, 0, '1/3/7/9'], [125, 0, 0, '1/4/7/10'], [150, 0, 0, '1/4/7/10'], [200, 0, 0, '1/2/7/8', true], [200, 0, 30, '1/2/7/8', true], [200, 0, 60, '1/2/7/8', true], [200, 0, 100, '1/5/7/11'], [200, 0, 800, '1/5/7/11'], [0, 125, 0, '4/2/10/8'], [0, 200, 0, '1/2/7/8', true]];
   // A cancel needs a first move inside the hold. On a busy machine the press can sit past it, and
-  // that run tests nothing: read the real gap, try again, and say so if it never came.
+  // that run tests nothing: read the real gap, try again, and fail the row if it never came.
   const touchCase = async (name, want, cancelled, press) => {
+    const gaps = [];
     for (let tries = 0; tries < 3; tries++) {
       await press(); await pause(150);
-      if (cancelled && evalJs(S, `JSON.stringify(window.__gap)`) >= 100) continue;
+      const gap = cancelled ? evalJs(S, `JSON.stringify(window.__gap)`) : null;
+      if (cancelled && gap >= 100) { gaps.push(gap); continue; }
       groupCases.push({ name, diffs: [area() !== want && `oracle ${want}, ours ${area()}`, (cancels() > 0) !== !!cancelled && `cancelled: oracle ${!!cancelled}, ours ${cancels() > 0}`].filter(Boolean) });
       return;
     }
-    console.log(`NOT RUN ${name}: the first move came after the hold, 3 times`);
+    // No try inside the hold means the row was not run: that counts against the run, never as a pass (QUALITY.md, no skip-pass).
+    groupCases.push({ name, diffs: [`NOT RUN: the first move came after the hold, 3 times (gaps ${gaps.map((g) => Math.round(g)).join(', ')} ms)`] });
   };
   for (const [dx, dy, hold, want, cancelled] of walk) await touchCase(`touch ${dx},${dy} after ${hold} ms`, want, cancelled, async () => { await load(); touch(at(0.5, 0.5), dx, dy, hold); });
   await load(); { const p = at(0.5, 0.5); touch(p, 0, 0); await pause(150); }
