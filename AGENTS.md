@@ -22,7 +22,7 @@ a new trial      ─► QUALITY.md, "A new trial"; scripts/oracle-setup-check.mj
 4. Name the item in the commit: `X6: handles per block type`.
 5. `npm run check` before every commit.
 6. Set the item's status in `parity/items.json` with its evidence, then `npm run parity`. A part the repo will not build goes in the item's `outOfScope` list with the decision that says so (docs/decisions/0005).
-7. After a merge, read `gh run list --workflow browser-checks.yml --branch main`. A red job is a red main: one fixer, who first checks that nobody else has a fix open. marks-check isn't in that workflow: run it locally.
+7. After a merge, read `gh run list --workflow browser-checks.yml --branch main`. A red job is a red main: one fixer, who first checks that nobody else has a fix open. marks-check runs there on Linux only, with its 5 Helvetica Neue rows named as known misses: run it locally on a Mac to score those too.
 
 ## Rules
 
