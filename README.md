@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 11 changes
+- **Today** · 12 changes
+  - browser-checks: marks-check on Linux, its 5 Helvetica Neue rows named known misses there; macOS stays out ([#647](https://github.com/FRIKKern/fluid-editor/pull/647))
   - mid-check: a NOT RUN touch case fails the run, not a silent pass ([#646](https://github.com/FRIKKern/fluid-editor/pull/646))
-  - x6-check: a read with no oracle area is a miss unless named, so a findings change can't shrink the total ([#645](https://github.com/FRIKKern/fluid-editor/pull/645))
 - **Yesterday** · 8 changes
   - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
 - **This week** · 149 changes
