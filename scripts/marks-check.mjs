@@ -3047,7 +3047,9 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   await open();
   const empty = js(`const f = document.getElementById('site-frame').getBoundingClientRect(); return JSON.stringify([f.left + 640, f.top + 640]);`);
   await real(empty[0], empty[1]);
-  add('Layouts closing: a press on an empty part of the page, nothing selected', shut() === true && js(`return JSON.stringify(!document.querySelector('#selection-box:not([hidden]), .fe-selected'));`) !== false, String(shut()));
+  // Nothing selected: no block in the frame marked selected (editor.js drawSelectionLayers) and the block toolbar hidden.
+  const none = js(`const d = document.getElementById('site-frame').contentDocument; return JSON.stringify({ marked: d.querySelectorAll('[data-is-selected="true"]').length, toolbar: !document.getElementById('block-toolbar').hidden });`);
+  add('Layouts closing: a press on an empty part of the page, nothing selected', shut() === true && none?.marked === 0 && none.toolbar === false, JSON.stringify({ shut: shut(), ...none }));
   await open();
   const edit = center('#section-chrome [data-sc="edit"]');
   await real(edit[0], edit[1]);
