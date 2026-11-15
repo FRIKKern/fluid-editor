@@ -1,7 +1,7 @@
 {
   "check": "text toolbar HTML",
-  "pass": 978,
-  "total": 978,
+  "pass": 985,
+  "total": 985,
   "couldNotRun": [],
   "results": [
     {
@@ -590,6 +590,34 @@
     },
     {
       "name": "Y2: Cmd+A and Backspace empty a 30-row Heading 1 to 2 rows, a row short (CAP-Y2REDOPULL2)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Alignment open: after Meta+b Bold reads aria-checked true, the menu open (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Alignment open: after Meta+i Italic reads aria-checked true, the menu open (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Alignment open: after a press that closes it Bold reads aria-checked true, the menu closed (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Style open: after Meta+i Italic reads aria-checked true, the menu open (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Style open: after Shift+ArrowRight Italic reads aria-checked false, the menu open (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Style open: after Shift+ArrowLeft Italic reads aria-checked true, the menu open (inferred)",
+      "ok": true
+    },
+    {
+      "name": "Toggles with Text Style open: after a press that closes it Italic reads aria-checked true, the menu closed (inferred)",
       "ok": true
     },
     {
