@@ -404,11 +404,21 @@ for (const [m, steps] of [['Text Alignment', [['Meta+b', 'Bold', true], ['Meta+i
 
 // E4: with a caret, undo by time, nesting, Clear Formatting, Highlight: replayed with real keys and presses.
 const noRun = [];
-const KNOWN = ['rows Paragraph 3 3 z', 'rows Heading 1 2 z', 'rows Heading 1 3 z', 'rows Heading 1 4 y', 'rows Heading 1 5 y', 'rows Heading 1 6 y', 'rows S1 2 z', 'rows S1 3 z', 'rows S2 3 z', 'rows S5 1 z', 'rows S5 2 z', 'rows S5 3 y']; // Named in Y2's evidence
+// Y2's named misses (docs/PARITY.md Y2), each with the parts of its read that its reason covers: the rows a Heading or
+// Paragraph gets back (rows), the text bar the oracle read as not showing (has Bold), and the text where the oracle took
+// smaller steps than typed (html: a Cmd+Z that stopped mid word, S1 3 z; letters one step each across a 700 ms gap, S5).
+// Any other part that differs fails the row as anywhere.
+const KNOWN = {
+  'CAP-Y2KEYS9 rows Paragraph 3 3 z': ['rows'], 'CAP-Y2KEYS9 rows Heading 1 2 z': ['rows'], 'CAP-Y2KEYS9 rows Heading 1 3 z': ['rows', 'has Bold'],
+  'CAP-Y2KEYS9 rows Heading 1 4 y': ['has Bold'], 'CAP-Y2KEYS9 rows Heading 1 5 y': ['has Bold'], 'CAP-Y2KEYS9 rows Heading 1 6 y': ['has Bold'],
+  'CAP-Y2SCORE rows S1 2 z': ['rows'], 'CAP-Y2SCORE rows S1 3 z': ['html', 'rows'], 'CAP-Y2SCORE rows S2 3 z': ['rows'],
+  'CAP-Y2SCORE rows S5 1 z': ['html'], 'CAP-Y2SCORE rows S5 2 z': ['html'], 'CAP-Y2SCORE rows S5 3 y': ['html'],
+};
+const knownMiss = (key, parts) => !!KNOWN[key] && !!parts && Object.entries(parts).every(([k, same]) => same || KNOWN[key].includes(k));
 for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9', 'CAP-Y2SCORE'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
-  await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail) => {
+  await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail, parts) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
-    if (!ok && KNOWN.includes(what)) { console.log(`known miss: ${what}`); return; }
+    if (!ok && knownMiss(`${name} ${what}`, parts)) { console.log(`known miss: ${name} ${what} (${Object.keys(parts).filter((k) => !parts[k]).join(', ')})`); return; }
     results.push({ name: `${name} ${what}`, ok }); if (!ok) console.log(`${name} ${what} DIFF ${detail}`);
   });
 }
