@@ -1,7 +1,7 @@
 {
  "check": "Add Block > Form",
- "pass": 974,
- "total": 974,
+ "pass": 979,
+ "total": 979,
  "results": [
   {
    "what": "The menu makes a form block",
@@ -3357,6 +3357,26 @@
   },
   {
    "what": "Leaving the box: the bar and the outline go",
+   "ok": true
+  },
+  {
+   "what": "Menu open: Shift+ArrowRight past the bold takes Bold off",
+   "ok": true
+  },
+  {
+   "what": "Menu open: Shift+ArrowLeft back puts Bold on",
+   "ok": true
+  },
+  {
+   "what": "Menu open: a caret fades Link",
+   "ok": true
+  },
+  {
+   "what": "Menu open: an Underline waiting at the caret goes when it moves",
+   "ok": true
+  },
+  {
+   "what": "Menu open: closed after that, Underline stays off",
    "ok": true
   },
   {

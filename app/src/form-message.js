@@ -3,6 +3,7 @@
 // Underline at a caret waits for the next letters, as Strike does in a Text block.
 import * as fmt from './text-format.js';
 import { messageBarHtml } from './text-bar.js';
+import { setToggles } from './text-toggles.js';
 import { cleanPaste, insertPaste } from './paste.js';
 
 const KEEP = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'PRE', 'CODE', 'STRONG', 'EM', 'U', 'A', 'BR', 'MARK']);
@@ -92,8 +93,8 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     bar.style.left = `${r.left - st.left}px`;
     bar.style.top = `${r.top - st.top - 54}px`;
   };
-  const draw = () => {
-    if (!current()) { hide(); return; }
+  // What the bar shows at the selection.
+  const state = () => {
     const sel = win.getSelection(), inside = sel.rangeCount && box.contains(sel.anchorNode);
     const on = inside ? { bold: markOn(box, sel, 'bold'), italic: markOn(box, sel, 'italic'), underline: markOn(box, sel, 'underline') } : {};
     if (under) on.underline = under.on;
@@ -101,11 +102,23 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     // Link fades in an empty box and at a caret with no selection, in a box with text too (CAP-T12READS-J.json, three reads).
     // It still takes a press; with a selection it shows dark (inferred: a selection was not read).
     const linkOff = !box.textContent.trim() || (!on.link && !(inside && !sel.isCollapsed));
+    return { sel, inside, on, linkOff };
+  };
+  const draw = () => {
+    if (!current()) { hide(); return; }
+    const { sel, inside, on, linkOff } = state();
     bar.innerHTML = messageBarHtml(inside ? fmt.currentStyle(box, sel) : 'p', menu, on, linkOff);
     cutBar(bar, box.dataset.rt);
     bar.hidden = false;
     box.classList.toggle('is-empty', !box.textContent.trim());
     place();
+  };
+  // With the Text Style menu open the bar is not redrawn, so the menu stays as it is: the toggles and Link follow in place.
+  const light = () => {
+    const { on, linkOff } = state(), link = bar.querySelector('[data-fmt="link"]');
+    setToggles(bar, on, true);
+    link?.classList.toggle('is-on', !!on.link);
+    link?.classList.toggle('is-faded', linkOff);
   };
   function hide() { bar.hidden = true; menu = null; under = null; box = null; }
   // A press is one undo step. What was typed before it is its own.
@@ -200,10 +213,10 @@ export function messageBox({ panel, bar, stage, linkPop, openLink }) {
     }
   }, true);
   doc.addEventListener('selectionchange', () => {
-    if (!current() || bar.hidden || menu) return;
+    if (!current() || bar.hidden) return;
     const sel = win.getSelection();
     if (under && String(fmt.caretPlace(box, sel)) !== under.at) under = null;
-    if (doc.activeElement === box) draw();
+    if (doc.activeElement === box) { if (menu) light(); else draw(); }
   });
   panel.addEventListener('scroll', place);
   // A press on a box's margin, around its text, puts the caret at the end of the text.
