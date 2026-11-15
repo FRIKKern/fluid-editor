@@ -70,16 +70,17 @@ const state = (id) => q(`const b = fe.model.sections[1].blocks.find((o) => o.id 
 const ours = () => q(`dl.scrollTop = 0; const r = dl.getBoundingClientRect(), out = []; for (const e of dl.querySelectorAll('*')) { const b = e.getBoundingClientRect(); if (!b.width) continue; const own = [...e.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').replace(/\\s+/g, ' ').trim(); const cs = getComputedStyle(e); out.push({ text: own, tag: e.tagName.toLowerCase(), rel: [b.left - r.left, b.top - r.top, b.width, b.height].map((v) => Math.round(v * 10) / 10), bg: cs.backgroundColor }); } return JSON.stringify(out);`);
 // A text row matches by its words (the reads keep a long one's first 80): same left and the same middle line, within 1.5px; a box with no words matches by
 // its box within 1px.
+const GREY = 'rgb(231, 231, 231)', OUR_PAGE_ROWS = 4;
 function compareRows(tile, tab, want, got) {
-  // Page Link lists the site's pages: the oracle's has 7, ours 4, so its rows past ours aren't compared.
-  const listed = got.filter((g) => g.bg === 'rgb(231, 231, 231)').length;
-  want = want.filter((w) => w.bg !== 'rgb(231, 231, 231)' || w.rel[1] < 276 + 49.5 * listed - 1);
+  // Page Link lists the site's pages on grey rows: the oracle's has 7, ours 4 (SITE_PAGES in app/src/editor.js), so the
+  // oracle's first 4 are compared, each by its box and its grey. A fixed count: one taken from ours would drop rows ours fails to draw.
+  want = want.filter((w) => w.bg !== GREY || w.rel[1] < 276 + 49.5 * OUR_PAGE_ROWS - 1);
   let ok = 0;
   const misses = [];
   for (const w of want) {
     const hit = w.text
       ? got.some((g) => (w.text.length >= 80 ? g.text.startsWith(w.text) : g.text === w.text) && Math.abs(g.rel[0] - w.rel[0]) <= 1.5 && Math.abs(g.rel[1] + g.rel[3] / 2 - (w.rel[1] + w.rel[3] / 2)) <= 1.5)
-      : got.some((g) => near(g.rel, w.rel, 1));
+      : got.some((g) => near(g.rel, w.rel, 1) && (w.bg !== GREY || g.bg === GREY));
     if (hit) ok++; else misses.push(`${w.tag} "${w.text}" ${w.rel.map(Math.round)}`);
   }
   add(`${tile}${tab ? ` ${tab}` : ''}: ${want.length} read rows in place`, ok === want.length, `${ok} of ${want.length}; ${misses.slice(0, 4).join('; ')}`);
