@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 11 changes
+- **Today** · 12 changes
+  - browser-checks: marks-check on macos-15 too, with the runner's timer coalescing off; the tip row reads the app's timer ([#665](https://github.com/FRIKKern/fluid-editor/pull/665))
   - standin-check: Donation faded row needs the card and the Funds row, not any it finds ([#664](https://github.com/FRIKKern/fluid-editor/pull/664))
-  - QUALITY.md: text-check's Linux sample writes no result file, so its dropped rows show only in --full ([#663](https://github.com/FRIKKern/fluid-editor/pull/663))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
