@@ -984,8 +984,11 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     // (pressTileButton), about a spawn apart, and its captures never split them, so whether its 844 counts from the pointerdown
     // or the click is unread. Until a new trial's read says, a start early by up to 380 ms is named, not passed: 844 - 380 = 464,
     // 30 ms before the soonest our app can move after a pointerdown (494). Everything else still has to hold: a start later than
-    // 150 ms, more than 380 ms early, no play, two plays, another low, end or last fail.
-    if (rest && a1.start < b1.start - 150 && a1.start >= b1.start - 380) knownMiss(what, `starts 150 to 380 ms early from the pointerdown; the oracle's trigger, pointerdown or click, waits on a new trial's read, task-5dd2bf2edded718a`, `${b1.start - a1.start} ms early ${detail}`);
+    // 150 ms, more than 380 ms early, no play, two plays, another low, end or last fail. And the excuse is for a play moved early
+    // whole, not stretched: its run, first move to last, has to be within 150 ms of the oracle's 3333 (ours reads 3383 to 3384).
+    // Without that a play 20% slower (2.4 s legs) starts early enough to be named and ends inside end's 15%.
+    const runOf = (s) => s.end - s.start;
+    if (rest && a1.start < b1.start - 150 && a1.start >= b1.start - 380 && Math.abs(runOf(a1) - runOf(b1)) <= 150) knownMiss(what, `starts 150 to 380 ms early from the pointerdown; the oracle's trigger, pointerdown or click, waits on a new trial's read, task-5dd2bf2edded718a`, `${b1.start - a1.start} ms early ${detail}`);
     else add(what, rest && Math.abs(a1.start - b1.start) <= 150, detail); }
   // Follow on the stage, a table of two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json) at Scale 150% by 150%:
   // still a while after the mouse comes on (692 and 1230 ms in these reads; ours 751, the median of 4 reads that vary), up to 1.837 in 1.5 s, down to 0.889, then at rest.
