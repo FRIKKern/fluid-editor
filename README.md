@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 17 changes
+- **Today** · 18 changes
+  - dialog-check: Chart Line counts its 3 point labels, so a line chart that draws none fails ([#672](https://github.com/FRIKKern/fluid-editor/pull/672))
   - dialog-check: Page Link compares the oracle's first 4 grey page rows, a fixed count, not as many as ours draws ([#670](https://github.com/FRIKKern/fluid-editor/pull/670))
-  - marks-check: an outline fade-out try with no mid-fade frames fails the row, not retried away ([#669](https://github.com/FRIKKern/fluid-editor/pull/669))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
