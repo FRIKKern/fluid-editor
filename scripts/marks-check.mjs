@@ -2193,8 +2193,29 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   }
   // Shuffle: what it changes, what stays, one undo, from the tile and from the rows.
   const artState = () => evalJs(S, `(() => JSON.stringify(fe.model.sections[0].bgArt))()`);
+  // What a press may change comes from the oracle's reads, not from the app's own ART_SHUFFLE table: CAP-ARTSHUFFLE names each slider
+  // it saw change (ranges) or keep (stays) and each switch it saw flip, by label in panel order (a repeated label gets #n, one with
+  // none is (inline)). Laid on CAP-ARTROWS's rows in that order, the names give our keys: fold.row.slider, fold.row for a lone range,
+  // fold.row.rN for a switch's sliders, fold.row.check for a more switch. A row of buttons with no slider is not in the capture (unread).
+  const shuffleWant = (id, T) => {
+    const tile = AR.tiles[id], folds = id === 'images' ? [{ rows: tile.root.slice(0, 2) }, { rows: tile.root.slice(2) }] : tile.folds;
+    const seen = {}, sliders = [], switches = [], unread = [];
+    const name = (label) => { const n = seen[label] = (seen[label] ?? -1) + 1; return n ? `${label}#${n}` : label || '(inline)'; };
+    folds.forEach((f, i) => f.rows.forEach((r, n) => {
+      const k = `${i}.${n}`;
+      if (r.opts) { if (r.moreCheck) switches.push([r.moreCheck.label, `${k}.check`]); if (!r.sliders.length) unread.push(k); r.sliders.forEach((x, m) => sliders.push([name(x.label), x.label || '(inline)', `${k}.${m}`, k])); }
+      else if (r.range !== undefined) sliders.push([name(r.range), r.range, k, null]);
+      else if (r.check) { switches.push([r.check, k]); (r.reveals || []).forEach((x, m) => sliders.push([name(x.range), x.range, `${k}.r${m}`, null])); }
+    }));
+    const range = {}, more = new Set(), stays = [];
+    for (const [nm, bare, k, row] of sliders) if (T.ranges[nm]) { range[k] = T.ranges[nm]; if (row) more.add(row); } else stays.push(bare);
+    // A switch seen on in every press, or in none, kept its value.
+    const check = switches.filter(([l]) => T.switches[l]?.[0] > 0 && T.switches[l][0] < T.presses).map(([, k]) => k);
+    return { range, more: [...more], check, stays, unread, unnamed: Object.keys(T.ranges).filter((nm) => !sliders.some(([x]) => x === nm)) };
+  };
+  const sorted = (a) => JSON.stringify([...a].sort());
   for (const [id, T] of Object.entries(AS.shuffle.tiles)) {
-    const table = (await import('../app/src/section-art-rows-data.js')).ART_SHUFFLE[id];
+    const want = shuffleWant(id, T);
     await tileOpen(id);
     const a0 = artState();
     hit('#section-panel .sp-shuffle'); await pause(120);
@@ -2202,10 +2223,14 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     hit('#section-panel .sp-shuffle'); await pause(120);
     const a2 = artState();
     add(`Shuffle ${id}: the colors stay`, JSON.stringify(a0.colors) === JSON.stringify(a2.colors), JSON.stringify(a2.colors));
-    const out = Object.entries(table.range).filter(([k, [lo, hi]]) => !(a2.set[k] >= lo && a2.set[k] <= hi));
-    add(`Shuffle ${id}: each value within what was read`, out.length === 0, JSON.stringify(out.slice(0, 3)));
-    add(`Shuffle ${id}: its rows go to more`, table.more.every((k) => a2.set[k] === 'more'), JSON.stringify(table.more.map((k) => a2.set[k])));
-    add(`Shuffle ${id}: only its rows change`, Object.keys(a2.set).every((k) => table.range[k] || table.more.includes(k) || table.check.includes(k) || table.pick[k] || k === 'preset' || k === 'filter'), JSON.stringify(Object.keys(a2.set).slice(0, 8)));
+    const out = Object.entries(want.range).filter(([k, [lo, hi]]) => !(a2.set[k] >= lo && a2.set[k] <= hi));
+    add(`Shuffle ${id}: each value within what was read`, Object.keys(want.range).length > 0 && want.unnamed.length === 0 && out.length === 0, JSON.stringify({ out: out.slice(0, 3), unnamed: want.unnamed }));
+    add(`Shuffle ${id}: its rows go to more`, want.more.length > 0 && want.more.every((k) => a2.set[k] === 'more'), JSON.stringify(want.more.map((k) => a2.set[k])));
+    // Images: the preset and filter picked are among those the oracle's presses came up with.
+    const picked = (k) => (k === 'preset' || k === 'filter') && (id !== 'images' || !!T[`${k}s`]?.[a2.set[k]]);
+    const stray = Object.keys(a2.set).filter((k) => !(want.range[k] || want.more.includes(k) || want.check.includes(k) || want.unread.includes(k) || picked(k)));
+    for (const k of want.unread) if (k in a2.set) console.log(`NOTE Shuffle ${id}: ${k} changed, a row of buttons CAP-ARTSHUFFLE did not read`);
+    add(`Shuffle ${id}: only its rows change`, sorted(want.stays) === sorted(T.stays) && stray.length === 0, JSON.stringify({ stray: stray.slice(0, 8), stays: want.stays }));
     add(`Shuffle ${id}: two presses differ`, JSON.stringify(a1.set) !== JSON.stringify(a2.set));
     undos(); await pause(100);
     add(`Shuffle ${id}: one undo a press`, JSON.stringify(artState().set) === JSON.stringify(a1.set));
