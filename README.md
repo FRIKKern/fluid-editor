@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 14 changes
+- **Today** · 15 changes
+  - marks-check: outline fade rows judge each frame on the 0.2 s ease-in-out curve at its own time ([#668](https://github.com/FRIKKern/fluid-editor/pull/668))
   - anim-check: Float open row reads its start from the pointerdown, a named known miss while early ([#667](https://github.com/FRIKKern/fluid-editor/pull/667))
-  - marks-check: the phone overlap row unpins the shape first, so overlap alone must bring Move Forward and Backward ([#666](https://github.com/FRIKKern/fluid-editor/pull/666))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
