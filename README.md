@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 8 changes
+- **Today** · 9 changes
+  - marks-check: the 7-button phone Text bar at phoneBars.text lefts ([#662](https://github.com/FRIKKern/fluid-editor/pull/662))
   - marks-check: Phone text buttons needs all 9 by name, not any it finds ([#661](https://github.com/FRIKKern/fluid-editor/pull/661))
-  - image-effect-check: Tiles draw the picture counts the stills ([#660](https://github.com/FRIKKern/fluid-editor/pull/660))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
