@@ -263,8 +263,9 @@ for (const [name, x] of tipCases) {
   await hoverBar(x);
   const t = barTip(), want = T.tips.boxes[name];
   const rest = !!t && t.text === name && t.box[1] === want[1] && t.box[3] === want[3];
-  // Under a font row the tip's middle still has to sit within 4px of the oracle's: its left follows its width.
-  if (name === 'Mobile View' || name === 'Preview') fontRow(`tooltip ${name}`, rest && Math.abs(t.box[0] + t.box[2] / 2 - (want[0] + want[2] / 2)) <= 4, !!t && near4(t.box, want), !!t && Math.abs(t.box[2] - want[2]) <= FONT_ROOM, JSON.stringify(t));
+  // Under a font row the tip's middle still has to sit within 4px of the oracle's, and its left may be off by more
+  // than 4px only when its width is too: the left follows the width, never misses alone (task-fb382af6618c417e).
+  if (name === 'Mobile View' || name === 'Preview') fontRow(`tooltip ${name}`, rest && Math.abs(t.box[0] + t.box[2] / 2 - (want[0] + want[2] / 2)) <= 4 && (Math.abs(t.box[0] - want[0]) <= 4 || Math.abs(t.box[2] - want[2]) > 4), !!t && near4(t.box, want), !!t && Math.abs(t.box[2] - want[2]) <= FONT_ROOM, JSON.stringify(t));
   else add(`tooltip ${name}`, rest && near4(t.box, want), JSON.stringify(t));
 }
 await hoverBar(1560);
