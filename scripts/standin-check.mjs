@@ -417,7 +417,9 @@ viewport(S, 1600, 1400);
   placeAndEdit('Donation', 6, 15);
   await press('input[data-sp-field="donButton"]', 150); await key('Meta+a'); await key('G'); await key('o'); await key('Tab', 400);
   const dn = state();
-  add('Donation: Button Text keeps Go; payment and Funds rows are faded; rows stay', dn.sp.donButton === 'Go' && dn.area[2] === 16 && qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-card, .bp-sp-nav')].every((e) => e.disabled));`), JSON.stringify(dn));
+  // The payment card and the Funds row, both faded; an empty list is faded too, so the count is part of the row.
+  const dnFaded = qs(`return JSON.stringify([...p.querySelectorAll('.bp-sp-card, .bp-sp-nav')].map((e) => e.disabled));`);
+  add('Donation: Button Text keeps Go; payment and Funds rows are faded; rows stay', dn.sp.donButton === 'Go' && dn.area[2] === 16 && JSON.stringify(dnFaded) === '[true,true]', JSON.stringify({ dn, dnFaded }));
   // Audio: every press keeps 3 rows (CAP-T12PRESS-D.json); Classic hides the Color row.
   placeAndEdit('Audio', 6, 3);
   await press('input[data-sp-field="auTitle"]', 150); await key('S'); await key('o'); await key('Tab', 400);
