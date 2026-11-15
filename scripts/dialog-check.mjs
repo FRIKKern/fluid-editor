@@ -282,7 +282,7 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   const off = q(`return JSON.stringify([...dl.querySelectorAll('select[data-dl="chartPalette"] option')].filter((o) => o.disabled).length);`);
   pick('select[data-dl="chartPalette"]', 'Primary');
   p = parts();
-  add('Chart Color Palette Primary: swatch and bars, none of the 14 off', p.items[0]?.[1] === 'rgb(240, 82, 59)' && p.bars.every((f) => f === 'rgb(240, 82, 59)') && off === 0, `${JSON.stringify(p.items)} ${p.bars} ${off}`);
+  add('Chart Color Palette Primary: swatch and bars, none of the 14 off', p.items[0]?.[1] === 'rgb(240, 82, 59)' && p.bars.length > 0 && p.bars.every((f) => f === 'rgb(240, 82, 59)') && off === 0, `${JSON.stringify(p.items)} ${p.bars.length} bars ${p.bars} ${off}`);
   q(`dl.querySelector('[data-dl-tab="Data"]').click(); await sleep(150); return 'true';`);
   pick('select[data-dl="chartType"]', 'Line Chart');
   p = parts();

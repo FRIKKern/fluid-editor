@@ -245,8 +245,8 @@ const FOCUSABLE = `[...panel.querySelectorAll('button, input:not([type=hidden]),
 async function neverUnder(name, overflow = true) {
   const scrolls = q(`return JSON.stringify(panel.scrollHeight - panel.clientHeight);`);
   if (overflow) add(`${name}: the panel scrolls`, scrolls > 0, scrolls);
-  const bad = q(`${covered} const out = []; for (const e of ${FOCUSABLE}) { if (e.closest(${JSON.stringify(STAYS)})) continue; panel.scrollTop = panel.scrollHeight; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const a = coverOf(e); if (a) out.push(a); panel.scrollTop = 0; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const b = coverOf(e); if (b) out.push(b); } panel.scrollTop = 0; return JSON.stringify(out);`);
-  add(`${name}: a scroll to a row`, !bad.length, bad.slice(0, 3).join(' ; '));
+  const bad = q(`${covered} const out = []; let n = 0; for (const e of ${FOCUSABLE}) { if (e.closest(${JSON.stringify(STAYS)})) continue; panel.scrollTop = panel.scrollHeight; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const a = coverOf(e); if (a) out.push(a); panel.scrollTop = 0; e.scrollIntoView({ block: 'nearest' }); await sleep(10); const b = coverOf(e); if (b) out.push(b); n++; } panel.scrollTop = 0; return JSON.stringify({ out, n });`);
+  add(`${name}: a scroll to a row`, bad.n > 0 && !bad.out.length, `${bad.n} rows scrolled to; ${bad.out.slice(0, 3).join(' ; ')}`);
   // Keyboard Tab through the rows, from the top.
   q(`panel.scrollTop = 0; const f = ${FOCUSABLE}[0]; f.focus(); await sleep(30); return 'true';`);
   const under = []; let steps = 0;
