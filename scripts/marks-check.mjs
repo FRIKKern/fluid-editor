@@ -843,6 +843,8 @@ const zb = TB.zButtons;
 const barWords = () => evalJs(S, `(() => JSON.stringify([...document.querySelectorAll('#block-toolbar .tb-btn')].map((x) => x.getAttribute('aria-label') + (x.classList.contains('is-off') ? ' (off)' : ''))))()`);
 await pick(BIDS.head);
 add('Phone top of the stack, nothing pinned', barWords().join() === zb.phonePin.before.join(), String(barWords()));
+const tBar7 = barItems(), tWant7 = TB.phoneBars.text.buttons;
+add('Phone text buttons, nothing pinned: all 7 at their lefts', tBar7.b.map(([l]) => l).join() === Object.keys(tWant7).join() && tBar7.b.every(([l, x]) => Math.abs(tWant7[l] - x) <= 1), `${tBar7.b.length} buttons ${JSON.stringify(tBar7.b)}`);
 await tbClick('pin'); browser(S, 'press', 'Escape'); await pause(200);
 add('Phone pin brings Move Forward and Backward', barWords().join() === zb.phonePin.afterPin.join(), String(barWords()));
 await pick(BIDS.text);
