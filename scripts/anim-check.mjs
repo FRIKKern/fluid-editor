@@ -997,5 +997,5 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
 }
 
 writeFileSync(new URL('../parity/anim-check.json', import.meta.url), JSON.stringify({ pass, total, ...(known.length && { known }), results }, null, 2) + '\n');
-console.log(`\nAnimation: ${pass}/${total}`);
+console.log(`\nAnimation: ${pass}/${total}${known.length ? `, ${known.length} named known miss` : ''}`);
 process.exit(pass + known.length === total ? 0 : 1);
