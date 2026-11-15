@@ -161,9 +161,9 @@ add('Published: Mute and Volume work', live?.mute && live?.volume, JSON.stringif
 await setSelect('controls', 'minimal');
 await openPanel();
 
-// One undo step: a change comes back with a single undo.
-const undoOne = q(`const was = model().video.loop; panel.querySelector('[data-video-toggle="loop"]').click(); await sleep(200); const off = model().video.loop; fe.undo(); await sleep(250); return JSON.stringify(off === false && model().video?.loop === was);`);
-add('A setting is one undo step', undoOne);
+// One undo step: a change comes back with a single undo, and the Controls set to Minimal before it stays.
+const undoOne = q(`const was = model().video.loop, controls = model().video.controls; panel.querySelector('[data-video-toggle="loop"]').click(); await sleep(200); const off = model().video.loop; fe.undo(); await sleep(250); return JSON.stringify({ was, off, loop: model().video?.loop, controls: [controls, model().video?.controls] });`);
+add('A setting is one undo step', undoOne?.off === false && undoOne.loop === undoOne.was && undoOne.controls.every((c) => c === 'minimal'), JSON.stringify(undoOne));
 
 // T7, 25. The player's Settings, in preview only (CAP-T7SETTINGS.json). The look is ours; the sizes are the oracle's.
 await openPanel();
