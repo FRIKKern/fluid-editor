@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 9 changes
+- **Today** · 10 changes
+  - QUALITY.md: text-check's Linux sample writes no result file, so its dropped rows show only in --full ([#663](https://github.com/FRIKKern/fluid-editor/pull/663))
   - marks-check: the 7-button phone Text bar at phoneBars.text lefts ([#662](https://github.com/FRIKKern/fluid-editor/pull/662))
-  - marks-check: Phone text buttons needs all 9 by name, not any it finds ([#661](https://github.com/FRIKKern/fluid-editor/pull/661))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
