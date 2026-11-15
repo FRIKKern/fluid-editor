@@ -73,9 +73,9 @@ evalJs(S, `(() => { const c = document.querySelector('#block-panel input[aria-la
 await typeInto('textarea[data-content="code"]', '<p>a</p>'.repeat(30)); blur(); await pause(300);
 add('Long code adds rows', rows()[2] > 7, rows());
 
-// Undo: one step takes the last typing back.
-const undone = evalJs(S, `(async () => { const a = JSON.stringify(fe.model); fe.undo(); await new Promise((r) => setTimeout(r, 300)); const b = fe.model.sections[1].blocks.find((x) => x.id === '${code}'); return JSON.stringify({ changed: a !== JSON.stringify(fe.model), html: b.html }); })()`);
-add('Undo is one step', undone.changed && undone.html === '<b>x</b>', JSON.stringify(undone));
+// Undo: one step takes the last typing back, and Display Source Code stays off, as the switch before it left it.
+const undone = evalJs(S, `(async () => { const a = JSON.stringify(fe.model), source = !!fe.model.sections[1].blocks.find((x) => x.id === '${code}').showSource; fe.undo(); await new Promise((r) => setTimeout(r, 300)); const b = fe.model.sections[1].blocks.find((x) => x.id === '${code}'); return JSON.stringify({ changed: a !== JSON.stringify(fe.model), html: b.html, source: [source, !!b.showSource] }); })()`);
+add('Undo is one step', undone.changed && undone.html === '<b>x</b>' && undone.source.every((s) => s === false), JSON.stringify(undone));
 
 // Embed
 const embed = start('embed', '');

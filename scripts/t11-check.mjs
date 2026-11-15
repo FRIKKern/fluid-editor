@@ -211,8 +211,9 @@ await click(`panel.querySelector('[data-map-set="mapControls"]')`, 200);
 r = map();
 const cb = F.map.controls.box;
 add('Controls on: the zoom box in place', r.ctx.controls === true && r.ctl && near(r.ctl[0], cb[0] - 100, 3) && near(r.ctl[1], cb[1] - 298, 3) && near(r.ctl[2], cb[2]) && near(r.ctl[3], cb[3]), r.ctl);
-const pad = q(`const was = JSON.stringify(fe.model.sections[1].blocks.at(-1).mapStyle); fe.undo(); await sleep(250); return JSON.stringify(fe.model.sections[1].blocks.at(-1).mapControls ?? false);`);
-add('One undo step per press', pad === false, pad);
+// Only Controls goes back: Terrain stays on and Labels off, as the two presses before it left them.
+const pad = q(`fe.undo(); await sleep(250); const b = fe.model.sections[1].blocks.at(-1); return JSON.stringify({ controls: !!b.mapControls, terrain: !!b.mapTerrain, labels: b.mapLabels !== false });`);
+add('One undo step per press', pad?.controls === false && pad.terrain === true && pad.labels === false, JSON.stringify(pad));
 
 // Labels, the grip, typing in Zoom and the phone (T11.json: social.labels, social.phone, map.zoomTyped).
 evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
