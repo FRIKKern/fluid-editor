@@ -833,10 +833,15 @@ add('Middle of the stack: both on', stackOff().join() === 'false,false', String(
 // The shape is pinned above, so the text bar also shows Move Forward and Backward (zButtons.phonePin.nextBlock): all 9, by name.
 let tBar = barItems(), tWant = TB.phoneBars.textOverlapping.buttons;
 add('Phone text buttons', tBar.b.map(([l]) => l).join() === Object.keys(tWant).join() && tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), `${tBar.b.length} buttons ${JSON.stringify(tBar.b)}`);
+// Overlap alone: the pin above would bring the 9 on its own, so the shape is unpinned first and the text bar
+// must drop to the 7 (the shape sits beside the text, touching, not over it); then the shape goes onto the text.
+const unpinned = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); delete o.layout.mobile.sticky; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(!s.blocks.some((b) => b.layout.mobile?.sticky)); })()`);
+await pause(250);
+const apart = barItems(), apartWant = TB.phoneBars.text.buttons;
 const overlapOn = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.mobile.area = [...t.layout.mobile.area]; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
 await pause(250);
 tBar = barItems(); tWant = TB.phoneBars.textOverlapping.buttons;
-add('Phone text overlapping shows Move Forward and Backward', overlapOn && tBar.b.length === 9 && tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), JSON.stringify(tBar.b));
+add('Phone text overlapping shows Move Forward and Backward', unpinned && apart.b.map(([l]) => l).join() === Object.keys(apartWant).join() && overlapOn && tBar.b.map(([l]) => l).join() === Object.keys(tWant).join() && tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), `unpinned ${apart.b.length} ${JSON.stringify(apart.b.map(([l]) => l))}, overlapping ${JSON.stringify(tBar.b)}`);
 await fresh();
 evalJs(S, `(() => { fe.setBp('mobile'); return 'true'; })()`); await pause(600);
 const zb = TB.zButtons;
