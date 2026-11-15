@@ -121,13 +121,16 @@ for (const st of F.baseSize.steps) {
 browser(S, 'click', '#undo'); await pause(300);
 add('one undo step for a Base Size press', evalJs(S, baseRead).value === '16');
 
-// Reset asks first, Cancel changes nothing, Reset clears the pick.
+// Reset asks first, Cancel changes nothing, Reset clears the pick. Cancel is tried at 17, one press off the reset's 16, so a
+// Cancel that resets shows.
+browser(S, 'click', '[aria-label="Increment"]'); await pause(250);
+const picked = evalJs(S, baseRead).value;
 browser(S, 'click', '[data-ss-reset="font"]'); await pause(200);
 const dlg = evalJs(S, `(() => { const r = document.querySelector('.ss-confirm-box').getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height, document.querySelector('#ss-confirm-title').textContent, document.querySelector('#ss-confirm-body').textContent]); })()`);
 add('Reset dialog box and words', same(dlg, [...F.resetDialog.box, F.resetDialog.font.title, F.resetDialog.font.body]), JSON.stringify(dlg));
 browser(S, 'click', '.ss-confirm-row button:first-child'); await pause(200);
-add('Cancel keeps the base size', evalJs(S, baseRead).value === '16' && evalJs(S, `(() => JSON.stringify(document.querySelector('#ss-confirm').hidden))()`) === true);
-browser(S, 'click', '[aria-label="Increment"]'); await pause(250);
+const kept = evalJs(S, baseRead).value;
+add('Cancel keeps the base size', picked === '17' && kept === '17' && evalJs(S, `(() => JSON.stringify(document.querySelector('#ss-confirm').hidden))()`) === true, `17 before Cancel: ${picked}, after: ${kept}`);
 browser(S, 'click', '[data-ss-reset="font"]'); await pause(200);
 browser(S, 'click', '#ss-confirm-reset'); await pause(300);
 add('Reset clears the base size', same(evalJs(S, baseRead), keep(F.baseSize.start)));
