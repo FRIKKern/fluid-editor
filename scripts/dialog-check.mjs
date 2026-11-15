@@ -70,16 +70,17 @@ const state = (id) => q(`const b = fe.model.sections[1].blocks.find((o) => o.id 
 const ours = () => q(`dl.scrollTop = 0; const r = dl.getBoundingClientRect(), out = []; for (const e of dl.querySelectorAll('*')) { const b = e.getBoundingClientRect(); if (!b.width) continue; const own = [...e.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').replace(/\\s+/g, ' ').trim(); const cs = getComputedStyle(e); out.push({ text: own, tag: e.tagName.toLowerCase(), rel: [b.left - r.left, b.top - r.top, b.width, b.height].map((v) => Math.round(v * 10) / 10), bg: cs.backgroundColor }); } return JSON.stringify(out);`);
 // A text row matches by its words (the reads keep a long one's first 80): same left and the same middle line, within 1.5px; a box with no words matches by
 // its box within 1px.
+const GREY = 'rgb(231, 231, 231)', OUR_PAGE_ROWS = 4;
 function compareRows(tile, tab, want, got) {
-  // Page Link lists the site's pages: the oracle's has 7, ours 4, so its rows past ours aren't compared.
-  const listed = got.filter((g) => g.bg === 'rgb(231, 231, 231)').length;
-  want = want.filter((w) => w.bg !== 'rgb(231, 231, 231)' || w.rel[1] < 276 + 49.5 * listed - 1);
+  // Page Link lists the site's pages on grey rows: the oracle's has 7, ours 4 (SITE_PAGES in app/src/editor.js), so the
+  // oracle's first 4 are compared, each by its box and its grey. A fixed count: one taken from ours would drop rows ours fails to draw.
+  want = want.filter((w) => w.bg !== GREY || w.rel[1] < 276 + 49.5 * OUR_PAGE_ROWS - 1);
   let ok = 0;
   const misses = [];
   for (const w of want) {
     const hit = w.text
       ? got.some((g) => (w.text.length >= 80 ? g.text.startsWith(w.text) : g.text === w.text) && Math.abs(g.rel[0] - w.rel[0]) <= 1.5 && Math.abs(g.rel[1] + g.rel[3] / 2 - (w.rel[1] + w.rel[3] / 2)) <= 1.5)
-      : got.some((g) => near(g.rel, w.rel, 1));
+      : got.some((g) => near(g.rel, w.rel, 1) && (w.bg !== GREY || g.bg === GREY));
     if (hit) ok++; else misses.push(`${w.tag} "${w.text}" ${w.rel.map(Math.round)}`);
   }
   add(`${tile}${tab ? ` ${tab}` : ''}: ${want.length} read rows in place`, ok === want.length, `${ok} of ${want.length}; ${misses.slice(0, 4).join('; ')}`);
@@ -290,12 +291,13 @@ for (const [file, plan] of [['CAP-T12INSTAFLOOR-1.json', { P1: ['ArrowDown', 2],
   // A Line Chart's plot (CAP-T12LINECHART.json line1 and line3 shots, by pixel, block at 99.5, 298.5): the axis 48.5 in and the
   // baseline 215.5 down the block (the picture 15 down it, under any title), an upright line 176 and 352 along, from 3 above the top value to 4 below the baseline; the points
   // on them, the first on the axis, each ringed 1px in half white; the labels 19 under the baseline; the curve through every point.
+  // One label a point (New York, Las Vegas, San Francisco): counted, so a chart that draws none fails.
   const lg = q(`const g = d.querySelector('.fe-block[data-block-id="${id}"] svg'); if (!g.querySelector('.fe-chart-axis + .fe-chart-axis')) return JSON.stringify({ none: true }); const blk = g.closest('.fe-block').getBoundingClientRect(), R = (e) => e.getBoundingClientRect(), base = R(g.querySelector('.fe-chart-axis')), ax = R(g.querySelector('.fe-chart-axis + .fe-chart-axis'));
     const up = [...g.querySelectorAll('.fe-chart-grid')].map(R).filter((r) => r.width < 1).map((r) => [Math.round(r.left - ax.left), Math.round(r.top - ax.top), Math.round(r.bottom - base.top)]);
     const pts = [...g.querySelectorAll('circle')].map((c) => [Math.round(+c.getAttribute('cx') - 48.5), Math.round(+c.getAttribute('cy'))]), pd = g.querySelector('path.fe-chart-line')?.getAttribute('d') ?? '';
     const lab = [...g.querySelectorAll('.fe-chart-text')].filter((t) => !/^[0-9]+$/.test(t.textContent)).map((t) => Math.round((+t.getAttribute('y') - 200.5) * 10) / 10);
     const ring = [...g.querySelectorAll('circle')].every((c) => c.getAttribute('stroke') === 'rgba(255, 255, 255, 0.5)' && c.getAttribute('stroke-width') === '1' && c.getAttribute('r') === '4'); return JSON.stringify({ ring, at: [Math.round((ax.left - blk.left) * 2) / 2, Math.round((base.top - R(g).top + 15) * 2) / 2], up, pts: pts.map((p) => p[0]), through: [...g.querySelectorAll('circle')].every((c) => pd.includes(c.getAttribute('cx') + ' ' + c.getAttribute('cy'))), lab });`);
-  add('Chart Line: its plot, upright lines at the points and labels where the oracle draws them', !lg.none && near(lg.at, [48.5, 215.5], 1) && JSON.stringify(lg.up) === JSON.stringify([[176, 0, 0], [352, 0, 0]]) && JSON.stringify(lg.pts) === JSON.stringify([0, 176, 352]) && lg.through && lg.ring && lg.lab.every((v) => v === 19), JSON.stringify(lg));
+  add('Chart Line: its plot, upright lines at the points and labels where the oracle draws them', !lg.none && near(lg.at, [48.5, 215.5], 1) && JSON.stringify(lg.up) === JSON.stringify([[176, 0, 0], [352, 0, 0]]) && JSON.stringify(lg.pts) === JSON.stringify([0, 176, 352]) && lg.through && lg.ring && lg.lab.length === 3 && lg.lab.every((v) => v === 19), JSON.stringify(lg));
   pick('select[data-dl="chartType"]', 'Bar Chart');
   pick('button[data-dl="chartFlip"]');
   s = state(id); p = parts();
