@@ -167,7 +167,7 @@ for (const [file, name, fx, [gx, gy], mx, my, width = 1600] of GRABS) {
     // A leg where the oracle saw no change passes only where ours shows the target, on the area the oracle's last change left.
     const before = ORDER.slice(0, ORDER.indexOf(leg)).map((l) => R[l] || []).filter((s) => s.length).at(-1), from = before && clean(before.at(-1)[1]);
     total++;
-    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length || !from || clean(got.at[leg]) === from);
+    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length > 0 || !from || clean(got.at[leg]) === from);
     if (ok && !want.length && !from) console.log(`NOTE ${file} ${name} ${leg}: no change wanted and no oracle area before it to hold ours to`);
     if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}${want.length ? '' : ` from ${from}, ours ${clean(got.at[leg]) || 'none'}`}`);
     results.push({ kind: `${file} ${name}`, leg, ok });
