@@ -25,8 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 1 change
-  - QUALITY.md: a lowered browser-check count turns main red after merge; PRs don't run browser-checks ([#656](https://github.com/FRIKKern/fluid-editor/pull/656))
+- **Today** · 4 changes
+  - checks: six .every() rows fail on an empty list ([#654](https://github.com/FRIKKern/fluid-editor/pull/654))
+  - Text bar: aria-checked follows Cmd+B, Cmd+I and the selection while a bar menu is open ([#657](https://github.com/FRIKKern/fluid-editor/pull/657))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
