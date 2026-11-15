@@ -25,14 +25,12 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 23 changes
+- **Today** · 1 change
+  - marks-check: Layouts closing's nothing-selected half reads the app's selection marks ([#677](https://github.com/FRIKKern/fluid-editor/pull/677))
+- **Yesterday** · 23 changes
   - text-check: Y2's named misses excuse only the parts their reason covers ([#675](https://github.com/FRIKKern/fluid-editor/pull/675))
-  - snap-check: SNAP and X2 loops walk ours as the oracle walked; a no-change leg needs the target there ([#676](https://github.com/FRIKKern/fluid-editor/pull/676))
-- **Yesterday** · 19 changes
-  - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
-- **This week** · 157 changes
-  - cdp viewport op: never set the window again while a set may still land ([#635](https://github.com/FRIKKern/fluid-editor/pull/635))
-- **Last week** · 457 changes, 3 milestones closed
+- **Last week** · 176 changes
+- **This month** · 457 changes, 3 milestones closed
 <!-- timeline:end -->
 
 ## Where things live (one fact, one home)
