@@ -30,19 +30,22 @@ for (const r of F.readings) {
     const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
     move(cx + 14, cy); await sleep(20); move(cx, cy); await sleep(20);
     const walk = async (axis, from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(axis === 'x' ? cx + v : cx, axis === 'y' ? cy + v : cy); await sleep(4); const a = read(); if (a !== last) seen.push([v, a]); last = a; } return seen; };
-    const out = {};
-    out.xOut = await walk('x', 0, ${mx}); out.xBack = await walk('x', ${mx}, -${mx}); out.xHome = await walk('x', -${mx}, 0);
-    out.yOut = await walk('y', 0, ${my}); out.yBack = await walk('y', ${my}, -${my}); out.yHome = await walk('y', -${my}, 0);
+    // What the target reads where each leg starts is kept too.
+    const out = {}, at = {}, leg = async (name, axis, from, to) => { at[name] = read(); out[name] = await walk(axis, from, to); };
+    await leg('xOut', 'x', 0, ${mx}); await leg('xBack', 'x', ${mx}, -${mx}); await leg('xHome', 'x', -${mx}, 0);
+    await leg('yOut', 'y', 0, ${my}); await leg('yBack', 'y', ${my}, -${my}); await leg('yHome', 'y', -${my}, 0);
     d.dispatchEvent(new W.PointerEvent('pointercancel', { ...o, buttons: 0 }));
     d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     await sleep(100); while (fe.canUndo) fe.undo();
-    return JSON.stringify(out); })()`);
+    return JSON.stringify({ ...out, at }); })()`);
   for (const [leg] of LEGS) {
     // The oracle's first step of a walk can note the target appearing; only moves between areas count.
     const want = r[leg].filter(([, a], k) => k > 0 || a !== r.start.join(' / ')), have = got[leg].filter(([, a], k) => k > 0 || a !== r.start.join(' / '));
+    // A leg where the oracle saw no change passes only where ours shows the target, on the area the oracle's last change (or its start) left.
+    const from = [[[0, r.start.join(' / ')]], ...LEGS.slice(0, LEGS.findIndex(([l]) => l === leg)).map(([l]) => r[l])].filter((x) => x.length).at(-1).at(-1)[1];
     total++;
-    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]);
-    if (ok) pass++; else console.log(`DIFF ${r.kind} section ${r.section} block ${r.block} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}`);
+    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length > 0 || String(got.at[leg] ?? '').replace(/ /g, '') === from.replace(/ /g, ''));
+    if (ok) pass++; else console.log(`DIFF ${r.kind} section ${r.section} block ${r.block} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}${want.length ? '' : ` from ${from}, ours ${got.at[leg] ?? 'none'}`}`);
     results.push({ kind: r.kind, section: r.section, block: r.block, leg, ok });
   }
 }
@@ -94,17 +97,20 @@ for (const [file, name, view, area, mx] of WALKS) {
     const move = (x) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: cy, buttons: 1 }));
     move(cx + 14); await sleep(20); move(cx); await sleep(20);
     const walk = async (from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(cx + v); await sleep(2); const a = read(); if (a !== last) { seen.push([v, a]); last = a; } } return seen; };
-    const out = { xOut: await walk(0, ${mx}), xBack: await walk(${mx}, ${R.xHome.length ? -mx : 0}) };
+    // Back to -mx as the oracle walked (oracle-capture walk), and what the target reads where each leg starts.
+    const at = { xOut: read() }, xOut = await walk(0, ${mx}); at.xBack = read(); const out = { xOut, xBack: await walk(${mx}, ${-mx}), at };
     d.dispatchEvent(new W.PointerEvent('pointercancel', { ...o, buttons: 0 }));
     d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     await sleep(100); fe.setBp('desktop'); return JSON.stringify(out); })()`);
   for (const leg of ['xOut', 'xBack']) {
     // The walk can go further back on the oracle: compare what ours walked. The first step only notes the target appearing.
     const start = area.join(' / '), low = Math.min(...got[leg].map((x) => x[0]), 0);
-    const want = R[leg].filter(([v, a], k) => !(k === 0 && a === start && leg === 'xOut') && v <= mx && v >= (leg === 'xBack' && !R.xHome.length ? 0 : -mx)), have = got[leg];
+    const want = R[leg].filter(([v, a], k) => !(k === 0 && a === start && leg === 'xOut') && v <= mx && v >= -mx), have = got[leg];
+    // A leg where the oracle saw no change passes only where ours shows the target, on the start or the area xOut's last change left.
+    const from = (leg === 'xBack' && R.xOut.length ? R.xOut.at(-1)[1] : start).replace(/ /g, ''), now = String(got.at[leg] ?? '').replace(/ /g, '');
     total++;
-    const ok = low <= 0 && want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]);
-    if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}`);
+    const ok = low <= 0 && want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length > 0 || now === from);
+    if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}${want.length ? '' : ` from ${from}, ours ${now || 'none'}`}`);
     results.push({ kind: `${file} ${name}`, leg, ok });
   }
 }
