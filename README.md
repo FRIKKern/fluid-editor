@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 6 changes
+- **Today** · 7 changes
+  - image-effect-check: Tiles draw the picture counts the stills ([#660](https://github.com/FRIKKern/fluid-editor/pull/660))
   - Message box bar: toggles and Link follow the selection while its Text Style menu is open ([#659](https://github.com/FRIKKern/fluid-editor/pull/659))
-  - marks-check: on Linux a font tip's left may miss only when its width does ([#658](https://github.com/FRIKKern/fluid-editor/pull/658))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
