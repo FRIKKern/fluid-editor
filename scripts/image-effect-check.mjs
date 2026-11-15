@@ -46,7 +46,9 @@ add('Tile boxes', list.tiles.every((t, i) => near(t, F.list.tiles[i])), JSON.str
 add('WebGL note', list.noteText === F.list.note.text && near(list.note, F.list.note.box, 2), JSON.stringify(list.note));
 add('Starts on None', JSON.stringify(list.on) === '["None"]', JSON.stringify(list.on));
 await pause(500);
-add('Tiles draw the picture', R(`[...P.querySelectorAll('canvas[data-fx-still]')].every((c) => c.getContext('2d').getImageData(60, 50, 1, 1).data[3] === 255)`) === true);
+// Every tile but None holds a still; an empty list draws nothing, so the count is part of the row.
+const stills = R(`[...P.querySelectorAll('canvas[data-fx-still]')].map((c) => c.getContext('2d').getImageData(60, 50, 1, 1).data[3])`);
+add('Tiles draw the picture', stills.length === F.list.order.length - 1 && stills.every((a) => a === 255), `${stills.length} stills ${JSON.stringify(stills)}`);
 
 // A pick: the canvas sits between the picture and the overlay, and None brings the picture back.
 await press(`P.querySelector('[data-fx-tile="liquid"]')`, 900);
