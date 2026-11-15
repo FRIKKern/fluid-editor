@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 12 changes
+- **Today** · 13 changes
+  - marks-check: the phone overlap row unpins the shape first, so overlap alone must bring Move Forward and Backward ([#666](https://github.com/FRIKKern/fluid-editor/pull/666))
   - browser-checks: marks-check on macos-15 too, with the runner's timer coalescing off; the tip row reads the app's timer ([#665](https://github.com/FRIKKern/fluid-editor/pull/665))
-  - standin-check: Donation faded row needs the card and the Funds row, not any it finds ([#664](https://github.com/FRIKKern/fluid-editor/pull/664))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
