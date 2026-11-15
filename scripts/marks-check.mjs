@@ -416,10 +416,9 @@ add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0
 // (0.013, 0.056, 0.129 ... 16.6 ms apart). Each frame is judged against that curve at its own time into the fade: the page's
 // animation clock in that frame less the start of the animation that sets the border color. So it doesn't matter where frames land:
 // a runner at 30 fps once had no frame within 0.12 of the middle and failed a right fade (task-446f785436cefee0). A mid-fade frame
-// with no animation on the color fails. At least 4 frames, from before 0.3 of the way to past the middle: the chrome hides on its
-// own 0.2 s timer, which runs from the leave, not from the fade's start, and cut the fade-out at 0.58 in 1 of 9 local reads. Off by
-// more than 0.03 (alpha steps are 1/255): a 0.35 s fade, a linear one, a slowed one, or one from somewhere else. The page-clock span
-// is in the line, not judged: the curve times every frame.
+// with no animation on the color fails. At least 4 frames, from before 0.3 of the way to past the middle. Off by more than 0.03
+// (alpha steps are 1/255): a 0.35 s fade, a linear one, a slowed one, or one from somewhere else. The page-clock span is in the
+// line, not judged: the curve times every frame.
 const easeInOut = (x) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const t = (lo + hi) / 2; if (3 * 0.42 * t * (1 - t) ** 2 + 3 * 0.58 * t * t * (1 - t) + t ** 3 < x) lo = t; else hi = t; } const t = (lo + hi) / 2; return 3 * t * t * (1 - t) + t ** 3; };
 const outlineWatch = async (x, y, up) => {
   evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); const own = e ? e.getAnimations().filter((a) => a.effect.getKeyframes().some((k) => 'borderTopColor' in k)).at(-1) : null; T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null, own && own.startTime != null ? Math.round((document.timeline.currentTime - own.startTime) * 10) / 10 : null]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
@@ -434,8 +433,18 @@ await hoverBar(800, 20); await pause(300);
 const onCurve = (r) => r.frames >= 4 && r.timed === r.frames && r.reach[0] <= 0.3 && r.reach[1] >= 0.5 && r.off <= 0.03 && r.hue.join() === '72,148,255';
 const outIn = await outlineWatch(60, 400, true);
 add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.rising, JSON.stringify(outIn));
-const outOut = await outlineWatch(800, 20, false);
-add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling, JSON.stringify(outOut));
+// The chrome hides on its own 0.2 s timer from the leave, and the fade starts on the next frame. When that frame comes late (40 and
+// 130 ms read on a loaded Mac), the cut comes before the fade's middle and the read saw too little to judge: go back on and read
+// again, up to 3 tries. Every try's frames must sit on the curve; no try past the middle fails the row. All tries go in the line.
+const outTries = [];
+let outOut;
+for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
+  if (k) { mouse(S, 'move', 60, 400); mouse(S, 'move', 62, 401); await pause(700); }
+  outOut = await outlineWatch(800, 20, false);
+  outTries.push(outOut);
+}
+const sawRight = (r) => (r.off === null || r.off <= 0.03) && r.falling && ['', '72,148,255'].includes(r.hue.join());
+add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
 const outRuns = ['bottom', 'left', 'right', 'top'].map((s) => `CSSTransition border-${s}-color 200 ease-in-out`);
