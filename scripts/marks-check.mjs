@@ -432,7 +432,8 @@ const outlineWatch = async (x, y, up) => {
 await hoverBar(800, 20); await pause(300);
 const onCurve = (r) => r.frames >= 4 && r.timed === r.frames && r.reach[0] <= 0.3 && r.reach[1] >= 0.5 && r.off <= 0.03 && r.hue.join() === '72,148,255';
 const outIn = await outlineWatch(60, 400, true);
-add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.rising, JSON.stringify(outIn));
+// Nothing cuts the fade-in, so its frames go on to 0.7 at least (0.92 read at 60 fps, 0.83 at 30): a fade that snaps to full fails.
+add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.reach[1] >= 0.7 && outIn.rising, JSON.stringify(outIn));
 // The chrome hides on its own 0.2 s timer from the leave, and the fade starts on the next frame. When that frame comes late (40 and
 // 130 ms read on a loaded Mac), the cut comes before the fade's middle and the read saw too little to judge: go back on and read
 // again, up to 3 tries. Every try's frames must sit on the curve; no try past the middle fails the row. All tries go in the line.
@@ -443,7 +444,7 @@ for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
   outOut = await outlineWatch(800, 20, false);
   outTries.push(outOut);
 }
-const sawRight = (r) => (r.off === null || r.off <= 0.03) && r.falling && ['', '72,148,255'].includes(r.hue.join());
+const sawRight = (r) => r.timed === r.frames && (r.off === null || r.off <= 0.03) && r.falling && ['', '72,148,255'].includes(r.hue.join());
 add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
