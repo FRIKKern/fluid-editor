@@ -575,6 +575,20 @@ browser(S, 'press', 'Meta+a'); await pause(100); browser(S, 'press', 'Meta+b'); 
 const mb7 = mb(`const out = { bold: M().innerHTML }; M().blur(); await sleep(120); out.barGone = Bar.hidden; out.outline = getComputedStyle(M()).outlineStyle; return JSON.stringify(out);`);
 add('Cmd+B marks the selection', /^<p><strong>a<\/strong><\/p><p><strong>c<\/strong><\/p>$/.test(mb7.bold), mb7.bold);
 add('Leaving the box: the bar and the outline go', mb7.barGone && mb7.outline === 'none', JSON.stringify(mb7));
+// With the Text Style menu open the bar is not redrawn: its toggles and Link follow the selection in place, the menu the same
+// node and open, by real keys (inferred: the oracle's bar was not read with the menu open). An Underline waiting at a caret goes
+// when the caret moves, as with the menu shut.
+const mbOn = (js) => mb(`${js}; await sleep(80); const k = (l) => [key(l).classList.contains('is-on'), key(l).getAttribute('aria-checked')].join(); return JSON.stringify({ bold: k('Bold'), underline: k('Underline'), faded: key('Link').classList.contains('is-faded'), open: key('Text Style').getAttribute('aria-expanded'), same: !!window.__mbMenu && Bar.querySelector('.tx-styles') === window.__mbMenu, sel: getSelection().toString() });`);
+const mbKey = async (k) => { browser(S, 'press', k); await pause(150); return mbOn(''); };
+mbOn(`M().focus(); M().innerHTML = '<p><strong>abc</strong> def</p>'; M().dispatchEvent(new Event('input', { bubbles: true })); M().dispatchEvent(new Event('change', { bubbles: true })); const t = M().querySelector('strong').firstChild; getSelection().setBaseAndExtent(t, 0, t, 3); await sleep(80); await hit('Text Style'); window.__mbMenu = Bar.querySelector('.tx-styles')`);
+{ const right = await mbKey('Shift+ArrowRight'), left = await mbKey('Shift+ArrowLeft'), caret = await mbKey('ArrowRight'), kept = (o) => o.open === 'true' && o.same;
+  add('Menu open: Shift+ArrowRight past the bold takes Bold off', right.bold === 'false,false' && right.sel === 'abc ' && kept(right), JSON.stringify(right));
+  add('Menu open: Shift+ArrowLeft back puts Bold on', left.bold === 'true,true' && left.sel === 'abc' && kept(left), JSON.stringify(left));
+  add('Menu open: a caret fades Link', caret.faded && caret.sel === '' && kept(caret), JSON.stringify(caret)); }
+{ const waits = mbOn(`await hit('Text Style'); await hit('Underline'); await hit('Text Style'); window.__mbMenu = Bar.querySelector('.tx-styles')`);
+  const moved = await mbKey('ArrowRight'), shut = mbOn(`await hit('Text Style')`);
+  add('Menu open: an Underline waiting at the caret goes when it moves', waits.underline === 'true,true' && moved.underline === 'false,false' && moved.open === 'true' && moved.same, JSON.stringify([waits, moved]));
+  add('Menu open: closed after that, Underline stays off', shut.underline === 'false,false' && shut.open === 'false', JSON.stringify(shut)); }
 mb(`M().focus(); await sleep(60); return JSON.stringify(1);`); browser(S, 'press', 'Escape'); await pause(200);
 const mb9 = evalJs(S, `(() => JSON.stringify({ panel: document.getElementById('block-panel').hidden || !document.getElementById('block-panel').querySelector('[data-ff-post]'), bar: document.getElementById('msg-bar').hidden }))()`);
 add('Escape in the box closes the panel and the bar', mb9.panel && mb9.bar, JSON.stringify(mb9));

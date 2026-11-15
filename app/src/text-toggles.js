@@ -32,9 +32,12 @@ export function toggleStates(root, sel) {
   };
 }
 
-// Sets the bar's aria-checked to the selection in place, for when the bar is not redrawn (a menu open, Cmd+B and
-// Cmd+I): nothing else on the bar changes.
-export function syncToggles(bar, root, sel) {
-  const on = toggleStates(root, sel);
-  for (const b of bar.querySelectorAll('[role=checkbox][data-fmt]')) if (b.dataset.fmt in on) b.setAttribute('aria-checked', String(on[b.dataset.fmt]));
+// Sets the bar's toggles to `on` in place, for when the bar is not redrawn (a menu open, Cmd+B and Cmd+I): their
+// aria-checked, and with `lit` their is-on too (the Message box's bar shows a toggle pressed). Nothing else changes.
+export function setToggles(bar, on, lit = false) {
+  for (const b of bar.querySelectorAll('[role=checkbox][data-fmt]')) {
+    b.setAttribute('aria-checked', String(!!on[b.dataset.fmt]));
+    if (lit) b.classList.toggle('is-on', !!on[b.dataset.fmt]);
+  }
 }
+export const syncToggles = (bar, root, sel) => setToggles(bar, toggleStates(root, sel));
