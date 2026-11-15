@@ -96,7 +96,7 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 | No check skips and passes. An empty corpus fails | each gate counts its cases |
 | A fixture whose sha256 does not match `fixtures/index.json` fails | Gate A |
 | Every fixture and trace records its capture date. Recapture before trusting one older than 30 days | review |
-| A change that lowers a browser check's pass count, or drops its rows, turns main's browser-checks job red once it merges (`scripts/ci-count.mjs`). PRs don't run browser-checks, so nothing stops the merge: run the check on the branch first, `gh workflow run browser-checks --ref <branch> -f checks=<name>` | browser-checks, on main |
+| A change that lowers a browser check's pass count, or drops rows from its result file, turns main's browser-checks job red once it merges (`scripts/ci-count.mjs`). text-check's Linux sample writes no result file, so rows it drops show only in the macOS `--full` job. PRs don't run browser-checks, so nothing stops the merge: run the check on the branch first, `gh workflow run browser-checks --ref <branch> -f checks=<name>` | browser-checks, on main |
 | A journey is signed off by someone other than its builder, naming the sha | issue comment |
 
 ## Oracle rules
