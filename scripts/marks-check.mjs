@@ -889,11 +889,12 @@ const tipCheck = async (tb, label) => {
 };
 for (const [tb, label] of [['write', 'Write'], ['edit', 'Edit'], ['align', 'Align Vertically'], ['pin', 'Pin'], ['duplicate', 'Duplicate'], ['remove', 'Remove']]) await tipCheck(tb, label);
 // The tip waits about 517 ms from the pointer getting on the button, by the page's own clock, with no fade (CAP-U4TIPS.json: 517 to 528).
-// Read from the timer the app sets, not from frames: setTimeout is wrapped while the pointer goes on, so the row knows the
-// delay asked for, when it was set (in the pointerover), and when it fired; the tip's hidden attribute going off is read by a
-// MutationObserver, in the timer's own task. A busy machine fires a 500 ms timer late (543 to 624 ms on the macos-15 runner,
-// task-0e8236be179cc5c4): that lateness is read and taken off, up to 50 ms, so the row times the app's wait, not the machine's.
-// A delay other than 500, a tip shown by anything but that timer, or a fade still fails anywhere.
+// Read from the timer the app sets, not from frames: setTimeout is wrapped while the pointer goes on, so the row knows when the
+// app's timer was set (in the pointerover) and when it fired, and a MutationObserver reads the tip's hidden attribute going off
+// in that timer's own task. A frame-sampled read added up to a frame (16 ms here, 100 ms on a runner drawing 10 a second).
+// A machine can fire a timer late (the macos-15 runner did, 505 to 648 ms for 500, until browser-checks turned off its timer
+// coalescing; task-0e8236be179cc5c4): that lateness is read and taken off, up to 50 ms, so the row times the app's wait.
+// A wait off 517 by more than 25 ms (545 and 0 fail, 540 passes), a tip shown by anything but that timer, or a fade fails anywhere.
 {
   const q = evalJs(S, `(() => { const b = document.querySelector('#block-toolbar [data-tb="duplicate"]'), q = b.getBoundingClientRect(), tip = document.getElementById('bar-tip');
     const T = window.__tipWait = { over: null, shown: null, opacity: null, anims: null, timers: [] }, set = window.setTimeout;
@@ -905,7 +906,7 @@ for (const [tb, label] of [['write', 'Write'], ['edit', 'Edit'], ['align', 'Alig
     return JSON.stringify([q.left + q.width / 2, q.top + q.height / 2]); })()`);
   await moveTo(q); await pause(900);
   const w = evalJs(S, `(() => { const T = window.__tipWait; T.restore(); const t = T.timers.find((r) => r.showed); const r = (v) => Math.round(v); return JSON.stringify(T.over === null || T.shown === null || !t ? { over: T.over !== null, shown: T.shown !== null, timers: T.timers.map((x) => [x.ms, !!x.fired, x.showed]) } : { wait: r(T.shown - T.over), delay: t.ms, setIn: r(t.at - T.over), late: r(t.fired - t.at - t.ms), shownIn: r(T.shown - t.fired), opacity: T.opacity, anims: T.anims }); })()`);
-  add('Tip waits about 517 ms, no fade', !!w && w.setIn >= 0 && w.setIn <= 5 && w.late >= 0 && w.late <= 50 && w.shownIn >= 0 && w.shownIn <= 5 && Math.abs(w.wait - w.late - 517) <= 25 && w.opacity === '1' && w.anims === 0, JSON.stringify(w));
+  add('Tip waits about 517 ms, no fade', !!w && w.setIn >= 0 && w.late >= -1 && w.late <= 50 && Math.abs(w.wait - w.late - 517) <= 25 && w.opacity === '1' && w.anims === 0, JSON.stringify(w));
   await moveTo([20, 996]); await pause(100);
 }
 const zOverlap = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.desktop.area = [...t.layout.desktop.area]; t.layout.desktop.z = Math.min(...s.blocks.map((x) => x.layout.desktop.z)) - 1; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
