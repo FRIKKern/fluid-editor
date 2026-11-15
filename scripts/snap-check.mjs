@@ -152,19 +152,24 @@ for (const [file, name, fx, [gx, gy], mx, my, width = 1600] of GRABS) {
     const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
     move(cx + 14, cy); await sleep(20); move(cx, cy); await sleep(20);
     const walk = async (axis, from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(axis === 'x' ? cx + v : cx, axis === 'y' ? cy + v : cy); await sleep(2); const a = read(); if (a !== last) { seen.push([v, a]); last = a; } } return seen; };
-    const out = {};
-    if (${mx}) { out.xOut = await walk('x', 0, ${mx}); out.xBack = await walk('x', ${mx}, ${R.xHome?.length ? -mx : 0}); out.xHome = ${R.xHome?.length ? `await walk('x', ${-mx}, 0)` : '[]'}; }
-    if (${my}) { out.yOut = await walk('y', 0, ${my}); out.yBack = await walk('y', ${my}, ${-my}); out.yHome = await walk('y', ${-my}, 0); }
+    // Every leg is walked as the oracle walked it (oracle-capture: out, back to -mx, home), and what the target reads where it starts is kept.
+    const out = {}, at = {}, leg = async (name, axis, from, to) => { at[name] = read(); out[name] = await walk(axis, from, to); };
+    if (${mx}) { await leg('xOut', 'x', 0, ${mx}); await leg('xBack', 'x', ${mx}, ${-mx}); await leg('xHome', 'x', ${-mx}, 0); }
+    if (${my}) { await leg('yOut', 'y', 0, ${my}); await leg('yBack', 'y', ${my}, ${-my}); await leg('yHome', 'y', ${-my}, 0); }
     d.dispatchEvent(new W.PointerEvent('pointercancel', { ...o, buttons: 0 }));
     d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-    await sleep(100); fe.select(null); fe.setBp('desktop'); return JSON.stringify(out); })()`);
-  for (const leg of Object.keys(got)) {
+    await sleep(100); fe.select(null); fe.setBp('desktop'); return JSON.stringify({ out, at }); })()`);
+  const clean = (a) => String(a ?? '').replace(/ /g, '');
+  const ORDER = ['xOut', 'xBack', 'xHome', 'yOut', 'yBack', 'yHome'];
+  for (const leg of Object.keys(got.out)) {
     // The first step of a walk only notes the target appearing.
-    const clean = (a) => a.replace(/ /g, '');
-    const want = (R[leg] || []).map(([v, a]) => [v, clean(a)]).filter(([v], k) => !(k === 0 && v === 1) && Math.abs(v) <= (leg[0] === 'x' ? mx : my)), have = got[leg];
+    const want = (R[leg] || []).map(([v, a]) => [v, clean(a)]).filter(([v], k) => !(k === 0 && v === 1) && Math.abs(v) <= (leg[0] === 'x' ? mx : my)), have = got.out[leg];
+    // A leg where the oracle saw no change passes only where ours shows the target, on the area the oracle's last change left.
+    const before = ORDER.slice(0, ORDER.indexOf(leg)).map((l) => R[l] || []).filter((s) => s.length).at(-1), from = before && clean(before.at(-1)[1]);
     total++;
-    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]);
-    if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}`);
+    const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length || !from || clean(got.at[leg]) === from);
+    if (ok && !want.length && !from) console.log(`NOTE ${file} ${name} ${leg}: no change wanted and no oracle area before it to hold ours to`);
+    if (ok) pass++; else console.log(`DIFF ${file} ${name} ${leg}: oracle ${JSON.stringify(want)} ours ${JSON.stringify(have)}${want.length ? '' : ` from ${from}, ours ${clean(got.at[leg]) || 'none'}`}`);
     results.push({ kind: `${file} ${name}`, leg, ok });
   }
 }
