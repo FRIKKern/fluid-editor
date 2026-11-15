@@ -830,9 +830,9 @@ await pick(BIDS.head);
 add('Top of the stack: Move Up off', stackOff().join() === 'true,false', String(stackOff()));
 await pick(BIDS.text);
 add('Middle of the stack: both on', stackOff().join() === 'false,false', String(stackOff()));
-let tBar = barItems(), tWant = TB.phoneBars.text.buttons;
-if (tBar.b.length === 9) tWant = TB.phoneBars.textOverlapping.buttons;
-add('Phone text buttons', tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), JSON.stringify(tBar.b));
+// The shape is pinned above, so the text bar also shows Move Forward and Backward (zButtons.phonePin.nextBlock): all 9, by name.
+let tBar = barItems(), tWant = TB.phoneBars.textOverlapping.buttons;
+add('Phone text buttons', tBar.b.map(([l]) => l).join() === Object.keys(tWant).join() && tBar.b.every(([l, x]) => Math.abs(tWant[l] - x) <= 1), `${tBar.b.length} buttons ${JSON.stringify(tBar.b)}`);
 const overlapOn = evalJs(S, `(() => { const s = fe.model.sections[${SEC}], t = s.blocks.find((b) => b.id === '${BIDS.text}'), o = s.blocks.find((b) => b.id === '${BIDS.shape}'); o.layout.mobile.area = [...t.layout.mobile.area]; fe.select(null); fe.select(s.id, t.id); return JSON.stringify(true); })()`);
 await pause(250);
 tBar = barItems(); tWant = TB.phoneBars.textOverlapping.buttons;
