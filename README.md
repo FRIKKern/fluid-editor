@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 20 changes
+- **Today** · 21 changes
+  - t11, video and code checks: one undo step keeps the change before it ([#674](https://github.com/FRIKKern/fluid-editor/pull/674))
   - snap-check: xHome rows walk ours, and a no-change leg needs the target there ([#671](https://github.com/FRIKKern/fluid-editor/pull/671))
-  - site-styles-check: Cancel is tried one press off the reset value, so a Cancel that resets fails ([#673](https://github.com/FRIKKern/fluid-editor/pull/673))
 - **Yesterday** · 19 changes
   - Text bar: toggles are role=checkbox with aria-checked, as the oracle's; text-check compares control roles ([#653](https://github.com/FRIKKern/fluid-editor/pull/653))
 - **This week** · 157 changes
