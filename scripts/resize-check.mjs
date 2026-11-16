@@ -14,7 +14,8 @@ const F = JSON.parse(readFileSync(new URL('../parity/findings/BLOCKTYPES.json', 
 const LANDING = JSON.parse(readFileSync(new URL('../parity/findings/CAP-LANDING.json', import.meta.url)));
 const FRESH = (name) => LANDING.fromU5[name] ?? LANDING.fresh[name]?.area;
 // Named misses: on the oracle these types hold live content whose reads change from run to run
-// (STANDINS.json). Ours are stand-ins of the right size with no such content.
+// (STANDINS.json). Ours are stand-ins of the right size with no such content. The content sets the rows only:
+// a pull's start row and columns are still compared, and a miss there is a miss.
 const CONTENT = { Summary: ['se', 's', 'e'], Zola: ['s', 'e'], Bandsintown: ['se', 's', 'e'] };
 // Under 0005: the content needs an outside service and a real account or listing. Still named, never dropped.
 const OUT_OF_SCOPE = ['Zola', 'Bandsintown'];
@@ -55,7 +56,7 @@ for (const [name, want] of Object.entries(F.types)) {
   add(`${name} lands where the oracle's does`, same(areaOf(id), lands), `${areaOf(id).join('/')} want ${lands.join('/')}`);
   for (const [dir, cols, rows, , to] of want.drags) {
     const got = await pull(id, dir, cols, rows), wanted = [to[0] - down, to[1], to[2] - down, to[3]];
-    add(`${name} ${dir} ${cols},${rows}`, same(got, wanted), `${got.join('/')}, oracle ${wanted.join('/')}`, CONTENT[name]?.includes(dir));
+    add(`${name} ${dir} ${cols},${rows}`, same(got, wanted), `${got.join('/')}, oracle ${wanted.join('/')}`, CONTENT[name]?.includes(dir) && same([got[0], got[1], got[3]], [wanted[0], wanted[1], wanted[3]]));
   }
 }
 
