@@ -73,6 +73,10 @@ export async function replay(S, finding, add) {
     // cdp-run sends Meta+c, x and v only with the clipboard stub in place (clip-guard.mjs), never Chrome's own command.
     evalJs(S, STUB_JS);
     evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 40, mobile: 40 }; fe.load(next); await new Promise((r) => setTimeout(r, 300)); return 1; })()`);
+    // The oracle's page opens saved, Save off: a load leaves ours on, so press Save once and put the browser's storage back
+    // as it was. The steps must then turn it on. A Save still on here fails, so no read's save part can pass by the start.
+    const off = evalJs(S, `(() => { const keep = Object.entries(localStorage); const b = document.getElementById('save'); if (!b.disabled) b.click(); localStorage.clear(); for (const [k, v] of keep) localStorage.setItem(k, v); return JSON.stringify(b.disabled); })()`);
+    if (!off) add('a fresh page', false, 'Save still on after a press of Save at the start');
   };
   const ceOf = `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + ${JSON.stringify('__ID__')} + '"] .sqs-html-content')`;
   const q = (what) => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify(ce ? ce.${what} : null); })()`);
