@@ -2231,7 +2231,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const picked = (k) => (k === 'preset' || k === 'filter') && (id !== 'images' || !!T[`${k}s`]?.[a2.set[k]]);
     const stray = Object.keys(a2.set).filter((k) => !(want.range[k] || want.more.includes(k) || want.check.includes(k) || want.unread.includes(k) || picked(k)));
     for (const k of want.unread) if (k in a2.set) console.log(`NOTE Shuffle ${id}: ${k} changed, a row of buttons CAP-ARTSHUFFLE did not read`);
-    // Each switch it saw flip, every press sets on or off: a press that leaves one unset passes no row above (check is an allow-list there).
+    // Each switch it saw flip, a press sets on or off: a press that leaves one unset passes no row above (check is an allow-list there).
+    // The tile opens with none set, so the first press is what sets it; the second keeps a boolean (a press carries the set forward).
     const unset = want.check.filter((k) => typeof a1.set[k] !== 'boolean' || typeof a2.set[k] !== 'boolean');
     if (want.flips.length) add(`Shuffle ${id}: its switches are set`, want.check.length > 0 && want.unswitched.length === 0 && unset.length === 0, JSON.stringify({ unset: unset.map((k) => [k, a1.set[k], a2.set[k]]), unswitched: want.unswitched }));
     add(`Shuffle ${id}: only its rows change`, sorted(want.stays) === sorted(T.stays) && stray.length === 0, JSON.stringify({ stray: stray.slice(0, 8), stays: want.stays }));
