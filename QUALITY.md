@@ -132,5 +132,5 @@ lane:  FLUID_ORACLE_SITE ─► profile 9350 ─► oracle-setup-check ─► co
 - Picture first: README, docs and decisions open with a picture, a table or a diagram.
 - README stays at or under 80 lines. `npm run check` enforces it and checks links.
 - One fact, one home. Milestone status lives on the board, item status in `parity/items.json`, never in prose.
-- Generated files are never edited by hand: `docs/images/roadmap.svg`, `docs/images/parity.svg`, `docs/PARITY.md` and the README timeline.
+- Generated files are never edited by hand: `docs/images/roadmap.svg`, `docs/images/parity.svg`, `docs/PARITY.md`, and README's News with `docs/news/` (the daily news run).
 - Plain words. Name the file, the number or the mechanism.

@@ -22,17 +22,17 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 | It looks like the real editor, with every block type | M5 |
 | Save, publish and keyboard use are ready for real work | M6 |
 
-## What happened
+## News
 
-<!-- timeline:start -->
-- **Today** · 2 changes
-  - marks-check: Shuffle rows judge against CAP-ARTSHUFFLE, not the app's ART_SHUFFLE ([#678](https://github.com/FRIKKern/fluid-editor/pull/678))
-  - marks-check: Layouts closing's nothing-selected half reads the app's selection marks ([#677](https://github.com/FRIKKern/fluid-editor/pull/677))
-- **Yesterday** · 23 changes
-  - text-check: Y2's named misses excuse only the parts their reason covers ([#675](https://github.com/FRIKKern/fluid-editor/pull/675))
-- **Last week** · 176 changes
-- **This month** · 457 changes, 3 milestones closed
-<!-- timeline:end -->
+<!-- news:start -->
+**Monday 16 November.** So far two pull requests, both closing checks that could not fail: one tested a selection mark no app file has, the other judged the Shuffle panel against the app's own table instead of what Squarespace was seen to do.
+- **Checks:** Layouts closing reads the app's real selection marks; Shuffle rows are judged against the oracle's captures ([#677](https://github.com/FRIKKern/fluid-editor/pull/677), [#678](https://github.com/FRIKKern/fluid-editor/pull/678))
+
+**Sunday 15 November.** 23 pull requests merged, and 21 of them made the checks harder to fool. A check runs our editor through recorded steps and compares it with what Squarespace's real editor, the oracle, was seen to do. Many were passing things they should fail: an empty list, an undo that took back two changes, a line chart with no labels, a Cancel that reset anyway. The other two fixed the editor: Bold, Italic and Underline now show their true state while a text menu is open. [The full day](docs/news/2026-11-15.md)
+- **Editor:** in the Text bar and in a form's Message box, the toggles follow Cmd+B, Cmd+I and the selection while a menu is open ([#657](https://github.com/FRIKKern/fluid-editor/pull/657), [#659](https://github.com/FRIKKern/fluid-editor/pull/659))
+- **Checks that could not fail:** six rows that passed on an empty list; one-undo-step rows that missed a double undo; Chart Line with no labels; Site Styles Cancel; Page Link with no rows; a phone overlap row that repeated the row above ([#654](https://github.com/FRIKKern/fluid-editor/pull/654), [#674](https://github.com/FRIKKern/fluid-editor/pull/674), [#672](https://github.com/FRIKKern/fluid-editor/pull/672), [#673](https://github.com/FRIKKern/fluid-editor/pull/673), [#670](https://github.com/FRIKKern/fluid-editor/pull/670), [#666](https://github.com/FRIKKern/fluid-editor/pull/666))
+- **Timing on macOS:** the marks check now also runs on a macOS runner, with its timer batching off; fade rows judge each frame against the 0.2 s curve at its own time ([#665](https://github.com/FRIKKern/fluid-editor/pull/665), [#668](https://github.com/FRIKKern/fluid-editor/pull/668), [#669](https://github.com/FRIKKern/fluid-editor/pull/669))
+<!-- news:end -->
 
 ## Where things live (one fact, one home)
 
@@ -56,7 +56,7 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 app/          the editor: index.html shell, site.html canvas, src/ renderer + editor
 fixtures/     oracle CSS per section (css/, index.json); raw pages stay local
 parity/       items.json (one home for item status), gate results
-scripts/      gates, generators for the pictures and the timeline, doc checks
+scripts/      gates, generators for the pictures, doc checks
 ```
 
 ## Run it
