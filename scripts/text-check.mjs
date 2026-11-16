@@ -120,7 +120,7 @@ const TU = JSON.parse(readFileSync(new URL('../parity/findings/TEXTUNDO.json', i
 const edit = (body) => { goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); return evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); fe.edit(s.id, b.id);
   const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow; const ce = d.querySelector('.fe-block[data-block-id="' + b.id + '"] .sqs-html-content');
-  const type = (t) => d.execCommand('insertText', false, t); const enter = () => d.execCommand('insertParagraph');
+  const keys = []; const type = (t) => { const at = performance.now(); d.execCommand('insertText', false, t); keys.push([at, performance.now()]); }; const enter = () => d.execCommand('insertParagraph');
   const tool = (a) => document.querySelector('#text-bar button[data-fmt="' + a + '"]').click();
   const word = () => { const t = ce.querySelector('p').firstChild; const r = d.createRange(); r.setStart(t, 0); r.setEnd(t, t.textContent.indexOf(' ')); const q = W.getSelection(); q.removeAllRanges(); q.addRange(r); };
   const color = (v) => { document.querySelector('#text-bar [data-fmt="color-menu"]').click(); document.querySelector('#text-bar input[data-fmt="color"][data-v="' + v + '"]').click(); };
@@ -128,12 +128,21 @@ const edit = (body) => { goto(S, `${BASE}/index.html?replay`); waitFor(S, 'windo
   ${body}
   const a = links(); d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(120);
   let n = 0; while (fe.canUndo && n < 9) { fe.undo(); n++; await sleep(20); }
-  return JSON.stringify({ undos: n, links: a }); })()`); };
+  return JSON.stringify({ undos: n, links: a, span: keys.length > 1 ? keys.at(-1)[1] - keys[0][0] : 0 }); })()`); };
+// A row whose keys join means a gap the oracle joins: under 975 ms (TEXTUNDO.json, its split lies above 975 and by
+// 1000). span runs from the first key's start to the last key's end, so no gap the app saw is longer. A runner that
+// fired a key late ran another case (the macOS runner coalesces timers, see browser-checks.yml; CI run 43768967971:
+// 900ms between, ours 2): try again, at most 3 times, and fail naming the gaps if it never ran in range.
+const JOIN_UNDER = 975;
 for (const [name, body, want] of [['one burst', `type('one'); await sleep(50); type(' two');`, 1], ['900ms between', `type('one'); await sleep(900); type(' two');`, 1], ['a pause of 1.1s', `type('one'); await sleep(1100); type(' two');`, 2],
   ['Enter in a burst', `type('one'); enter(); type('two');`, 1], ['Bold then Italic', `word(); tool('bold'); await sleep(1100); tool('italic');`, 2], ['Bold then Italic within a second', `word(); tool('bold'); tool('italic');`, 1], ['two color picks', `word(); color('accent'); await sleep(1100); color('black');`, 2]]) {
-  const got = edit(body).undos;
-  results.push({ name: `Undo ${name}`, ok: got === want });
-  if (got !== want) console.log(`Undo ${name} DIFF oracle ${want}, ours ${got}`);
+  let run, tries = 0, spans = [];
+  do { run = edit(body); tries++; spans.push(Math.round(run.span)); } while (want === 1 && run.span >= JOIN_UNDER && tries < 3);
+  const late = want === 1 && run.span >= JOIN_UNDER, got = run.undos;
+  results.push({ name: `Undo ${name}`, ok: !late && got === want });
+  if (late) console.log(`Undo ${name} could not run: keys ${spans.join(', ')} ms apart in ${tries} tries, ${JOIN_UNDER} or more is not a join`);
+  else if (got !== want) console.log(`Undo ${name} DIFF oracle ${want}, ours ${got}`);
+  else if (tries > 1) console.log(`Undo ${name} match on try ${tries} (keys ${spans.join(', ')} ms apart)`);
 }
 { goto(S, `${BASE}/index.html?replay`); waitFor(S, 'window.fe'); const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const s = fe.model.sections[2]; const b = s.blocks.find((x) => x.type === 'text' && x.html.includes('On desktop the smallest')); const f = document.getElementById('site-frame'); const d = f.contentDocument, W = f.contentWindow;
