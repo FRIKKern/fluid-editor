@@ -58,6 +58,9 @@ const CONTROLS = `(() => { const vis = (e) => { const q = e.getBoundingClientRec
   const clean = (t) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, 48);
   return JSON.stringify([...document.querySelectorAll('button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=switch], [role=slider], [role=checkbox], [role=option], [role=radio]')].filter(vis).map((e) => (e.getAttribute('role') || (e.tagName === 'INPUT' ? 'input:' + e.type : e.tagName.toLowerCase())) + ' ' + clean(e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('placeholder') || e.textContent))); })()`;
 
+// Our Save, found by oracle-capture.mjs's rule: the button whose text is Save. The reset and each read use this one.
+const SAVE = `[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')`;
+
 export async function replay(S, finding, add) {
   let id = null, newId = null, segment = null;
   const homePath = finding.steps.map(([op, k]) => op === 'read' && finding.reads?.[k]?.path).find(Boolean);
@@ -73,6 +76,10 @@ export async function replay(S, finding, add) {
     // cdp-run sends Meta+c, x and v only with the clipboard stub in place (clip-guard.mjs), never Chrome's own command.
     evalJs(S, STUB_JS);
     evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 40, mobile: 40 }; fe.load(next); await new Promise((r) => setTimeout(r, 300)); return 1; })()`);
+    // The oracle's page opens saved, Save off: a load leaves ours on, so press Save once and put the browser's storage back
+    // as it was. The steps must then turn it on. A Save still on here fails, so no read's save part can pass by the start.
+    const off = evalJs(S, `(() => { const keep = Object.entries(localStorage); const b = ${SAVE}; if (!b) return JSON.stringify(null); if (!b.disabled) b.click(); localStorage.clear(); for (const [k, v] of keep) localStorage.setItem(k, v); return JSON.stringify(b.disabled); })()`);
+    if (off !== true) add('a fresh page', false, off === null ? 'no button reads Save' : 'Save still on after a press of Save at the start');
   };
   const ceOf = `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + ${JSON.stringify('__ID__')} + '"] .sqs-html-content')`;
   const q = (what) => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify(ce ? ce.${what} : null); })()`);
@@ -156,7 +163,7 @@ export async function replay(S, finding, add) {
       // save: Save on (changed) or off (clean), by oracle-capture.mjs's rule. path: still on the page the replay began on.
       // The oracle's page is its first read's path; ours is the frame's own page.
       const saveWant = finding.reads[a[0]].save, pathWant = finding.reads[a[0]].path;
-      const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); return JSON.stringify([[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled === true ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
+      const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); const b = ${SAVE}; return JSON.stringify([!b ? 'no Save button' : b.disabled ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
       const saveSame = saveWant === undefined || saveWant === saveGot, pathSame = pathWant === undefined || (pathWant === homePath) === homeGot;
       // Each part's verdict goes with the row, so a named miss can excuse only the parts its reason covers.
       const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
