@@ -83,8 +83,13 @@ export async function replay(S, finding, add) {
     const walk = [q('textContent')], html = [q('innerHTML')];
     const can = () => evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`);
     for (let n = 0; n < most && can(); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
-    // Where the walk ended: as many presses as the oracle's, and Undo on or off after them as it was there (stillCan).
-    if (r.stillCan !== undefined) { const on = can(); add(`${name} end`, walk.length === r.undo.length && on === r.stillCan, `oracle ${r.undo.length - 1} presses, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`); }
+    // Where the walk ended: Undo on or off after it as on the oracle (stillCan), after as many presses. A walk the oracle took
+    // to the end had one more: the Add Section its blank step made (oracle-capture.mjs), which our fresh page has no step for.
+    if (r.stillCan !== undefined) {
+      const from = finding.steps.slice(0, k).map(([op]) => op).lastIndexOf('enter'), blank = !r.stillCan && finding.steps.slice(from + 1, k).some(([op]) => op === 'blank') ? 1 : 0;
+      const want = r.undo.length - 1 - blank, on = can();
+      add(`${name} end`, walk.length - 1 === want && on === r.stillCan, `oracle ${r.undo.length - 1} presses${blank ? ' (one undid its blank Add Section)' : ''}, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`);
+    }
     r.undo.forEach((u, k) => {
       // Null on the oracle: the block's gone, or nothing was left to undo. Ours must have no more of its text either.
       if (u[1] === null) { add(`${name} ${u[0]}`, (walk[k] ?? null) === null, `oracle nothing, ours ${walk[k]}`); return; }
