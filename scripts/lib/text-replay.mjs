@@ -90,6 +90,14 @@ export async function replay(S, finding, add) {
   };
   // The hint on an empty Text, read as oracle-capture.mjs reads it (beforeOf, hintOf). Where it sits is not compared.
   const hintHere = () => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; return JSON.stringify([ce, ...ce.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e, '::before'); return { tag: e.tagName.toLowerCase(), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents, weight: c.fontWeight, lineHeight: c.lineHeight, letterSpacing: c.letterSpacing, transform: c.textTransform }; }).filter((x) => /Write here/.test(x.content))); })()`);
+  // save: Save on (changed) or off (clean), by oracle-capture.mjs's rule. path: still on the page the replay began on.
+  // The oracle's page is its first read's path; ours is the frame's own page. Both read branches compare them.
+  const saveAndPath = (read) => {
+    const saveWant = read.save, pathWant = read.path;
+    const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); return JSON.stringify([[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled === true ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
+    const save = saveWant === undefined || saveWant === saveGot, path = pathWant === undefined || (pathWant === homePath) === homeGot;
+    return { save, path, said: `${save ? '' : `save: oracle ${saveWant}, ours ${saveGot}; `}${path ? '' : `path: oracle ${pathWant} (began on ${homePath}), ours ${homeGot ? 'the page it began on' : 'another page'}; `}` };
+  };
   await fresh();
   const untilEnd = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'undoWalk'); return n < 0 ? finding.steps.length : n; };
   const untilNextEnter = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'enter'); return finding.steps.slice(k, n < 0 ? undefined : n); };
@@ -131,8 +139,8 @@ export async function replay(S, finding, add) {
     else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
       const got = new Set(evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify([...ce.querySelectorAll('a')].map((e) => e.textContent)); })()`));
       const want = new Set(finding.reads[a[0]].linkTexts);
-      const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n));
-      add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
+      const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n)), sp = saveAndPath(finding.reads[a[0]]);
+      add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length && sp.save && sp.path, `${sp.said}${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
     }
     else if (op === 'read') {
       if (finding.reads[a[0]] === undefined) { unread(op, a[0]); continue; }
@@ -153,14 +161,10 @@ export async function replay(S, finding, add) {
       const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
       const ctlWant = finding.reads[a[0]].controls?.map((c) => `${c.role} ${c.label}`), ctlGot = ctlWant && evalJs(S, CONTROLS);
       const ctlSame = !ctlWant || JSON.stringify(ctlWant) === JSON.stringify(ctlGot);
-      // save: Save on (changed) or off (clean), by oracle-capture.mjs's rule. path: still on the page the replay began on.
-      // The oracle's page is its first read's path; ours is the frame's own page.
-      const saveWant = finding.reads[a[0]].save, pathWant = finding.reads[a[0]].path;
-      const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); return JSON.stringify([[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled === true ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
-      const saveSame = saveWant === undefined || saveWant === saveGot, pathSame = pathWant === undefined || (pathWant === homePath) === homeGot;
+      const sp = saveAndPath(finding.reads[a[0]]), saveSame = sp.save, pathSame = sp.path;
       // Each part's verdict goes with the row, so a named miss can excuse only the parts its reason covers.
       const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
-      add(a[0], Object.values(parts).every(Boolean), `${saveSame ? '' : `save: oracle ${saveWant}, ours ${saveGot}; `}${pathSame ? '' : `path: oracle ${pathWant} (began on ${homePath}), ours ${homeGot ? 'the page it began on' : 'another page'}; `}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts);
+      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts);
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
     else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k); }
