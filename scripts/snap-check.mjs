@@ -57,6 +57,9 @@ for (const r of F.readings) {
 const WALKS = [
   ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110, 50],
   ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110, 50],
+  // The same block dragged to the right edge: its move, and a resize from its nw corner.
+  ['CAP-G4MARGIN', 'move, right margin', 'desktop', [1, 20, 7, 26], 110, 50],
+  ['CAP-G4MARGIN', 'nw, right margin', 'desktop', [1, 20, 7, 26], 110, 50],
   ['CAP-G4MARGIN2', 'se, left margin, to 200', 'desktop', [1, 1, 7, 7], 200, 50],
   ['CAP-G4MARGIN2', 'phone, move, left margin', 'mobile', [1, 1, 7, 9], 110, 50],
   ['CAP-G4MARGIN2', 'phone, se, left margin', 'mobile', [1, 1, 7, 9], 110, 50],
