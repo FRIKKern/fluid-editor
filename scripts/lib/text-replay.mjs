@@ -83,11 +83,20 @@ export async function replay(S, finding, add) {
   };
   const ceOf = `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + ${JSON.stringify('__ID__')} + '"] .sqs-html-content')`;
   const q = (what) => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify(ce ? ce.${what} : null); })()`);
-  const undoHere = async (name, r, k) => {
+  // most: how many presses the oracle's walk had at most (undoWalk's n, 12 by default).
+  const undoHere = async (name, r, k, most = 12) => {
     const wrong = wrongGap(finding.steps.slice(segment, k), evalJs(S, `JSON.stringify(window.__stamps)`));
     if (wrong) { add(name, null, wrong); return; }
     const walk = [q('textContent')], html = [q('innerHTML')];
-    for (let n = 0; n < 12 && evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
+    const can = () => evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`);
+    for (let n = 0; n < most && can(); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
+    // Where the walk ended: Undo on or off after it as on the oracle (stillCan), after as many presses. A walk the oracle took
+    // to the end had one more: the Add Section its blank step made (oracle-capture.mjs), which our fresh page has no step for.
+    if (r.stillCan !== undefined) {
+      const from = finding.steps.slice(0, k).map(([op]) => op).lastIndexOf('enter'), blank = !r.stillCan && finding.steps.slice(from + 1, k).some(([op]) => op === 'blank') ? 1 : 0;
+      const want = r.undo.length - 1 - blank, on = can();
+      add(`${name} end`, walk.length - 1 === want && on === r.stillCan, `oracle ${r.undo.length - 1} presses${blank ? ' (one undid its blank Add Section)' : ''}, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`);
+    }
     r.undo.forEach((u, k) => {
       // Null on the oracle: the block's gone, or nothing was left to undo. Ours must have no more of its text either.
       if (u[1] === null) { add(`${name} ${u[0]}`, (walk[k] ?? null) === null, `oracle nothing, ours ${walk[k]}`); return; }
@@ -170,7 +179,7 @@ export async function replay(S, finding, add) {
       add(a[0], Object.values(parts).every(Boolean), `${saveSame ? '' : `save: oracle ${saveWant}, ours ${saveGot}; `}${pathSame ? '' : `path: oracle ${pathWant} (began on ${homePath}), ours ${homeGot ? 'the page it began on' : 'another page'}; `}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts);
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
-    else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k); }
+    else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k, a[3] ?? 12); }
     if (paced && changesIn([op, ...a])) lastChange = Date.now();
   }
 }
