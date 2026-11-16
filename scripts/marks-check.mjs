@@ -2209,9 +2209,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     }));
     const range = {}, more = new Set(), stays = [];
     for (const [nm, bare, k, row] of sliders) if (T.ranges[nm]) { range[k] = T.ranges[nm]; if (row) more.add(row); } else stays.push(bare);
-    // A switch seen on in every press, or in none, kept its value.
-    const check = switches.filter(([l]) => T.switches[l]?.[0] > 0 && T.switches[l][0] < T.presses).map(([, k]) => k);
-    return { range, more: [...more], check, stays, unread, unnamed: Object.keys(T.ranges).filter((nm) => !sliders.some(([x]) => x === nm)) };
+    // A switch seen on in every press, or in none, kept its value. One seen on in some presses only flipped (flips); each needs a row.
+    const flips = Object.keys(T.switches).filter((l) => T.switches[l][0] > 0 && T.switches[l][0] < T.presses);
+    const check = switches.filter(([l]) => flips.includes(l)).map(([, k]) => k);
+    return { range, more: [...more], check, flips, unswitched: flips.filter((l) => !switches.some(([x]) => x === l)), stays, unread, unnamed: Object.keys(T.ranges).filter((nm) => !sliders.some(([x]) => x === nm)) };
   };
   const sorted = (a) => JSON.stringify([...a].sort());
   for (const [id, T] of Object.entries(AS.shuffle.tiles)) {
@@ -2230,6 +2231,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     const picked = (k) => (k === 'preset' || k === 'filter') && (id !== 'images' || !!T[`${k}s`]?.[a2.set[k]]);
     const stray = Object.keys(a2.set).filter((k) => !(want.range[k] || want.more.includes(k) || want.check.includes(k) || want.unread.includes(k) || picked(k)));
     for (const k of want.unread) if (k in a2.set) console.log(`NOTE Shuffle ${id}: ${k} changed, a row of buttons CAP-ARTSHUFFLE did not read`);
+    // Each switch it saw flip, a press sets on or off: a press that leaves one unset passes no row above (check is an allow-list there).
+    // The tile opens with none set, so the first press is what sets it; the second keeps a boolean (a press carries the set forward).
+    const unset = want.check.filter((k) => typeof a1.set[k] !== 'boolean' || typeof a2.set[k] !== 'boolean');
+    if (want.flips.length) add(`Shuffle ${id}: its switches are set`, want.check.length > 0 && want.unswitched.length === 0 && unset.length === 0, JSON.stringify({ unset: unset.map((k) => [k, a1.set[k], a2.set[k]]), unswitched: want.unswitched }));
     add(`Shuffle ${id}: only its rows change`, sorted(want.stays) === sorted(T.stays) && stray.length === 0, JSON.stringify({ stray: stray.slice(0, 8), stays: want.stays }));
     add(`Shuffle ${id}: two presses differ`, JSON.stringify(a1.set) !== JSON.stringify(a2.set));
     undos(); await pause(100);
