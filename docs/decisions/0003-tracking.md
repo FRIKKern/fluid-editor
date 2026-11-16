@@ -5,7 +5,6 @@ Date: 2026-11-03 · Status: accepted
 ```
 goal issue #1 ── sub-issues M0–M6 ──► scripts/generate-roadmap.mjs ──► docs/images/roadmap.svg
 parity/items.json (105 items) ───────► scripts/generate-parity.mjs  ──► docs/images/parity.svg, docs/PARITY.md
-git log + closed milestones ─────────► scripts/readme-timeline.mjs  ──► README timeline
 ```
 
 ## Context
@@ -18,7 +17,7 @@ Milestone status lives on GitHub. Goal issue #1 has one sub-issue per milestone,
 
 Item status lives in `parity/items.json`, one row per item with its area, milestone, status and evidence. `npm run check` refuses a done item without evidence.
 
-The pictures and `docs/PARITY.md` are generated and never edited by hand. `.github/workflows/housekeeping.yml` redraws them and the timeline on every push to main and once a day.
+The pictures and `docs/PARITY.md` are generated and never edited by hand. `.github/workflows/housekeeping.yml` redraws them on every push to main and once a day. (The README timeline is retired: [0007](0007-daily-news.md).)
 
 ## Considered
 
