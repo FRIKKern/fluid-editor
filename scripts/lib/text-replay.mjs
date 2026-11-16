@@ -58,6 +58,9 @@ const CONTROLS = `(() => { const vis = (e) => { const q = e.getBoundingClientRec
   const clean = (t) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, 48);
   return JSON.stringify([...document.querySelectorAll('button, a[href], input, select, textarea, [role=button], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=switch], [role=slider], [role=checkbox], [role=option], [role=radio]')].filter(vis).map((e) => (e.getAttribute('role') || (e.tagName === 'INPUT' ? 'input:' + e.type : e.tagName.toLowerCase())) + ' ' + clean(e.getAttribute('aria-label') || e.getAttribute('title') || e.getAttribute('placeholder') || e.textContent))); })()`;
 
+// Our Save, found by oracle-capture.mjs's rule: the button whose text is Save. The reset and each read use this one.
+const SAVE = `[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')`;
+
 export async function replay(S, finding, add) {
   let id = null, newId = null, segment = null;
   const homePath = finding.steps.map(([op, k]) => op === 'read' && finding.reads?.[k]?.path).find(Boolean);
@@ -73,14 +76,27 @@ export async function replay(S, finding, add) {
     // cdp-run sends Meta+c, x and v only with the clipboard stub in place (clip-guard.mjs), never Chrome's own command.
     evalJs(S, STUB_JS);
     evalJs(S, `(async () => { const next = JSON.parse(JSON.stringify(fe.model)); next.sections[1].blocks = []; next.sections[1].rows = { desktop: 40, mobile: 40 }; fe.load(next); await new Promise((r) => setTimeout(r, 300)); return 1; })()`);
+    // The oracle's page opens saved, Save off: a load leaves ours on, so press Save once and put the browser's storage back
+    // as it was. The steps must then turn it on. A Save still on here fails, so no read's save part can pass by the start.
+    const off = evalJs(S, `(() => { const keep = Object.entries(localStorage); const b = ${SAVE}; if (!b) return JSON.stringify(null); if (!b.disabled) b.click(); localStorage.clear(); for (const [k, v] of keep) localStorage.setItem(k, v); return JSON.stringify(b.disabled); })()`);
+    if (off !== true) add('a fresh page', false, off === null ? 'no button reads Save' : 'Save still on after a press of Save at the start');
   };
   const ceOf = `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="' + ${JSON.stringify('__ID__')} + '"] .sqs-html-content')`;
   const q = (what) => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify(ce ? ce.${what} : null); })()`);
-  const undoHere = async (name, r, k) => {
+  // most: how many presses the oracle's walk had at most (undoWalk's n, 12 by default).
+  const undoHere = async (name, r, k, most = 12) => {
     const wrong = wrongGap(finding.steps.slice(segment, k), evalJs(S, `JSON.stringify(window.__stamps)`));
     if (wrong) { add(name, null, wrong); return; }
     const walk = [q('textContent')], html = [q('innerHTML')];
-    for (let n = 0; n < 12 && evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
+    const can = () => evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`);
+    for (let n = 0; n < most && can(); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
+    // Where the walk ended: Undo on or off after it as on the oracle (stillCan), after as many presses. A walk the oracle took
+    // to the end had one more: the Add Section its blank step made (oracle-capture.mjs), which our fresh page has no step for.
+    if (r.stillCan !== undefined) {
+      const from = finding.steps.slice(0, k).map(([op]) => op).lastIndexOf('enter'), blank = !r.stillCan && finding.steps.slice(from + 1, k).some(([op]) => op === 'blank') ? 1 : 0;
+      const want = r.undo.length - 1 - blank, on = can();
+      add(`${name} end`, walk.length - 1 === want && on === r.stillCan, `oracle ${r.undo.length - 1} presses${blank ? ' (one undid its blank Add Section)' : ''}, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`);
+    }
     r.undo.forEach((u, k) => {
       // Null on the oracle: the block's gone, or nothing was left to undo. Ours must have no more of its text either.
       if (u[1] === null) { add(`${name} ${u[0]}`, (walk[k] ?? null) === null, `oracle nothing, ours ${walk[k]}`); return; }
@@ -90,6 +106,14 @@ export async function replay(S, finding, add) {
   };
   // The hint on an empty Text, read as oracle-capture.mjs reads it (beforeOf, hintOf). Where it sits is not compared.
   const hintHere = () => evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; const W = ce.ownerDocument.defaultView; return JSON.stringify([ce, ...ce.querySelectorAll('*')].map((e) => { const c = W.getComputedStyle(e, '::before'); return { tag: e.tagName.toLowerCase(), content: c.content, color: c.color, opacity: c.opacity, font: c.fontSize + ' ' + c.fontFamily.slice(0, 40), float: c.float, height: c.height, pointer: c.pointerEvents, weight: c.fontWeight, lineHeight: c.lineHeight, letterSpacing: c.letterSpacing, transform: c.textTransform }; }).filter((x) => /Write here/.test(x.content))); })()`);
+  // save: Save on (changed) or off (clean), by oracle-capture.mjs's rule. path: still on the page the replay began on.
+  // The oracle's page is its first read's path; ours is the frame's own page. Both read branches compare them.
+  const saveAndPath = (read) => {
+    const saveWant = read.save, pathWant = read.path;
+    const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); const b = ${SAVE}; return JSON.stringify([!b ? 'no Save button' : b.disabled ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
+    const save = saveWant === undefined || saveWant === saveGot, path = pathWant === undefined || (pathWant === homePath) === homeGot;
+    return { save, path, said: `${save ? '' : `save: oracle ${saveWant}, ours ${saveGot}; `}${path ? '' : `path: oracle ${pathWant} (began on ${homePath}), ours ${homeGot ? 'the page it began on' : 'another page'}; `}` };
+  };
   await fresh();
   const untilEnd = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'undoWalk'); return n < 0 ? finding.steps.length : n; };
   const untilNextEnter = (k) => { const n = finding.steps.findIndex((x, j) => j > k && x[0] === 'enter'); return finding.steps.slice(k, n < 0 ? undefined : n); };
@@ -131,8 +155,8 @@ export async function replay(S, finding, add) {
     else if (op === 'read' && finding.reads[a[0]]?.linkTexts) {
       const got = new Set(evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', id)}; return JSON.stringify([...ce.querySelectorAll('a')].map((e) => e.textContent)); })()`));
       const want = new Set(finding.reads[a[0]].linkTexts);
-      const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n));
-      add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length, `${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
+      const names = typed.trim().split(/\s+/), wrong = names.filter((n) => got.has(n) !== want.has(n)), sp = saveAndPath(finding.reads[a[0]]);
+      add(`${a[0]}: ${names.length - wrong.length} of ${names.length} names`, !wrong.length && sp.save && sp.path, `${sp.said}${wrong.length} differ: ${wrong.slice(0, 12).join(' ')}`);
     }
     else if (op === 'read') {
       if (finding.reads[a[0]] === undefined) { unread(op, a[0]); continue; }
@@ -153,17 +177,13 @@ export async function replay(S, finding, add) {
       const hasSame = !hasWant || Object.keys(hasWant).every((k) => hasWant[k] === hasGot[k]);
       const ctlWant = finding.reads[a[0]].controls?.map((c) => `${c.role} ${c.label}`), ctlGot = ctlWant && evalJs(S, CONTROLS);
       const ctlSame = !ctlWant || JSON.stringify(ctlWant) === JSON.stringify(ctlGot);
-      // save: Save on (changed) or off (clean), by oracle-capture.mjs's rule. path: still on the page the replay began on.
-      // The oracle's page is its first read's path; ours is the frame's own page.
-      const saveWant = finding.reads[a[0]].save, pathWant = finding.reads[a[0]].path;
-      const [saveGot, homeGot] = saveWant === undefined && pathWant === undefined ? [] : evalJs(S, `(() => { const f = document.getElementById('site-frame'); return JSON.stringify([[...document.querySelectorAll('button')].find((x) => x.textContent.trim() === 'Save')?.disabled === true ? 'clean' : 'changed', f.contentDocument.location.pathname === new URL(f.getAttribute('src'), location.href).pathname]); })()`);
-      const saveSame = saveWant === undefined || saveWant === saveGot, pathSame = pathWant === undefined || (pathWant === homePath) === homeGot;
+      const sp = saveAndPath(finding.reads[a[0]]), saveSame = sp.save, pathSame = sp.path;
       // Each part's verdict goes with the row, so a named miss can excuse only the parts its reason covers.
       const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
-      add(a[0], Object.values(parts).every(Boolean), `${saveSame ? '' : `save: oracle ${saveWant}, ours ${saveGot}; `}${pathSame ? '' : `path: oracle ${pathWant} (began on ${homePath}), ours ${homeGot ? 'the page it began on' : 'another page'}; `}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts, { html: [textNorm(want), textNorm(got)], rows: [areasWant, areasGot] });
+      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts, { html: [textNorm(want), textNorm(got)], rows: [areasWant, areasGot] });
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
-    else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k); }
+    else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k, a[3] ?? 12); }
     if (paced && changesIn([op, ...a])) lastChange = Date.now();
   }
 }
