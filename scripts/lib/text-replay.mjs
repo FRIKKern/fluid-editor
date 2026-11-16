@@ -1,7 +1,7 @@
 // Replays a stored text finding's steps in our editor with real keys and real presses, at the
 // the oracle's side of the undo clock: undo steps go by time. Each `read` and `undoWalk` is compared with the oracle's.
 // add(what, ok, detail, parts): ok is null when a run's timing was off and it could not run. A read row also passes
-// parts, each part's own verdict: html, rows, undo, controls, save, path and `has <name>`.
+// parts, each part's own verdict: html, rows, undo, controls, save, path and `has <name>`. And seen: what html and rows read on each side.
 import { browser, cdp, evalJs, goto, mouse, pause } from './cmux.mjs';
 import { BASE } from './base.mjs';
 import { STUB_JS } from './clip-guard.mjs';
@@ -180,7 +180,7 @@ export async function replay(S, finding, add) {
       const sp = saveAndPath(finding.reads[a[0]]), saveSame = sp.save, pathSame = sp.path;
       // Each part's verdict goes with the row, so a named miss can excuse only the parts its reason covers.
       const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
-      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts);
+      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts, { html: [textNorm(want), textNorm(got)], rows: [areasWant, areasGot] });
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
     else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k, a[3] ?? 12); }
