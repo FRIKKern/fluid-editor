@@ -25,8 +25,8 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## News
 
 <!-- news:start -->
-**Monday 16 November.** So far two pull requests, both fixing check rows that could not fail: one tested a selection mark no app file has, the other judged the Shuffle panel against the app's own table instead of what Squarespace was seen to do.
-- **Checks:** Layouts closing reads the app's real selection marks; Shuffle rows are judged against the oracle's captures ([#677](https://github.com/FRIKKern/fluid-editor/pull/677), [#678](https://github.com/FRIKKern/fluid-editor/pull/678))
+**Monday 16 November.** So far three pull requests, all fixing check rows that could not fail: one tested a selection mark no app file has, one judged the Shuffle panel against the app's own table instead of what Squarespace was seen to do, and one skipped five real returns home in the snap check, so a block coming home at the wrong spot passed.
+- **Checks:** Layouts closing reads the app's real selection marks; Shuffle rows are judged against the oracle's captures; snap legs compare every real return home ([#677](https://github.com/FRIKKern/fluid-editor/pull/677), [#678](https://github.com/FRIKKern/fluid-editor/pull/678), [#681](https://github.com/FRIKKern/fluid-editor/pull/681))
 
 **Sunday 15 November.** 23 pull requests merged, and 21 of them were about the checks. A check runs our editor through recorded steps and compares it with what Squarespace's real editor, the oracle, was seen to do. Many were passing things they should fail: an empty list, an undo that took back two changes, a line chart with no labels, a Cancel that reset anyway. The other two fixed the editor: Bold, Italic and Underline now show their true state while a text menu is open. [The full day](docs/news/2026-11-15.md)
 - **Editor:** in the Text bar and in a form's Message box, the toggles follow Cmd+B, Cmd+I and the selection while a menu is open ([#657](https://github.com/FRIKKern/fluid-editor/pull/657), [#659](https://github.com/FRIKKern/fluid-editor/pull/659))

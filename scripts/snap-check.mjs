@@ -38,9 +38,12 @@ for (const r of F.readings) {
     d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     await sleep(100); while (fe.canUndo) fe.undo();
     return JSON.stringify({ ...out, at }); })()`);
+  // Where each leg's walk starts: the oracle's first entry is at the next px, ours can be at that px itself.
+  const FROM = { xOut: 0, xBack: mx, xHome: -mx, yOut: 0, yBack: my, yHome: -my };
   for (const [leg] of LEGS) {
-    // The oracle's first step of a walk can note the target appearing; only moves between areas count.
-    const want = r[leg].filter(([, a], k) => k > 0 || a !== r.start.join(' / ')), have = got[leg].filter(([, a], k) => k > 0 || a !== r.start.join(' / '));
+    // The first step of a walk can note the target appearing on its start; only that entry is dropped, so a return home later in a leg counts.
+    const appear = ([v, a], k) => k === 0 && a === r.start.join(' / ') && Math.abs(v - FROM[leg]) <= 1;
+    const want = r[leg].filter((x, k) => !appear(x, k)), have = got[leg].filter((x, k) => !appear(x, k));
     // A leg where the oracle saw no change passes only where ours shows the target, on the area the oracle's last change (or its start) left.
     const from = [[[0, r.start.join(' / ')]], ...LEGS.slice(0, LEGS.findIndex(([l]) => l === leg)).map(([l]) => r[l])].filter((x) => x.length).at(-1).at(-1)[1];
     total++;
