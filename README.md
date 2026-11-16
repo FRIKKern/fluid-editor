@@ -25,9 +25,9 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## What happened
 
 <!-- timeline:start -->
-- **Today** · 2 changes
+- **Today** · 3 changes
+  - snap-check: SNAP legs drop only a first-step appearance, so a real return home is compared ([#681](https://github.com/FRIKKern/fluid-editor/pull/681))
   - marks-check: Shuffle rows judge against CAP-ARTSHUFFLE, not the app's ART_SHUFFLE ([#678](https://github.com/FRIKKern/fluid-editor/pull/678))
-  - marks-check: Layouts closing's nothing-selected half reads the app's selection marks ([#677](https://github.com/FRIKKern/fluid-editor/pull/677))
 - **Yesterday** · 23 changes
   - text-check: Y2's named misses excuse only the parts their reason covers ([#675](https://github.com/FRIKKern/fluid-editor/pull/675))
 - **Last week** · 176 changes
