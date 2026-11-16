@@ -50,15 +50,29 @@ const NO_AREA = new Set(['CAP-X6PHONEFLOORS Summary e far in']);
 let known = 0;
 for (const file of FILES) {
   const F = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url)));
-  let off = 0, pulled = 0, seen = [], last = null, hold = null;
+  let off = 0, pulled = 0, pulls = 0, landed = null, seen = [], last = null, hold = null;
+  // Rows are compared from where the block landed, ours as read at the add and the oracle's from its first read when no
+  // pull came before it. After a pull, the oracle's landing row is where this file's start reads put a new block among the
+  // same other blocks: alone in a fresh section, row 1 (CAP-LANDING.json). So the first pull's rows count too.
+  const lands = new Map([['', 1]]);
+  { let v = 0, n = 0, prev = [];
+    for (const step of F.steps) {
+      if (step[0] === 'add') { v = 0; n = 0; }
+      if (step[0] === 'view') v = step[1] === 'Mobile' ? 1 : 0;
+      if (['drag', 'handleDrag', 'release'].includes(step[0])) n++;
+      if (step[0] !== 'read' || step[2]?.areas === undefined) continue;
+      const all = (F.reads[step[1]]?.areas || []).map((a) => a[v]), fresh = all.filter((a) => !prev.includes(a));
+      if (n === 0 && fresh.length === 1) lands.set(all.filter((a) => a !== fresh[0]).sort().join(' '), Number(fresh[0].split('/')[0]));
+      prev = all; n = Infinity;
+    } }
   for (const step of F.steps) {
     if (step[0] === 'window') { viewport(S, step[1], step[2]); await pause(300); } // a tall block's south handle needs the oracle's window (CAP-68PULL.json)
-    if (step[0] === 'add') { view = 'desktop'; fresh(step[2]); off = null; last = null; pulled = 0; }
+    if (step[0] === 'add') { view = 'desktop'; fresh(step[2]); off = null; last = null; pulled = 0; pulls = 0; landed = Q(`return JSON.stringify([b().layout.desktop.area[0], b().layout.mobile.area[0]]);`); }
     if (step[0] === 'view') { view = step[1] === 'Mobile' ? 'mobile' : 'desktop'; Q(`fe.setBp('${view}'); await sleep(400); return 'true';`); }
-    if (step[0] === 'drag' || step[0] === 'handleDrag') { const was = area().join(); await pull(step[3], step[4], step[5]); pulled += area().join() !== was; }
+    if (step[0] === 'drag' || step[0] === 'handleDrag') { pulls++; const was = area().join(); await pull(step[3], step[4], step[5]); pulled += area().join() !== was; }
     // A hold, then a move and a let-go: one pull, from the hold's place by the move's distance.
     if (step[0] === 'holdRaw') hold = step;
-    if (step[0] === 'release' && hold) { const was = area().join(); await pull(hold[3], hold[4], hold[5]); pulled += area().join() !== was; hold = null; }
+    if (step[0] === 'release' && hold) { pulls++; const was = area().join(); await pull(hold[3], hold[4], hold[5]); pulled += area().join() !== was; hold = null; }
     // With nothing pulled the oracle's Undo takes the add away, and the reads after it are empty: keep the block.
     if (step[0] === 'press' && step[1] === 'Meta+z' && pulled) { Q(`fe.undo(); await sleep(250); return 'true';`); pulled--; }
     if (step[0] === 'read' && step[2]?.areas !== undefined) {
@@ -71,6 +85,11 @@ for (const file of FILES) {
       const want = pick?.split('/').map(Number), have = area();
       if (VOID(file, step[1]) || (!want && NO_AREA.has(`${file} ${step[1]}`))) continue;
       if (!want) { total++; console.log(`DIFF ${file} ${step[1]}: the oracle's read holds no area`); results.push({ file, read: step[1], ok: false }); continue; }
+      if (off === null && pulls) {
+        const at = lands.get(all.filter((a) => a !== pick).sort().join(' '));
+        if (at === undefined) { total++; console.log(`DIFF ${file} ${step[1]}: no start read gives the oracle's landing row`); results.push({ file, read: step[1], ok: false }); continue; }
+        off = at - landed[view === 'mobile' ? 1 : 0];
+      }
       off ??= want[0] - have[0];
       const w = [want[0] - off, want[1], want[2] - off, want[3]].join('/'), named = LAG.has(`${file} ${step[1]}`) || /^CAP-X6SUMMARY(WALK|FAR2?)$/.test(file) || (view === 'mobile' ? PHONE_ROWS_UNBUILT.test(step[1]) : ROWS_UNBUILT.test(step[1]));
       const ok = named ? want[1] === have[1] && want[3] === have[3] : w === have.join('/');
