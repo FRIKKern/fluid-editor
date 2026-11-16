@@ -53,19 +53,20 @@ for (const r of F.readings) {
   }
 }
 // From a margin, on desktop and a phone, on a block made here: CAP-G4MARGIN.json, CAP-G4PHONE.json, CAP-G4MARGIN2.json to CAP-G4MARGIN6.json, and X2's reads from the right margin track.
+// The last number is the y walk (my) from the recipe; X2's reads walked no y (my 0).
 const WALKS = [
-  ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110],
-  ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110],
-  ['CAP-G4MARGIN2', 'se, left margin, to 200', 'desktop', [1, 1, 7, 7], 200],
-  ['CAP-G4MARGIN2', 'phone, move, left margin', 'mobile', [1, 1, 7, 9], 110],
-  ['CAP-G4MARGIN2', 'phone, se, left margin', 'mobile', [1, 1, 7, 9], 110],
-  ['CAP-G4MARGIN3', 'move', 'mobile', [1, 1, 7, 7], 220],
-  ['CAP-G4MARGIN4', 'move', 'mobile', [1, 1, 7, 5], 300],
-  ['CAP-G4MARGIN5', 'move', 'desktop', [1, 1, 7, 22], 300],
-  ['CAP-G4MARGIN5', 'se', 'desktop', [1, 1, 7, 22], 300],
-  ['CAP-G4MARGIN6', 'se', 'desktop', [1, 1, 7, 22], 400],
-  ['CAP-G4PHONE', 'move', 'mobile', [1, 2, 7, 10], 110],
-  ['CAP-G4PHONE', 'se', 'mobile', [1, 2, 7, 10], 110],
+  ['CAP-G4MARGIN', 'se, left margin', 'desktop', [1, 1, 7, 7], 110, 50],
+  ['CAP-G4MARGIN', 'move, left margin', 'desktop', [1, 1, 7, 7], 110, 50],
+  ['CAP-G4MARGIN2', 'se, left margin, to 200', 'desktop', [1, 1, 7, 7], 200, 50],
+  ['CAP-G4MARGIN2', 'phone, move, left margin', 'mobile', [1, 1, 7, 9], 110, 50],
+  ['CAP-G4MARGIN2', 'phone, se, left margin', 'mobile', [1, 1, 7, 9], 110, 50],
+  ['CAP-G4MARGIN3', 'move', 'mobile', [1, 1, 7, 7], 220, 20],
+  ['CAP-G4MARGIN4', 'move', 'mobile', [1, 1, 7, 5], 300, 20],
+  ['CAP-G4MARGIN5', 'move', 'desktop', [1, 1, 7, 22], 300, 20],
+  ['CAP-G4MARGIN5', 'se', 'desktop', [1, 1, 7, 22], 300, 20],
+  ['CAP-G4MARGIN6', 'se', 'desktop', [1, 1, 7, 22], 400, 20],
+  ['CAP-G4PHONE', 'move', 'mobile', [1, 2, 7, 10], 110, 70],
+  ['CAP-G4PHONE', 'se', 'mobile', [1, 2, 7, 10], 110, 70],
   // From the right margin track, a lone block on desktop: its right edge leads, as far as column 2 (X2's table; 6 wide is in mid-check).
   ['CAP-X2STEPS', 'w2', 'desktop', [1, 25, 7, 27], 280],
   ['CAP-X2STEPS', 'w7', 'desktop', [1, 20, 7, 27], 280],
@@ -84,7 +85,7 @@ const WALKS = [
   ['CAP-X2WIDTHS3', 'I w10 long walk', 'desktop', [1, 17, 7, 27], 1200],
   ['CAP-X2WIDTHS3', 'K w4 long walk', 'desktop', [1, 23, 7, 27], 1300],
 ];
-for (const [file, name, view, area, mx] of WALKS) {
+for (const [file, name, view, area, mx, my = 0] of WALKS) {
   const R = JSON.parse(readFileSync(new URL(`../parity/findings/${file}.json`, import.meta.url))).reads[name].walk;
   const part = R.part === 'middle' || Array.isArray(R.part) ? null : R.part, phone = view === 'mobile'; // a point on the block is a move: the step counts from the press (CAP-G4GRAB.json)
   const got = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); const f = document.getElementById('site-frame');
@@ -97,21 +98,26 @@ for (const [file, name, view, area, mx] of WALKS) {
     const q = el.getBoundingClientRect(), cx = q.left + q.width / 2, cy = q.top + q.height / 2, o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 };
     el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, clientX: cx, clientY: cy, buttons: 1 }));
     const read = () => { const e = d.querySelector('.fe-transform-indicator'); return e ? W.getComputedStyle(e).gridArea : null; };
-    const move = (x) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: cy, buttons: 1 }));
-    move(cx + 14); await sleep(20); move(cx); await sleep(20);
-    const walk = async (from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(cx + v); await sleep(2); const a = read(); if (a !== last) { seen.push([v, a]); last = a; } } return seen; };
-    // Out, back to -mx and home as the oracle walked (oracle-capture walk), and what the target reads where each leg starts.
-    const at = { xOut: read() }, xOut = await walk(0, ${mx}); at.xBack = read(); const xBack = await walk(${mx}, ${-mx}); at.xHome = read();
-    const out = { xOut, xBack, xHome: await walk(${-mx}, 0), at };
+    const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+    move(cx + 14, cy); await sleep(20); move(cx, cy); await sleep(20);
+    const walk = async (axis, from, to) => { const seen = []; let last = read(); const step = from < to ? 1 : -1; for (let v = from; v !== to + step; v += step) { move(axis === 'x' ? cx + v : cx, axis === 'y' ? cy + v : cy); await sleep(2); const a = read(); if (a !== last) { seen.push([v, a]); last = a; } } return seen; };
+    // Out, back to -mx and home, then the same in y to my, as the oracle walked (oracle-capture walk), and what the target reads where each leg starts.
+    const out = {}, at = {}, leg = async (name, axis, from, to) => { at[name] = read(); out[name] = await walk(axis, from, to); };
+    await leg('xOut', 'x', 0, ${mx}); await leg('xBack', 'x', ${mx}, ${-mx}); await leg('xHome', 'x', ${-mx}, 0);
+    if (${my}) { await leg('yOut', 'y', 0, ${my}); await leg('yBack', 'y', ${my}, ${-my}); await leg('yHome', 'y', ${-my}, 0); }
+    out.at = at;
     d.dispatchEvent(new W.PointerEvent('pointercancel', { ...o, buttons: 0 }));
     d.dispatchEvent(new W.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     await sleep(100); fe.setBp('desktop'); return JSON.stringify(out); })()`);
-  const start = area.join(' / '), inWalk = (l) => R[l].filter(([v]) => v <= mx && v >= -mx);
-  for (const leg of ['xOut', 'xBack', 'xHome']) {
+  // A read listed with no y walk must have none on the oracle either, or its y changes would go unread.
+  if (!my && ['yOut', 'yBack', 'yHome'].some((l) => R[l]?.length)) throw new Error(`${file} ${name}: the oracle walked y, give its my`);
+  const ORDER = my ? ['xOut', 'xBack', 'xHome', 'yOut', 'yBack', 'yHome'] : ['xOut', 'xBack', 'xHome'];
+  const start = area.join(' / '), inWalk = (l) => { const m = l[0] === 'x' ? mx : my; return R[l].filter(([v]) => v <= m && v >= -m); };
+  for (const leg of ORDER) {
     // The walk can go further back on the oracle: compare what ours walked. The first step only notes the target appearing.
     const want = inWalk(leg).filter(([, a], k) => !(k === 0 && a === start && leg === 'xOut')), have = got[leg];
     // A leg where the oracle saw no change passes only where ours shows the target, on the area the oracle's last change before it (or the start) left.
-    const before = ['xOut', 'xBack', 'xHome'].slice(0, ['xOut', 'xBack', 'xHome'].indexOf(leg)).flatMap(inWalk);
+    const before = ORDER.slice(0, ORDER.indexOf(leg)).flatMap(inWalk);
     const from = (before.length ? before.at(-1)[1] : start).replace(/ /g, ''), now = String(got.at[leg] ?? '').replace(/ /g, '');
     total++;
     const ok = want.length === have.length && want.every(([v, a], k) => Math.abs(v - have[k][0]) <= 1 && a === have[k][1]) && (want.length > 0 || now === from);
