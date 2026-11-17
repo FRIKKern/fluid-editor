@@ -425,13 +425,17 @@ add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0
 // line, not judged: the curve times every frame.
 const easeInOut = (x) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const t = (lo + hi) / 2; if (3 * 0.42 * t * (1 - t) ** 2 + 3 * 0.58 * t * t * (1 - t) + t ** 3 < x) lo = t; else hi = t; } const t = (lo + hi) / 2; return 3 * t * t * (1 - t) + t ** 3; };
 const outlineWatch = async (x, y, up) => {
-  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false }; const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); const own = e ? e.getAnimations().filter((a) => a.effect.getKeyframes().some((k) => 'borderTopColor' in k)).at(-1) : null; T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null, own && own.startTime != null ? Math.round((document.timeline.currentTime - own.startTime) * 10) / 10 : null]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false, lv: null, cut: null }; const ch = document.getElementById('section-chrome'); T.mv = (ev) => { if (T.lv == null) T.lv = ev.timeStamp; }; for (const k of ['pointerout', 'pointerover', 'pointermove']) addEventListener(k, T.mv, true); T.mo = new MutationObserver(() => { if (T.cut == null && T.lv != null && ch.hidden) T.cut = performance.now(); }); T.mo.observe(ch, { attributes: true, attributeFilter: ['hidden'] }); const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); const own = e ? e.getAnimations().filter((a) => a.effect.getKeyframes().some((k) => 'borderTopColor' in k)).at(-1) : null; T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null, own && own.startTime != null ? Math.round((document.timeline.currentTime - own.startTime) * 10) / 10 : null, Math.round(document.timeline.currentTime * 10) / 10]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
-  const { seen, runs } = evalJs(S, `(() => { const T = window.__ow; T.stop = true; return JSON.stringify({ seen: T.seen, runs: [...T.runs].sort() }); })()`);
-  const part = seen.filter(([, c]) => c).map(([t, c, at]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join(), at]; });
+  const { seen, runs, cut } = evalJs(S, `(() => { const T = window.__ow; T.stop = true; T.mo.disconnect(); for (const k of ['pointerout', 'pointerover', 'pointermove']) removeEventListener(k, T.mv, true); return JSON.stringify({ seen: T.seen, runs: [...T.runs].sort(), cut: T.cut == null ? null : Math.round(T.cut - T.lv) }); })()`);
+  const part = seen.filter(([, c]) => c).map(([t, c, at, ct]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join(), at, ct]; });
   const mid = part.filter(([, a]) => a > 0 && a < 1), timed = mid.filter((r) => r[3] != null), p = timed.map((r) => Math.min(1, r[3] / 200));
   const off = timed.map((r, i) => Math.abs(r[1] - (up ? easeInOut(p[i]) : 1 - easeInOut(p[i]))));
-  return { frames: mid.length, timed: timed.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), reach: p.length ? [Math.min(...p), Math.max(...p)].map((v) => Math.round(v * 100) / 100) : [], off: off.length ? Math.round(Math.max(...off) * 1000) / 1000 : null, last: part.at(-1)?.[1], runs, at: mid.map((r) => [r[3], r[1]]) };
+  // Every frame from the first mid-fade one on, lit and transparent ones too, against the curve at its time into the fade: the
+  // frame's animation clock less the fade's start, read off the last frame that had the animation.
+  let st = null;
+  const offAll = part.slice(part.findIndex(([, a]) => a > 0 && a < 1)).map(([, a, , at, ct]) => { if (at != null) st = ct - at; if (st == null) return 1; const q = easeInOut(Math.min(1, (ct - st) / 200)); return Math.abs(a - (up ? q : 1 - q)); });
+  return { frames: mid.length, timed: timed.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), reach: p.length ? [Math.min(...p), Math.max(...p)].map((v) => Math.round(v * 100) / 100) : [], off: off.length ? Math.round(Math.max(...off) * 1000) / 1000 : null, offAll: mid.length ? Math.round(Math.max(...offAll) * 1000) / 1000 : null, cut, last: part.at(-1)?.[1], runs, at: mid.map((r) => [r[3], r[1]]) };
 };
 await hoverBar(800, 20); await pause(300);
 const onCurve = (r) => r.frames >= 4 && r.timed === r.frames && r.reach[0] <= 0.3 && r.reach[1] >= 0.5 && r.off <= 0.03 && r.hue.join() === '72,148,255';
@@ -441,10 +445,13 @@ add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.reach[1]
 // The chrome hides on its own 0.2 s timer from the leave, and the fade starts on the next frame. When that frame comes late (40 and
 // 130 ms read on a loaded Mac), the cut comes before the fade's middle and the read saw too little to judge: go back on and read
 // again, up to 3 tries. Every try's frames must sit on the curve; no try past the middle fails the row. All tries go in the line.
-// A late frame still leaves mid-fade frames before the cut (1 to 5 read with a stall of 130 to 165 ms, fewer at 30 fps), and the
-// cut comes mid-fade, so the last frame before it is still lit. A try with no mid-fade frame, or one gone transparent while the
-// chrome is still up, snapped, so it fails the row: a retry must not pass a fade that is missing (task-1ae025a844b6d3c2), or runs
-// a frame or two and then snaps (task-24020acd1ed6b0a0), on 2 leaves of 3.
+// A late frame still leaves mid-fade frames before the cut (1 to 5 read with a stall of 130 to 165 ms, fewer at 30 fps). So every
+// try needs one, and each frame from it to the cut, lit and transparent ones too, must read the curve at its own time into the
+// fade: gone transparent while the chrome is up is right only once the 0.2 s have run (a stall can let them), and back to lit
+// never is. The cut must come on the timer: 195 ms or more after the leave, timed by the pointer event's own timeStamp, since the
+// move's latency varies. So a retry can't pass, on 2 leaves of 3, a fade that is missing (task-1ae025a844b6d3c2), that runs a
+// frame or two and snaps away (task-24020acd1ed6b0a0) or back to lit (task-66a37e7531637b9c), or that is cut early, which reads
+// like a late start (task-f301ae8c2f7b8b15).
 const outTries = [];
 let outOut;
 for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
@@ -452,7 +459,7 @@ for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
   outOut = await outlineWatch(800, 20, false);
   outTries.push(outOut);
 }
-const sawRight = (r) => r.frames >= 1 && (r.reach[1] >= 0.5 || r.last > 0) && r.timed === r.frames && r.off <= 0.03 && r.falling && r.hue.join() === '72,148,255';
+const sawRight = (r) => r.frames >= 1 && r.timed === r.frames && r.offAll <= 0.03 && r.cut >= 195 && r.falling && r.hue.join() === '72,148,255';
 add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
