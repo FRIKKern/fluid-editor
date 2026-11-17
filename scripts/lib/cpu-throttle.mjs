@@ -60,6 +60,7 @@ export async function throttleCpu(surface, rate, { timeoutMs = 30000, onLost = e
   return {
     // Read again at the end of the run, so a throttle lost midway (a new page, a new renderer) shows.
     async check() { const r = await ratio(); console.log(`CPU throttle ${rate}x still on at the end: the loop runs ${r.toFixed(1)}x slower`); return took(r); },
-    async close() { await send('Emulation.setCPUThrottlingRate', { rate: 1 }); closing = true; ws.close(); },
+    // After check() the run's result stands, so a session lost while the rate goes back to 1 is no failure.
+    async close() { closing = true; await send('Emulation.setCPUThrottlingRate', { rate: 1 }).catch(() => {}); ws.close(); },
   };
 }
