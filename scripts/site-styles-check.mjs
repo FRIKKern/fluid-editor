@@ -124,8 +124,11 @@ for (const st of F.baseSize.steps) {
   const got = evalJs(S, baseRead);
   add(`Base Size ${st.press} to ${st.value}`, same(got, keep(st)), `ours ${JSON.stringify(got)}, oracle ${JSON.stringify(keep(st))}`);
 }
+// One undo takes the field and the page's text back to the read before the last press, the oracle's 16.
+const beforeLast = keep(F.baseSize.steps.at(-2));
 browser(S, 'click', '#undo'); await pause(300);
-add('one undo step for a Base Size press', evalJs(S, baseRead).value === '16');
+const undoneBase = evalJs(S, baseRead);
+add('one undo step for a Base Size press', undoneBase.value === '16' && same(undoneBase, beforeLast), `ours ${JSON.stringify(undoneBase)}, oracle ${JSON.stringify(beforeLast)}`);
 
 // Reset asks first, Cancel changes nothing, Reset clears the pick. Cancel is tried at 17, one press off the reset's 16, so a
 // Cancel that resets shows.
