@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse, moves, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
-import { throttleCpu } from './lib/cpu-throttle.mjs';
+import { throttleCpu, throttleRate } from './lib/cpu-throttle.mjs';
 import { blankSection } from '../app/src/add-section.js';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -34,7 +34,7 @@ const fresh = async () => {
 };
 viewport(S, 1600, 1000);
 // FLUID_CPU_THROTTLE=4: run every row with the page's CPU 4x slower (headless Chrome only). Off by default; CI never sets it.
-const THROTTLE = Number(process.env.FLUID_CPU_THROTTLE || 0);
+const THROTTLE = throttleRate(process.env.FLUID_CPU_THROTTLE);
 const throttle = THROTTLE > 1 ? await throttleCpu(S, THROTTLE) : null;
 
 // U13: the block panel's drag limits, and where it reopens.
