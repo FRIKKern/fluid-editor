@@ -114,12 +114,21 @@ for (const [file, pin, phone] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', fals
     const set = async (key, v) => { const i = document.querySelector('#block-panel input[data-design="' + key + '"]'); i.value = v; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); };
     const out = { start: panel(), block: blockAt(), steps: {}, moved: {} };
     for (const [name, key, v] of [['Offset X 200', 'tx', '200'], ['Offset Y 100', 'ty', '100'], ['Rotate 30', 'rotate', '30'], ['Scale X 150', 'sx', '150']]) { await set(key, v); out.steps[name] = panel(); out.moved[name] = blockAt(); }
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); fe.select('s', 'a'); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.steps.again = panel();
+    // Gone: hidden, or not drawn at all. Read after the Escape, again once the block is selected without Edit, then after the Edit press.
+    const gone = () => { const e = document.getElementById('block-panel'); return e.hidden || !e.getClientRects().length; };
+    out.openBefore = !gone();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); out.closed = gone(); fe.select('s', 'a'); await sleep(150); out.closedSelected = gone();
+    document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.reopened = !gone(); out.steps.again = panel();
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fe.select(null); return JSON.stringify(out); })()`);
   // The block's top is judged by how far each step moved it from its start read, as the oracle's moved from its own.
   const top0 = Math.round(P.start.block.box[1]);
   for (const name of ['Offset X 200', 'Offset Y 100', 'Rotate 30', 'Scale X 150']) { total++; const box = P[name].block.box.map(Math.round), still = near(r.steps[name], r.start), same = r.moved[name].every((v, k) => k === 1 ? Math.abs((v - r.block[1]) - (box[1] - top0)) <= 2 : Math.abs(v - box[k]) <= 2); if (still && same) pass++; else console.log(`DIFF panel under ${name}: at ${r.start}, then ${r.steps[name]}; block ${r.moved[name]} from ${r.block}, oracle ${box} from top ${top0}`); results.push({ name: `panel stays under ${name}`, same: still && same }); }
-  total++; const again = near(r.steps.again, r.start) && P2['opened again'].panelBox.box[0] === P.start.panelBox.box[0]; if (again) pass++; else console.log(`DIFF panel opened again: ${r.steps.again}, at first ${r.start}`); results.push({ name: 'panel opened again beside the box', same: again });
+  // The oracle's panel closed on Escape and opened again on Edit (CAP-PANELSTILL2.json's answer): a panel that never
+  // closes, or one that a select alone brings back, would sit at its first place too, so both are read.
+  total++; const closed = r.openBefore && r.closed && r.closedSelected; if (closed) pass++; else console.log(`DIFF panel closed on Escape: open before ${r.openBefore}, gone after Escape ${r.closed}, gone once selected again ${r.closedSelected}`); results.push({ name: 'panel closed on Escape, still closed when selected again', same: closed });
+  // Opened again where it first opened, as the oracle's opened-again read sits from its start read.
+  const oa = P2['opened again'].panelBox.box, o0 = P.start.panelBox.box, moved = [r.steps.again[0] - r.start[0], r.steps.again[1] - r.start[1]], omoved = [oa[0] - o0[0], oa[1] - o0[1]];
+  total++; const again = r.reopened && near(moved, omoved); if (again) pass++; else console.log(`DIFF panel opened again: shown ${r.reopened}, at ${r.steps.again}, at first ${r.start}; moved ${moved}, oracle ${omoved}`); results.push({ name: 'panel opened again beside the box', same: again });
 }
 console.log(`Editor chrome: ${pass} of ${total} checks match`);
 writeFileSync(new URL('../parity/chrome-check.json', import.meta.url), JSON.stringify({ check: 'block toolbar and selection rings', tolerance: 1, pass, total, results }, null, 2) + '\n');

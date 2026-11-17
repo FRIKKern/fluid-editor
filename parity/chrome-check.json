@@ -1,8 +1,8 @@
 {
   "check": "block toolbar and selection rings",
   "tolerance": 1,
-  "pass": 97,
-  "total": 97,
+  "pass": 98,
+  "total": 98,
   "results": [
     {
       "name": "text",
@@ -315,6 +315,10 @@
     },
     {
       "name": "panel stays under Scale X 150",
+      "same": true
+    },
+    {
+      "name": "panel closed on Escape, still closed when selected again",
       "same": true
     },
     {
