@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { evalJs, goto, viewport, pause, browser, drag, mouse, moves, wheel } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
+import { throttleCpu } from './lib/cpu-throttle.mjs';
 import { blankSection } from '../app/src/add-section.js';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -32,6 +33,9 @@ const fresh = async () => {
   goto(S, `${BASE}/index.html`); await pause(1500);
 };
 viewport(S, 1600, 1000);
+// FLUID_CPU_THROTTLE=4: run every row with the page's CPU 4x slower (headless Chrome only). Off by default; CI never sets it.
+const THROTTLE = Number(process.env.FLUID_CPU_THROTTLE || 0);
+const throttle = THROTTLE > 1 ? await throttleCpu(S, THROTTLE) : null;
 
 // U13: the block panel's drag limits, and where it reopens.
 await fresh();
@@ -4243,6 +4247,10 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add('View Layouts, a Text of two paragraphs + Video: off, not read', !!tv && tv.off, JSON.stringify(tv));
   }
 }
-console.log(`Marks: ${pass} of ${total} checks match${known.length ? `, ${known.length} named known miss (Linux font)` : ''}`);
-writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails, ...(known.length && { known }) }, null, 2)}\n`);
-if (fails.length || pass + known.length !== total) process.exit(1);
+console.log(`Marks: ${pass} of ${total} checks match${known.length ? `, ${known.length} named known miss (Linux font)` : ''}${throttle ? `, CPU throttle ${THROTTLE}x` : ''}`);
+// A throttled run that lost its throttle midway proved nothing at the rate asked, so it fails. It never writes the stored result.
+const cpuHeld = throttle ? await throttle.check() : true;
+if (throttle) await throttle.close();
+else writeFileSync(new URL('../parity/marks-check.json', import.meta.url), `${JSON.stringify({ pass, total, fails, ...(known.length && { known }) }, null, 2)}\n`);
+if (!cpuHeld) console.log(`CPU throttle ${THROTTLE}x was lost during the run`);
+if (fails.length || pass + known.length !== total || !cpuHeld) process.exit(1);
