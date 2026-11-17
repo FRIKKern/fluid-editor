@@ -420,7 +420,7 @@ const noRun = [];
 // rows: the rows a Heading or Paragraph gets back, the row end at most n rows from the oracle's, its start and columns the
 // same (PARITY.md: one row each; S1 3 z two, its text being shorter). html: where the oracle took smaller steps than typed
 // (a Cmd+Z that stopped mid word, S1 3 z; letters one step each across a 700 ms gap, S5), so ours undid more: the same
-// element, ours' text a start of the oracle's. has Bold: the text bar the oracle read as not showing; a wrong yes or no has
+// markup, ours' text a start of the oracle's and not empty. has Bold: the text bar the oracle read as not showing; a wrong yes or no has
 // only the one value. Any other part that differs, or one past its bound, fails the row as anywhere.
 const KNOWN = {
   'CAP-Y2KEYS9 rows Paragraph 3 3 z': { rows: 1 }, 'CAP-Y2KEYS9 rows Heading 1 2 z': { rows: 1 }, 'CAP-Y2KEYS9 rows Heading 1 3 z': { rows: 1, 'has Bold': true },
@@ -436,7 +436,9 @@ const rowEnds = ([want, got] = [], n) => Array.isArray(want) && Array.isArray(go
   const a = w.split('/').map(Number), b = got[i].split('/').map(Number);
   return a[0] === b[0] && a[1] === b[1] && a[3] === b[3] && Math.abs(a[2] - b[2]) <= n;
 });
-const shorter = ([want, got] = []) => { const tag = (h) => h?.match(/^<[^>]+>/)?.[0], text = (h) => h.replace(/<[^>]+>/g, ''); return !!tag(want) && tag(want) === tag(got) && text(want).startsWith(text(got)); };
+// html 'shorter': the same markup once the text is taken out (no tag added, lost or split off), and ours' text a start of the
+// oracle's that is not empty.
+const shorter = ([want, got] = []) => { const marks = (h) => (h.match(/<[^>]+>/g) || []).join(''), text = (h) => h.replace(/<[^>]+>/g, ''); return typeof want === 'string' && typeof got === 'string' && marks(want) !== '' && marks(want) === marks(got) && text(got) !== '' && text(want).startsWith(text(got)); };
 const WITHIN = { rows: (seen, n) => rowEnds(seen.rows, n), html: (seen) => shorter(seen.html), 'has Bold': () => true };
 const knownMiss = (key, parts, seen) => !!KNOWN[key] && !!parts && !!seen && Object.entries(parts).every(([k, same]) => same || (k in KNOWN[key] && WITHIN[k](seen, KNOWN[key][k])));
 for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9', 'CAP-Y2SCORE'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {

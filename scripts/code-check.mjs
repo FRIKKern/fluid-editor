@@ -765,14 +765,18 @@ add('All the reads were walked', edits >= 60 && bars >= 20, `${edits} edits, ${b
 
 // Link, by what the press shows on the oracle: the first link touched, or the Add Link form.
 const LINKS = [['CAP-T10STATE', /^L\d+$/], ['CAP-T10EDITS3', / press$/]]; // EDITS2's press reads ran on after a failed reselect: round 3 redid them
+// What a Link press shows: the popover must be open, and a want of null means the Add Link form (its field, no link).
+const linkNow = () => evalJs(S, `(() => { const p = document.getElementById('link-popover'); return JSON.stringify({ open: !p.hidden, href: p.querySelector('.lk-md-href')?.textContent ?? null, form: !!p.querySelector('.lk-input') }); })()`);
+const linkIs = (got, href) => got.open && got.href === href && (href !== null || got.form);
+const linkSays = (got) => !got.open ? 'closed' : got.href ?? (got.form ? 'the form' : 'empty');
 let linkReads = 0;
 for (const [n, re] of LINKS) {
   for (const c of casesOf(read(n))) {
     if (!re.test(c.name)) continue;
     const row = c.read.controls.map((x) => x.label), at = row.indexOf('Edit'), href = at > 0 ? row[at - 1] : null;
     await setMd(c.text); setSel(c.a, c.b); await pause(60); await pressAt(mdBtn('Link'));
-    const got = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`);
-    add(`Link shows, ${n.slice(7)} ${c.name.slice(0, 32)}`, got === href, `${got} wants ${href}`);
+    const got = linkNow();
+    add(`Link shows, ${n.slice(7)} ${c.name.slice(0, 32)}`, linkIs(got, href), `${linkSays(got)} wants ${href ?? 'the form'}`);
     linkReads++;
     await key('Escape'); await pause(180);
     const P = evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`);
@@ -785,7 +789,7 @@ add('Link: all the reads walked', linkReads >= 8, linkReads);
 // seen by the rules PRED-T10FIX.json wrote afterwards.
 const LAST = read('PRED-T10READS4'), LAST1 = read('CAP-T10SCORE').reads, LAST2 = read('CAP-T10SCORE2').reads;
 const closeLink = async () => { await key('Escape'); await pause(180); if (evalJs(S, `(() => JSON.stringify(document.getElementById('block-panel').hidden))()`)) await openPanel(evalJs(S, `(() => JSON.stringify(fe.model.sections[1].blocks.at(-1).id))()`)); };
-const shownBy = async () => { await pressAt(mdBtn('Link')); const v = evalJs(S, `(() => JSON.stringify(document.querySelector('#link-popover .lk-md-href')?.textContent ?? null))()`); return v; };
+const shownBy = async () => { await pressAt(mdBtn('Link')); return linkNow(); };
 const hrefOf = (r) => { const row = r.controls.map((x) => x.label), at = row.indexOf('Edit'); return at > 0 ? row[at - 1] : null; };
 const flags = (o) => JSON.stringify([o.Bold, o.Italic, o.Link]);
 for (const [name, c] of Object.entries(LAST.edit)) {
@@ -798,7 +802,7 @@ for (const [name, c] of Object.entries(LAST.look)) {
   await setMd(c.text); setSel(...c.sel); await pause(60);
   const got = barNow().on, want = barWants(LAST2[name]).on, pressed = LAST2[`${name} press`]; // W's Link press wasn't read
   let same = flags(got) === flags(want), detail = `${flags(got)} wants ${flags(want)}`;
-  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && shows === href; detail += `, shows ${shows} wants ${href}`; await closeLink(); }
+  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && linkIs(shows, href); detail += `, shows ${linkSays(shows)} wants ${href ?? 'the form'}`; await closeLink(); }
   add(`Seen ${name.split(' ')[0]}`, same, detail);
 }
 // The fresh round, predictions pushed first, 54 of 60 (PRED-T10FIX.json, CAP-T10FIX to CAP-T10FIX7). The six it missed stay
@@ -814,7 +818,7 @@ for (const [name, c] of Object.entries(FIX.look)) {
   await setMd(c.text); setSel(...c.sel); await pause(60);
   const got = barNow().on, want = barWants(FIX2[name]).on, pressed = FIXP[`${name} press`];
   let same = flags(got) === flags(want), detail = `${flags(got)} wants ${flags(want)}`;
-  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && shows === href; detail += `, shows ${shows} wants ${href}`; await closeLink(); }
+  if (pressed) { const shows = await shownBy(), href = hrefOf(pressed); same = same && linkIs(shows, href); detail += `, shows ${linkSays(shows)} wants ${href ?? 'the form'}`; await closeLink(); }
   add(`Fresh ${name.split(' ')[0]}`, same, detail);
 }
 // The Link form on a reference, built as read, so not scored (CAP-T10FIX3.json, CAP-T10FIX7.json, CAP-T10FORM.json, CAP-T10FORM2.json).

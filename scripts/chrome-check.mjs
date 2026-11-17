@@ -112,11 +112,13 @@ for (const [file, pin, phone] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', fals
     fe.select('s', 'a'); await sleep(120); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200);
     const panel = () => { const q = document.getElementById('block-panel').getBoundingClientRect(); return [q.left, q.top]; }, blockAt = () => { const q = d().querySelector('.fe-block[data-block-id="a"]').getBoundingClientRect(); return [q.left, q.top, q.width, q.height].map(Math.round); };
     const set = async (key, v) => { const i = document.querySelector('#block-panel input[data-design="' + key + '"]'); i.value = v; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); };
-    const out = { start: panel(), steps: {}, moved: {} };
+    const out = { start: panel(), block: blockAt(), steps: {}, moved: {} };
     for (const [name, key, v] of [['Offset X 200', 'tx', '200'], ['Offset Y 100', 'ty', '100'], ['Rotate 30', 'rotate', '30'], ['Scale X 150', 'sx', '150']]) { await set(key, v); out.steps[name] = panel(); out.moved[name] = blockAt(); }
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); fe.select('s', 'a'); await sleep(150); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.steps.again = panel();
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fe.select(null); return JSON.stringify(out); })()`);
-  for (const name of ['Offset X 200', 'Offset Y 100', 'Rotate 30', 'Scale X 150']) { total++; const box = P[name].block.box.map(Math.round), still = near(r.steps[name], r.start), same = r.moved[name].every((v, k) => Math.abs(v - box[k]) <= 2 || k === 1); if (still && same) pass++; else console.log(`DIFF panel under ${name}: at ${r.start}, then ${r.steps[name]}; block ${r.moved[name]}, oracle ${box}`); results.push({ name: `panel stays under ${name}`, same: still && same }); }
+  // The block's top is judged by how far each step moved it from its start read, as the oracle's moved from its own.
+  const top0 = Math.round(P.start.block.box[1]);
+  for (const name of ['Offset X 200', 'Offset Y 100', 'Rotate 30', 'Scale X 150']) { total++; const box = P[name].block.box.map(Math.round), still = near(r.steps[name], r.start), same = r.moved[name].every((v, k) => k === 1 ? Math.abs((v - r.block[1]) - (box[1] - top0)) <= 2 : Math.abs(v - box[k]) <= 2); if (still && same) pass++; else console.log(`DIFF panel under ${name}: at ${r.start}, then ${r.steps[name]}; block ${r.moved[name]} from ${r.block}, oracle ${box} from top ${top0}`); results.push({ name: `panel stays under ${name}`, same: still && same }); }
   total++; const again = near(r.steps.again, r.start) && P2['opened again'].panelBox.box[0] === P.start.panelBox.box[0]; if (again) pass++; else console.log(`DIFF panel opened again: ${r.steps.again}, at first ${r.start}`); results.push({ name: 'panel opened again beside the box', same: again });
 }
 console.log(`Editor chrome: ${pass} of ${total} checks match`);
