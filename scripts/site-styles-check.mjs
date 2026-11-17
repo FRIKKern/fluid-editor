@@ -51,7 +51,10 @@ evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 goto(S, `${BASE}/index.html`); await pause(1500);
 browser(S, 'click', '#site-styles-toggle'); await pause(300);
 browser(S, 'click', '[data-ss-pop="Colors"]'); await pause(300);
+// Read with the panel open, as the reads after the pick and the undo are.
+const preStyles = JSON.stringify(evalJs(S, READ));
 browser(S, 'click', '#ss-popover [aria-label="Palette with accent #209D50"]'); await pause(300);
+const pickStyles = JSON.stringify(evalJs(S, READ));
 const THEME = { 'Light 1': 'light', 'Light 2': 'light-bold', 'Bright 2': 'bright', 'Dark 2': 'dark-bold', 'Darkest 1': 'black', 'Lightest 1': 'white', 'Lightest 2': 'white-bold', 'Bright 1': 'bright-inverse', 'Dark 1': 'dark', 'Darkest 2': 'black-bold' };
 for (const [name, bg, ink] of F.afterPalette.rows) {
   const theme = THEME[name.replace('Aa ', '')];
@@ -63,7 +66,10 @@ for (const [name, bg, ink] of F.afterPalette.rows) {
 const undoOff = () => evalJs(S, `(() => JSON.stringify(document.querySelector('#undo').disabled))()`);
 const before = undoOff();
 browser(S, 'click', '#undo'); await pause(300);
-add('one undo step for a pick', before === false && undoOff() === true);
+// The page reads as before the pick: its style vars, headings, text, title and button.
+const undone = JSON.stringify(evalJs(S, READ));
+const changed = (a, b) => Object.keys(a).flatMap((k) => Object.keys(a[k]).filter((j) => a[k][j] !== b[k][j]).map((j) => `${k}.${j} ${a[k][j]} -> ${b[k][j]}`)).join(', ');
+add('one undo step for a pick', before === false && undoOff() === true && pickStyles !== preStyles && undone === preStyles, `undo off ${before} then ${undoOff()}; the pick ${pickStyles !== preStyles ? 'changed' : 'left'} the page, the undo ${undone === preStyles ? 'took it back' : `left ${changed(JSON.parse(preStyles), JSON.parse(undone))}`}`);
 
 // The popovers: 342 wide, 22px from the editor's right edge, the measured heights.
 for (const [kind, rows] of Object.entries(F.popovers)) {
