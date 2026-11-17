@@ -437,9 +437,10 @@ add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.reach[1]
 // The chrome hides on its own 0.2 s timer from the leave, and the fade starts on the next frame. When that frame comes late (40 and
 // 130 ms read on a loaded Mac), the cut comes before the fade's middle and the read saw too little to judge: go back on and read
 // again, up to 3 tries. Every try's frames must sit on the curve; no try past the middle fails the row. All tries go in the line.
-// A late frame still leaves 4 or 5 mid-fade frames before the cut (read with a 130 ms stall on every leave). A try with fewer than
-// 3 snapped to transparent or stopped early, so it fails the row: a retry must not pass a fade that is missing
-// (task-1ae025a844b6d3c2), or runs one frame and then snaps (task-24020acd1ed6b0a0), on 2 leaves of 3.
+// A late frame still leaves mid-fade frames before the cut (1 to 5 read with a stall of 130 to 165 ms, fewer at 30 fps), and the
+// cut comes mid-fade, so the last frame before it is still lit. A try with no mid-fade frame, or one gone transparent while the
+// chrome is still up, snapped, so it fails the row: a retry must not pass a fade that is missing (task-1ae025a844b6d3c2), or runs
+// a frame or two and then snaps (task-24020acd1ed6b0a0), on 2 leaves of 3.
 const outTries = [];
 let outOut;
 for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
@@ -447,7 +448,7 @@ for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
   outOut = await outlineWatch(800, 20, false);
   outTries.push(outOut);
 }
-const sawRight = (r) => r.frames >= 3 && r.timed === r.frames && r.off <= 0.03 && r.falling && r.hue.join() === '72,148,255';
+const sawRight = (r) => r.frames >= 1 && (r.reach[1] >= 0.5 || r.last > 0) && r.timed === r.frames && r.off <= 0.03 && r.falling && r.hue.join() === '72,148,255';
 add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
