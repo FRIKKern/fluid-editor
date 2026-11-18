@@ -3,7 +3,7 @@
 // and every oracle script follows. With no variable it is DEFAULT_SITE, so nothing changes.
 // scripts/check-oracle-site.mjs fails if any other script names a *.squarespace.com site.
 
-export const DEFAULT_SITE = 'halibut-keyboard-jlhd.squarespace.com';
+export const DEFAULT_SITE = 'magenta-collie-4bhk.squarespace.com';
 
 // "<name>", "<name>.squarespace.com" or an address on it, to the host. Anything else stops the script:
 // a trial site is always <name>.squarespace.com, and its editor is /config.
