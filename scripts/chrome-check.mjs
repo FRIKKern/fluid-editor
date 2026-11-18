@@ -114,18 +114,27 @@ for (const [file, pin, phone] of [['CAP-U4ZPRESS', false], ['CAP-U4ZSTACK', fals
     const set = async (key, v) => { const i = document.querySelector('#block-panel input[data-design="' + key + '"]'); i.value = v; i.dispatchEvent(new Event('change', { bubbles: true })); await sleep(200); };
     const out = { start: panel(), block: blockAt(), steps: {}, moved: {} };
     for (const [name, key, v] of [['Offset X 200', 'tx', '200'], ['Offset Y 100', 'ty', '100'], ['Rotate 30', 'rotate', '30'], ['Scale X 150', 'sx', '150']]) { await set(key, v); out.steps[name] = panel(); out.moved[name] = blockAt(); }
-    // Gone: hidden, or not drawn at all. Read after the Escape, again once the block is selected without Edit, then after the Edit press.
-    const gone = () => { const e = document.getElementById('block-panel'); return e.hidden || !e.getClientRects().length; };
+    // Gone: hidden, or not drawn at all. Read after the Escape, then watched every 8 ms from before the block is pressed again.
+    const gone = window.__panelGone = () => { const e = document.getElementById('block-panel'); return e.hidden || !e.getClientRects().length; };
     out.openBefore = !gone();
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); out.closed = gone(); fe.select('s', 'a'); await sleep(150); out.closedSelected = gone();
-    document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.reopened = !gone(); out.steps.again = panel();
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fe.select(null); return JSON.stringify(out); })()`);
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await sleep(200); out.closed = gone();
+    window.__panelShown = 0; window.__panelWatch = setInterval(() => { if (!gone()) window.__panelShown++; }, 8);
+    const fr = f.getBoundingClientRect(), q = d().querySelector('.fe-block[data-block-id="a"]').getBoundingClientRect(); out.press = [fr.left + q.left + q.width / 2, fr.top + q.top + q.height / 2].map(Math.round);
+    return JSON.stringify(out); })()`);
+  // Selected again by a real pointer press, as the oracle's select step, and the panel watched 800 ms: one that a press,
+  // or a late timer, brings back is caught, not only one already up 150 ms after fe.select.
+  mouse(S, 'move', ...r.press); await pause(40); mouse(S, 'down', ...r.press, { buttons: 1 }); await pause(30); mouse(S, 'up', ...r.press); await pause(800);
+  Object.assign(r, evalJs(S, `(async () => { const sleep = (x) => new Promise((res) => setTimeout(res, x)); const gone = window.__panelGone; clearInterval(window.__panelWatch);
+    const out = { shownWhileSelected: window.__panelShown, closedSelected: gone(), selected: document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="a"]').dataset.isSelected === 'true' };
+    document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(200); out.reopened = !gone(); const q = document.getElementById('block-panel').getBoundingClientRect(); out.again = [q.left, q.top];
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fe.select(null); return JSON.stringify(out); })()`));
+  r.steps.again = r.again;
   // The block's top is judged by how far each step moved it from its start read, as the oracle's moved from its own.
   const top0 = Math.round(P.start.block.box[1]);
   for (const name of ['Offset X 200', 'Offset Y 100', 'Rotate 30', 'Scale X 150']) { total++; const box = P[name].block.box.map(Math.round), still = near(r.steps[name], r.start), same = r.moved[name].every((v, k) => k === 1 ? Math.abs((v - r.block[1]) - (box[1] - top0)) <= 2 : Math.abs(v - box[k]) <= 2); if (still && same) pass++; else console.log(`DIFF panel under ${name}: at ${r.start}, then ${r.steps[name]}; block ${r.moved[name]} from ${r.block}, oracle ${box} from top ${top0}`); results.push({ name: `panel stays under ${name}`, same: still && same }); }
   // The oracle's panel closed on Escape and opened again on Edit (CAP-PANELSTILL2.json's answer): a panel that never
   // closes, or one that a select alone brings back, would sit at its first place too, so both are read.
-  total++; const closed = r.openBefore && r.closed && r.closedSelected; if (closed) pass++; else console.log(`DIFF panel closed on Escape: open before ${r.openBefore}, gone after Escape ${r.closed}, gone once selected again ${r.closedSelected}`); results.push({ name: 'panel closed on Escape, still closed when selected again', same: closed });
+  total++; const closed = r.openBefore && r.closed && r.selected && r.closedSelected && r.shownWhileSelected === 0; if (closed) pass++; else console.log(`DIFF panel closed on Escape: open before ${r.openBefore}, gone after Escape ${r.closed}, pressed block selected ${r.selected}, gone 800 ms after ${r.closedSelected}, shown in ${r.shownWhileSelected} reads`); results.push({ name: 'panel closed on Escape, still closed when selected again', same: closed });
   // Opened again where it first opened, as the oracle's opened-again read sits from its start read.
   const oa = P2['opened again'].panelBox.box, o0 = P.start.panelBox.box, moved = [r.steps.again[0] - r.start[0], r.steps.again[1] - r.start[1]], omoved = [oa[0] - o0[0], oa[1] - o0[1]];
   total++; const again = r.reopened && near(moved, omoved); if (again) pass++; else console.log(`DIFF panel opened again: shown ${r.reopened}, at ${r.steps.again}, at first ${r.start}; moved ${moved}, oracle ${omoved}`); results.push({ name: 'panel opened again beside the box', same: again });
