@@ -425,7 +425,7 @@ add('chrome slides in over 0.17s', fading.name === 'sc-in' && fading.time === '0
 // line, not judged: the curve times every frame.
 const easeInOut = (x) => { let lo = 0, hi = 1; for (let i = 0; i < 40; i++) { const t = (lo + hi) / 2; if (3 * 0.42 * t * (1 - t) ** 2 + 3 * 0.58 * t * t * (1 - t) + t ** 3 < x) lo = t; else hi = t; } const t = (lo + hi) / 2; return 3 * t * t * (1 - t) + t ** 3; };
 const outlineWatch = async (x, y, up) => {
-  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false, lv: null, cut: null }; const ch = document.getElementById('section-chrome'); T.mv = (ev) => { if (T.lv == null) T.lv = ev.timeStamp; }; for (const k of ['pointerout', 'pointerover', 'pointermove']) addEventListener(k, T.mv, true); T.mo = new MutationObserver(() => { if (T.cut == null && T.lv != null && ch.hidden) T.cut = performance.now(); }); T.mo.observe(ch, { attributes: true, attributeFilter: ['hidden'] }); const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); const own = e ? e.getAnimations().filter((a) => a.effect.getKeyframes().some((k) => 'borderTopColor' in k)).at(-1) : null; T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null, own && own.startTime != null ? Math.round((document.timeline.currentTime - own.startTime) * 10) / 10 : null, Math.round(document.timeline.currentTime * 10) / 10]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
+  evalJs(S, `(() => { const T = window.__ow = { t0: performance.now(), seen: [], runs: new Set(), stop: false, lv: null, cut: null }; const ch = document.getElementById('section-chrome'); T.mv = (ev) => { if (T.lv == null) T.lv = ev.timeStamp; }; for (const k of ['pointerout', 'pointerover', 'pointermove']) addEventListener(k, T.mv, true); T.mo = new MutationObserver(() => { if (T.cut == null && T.lv != null && ch.hidden) T.cut = performance.now(); }); T.mo.observe(ch, { attributes: true, attributeFilter: ['hidden'] }); const tick = () => { if (T.stop) return; const e = document.querySelector('#section-chrome:not([hidden]) .sc-outline'); const own = e ? e.getAnimations().filter((a) => a.effect.getKeyframes().some((k) => 'borderTopColor' in k)).at(-1) : null; T.seen.push([Math.round(performance.now() - T.t0), e ? getComputedStyle(e).borderTopColor : null, own && own.startTime != null ? Math.round((document.timeline.currentTime - own.startTime) * 10) / 10 : null, Math.round(document.timeline.currentTime * 10) / 10, !e && !ch.hidden]); if (e) for (const a of e.getAnimations()) { const t = a.effect.getTiming(); T.runs.add([a.constructor.name, a.transitionProperty || a.animationName, t.duration, t.easing].join(' ')); } requestAnimationFrame(tick); }; tick(); return 'ok'; })()`);
   mouse(S, 'move', x, y); mouse(S, 'move', x + 2, y + 1); await pause(700);
   const { seen, runs, cut, lv } = evalJs(S, `(() => { const T = window.__ow; T.stop = true; T.mo.disconnect(); for (const k of ['pointerout', 'pointerover', 'pointermove']) removeEventListener(k, T.mv, true); return JSON.stringify({ seen: T.seen, runs: [...T.runs].sort(), cut: T.cut == null ? null : Math.round(T.cut - T.lv), lv: T.lv }); })()`);
   const part = seen.filter(([, c]) => c).map(([t, c, at, ct]) => { const n = c.match(/[\d.]+/g).map(Number); return [t, n.length > 3 ? n[3] : 1, n.slice(0, 3).join(), at, ct]; });
@@ -435,10 +435,12 @@ const outlineWatch = async (x, y, up) => {
   // frame's animation clock less the fade's start, read off the last frame that had the animation.
   let st = null;
   const offAll = part.slice(part.findIndex(([, a]) => a > 0 && a < 1)).map(([, a, , at, ct]) => { if (at != null) st = ct - at; if (st == null) return 1; const q = easeInOut(Math.min(1, (ct - st) / 200)); return Math.abs(a - (up ? q : 1 - q)); });
+  // Frames with the chrome up and no outline in it: the outline taken away mid-fade reads like a cut, which drops its frames.
+  const gone = seen.filter((r) => r[4]).length;
   // Frames drawn after the leave and before the fade's start (read off the first frame that had the animation), as ms after the leave.
   const t0 = part.find((r) => r[3] != null), s0 = t0 ? t0[4] - t0[3] : null;
   const pre = lv == null || s0 == null ? [] : part.filter(([, , , , ct]) => ct > lv && ct < s0 - 1).map(([, , , , ct]) => Math.round(ct - lv));
-  return { pre, frames: mid.length, timed: timed.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), reach: p.length ? [Math.min(...p), Math.max(...p)].map((v) => Math.round(v * 100) / 100) : [], off: off.length ? Math.round(Math.max(...off) * 1000) / 1000 : null, offAll: mid.length ? Math.round(Math.max(...offAll) * 1000) / 1000 : null, cut, last: part.at(-1)?.[1], runs, at: mid.map((r) => [r[3], r[1]]) };
+  return { pre, gone, frames: mid.length, timed: timed.length, span: mid.length ? mid.at(-1)[0] - mid[0][0] : 0, hue: [...new Set(mid.map((r) => r[2]))], rising: mid.every((r, i) => !i || r[1] >= mid[i - 1][1]), falling: mid.every((r, i) => !i || r[1] <= mid[i - 1][1]), reach: p.length ? [Math.min(...p), Math.max(...p)].map((v) => Math.round(v * 100) / 100) : [], off: off.length ? Math.round(Math.max(...off) * 1000) / 1000 : null, offAll: mid.length ? Math.round(Math.max(...offAll) * 1000) / 1000 : null, cut, last: part.at(-1)?.[1], runs, at: mid.map((r) => [r[3], r[1]]) };
 };
 await hoverBar(800, 20); await pause(300);
 const onCurve = (r) => r.frames >= 4 && r.timed === r.frames && r.reach[0] <= 0.3 && r.reach[1] >= 0.5 && r.off <= 0.03 && r.hue.join() === '72,148,255';
@@ -458,7 +460,9 @@ add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.reach[1]
 // first frame after the leave, now and then one later (read 1-13 ms after the leave). A stall draws one frame as it ends, still
 // lit (read 127 and 155 ms after the leave with a stall of 130 and 165), and none while it lasts. A fade that starts late while
 // frames keep coming draws one every frame, lit until it snaps off at the cut. So 2 frames drawn more than 34 ms (2 frames at
-// 60 fps, 1 at 30) after the leave and before the fade's start fail the try (task-6183bb6cadef5cc2).
+// 60 fps, 1 at 30) after the leave and before the fade's start fail the try (task-6183bb6cadef5cc2). Only the
+// cut takes the outline away: a frame with the chrome up and no outline in it fails the try, since it reads as no color, like a
+// frame after the cut (task-110115690a9ce8f5).
 const outTries = [];
 let outOut;
 for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
@@ -466,7 +470,7 @@ for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
   outOut = await outlineWatch(800, 20, false);
   outTries.push(outOut);
 }
-const sawRight = (r) => r.frames >= 1 && r.pre.filter((d) => d > 34).length < 2 && r.timed === r.frames && r.offAll <= 0.03 && r.cut >= 195 && r.falling && r.hue.join() === '72,148,255';
+const sawRight = (r) => r.frames >= 1 && !r.gone && r.pre.filter((d) => d > 34).length < 2 && r.timed === r.frames && r.offAll <= 0.03 && r.cut >= 195 && r.falling && r.hue.join() === '72,148,255';
 add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
