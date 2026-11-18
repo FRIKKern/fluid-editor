@@ -2246,12 +2246,13 @@ function animStopPreview() {
   if (el) releasePose(el);
 }
 // A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
-// agree): its slow-starting run first shows at 844 ms, so it starts about 170 ms after the press; not if the editor has changed by then.
+// agree): its slow-starting run first shows 777 and 817 ms after the press's click (CAP-T15FLOATHOLD1.json and 2: the click starts
+// it, not the pointerdown), so it starts 470 ms after the click; not if the editor has changed by then.
 let stageOpenTimer = 0;
 function stageOnOpen() {
   clearTimeout(stageOpenTimer);
   const sq = blockPanel.querySelector('.an-stage .an-sq'), at = anim.i;
-  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 170);
+  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 470);
 }
 function animAction(el) {
   if (el.dataset.anim !== 'play') animStopPreview();
