@@ -1750,7 +1750,7 @@ function onKey(e) {
     // Option changes e.key on macOS.
     const STYLE_KEYS = { Digit6: 'h1', Digit5: 'h2', Digit4: 'h3', Digit3: 'h4', Digit2: 'p.sqsrte-large', Digit1: 'p', Digit0: 'p.sqsrte-small', KeyM: 'pre' };
     if (mod && e.altKey && STYLE_KEYS[e.code]) { e.preventDefault(); applyFormat('style', STYLE_KEYS[e.code]); renderTextBar(); return; }
-    if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); if (editing) syncToggles(textBar, editing.ce, win.getSelection()); return; }
+    if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); if (editing) syncToggles(textBar, editing.ce, win.getSelection(), editing.strikeNext); return; }
     return;
   }
   // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
@@ -2245,13 +2245,14 @@ function animStopPreview() {
   const el = sel && blockEl(sel.bid);
   if (el) releasePose(el);
 }
-// A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
-// agree): its slow-starting run first shows at 844 ms, so it starts about 170 ms after the press; not if the editor has changed by then.
+// A preset's editor opened by its tile's Edit plays the row once on the stage: its slow-starting run first shows 777 and 817 ms
+// after the press's click (CAP-T15FLOATHOLD1.json and 2, the press held: the click starts it, not the pointerdown), so it starts
+// 470 ms after the click; not if the editor has changed by then.
 let stageOpenTimer = 0;
 function stageOnOpen() {
   clearTimeout(stageOpenTimer);
   const sq = blockPanel.querySelector('.an-stage .an-sq'), at = anim.i;
-  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 170);
+  stageOpenTimer = setTimeout(() => { const a = animRows()[at]; if (a && sq?.isConnected && anim.view === 'editor' && anim.i === at) playStage(sq, a); }, 470);
 }
 function animAction(el) {
   if (el.dataset.anim !== 'play') animStopPreview();
@@ -4904,7 +4905,7 @@ function currentColorKey() {
 }
 function renderTextBar() {
   if (!editing || editing.soft || editing.barGone || document.body.classList.contains('is-preview')) { textBar.hidden = true; textMenu = null; return; }
-  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null, toggleStates(editing.ce, win.getSelection()));
+  textBar.innerHTML = textBarHtml(fmt.currentStyle(editing.ce, win.getSelection()), textMenu, textMenu === 'color' ? currentColorKey() : null, textMenu === 'color' ? customColor : null, toggleStates(editing.ce, win.getSelection(), editing.strikeNext));
   paintCustomColor();
   // The color popover is centred under its button, 6px below it (TEXTCOLOR.json).
   const cp = textBar.querySelector('.tx-colors'), cb = textBar.querySelector('[data-fmt="color-menu"]');
@@ -5361,7 +5362,7 @@ function moveWithText(s, b, a, d) {
 function onTextSelection() {
   if (editing?.strikeNext && String(fmt.caretPlace(editing.ce, win.getSelection())) !== editing.strikeNext.at) editing.strikeNext = null;
   // With a menu open the bar is not redrawn, so its menu stays as it is; only the toggles' aria-checked follow.
-  if (editing && !textMenu) renderTextBar(); else if (editing) syncToggles(textBar, editing.ce, win.getSelection());
+  if (editing && !textMenu) renderTextBar(); else if (editing) syncToggles(textBar, editing.ce, win.getSelection(), editing.strikeNext);
 }
 function finishTextEdit() {
   const ed = editing;

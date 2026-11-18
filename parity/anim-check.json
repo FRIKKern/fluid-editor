@@ -1,9 +1,6 @@
 {
-  "pass": 407,
+  "pass": 408,
   "total": 408,
-  "known": [
-    "Stage square: opening Float's editor plays it once, from 844 ms, down to 0.903, at rest by 4177 ms, as read"
-  ],
   "results": [
     {
       "what": "Empty: tabs, Triggers and the prompt",
@@ -1630,9 +1627,8 @@
       "ok": true
     },
     {
-      "what": "Stage square: opening Float's editor plays it once, from 844 ms, down to 0.903, at rest by 4177 ms, as read",
-      "ok": false,
-      "known": "starts 150 to 380 ms early from the pointerdown; the oracle's trigger, pointerdown or click, waits on a new trial's read, task-5dd2bf2edded718a"
+      "what": "Stage square: opening Float's editor plays it once, from 817 and 777 ms after the click (held 0.8 s and 1.5 s), down to 0.903, at rest by 4111 ms, as read",
+      "ok": true
     },
     {
       "what": "Stage square on Follow: still 692 to 1230 ms, to 1.838 at 1500 ms, down to 0.885, then at rest, as read",
