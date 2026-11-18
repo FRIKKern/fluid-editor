@@ -968,28 +968,32 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   // pressed twice, held 0.8 s and 1.5 s as the oracle's were, each against the read with that hold. A play timed from the
   // pointerdown moves by the difference in the two holds, so no one timer passes both within 150 ms (777 and 817 differ by 40).
   // That needs the stamped holds at least 400 ms apart; closer ones can't tell the two apart, so the row fails. Load that
-  // stretches a hold is fine otherwise: the click stays the clock.
+  // stretches a hold is fine otherwise: the click stays the clock. A third press has no hold, against both unsplit reads
+  // (CAP-T15FLOATOPEN1/2: 844 and 845 ms), timed from the pointerdown on both sides since those reads stamp no click; with no
+  // hold, down to click is a few ms. So a play that waits on the pointerdown only after a long hold (the later of click + 470
+  // and pointerdown + 1300, which passes both holds) fails here at about 1640 ms (task-bd8894c04cbd8427).
   { const sum = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.002); return m.length ? { start: m[0][0], end: m.at(-1)[0], min: Math.round(Math.min(...v.map(([, x]) => x)) * 1000) / 1000, last: v.at(-1)[1] } : null; };
     // Once: from its first move to its last, down to its low with no rise on the way and back with no fall (a second play shows one).
     const once = (v) => { const w = v.map(([, x]) => x), i = w.findIndex((x) => Math.abs(x - 1) > 0.002), j = w.findLastIndex((x) => Math.abs(x - 1) > 0.002); if (i < 0) return false; const r = w.slice(i, j + 1), lo = r.indexOf(Math.min(...r)); let m = r[0]; return r.every((x, k) => { if (k === lo) m = x; const ok = k <= lo ? x <= m + 0.003 : x >= m - 0.003; m = k <= lo ? Math.min(m, x) : Math.max(m, x); return ok; }); };
-    const run = async (name, label, holdMs) => {
-      const H = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))).reads[label];
-      const them = H.frames.map((f) => [f[0] - H.click, f.slice(1).find((e) => e[0][0] >= 595 && e[0][0] <= 612 && e[0][1] >= 365 && e[0][1] <= 390 && e[0][2] < 45)]).filter(([, e]) => e).map(([t, e]) => [t, sx(e[1])]);
+    // Each read's square from its zero: the click after a hold, the pointerdown on a quick press.
+    const read = (name, label, at) => { const H = JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))).reads[label]; return { H, them: H.frames.map((f) => [f[0] - (at === 'click' ? H.click : H.down), f.slice(1).find((e) => e[0][0] >= 595 && e[0][0] <= 612 && e[0][1] >= 365 && e[0][1] <= 390 && e[0][2] < 45)]).filter(([, e]) => e).map(([t, e]) => [t, sx(e[1])]) }; };
+    const run = async (names, label, holdMs) => {
+      const at = holdMs ? 'click' : 'pointerdown', reads = names.map((n) => read(n, label, at)), { H } = reads[0];
       await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-2', 120); await pause(600);
       watch(holdMs + 7000);
       q(`const p = window.__stwP = {}; for (const ty of ['pointerdown', 'click']) addEventListener(ty, () => { if (p[ty] == null) p[ty] = Math.round(performance.now() - window.__stwT0); }, { capture: true, once: true }); return 'true';`);
       const gear = q(`const r = panel.querySelector('[data-anim="gear"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
       mouse(S, 'move', gear[0], gear[1]); mouse(S, 'down', gear[0], gear[1], { buttons: 1 }); await pause(holdMs); mouse(S, 'up', gear[0], gear[1]); await pause(6200);
-      const press = q(`return JSON.stringify(window.__stwP);`), click = press.click;
-      const mine = Number.isFinite(click) ? oursPairs(frames()).map(([t, x]) => [t - click, x]) : [];
-      const a = sum(mine), b = sum(them), held = click - press.pointerdown, theirHeld = H.click - H.down;
-      const why = [!a && 'no play', a && !once(mine) && 'not once', !once(them) && 'theirs not once', a && !near(a.min, b.min, 0.01) && 'low', a && Math.abs(a.end - b.end) > 0.15 * b.end && 'end', a && !near(a.last, 1, 0.001) && 'last', a && Math.abs(a.start - b.start) > 150 && 'start'].filter(Boolean);
-      return { b, why, said: { held, theirHeld, ours: a, theirs: b, press } };
+      const press = q(`return JSON.stringify(window.__stwP);`), click = press.click, zero = press[at];
+      const mine = Number.isFinite(click) && Number.isFinite(zero) ? oursPairs(frames()).map(([t, x]) => [t - zero, x]) : [];
+      const a = sum(mine), held = click - press.pointerdown, theirHeld = holdMs ? H.click - H.down : null, bs = reads.map((r) => sum(r.them)), b = bs[0];
+      const why = [!a && 'no play', a && !once(mine) && 'not once', ...reads.flatMap(({ them }, k) => { const b = bs[k], n = names.length > 1 ? ` (${names[k]})` : ''; return [!once(them) && `theirs not once${n}`, a && !near(a.min, b.min, 0.01) && `low${n}`, a && Math.abs(a.end - b.end) > 0.15 * b.end && `end${n}`, a && Math.abs(a.start - b.start) > 150 && `start${n}`]; }), a && !near(a.last, 1, 0.001) && 'last'].filter(Boolean);
+      return { b, why, said: { held, theirHeld, ours: a, theirs: names.length > 1 ? bs : b, press } };
     };
-    const r8 = await run('CAP-T15FLOATHOLD2', 'open, held 0.8 s', 800), r15 = await run('CAP-T15FLOATHOLD1', 'open, held 1.5 s', 1500);
-    const what = `Stage square: opening Float's editor plays it once, from ${r8.b.start} and ${r15.b.start} ms after the click (held 0.8 s and 1.5 s), down to ${r15.b.min}, at rest by ${r15.b.end} ms, as read`;
+    const r8 = await run(['CAP-T15FLOATHOLD2'], 'open, held 0.8 s', 800), r15 = await run(['CAP-T15FLOATHOLD1'], 'open, held 1.5 s', 1500), r0 = await run(['CAP-T15FLOATOPEN1', 'CAP-T15FLOATOPEN2'], 'open', 0);
+    const what = `Stage square: opening Float's editor plays it once, from ${r8.b.start} and ${r15.b.start} ms after the click (held 0.8 s and 1.5 s) and ${r0.b.start} after a quick press's pointerdown, down to ${r15.b.min}, at rest by ${r15.b.end} ms, as read`;
     const apart = r15.said.held - r8.said.held >= 400;
-    add(what, apart && !r8.why.length && !r15.why.length, JSON.stringify({ apart: apart || `holds ${r8.said.held} and ${r15.said.held} ms, under 400 apart`, 'held 0.8 s': { off: r8.why, ...r8.said }, 'held 1.5 s': { off: r15.why, ...r15.said } })); }
+    add(what, apart && !r8.why.length && !r15.why.length && !r0.why.length, JSON.stringify({ apart: apart || `holds ${r8.said.held} and ${r15.said.held} ms, under 400 apart`, 'held 0.8 s': { off: r8.why, ...r8.said }, 'held 1.5 s': { off: r15.why, ...r15.said }, quick: { off: r0.why, ...r0.said } })); }
   // Follow on the stage, a table of two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json) at Scale 150% by 150%:
   // still a while after the mouse comes on (692 and 1230 ms in these reads; ours 751, the median of 4 reads that vary), up to 1.837 in 1.5 s, down to 0.889, then at rest.
   await setup('Follow', 'end');
