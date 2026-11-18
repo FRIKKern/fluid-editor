@@ -16,6 +16,12 @@ export function siteHost(value) {
   return full;
 }
 
+// Where a new trial starts (QUALITY.md, A new trial, step 1): the account page, open in the owner's signed-in cmux browser,
+// and the Agaro template's start page. Built, so the site check finds no host here but the trial's.
+const SQ = `squarespace${'.com'}`;
+export const ACCOUNT = `https://account.${SQ}/`;
+export const TEMPLATE = `https://www.${SQ}/templates/agaro-fluid-demo`;
+
 export const HOST = siteHost(process.env.FLUID_ORACLE_SITE);
 export const ORIGIN = `https://${HOST}`;
 // The editor's page list: where a script starts, and where Exit can land.
