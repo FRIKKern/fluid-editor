@@ -90,14 +90,13 @@ export async function replay(S, finding, add) {
     const walk = [q('textContent')], html = [q('innerHTML')];
     const can = () => evalJs(S, `JSON.stringify(!document.getElementById('undo').disabled)`);
     for (let n = 0; n < most && can(); n++) { browser(S, 'click', '#undo'); await pause(300); walk.push(q('textContent')); html.push(q('innerHTML')); }
-    // Where the walk ended: Undo on or off after it as on the oracle (stillCan), after as many presses. A walk the oracle took
-    // to the end had one more: the Add Section its blank step made (oracle-capture.mjs), which our fresh page has no step for.
+    // Where the walk ended: Undo on or off after it as on the oracle (stillCan), after as many presses. A walk taken to the end
+    // undoes the blank step's Add Section last, on both sides (the blank op below).
     // A walk read without stillCan fails its end row; a read the finding doesn't hold has failed (or been excused) by unread.
     if (finding.reads?.[name] !== undefined && r.stillCan === undefined) add(`${name} end`, false, 'NOT READ: the walk read has no stillCan, so where it ended is not compared');
     else if (r.stillCan !== undefined) {
-      const from = finding.steps.slice(0, k).map(([op]) => op).lastIndexOf('enter'), blank = !r.stillCan && finding.steps.slice(from + 1, k).some(([op]) => op === 'blank') ? 1 : 0;
-      const want = r.undo.length - 1 - blank, on = can();
-      add(`${name} end`, walk.length - 1 === want && on === r.stillCan, `oracle ${r.undo.length - 1} presses${blank ? ' (one undid its blank Add Section)' : ''}, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`);
+      const want = r.undo.length - 1, on = can();
+      add(`${name} end`, walk.length - 1 === want && on === r.stillCan, `oracle ${want} presses, Undo then ${r.stillCan ? 'on' : 'off'}; ours ${walk.length - 1}, ${on ? 'on' : 'off'}`);
     }
     r.undo.forEach((u, k) => {
       // Null on the oracle: the block's gone, or nothing was left to undo. Ours must have no more of its text either.
@@ -124,6 +123,9 @@ export async function replay(S, finding, add) {
     // Where undo is walked, a change waits for its aimed gap from the last one, and nothing else waits.
     if (paced && segment !== null && gaps.has(k - segment)) { const left = lastChange + aimFor(gaps.get(k - segment)) - 100 - Date.now(); if (left > 0) await pause(left); }
     if (op === 'enter') { await fresh(); paced = untilNextEnter(k).some(takesSteps); segment = null; wait = (ms) => pause(Math.min(ms, paced ? 60 : 120)); }
+    // The oracle's blank adds a section to its empty probe page: a change, and an undo step of its own, that keeps Save on until
+    // it is undone (CAP-Y2SAVEUNDO.json). Ours adds a blank section at the page's end, so section 1 stays the one the steps use.
+    else if (op === 'blank') { evalJs(S, `JSON.stringify(fe.addSection())`); await pause(100); }
     else if (op === 'add') { const s = sid(); id = evalJs(S, `(() => { const had = new Set(fe.model.sections[1].blocks.map((b) => b.id)); fe.addBlock(${JSON.stringify(s)}, 'Text', true); return JSON.stringify(fe.model.sections[1].blocks.find((b) => !had.has(b.id)).id); })()`); newId = id; await pause(100); }
     else if (op === 'click' && a[0] === 'Write') { const s = sid(); evalJs(S, `(() => { fe.edit(${JSON.stringify(s)}, ${JSON.stringify(id)}); const ce = ${ceOf.replace('__ID__', id)}; ce.focus(); return 1; })()`); if (paced) { segment = k + 1; gaps = gapsOf(finding.steps.slice(segment, untilEnd(k))); evalJs(S, STAMP(ceOf.replace('__ID__', id))); } await pause(150); }
     else if (op === 'clickIf' && !evalJs(S, `!!document.querySelector('#text-bar [aria-label="${a[0]}"], #text-bar [data-ctab="${a[0]}"]')`)) continue;
