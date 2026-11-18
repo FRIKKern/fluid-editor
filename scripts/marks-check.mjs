@@ -454,10 +454,11 @@ add('outline fades in over 0.2 s on its alpha', onCurve(outIn) && outIn.reach[1]
 // never is. The cut must come on the timer: 195 ms or more after the leave, timed by the pointer event's own timeStamp, since the
 // move's latency varies. So a retry can't pass, on 2 leaves of 3, a fade that is missing (task-1ae025a844b6d3c2), that runs a
 // frame or two and snaps away (task-24020acd1ed6b0a0) or back to lit (task-66a37e7531637b9c), or that is cut early, which reads
-// like a late start (task-f301ae8c2f7b8b15). A stall draws no frames: the page draws nothing from the leave until the fade starts
-// (the fade's first frame is the first one after the leave, read 1-3 ms after it). So a try fails on a frame drawn more than 34 ms
-// (2 frames at 60 fps, 1 at 30) after the leave and before the fade's start: a fade that starts late while frames keep coming,
-// lit until it snaps off at the cut (task-6183bb6cadef5cc2).
+// like a late start (task-f301ae8c2f7b8b15). Frames drawn after the leave and before the fade starts: a right fade starts on the
+// first frame after the leave, now and then one later (read 1-13 ms after the leave). A stall draws one frame as it ends, still
+// lit (read 127 and 155 ms after the leave with a stall of 130 and 165), and none while it lasts. A fade that starts late while
+// frames keep coming draws one every frame, lit until it snaps off at the cut. So 2 frames drawn more than 34 ms (2 frames at
+// 60 fps, 1 at 30) after the leave and before the fade's start fail the try (task-6183bb6cadef5cc2).
 const outTries = [];
 let outOut;
 for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
@@ -465,7 +466,7 @@ for (let k = 0; k < 3 && !(outOut?.reach[1] >= 0.5); k++) {
   outOut = await outlineWatch(800, 20, false);
   outTries.push(outOut);
 }
-const sawRight = (r) => r.frames >= 1 && r.pre.every((d) => d <= 34) && r.timed === r.frames && r.offAll <= 0.03 && r.cut >= 195 && r.falling && r.hue.join() === '72,148,255';
+const sawRight = (r) => r.frames >= 1 && r.pre.filter((d) => d > 34).length < 2 && r.timed === r.frames && r.offAll <= 0.03 && r.cut >= 195 && r.falling && r.hue.join() === '72,148,255';
 add('outline fades out over 0.2 s on its alpha', onCurve(outOut) && outOut.falling && outTries.every(sawRight), JSON.stringify(outTries.length > 1 ? outTries : outOut));
 // The chrome hides on its own 0.2 s timer and cuts the fade, so the frames above see at most 0.2 s of it. The fade's timing as
 // declared doesn't depend on the cut or on load: one transition per border side, 0.2 s ease-in-out.
