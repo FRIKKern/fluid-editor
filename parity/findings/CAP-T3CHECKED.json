@@ -1,5 +1,6 @@
 {
-  "item": "CAP-T3CHECKED",
+  "item": "T3",
+  "name": "CAP-T3CHECKED",
   "oracle": "/blocks-probe",
   "capturedAt": "2026-11-18",
   "startedAt": "2026-11-18T08:55:34.976Z",
@@ -1122,5 +1123,8 @@
   },
   "errors": [],
   "leftDirty": false,
-  "exitSteps": []
+  "exitSteps": [],
+  "answer": "Strike pressed at a caret is checked at once (aria-checked true) with nothing typed yet; a letter then comes struck and Strike stays checked; pressed again after it, Strike reads false before anything is typed. Bold and Italic at a caret go by the letter on the left: with 'abc |def' and def bold (or italic) the caret before def reads false, at the end true, at the start false; a press with the caret before def takes the mark off the whole block (as CAP-E4CARET), and reads false. A selection over def reads true. Read twice: CAP-T3CHECKED2 agrees on every read's aria-checked and html.",
+  "ours": "Strike was false at a caret until a letter was typed (its press is held in strikeNext, app/src/editor.js applyFormat); it now shows the pending press. Bold and Italic were already as read.",
+  "pressed": "Strike, Bold and Italic by name on the text bar (click). Letters, Shift+ArrowLeft, ArrowLeft, Home and End as keys; Cmd+B and Cmd+I as keys. Nothing saved: Exit Without Saving."
 }

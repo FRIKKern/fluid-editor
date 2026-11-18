@@ -1,0 +1,1130 @@
+{
+  "item": "T3",
+  "name": "CAP-T3CHECKED2",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-18",
+  "startedAt": "2026-11-18T08:58:43.453Z",
+  "engine": "chrome",
+  "question": "T3: CAP-T3CHECKED read again, the same steps: the text bar toggles aria-checked at a caret, Strike pressed at a caret, Bold and Italic around a marked word.",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "keys",
+      "abc"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S typed",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "click",
+      "Strike"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S pressed at caret",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keys",
+      "d"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S then a letter",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "click",
+      "Strike"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "S pressed again",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "keys",
+      "abc def"
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft"
+      ]
+    ],
+    [
+      "press",
+      "Meta+b"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B def marked",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "ArrowLeft"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B caret before the marked word",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "End"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B caret at the end",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "Home"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B caret at the start",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "End",
+        "ArrowLeft",
+        "ArrowLeft",
+        "ArrowLeft"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B caret before the marked word again",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "click",
+      "Bold"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B pressed there",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "keys",
+      "abc def"
+    ],
+    [
+      "keysList",
+      [
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft",
+        "Shift+ArrowLeft"
+      ]
+    ],
+    [
+      "press",
+      "Meta+i"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I def marked",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "ArrowLeft"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I caret before the marked word",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "End"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I caret at the end",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "Home"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I caret at the start",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "keysList",
+      [
+        "End",
+        "ArrowLeft",
+        "ArrowLeft",
+        "ArrowLeft"
+      ]
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I caret before the marked word again",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "click",
+      "Italic"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "I pressed there",
+      {
+        "ariaChecked": true,
+        "html": [
+          0,
+          "new"
+        ],
+        "barState": true
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "S typed": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S pressed at caret": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "true"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S then a letter": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "true"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 1,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc<span style=\"text-decoration: line-through;\">d</span></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "S pressed again": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 1,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc<span style=\"text-decoration: line-through;\">d</span></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B def marked": {
+      "ariaChecked": {
+        "Bold": "true",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": false,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <strong>def</strong></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B caret before the marked word": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <strong>def</strong></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B caret at the end": {
+      "ariaChecked": {
+        "Bold": "true",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <strong>def</strong></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B caret at the start": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <strong>def</strong></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B caret before the marked word again": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <strong>def</strong></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B pressed there": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc def</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I def marked": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "true",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": false,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <em>def</em></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I caret before the marked word": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <em>def</em></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I caret at the end": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "true",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 3,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <em>def</em></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I caret at the start": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 0,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <em>def</em></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I caret before the marked word again": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc <em>def</em></p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "I pressed there": {
+      "ariaChecked": {
+        "Bold": "false",
+        "Italic": "false",
+        "Scaled Text": "false",
+        "Quote": "false",
+        "Bullet List": "false",
+        "Numbered List": "false",
+        "Strike": "false"
+      },
+      "barState": {
+        "bold": [
+          {
+            "box": [
+              279,
+              243,
+              36,
+              36
+            ],
+            "hiddenBy": null
+          }
+        ],
+        "focus": "frame",
+        "frameFocus": {
+          "tag": "div",
+          "editable": true,
+          "pm": true
+        },
+        "caret": {
+          "collapsed": true,
+          "offset": 4,
+          "node": "#text"
+        },
+        "frameY": 0,
+        "frameTop": 55
+      },
+      "html": "<p style=\"white-space:pre-wrap;\" data-rte-preserve-empty=\"true\">abc def</p>",
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Strike pressed at a caret is checked at once (aria-checked true) with nothing typed yet; a letter then comes struck and Strike stays checked; pressed again after it, Strike reads false before anything is typed. Bold and Italic at a caret go by the letter on the left: with 'abc |def' and def bold (or italic) the caret before def reads false, at the end true, at the start false; a press with the caret before def takes the mark off the whole block (as CAP-E4CARET), and reads false. A selection over def reads true. Read twice: CAP-T3CHECKED agrees on every read's aria-checked and html.",
+  "ours": "Strike was false at a caret until a letter was typed (its press is held in strikeNext, app/src/editor.js applyFormat); it now shows the pending press. Bold and Italic were already as read.",
+  "pressed": "Strike, Bold and Italic by name on the text bar (click). Letters, Shift+ArrowLeft, ArrowLeft, Home and End as keys; Cmd+B and Cmd+I as keys. Nothing saved: Exit Without Saving."
+}
