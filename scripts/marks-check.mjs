@@ -2269,12 +2269,12 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     undos(); await pause(100);
     add(`Shuffle ${id}: one undo a press`, JSON.stringify(artState().set) === JSON.stringify(a1.set));
     // A row of buttons it read (Shapes' Spread): each press puts it on one of the buttons the oracle saw (unset is fine only when that is
-    // just the one it starts on), and 14 presses put it on more than one when the oracle saw more than one (even odds over three give
-    // the same 14 times about once in 1.6 million runs).
+    // just the one it starts on), and 40 presses put it on each one it saw (even odds over three miss one in 40 presses about once in
+    // 3.7 million runs).
     if (want.picks.length || want.unpicked.length) {
       const got = [a1.set, a2.set];
-      for (let p = 0; p < 12; p++) { hit('#section-panel .sp-shuffle'); await pause(120); got.push(artState().set); }
-      const bad = want.picks.filter(([k, , ok]) => !got.every((g) => ok.includes(g[k])) || (ok.filter((x) => x !== undefined).length > 1 && new Set(got.map((g) => g[k])).size < 2));
+      for (let p = 0; p < 38; p++) { hit('#section-panel .sp-shuffle'); await pause(120); got.push(artState().set); }
+      const bad = want.picks.filter(([k, , ok]) => !got.every((g) => ok.includes(g[k])) || (!ok.includes(undefined) && ok.some((x) => !got.some((g) => g[k] === x))));
       add(`Shuffle ${id}: its button rows land on what was read`, want.picks.length > 0 && want.unpicked.length === 0 && bad.length === 0, JSON.stringify({ bad: bad.map(([k, l, ok]) => [l, k, ok, got.map((g) => g[k])]), unpicked: want.unpicked }));
     }
     await back();
