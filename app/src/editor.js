@@ -2245,9 +2245,9 @@ function animStopPreview() {
   const el = sel && blockEl(sel.bid);
   if (el) releasePose(el);
 }
-// A preset's editor opened by its tile's Edit plays the row once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json
-// agree): its slow-starting run first shows 777 and 817 ms after the press's click (CAP-T15FLOATHOLD1.json and 2: the click starts
-// it, not the pointerdown), so it starts 470 ms after the click; not if the editor has changed by then.
+// A preset's editor opened by its tile's Edit plays the row once on the stage: its slow-starting run first shows 777 and 817 ms
+// after the press's click (CAP-T15FLOATHOLD1.json and 2, the press held: the click starts it, not the pointerdown), so it starts
+// 470 ms after the click; not if the editor has changed by then.
 let stageOpenTimer = 0;
 function stageOnOpen() {
   clearTimeout(stageOpenTimer);
