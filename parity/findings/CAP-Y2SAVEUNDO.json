@@ -3,7 +3,7 @@
   "name": "CAP-Y2SAVEUNDO",
   "oracle": "/blocks-probe",
   "capturedAt": "2026-11-18",
-  "startedAt": "2026-11-18T08:45:15.114Z",
+  "startedAt": "2026-11-18T09:01:41.962Z",
   "engine": "chrome",
   "question": "Y2: Save after an Undo back to the page as it loaded. A blank section alone, then a Text added, then a Text written in, each taken back by the Undo button and by Cmd+Z: is Save on or off once the page is as it loaded, and while only the blank section is left?",
   "steps": [
@@ -26,7 +26,9 @@
       "A blank",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -42,7 +44,9 @@
       "A undo 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -58,7 +62,9 @@
       "A redo",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -83,7 +89,9 @@
       "B blank",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -99,7 +107,9 @@
       "B z 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -115,7 +125,9 @@
       "B y",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -153,7 +165,9 @@
       "C added",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -169,7 +183,9 @@
       "C undo 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -185,7 +201,9 @@
       "C undo 2",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -223,7 +241,9 @@
       "D added",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -239,7 +259,9 @@
       "D z 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -255,7 +277,9 @@
       "D z 2",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -310,10 +334,10 @@
       "E write, undo 1",
       {
         "sections": true,
-        "controls": true,
         "has": [
           "Bold",
-          "Write"
+          "Write",
+          "Save"
         ]
       }
     ],
@@ -330,10 +354,10 @@
       "E write, undo 2",
       {
         "sections": true,
-        "controls": true,
         "has": [
           "Bold",
-          "Write"
+          "Write",
+          "Save"
         ]
       }
     ],
@@ -397,7 +421,9 @@
       "F typed",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -413,7 +439,9 @@
       "F undo 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -429,7 +457,9 @@
       "F undo 2",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -445,7 +475,9 @@
       "F undo 3",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -508,7 +540,9 @@
       "G typed",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -524,7 +558,9 @@
       "G z 1",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -540,7 +576,9 @@
       "G z 2",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -556,7 +594,9 @@
       "G z 3",
       {
         "sections": true,
-        "controls": true
+        "has": [
+          "Save"
+        ]
       }
     ],
     [
@@ -565,1533 +605,173 @@
   ],
   "reads": {
     "A blank": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "7166c0",
+          "id": "cedc94",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "A undo 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "A redo": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "7166c0",
+          "id": "cedc94",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "B blank": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "160354",
+          "id": "24356a",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "B z 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "B y": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "160354",
+          "id": "24356a",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "C added": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "574cfe",
+          "id": "cee027",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "32_412"
+            "66_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "C undo 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "574cfe",
+          "id": "cee027",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "C undo 2": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "D added": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "1d4723",
+          "id": "4fd33a",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "65_412"
+            "70_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "D z 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "1d4723",
+          "id": "4fd33a",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "D z 2": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "E write, undo 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "75d269",
+          "id": "7203ff",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
@@ -2100,1291 +780,139 @@
       ],
       "has": {
         "Bold": false,
-        "Write": false
+        "Write": false,
+        "Save": true
       },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "E write, undo 2": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
       "has": {
         "Bold": false,
-        "Write": false
+        "Write": false,
+        "Save": true
       },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "F typed": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "46989a",
+          "id": "b912d4",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "26_412"
+            "12_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "F undo 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "46989a",
+          "id": "b912d4",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "26_412"
+            "12_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "F undo 2": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "46989a",
+          "id": "b912d4",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "F undo 3": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     },
     "G typed": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "57682d",
+          "id": "c53530",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "93_412"
+            "42_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "G z 1": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "57682d",
+          "id": "c53530",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [
-            "93_412"
+            "42_412"
           ],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "G z 2": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            175.6,
-            111.1,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Layers Panel",
-          "box": [
-            26,
-            219.6,
-            38,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Block",
-          "box": [
-            83,
-            219.6,
-            129.6,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Open Section Settings",
-          "box": [
-            1407,
-            222.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "View Layouts",
-          "box": [
-            1407,
-            272.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Duplicate Section",
-          "box": [
-            1412,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Save Section",
-          "box": [
-            1452,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Up",
-          "box": [
-            1492,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Move Section Down",
-          "box": [
-            1532,
-            327.6,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Remove Section",
-          "box": [
-            1407,
-            374.6,
-            164,
-            44
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Add Section",
-          "box": [
-            744.4,
-            705,
-            111.1,
-            36
-          ]
-        }
-      ],
       "sections": [
         {
-          "id": "57682d",
+          "id": "c53530",
           "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
           "rows": 8,
           "blocks": [],
           "h": 667.6
         }
       ],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "changed"
     },
     "G z 3": {
-      "controls": [
-        {
-          "role": "button",
-          "label": "Save",
-          "box": [
-            11,
-            8.5,
-            55.6,
-            38
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Exit",
-          "box": [
-            77.6,
-            8.5,
-            45.8,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Undo",
-          "box": [
-            145.4,
-            1.5,
-            36,
-            52
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Redo",
-          "box": [
-            189.4,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Desktop View",
-          "box": [
-            1390,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "radio",
-          "label": "Mobile View",
-          "box": [
-            1436,
-            11.5,
-            46,
-            32
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle Site Styles editing",
-          "box": [
-            1495,
-            9.5,
-            36,
-            36
-          ]
-        },
-        {
-          "role": "button",
-          "label": "Toggle preview mode",
-          "box": [
-            1542,
-            9.5,
-            36,
-            36
-          ]
-        }
-      ],
       "sections": [],
+      "has": {
+        "Save": true
+      },
       "path": "/blocks-probe",
       "save": "clean"
     }
@@ -3392,7 +920,7 @@
   "errors": [],
   "leftDirty": false,
   "exitSteps": [],
-  "answer": "Save is on while the page differs from how it loaded and off once it is the same again, by the Undo button and by Cmd+Z alike. A blank section alone: on; one Undo takes the section away and Save goes off; Redo brings both back. A Text added: one Undo takes the Text, Save stays on (the blank section is left); the next takes the section, Save off. A Text written in (ab), or Write pressed and nothing typed: the same, Save off only at the last step, when the section is gone. So CAP-Y2KEYS2's 'Undo button, just added' read Save on because its blank section was still there, not by a rule of its own. Read twice: CAP-Y2SAVEUNDO and CAP-Y2SAVEUNDO2 agree on every read's save, sections and controls.",
-  "ours": "The same rule: ours compares the page with the saved one (app/src/editor.js, savedJson). The replay made no change for the oracle's blank Add Section; it now adds a blank section at the page's end, an undo step of its own.",
+  "answer": "Save is on while the page differs from how it loaded and off once it is the same again, by the Undo button and by Cmd+Z alike. A blank section alone: on; one Undo takes the section away and Save goes off; Redo brings both back. A Text added: one Undo takes the Text, Save stays on (the blank section is left); the next takes the section, Save off. A Text written in (ab), or Write pressed and nothing typed: the same, Save off only at the last step, when the section is gone. So CAP-Y2KEYS2's 'Undo button, just added' read Save on because its blank section was still there, not by a rule of its own. Read twice: CAP-Y2SAVEUNDO2 agrees on every read's save, sections and has. Two earlier reads of the same steps with controls in place of has (commit 8028b463) agree too; controls were left out here, as they follow where the mouse last sat.",
+  "ours": "The same rule: ours compares the page with the saved one (app/src/editor.js, savedJson), so no app change. The replay (scripts/lib/text-replay.mjs) had no step for the oracle's blank Add Section; it now adds a blank section at the page's end (fe.addSection), an undo step of its own, and text-check drops the CAP-Y2KEYS2 save known miss.",
   "pressed": "Undo and Redo by name (pressNamed). Cmd+Z and Cmd+Shift+Z as keys. The section by Add Section, Add Blank (blank). Nothing saved: Exit Without Saving."
 }
