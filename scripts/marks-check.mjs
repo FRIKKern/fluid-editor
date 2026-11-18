@@ -2223,23 +2223,25 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   // What a press may change comes from the oracle's reads, not from the app's own ART_SHUFFLE table: CAP-ARTSHUFFLE names each slider
   // it saw change (ranges) or keep (stays) and each switch it saw flip, by label in panel order (a repeated label gets #n, one with
   // none is (inline)). Laid on CAP-ARTROWS's rows in that order, the names give our keys: fold.row.slider, fold.row for a lone range,
-  // fold.row.rN for a switch's sliders, fold.row.check for a more switch. A row of buttons with no slider is not in the capture (unread).
+  // fold.row.rN for a switch's sliders, fold.row.check for a more switch. A row of buttons with no slider is named by its label or the
+  // head above it (Shapes' Spread): buttons gives the ones the oracle saw it on after a press; one not in buttons is unread.
   const shuffleWant = (id, T) => {
     const tile = AR.tiles[id], folds = id === 'images' ? [{ rows: tile.root.slice(0, 2) }, { rows: tile.root.slice(2) }] : tile.folds;
-    const seen = {}, sliders = [], switches = [], unread = [];
+    const seen = {}, sliders = [], switches = [], unread = [], picks = [];
     const name = (label) => { const n = seen[label] = (seen[label] ?? -1) + 1; return n ? `${label}#${n}` : label || '(inline)'; };
-    folds.forEach((f, i) => f.rows.forEach((r, n) => {
+    folds.forEach((f, i) => { let head = ''; f.rows.forEach((r, n) => {
       const k = `${i}.${n}`;
-      if (r.opts) { if (r.moreCheck) switches.push([r.moreCheck.label, `${k}.check`]); if (!r.sliders.length) unread.push(k); r.sliders.forEach((x, m) => sliders.push([name(x.label), x.label || '(inline)', `${k}.${m}`, k])); }
+      if (r.head !== undefined) head = r.head;
+      if (r.opts) { if (r.moreCheck) switches.push([r.moreCheck.label, `${k}.check`]); if (!r.sliders.length) { const b = T.buttons?.[r.seg || head]; if (b) { const ok = r.opts.flatMap((o, j) => (b.seen[o] > 0 ? [j] : [])); picks.push([k, r.seg || head, ok.length === 1 && ok[0] === r.on ? [...ok, undefined] : ok]); } else unread.push(k); } r.sliders.forEach((x, m) => sliders.push([name(x.label), x.label || '(inline)', `${k}.${m}`, k])); }
       else if (r.range !== undefined) sliders.push([name(r.range), r.range, k, null]);
       else if (r.check) { switches.push([r.check, k]); (r.reveals || []).forEach((x, m) => sliders.push([name(x.range), x.range, `${k}.r${m}`, null])); }
-    }));
+    }); });
     const range = {}, more = new Set(), stays = [];
     for (const [nm, bare, k, row] of sliders) if (T.ranges[nm]) { range[k] = T.ranges[nm]; if (row) more.add(row); } else stays.push(bare);
     // A switch seen on in every press, or in none, kept its value. One seen on in some presses only flipped (flips); each needs a row.
     const flips = Object.keys(T.switches).filter((l) => T.switches[l][0] > 0 && T.switches[l][0] < T.presses);
     const check = switches.filter(([l]) => flips.includes(l)).map(([, k]) => k);
-    return { range, more: [...more], check, flips, unswitched: flips.filter((l) => !switches.some(([x]) => x === l)), stays, unread, unnamed: Object.keys(T.ranges).filter((nm) => !sliders.some(([x]) => x === nm)) };
+    return { range, more: [...more], check, flips, unswitched: flips.filter((l) => !switches.some(([x]) => x === l)), stays, unread, picks, unpicked: Object.keys(T.buttons || {}).filter((l) => !picks.some(([, x]) => x === l)), unnamed: Object.keys(T.ranges).filter((nm) => !sliders.some(([x]) => x === nm)) };
   };
   const sorted = (a) => JSON.stringify([...a].sort());
   for (const [id, T] of Object.entries(AS.shuffle.tiles)) {
@@ -2256,7 +2258,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`Shuffle ${id}: its rows go to more`, want.more.length > 0 && want.more.every((k) => a2.set[k] === 'more'), JSON.stringify(want.more.map((k) => a2.set[k])));
     // Images: the preset and filter picked are among those the oracle's presses came up with.
     const picked = (k) => (k === 'preset' || k === 'filter') && (id !== 'images' || !!T[`${k}s`]?.[a2.set[k]]);
-    const stray = Object.keys(a2.set).filter((k) => !(want.range[k] || want.more.includes(k) || want.check.includes(k) || want.unread.includes(k) || picked(k)));
+    const stray = Object.keys(a2.set).filter((k) => !(want.range[k] || want.more.includes(k) || want.check.includes(k) || want.unread.includes(k) || want.picks.some(([x]) => x === k) || picked(k)));
     for (const k of want.unread) if (k in a2.set) console.log(`NOTE Shuffle ${id}: ${k} changed, a row of buttons CAP-ARTSHUFFLE did not read`);
     // Each switch it saw flip, a press sets on or off: a press that leaves one unset passes no row above (check is an allow-list there).
     // The tile opens with none set, so the first press is what sets it; the second keeps a boolean (a press carries the set forward).
@@ -2266,6 +2268,15 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
     add(`Shuffle ${id}: two presses differ`, JSON.stringify(a1.set) !== JSON.stringify(a2.set));
     undos(); await pause(100);
     add(`Shuffle ${id}: one undo a press`, JSON.stringify(artState().set) === JSON.stringify(a1.set));
+    // A row of buttons it read (Shapes' Spread): each press puts it on one of the buttons the oracle saw (unset is fine only when that is
+    // just the one it starts on), and 40 presses put it on each one it saw (even odds over three miss one in 40 presses about once in
+    // 3.7 million runs).
+    if (want.picks.length || want.unpicked.length) {
+      const got = [a1.set, a2.set];
+      for (let p = 0; p < 38; p++) { hit('#section-panel .sp-shuffle'); await pause(120); got.push(artState().set); }
+      const bad = want.picks.filter(([k, , ok]) => !got.every((g) => ok.includes(g[k])) || (!ok.includes(undefined) && ok.some((x) => !got.some((g) => g[k] === x))));
+      add(`Shuffle ${id}: its button rows land on what was read`, want.picks.length > 0 && want.unpicked.length === 0 && bad.length === 0, JSON.stringify({ bad: bad.map(([k, l, ok]) => [l, k, ok, got.map((g) => g[k])]), unpicked: want.unpicked }));
+    }
     await back();
     hit('#section-panel [data-sact="art"][data-v="none"]'); await pause(120);
   }
