@@ -428,10 +428,6 @@ const KNOWN = {
   'CAP-Y2SCORE rows S1 2 z': { rows: 1 }, 'CAP-Y2SCORE rows S1 3 z': { html: 'shorter', rows: 2 }, 'CAP-Y2SCORE rows S2 3 z': { rows: 1 },
   'CAP-Y2SCORE rows S5 1 z': { html: 'shorter' }, 'CAP-Y2SCORE rows S5 2 z': { html: 'shorter' }, 'CAP-Y2SCORE rows S5 3 y': { html: 'shorter' },
 };
-// Save on after an Undo back to the page as it loaded: the oracle's on, ours off (docs/PARITY.md Y2; the oracle's rule is not
-// read, CAP-U10UNDOPAST). Only that part, only that row: the row still counts, on its other parts.
-const SAVE_MISS = { 'CAP-Y2KEYS2 Undo button, just added': ['save'] };
-const saveMiss = (key, parts) => !!SAVE_MISS[key] && !!parts && Object.entries(parts).every(([k, same]) => same || SAVE_MISS[key].includes(k));
 const rowEnds = ([want, got] = [], n) => Array.isArray(want) && Array.isArray(got) && want.length === got.length && want.every((w, i) => {
   const a = w.split('/').map(Number), b = got[i].split('/').map(Number);
   return a[0] === b[0] && a[1] === b[1] && a[3] === b[3] && Math.abs(a[2] - b[2]) <= n;
@@ -441,11 +437,10 @@ const rowEnds = ([want, got] = [], n) => Array.isArray(want) && Array.isArray(go
 const shorter = ([want, got] = []) => { const marks = (h) => (h.match(/<[^>]+>/g) || []).join(''), text = (h) => h.replace(/<[^>]+>/g, ''); return typeof want === 'string' && typeof got === 'string' && marks(want) !== '' && marks(want) === marks(got) && text(got) !== '' && text(want).startsWith(text(got)); };
 const WITHIN = { rows: (seen, n) => rowEnds(seen.rows, n), html: (seen) => shorter(seen.html), 'has Bold': () => true };
 const knownMiss = (key, parts, seen) => !!KNOWN[key] && !!parts && !!seen && Object.entries(parts).every(([k, same]) => same || (k in KNOWN[key] && WITHIN[k](seen, KNOWN[key][k])));
-for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9', 'CAP-Y2SCORE', 'CAP-T3CHECKED', 'CAP-T3CHECKED2'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
+for (const name of FULL ? ['CAP-E4CARET', 'CAP-E4BURST', 'CAP-E4FRESH', 'CAP-E4FRESH2', 'CAP-E4FRESH3', 'CAP-E4ENDS', 'CAP-E4SCORE', 'CAP-E4GAP', 'CAP-E4GAP2', 'CAP-E4ENTER', 'CAP-TEXTEMPTY', 'CAP-T3EMPTY', 'CAP-T3EMPTY2', 'CAP-T3EMPTY3', 'CAP-E4REOPEN', 'CAP-E4REOPEN2', 'CAP-E4REOPEN3', 'CAP-ESC1', 'CAP-ESC2', 'CAP-E4BREAK', 'CAP-Y2EDIT', 'CAP-Y2KEYS', 'CAP-Y2KEYS2', 'CAP-Y2KEYS3', 'CAP-Y2KEYS4', 'CAP-Y2KEYS5', 'CAP-Y2KEYS6', 'CAP-Y2KEYS7', 'CAP-Y2KEYS8', 'CAP-Y2KEYS9', 'CAP-Y2SCORE', 'CAP-Y2SAVEUNDO', 'CAP-Y2SAVEUNDO2', 'CAP-T3CHECKED', 'CAP-T3CHECKED2'] : ['CAP-E4CARET', 'CAP-TEXTEMPTY']) {
   await replay(S, JSON.parse(readFileSync(new URL(`../parity/findings/${name}.json`, import.meta.url))), (what, ok, detail, parts, seen) => {
     if (ok === null) { noRun.push(`${name} ${what}`); console.log(`could not run: ${name} ${what}: ${detail}`); return; }
     if (!ok && knownMiss(`${name} ${what}`, parts, seen)) { console.log(`known miss: ${name} ${what} (${Object.keys(parts).filter((k) => !parts[k]).join(', ')}): ${detail}`); return; }
-    if (!ok && saveMiss(`${name} ${what}`, parts)) { console.log(`known miss: ${name} ${what} (save), its other parts the same: ${detail}`); results.push({ name: `${name} ${what}`, ok: true, knownMiss: ['save'] }); return; }
     results.push({ name: `${name} ${what}`, ok }); if (!ok) console.log(`${name} ${what} DIFF ${detail}`);
   });
 }

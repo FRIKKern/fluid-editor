@@ -3661,7 +3661,11 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Font list: rows land', Math.abs(rows[0] - R.tops.firstRow) <= 1 && R.tops.sansRows.every((t, n) => Math.abs(rows[n + 1] - t) <= 1) && Math.abs(rows[6] - R.tops.serifRow) <= 1, JSON.stringify(rows));
   add('Font list: a row\'s box', same(box('.ss-fl-row'), R.rowBox), JSON.stringify(box('.ss-fl-row')));
   add('Font list: the note', js(`const e = document.querySelector('.ss-fl-note'), r = e.getBoundingClientRect(); return JSON.stringify([e.textContent.trim(), Math.round(r.top), getComputedStyle(e).fontSize].join());`) === [R.note.text, R.note.box[1], R.note.size].join());
-  add('Font list: every name and how long', js(`const p = document.querySelector('.ss-fl-scroll'); return JSON.stringify(document.querySelectorAll('.ss-fl-row').length);`) === names + 1 && Math.abs(js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`) - R.scroller.scrollHeight) <= 60, js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`));
+  // How long: the read's scroll height (1504 rows on 2026-11-07, In Use's one included) plus one row pitch for each name
+  // since, so a name added or dropped moves it (task-ba0c1d5a65f3d98e). To the pixel: one row is 44 px.
+  const readRows = R.groups.reduce((n, [, c]) => n + c, 0), tall = R.scroller.scrollHeight + (names + 1 - readRows) * R.pitch;
+  const listRows = js(`return JSON.stringify(document.querySelectorAll('.ss-fl-row').length);`), listTall = js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`);
+  add('Font list: every name and how long', listRows === names + 1 && Math.abs(listTall - tall) <= 1, `${listRows} rows of ${names + 1}, ${listTall} px of ${tall}`);
   add('Font list: the row in use is checked', js(`const e = document.querySelector('.ss-fl-row.is-on'); return JSON.stringify([e.textContent, !!e.querySelector('svg')].join());`) === 'Poppins,true');
   add('Font list: a stack in its own font', js(`return JSON.stringify(getComputedStyle(document.querySelector('[aria-label="Georgia"]')).fontFamily);`).startsWith('Georgia'));
   // What follows is inferred: no pick is read.

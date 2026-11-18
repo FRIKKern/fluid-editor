@@ -7779,6 +7779,8 @@ function boot() {
     select: (sid, bid) => { select(sid ? { sid, bid } : null); return true; },
     edit: (sid, bid) => { startTextEdit(sid, bid); return !!editing; },
     finishEdit: () => { finishTextEdit(); return true; },
+    // A blank section added at the page's end, one undo step, as the oracle's Add Section, Add Blank (the replay's blank step).
+    addSection: () => { const before = JSON.stringify(model), s = blankSection(newId()); model.sections.push(s); commit(before, 'Added a blank section'); renderAll(); return s.id; },
     addBlock: (sid, name, onList) => { const before = JSON.stringify(model); addBlock(sid, name); renderSectionDom(sid); frameToLanded(sel.bid); if (onList) commit(before, `Added ${name} to ${sid}`); return true; },
   };
 }

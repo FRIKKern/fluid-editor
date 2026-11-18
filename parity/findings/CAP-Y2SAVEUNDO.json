@@ -1,0 +1,926 @@
+{
+  "item": "Y2",
+  "name": "CAP-Y2SAVEUNDO",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-18",
+  "startedAt": "2026-11-18T09:01:41.962Z",
+  "engine": "chrome",
+  "question": "Y2: Save after an Undo back to the page as it loaded. A blank section alone, then a Text added, then a Text written in, each taken back by the Undo button and by Cmd+Z: is Save on or off once the page is as it loaded, and while only the blank section is left?",
+  "steps": [
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "A blank",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A undo 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Redo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "A redo",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "B blank",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B z 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "B y",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "C added",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "C undo 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "C undo 2",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "D added",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "D z 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "D z 2",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "E write, undo 1",
+      {
+        "sections": true,
+        "has": [
+          "Bold",
+          "Write",
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "E write, undo 2",
+      {
+        "sections": true,
+        "has": [
+          "Bold",
+          "Write",
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "ab"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "F typed",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "F undo 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "F undo 2",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "pressNamed",
+      "Undo"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "F undo 3",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "ab"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      200
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pause",
+      300
+    ],
+    [
+      "read",
+      "G typed",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "G z 1",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "G z 2",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "pause",
+      500
+    ],
+    [
+      "read",
+      "G z 3",
+      {
+        "sections": true,
+        "has": [
+          "Save"
+        ]
+      }
+    ],
+    [
+      "exit"
+    ]
+  ],
+  "reads": {
+    "A blank": {
+      "sections": [
+        {
+          "id": "cedc94",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "A undo 1": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "A redo": {
+      "sections": [
+        {
+          "id": "cedc94",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B blank": {
+      "sections": [
+        {
+          "id": "24356a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "B z 1": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "B y": {
+      "sections": [
+        {
+          "id": "24356a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C added": {
+      "sections": [
+        {
+          "id": "cee027",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "66_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C undo 1": {
+      "sections": [
+        {
+          "id": "cee027",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "C undo 2": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "D added": {
+      "sections": [
+        {
+          "id": "4fd33a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "70_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "D z 1": {
+      "sections": [
+        {
+          "id": "4fd33a",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "D z 2": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "E write, undo 1": {
+      "sections": [
+        {
+          "id": "7203ff",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Bold": false,
+        "Write": false,
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "E write, undo 2": {
+      "sections": [],
+      "has": {
+        "Bold": false,
+        "Write": false,
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "F typed": {
+      "sections": [
+        {
+          "id": "b912d4",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "12_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F undo 1": {
+      "sections": [
+        {
+          "id": "b912d4",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "12_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F undo 2": {
+      "sections": [
+        {
+          "id": "b912d4",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "F undo 3": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    },
+    "G typed": {
+      "sections": [
+        {
+          "id": "c53530",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "42_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G z 1": {
+      "sections": [
+        {
+          "id": "c53530",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [
+            "42_412"
+          ],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G z 2": {
+      "sections": [
+        {
+          "id": "c53530",
+          "classes": "background-width--full-bleed section-height--medium content-width--wide vertical-alignment--middle",
+          "rows": 8,
+          "blocks": [],
+          "h": 667.6
+        }
+      ],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "G z 3": {
+      "sections": [],
+      "has": {
+        "Save": true
+      },
+      "path": "/blocks-probe",
+      "save": "clean"
+    }
+  },
+  "errors": [],
+  "leftDirty": false,
+  "exitSteps": [],
+  "answer": "Save is on while the page differs from how it loaded and off once it is the same again, by the Undo button and by Cmd+Z alike. A blank section alone: on; one Undo takes the section away and Save goes off; Redo brings both back. A Text added: one Undo takes the Text, Save stays on (the blank section is left); the next takes the section, Save off. A Text written in (ab), or Write pressed and nothing typed: the same, Save off only at the last step, when the section is gone. So CAP-Y2KEYS2's 'Undo button, just added' read Save on because its blank section was still there, not by a rule of its own. Read twice: CAP-Y2SAVEUNDO2 agrees on every read's save, sections and has. Two earlier reads of the same steps with controls in place of has (commit 8028b463) agree too; controls were left out here, as they follow where the mouse last sat.",
+  "ours": "The same rule: ours compares the page with the saved one (app/src/editor.js, savedJson), so no app change. The replay (scripts/lib/text-replay.mjs) had no step for the oracle's blank Add Section; it now adds a blank section at the page's end (fe.addSection), an undo step of its own, and text-check drops the CAP-Y2KEYS2 save known miss.",
+  "pressed": "Undo and Redo by name (pressNamed). Cmd+Z and Cmd+Shift+Z as keys. The section by Add Section, Add Blank (blank). Nothing saved: Exit Without Saving."
+}
