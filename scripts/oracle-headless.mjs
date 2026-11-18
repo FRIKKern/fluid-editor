@@ -7,7 +7,8 @@
 // The login comes from the owner's cmux tab: only *.squarespace.com cookies, read once and set
 // over the DevTools protocol. Values are never printed or written to a file by this script
 // (Chrome keeps them in its profile under /tmp). --from surface:N names the tab, otherwise the
-// first cmux tab on the trial site. No tab? The profile's earlier login is used.
+// first cmux tab on the trial site. No tab? Nothing is copied. The copied login is session-only (QUALITY.md):
+// a Chrome already running keeps it, a fresh start comes up "not logged in" and needs --from again.
 import { execFileSync } from 'node:child_process';
 import { startChrome } from './lib/chrome.mjs';
 import { evalJs, goto, viewport, pause } from './lib/cmux.mjs';
@@ -52,7 +53,7 @@ if (tab) {
   const cookies = readCookies(tab);
   await setCookies(cookies);
   say(`copied ${cookies.length} squarespace.com cookies from ${tab}`);
-} else say('no cmux tab on the trial site: using the login already in this profile');
+} else say('no cmux tab on the trial site, so no login copied: a running Chrome keeps its session, a fresh start is "not logged in" (start again with --from surface:N)');
 
 viewport(S, 1600, 1000);
 const at = evalJs(S, '(() => JSON.stringify(location.host))()');
