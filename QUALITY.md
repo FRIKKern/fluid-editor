@@ -111,15 +111,16 @@ Every gap is matched against `parity/items.json`. An item lists the oracle label
 ## A new trial
 
 ```
-owner: Agaro trial + cmux login ─► Poppins (0004) ─► two probe pages
+owner: cmux browser signed in to Squarespace (nothing else)
+agent: Agaro trial ─► Poppins (0004) ─► two probe pages
 lane:  FLUID_ORACLE_SITE ─► profile 9350 ─► oracle-setup-check ─► compare, then store the bases
 ```
 
-1. The owner starts a trial on the Agaro template, logs in in a cmux tab and notes `<name>.squarespace.com` and the day. The old site was Agaro (its footer says "Agaro Collective", `parity/findings/CAP-FOOTER.json`). Another template brings another footer, other themes and other pages, so every stored base would differ.
+1. Start a trial on the Agaro template (an agent may, owner 2026-11-18). The two start pages are `ACCOUNT` and `TEMPLATE` in `scripts/lib/oracle-site.mjs`: `node --input-type=module -e "const m = await import('./scripts/lib/oracle-site.mjs'); console.log(m.ACCOUNT, m.TEMPLATE)"`. Open `ACCOUNT` in the owner's cmux browser with `cmux browser open <ACCOUNT> --focus false`. A sign-in page there means stop and ask the owner: never sign in or sign up. Copy its login into a hidden Chrome: `CDP_PORT=<port> TMPDIR=/tmp/ node scripts/oracle-headless.mjs --from <that surface>`. In that Chrome go to `TEMPLATE` and press START WITH THIS DESIGN. It lands on `<name>.squarespace.com/config/` with no form, terms or payment. Note `<name>` and the day. The old site was Agaro (its footer says "Agaro Collective", `parity/findings/CAP-FOOTER.json`). Another template brings another footer, other themes and other pages, so every stored base would differ.
 2. `export FLUID_ORACLE_SITE=<name>.squarespace.com`. Every oracle script reads it from `scripts/lib/oracle-site.mjs`.
 3. Log in the headless profile with the cmux tab open: `eval "$(CDP_PORT=9350 node scripts/oracle-headless.mjs)"`. Lanes copy `/tmp/fluid-editor-chrome-9350`; nobody deletes it.
-4. The owner sets Site Styles fonts to Poppins: headings, paragraphs, miscellaneous text and the three button styles (docs/decisions/0004). This saves site-wide, so it is the owner's step.
-5. The owner makes two blank pages under Not Linked, titled exactly `Blocks Probe` and `Gestures Probe` (`/blocks-probe`, `/gestures-probe`). Recipes open them by title.
+4. Set Site Styles fonts to Poppins: headings, paragraphs, miscellaneous text and the three button styles (docs/decisions/0004). This saves site-wide, so only on a brand-new trial, before any probe. Site Styles (`Toggle Site Styles editing`) > `Open Fonts style disclosure`. For Headings, Paragraphs and Miscellaneous: press the family button, type Poppins in the search box, press the row just under it. Buttons has three family buttons (Primary, Secondary, Tertiary); each opens a new popover under the last, so pick Poppins in the newest popover's In Use list. Read all six back as Poppins, then Save, then Exit. Presses go through `evalJs` and `browser` in `scripts/lib/cmux.mjs` on `ORACLE_SURFACE`.
+5. Make two blank pages under Not Linked, titled exactly `Blocks Probe` and `Gestures Probe` (`/blocks-probe`, `/gestures-probe`). Recipes open them by title. In Pages, press Not Linked's + (the button just before `Collapse the "Not Linked" navigation group`), then Add Blank, then Page. The focused name field holds "New Page": type the title, then Enter.
 6. `node scripts/oracle-setup-check.mjs --since <day>` lists what is still missing. Add `--live` once `ORACLE_SURFACE` is set: login, pages, bases.
 7. `ORACLE_SURFACE=cdp:9350 node scripts/oracle-readback.mjs`, before storing anything. Each difference from the old site is a finding (O4).
 8. Store the bases on the clean site, before any probe:
