@@ -1,5 +1,6 @@
 {
-  "item": "CAP-T15FLOATHOLD2",
+  "item": "T15",
+  "name": "CAP-T15FLOATHOLD2",
   "oracle": "/gestures-probe",
   "capturedAt": "2026-11-18",
   "startedAt": "2026-11-18T09:28:23.939Z",
@@ -13232,17 +13233,7 @@
   },
   "errors": [],
   "visited": "Gestures Probe",
-  "pressed": [
-    {
-      "tileButton": "Float",
-      "box": [
-        717,
-        415,
-        36,
-        36
-      ]
-    }
-  ],
+  "pressed": "The Float tile's unnamed Edit button by pressTileButton with a hold between down and up; triggers by name (pressNamed). Read only, nothing saved: Exit Without Saving.",
   "leftDirty": true,
   "exitSteps": [
     "top Exit",
@@ -13260,5 +13251,7 @@
       "blocks": 0
     },
     "same": true
-  }
+  },
+  "answer": "The click starts Float's opening play, not the pointerdown. With the tile's Edit held between down and up, the square first moved 777 ms (held 1.5 s) and 817 ms (held 0.8 s) after the click, 2333 and 1680 ms after the pointerdown; then down to 0.902 and back in 3333 ms, once, as CAP-T15FLOATOPEN1/2. Read twice: CAP-T15FLOATHOLD1 agrees. CAP-T15FLOATOPEN1/2's 844 and 845 ms counted from a pointerdown whose click came a spawn later.",
+  "ours": "Ours played 170 ms after the click and first moved about 507 ms after it; the timer is now 470 ms (app/src/editor.js stageOnOpen), first move about 806 ms. anim-check's Float row now reads from the click against CAP-T15FLOATHOLD1."
 }
