@@ -959,28 +959,29 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     add('Stage square in a preset\'s editor: still after Opacity goes to 50%', c === null && theirs(T.change) === null, JSON.stringify(c));
     const hm = motion(await hoverRun(2600)), ht = theirs(T.hover);
     add(`Stage square in a preset's editor: the mouse on it plays Grow to ${ht.peak} and back in ${ht.end} ms, as read`, !!hm && near(hm.peak, ht.peak, 0.015) && Math.abs(hm.end - ht.end) <= 0.15 * ht.end, JSON.stringify(hm)); }
-  // Opening a preset's editor plays it once on the stage (CAP-T15FLOATOPEN1.json and CAP-T15FLOATOPEN2.json agree): Float
-  // moves first about 800 ms after the press's click, down to its End's scale squared, back to rest, then still. The click, not
-  // the pointerdown, starts it: with the tile's Edit held 1.5 s and 0.8 s between down and up it first moved 777 and 817 ms
-  // after the click, 2333 and 1680 after the pointerdown (CAP-T15FLOATHOLD1.json, CAP-T15FLOATHOLD2.json).
+  // Opening a preset's editor plays it once on the stage: Float moves first about 800 ms after the press's click, down to its
+  // End's scale squared, back to rest, then still. The click, not the pointerdown, starts it: with the tile's Edit held 1.5 s
+  // and 0.8 s between down and up it first moved 777 and 817 ms after the click, 2333 and 1680 after the pointerdown
+  // (CAP-T15FLOATHOLD1.json, CAP-T15FLOATHOLD2.json; CAP-T15FLOATOPEN1/2 read 844 and 845 from an unsplit press).
   await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-2', 120); await pause(600);
   { const H1 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T15FLOATHOLD1.json', import.meta.url))).reads['open, held 1.5 s'];
     const them = H1.frames.map((f) => [f[0] - H1.click, f.slice(1).find((e) => e[0][0] >= 595 && e[0][0] <= 612 && e[0][1] >= 365 && e[0][1] <= 390 && e[0][2] < 45)]).filter(([, e]) => e).map(([t, e]) => [t, sx(e[1])]);
     // The oracle's times run from its press's click on the page clock (scripts/oracle-capture.mjs watchFresh), so ours do too:
-    // a capture listener stamps the pointerdown and the click on watch's clock. The spawns before the press don't count, and
-    // the press is one process (down then up at once), so no spawn sits between them either: a down and an up started apart
-    // were 2.9 s apart once under load.
-    watch(6000);
+    // a capture listener stamps the pointerdown and the click on watch's clock. The spawns before the press don't count. The
+    // press is held about 1 s, as the oracle's was, so a play timed from the pointerdown starts early and fails; a hold under
+    // 500 ms (by the stamps) can't tell the two apart, so it fails too. A longer one under load is fine: the click is the clock.
+    watch(7600);
     q(`const p = window.__stwP = {}; for (const ty of ['pointerdown', 'click']) addEventListener(ty, () => { if (p[ty] == null) p[ty] = Math.round(performance.now() - window.__stwT0); }, { capture: true, once: true }); return 'true';`);
-    browser(S, 'click', '#block-panel [data-anim="gear"]'); await pause(6200);
-    const press = q(`return JSON.stringify(window.__stwP);`), click = press.click;
+    const gear = q(`const r = panel.querySelector('[data-anim="gear"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
+    mouse(S, 'move', gear[0], gear[1]); mouse(S, 'down', gear[0], gear[1], { buttons: 1 }); await pause(1000); mouse(S, 'up', gear[0], gear[1]); await pause(6200);
+    const press = q(`return JSON.stringify(window.__stwP);`), click = press.click, held = click - press.pointerdown;
     const mine = Number.isFinite(click) ? oursPairs(frames()).map(([t, x]) => [t - click, x]) : [];
     const sum = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.002); return m.length ? { start: m[0][0], end: m.at(-1)[0], min: Math.round(Math.min(...v.map(([, x]) => x)) * 1000) / 1000, last: v.at(-1)[1] } : null; };
     // Once: from its first move to its last, down to its low with no rise on the way and back with no fall (a second play shows one).
     const once = (v) => { const w = v.map(([, x]) => x), i = w.findIndex((x) => Math.abs(x - 1) > 0.002), j = w.findLastIndex((x) => Math.abs(x - 1) > 0.002); if (i < 0) return false; const r = w.slice(i, j + 1), lo = r.indexOf(Math.min(...r)); let m = r[0]; return r.every((x, k) => { if (k === lo) m = x; const ok = k <= lo ? x <= m + 0.003 : x >= m - 0.003; m = k <= lo ? Math.min(m, x) : Math.max(m, x); return ok; }); };
     const a1 = sum(mine), b1 = sum(them), what = `Stage square: opening Float's editor plays it once, from ${b1.start} ms after the click, down to ${b1.min}, at rest by ${b1.end} ms, as read`;
     const rest = !!a1 && once(mine) && once(them) && near(a1.min, b1.min, 0.01) && Math.abs(a1.end - b1.end) <= 0.15 * b1.end && near(a1.last, 1, 0.001), detail = JSON.stringify({ ours: a1, theirs: b1, once: !!a1 && once(mine), press });
-    add(what, rest && Math.abs(a1.start - b1.start) <= 150, detail); }
+    add(what, rest && held >= 500 && Math.abs(a1.start - b1.start) <= 150, detail); }
   // Follow on the stage, a table of two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json) at Scale 150% by 150%:
   // still a while after the mouse comes on (692 and 1230 ms in these reads; ours 751, the median of 4 reads that vary), up to 1.837 in 1.5 s, down to 0.889, then at rest.
   await setup('Follow', 'end');
