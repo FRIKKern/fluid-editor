@@ -3634,6 +3634,8 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
 // U12: the font list, against parity/findings/CAP-U12FONTLIST.json. Boxes, heads and names are read. What a pick does isn't: Site Styles is read only.
 {
   const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FONTLIST.json', import.meta.url))).results;
+  // The names as last read (CAP-STYLEROWS.json, oracle-readback --store), plus In Use's one row.
+  const names = JSON.parse(readFileSync(new URL('../parity/findings/CAP-STYLEROWS.json', import.meta.url))).families.length;
   const js = (body) => evalJs(S, `(() => { ${body} })()`);
   const hit = async (sel, wait = 100) => { js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'false'; e.click(); return 'true';`); await pause(wait); };
   const box = (sel) => js(`const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify(r.width ? [r.left, r.top, r.width, r.height] : null);`);
@@ -3659,7 +3661,7 @@ const ST = JSON.parse(readFileSync(new URL('../parity/findings/S3.json', import.
   add('Font list: rows land', Math.abs(rows[0] - R.tops.firstRow) <= 1 && R.tops.sansRows.every((t, n) => Math.abs(rows[n + 1] - t) <= 1) && Math.abs(rows[6] - R.tops.serifRow) <= 1, JSON.stringify(rows));
   add('Font list: a row\'s box', same(box('.ss-fl-row'), R.rowBox), JSON.stringify(box('.ss-fl-row')));
   add('Font list: the note', js(`const e = document.querySelector('.ss-fl-note'), r = e.getBoundingClientRect(); return JSON.stringify([e.textContent.trim(), Math.round(r.top), getComputedStyle(e).fontSize].join());`) === [R.note.text, R.note.box[1], R.note.size].join());
-  add('Font list: every name and how long', js(`const p = document.querySelector('.ss-fl-scroll'); return JSON.stringify(document.querySelectorAll('.ss-fl-row').length);`) === 1504 && Math.abs(js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`) - R.scroller.scrollHeight) <= 60, js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`));
+  add('Font list: every name and how long', js(`const p = document.querySelector('.ss-fl-scroll'); return JSON.stringify(document.querySelectorAll('.ss-fl-row').length);`) === names + 1 && Math.abs(js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`) - R.scroller.scrollHeight) <= 60, js(`return JSON.stringify(document.querySelector('.ss-fl-scroll').scrollHeight);`));
   add('Font list: the row in use is checked', js(`const e = document.querySelector('.ss-fl-row.is-on'); return JSON.stringify([e.textContent, !!e.querySelector('svg')].join());`) === 'Poppins,true');
   add('Font list: a stack in its own font', js(`return JSON.stringify(getComputedStyle(document.querySelector('[aria-label="Georgia"]')).fontFamily);`).startsWith('Georgia'));
   // What follows is inferred: no pick is read.

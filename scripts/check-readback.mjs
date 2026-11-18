@@ -101,9 +101,11 @@ is('a font list short by a name fails', compareFamilies(STYLES.families.slice(0,
 is('a renamed font fails', compareFamilies(STYLES.families.map((n, i) => (i === 700 ? 'x' : n))).length > 0);
 is('the font list starts with the first screen', eq(STYLES.families.slice(0, heads.family.first.length), heads.family.first));
 const groupsRead = JSON.parse(readFileSync(new URL('../parity/findings/CAP-U12FONTLIST.json', import.meta.url))).results.groups;
-is('our font list holds the 1503 names read', eq([...new Set([...FONT_GROUPS.flatMap(([, n]) => n), ...OTHER_FONTS])].sort(), [...STYLES.families].sort()));
+is(`our font list holds the ${STYLES.families.length} names read`, eq([...new Set([...FONT_GROUPS.flatMap(([, n]) => n), ...OTHER_FONTS])].sort(), [...STYLES.families].sort()));
 is('Assign Styles has the 122 rows read, in order, with their values', eq(ASSIGN_GROUPS.flatMap(([, r]) => r.map(([n, st]) => `${n} ${st}`)), STYLES.views['Fonts > Assign Styles'].map((r) => r[1]).filter(Boolean).slice(0, 122)));
-is('our font list has the groups read', eq(FONT_GROUPS.map(([h, n]) => [h, n.length]), groupsRead.slice(1, 4)) && OTHER_FONTS.length === groupsRead[4][1]);
+// The stack groups as CAP-U12FONTLIST read them; Other is every other name in the newest read (CAP-STYLEROWS), which a new trial
+// stores again: 1493 on the old site, 1494 on the trial of 2026-11-18 (Adelle Sans, CAP-TRIAL1118.json).
+is('our font list has the groups read', eq(FONT_GROUPS.map(([h, n]) => [h, n.length]), groupsRead.slice(1, 4)) && OTHER_FONTS.length === STYLES.families.filter((n) => !n.includes(',')).length);
 const ourOptions = (view, key) => [...siteStylesHtml(null, view, [], { select: key }).matchAll(/role="option"[^>]*data-v="([^"]+)"/g)].map((m) => m[1]);
 for (const [view, k] of [['Headings', 'h'], ['Paragraphs', 'p']]) {
   const read = lists[`Fonts > ${view}`].combos.map((c) => c[1].map(([n]) => n));

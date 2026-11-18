@@ -1,0 +1,22 @@
+{
+ "item": "U12",
+ "capturedAt": "2026-11-18",
+ "engine": "chrome",
+ "question": "A new trial (QUALITY.md, A new trial, step 7): what oracle-readback reads on the new Agaro trial, started 2026-11-18, that differs from the bases stored on the old site. O4: each difference is a finding, recorded here before the bases were stored again.",
+ "how": "oracle-readback.mjs, read only, on the clean new site after the owner's steps 1 to 5 (Poppins saved, Blocks Probe and Gestures Probe made): exit 1, 10 differences. oracle-setup-check --live listed the same. Then --footer-only --store-footer, then --store --store-themes in one run (exit 0), then oracle-readback again: exit 0, the same on all of it. Nothing pressed but the names oracle-readback allows; Save off at every read; left by Exit with no question.",
+ "same": "All 10 themes by 313 rows, the palette (same values, now written with all their digits), every Site Styles view's controls, 14 of the 18 sets of closed lists, Forms > Colors on all 10 themes, and the footer's other 6 blocks and words on both pages.",
+ "differences": [
+  { "n": 1, "where": "footer on /, links", "now": "instagram-unauth", "before": "Instagram", "what": "The Social Links block's first icon is named instagram-unauth, like Facebook's and X's on both sites: no Instagram account is linked on the new trial. The words of the other 6 links are the same." },
+  { "n": 2, "where": "footer on /, social", "now": "instagram-unauth", "before": "Instagram", "what": "The same icon, in the social icons' own list." },
+  { "n": 3, "where": "footer on /gestures-probe, links", "now": "instagram-unauth", "before": "Instagram", "what": "As 1, on the probe page: the footer is site-wide." },
+  { "n": 4, "where": "footer on /gestures-probe, social", "now": "instagram-unauth", "before": "Instagram", "what": "As 2, on the probe page." },
+  { "n": 5, "where": "Fonts > Headings, the Font row's list, first screen", "now": "49 names; Adelle Sans is 21st (index 20), between Adamina and ADLaM Display; the last is Alike", "before": "49 names; ADLaM Display 21st; the last was Alike Angular", "what": "One name was added to the font list, so every name after it moves down one and Alike Angular drops off the first screen. Heads, filter, the selected Poppins and Style, Weight and Text Transform are the same." },
+  { "n": 6, "where": "Fonts > Paragraphs, the Font row's list, first screen", "now": "Adelle Sans at index 20", "before": "ADLaM Display at index 20", "what": "As 5." },
+  { "n": 7, "where": "Fonts > Buttons, the Font row's list and its three button font rows' lists, first screen", "now": "Adelle Sans at index 20 in all four", "before": "ADLaM Display at index 20", "what": "As 5, in each of the four lists." },
+  { "n": 8, "where": "Fonts > Miscellaneous, the Font row's list, first screen", "now": "Adelle Sans at index 20", "before": "ADLaM Display at index 20", "what": "As 5." },
+  { "n": 9, "where": "the font list, every name", "now": "1504 names", "before": "1503 names", "what": "Adelle Sans is new; no name was taken away and the others keep their order." },
+  { "n": 10, "where": "the font list, index 20", "now": "Adelle Sans", "before": "ADLaM Display", "what": "Where the new name sits. It is not served by Google Fonts (a request for it is refused), so on ours its row and value work and the page falls back, as for the 15 others." }
+ ],
+ "ours": "Ours gets Adelle Sans in the Other group after Adamina (app/src/font-names.js), so scripts/check-readback.mjs still finds the names read. marks-check's row count follows CAP-STYLEROWS' names. CAP-U12FONTLIST.json (2026-11-07, old site) still holds Other at 1493 and the old scroll height; it is not read again here.",
+ "stored": "CAP-FOOTER.json, CAP-STYLEROWS.json and CAP-THEMEROWS.json, capturedAt 2026-11-18, from this site."
+}

@@ -104,7 +104,7 @@ const family = (f) => `"${f}"`;
 const fontUrl = (f, w) => `https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}${w && w !== 400 ? `:wght@${w}` : ''}&display=swap`;
 export const fontLink = (f, w) => `<link rel="stylesheet" data-fe-site-styles href="${fontUrl(f, w)}">`;
 // The font list's names (U12, CAP-U12FONTLIST.json). A stack is the visitor's own fonts, with nothing to load. A name loads every weight the
-// service has, since asking for one it lacks fails, and 6 names have no 400. 15 of the 1493 aren't served: their row and value work, and the page falls back.
+// service has, since asking for one it lacks fails, and 6 names have no 400. 16 of the 1494 aren't served (Adelle Sans, new on the trial of 2026-11-18, is one): their row and value work, and the page falls back.
 export const isFontStack = (f) => f.includes(',');
 export const fontName = (f) => f.split(',')[0].replace(/"/g, '').trim();
 export const fontFamilyCss = (f) => (isFontStack(f) ? f : `"${fontName(f)}", sans-serif`);
