@@ -1,7 +1,7 @@
 // Replays a stored text finding's steps in our editor with real keys and real presses, at the
 // the oracle's side of the undo clock: undo steps go by time. Each `read` and `undoWalk` is compared with the oracle's.
 // add(what, ok, detail, parts): ok is null when a run's timing was off and it could not run. A read row also passes
-// parts, each part's own verdict: html, rows, undo, controls, save, path and `has <name>`. And seen: what html and rows read on each side.
+// parts, each part's own verdict: html, rows, undo, controls, checked, save, path and `has <name>`. And seen: what html and rows read on each side.
 import { browser, cdp, evalJs, goto, mouse, pause } from './cmux.mjs';
 import { BASE } from './base.mjs';
 import { STUB_JS } from './clip-guard.mjs';
@@ -165,7 +165,7 @@ export async function replay(S, finding, add) {
     else if (op === 'read') {
       if (finding.reads[a[0]] === undefined) { unread(op, a[0]); continue; }
       // A read with only stamps is the timing tables' (WAITS, COST), not compared here. One with only the bar's state or controls is a row.
-      const want = finding.reads[a[0]].html; if (want === undefined && !finding.reads[a[0]].areas && !finding.reads[a[0]].has && !finding.reads[a[0]].btnState && !finding.reads[a[0]].controls) continue;
+      const want = finding.reads[a[0]].html; if (want === undefined && !finding.reads[a[0]].areas && !finding.reads[a[0]].has && !finding.reads[a[0]].btnState && !finding.reads[a[0]].controls && !finding.reads[a[0]].ariaChecked) continue;
       // A read of another block, by its place in the section.
       const other = a[1]?.html?.[1], who = typeof other === 'number' ? evalJs(S, `JSON.stringify(fe.model.sections[1].blocks[${other}].id)`) : id;
       const got = evalJs(S, `(() => { const ce = ${ceOf.replace('__ID__', who)}; return JSON.stringify(ce ? ce.innerHTML : null); })()`);
@@ -182,9 +182,12 @@ export async function replay(S, finding, add) {
       const ctlWant = finding.reads[a[0]].controls?.map((c) => `${c.role} ${c.label}`), ctlGot = ctlWant && evalJs(S, CONTROLS);
       const ctlSame = !ctlWant || JSON.stringify(ctlWant) === JSON.stringify(ctlGot);
       const sp = saveAndPath(finding.reads[a[0]]), saveSame = sp.save, pathSame = sp.path;
+      // checked: each toggle showing outside the page and its aria-checked, read by oracle-capture.mjs's rule (ariaChecked).
+      const ckWant = finding.reads[a[0]].ariaChecked, ckGot = ckWant && evalJs(S, `JSON.stringify(Object.fromEntries([...document.querySelectorAll('[role=checkbox][aria-label]')].filter((e) => e.getBoundingClientRect().width > 0 && !e.closest('#site-frame')).map((e) => [e.getAttribute('aria-label'), e.getAttribute('aria-checked')])))`);
+      const sorted = (o) => JSON.stringify(Object.entries(o || {}).sort(([x], [y]) => (x < y ? -1 : 1))), ckSame = !ckWant || sorted(ckWant) === sorted(ckGot);
       // Each part's verdict goes with the row, so a named miss can excuse only the parts its reason covers.
-      const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
-      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts, { html: [textNorm(want), textNorm(got)], rows: [areasWant, areasGot] });
+      const parts = { html: want === undefined || textNorm(got) === textNorm(want), rows: areasSame, undo: btnSame, controls: ctlSame, checked: ckSame, save: saveSame, path: pathSame, ...Object.fromEntries(Object.keys(hasWant || {}).map((k) => [`has ${k}`, hasWant[k] === hasGot[k]])) };
+      add(a[0], Object.values(parts).every(Boolean), `${sp.said}${ckSame ? '' : `checked: oracle ${sorted(ckWant)}, ours ${sorted(ckGot)}; `}${ctlSame ? '' : `controls: oracle ${ctlWant.join(' | ')}; ours ${ctlGot.join(' | ')}; `}oracle ${btnSame ? '' : JSON.stringify(btnWant)}${textNorm(want)}${hasWant ? ` ${JSON.stringify(hasWant)}` : ''}${areasSame ? '' : ` ${areasWant}`}, ours ${textNorm(got)}${hasWant ? ` ${JSON.stringify(hasGot)}` : ''}${areasSame ? '' : ` ${areasGot}`}`, parts, { html: [textNorm(want), textNorm(got)], rows: [areasWant, areasGot] });
     }
     // A missing undo read still walks undo, so the steps after it start where the oracle's did.
     else if (op === 'undoWalk') { if (finding.reads[a[0]] === undefined) unread(op, a[0]); await undoHere(a[0], finding.reads[a[0]] || { undo: [] }, k, a[3] ?? 12); }
