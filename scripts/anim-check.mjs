@@ -983,13 +983,14 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
     const run = async (names, label, holdMs) => {
       const at = holdMs ? 'click' : 'pointerdown', reads = names.map((n) => read(n, label, at)), { H } = reads[0];
       await settle(); await fresh('Shape'); await clickSel(act('add')); await pickTrigger('Loop'); await clickRadio('loop-2', 120); await pause(600);
-      watch(holdMs + 7000);
-      q(`const p = window.__stwP = {}; for (const ty of ['pointerdown', 'click']) addEventListener(ty, () => { if (p[ty] == null) p[ty] = Math.round(performance.now() - window.__stwT0); }, { capture: true, once: true }); return 'true';`);
+      // The watch and the press stamps start in one step, and the watch runs to 6000 ms after the stamped click as well as
+      // holdMs + 7000 from its start: spawns before the press can't eat the play's end (task-507949c82e6a468a).
+      q(`const w = window.__stw = [], p = window.__stwP = {}, t0 = window.__stwT0 = performance.now(); window.__stwDone = false; for (const ty of ['pointerdown', 'click']) addEventListener(ty, () => { if (p[ty] == null) p[ty] = Math.round(performance.now() - t0); }, { capture: true, once: true }); const tick = () => { const e = panel.querySelector('.an-stage .an-sq'), n = performance.now() - t0; w.push([Math.round(n), e ? getComputedStyle(e).transform : null]); if (n < ${holdMs + 7000} || (p.click != null && n < p.click + 6000)) requestAnimationFrame(tick); else window.__stwDone = true; }; requestAnimationFrame(tick); return 'true';`);
       const gear = q(`const r = panel.querySelector('[data-anim="gear"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
       if (holdMs) { mouse(S, 'move', gear[0], gear[1]); mouse(S, 'down', gear[0], gear[1], { buttons: 1 }); await pause(holdMs); mouse(S, 'up', gear[0], gear[1]); }
       else browser(S, 'click', '#block-panel [data-anim="gear"]');
       await pause(6200);
-      const press = q(`return JSON.stringify(window.__stwP);`), click = press.click;
+      const press = q(`for (let i = 0; i < 100 && !window.__stwDone; i++) await sleep(50); return JSON.stringify(window.__stwP);`), click = press.click;
       const mine = Number.isFinite(click) ? oursPairs(frames()).map(([t, x]) => [t - click, x]) : [];
       const a = sum(mine), held = click - press.pointerdown, theirHeld = holdMs ? H.click - H.down : null, bs = reads.map((r) => sum(r.them)), b = bs[0];
       const why = [!holdMs && !(held <= 500) && `press gap ${held} ms, over 500`, !a && 'no play', a && !once(mine) && 'not once', ...reads.flatMap(({ them }, k) => { const b = bs[k], n = names.length > 1 ? ` (${names[k]})` : ''; return [!once(them) && `theirs not once${n}`, a && !near(a.min, b.min, 0.01) && `low${n}`, a && Math.abs(a.end - b.end) > 0.15 * b.end && `end${n}`, a && Math.abs(a.start - b.start) > 150 && `start${n}`]; }), a && !near(a.last, 1, 0.001) && 'last'].filter(Boolean);
