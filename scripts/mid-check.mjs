@@ -276,6 +276,8 @@ const sweep = (sw, moves, release = 'pointercancel', handle = null) => evalJs(S,
   d.dispatchEvent(new W.PointerEvent('${release}', { ...o, buttons: 0 })); await sleep(30);
   const after = fe.model.sections[0].blocks.find((x) => x.id === 'held').layout['${sw.view || 'desktop'}'].area.join(' / ');
   fe.setBp('desktop'); return JSON.stringify({ out, after }); })()`);
+// HOLD.json's known miss, phone full width at -24, read again on the new trial (CAP-PHONEFULLAGAIN.json, 2 of 2): yellow to -23, none
+// from -24. Held, the oracle's block is 376 wide while its ring stays on 1 / 2 / 7 / 10 (its area 376.66, which ours keeps), so ours is yellow at -24.
 for (const sw of H.sweeps) {
   const { out } = sweep(sw, sw.moves.map((m) => [m.dx, m.dy]), 'pointercancel', sw.handle || null);
   sw.moves.forEach((m, k) => {
@@ -313,6 +315,7 @@ for (const [file, tag, start] of [['CAP-X2WIDTHS2', 'B', 'B w12 middle coarse'],
   // Refit 2, the last (CAP-X2T9.json, R2 agrees on every ring): 9 wide at 1600, 6 wide at 1545 and 1672, a 9 wide one line in from
   // the edge at 1760 (the setup drag stopped there, as ours does: the plain move rule), and a 3 wide on rows 8 to 14, built as read facts at 1600.
   const F9 = JSON.parse(readFileSync(new URL('../parity/findings/CAP-X2T9.json', import.meta.url))).reads;
+  // Read again on the new trial (CAP-X2T9AGAIN.json, 2 of 2): 1 / 21 / 7 / 27 from +1 to -30, 1 / 20 / 7 / 26 from -40 to -65. T is frozen.
   const miss9 = { 'R1 w6 1545 -1': 'refit 2: M is 61.6, over one column, so it jumps to 19; the oracle keeps 21', 'R1 w6 1545 -20': 'refit 2: as at -1' };
   for (const tag of ['w9 1600', 'w9 1760', 'w6 1545', 'w6 1672', 'w3 rows8']) {
     viewport(S, tag === 'w3 rows8' ? 1600 : Number(tag.split(' ')[1]), 945); await pause(250);
@@ -830,6 +833,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
 // R2, rule S: a one-line Text widened by its east side keeps its rows at the drop when x of its new right grid line has a fraction
 // under 0.5 px, and falls when let go. Two agreeing reads each: CAP-R2SUBPIXEL.json and CAP-R2ENDLINE-A/B/C.json R1 (R2 agrees),
 // CAP-R2WIDEDROP.json a1, a4, a6 (CAP-TEXTWIDTH7.json f4, f3, f7 agree). Named miss: column 3 to line 15 falls at the drop.
+// Read again on the new trial (CAP-R2RULESAGAIN.json): it falls 4 of 4, moved before and after writing; c3 L16 and c4 L15 keep.
 { const t3 = 'Short note about the mill road and the birch trees above it.', reads = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).reads;
   const sub = ['w1280 L13', 'w1280 L14', 'w1280 L17', 'w1280 L18', 'w1920 L15', 'c3 L15', 'c3 L17'].map((k) => ['CAP-R2SUBPIXEL', `R1 ${k}`, `R1 ${k} written`]);
   const end = [...['L18', 'L19', 'L20', 'L21'].map((k) => ['CAP-R2ENDLINE-A', `R1 ${k}`]), ...['L22', 'L23', 'L24', 'L25'].map((k) => ['CAP-R2ENDLINE-B', `R1 ${k}`]), ...['c3 L15', 'c3 L16', 'c4 L15', 'c4 L16'].map((k) => ['CAP-R2ENDLINE-C', `R1 ${k}`, `R1 ${k} after move`])];
