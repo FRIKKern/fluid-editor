@@ -755,8 +755,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   const read = () => evalJs(S, `JSON.stringify({ a: fe.model.sections[0].blocks.find((x) => x.id === 't').layout.desktop.area.join('/'), rows: fe.model.sections[0].rows.desktop })`);
   const handle = () => evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), h = f.contentDocument.querySelector('.fe-handle[data-dir="e"]').getBoundingClientRect(); return JSON.stringify([q.left + h.left + h.width / 2, q.top + h.top + h.height / 2]); })()`);
   const step = async (dx) => { const p = handle(); mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); for (let n = 1; n <= 12; n++) { mouse(S, 'move', p[0] + (dx * n) / 12, p[1], { buttons: 1 }); await pause(12); } mouse(S, 'up', p[0] + dx, p[1]); await pause(60); evalJs(S, `fe.select('s', 't')`); await pause(40); };
-  const known = { 'wider 5': 'held, the oracle keeps 5 rows for a text of 134.4, 2 of 2 runs, and lets the row go on Escape (CAP-TEXTWIDTH4.json); no width offset explains it while held' };
-  const test = (name) => { const r = read(), w = F.reads[name]; const diffs = [r.a !== w.areas[0][0] && `area: oracle ${w.areas[0][0]}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean); groupCases.push({ name: `R2 ${name}`, diffs, ...(known[name] ? { known: known[name] } : {}) }); };
+  // Wider 5 keeps 5 rows at the drop for a text of 134.4 (CAP-TEXTWIDTH4.json l, CAP-R2WIDER5AGAIN.json on the new trial): rule S on line 15.
+  const test = (name) => { const r = read(), w = F.reads[name]; const diffs = [r.a !== w.areas[0][0] && `area: oracle ${w.areas[0][0]}, ours ${r.a}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean); groupCases.push({ name: `R2 ${name}`, diffs }); };
   for (let i = 1; i <= 16; i++) { await step(58.78); test(`wider ${i}`); }
   for (let i = 1; i <= 20; i++) { await step(-58.78); test(`narrower ${i}`); }
   // Let go, the rows follow the text at its real width (CAP-TEXTWIDTH4.json o narrower 20): Escape takes 11 stretched rows to 12.
@@ -796,8 +796,9 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     for (const [name, part, dx] of PHONE_STEPS) {
       const got = await pull(S, part, dx);
       // Named miss: widened back to 7 columns the oracle keeps the third row at the drop and lets it go with the block, as
-      // desktop's wider 5 (R2 rule S, frozen, is for one line only; this text is two lines).
-      const known = name === 'wider 2' ? { held: 'the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)' } : {};
+      // desktop's wider 5, but rule S for any Text is desktop only: widened 2 or 4 phone columns in one drag the oracle falls at lines 8
+      // and 10 (CAP-R2SANYPHONE.json). Read again on the new trial, unchanged (CAP-R2PHONEAGAIN.json).
+      const known = name === 'wider 2' ? { held: 'the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S on a phone is for one line only)' } : {};
       for (const [when, r] of [['held', got.held], ['let go', got.letGo]]) { const w = R[`R1 ${name} ${when}`].stack[0].phone; groupCases.push({ name: `R2 phone ${name}, ${when === 'held' ? 'at the drop' : 'let go'}`, diffs: r.phone === w ? [] : [`phone area: oracle ${w}, ours ${r.phone}`], ...(known[when] ? { known: known[when] } : {}) }); }
     }
     evalJs(S, `fe.setBp('desktop')`); await pause(100);
