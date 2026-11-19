@@ -1,0 +1,90 @@
+{
+  "item": "R2",
+  "capturedAt": "2026-11-19",
+  "question": "R2, rule S for any Text on a phone, fresh round, predictions pushed first: the short Text of CAP-R2PHONE.json written on desktop (two lines on the phone), the phone view, narrowed one phone column (48.46) at a time four times by its east side (phone 1/2/4/6, 3 rows, as CAP-R2PHONE.json's narrower 4), then widened in one drag by 2, 3 or 4 phone columns, read at the drop and after Escape, twice (R1, R2), one Text per enter. Gestures Probe, unsaved.",
+  "rule": "S for any Text: a Text widened by its east side, whatever its number of lines, keeps its rows at the drop when x of its new right grid line has a fractional part under 0.5 px, and falls to the rows it needs when let go (built rule S says one line only). Grid line x on the 1/64 px layout steps: at 1600 line 14 is 805.5, pitch 58.78125; on a phone (428 frame) line 8 is 316.390625, pitch 48.453125.",
+  "from": "Ours with rule S's one-line test removed (editor.js fitTextRows), replayed in mid-check's way: the Text alone in its section, a 12-step drag by its east side, read at the drop and after Escape (scratch predictor). Seen: R2 wider 5 (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH4.json l, CAP-R2WIDER5AGAIN.json) and R2 phone wider 2 (CAP-R2PHONE.json, CAP-R2PHONEAGAIN.json), the two known misses it fixes; mid-check 1258 rows otherwise unchanged. asBuilt: ours on main (one line only). Cases where the two differ: L15, L16, L19, L20, phone n4w2, n4w4.",
+  "hit": "Scored on the Text's area (desktop for the long Text, phone for the short one) and the section's rows at 'held' and 'let go'; each case's two reads must agree. A setup miss, named and not scored: the 'pasted' read not 1/2/7/10 with 12 rows, or the 'narrowed' read not phone 1/2/4/6 with 3 rows.",
+  "predicted": {
+    "n4w2 held": {
+      "phone": "1/2/4/8",
+      "rows": 3,
+      "asBuilt": "1/2/3/8",
+      "asBuiltRows": 2,
+      "edgeX": 316.390625
+    },
+    "n4w2 let go": {
+      "phone": "1/2/3/8",
+      "rows": 2,
+      "asBuilt": "1/2/3/8",
+      "asBuiltRows": 2
+    },
+    "n4w2 narrowed": {
+      "phone": "1/2/4/6",
+      "rows": 3,
+      "setup": true
+    },
+    "n4w3 held": {
+      "phone": "1/2/3/9",
+      "rows": 2,
+      "asBuilt": "1/2/3/9",
+      "asBuiltRows": 2,
+      "edgeX": 364.84375
+    },
+    "n4w3 let go": {
+      "phone": "1/2/3/9",
+      "rows": 2,
+      "asBuilt": "1/2/3/9",
+      "asBuiltRows": 2
+    },
+    "n4w3 narrowed": {
+      "phone": "1/2/4/6",
+      "rows": 3,
+      "setup": true
+    },
+    "n4w4 held": {
+      "phone": "1/2/4/10",
+      "rows": 3,
+      "asBuilt": "1/2/3/10",
+      "asBuiltRows": 2,
+      "edgeX": 413.296875
+    },
+    "n4w4 let go": {
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "asBuilt": "1/2/3/10",
+      "asBuiltRows": 2
+    },
+    "n4w4 narrowed": {
+      "phone": "1/2/4/6",
+      "rows": 3,
+      "setup": true
+    }
+  },
+  "cases": {
+    "n4w2 held": [
+      "R1 n4w2 held",
+      "R2 n4w2 held"
+    ],
+    "n4w2 let go": [
+      "R1 n4w2 let go",
+      "R2 n4w2 let go"
+    ],
+    "n4w3 held": [
+      "R1 n4w3 held",
+      "R2 n4w3 held"
+    ],
+    "n4w3 let go": [
+      "R1 n4w3 let go",
+      "R2 n4w3 let go"
+    ],
+    "n4w4 held": [
+      "R1 n4w4 held",
+      "R2 n4w4 held"
+    ],
+    "n4w4 let go": [
+      "R1 n4w4 let go",
+      "R2 n4w4 let go"
+    ]
+  }
+}
