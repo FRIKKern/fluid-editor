@@ -20,14 +20,17 @@ const dir = new URL('../traces/', import.meta.url);
 const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8'))).filter((t) => !only.length || only.includes(t.id));
 
 const READ = (sid) => `(() => {
-  const s = fe.model.sections.find((x) => x.id === '${sid}');
+  const all = fe.model.sections, s = all.find((x) => x.id === '${sid}');
   const blocks = {}, dupes = [];
   // Blocks are keyed by id, so a second block with an id already read is named in dupes, not folded into the first.
   for (const b of s.blocks) {
     if (Object.hasOwn(blocks, b.id)) dupes.push(b.id);
     blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
   }
-  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes });
+  // The trace loads its section alone (lib/trace-model.mjs), so a block in any other section is a stray the gesture left.
+  const others = [];
+  for (const o of all) if (o !== s) for (const b of o.blocks) for (const k of [b, ...(b.children || [])]) others.push(o.id + '/' + k.id);
+  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes, others });
 })()`;
 
 // A trace with a recorded view puts the target at the same height in the canvas window as on
