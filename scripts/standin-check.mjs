@@ -407,7 +407,10 @@ viewport(S, 1600, 1400);
   await press('[data-btab="Design"]'); await press('input[data-sp-set="zolaPad"]');
   const zp = state();
   add('Zola: Items to Display keeps 7, one undo step, up to 12; Add Padding keeps on; rows stay', z.sp.zolaItems === 7 && zu.sp.zolaItems === undefined && zmax.sp.zolaItems === 12 && zp.sp.zolaPad === true && zp.area[2] === 17, JSON.stringify({ z, zu, zmax, zp }));
-  add('Zola: Registry Name is faded and takes nothing', qs(`return JSON.stringify((() => { const e = [...p.querySelectorAll('input')].find((i) => i.getAttribute('aria-label') === 'Registry Name'); return !e || e.disabled; })());`), '');
+  // Registry Name is a Content row, and the panel draws only the open tab: back to Content, and the field must be there.
+  await press('[data-btab="Content"]');
+  const reg = qs(`return JSON.stringify((() => { const e = [...p.querySelectorAll('input')].find((i) => i.getAttribute('aria-label') === 'Registry Name'); return e ? { disabled: e.disabled } : null; })());`);
+  add('Zola: Registry Name is faded and takes nothing', reg?.disabled === true, JSON.stringify(reg));
   placeAndEdit('Search Field', 8, 8);
   await press('input[data-sp-set="sfPage"]');
   await press('[data-btab="Design"]'); await press('button[data-sp-set="sfTheme"][data-v="light"]'); await press('input[data-sp-set="sfPreview"]');
