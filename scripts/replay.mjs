@@ -21,9 +21,13 @@ const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JS
 
 const READ = (sid) => `(() => {
   const s = fe.model.sections.find((x) => x.id === '${sid}');
-  const blocks = {};
-  for (const b of s.blocks) blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
-  return JSON.stringify({ rows: s.rows[fe.bp], blocks });
+  const blocks = {}, dupes = [];
+  // Blocks are keyed by id, so a second block with an id already read is named in dupes, not folded into the first.
+  for (const b of s.blocks) {
+    if (Object.hasOwn(blocks, b.id)) dupes.push(b.id);
+    blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
+  }
+  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes });
 })()`;
 
 // A trace with a recorded view puts the target at the same height in the canvas window as on
@@ -137,5 +141,11 @@ if (only.length) console.log('(a filtered run; parity/gate-c.json is unchanged)'
 else writeFileSync(new URL('../parity/gate-c.json', import.meta.url), JSON.stringify({ gate: 'C', pass, total: results.length, results }, null, 2) + '\n');
 if (!results.length) {
   console.error('Gate C: no traces, nothing to replay');
+  process.exitCode = 1;
+}
+// A failed trace or a failed undo fails the run, so a script reading the exit code never takes it as green.
+const undoFailed = results.filter((r) => r.undoPass === false).length;
+if (pass < results.length || undoFailed) {
+  console.error(`Gate C failed: ${results.length - pass} of ${results.length} traces differ, ${undoFailed} undo${undoFailed === 1 ? '' : 's'} differ`);
   process.exitCode = 1;
 }

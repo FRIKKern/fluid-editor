@@ -50,7 +50,8 @@ export function validate(t, file = t.id) {
 }
 
 // Gate C comparison: same rows, the same blocks, and same area and z for every block. A block only `got` has is a diff
-// too: a gesture that leaves a stray copy is not the oracle's end state.
+// too: a gesture that leaves a stray copy is not the oracle's end state. So is a stray copy that kept its id: the reader
+// names each repeated id in got.dupes (scripts/replay.mjs READ).
 export function diffStates(want, got) {
   const out = [];
   if (want.rows !== got.rows) out.push(`rows: want ${want.rows}, got ${got.rows}`);
@@ -63,5 +64,6 @@ export function diffStates(want, got) {
     }
   }
   for (const id of Object.keys(got.blocks)) if (!want.blocks[id]) out.push(`${id}: extra, not in the wanted state`);
+  for (const id of new Set(got.dupes || [])) out.push(`${id}: more than one block has this id`);
   return out;
 }

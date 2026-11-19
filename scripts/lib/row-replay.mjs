@@ -17,7 +17,7 @@ const place = (S, label) => evalJs(S, `(() => { const q = ${ROW(label)}.getBound
 const ours = (S, top) => evalJs(S, `(() => { const g = document.querySelector('.lp-ghost'); return JSON.stringify([document.getElementById('layers-panel').hidden ? [] : [...document.querySelectorAll('#layers-panel li[data-layer]')].map((r) => (r.classList.contains('is-slot') ? '*' : r.textContent.trim())), g ? g.getBoundingClientRect().top - ${top} : null]); })()`);
 
 // Frames: for each row, the slot and a ghost, how it got from its first top to its last: 'still', 'jump' in one
-// frame, or 'slide' with how long it took.
+// frame, or 'slide' with how long it took; and when it was drawn: 'always', 'appears', 'goes' or 'never'.
 const FRAME_NAMES = ['Line', 'Button', 'Shape'];
 const SAMPLE = `(() => { const N = ${JSON.stringify(FRAME_NAMES)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0 && getComputedStyle(e).visibility !== 'hidden').map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`;
 function howItMoved(frames, held) {
@@ -32,6 +32,11 @@ function howItMoved(frames, held) {
     // The ghost's own 1px step to the last place isn't a move of its own.
     const big = steps.length === 1 ? (Math.abs(steps[0][1] - seen[seen.findIndex((x) => x === steps[0]) - 1][1]) <= 1 ? [] : steps) : steps;
     out[name] = !big.length ? 'still' : big.length === 1 ? 'jump' : `slide ${big.at(-1)[0] - big[0][0]}`;
+    // And whether it was drawn: the moves above skip the frames without it, so a slot that never came, or one that
+    // stayed after the drop, would read 'still' as the oracle's does. The oracle's slot appears on the move that starts
+    // the drag (CAP-Z3PATH Line to 9) and goes at the drop (CAP-Z3SCORE dropped reads).
+    const runs = list.map(([, y]) => (y === null ? 'N' : 'v')).join('').replace(/(.)\1+/g, '$1');
+    out[`${name} shown`] = { v: 'always', N: 'never', Nv: 'appears', vN: 'goes' }[runs] ?? runs;
   }
   return out;
 }
