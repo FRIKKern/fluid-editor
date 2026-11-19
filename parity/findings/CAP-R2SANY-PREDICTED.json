@@ -1,0 +1,168 @@
+{
+  "item": "R2",
+  "capturedAt": "2026-11-19",
+  "question": "R2, rule S for any Text, fresh round, predictions pushed first: the long Text of CAP-TEXTWIDTH.json (typed, the long paragraph pasted in its middle, 1/2/7/10 with 12 rows) widened by its east side in one drag to line 14, 15, 16, 17, 19 or 20 at 1600, read at the drop and after Escape, twice (R1, R2), one Text per enter. Gestures Probe, unsaved.",
+  "rule": "S for any Text: a Text widened by its east side, whatever its number of lines, keeps its rows at the drop when x of its new right grid line has a fractional part under 0.5 px, and falls to the rows it needs when let go (built rule S says one line only). Grid line x on the 1/64 px layout steps: at 1600 line 14 is 805.5, pitch 58.78125; on a phone (428 frame) line 8 is 316.390625, pitch 48.453125.",
+  "from": "Ours with rule S's one-line test removed (editor.js fitTextRows), replayed in mid-check's way: the Text alone in its section, a 12-step drag by its east side, read at the drop and after Escape (scratch predictor). Seen: R2 wider 5 (CAP-TEXTWIDTH.json, CAP-TEXTWIDTH4.json l, CAP-R2WIDER5AGAIN.json) and R2 phone wider 2 (CAP-R2PHONE.json, CAP-R2PHONEAGAIN.json), the two known misses it fixes; mid-check 1258 rows otherwise unchanged. asBuilt: ours on main (one line only). Cases where the two differ: L15, L16, L19, L20, phone n4w2, n4w4.",
+  "hit": "Scored on the Text's area (desktop for the long Text, phone for the short one) and the section's rows at 'held' and 'let go'; each case's two reads must agree. A setup miss, named and not scored: the 'pasted' read not 1/2/7/10 with 12 rows, or the 'narrowed' read not phone 1/2/4/6 with 3 rows.",
+  "predicted": {
+    "L14 held": {
+      "text": "1/2/5/14",
+      "rows": 10,
+      "asBuilt": "1/2/5/14",
+      "asBuiltRows": 10,
+      "edgeX": 805.5
+    },
+    "L14 let go": {
+      "text": "1/2/5/14",
+      "rows": 10,
+      "asBuilt": "1/2/5/14",
+      "asBuiltRows": 10
+    },
+    "L14 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    },
+    "L15 held": {
+      "text": "1/2/7/15",
+      "rows": 12,
+      "asBuilt": "1/2/5/15",
+      "asBuiltRows": 10,
+      "edgeX": 864.28125
+    },
+    "L15 let go": {
+      "text": "1/2/5/15",
+      "rows": 10,
+      "asBuilt": "1/2/5/15",
+      "asBuiltRows": 10
+    },
+    "L15 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    },
+    "L16 held": {
+      "text": "1/2/7/16",
+      "rows": 12,
+      "asBuilt": "1/2/5/16",
+      "asBuiltRows": 10,
+      "edgeX": 923.0625
+    },
+    "L16 let go": {
+      "text": "1/2/5/16",
+      "rows": 10,
+      "asBuilt": "1/2/5/16",
+      "asBuiltRows": 10
+    },
+    "L16 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    },
+    "L17 held": {
+      "text": "1/2/4/17",
+      "rows": 9,
+      "asBuilt": "1/2/4/17",
+      "asBuiltRows": 9,
+      "edgeX": 981.84375
+    },
+    "L17 let go": {
+      "text": "1/2/4/17",
+      "rows": 9,
+      "asBuilt": "1/2/4/17",
+      "asBuiltRows": 9
+    },
+    "L17 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    },
+    "L19 held": {
+      "text": "1/2/7/19",
+      "rows": 12,
+      "asBuilt": "1/2/4/19",
+      "asBuiltRows": 9,
+      "edgeX": 1099.40625
+    },
+    "L19 let go": {
+      "text": "1/2/4/19",
+      "rows": 9,
+      "asBuilt": "1/2/4/19",
+      "asBuiltRows": 9
+    },
+    "L19 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    },
+    "L20 held": {
+      "text": "1/2/7/20",
+      "rows": 12,
+      "asBuilt": "1/2/4/20",
+      "asBuiltRows": 9,
+      "edgeX": 1158.1875
+    },
+    "L20 let go": {
+      "text": "1/2/4/20",
+      "rows": 9,
+      "asBuilt": "1/2/4/20",
+      "asBuiltRows": 9
+    },
+    "L20 pasted": {
+      "text": "1/2/7/10",
+      "rows": 12,
+      "setup": true
+    }
+  },
+  "cases": {
+    "L14 held": [
+      "R1 L14 held",
+      "R2 L14 held"
+    ],
+    "L14 let go": [
+      "R1 L14 let go",
+      "R2 L14 let go"
+    ],
+    "L15 held": [
+      "R1 L15 held",
+      "R2 L15 held"
+    ],
+    "L15 let go": [
+      "R1 L15 let go",
+      "R2 L15 let go"
+    ],
+    "L16 held": [
+      "R1 L16 held",
+      "R2 L16 held"
+    ],
+    "L16 let go": [
+      "R1 L16 let go",
+      "R2 L16 let go"
+    ],
+    "L17 held": [
+      "R1 L17 held",
+      "R2 L17 held"
+    ],
+    "L17 let go": [
+      "R1 L17 let go",
+      "R2 L17 let go"
+    ],
+    "L19 held": [
+      "R1 L19 held",
+      "R2 L19 held"
+    ],
+    "L19 let go": [
+      "R1 L19 let go",
+      "R2 L19 let go"
+    ],
+    "L20 held": [
+      "R1 L20 held",
+      "R2 L20 held"
+    ],
+    "L20 let go": [
+      "R1 L20 let go",
+      "R2 L20 let go"
+    ]
+  }
+}

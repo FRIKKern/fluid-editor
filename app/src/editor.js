@@ -1217,8 +1217,12 @@ function fitTextRows(s, b, g) {
   // Rule S (CAP-R2SUBPIXEL-PREDICTED.json, predictions first, 13 of 14 fresh): a one-line Text widened by its east side keeps
   // its rows at the drop when x of its new right grid line has a fractional part under 0.5 px, and falls to the rows it needs
   // when let go (CAP-R2WIDEDROP.json, CAP-R2ENDLINE-A/B/C.json, CAP-R2SUBPIXEL.json). Miss: written on column 3 and widened
-  // to line 15 (x .28) it falls at the drop, twice in two sessions.
-  if (fall && b.type === 'text' && g.dir === 'e' && oneLine(b) && lineX(m, g.target[3]) % 1 < 0.5) {
+  // to line 15 (x .28) it falls at the drop, twice in two sessions (and 4 of 4 on the new trial, CAP-R2RULESAGAIN.json).
+  // On desktop any number of lines, not one line only (CAP-R2SANY-PREDICTED.json, predictions first: the long Text widened in one
+  // drag to lines 14 to 20 at 1600, 12 of 12 fresh, ours before 8), as R2 wider 5 reads. On a phone still one line only: a
+  // two-line Text widened 2 or 4 phone columns in one drag falls at lines 8 and 10 (CAP-R2SANYPHONE.json, 2 of 2 each), though
+  // widened one column at a time to line 8 it keeps (CAP-R2PHONE.json wider 2, the named miss).
+  if (fall && b.type === 'text' && g.dir === 'e' && (bp === 'desktop' || oneLine(b)) && lineX(m, g.target[3]) % 1 < 0.5) {
     unsettled = { sid: s.id, bid: b.id, bp, lost };
     return;
   }
