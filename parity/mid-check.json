@@ -1,11 +1,10 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1276,
+  "pass": 1277,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
     "hold CAP-X2T9 R1 w6 1545 -20",
-    "R2 wider 5",
     "R2 phone wider 2, at the drop",
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
@@ -4123,11 +4122,7 @@
     },
     {
       "name": "R2 wider 5",
-      "diffs": [
-        "area: oracle 1/2/6/15, ours 1/2/5/15",
-        "rows: oracle 11, ours 10"
-      ],
-      "known": "held, the oracle keeps 5 rows for a text of 134.4, 2 of 2 runs, and lets the row go on Escape (CAP-TEXTWIDTH4.json); no width offset explains it while held"
+      "diffs": []
     },
     {
       "name": "R2 wider 6",
@@ -4358,7 +4353,7 @@
       "diffs": [
         "phone area: oracle 1/2/4/8, ours 1/2/3/8"
       ],
-      "known": "the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S is frozen, for one line only)"
+      "known": "the oracle keeps 3 rows at the drop, 2 when let go; ours takes 2 at the drop (rule S on a phone is for one line only)"
     },
     {
       "name": "R2 phone wider 2, let go",
