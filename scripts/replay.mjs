@@ -139,3 +139,9 @@ if (!results.length) {
   console.error('Gate C: no traces, nothing to replay');
   process.exitCode = 1;
 }
+// A failed trace or a failed undo fails the run, so a script reading the exit code never takes it as green.
+const undoFailed = results.filter((r) => r.undoPass === false).length;
+if (pass < results.length || undoFailed) {
+  console.error(`Gate C failed: ${results.length - pass} of ${results.length} traces differ, ${undoFailed} undo${undoFailed === 1 ? '' : 's'} differ`);
+  process.exitCode = 1;
+}
