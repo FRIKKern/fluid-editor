@@ -49,7 +49,8 @@ export function validate(t, file = t.id) {
   return errors;
 }
 
-// Gate C comparison: same rows, and same area and z for every block.
+// Gate C comparison: same rows, the same blocks, and same area and z for every block. A block only `got` has is a diff
+// too: a gesture that leaves a stray copy is not the oracle's end state.
 export function diffStates(want, got) {
   const out = [];
   if (want.rows !== got.rows) out.push(`rows: want ${want.rows}, got ${got.rows}`);
@@ -61,5 +62,6 @@ export function diffStates(want, got) {
       if (w.z !== g.z) out.push(`${id}: z want ${w.z}, got ${g.z}`);
     }
   }
+  for (const id of Object.keys(got.blocks)) if (!want.blocks[id]) out.push(`${id}: extra, not in the wanted state`);
   return out;
 }
