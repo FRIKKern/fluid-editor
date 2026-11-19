@@ -21,9 +21,13 @@ const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JS
 
 const READ = (sid) => `(() => {
   const s = fe.model.sections.find((x) => x.id === '${sid}');
-  const blocks = {};
-  for (const b of s.blocks) blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
-  return JSON.stringify({ rows: s.rows[fe.bp], blocks });
+  const blocks = {}, dupes = [];
+  // Blocks are keyed by id, so a second block with an id already read is named in dupes, not folded into the first.
+  for (const b of s.blocks) {
+    if (Object.hasOwn(blocks, b.id)) dupes.push(b.id);
+    blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
+  }
+  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes });
 })()`;
 
 // A trace with a recorded view puts the target at the same height in the canvas window as on
