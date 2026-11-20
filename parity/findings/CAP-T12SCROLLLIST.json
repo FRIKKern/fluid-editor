@@ -1,0 +1,3560 @@
+{
+ "item": "CAP-T12SCROLLLIST",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-20",
+ "engine": "chrome",
+ "question": "Scrolling Content: what Add Item, an item view (Text, Duplicate, Delete, Back), the list trash, the grip and Attach link do, read on a new Scrolling block (oracleE probes in its lane folder, real mouse and keys, nothing saved, each run left by Exit Without Saving).",
+ "visited": "Blocks Probe",
+ "runs": {
+  "scroll5-a": {
+   "question": "Add Item from the list, then keys with no field focused, Tab, Undo",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "snap new, no panel",
+    "pressed Edit",
+    "pressed Content",
+    "snap content list",
+    "pressed Add Item",
+    "snap after Add Item",
+    "snap after Add Item, 2.7 s",
+    "typed Zq",
+    "snap typed Zq, 0.4 s",
+    "snap typed Zq, 1.6 s",
+    "snap after Tab",
+    "pressed Undo",
+    "snap undo 1",
+    "pressed Undo"
+   ],
+   "error": "Error: Command failed: /Users/pelle/.nvm/versions/node/v22.22.0/bin/node /Volumes/SATECHI/github/fluid-editor-wt-oracleE-1/scripts/lib/cdp-run.mjs {\"port\":9360,",
+   "reads": {
+    "new, no panel": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": []
+    },
+    "content list": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301,
+       "focused"
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "after Add Item": {
+     "items": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "Dream it",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561,
+       "focused"
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "after Add Item, 2.7 s": {
+     "items": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "Dream it",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561,
+       "focused"
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "typed Zq, 0.4 s": {
+     "items": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "Dream it",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561,
+       "focused"
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "typed Zq, 1.6 s": {
+     "items": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "Dream it",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561,
+       "focused"
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "after Tab": {
+     "items": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "Dream it",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649,
+       "focused"
+      ]
+     ]
+    },
+    "undo 1": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    }
+   }
+  },
+  "scroll6-a": {
+   "question": "An item view: typing Zq at its end, Tab, Duplicate",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Dream it",
+    "snap item view",
+    "typed Zq",
+    "snap typed Zq, 0.3 s",
+    "snap typed Zq, 1.6 s",
+    "snap after Tab",
+    "panel Duplicate",
+    "snap after Duplicate"
+   ],
+   "error": "Error: nothing in the panel labelled Back",
+   "reads": {
+    "item view": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "typed Zq, 0.3 s": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394,
+       "focused"
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "typed Zq, 1.6 s": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394,
+       "focused"
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "after Tab": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394
+      ],
+      [
+       "Duplicate",
+       450,
+       "focused"
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "after Duplicate": {
+     "items": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "Dream itZq",
+       148.2
+      ],
+      [
+       "〰️",
+       296.4
+      ],
+      [
+       "Dream itZq",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "Dream itZq",
+       443
+      ],
+      [
+       "Delete Dream itZq",
+       454
+      ],
+      [
+       "〰️",
+       502
+      ],
+      [
+       "Delete 〰️",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    }
+   }
+  },
+  "scroll6-b": {
+   "question": "The same again, then Add Item after the rename, the trash on the second row, the last row opened",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Dream it",
+    "snap item view",
+    "typed Zq",
+    "snap typed Zq, 0.3 s",
+    "snap typed Zq, 1.6 s",
+    "snap after Tab",
+    "panel Duplicate",
+    "snap after Duplicate",
+    "panel Add Item",
+    "snap Add Item after rename",
+    "panel Delete 〰️",
+    "snap after list delete",
+    "panel Dream it",
+    "snap last item view"
+   ],
+   "error": "Error: nothing in the panel labelled Delete",
+   "reads": {
+    "item view": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "typed Zq, 0.3 s": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394,
+       "focused"
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "typed Zq, 1.6 s": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394,
+       "focused"
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "after Tab": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394
+      ],
+      [
+       "Duplicate",
+       450,
+       "focused"
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "after Duplicate": {
+     "items": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "Dream itZq",
+       148.2
+      ],
+      [
+       "〰️",
+       296.4
+      ],
+      [
+       "Dream itZq",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "Dream itZq",
+       443
+      ],
+      [
+       "Delete Dream itZq",
+       454
+      ],
+      [
+       "〰️",
+       502
+      ],
+      [
+       "Delete 〰️",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "Add Item after rename": {
+     "items": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "Dream itZq",
+       148.2
+      ],
+      [
+       "〰️",
+       296.4
+      ],
+      [
+       "Dream it",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "Dream itZq",
+       443
+      ],
+      [
+       "Delete Dream itZq",
+       454
+      ],
+      [
+       "〰️",
+       502
+      ],
+      [
+       "Delete 〰️",
+       513
+      ],
+      [
+       "Dream it",
+       561
+      ],
+      [
+       "Delete Dream it",
+       572
+      ],
+      [
+       "Add Item",
+       620,
+       "focused"
+      ],
+      [
+       "Attach link",
+       708
+      ]
+     ]
+    },
+    "after list delete": {
+     "items": [
+      "Dream itZq",
+      "Dream itZq",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "Dream itZq",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "Dream itZq",
+       148.2
+      ],
+      [
+       "Dream it",
+       296.4
+      ],
+      [
+       "Dream itZq",
+       414.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "Dream itZq",
+       443
+      ],
+      [
+       "Delete Dream itZq",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "last item view": {
+     "items": [
+      "Dream itZq",
+      "Dream itZq",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "Dream itZq",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "Dream itZq",
+       148.2
+      ],
+      [
+       "Dream it",
+       296.4
+      ],
+      [
+       "Dream itZq",
+       414.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "Dream itZq",
+       443
+      ],
+      [
+       "Delete Dream itZq",
+       454
+      ],
+      [
+       "Dream it",
+       502,
+       "focused"
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    }
+   }
+  },
+  "scroll7-a": {
+   "question": "Typing, Back, Add Item, the last item view Delete, the trash, the trash on the last two, Undo walk",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Dream it",
+    "typed Zq",
+    "panel Back",
+    "snap back after typing",
+    "panel Add Item",
+    "snap added",
+    "panel Dream it",
+    "snap last item view",
+    "panel Delete",
+    "snap after view Delete",
+    "panel Delete 〰️",
+    "snap one left",
+    "panel Delete Dream itZq",
+    "snap after deleting the last",
+    "pressed Undo",
+    "snap undo a",
+    "pressed Undo",
+    "snap undo b",
+    "pressed Undo",
+    "snap undo c",
+    "pressed Undo",
+    "snap undo d",
+    "pressed Undo"
+   ],
+   "error": "Error: Command failed: /Users/pelle/.nvm/versions/node/v22.22.0/bin/node /Volumes/SATECHI/github/fluid-editor-wt-oracleE-1/scripts/lib/cdp-run.mjs {\"port\":9360,",
+   "reads": {
+    "back after typing": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "added": {
+     "items": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream it",
+       184.4
+      ],
+      [
+       "Dream itZq",
+       302.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561,
+       "focused"
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "last item view": {
+     "items": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream it",
+       184.4
+      ],
+      [
+       "Dream itZq",
+       302.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Back",
+       306
+      ],
+      [
+       "",
+       394
+      ],
+      [
+       "Duplicate",
+       450
+      ],
+      [
+       "Delete",
+       450
+      ]
+     ]
+    },
+    "after view Delete": {
+     "items": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "one left": {
+     "items": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454,
+       "focused"
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "after deleting the last": {
+     "items": [
+      "〰️"
+     ],
+     "drawn": [
+      "〰️"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "〰️",
+       36.2
+      ],
+      [
+       "〰️",
+       72.4
+      ],
+      [
+       "〰️",
+       108.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Item 2",
+       384
+      ],
+      [
+       "Add Item",
+       443
+      ],
+      [
+       "Attach link",
+       531
+      ]
+     ]
+    },
+    "undo a": {
+     "items": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "undo b": {
+     "items": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream it",
+       184.4
+      ],
+      [
+       "Dream itZq",
+       302.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649
+      ]
+     ]
+    },
+    "undo c": {
+     "items": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream itZq",
+       0
+      ],
+      [
+       "〰️",
+       148.2
+      ],
+      [
+       "Dream itZq",
+       184.4
+      ],
+      [
+       "〰️",
+       332.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream itZq",
+       384
+      ],
+      [
+       "Delete Dream itZq",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "undo d": {
+     "items": [
+      "Dream itZq",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    }
+   },
+   "trash": [
+    [
+     "Delete Dream itZq",
+     false,
+     null,
+     "1",
+     "auto",
+     "pointer"
+    ],
+    [
+     "Delete 〰️",
+     false,
+     null,
+     "1",
+     "auto",
+     "pointer"
+    ]
+   ]
+  },
+  "scroll8-a": {
+   "question": "The grip of row 1 dragged 80 px down by the real mouse, held and let go, Undo, Redo; Attach link opened and Escape; Add Item; the trash down to one item",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "snap list",
+    "snap grip held 80 down",
+    "snap grip let go 80 down",
+    "pressed Undo",
+    "snap grip undo",
+    "pressed Redo",
+    "snap grip redo",
+    "panel Attach link",
+    "snap attach link open",
+    "snap attach link after Escape",
+    "panel Add Item",
+    "snap three",
+    "panel Delete 〰️",
+    "snap trash on item 2",
+    "panel Delete Dream it",
+    "snap trash on item 1"
+   ],
+   "reads": {
+    "list": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301,
+       "focused"
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "grip held 80 down": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443,
+       "focused"
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ],
+      [
+       "Dream it",
+       464
+      ],
+      [
+       "Delete Dream it",
+       475
+      ]
+     ]
+    },
+    "grip let go 80 down": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "Dream it",
+       36.2
+      ],
+      [
+       "〰️",
+       154.4
+      ],
+      [
+       "Dream it",
+       190.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "grip undo": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "on"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "grip redo": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "Dream it",
+       36.2
+      ],
+      [
+       "〰️",
+       154.4
+      ],
+      [
+       "Dream it",
+       190.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "attach link open": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "Dream it",
+       36.2
+      ],
+      [
+       "〰️",
+       154.4
+      ],
+      [
+       "Dream it",
+       190.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "attach link after Escape": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "〰️",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "Dream it",
+       36.2
+      ],
+      [
+       "〰️",
+       154.4
+      ],
+      [
+       "Dream it",
+       190.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "three": {
+     "items": [
+      "〰️",
+      "Dream it",
+      "Dream it"
+     ],
+     "drawn": [
+      "〰️",
+      "Dream it",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "〰️",
+       0
+      ],
+      [
+       "Dream it",
+       36.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "〰️",
+       384
+      ],
+      [
+       "Delete 〰️",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Dream it",
+       502
+      ],
+      [
+       "Delete Dream it",
+       513
+      ],
+      [
+       "Add Item",
+       561
+      ],
+      [
+       "Attach link",
+       649,
+       "focused"
+      ]
+     ]
+    },
+    "trash on item 2": {
+     "items": [
+      "Dream it",
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it",
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "Dream it",
+       118.2
+      ],
+      [
+       "Dream it",
+       236.4
+      ],
+      [
+       "Dream it",
+       354.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "Dream it",
+       443
+      ],
+      [
+       "Delete Dream it",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ]
+    },
+    "trash on item 1": {
+     "items": [
+      "Dream it"
+     ],
+     "drawn": [
+      "Dream it"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "Dream it",
+       118.2
+      ],
+      [
+       "Dream it",
+       236.4
+      ],
+      [
+       "Dream it",
+       354.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Add Item",
+       443
+      ],
+      [
+       "Attach link",
+       531
+      ]
+     ]
+    }
+   },
+   "grip": [
+    1277,
+    413
+   ]
+  },
+  "scroll10-a": {
+   "question": "Attach link, the About page picked, Escape, a press on Undo, Redo",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Attach link",
+    "snap link open 1",
+    "snap after About",
+    "snap after About, Escape",
+    "pressed Undo",
+    "snap undo the link",
+    "pressed Redo",
+    "snap redo the link"
+   ],
+   "reads": {
+    "link open 1": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ],
+     "link": {
+      "href": null,
+      "target": null,
+      "field": "",
+      "linkRow": [
+       "Attach link"
+      ]
+     }
+    },
+    "after About": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ],
+     "link": {
+      "href": "/about",
+      "target": "_self",
+      "field": "/about",
+      "linkRow": [
+       "Attach link"
+      ]
+     }
+    },
+    "after About, Escape": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "Attach link",
+       590
+      ]
+     ],
+     "link": {
+      "href": "/about",
+      "target": "_self",
+      "field": "/about",
+      "linkRow": [
+       "Attach link"
+      ]
+     }
+    },
+    "undo the link": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "About/about",
+       590
+      ],
+      [
+       "Edit",
+       658
+      ],
+      [
+       "Copy",
+       658
+      ],
+      [
+       "Remove Link",
+       658
+      ]
+     ],
+     "link": {
+      "href": "/about",
+      "target": "_self",
+      "field": null,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     }
+    },
+    "redo the link": {
+     "items": [
+      "Dream it",
+      "〰️"
+     ],
+     "drawn": [
+      "Dream it",
+      "〰️"
+     ],
+     "first": [
+      [
+       "Dream it",
+       0
+      ],
+      [
+       "〰️",
+       118.2
+      ],
+      [
+       "Dream it",
+       154.4
+      ],
+      [
+       "〰️",
+       272.6
+      ]
+     ],
+     "blockH": 71.2,
+     "undoRedoSave": {
+      "Save": "on",
+      "Undo": "on",
+      "Redo": "off"
+     },
+     "panel": [
+      [
+       "Content",
+       301
+      ],
+      [
+       "Design",
+       301
+      ],
+      [
+       "Animation",
+       301
+      ],
+      [
+       "Dream it",
+       384
+      ],
+      [
+       "Delete Dream it",
+       395
+      ],
+      [
+       "〰️",
+       443
+      ],
+      [
+       "Delete 〰️",
+       454
+      ],
+      [
+       "Add Item",
+       502
+      ],
+      [
+       "About/about",
+       590
+      ],
+      [
+       "Edit",
+       658
+      ],
+      [
+       "Copy",
+       658
+      ],
+      [
+       "Remove Link",
+       658
+      ]
+     ],
+     "link": {
+      "href": "/about",
+      "target": "_self",
+      "field": null,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     }
+    }
+   }
+  },
+  "scroll9-a": {
+   "question": "Attach link pressed on a new block: where the link editor opens",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Attach link",
+    "snap attach open"
+   ],
+   "reads": {
+    "panel": {
+     "box": [
+      1260,
+      301,
+      320,
+      55
+     ]
+    },
+    "attachLink": {
+     "box": [
+      1282,
+      590,
+      276,
+      44
+     ]
+    },
+    "field": {
+     "label": "Enter link, search, or add files",
+     "box": [
+      940,
+      590,
+      276,
+      44
+     ],
+     "focused": true
+    }
+   }
+  }
+ },
+ "answer": [
+  "Add Item appends an item \"Dream it\" (the same words after the first item was renamed) at the end of the list, stays on the list, focus on Add Item; one undo step (scroll5-a, scroll6-b, scroll7-a, scroll8-a).",
+  "A row opens its item view: Back, a Text field holding the words, Duplicate and Delete (scroll6-a, scroll6-b, scroll7-a).",
+  "Typing in Text shows on the block at each key (0.3 s after), the list name follows; the typing is one undo step (scroll7-a undo d).",
+  "Duplicate puts a copy right after the item and goes back to the list; one undo step.",
+  "The list trash deletes its item at once; with one item left the row has no trash (scroll7-a, scroll8-a). The item view Delete deletes it and goes back to the list; one undo step (scroll7-a). One trash press in scroll7-a, right after the view Delete, changed nothing; cause not read.",
+  "The grip: held, the list rows move to the new order and the block does not; let go, the block takes the order; one undo step, Redo gives it back (scroll8-a).",
+  "Attach link opens the link editor beside the panel (its box 22 px left of the panel), its field 276 by 44 at 320 left of the panel's left edge and level with the button, focused (scroll9-a); a page pick adds a link over the whole block (an a.Marquee-hitbox, href /about, target _self) and the Link row then shows the page, its path, Edit, Copy and Remove Link (scroll10-a). Built. Not matched: in scroll10-a the field still showed /about after Escape (ours closes the editor), and the one Undo press after it left the link with Redo off (ours undoes the pick); the Link row showed the page only after that press."
+ ]
+}

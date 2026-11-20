@@ -12,6 +12,9 @@
 //   For that read every element is made hit-testable (pointer-events), so the outline must be the topmost thing at each point.
 //   That catches an outline clipped (clip-path, an overflow, content-visibility), moved or shrunk by a transform or translate,
 //   and any element laid over it, pointer-events none or not (an inline !important one still wins). No point in view fails too.
+//   elementFromPoint rounds a point to the whole pixel, so a point in the view's last half pixel tests the pixel past it and hits
+//   nothing: an outline laid on a stage at x.5 puts its right point at 1599.5 on a 1600 window (task-4bd893b5b2fa60c4). A point
+//   kept is moved up to a pixel in from the view's right and bottom edge, which keeps it on its border.
 // Paint with no box of its own (a sibling's shadow or outline) can still cover it unseen.
 // The extra sheet goes on and off in the same task, so no frame is ever drawn with it.
 export const outlineDrawn = `(ch) => {
@@ -47,7 +50,8 @@ export const outlineDrawn = `(ch) => {
     if (['l', 't', 'r', 'b'].some((s) => Math.abs(b[s] - at[s]) > 2)) return 'laid ' + [b.l, b.t, b.r, b.b].map(Math.round) + ' off its section ' + [at.l, at.t, at.r, at.b].map(Math.round);
     const v = { l: Math.max(k.l, 0), t: Math.max(k.t, 0), r: Math.min(k.r, innerWidth), b: Math.min(k.b, innerHeight) };
     const my = (Math.max(b.t, v.t) + Math.min(b.b, v.b)) / 2, qx = b.l + (b.r - b.l) / 4;
-    const pts = [[b.l + 1.5, my], [b.r - 1.5, my], [qx, b.t + 1.5], [qx, b.b - 1.5]].filter(([x, y]) => x >= v.l && x < v.r && y >= v.t && y < v.b);
+    const pts = [[b.l + 1.5, my], [b.r - 1.5, my], [qx, b.t + 1.5], [qx, b.b - 1.5]].filter(([x, y]) => x >= v.l && x < v.r && y >= v.t && y < v.b)
+      .map(([x, y]) => [Math.max(v.l, Math.min(x, v.r - 1)), Math.max(v.t, Math.min(y, v.b - 1))]);
     if (!pts.length) return 'off view';
     const prev = [...document.adoptedStyleSheets];
     document.adoptedStyleSheets = [...prev, sheet];

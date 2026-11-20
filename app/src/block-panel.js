@@ -40,12 +40,15 @@ export const designRange = (k) => POSE_RANGE[DESIGN_FIELDS.findIndex((x) => x[0]
 // Content tab of a button block (parity/findings/BUTTONEDIT.json): Text, a 276 by 44 field
 // with the placeholder Learn More, and Link, an Attach link button that turns into the link
 // with Edit, Copy and Remove Link once one is set.
-function linkField(href, pages) {
+// The Link row's own part, also Scrolling's (scrolling-panel.js).
+export function linkRowHtml(href, pages) {
   const sum = href ? linkSummary(href, pages) : null;
-  const link = href
+  return href
     ? `<div class="bp-link"><button type="button" class="bp-link-url" data-link="edit" aria-label="${esc(href)}">${LINK_ICONS[sum.icon]}<span class="bp-link-name">${esc(sum.title)}</span>${sum.sub ? `<span class="bp-link-sub">${esc(sum.sub)}</span>` : ''}</button><div class="bp-link-actions"><button type="button" data-link="edit">Edit</button><button type="button" data-link="copy">Copy</button><button type="button" class="bp-link-remove" data-link="remove">Remove Link</button></div></div>`
     : '<button type="button" class="bp-attach" data-link="open">Attach link</button>';
-  return `<div class="bp-field"><span class="bp-flabel">Link</span>${link}</div>`;
+}
+function linkField(href, pages) {
+  return `<div class="bp-field"><span class="bp-flabel">Link</span>${linkRowHtml(href, pages)}</div>`;
 }
 function buttonContentHtml(c) {
   return `<div class="bp-field"><span class="bp-flabel">Text</span><input class="bp-text" type="text" aria-label="Text" placeholder="Learn More" data-content="label" value="${esc(c.label || '')}"></div>`
