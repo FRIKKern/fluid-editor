@@ -146,8 +146,9 @@ const wave = (lens = []) => qs(`const b = fe.model.sections[0].blocks[0], d = do
 // Points in the line's own box (the oracle's .Marquee, ours .marquee): the block around it snaps to grid rows, a layout matter.
 const ptsOff = (o, w) => (o.points && w.pts ? Math.max(...o.points.map((q, k) => Math.hypot(w.pts[k][0] - q[3] + o.marquee[0], w.pts[k][1] - q[4] + o.marquee[1]))) : Infinity);
 // The emoji item's width is the system font's (24 on a Mac as on the oracle, 31 on Linux), so the set and the later items are
-// checked against this page's own measure spans, and the oracle's numbers only up to the first gap ("Dream it" is the web font).
-const itemsAt = (w, o) => !w.none && Math.abs(w.xs[0]) <= 0.05 && Math.abs(w.xs[1] - o.tspanX[1]) <= 0.05 && Math.abs(w.xs[2] - w.set) <= 0.15 && (w.xs[3] == null || Math.abs(w.xs[3] - w.set - w.xs[1]) <= 0.15);
+// checked against this page's own measure spans, and the oracle's numbers only up to the first gap ("Dream it" is the web font;
+// its rounded width may land 1 px off at a rounding edge: Linux reads 639.8 for the oracle's 640.8 at Large).
+const itemsAt = (w, o) => !w.none && Math.abs(w.xs[0]) <= 0.05 && Math.abs(w.xs[1] - o.tspanX[1]) <= 1.05 && Math.abs(w.xs[2] - w.set) <= 0.15 && (w.xs[3] == null || Math.abs(w.xs[3] - w.set - w.xs[1]) <= 0.15);
 const moves = (what, o, tol) => { const w = wave(); add(`${what}: ${o.motion.pxPerS} px/s`, !w.none && Math.abs(w.rate - o.motion.pxPerS) <= tol && w.lo > -w.set - 0.5 && w.hi <= 0, w.none ? 'no text path' : `${w.rate.toFixed(2)} px/s, ${w.lo}..${w.hi}`); };
 const drawn = (what, o, pointsFrom = o) => { const w = wave((pointsFrom.points || []).map((q) => q[0])); add(`${what}: path ${o.pathLength} long`, !w.none && Math.abs(w.L - o.pathLength) <= 0.6, w.none ? 'no text path' : `${w.L.toFixed(2)}`); add(`${what}: path points`, !w.none && ptsOff(pointsFrom, w) <= 0.6, w.none ? 'no text path' : `off by ${ptsOff(pointsFrom, w).toFixed(2)}`); add(`${what}: drawing ${o.svgHeight} high, down ${o.svgShift}`, !w.none && Math.abs(w.h - o.svgHeight) <= 0.5 && Math.abs(w.shift - o.svgShift) <= 0.05, w.none ? 'no text path' : `${w.h}, ${w.shift}`); return w; };
 await fresh();
