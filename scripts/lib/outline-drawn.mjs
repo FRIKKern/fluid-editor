@@ -3,7 +3,10 @@
 // lit or mid-fade while the outline is hidden some other way (task-3288a127630aa993, task-b1cdc0b917ae4cf2). Each frame:
 // - Hidden, no box, or see-through by its own or a parent's opacity (as before).
 // - Paint a hit test can't see, on the outline and every parent: a filter, a mask or a blend mode. A right page has none of them
-//   there. And the outline's own border: every side solid enough to draw (a style, 1px or more) and no border image.
+//   there. And the outline's own border: every side solid enough to draw (a style, 1px or more), all four the top's color (the
+//   color rows read only the top), and no border image.
+// - Laid out on its section: the box as laid out within 2px of the section's box in the frame (placeChrome's own layout), so
+//   an outline laid out at 0x0, or anywhere else, fails even where it is drawn (task-135ffb783a541425).
 // - A hit test at 4 points on its border: left and right halfway down the part in view, top and bottom a quarter of the way along.
 //   The points come from the box as laid out (offsets, which ignore transforms), cut to the chrome's laid-out box and the window.
 //   For that read every element is made hit-testable (pointer-events), so the outline must be the topmost thing at each point.
@@ -14,6 +17,7 @@
 export const outlineDrawn = `(ch) => {
   const sheet = new CSSStyleSheet();
   sheet.replaceSync('*, .sc-outline { pointer-events: auto !important; }');
+  const fr = document.getElementById('site-frame');
   const name = (n) => n ? n.tagName.toLowerCase() + (n.id ? '#' + n.id : '') + (n.classList[0] ? '.' + n.classList[0] : '') : 'nothing';
   const laid = (n) => { let x = -scrollX, y = -scrollY; for (let p = n; p; p = p.offsetParent) { x += p.offsetLeft + (p === n ? 0 : p.clientLeft); y += p.offsetTop + (p === n ? 0 : p.clientTop); } return { l: x, t: y, r: x + n.offsetWidth, b: y + n.offsetHeight }; };
   return (e) => {
@@ -34,7 +38,13 @@ export const outlineDrawn = `(ch) => {
       if (st === 'none' || st === 'hidden' || !(parseFloat(w) >= 1)) return 'border ' + side.toLowerCase() + ' ' + st + ' ' + w;
     }
     if (c.borderImageSource !== 'none') return 'border image';
+    const col = [c.borderTopColor, c.borderRightColor, c.borderBottomColor, c.borderLeftColor];
+    if (col.some((x) => x !== col[0])) return 'border colors ' + col.join(' / ');
     const b = laid(e), k = laid(ch);
+    const sid = ch.dataset.outline, sec = fr && fr.contentDocument && fr.contentDocument.querySelector('section[data-section-id="' + sid + '"]');
+    if (!sec) return 'no section ' + sid;
+    const f = fr.getBoundingClientRect(), q = sec.getBoundingClientRect(), at = { l: f.left + q.left, t: f.top + q.top, r: f.left + q.right, b: f.top + q.bottom };
+    if (['l', 't', 'r', 'b'].some((s) => Math.abs(b[s] - at[s]) > 2)) return 'laid ' + [b.l, b.t, b.r, b.b].map(Math.round) + ' off its section ' + [at.l, at.t, at.r, at.b].map(Math.round);
     const v = { l: Math.max(k.l, 0), t: Math.max(k.t, 0), r: Math.min(k.r, innerWidth), b: Math.min(k.b, innerHeight) };
     const my = (Math.max(b.t, v.t) + Math.min(b.b, v.b)) / 2, qx = b.l + (b.r - b.l) / 4;
     const pts = [[b.l + 1.5, my], [b.r - 1.5, my], [qx, b.t + 1.5], [qx, b.b - 1.5]].filter(([x, y]) => x >= v.l && x < v.r && y >= v.t && y < v.b);
