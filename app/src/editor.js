@@ -5251,6 +5251,9 @@ function textRedo(ed) {
   // A block that comes back takes the selection, and the edit closes (CAP-Y2KEYS3.json).
   if (!hasText(ed, to) || JSON.parse(to).sections.find((o) => o.id === ed.sid).blocks.some((o) => !here.has(o.id))) { finishTextEdit(); redo(); return; }
   redoStack.pop();
+  // Redone inside a text edit, an undone rule S hold comes back as with Redo outside one, and falls when let go
+  // (CAP-R2EDITREDO-A/B.json X: Cmd+Z, double-click, Cmd+Shift+Z 1/2/7/15, Escape, Escape 1/2/5/15).
+  if (holdUndone?.json === to) { if (holdUndone.hold.bp === bp) unsettled = holdUndone.hold; holdUndone = null; }
   if (!textOnly(ed, to)) {
     undoStack.push(...ed.marks);
     if (!ed.atMark) undoStack.push(textSnap(ed, ed.ce.innerHTML, ed.area));

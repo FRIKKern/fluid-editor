@@ -924,6 +924,20 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         await view('bp-desktop'); row(`R2 rule S hold, ${c} back on desktop`, readText(S), U[`R1 ${c} back on desktop`], 'desktop');
         await esc(); row(`R2 rule S hold, ${c} let go`, readText(S), U[c === 'P' ? 'R1 P Escape again' : 'R1 Q let go'], 'desktop');
       }
+      // Undone, then redone inside a text edit, the hold comes back and falls when let go; Undo and Redo after that step over the
+      // fallen layout (CAP-R2EDITREDO-A.json R1, -B.json R2 agrees). X lets go between, Y does not.
+      const X = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2EDITREDO-A.json', import.meta.url))).reads;
+      const edit = async () => { evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); d.querySelector('.fe-block[data-block-id="t"]').id = 'fx-b'; return 1; })()`); browser(S, 'frame', '#site-frame'); browser(S, 'dblclick', '#fx-b'); browser(S, 'frame', 'main'); await pause(400); };
+      const key = async (k) => { browser(S, 'press', k); await pause(250); };
+      for (const c of ['X', 'Y']) {
+        await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z');
+        if (c === 'X') row('R2 rule S hold, X redone in the edit', readText(S), X['R1 X redone in the edit'], 'desktop');
+        await esc(); row(`R2 rule S hold, ${c} edit closed`, readText(S), X[`R1 ${c} edit closed`], 'desktop');
+        if (c === 'X') { await esc(); row('R2 rule S hold, X let go', readText(S), X['R1 X let go'], 'desktop'); evalJs(S, `fe.select('s', 't')`); await pause(150); }
+        await key('Meta+z'); row(`R2 rule S hold, ${c} undone again`, readText(S), X[`R1 ${c} undone again`], 'desktop');
+        await key('Meta+Shift+z'); row(`R2 rule S hold, ${c} redone again`, readText(S), X[`R1 ${c} redone again`], 'desktop');
+        await esc(); row(`R2 rule S hold, ${c} let go${c === 'X' ? ' again' : ''}`, readText(S), X[`R1 ${c} let go${c === 'X' ? ' again' : ''}`], 'desktop');
+      }
     }
   }
   for (const n of [2, 3, 4]) {
