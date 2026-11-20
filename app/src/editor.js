@@ -41,6 +41,7 @@ import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { tileOf } from './standin-tiles.js';
 import { scrollOf, scrollItems, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
+import { MARQUEE_SCRIPT } from './marquee.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -7750,6 +7751,7 @@ function boot() {
   bindPhonePrefix(doc);
   bindVideoPlayer(doc, () => doc.body.classList.contains('is-preview'));
   new win.Function(IMAGE_EFFECT_SCRIPT)();
+  new win.Function(MARQUEE_SCRIPT)(); // the Scrolling block's moving text (marquee.js)
   watchShapeRects(doc, rectPath);
   bindTriggers(doc, rowsOfBlock);
   doc.addEventListener('pointerdown', onDown);

@@ -136,8 +136,67 @@ else {
   qs(`fe.undo(); await sleep(250); return 'true';`);
   want('Grip: one undo step', ['Dream it', '〰️']);
 }
+// The moving text (CAP-T12WAVE.json, read twice on the oracle at 1600 by 1000, nothing saved): a fresh block, each Design
+// row pressed by the real mouse, then the text path's start offset over 1.5 s by animation frame and the path's points at
+// the oracle's lengths, in block coordinates.
+const WV = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVE.json', import.meta.url))).runs;
+const O2 = WV['scroll2-a'].reads, O3 = WV['scroll3-a'].reads, O4 = WV['scroll4-a'].reads;
+const fresh = () => qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+const wave = (lens = []) => qs(`const b = fe.model.sections[0].blocks[0], d = document.getElementById('site-frame').contentDocument, W = d.defaultView, el = b && d.getElementById('block-' + b.id); const fe0 = el && el.closest('.fe-block'), p = el && el.querySelector('.marquee-path'), tp = el && el.querySelector('textPath'), svg = el && el.querySelector('.marquee-svg'); const disp = el && el.querySelector('.marquee-display'); const mask = disp ? W.getComputedStyle(disp).maskImage : null; if (!p || !tp) return JSON.stringify({ none: true, mask }); const bb = fe0.getBoundingClientRect(), mq = el.querySelector('.marquee').getBoundingClientRect(), ctm = p.getScreenCTM(); const pts = ${JSON.stringify(lens)}.map((s) => { const q = p.getPointAtLength(s), sp = new W.DOMPoint(q.x, q.y).matrixTransform(ctm); return [sp.x - mq.left, sp.y - mq.top]; }); const m = [], t0 = W.performance.now(); await new Promise((res) => { const tick = () => { m.push([W.performance.now() - t0, Number(tp.getAttribute('startOffset'))]); if (W.performance.now() - t0 < 1500) W.requestAnimationFrame(tick); else res(); }; W.requestAnimationFrame(tick); }); let T = 0, D = 0; for (let i = 1; i < m.length; i++) { const dv = m[i][1] - m[i - 1][1]; if (Math.abs(dv) < 50) { T += m[i][0] - m[i - 1][0]; D += dv; } } const fs = parseFloat(W.getComputedStyle(svg).fontSize), gapPx = Number(el.querySelector('.marquee').dataset.spacing) * fs, ws = [...el.querySelectorAll('.marquee-item')].map((e) => Math.round(e.getBoundingClientRect().width)); return JSON.stringify({ set: Math.round(ws.reduce((a, v) => a + v + gapPx, 0) * 10) / 10, block: bb.width, mqTop: mq.top - bb.top, mqH: mq.height, L: p.getTotalLength(), pts, rate: T ? D / T * 1000 : 0, lo: Math.min(...m.map((x) => x[1])), hi: Math.max(...m.map((x) => x[1])), h: parseFloat(svg.style.height), shift: parseFloat(svg.style.transform.slice(11)), xs: [...tp.querySelectorAll('tspan')].slice(0, 4).map((t) => Number(t.getAttribute('x'))), mask });`);
+// Points in the line's own box (the oracle's .Marquee, ours .marquee): the block around it snaps to grid rows, a layout matter.
+const ptsOff = (o, w) => (o.points && w.pts ? Math.max(...o.points.map((q, k) => Math.hypot(w.pts[k][0] - q[3] + o.marquee[0], w.pts[k][1] - q[4] + o.marquee[1]))) : Infinity);
+// The emoji item's width is the system font's (24 on a Mac as on the oracle, 31 on Linux), so the set and the later items are
+// checked against this page's own measure spans, and the oracle's numbers only up to the first gap ("Dream it" is the web font;
+// its rounded width may land 1 px off at a rounding edge: Linux reads 639.8 for the oracle's 640.8 at Large).
+const itemsAt = (w, o) => !w.none && Math.abs(w.xs[0]) <= 0.05 && Math.abs(w.xs[1] - o.tspanX[1]) <= 1.05 && Math.abs(w.xs[2] - w.set) <= 0.15 && (w.xs[3] == null || Math.abs(w.xs[3] - w.set - w.xs[1]) <= 0.15);
+const moves = (what, o, tol) => { const w = wave(); add(`${what}: ${o.motion.pxPerS} px/s`, !w.none && Math.abs(w.rate - o.motion.pxPerS) <= tol && w.lo > -w.set - 0.5 && w.hi <= 0, w.none ? 'no text path' : `${w.rate.toFixed(2)} px/s, ${w.lo}..${w.hi}`); };
+const drawn = (what, o, pointsFrom = o) => { const w = wave((pointsFrom.points || []).map((q) => q[0])); add(`${what}: path ${o.pathLength} long`, !w.none && Math.abs(w.L - o.pathLength) <= 0.6, w.none ? 'no text path' : `${w.L.toFixed(2)}`); add(`${what}: path points`, !w.none && ptsOff(pointsFrom, w) <= 0.6, w.none ? 'no text path' : `off by ${ptsOff(pointsFrom, w).toFixed(2)}`); add(`${what}: drawing ${o.svgHeight} high, down ${o.svgShift}`, !w.none && Math.abs(w.h - o.svgHeight) <= 0.5 && Math.abs(w.shift - o.svgShift) <= 0.05, w.none ? 'no text path' : `${w.h}, ${w.shift}`); return w; };
+await fresh();
+if (!(await press('#block-panel [data-btab="Design"]'))) add('Design tab', false, 'not found');
+moves('A new block moves left', O4.default, 2);
+const w0 = drawn('A new block', O4.default);
+add('A new block: items at the rounded widths and gaps', itemsAt(w0, O4.default), `${JSON.stringify(w0.xs)}, set ${w0.set}`);
+await press('#block-panel [aria-label="Animation speed 2x"]'); moves('Speed 2x', O2['speed 2x'], 3);
+await press('#block-panel [aria-label="Animation speed 0.5x"]'); moves('Speed 0.5x', O2['speed 0.5x'], 1.5);
+await press('#block-panel [aria-label="Animation speed 1x"]');
+await press('#block-panel [aria-label="Animation direction right"]'); moves('Direction right', O4['direction right b'], 2);
+await press('#block-panel [aria-label="Animation speed 0.5x"]'); moves('Right at 0.5x', O4['right 0.5x b'], 1.5);
+await press('#block-panel [aria-label="Animation speed 1x"]'); await press('#block-panel [aria-label="Animation direction left"]');
+for (const [v, o, pts] of [[30, O4['wave 30 b'], O3['wave 30']], [90, O4['wave 90 b'], O3['wave 90']], [180, O4['wave 180 b'], O4['wave 180 b']], [120, O4['wave 120 b'], O4['wave 120 b']]]) {
+  await press('#block-panel [data-scr-range="wave"]', Math.min(0.995, v / 180)); await pause(200);
+  drawn(`Wave Intensity ${v}`, o, pts);
+}
+await press('#block-panel [data-scr-range="wave"]', 0.005); await pause(200);
+await press('#block-panel input[aria-label="Fade edges"]');
+const fade = wave(); add('Fade edges: the gradient mask', fade.mask === O3['fade on b'].fade, `${fade.mask}`);
+await press('#block-panel input[aria-label="Fade edges"]');
+const unfade = wave(); add('Fade edges off: no mask', unfade.mask === O3['fade off b'].fade && !unfade.none, `${unfade.mask}`);
+// Pause on hover, the mouse on the block: the words still move in the editor.
+await press('#block-panel input[aria-label="Pause on hover"]');
+const onBlock = qs(`const b = fe.model.sections[0].blocks[0], f = document.getElementById('site-frame'), q = f.contentDocument.getElementById('block-' + b.id).getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + q.left + 200, o.top + q.top + q.height / 2]);`);
+mouse(S, 'move', onBlock[0], onBlock[1]); await pause(500);
+moves('Pause on hover, the mouse on it, in the editor', O3['pause on b, mouse on block'], 2);
+mouse(S, 'move', onBlock[0], onBlock[1] + 400); await pause(200);
+await press('#block-panel [aria-label="Medium text size"]'); drawn('Medium', O4['medium b']);
+await press('#block-panel [aria-label="Large text size"]');
+const big = drawn('Large', O3.large);
+add('Large: items at the rounded widths and gaps', itemsAt(big, O3.large), `${JSON.stringify(big.xs)}, set ${big.set}`);
+await press('#block-panel [aria-label="Small text size"]');
+// The path's end follows the block's width: the phone view and a 1100 window.
+qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
+const ph = wave(); add(`Phone: path ${O3.phone.pathLength} long at ${O3.phone.block[2]} wide`, !ph.none && Math.abs(ph.L - O3.phone.pathLength) <= 0.6, ph.none ? 'no text path' : `${ph.L.toFixed(2)} at ${ph.block}`);
+qs(`fe.setBp('desktop'); await sleep(600); return 'true';`);
+viewport(S, 1100, 1000); await pause(1200);
+const narrow = wave(); add(`Window 1100: path ${O4['window 1100'].pathLength} long at ${O4['window 1100'].block[2]} wide`, !narrow.none && Math.abs(narrow.L - O4['window 1100'].pathLength) <= 0.6, narrow.none ? 'no text path' : `${narrow.L.toFixed(2)} at ${narrow.block}`);
+viewport(S, 1600, 1000); await pause(800);
+// A block with text and no items (the imported Home page, a heading a layout turns into Scrolling) draws its text too.
+const lone = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[0].blocks[0]; delete b.items; b.text = 'Hello wave'; fe.load(next); await sleep(900); const d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id); const ts = el ? [...el.querySelectorAll('textPath tspan')] : []; const t = el && el.querySelector('.marquee-svg text'); return JSON.stringify({ first: ts[0] ? ts[0].textContent : null, n: ts.length, w: t ? Math.round(t.getBBox().width) : 0 });`);
+add('Text and no items: the text rides the path', lone.first === 'Hello wave' && lone.w > 1000, JSON.stringify(lone));
+// An emptied first item (its Text cleared): the line keeps its height and the other words stay drawn, as on the old code.
+const gap = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[0].blocks[0]; b.items = ['', '〰️']; fe.load(next); await sleep(900); const d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), svg = el && el.querySelector('.marquee-svg'), t = svg && svg.querySelector('text'); return JSON.stringify({ h: svg ? parseFloat(svg.style.height) : null, w: t ? Math.round(t.getBBox().width) : 0, words: t ? [...t.querySelectorAll('tspan')].slice(0, 2).map((x) => x.textContent) : [] });`);
+add('An emptied first item: the line keeps its height, the rest drawn', gap.h === O4.default.svgHeight && gap.w > 1000 && gap.words[1] === '〰️', JSON.stringify(gap));
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 45;
+const CASES = 80;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
