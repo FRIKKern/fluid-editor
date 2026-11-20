@@ -186,8 +186,11 @@ qs(`fe.setBp('desktop'); await sleep(600); return 'true';`);
 viewport(S, 1100, 1000); await pause(1200);
 const narrow = wave(); add(`Window 1100: path ${O4['window 1100'].pathLength} long at ${O4['window 1100'].block[2]} wide`, !narrow.none && Math.abs(narrow.L - O4['window 1100'].pathLength) <= 0.6, narrow.none ? 'no text path' : `${narrow.L.toFixed(2)} at ${narrow.block}`);
 viewport(S, 1600, 1000); await pause(800);
+// A block with text and no items (the imported Home page, a heading a layout turns into Scrolling) draws its text too.
+const lone = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[0].blocks[0]; delete b.items; b.text = 'Hello wave'; fe.load(next); await sleep(900); const d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id); const ts = el ? [...el.querySelectorAll('textPath tspan')] : []; const t = el && el.querySelector('.marquee-svg text'); return JSON.stringify({ first: ts[0] ? ts[0].textContent : null, n: ts.length, w: t ? Math.round(t.getBBox().width) : 0 });`);
+add('Text and no items: the text rides the path', lone.first === 'Hello wave' && lone.w > 1000, JSON.stringify(lone));
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 78;
+const CASES = 79;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);

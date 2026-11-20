@@ -35,6 +35,7 @@ export function runMarquees(document) {
     const fs = parseFloat(win.getComputedStyle(svg).fontSize), h = Math.round(items[0].getBoundingClientRect().height);
     const A = Number(m.dataset.wave) || 0, W = m.getBoundingClientRect().width, gap = (Number(m.dataset.spacing) || 0) * fs;
     const widths = items.map((e) => Math.round(e.getBoundingClientRect().width)), words = items.map((e) => e.textContent);
+    if (!words.join('').trim()) { if (st.sig !== '') { svg.innerHTML = ''; st.sig = ''; } return false; }
     const sig = JSON.stringify([fs, h, A, W, gap, widths, words]);
     if (sig === st.sig) return true;
     st.sig = sig;
@@ -57,8 +58,10 @@ export function runMarquees(document) {
     const dt = last == null ? 0 : Math.min(0.1, (t - last) / 1000);
     last = t;
     const editing = !!win.frameElement && !document.body.classList.contains('is-preview');
+    const seen = new Set();
     for (const m of document.querySelectorAll('.marquee')) {
       const key = m.dataset.marqueeId || m;
+      seen.add(key);
       let st = state.get(key);
       if (!st || st.el !== m) { st = { ...(st || { offset: null }), el: m, sig: null }; state.set(key, st); }
       if (!build(m, st) || !st.set) continue;
@@ -70,6 +73,7 @@ export function runMarquees(document) {
       while (st.offset > 0) st.offset -= st.set;
       st.tp.setAttribute('startOffset', r1(st.offset));
     }
+    for (const k of state.keys()) if (!seen.has(k)) state.delete(k); // a removed block lets go of its elements
     win.requestAnimationFrame(frame);
   };
   win.requestAnimationFrame(frame);
