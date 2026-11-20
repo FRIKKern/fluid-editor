@@ -10,7 +10,7 @@ import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
 import { PIN_READS, pinBar } from './lib/x8-phone-pin.mjs';
-import { T3, PHONE_STEPS, CORNER_STEPS, loadText, pull } from './lib/r2-width-replay.mjs';
+import { T3, PHONE_PITCH, PHONE_STEPS, CORNER_STEPS, loadText, pull } from './lib/r2-width-replay.mjs';
 import { PHONE_LETGO, phoneLetGo } from './lib/phone-letgo.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -830,8 +830,8 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   }
   viewport(S, 1600, 1000); await pause(120);
 }
-// R2, rule S: a one-line Text widened by its east side keeps its rows at the drop when x of its new right grid line has a fraction
-// under 0.5 px, and falls when let go. Two agreeing reads each: CAP-R2SUBPIXEL.json and CAP-R2ENDLINE-A/B/C.json R1 (R2 agrees),
+// R2, rule S: a Text widened by its east side (any number of lines on desktop, one line on a phone; these reads are one-line) keeps
+// its rows at the drop when x of its new right grid line has a fraction under 0.5 px, and falls when let go. Two agreeing reads each: CAP-R2SUBPIXEL.json and CAP-R2ENDLINE-A/B/C.json R1 (R2 agrees),
 // CAP-R2WIDEDROP.json a1, a4, a6 (CAP-TEXTWIDTH7.json f4, f3, f7 agree). Named miss: column 3 to line 15 falls at the drop.
 // Read again on the new trial (CAP-R2RULESAGAIN.json): it falls 4 of 4, moved before and after writing; c3 L16 and c4 L15 keep.
 { const t3 = 'Short note about the mill road and the birch trees above it.', reads = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).reads;
@@ -856,6 +856,29 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     }
   }
   viewport(S, 1600, 1000); await pause(120);
+}
+// R2, rule S's split (#730): the long Text widened in one drag by its east side to lines 14 to 20 at 1600 keeps its rows at the drop
+// where the rule says and falls when let go (CAP-R2SANY.json R1, R2 agrees, 12 of 12); on a phone the two-line Text from 1/2/4/6
+// widened 2, 3 or 4 phone columns in one drag falls at the drop (CAP-R2SANYPHONE.json R1, R2 agrees), so rule S there is one line only.
+{ const F = JSON.parse(readFileSync(new URL('../parity/findings/CAP-TEXTWIDTH.json', import.meta.url))), para = F.steps.find((x) => x[0] === 'pasteMid')[3].replace(/<\/?p>/g, '');
+  const D = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2SANY.json', import.meta.url))).reads, P = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2SANYPHONE.json', import.meta.url))).reads;
+  viewport(S, 1600, 945); await pause(150);
+  const row = (name, r, w, side) => groupCases.push({ name, diffs: [r[side] !== w.stack[0][side] && `${side} area: oracle ${w.stack[0][side]}, ours ${r[side]}`, r.rows !== w.section.rows && `rows: oracle ${w.section.rows}, ours ${r.rows}`].filter(Boolean) });
+  for (const L of [14, 15, 16, 17, 19, 20]) {
+    const b = D[`R1 L${L} pasted`];
+    loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200);
+    const got = await pull(S, 'e', (L - 10) * 58.78125);
+    row(`R2 rule S any lines, CAP-R2SANY L${L} at the drop`, got.held, D[`R1 L${L} held`], 'desktop');
+    row(`R2 rule S any lines, CAP-R2SANY L${L} let go`, got.letGo, D[`R1 L${L} let go`], 'desktop');
+  }
+  for (const n of [2, 3, 4]) {
+    const b = P[`R1 n4w${n} narrowed`];
+    loadText(S, { html: `<p>${T3}</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: 8, mobile: b.section.rows }, bp: 'mobile' }); await pause(200);
+    const got = await pull(S, 'e', n * PHONE_PITCH);
+    row(`R2 rule S phone, CAP-R2SANYPHONE wider ${n} in one drag at the drop`, got.held, P[`R1 n4w${n} held`], 'phone');
+    row(`R2 rule S phone, CAP-R2SANYPHONE wider ${n} in one drag let go`, got.letGo, P[`R1 n4w${n} let go`], 'phone');
+  }
+  evalJs(S, `fe.setBp('desktop')`); viewport(S, 1600, 1000); await pause(120);
 }
 // R2: after a south resize let go over the block last moved while the page scrolled, the page scrolls so its bottom sits at the
 // frame's bottom; let go beside it, or with no such move, it stays (rule H, CAP-R2PTR.json 4 of 4 fresh; CAP-RESIZESCROLL4.json v1
