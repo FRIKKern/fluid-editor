@@ -1894,6 +1894,9 @@ function startTextEdit(sid, bid) {
   if (editing?.soft && editing.bid === bid) { editing.soft = false; blockEl(bid).classList.add('is-text-editing'); editing.ce.focus(); renderTextBar(); placeToolbar(); return; }
   const b = B(sid, bid);
   if (!b || b.type !== 'text' || editing) return;
+  // A rule S hold falls when its edit opens, as when it is let go, and the typing grows it from there (CAP-R2HELDTYPED-A/B.json:
+  // held 1/2/7/15, double-clicked 1/2/5/15, 4 paragraphs typed 1/2/8/15, let go the same). Not read: a narrowing's hold.
+  if (unsettled?.lost && unsettled.sid === sid && unsettled.bid === b.id) settleTextRows();
   select({ sid, bid: b.id });
   const before = JSON.stringify(model);
   const el = blockEl(b.id);

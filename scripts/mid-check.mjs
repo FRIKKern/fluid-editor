@@ -10,7 +10,7 @@ import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
 import { PIN_READS, pinBar } from './lib/x8-phone-pin.mjs';
-import { T3, PHONE_PITCH, PHONE_STEPS, CORNER_STEPS, loadText, pull } from './lib/r2-width-replay.mjs';
+import { T3, PHONE_PITCH, PHONE_STEPS, CORNER_STEPS, loadText, pull, readText } from './lib/r2-width-replay.mjs';
 import { PHONE_LETGO, phoneLetGo } from './lib/phone-letgo.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -870,6 +870,36 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     const got = await pull(S, 'e', (L - 10) * 58.78125);
     row(`R2 rule S any lines, CAP-R2SANY L${L} at the drop`, got.held, D[`R1 L${L} held`], 'desktop');
     row(`R2 rule S any lines, CAP-R2SANY L${L} let go`, got.letGo, D[`R1 L${L} let go`], 'desktop');
+  }
+  // A rule S hold typed into: the double-click that opens the edit lets it fall first, as a let go does, and the typing grows it
+  // from there (CAP-R2HELDTYPED-A.json R1, CAP-R2HELDTYPED-B.json R2 agrees): T 4 short paragraphs pasted mid-text, W 2, C let go first.
+  { const H = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2HELDTYPED-A.json', import.meta.url))), R = H.reads;
+    const html = (k) => H.steps.filter((x) => x[0] === 'pasteMid' && x[2] === 0)[k][3];
+    const drag = async (dx) => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="t"]').getBoundingClientRect(); return JSON.stringify([q.left + r.right, q.top + r.top + r.height / 2]); })()`);
+      mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30);
+      for (let n = 1; n <= 12; n++) { mouse(S, 'move', p[0] + (dx * n) / 12, p[1], { buttons: 1 }); await pause(12); }
+      mouse(S, 'up', p[0] + dx, p[1]); await pause(200); };
+    const esc = async () => { browser(S, 'press', 'Escape'); await pause(200); };
+    // A real double-click on the block, then a paste in the middle of its first text, as the capture's editText and pasteMid.
+    const typeIn = async (add) => {
+      evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); d.querySelector('.fe-block[data-block-id="t"]').id = 'fx-b'; return 1; })()`);
+      browser(S, 'frame', '#site-frame'); browser(S, 'dblclick', '#fx-b'); browser(S, 'frame', 'main'); await pause(400);
+      const opened = readText(S);
+      evalJs(S, `(async () => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const pm = d.querySelector('.fe-block[data-block-id="t"] [contenteditable=true]'); pm.focus(); const t = d.createTreeWalker(pm, 4).nextNode(), r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(add)}); dt.setData('text/plain', ${JSON.stringify(add.replace(/<[^>]+>/g, ' '))}); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); await new Promise((res) => setTimeout(res, 300)); return 1; })()`); await pause(200);
+      return opened; };
+    const start = async () => { const b = R['R1 T pasted']; loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200); await drag(5 * 58.78125); };
+    for (const [c, k] of [['T', 0], ['W', 1]]) {
+      await start();
+      if (c === 'T') row('R2 rule S hold typed into, T at the drop', readText(S), R['R1 T held'], 'desktop');
+      const opened = await typeIn(html(k));
+      if (c === 'T') row('R2 rule S hold typed into, T edit opened', opened, R['R1 T edit open'], 'desktop');
+      row(`R2 rule S hold typed into, ${c} typed`, readText(S), R[`R1 ${c} typed`], 'desktop');
+      await esc(); await esc();
+      row(`R2 rule S hold typed into, ${c} let go`, readText(S), R[`R1 ${c} let go`], 'desktop');
+    }
+    await start(); await esc(); row('R2 rule S hold typed into, C let go first', readText(S), R['R1 C let go first'], 'desktop');
+    evalJs(S, `fe.select('s', 't')`); await pause(100); await typeIn(html(2)); await esc(); await esc();
+    row('R2 rule S hold typed into, C typed after let go', readText(S), R['R1 C typed after let go'], 'desktop');
   }
   for (const n of [2, 3, 4]) {
     const b = P[`R1 n4w${n} narrowed`];
