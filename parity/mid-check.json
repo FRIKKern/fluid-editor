@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1310,
+  "pass": 1328,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
@@ -9,7 +9,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1316,
+  "total": 1334,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4717,6 +4717,78 @@
     },
     {
       "name": "R2 rule S hold, E let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, P redone on the phone",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, P back on desktop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, P let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Q back on desktop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Q let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, W undone, phone and back",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, W redone on desktop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, W let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X redone in the edit",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X edit closed",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X undone again",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X redone again",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, X let go again",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Y edit closed",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Y undone again",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Y redone again",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold, Y let go",
       "diffs": []
     },
     {
