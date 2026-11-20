@@ -32,7 +32,8 @@ export function runMarquees(document) {
   const build = (m, st) => {
     const svg = m.querySelector('.marquee-svg'), items = [...m.querySelectorAll('.marquee-item')];
     if (!svg || !items.length) return false;
-    const fs = parseFloat(win.getComputedStyle(svg).fontSize), h = Math.round(items[0].getBoundingClientRect().height);
+    // h from the tallest item: an emptied item is 0 high.
+    const fs = parseFloat(win.getComputedStyle(svg).fontSize), h = Math.round(Math.max(...items.map((e) => e.getBoundingClientRect().height)));
     const A = Number(m.dataset.wave) || 0, W = m.getBoundingClientRect().width, gap = (Number(m.dataset.spacing) || 0) * fs;
     const widths = items.map((e) => Math.round(e.getBoundingClientRect().width)), words = items.map((e) => e.textContent);
     if (!words.join('').trim()) { if (st.sig !== '') { svg.innerHTML = ''; st.sig = ''; } return false; }
