@@ -9,6 +9,7 @@ import { imageShapeById } from './image-shapes.js';
 import { effectData, IMAGE_EFFECT_SCRIPT } from './image-effects.js';
 import { ASPECTS, galleryOf, chartOf, CHART_PALETTES } from './dialogs.js';
 import { tileOf, tileHtml } from './standin-tiles.js';
+import { MARQUEE_SCRIPT } from './marquee.js';
 
 export const BPS = ['mobile', 'desktop'];
 export const COLS = { mobile: 8, desktop: 24 };
@@ -543,7 +544,9 @@ function blockInner(b, model) {
       // Its panel's items (scrolling-panel.js) each take the Item Spacing after them, in em, and Paragraph drops the heading's
       // letter spacing: "Dream it" 105.8 wide as a heading, 104.5 as a paragraph (CAP-ROWSSCROLLING.json, two reads alike).
       const words = b.items ? b.items.map((t) => `<span class="marquee-item" style="margin-right:${b.spacing ?? 0.5}em">${escapeHtml(t)}</span>`).join('') : escapeHtml(b.text || '');
-      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee${b.scrollStyle === 'paragraph' ? ' is-paragraph' : ''}" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"><span class="marquee-text">${words}</span></div></div></div>`;
+      // The words stay as hidden measure spans; marquee.js draws them along the wave and moves them (CAP-T12WAVE.json).
+      const motion = ` data-marquee-id="${escapeHtml(b.id)}" data-wave="${b.wave ?? 120}" data-spacing="${b.spacing ?? 0.5}" data-speed="${b.speed ?? 1}" data-direction="${b.direction || 'left'}"${b.pauseHover ? ' data-pause="true"' : ''}`;
+      return `<div class="sqs-block scrolling-block sqs-block-scrolling${b.wave === 0 ? ' scrolling-block--flat' : ''}" id="block-${b.id}"><div class="sqs-block-content"><div class="marquee${b.scrollStyle === 'paragraph' ? ' is-paragraph' : ''}${b.fadeEdges ? ' is-fade' : ''}" style="--marquee-font-size-value:${b.size || 5}${b.wave != null ? `;--marquee-wave:${b.wave}px` : ''}"${motion}><div class="marquee-display"><span class="marquee-text">${words}</span><svg class="marquee-svg" aria-hidden="true"></svg></div></div></div></div>`;
     }
     case 'line': {
       // Line block (T11.json): a 17px content box in the middle of the block, a 1px rule in the middle of that.
@@ -1031,6 +1034,7 @@ ${renderFooter(model)}
 ${ACCORDION_SCRIPT}
 ${VIDEO_SCRIPT}
 ${SHAPE_SCRIPT}
+${MARQUEE_SCRIPT}
 (() => { ${IMAGE_EFFECT_SCRIPT} })();</script>
 </body>
 </html>

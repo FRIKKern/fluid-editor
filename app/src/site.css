@@ -428,6 +428,12 @@ body.is-preview .image-lightbox img { cursor: pointer; }
   height: calc(1.4em + var(--marquee-wave, 120px)); display: flex; align-items: center;
 }
 .marquee.is-paragraph { letter-spacing: normal; }
+/* The words are measured hidden and drawn along a wave by marquee.js (CAP-T12WAVE.json). Fade edges masks the drawing. */
+.marquee-display { position: relative; flex: 1; align-self: stretch; min-width: 0; }
+.marquee-text { position: absolute; left: 0; top: 0; visibility: hidden; }
+.marquee-item { display: inline-block; }
+.marquee-svg { display: block; width: 100%; overflow: visible; fill: currentColor; }
+.marquee.is-fade .marquee-display { -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%); }
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .marquee { font-size: calc((var(--v) - 1) * calc(.012 * min(100vh, 900px)) + 1rem); }
 }
