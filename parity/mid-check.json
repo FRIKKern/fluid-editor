@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1295,
+  "pass": 1303,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
@@ -9,7 +9,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1301,
+  "total": 1309,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4657,6 +4657,38 @@
     },
     {
       "name": "R2 rule S any lines, CAP-R2SANY L20 let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, T at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, T edit opened",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, T typed",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, T let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, W typed",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, W let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, C let go first",
+      "diffs": []
+    },
+    {
+      "name": "R2 rule S hold typed into, C typed after let go",
       "diffs": []
     },
     {
