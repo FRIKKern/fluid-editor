@@ -3504,6 +3504,48 @@
      }
     }
    }
+  },
+  "scroll9-a": {
+   "question": "Attach link pressed on a new block: where the link editor opens",
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "steps": [
+    "pressed Edit",
+    "pressed Content",
+    "panel Attach link",
+    "snap attach open"
+   ],
+   "reads": {
+    "panel": {
+     "box": [
+      1260,
+      301,
+      320,
+      55
+     ]
+    },
+    "attachLink": {
+     "box": [
+      1282,
+      590,
+      276,
+      44
+     ]
+    },
+    "field": {
+     "label": "Enter link, search, or add files",
+     "box": [
+      940,
+      590,
+      276,
+      44
+     ],
+     "focused": true
+    }
+   }
   }
  },
  "answer": [
@@ -3513,6 +3555,6 @@
   "Duplicate puts a copy right after the item and goes back to the list; one undo step.",
   "The list trash deletes its item at once; with one item left the row has no trash (scroll7-a, scroll8-a). The item view Delete deletes it and goes back to the list; one undo step (scroll7-a). One trash press in scroll7-a, right after the view Delete, changed nothing; cause not read.",
   "The grip: held, the list rows move to the new order and the block does not; let go, the block takes the order; one undo step, Redo gives it back (scroll8-a).",
-  "Attach link opens the link editor 22 px left of the panel, its field level with the button; a page pick adds a link over the whole block (an a.Marquee-hitbox, href /about, target _self) and the Link row then shows the page, its path, Edit, Copy and Remove Link (scroll9-a, scroll10-a). Not built."
+  "Attach link opens the link editor beside the panel (its box 22 px left of the panel), its field 276 by 44 at 320 left of the panel's left edge and level with the button, focused (scroll9-a); a page pick adds a link over the whole block (an a.Marquee-hitbox, href /about, target _self) and the Link row then shows the page, its path, Edit, Copy and Remove Link (scroll10-a). Built. Not matched: in scroll10-a the field still showed /about after Escape (ours closes the editor), and the one Undo press after it left the link with Redo off (ours undoes the pick); the Link row showed the page only after that press."
  ]
 }

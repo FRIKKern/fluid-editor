@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 80,
- "total": 80,
+ "pass": 87,
+ "total": 87,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -321,6 +321,34 @@
   },
   {
    "what": "An emptied first item: the line keeps its height, the rest drawn",
+   "ok": true
+  },
+  {
+   "what": "Attach link: the link editor opens",
+   "ok": true
+  },
+  {
+   "what": "Attach link: its field 320 left of the panel, 0 below the button",
+   "ok": true
+  },
+  {
+   "what": "A page pick: the block links to it, target _self",
+   "ok": true
+  },
+  {
+   "what": "The link covers the whole block",
+   "ok": true
+  },
+  {
+   "what": "The Link row: the page, its path, Edit, Copy, Remove Link",
+   "ok": true
+  },
+  {
+   "what": "With a link, Pause on hover in Preview: the words stop",
+   "ok": true
+  },
+  {
+   "what": "Remove Link: no link, Attach link again",
    "ok": true
   }
  ]

@@ -68,7 +68,8 @@ export function runMarquees(document) {
       if (!build(m, st) || !st.set) continue;
       const right = m.dataset.direction === 'right', v = 60 * (Number(m.dataset.speed) || 1);
       if (st.offset == null) st.offset = right ? -st.set : 0;
-      const paused = m.dataset.pause === 'true' && !editing && m.matches(':hover');
+      // The hover is the block's: Attach link's hitbox lies over the line (render.js).
+      const paused = m.dataset.pause === 'true' && !editing && (m.closest('.sqs-block-scrolling') || m).matches(':hover');
       if (!paused) st.offset += (right ? v : -v) * dt;
       while (st.offset <= -st.set) st.offset += st.set;
       while (st.offset > 0) st.offset -= st.set;

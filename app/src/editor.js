@@ -2011,7 +2011,7 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
-    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
+    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), href: b.href, pages: siteLinkGroups(), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
@@ -3739,7 +3739,7 @@ document.addEventListener('mousedown', (e) => { if (shapeUi && !shapePop.contain
 function setButton(change, label) {
   if (!sel) return;
   const b = B(sel.sid, sel.bid);
-  if (!b || (b.type !== 'button' && b.type !== 'image' && b.type !== 'stack')) return; // a Stack keeps its link too (CAP-E7BOX2.json)
+  if (!b || (b.type !== 'button' && b.type !== 'image' && b.type !== 'stack' && b.type !== 'scrolling')) return; // a Stack keeps its link too (CAP-E7BOX2.json), and Scrolling (CAP-T12SCROLLLIST.json)
   const before = JSON.stringify(model);
   change(b);
   renderSectionDom(sel.sid);

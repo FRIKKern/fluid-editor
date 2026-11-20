@@ -7,13 +7,13 @@
 // (editor.js setScrolling); Text Style and Item Spacing set its words. The list (CAP-T12SCROLLLIST.json, each read twice):
 // Add Item appends "Dream it" and stays on the list; a row opens its view, whose Text shows on the block at each key and is
 // one undo step, Duplicate puts a copy after it and Delete takes it, both back to the list; the trash deletes at once and the
-// last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step.
-// Not built: the moving wave text, so Direction, Speed, Pause on hover and Fade edges keep their value and change nothing
-// drawn; Attach link (read: the link editor beside the panel, a link over the whole block, then a summary row).
+// last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step. The words move along
+// the wave by marquee.js (CAP-T12WAVE.json). Attach link opens the shared link editor (editor.js onLinkAction) beside the
+// panel; a page links the whole block (render.js .marquee-hitbox) and the Link row shows it (block-panel.js linkRowHtml).
 import { escapeHtml as esc } from './render.js';
+import { linkRowHtml } from './block-panel.js';
 
 const pi = (d) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-const UNBUILT = 'disabled data-unbuilt title="Not built yet"';
 // The --marquee-font-size-value each choice writes (CAP-ROWSSCROLLING.json: 1.5 new, Medium 4, Large 8).
 export const SCROLL_SIZES = { S: 1.5, M: 4, L: 8 };
 export const SCROLL_ITEMS = ['Dream it', '〰️'];
@@ -34,7 +34,7 @@ export function scrollingContentHtml(c) {
       + `<div class="bp-scr-acts"><button type="button" data-scr="dup:${c.item}">Duplicate</button><button type="button" class="is-red" data-scr="del:${c.item}">Delete</button></div>`;
   }
   return `<div class="bp-scr-list">${c.items.map((t, n) => `<div class="bp-acc-row bp-scr-row">${grip}<span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-scr="open:${n}" aria-label="${esc(t)}">${esc(t)}</button>${c.items.length > 1 ? `<button type="button" class="bp-acc-trash" data-scr="del:${n}" aria-label="Delete ${esc(t)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button>` : ''}<button type="button" class="bp-acc-go" data-scr="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')}</div>`
-    + `<button type="button" class="bp-scr-add" data-scr="add">Add Item</button><div class="bp-scr-cap is-link">Link</div><button type="button" class="bp-scr-attach" ${UNBUILT}>Attach link</button>`;
+    + `<button type="button" class="bp-scr-add" data-scr="add">Add Item</button><div class="bp-scr-cap is-link">Link</div>${c.href ? linkRowHtml(c.href, c.pages) : '<button type="button" class="bp-scr-attach bp-attach" data-link="open">Attach link</button>'}`;
 }
 
 const seg = (cap, key, cur, opts) => `<div class="bp-scr-cap">${cap}</div><div class="bp-scr-seg is-${opts.length}" role="radiogroup" aria-label="${cap}">${opts.map(([v, label, face]) => `<button type="button" role="radio" class="bp-scr-opt${String(cur) === String(v) ? ' is-on' : ''}" aria-checked="${String(cur) === String(v)}" aria-label="${label}" data-scr-set="${key}" data-v="${v}">${face}</button>`).join('')}</div>`;
