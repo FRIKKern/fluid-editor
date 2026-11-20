@@ -973,8 +973,10 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
   // Ours is one click in one CDP step and timed from our click, the app's clock, so load between down and up can't move our
   // start (two spawns apart it reached 2.9 s; task-ec1372530f005f39). So a play that waits on the pointerdown only after a
   // long hold (the later of click + 470 and pointerdown + 1300, which passes both holds) fails here at about 1640 ms. A gap
-  // makes the quick press a hold and hides that play (at 640 ms it would pass), so a stamped down to click over 500 ms fails
-  // as "press gap" (task-bd8894c04cbd8427).
+  // makes the quick press a hold and hides that play: the later of click + 470 and pointerdown + X starts about X - gap - 330
+  // ms after our click, so a gap of g lets X up to about 670 + g pass. One step stamps 1-3 ms; a stall inside it (330 to 500
+  // ms read) let X = 1100 pass. So a stamped down to click over 50 ms presses again on a fresh block, up to 3 tries, and the
+  // last one over 50 ms fails as "press gap" (task-bd8894c04cbd8427, task-2993be0c394525e1). Every try's gap goes in the line.
   { const sum = (v) => { const m = v.filter(([, x]) => Math.abs(x - 1) > 0.002); return m.length ? { start: m[0][0], end: m.at(-1)[0], min: Math.round(Math.min(...v.map(([, x]) => x)) * 1000) / 1000, last: v.at(-1)[1] } : null; };
     // Once: from its first move to its last, down to its low with no rise on the way and back with no fall (a second play shows one).
     const once = (v) => { const w = v.map(([, x]) => x), i = w.findIndex((x) => Math.abs(x - 1) > 0.002), j = w.findLastIndex((x) => Math.abs(x - 1) > 0.002); if (i < 0) return false; const r = w.slice(i, j + 1), lo = r.indexOf(Math.min(...r)); let m = r[0]; return r.every((x, k) => { if (k === lo) m = x; const ok = k <= lo ? x <= m + 0.003 : x >= m - 0.003; m = k <= lo ? Math.min(m, x) : Math.max(m, x); return ok; }); };
@@ -993,13 +995,15 @@ add('After a pick: the first block keeps its row', (await model()).length === 1)
       const press = q(`for (let i = 0; i < 100 && !window.__stwDone; i++) await sleep(50); return JSON.stringify(window.__stwP);`), click = press.click;
       const mine = Number.isFinite(click) ? oursPairs(frames()).map(([t, x]) => [t - click, x]) : [];
       const a = sum(mine), held = click - press.pointerdown, theirHeld = holdMs ? H.click - H.down : null, bs = reads.map((r) => sum(r.them)), b = bs[0];
-      const why = [!holdMs && !(held <= 500) && `press gap ${held} ms, over 500`, !a && 'no play', a && !once(mine) && 'not once', ...reads.flatMap(({ them }, k) => { const b = bs[k], n = names.length > 1 ? ` (${names[k]})` : ''; return [!once(them) && `theirs not once${n}`, a && !near(a.min, b.min, 0.01) && `low${n}`, a && Math.abs(a.end - b.end) > 0.15 * b.end && `end${n}`, a && Math.abs(a.start - b.start) > 150 && `start${n}`]; }), a && !near(a.last, 1, 0.001) && 'last'].filter(Boolean);
+      const why = [!holdMs && !(held <= 50) && `press gap ${held} ms, over 50`, !a && 'no play', a && !once(mine) && 'not once', ...reads.flatMap(({ them }, k) => { const b = bs[k], n = names.length > 1 ? ` (${names[k]})` : ''; return [!once(them) && `theirs not once${n}`, a && !near(a.min, b.min, 0.01) && `low${n}`, a && Math.abs(a.end - b.end) > 0.15 * b.end && `end${n}`, a && Math.abs(a.start - b.start) > 150 && `start${n}`]; }), a && !near(a.last, 1, 0.001) && 'last'].filter(Boolean);
       return { b, why, said: { held, theirHeld, ours: a, theirs: names.length > 1 ? bs : b, press } };
     };
-    const r8 = await run(['CAP-T15FLOATHOLD2'], 'open, held 0.8 s', 800), r15 = await run(['CAP-T15FLOATHOLD1'], 'open, held 1.5 s', 1500), r0 = await run(['CAP-T15FLOATOPEN1', 'CAP-T15FLOATOPEN2'], 'open', 0);
+    const r8 = await run(['CAP-T15FLOATHOLD2'], 'open, held 0.8 s', 800), r15 = await run(['CAP-T15FLOATHOLD1'], 'open, held 1.5 s', 1500);
+    let r0; const gaps = [];
+    for (let k = 0; k < 3 && !(r0?.said.held <= 50); k++) { r0 = await run(['CAP-T15FLOATOPEN1', 'CAP-T15FLOATOPEN2'], 'open', 0); gaps.push(r0.said.held); }
     const what = `Stage square: opening Float's editor plays it once, from ${r8.b.start} and ${r15.b.start} ms after the click (held 0.8 s and 1.5 s) and ${r0.b.start} after a quick press's pointerdown, down to ${r15.b.min}, at rest by ${r15.b.end} ms, as read`;
     const apart = r15.said.held - r8.said.held >= 400;
-    add(what, apart && !r8.why.length && !r15.why.length && !r0.why.length, JSON.stringify({ apart: apart || `holds ${r8.said.held} and ${r15.said.held} ms, under 400 apart`, 'held 0.8 s': { off: r8.why, ...r8.said }, 'held 1.5 s': { off: r15.why, ...r15.said }, quick: { off: r0.why, ...r0.said } })); }
+    add(what, apart && !r8.why.length && !r15.why.length && !r0.why.length, JSON.stringify({ apart: apart || `holds ${r8.said.held} and ${r15.said.held} ms, under 400 apart`, 'held 0.8 s': { off: r8.why, ...r8.said }, 'held 1.5 s': { off: r15.why, ...r15.said }, quick: { off: r0.why, gaps, ...r0.said } })); }
   // Follow on the stage, a table of two agreed reads (CAP-T15STAGE6-FOLLOW.json, CAP-T15STAGE7-FOLLOW6.json) at Scale 150% by 150%:
   // still a while after the mouse comes on (692 and 1230 ms in these reads; ours 751, the median of 4 reads that vary), up to 1.837 in 1.5 s, down to 0.889, then at rest.
   await setup('Follow', 'end');
