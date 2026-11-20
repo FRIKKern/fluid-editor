@@ -3,7 +3,7 @@
 // After each: the block's area, the section's rows and the first two words' boxes (left and width); then each Cmd+Z goes back
 // one step to the new block. Presses are real mouse input. Writes parity/scrolling-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run scrolling-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
@@ -80,8 +80,64 @@ qs(`fe.undo(); await sleep(250); return 'true';`); const undone = state();
 await drag(w * 0.75);
 qs(`fe.undo(); await sleep(250); return 'true';`); const back2 = state();
 add('Drag back to start, Cmd+Z, drag: undo takes one step', back2.area === undone.area && back2.rows === undone.rows && undone.area !== medium.area, JSON.stringify({ undone, back2 }));
+// The Content list (CAP-T12SCROLLLIST.json, each read twice on the oracle, real mouse and keys): a fresh block, then
+// the oracle's walk. Each row compares the block's words in order and the list's names with what the oracle drew.
+qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(400); return 'true';`);
+if (!(await press('#block-panel [data-btab="Content"]'))) add('Content tab', false, 'not found');
+const list = () => qs(`const b = fe.model.sections[0].blocks[0], d = document.getElementById('site-frame').contentDocument, p = document.getElementById('block-panel'); if (!b) return JSON.stringify({ drawn: null, names: [], trash: 0, view: false, field: null, focused: false }); return JSON.stringify({ drawn: [...d.querySelectorAll('#block-' + b.id + ' .marquee-item')].map((x) => x.textContent), names: [...p.querySelectorAll('.bp-scr-row .bp-acc-name')].map((x) => x.textContent), trash: p.querySelectorAll('.bp-scr-row .bp-acc-trash:not([disabled])').length, view: !!p.querySelector('.bp-scr-text'), field: p.querySelector('.bp-scr-text')?.value ?? null, focused: document.activeElement === p.querySelector('.bp-scr-text') });`);
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const lists = [list()];
+const want = (what, drawn, more = {}) => { const now = list(); lists.push(now); const ok = same(now.drawn, drawn) && (more.names === undefined || same(now.names, more.names)) && (more.view === undefined || now.view === more.view) && (more.trash === undefined || now.trash === more.trash) && (more.field === undefined || now.field === more.field); add(what, ok, JSON.stringify(now)); return now; };
+const nth = (sel, n) => `#block-panel ${sel}:nth-child(${n})`;
+// scroll7-a and scroll6-b: a row opens its view, typing shows on the block at each key with the field focused.
+await press(`${nth('.bp-scr-row', 1)} .bp-acc-name`);
+want('Item view: Text holds the words', ['Dream it', '〰️'], { view: true, field: 'Dream it' });
+await press('#block-panel .bp-scr-text', 0.95); browser(S, 'press', 'End'); await pause(100);
+for (const k of 'Zq') { browser(S, 'press', k); await pause(120); }
+await pause(300);
+const typed = want('Typing Zq: on the block at once', ['Dream itZq', '〰️'], { view: true, field: 'Dream itZq' });
+add('Typing Zq: the field keeps the focus', typed.focused, JSON.stringify(typed));
+await press('#block-panel [data-scr="back"]');
+want('Back: the list, its name follows', ['Dream itZq', '〰️'], { view: false, names: ['Dream itZq', '〰️'] });
+// scroll6-a/b: Duplicate puts a copy after the item and goes back to the list.
+await press(`${nth('.bp-scr-row', 1)} .bp-acc-name`);
+await press('#block-panel [data-scr^="dup:"]');
+want('Duplicate: a copy after it, back on the list', ['Dream itZq', 'Dream itZq', '〰️'], { view: false, names: ['Dream itZq', 'Dream itZq', '〰️'] });
+// scroll6-b, scroll7-a, scroll5-a: Add Item appends "Dream it", also after a rename, and stays on the list.
+await press('#block-panel [data-scr="add"]');
+want('Add Item: "Dream it" at the end, still the list', ['Dream itZq', 'Dream itZq', '〰️', 'Dream it'], { view: false });
+// scroll6-b, scroll8-a: the trash deletes at once.
+await press(`${nth('.bp-scr-row', 3)} .bp-acc-trash`);
+want('The trash on 〰️ deletes it', ['Dream itZq', 'Dream itZq', 'Dream it'], { view: false });
+// scroll7-a: the view's Delete takes the item and goes back to the list.
+await press(`${nth('.bp-scr-row', 3)} .bp-acc-name`);
+await press('#block-panel [data-scr^="del:"]');
+want('View Delete: gone, back on the list', ['Dream itZq', 'Dream itZq'], { view: false, names: ['Dream itZq', 'Dream itZq'] });
+// scroll7-a, scroll8-a: down to one item, whose row has no trash.
+await press(`${nth('.bp-scr-row', 1)} .bp-acc-trash`);
+want('The last item has no trash', ['Dream itZq'], { trash: 0, names: ['Dream itZq'] });
+// scroll7-a's undo walk: each change is one step, the typing too (taken at Back): back through the states each step left.
+const stepAt = [0, 3, 4, 5, 6, 7, 8];
+for (let k = stepAt.length - 2; k >= 0; k--) {
+  qs(`fe.undo(); await sleep(250); return 'true';`);
+  const u = list(), w = lists[stepAt[k]];
+  add(`list undo to step ${k}`, same(u.drawn, w.drawn), `${JSON.stringify(u.drawn)} (want ${JSON.stringify(w.drawn)})`);
+}
+// scroll8-a: the grip of row 1 held 80 px down: the block keeps its order while held and takes it when let go; one undo step.
+const g = at(`${nth('.bp-scr-row', 1)} .bp-scr-grip`);
+if (!g) for (const w of ['Grip held', 'Grip let go', 'Grip: one undo step']) add(w, false, 'no grip');
+else {
+  mouse(S, 'move', g[0], g[1]); await pause(60); mouse(S, 'down', g[0], g[1], { buttons: 1 }); await pause(60);
+  for (let k = 1; k <= 16; k++) { mouse(S, 'move', g[0], g[1] + k * 5, { buttons: 1 }); await pause(30); }
+  const held = list();
+  add('Grip held: the block keeps its order', same(held.drawn, ['Dream it', '〰️']), JSON.stringify(held));
+  mouse(S, 'up', g[0], g[1] + 80); await pause(400);
+  want('Grip let go: the block takes the order', ['〰️', 'Dream it'], { names: ['〰️', 'Dream it'] });
+  qs(`fe.undo(); await sleep(250); return 'true';`);
+  want('Grip: one undo step', ['Dream it', '〰️']);
+}
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 27;
+const CASES = 45;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
