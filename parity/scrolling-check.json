@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 27,
- "total": 27,
+ "pass": 45,
+ "total": 45,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -109,6 +109,78 @@
   },
   {
    "what": "Drag back to start, Cmd+Z, drag: undo takes one step",
+   "ok": true
+  },
+  {
+   "what": "Item view: Text holds the words",
+   "ok": true
+  },
+  {
+   "what": "Typing Zq: on the block at once",
+   "ok": true
+  },
+  {
+   "what": "Typing Zq: the field keeps the focus",
+   "ok": true
+  },
+  {
+   "what": "Back: the list, its name follows",
+   "ok": true
+  },
+  {
+   "what": "Duplicate: a copy after it, back on the list",
+   "ok": true
+  },
+  {
+   "what": "Add Item: \"Dream it\" at the end, still the list",
+   "ok": true
+  },
+  {
+   "what": "The trash on 〰️ deletes it",
+   "ok": true
+  },
+  {
+   "what": "View Delete: gone, back on the list",
+   "ok": true
+  },
+  {
+   "what": "The last item has no trash",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 5",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 4",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 3",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 2",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 1",
+   "ok": true
+  },
+  {
+   "what": "list undo to step 0",
+   "ok": true
+  },
+  {
+   "what": "Grip held: the block keeps its order",
+   "ok": true
+  },
+  {
+   "what": "Grip let go: the block takes the order",
+   "ok": true
+  },
+  {
+   "what": "Grip: one undo step",
    "ok": true
   }
  ]

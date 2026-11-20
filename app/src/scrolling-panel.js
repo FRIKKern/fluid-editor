@@ -4,9 +4,12 @@
 // Content: the items, Add Item, and Link with Attach link. Design: Wave Intensity, Text Style, Text Size, Direction, Speed,
 // Pause on hover, Fade edges and Item Spacing, then the shared Background, Stroke, Blend Mode, Blur and Transforms.
 // Built: the values, each kept on the block as one undo step; Wave Intensity and Text Size set its height and the rows follow
-// (editor.js setScrolling); Text Style and Item Spacing set its words. Not built: the moving wave text, so Direction, Speed,
-// Pause on hover and Fade edges keep their value and change nothing drawn; what Add Item, an item's field, Duplicate, Delete,
-// the grip and Attach link do (not read: drawn, and they do nothing).
+// (editor.js setScrolling); Text Style and Item Spacing set its words. The list (CAP-T12SCROLLLIST.json, each read twice):
+// Add Item appends "Dream it" and stays on the list; a row opens its view, whose Text shows on the block at each key and is
+// one undo step, Duplicate puts a copy after it and Delete takes it, both back to the list; the trash deletes at once and the
+// last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step.
+// Not built: the moving wave text, so Direction, Speed, Pause on hover and Fade edges keep their value and change nothing
+// drawn; Attach link (read: the link editor beside the panel, a link over the whole block, then a summary row).
 import { escapeHtml as esc } from './render.js';
 
 const pi = (d) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
@@ -14,22 +17,24 @@ const UNBUILT = 'disabled data-unbuilt title="Not built yet"';
 // The --marquee-font-size-value each choice writes (CAP-ROWSSCROLLING.json: 1.5 new, Medium 4, Large 8).
 export const SCROLL_SIZES = { S: 1.5, M: 4, L: 8 };
 export const SCROLL_ITEMS = ['Dream it', '〰️'];
+// What Add Item adds, also after the first item was renamed (CAP-T12SCROLLLIST.json scroll6-b, scroll7-a).
+export const SCROLL_NEW_ITEM = 'Dream it';
 export const scrollItems = (b) => b.items || [b.text || ''];
 const sizeKey = (c) => (c.sizeMore ? 'more' : Object.keys(SCROLL_SIZES).find((k) => SCROLL_SIZES[k] === c.size) || 'more');
 // What the panel shows, from the block.
 export const scrollOf = (b) => ({ items: scrollItems(b), wave: b.wave ?? 0, size: b.size ?? 1.5, sizeMore: !!b.sizeMore, style: b.scrollStyle || 'heading', direction: b.direction || 'left', speed: b.speed ?? 1, pause: !!b.pauseHover, fade: !!b.fadeEdges, spacing: b.spacing ?? 0.5 });
 const num = (v) => Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
-const grip = '<span class="bp-scr-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
+const grip = '<span class="bp-acc-grip bp-scr-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
 export function scrollingContentHtml(c) {
   if (c.item != null) {
     const t = c.items[c.item] ?? '';
     return `<div class="bp-sub bp-scr-sub"><button type="button" class="bp-back" data-scr="back">${pi('<path d="M15 6l-6 6 6 6"/>')}Back</button><span>${esc(t)}</span></div>`
-      + `<div class="bp-scr-cap is-text">Text</div><input class="bp-scr-text" type="text" aria-label="Text" value="${esc(t)}" readonly data-unbuilt title="Not built yet"><div class="bp-scr-line"></div>`
-      + `<div class="bp-scr-acts"><button type="button" ${UNBUILT}>Duplicate</button><button type="button" class="is-red" ${UNBUILT}>Delete</button></div>`;
+      + `<div class="bp-scr-cap is-text">Text</div><input class="bp-scr-text" type="text" aria-label="Text" value="${esc(t)}" data-scr-text="${c.item}" autocomplete="off" spellcheck="false"><div class="bp-scr-line"></div>`
+      + `<div class="bp-scr-acts"><button type="button" data-scr="dup:${c.item}">Duplicate</button><button type="button" class="is-red" data-scr="del:${c.item}">Delete</button></div>`;
   }
-  return `<div class="bp-scr-list">${c.items.map((t, n) => `<div class="bp-acc-row bp-scr-row">${grip}<span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-scr="open:${n}" aria-label="${esc(t)}">${esc(t)}</button><button type="button" class="bp-acc-trash" aria-label="Delete ${esc(t)}" ${UNBUILT}>${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button><button type="button" class="bp-acc-go" data-scr="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')}</div>`
-    + `<button type="button" class="bp-scr-add" ${UNBUILT}>Add Item</button><div class="bp-scr-cap is-link">Link</div><button type="button" class="bp-scr-attach" ${UNBUILT}>Attach link</button>`;
+  return `<div class="bp-scr-list">${c.items.map((t, n) => `<div class="bp-acc-row bp-scr-row">${grip}<span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-scr="open:${n}" aria-label="${esc(t)}">${esc(t)}</button>${c.items.length > 1 ? `<button type="button" class="bp-acc-trash" data-scr="del:${n}" aria-label="Delete ${esc(t)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button>` : ''}<button type="button" class="bp-acc-go" data-scr="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')}</div>`
+    + `<button type="button" class="bp-scr-add" data-scr="add">Add Item</button><div class="bp-scr-cap is-link">Link</div><button type="button" class="bp-scr-attach" ${UNBUILT}>Attach link</button>`;
 }
 
 const seg = (cap, key, cur, opts) => `<div class="bp-scr-cap">${cap}</div><div class="bp-scr-seg is-${opts.length}" role="radiogroup" aria-label="${cap}">${opts.map(([v, label, face]) => `<button type="button" role="radio" class="bp-scr-opt${String(cur) === String(v) ? ' is-on' : ''}" aria-checked="${String(cur) === String(v)}" aria-label="${label}" data-scr-set="${key}" data-v="${v}">${face}</button>`).join('')}</div>`;
@@ -54,6 +59,7 @@ export function scrollingDesignHtml(c) {
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live) changes it (one undo
 // step unless live); view(n) opens item n's view, or Content's list with null.
+let flushText = () => {};
 export function wireScrolling(panel, api) {
   const DEF = { size: 1.5, direction: 'left', speed: 1, spacing: 0.5 };
   const write = (b, key, v) => { if (v === DEF[key] && key !== 'size') delete b[key]; else b[key] = v; };
@@ -66,7 +72,18 @@ export function wireScrolling(panel, api) {
     if (!b) return;
     if (!e.target.closest('[data-scr-range]')) rangeBefore = null;
     const nav = e.target.closest('[data-scr]');
-    if (nav) { const [act, n] = nav.dataset.scr.split(':'); api.view(act === 'open' ? Number(n) : null); return; }
+    if (nav) {
+      flushText();
+      const [act, k] = nav.dataset.scr.split(':'), n = Number(k);
+      if (act === 'open') { api.view(n); return; }
+      if (act === 'back') { api.view(null); return; }
+      // The list's and the view's changes: each one undo step, and Duplicate and Delete go back to the list.
+      const items = (x) => (x.items = [...scrollItems(x)]);
+      if (act === 'add') api.set((x) => items(x).push(SCROLL_NEW_ITEM), 'Item added');
+      else if (act === 'dup') { api.view(null, true); api.set((x) => { const l = items(x); l.splice(n + 1, 0, l[n]); }, 'Item duplicated'); }
+      else if (act === 'del' && scrollItems(b).length > 1) { api.view(null, true); api.set((x) => items(x).splice(n, 1), 'Item deleted'); }
+      return;
+    }
     const o = e.target.closest('button[data-scr-set]');
     if (!o || o.getAttribute('aria-checked') === 'true') return;
     const key = o.dataset.scrSet, v = o.dataset.v;
@@ -83,6 +100,29 @@ export function wireScrolling(panel, api) {
     rangeBefore = null;
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
     api.set((x) => write(x, key, v), `${key} ${v}`, before ?? undefined);
+  });
+  // An item's Text shows on the block at each key; the typing is one undo step, taken when the field is left (CAP-T12SCROLLLIST.json).
+  // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
+  // again would swallow the click.
+  let textBefore = null, pending = null, down = false;
+  const flush = () => { if (!pending) return; const p = pending; pending = null; if (api.block()?.id === p.bid) api.set((x) => { (x.items = [...scrollItems(x)])[p.n] = p.v; }, 'Item text changed', p.before, false, true); };
+  flushText = flush;
+  addEventListener('pointerdown', () => { down = true; }, true);
+  addEventListener('pointerup', () => { down = false; setTimeout(flush, 0); }, true);
+  panel.addEventListener('input', (e) => {
+    const f = e.target.closest('[data-scr-text]'), b = api.block();
+    if (!f || !b) return;
+    const n = Number(f.dataset.scrText), now = api.snapshot();
+    if (textBefore?.bid !== b.id || textBefore.at !== now) textBefore = { bid: b.id, snap: now };
+    api.set((x) => { (x.items = [...scrollItems(x)])[n] = f.value; }, '', null, true);
+    textBefore.at = api.snapshot();
+  });
+  panel.addEventListener('change', (e) => {
+    const f = e.target.closest('[data-scr-text]'), b = api.block();
+    if (!f || !b || textBefore?.bid !== b.id || textBefore.at !== api.snapshot()) return;
+    pending = { bid: b.id, n: Number(f.dataset.scrText), v: f.value, before: textBefore.snap };
+    textBefore = null;
+    if (!down) flush();
   });
   // A range's drag shows on the block as it goes; letting go is the undo step.
   panel.addEventListener('input', (e) => {

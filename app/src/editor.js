@@ -40,7 +40,7 @@ import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, P
 import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { tileOf } from './standin-tiles.js';
-import { scrollOf, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
+import { scrollOf, scrollItems, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
 
@@ -2003,7 +2003,7 @@ function renderBlockPanel() {
     : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
-  if (scrView && scrView.bid !== b.id) scrView = null;
+  if (scrView && (scrView.bid !== b.id || b.type !== 'scrolling' || scrView.n >= (b.items || [0]).length)) scrView = null; // undo can take the item away
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -4158,7 +4158,8 @@ function accordionEscape() {
 // Scrolling's rows (CAP-ROWSSCROLLING.json and -2.json, two reads alike): a change of its content's height fits the rows to
 // it, both ways, in the view being edited: Wave Intensity 0 to 150 took 2 rows to 5, Medium 7, Small back to 5, Large 9.
 // The other view and the blocks below are not read: the other view stays, as an Accordion's does (inferred).
-function setScrolling(change, label, before = JSON.stringify(model), live = false) {
+// keep: the panel stays as it is (an item's Text taken when the field is left, so a press that left it still lands).
+function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid);
   change(b);
   renderSectionDom(sel.sid);
@@ -4166,7 +4167,7 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
   if (live) return;
   commit(before, label);
-  renderBlockPanel();
+  if (!keep) renderBlockPanel();
 }
 wireScrolling(blockPanel, {
   block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
@@ -4313,7 +4314,8 @@ blockPanel.addEventListener('pointerdown', (e) => {
   if (!g || !sel || e.button) return;
   e.preventDefault();
   // A social row's grip moves a row of the site-wide list: same drag, not read on the oracle (T11.json).
-  const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : '.bp-acc-row';
+  // A Scrolling item's grip the same, read (CAP-T12SCROLLLIST.json scroll8-a): the rows move while held, the block when let go.
+  const social = g.classList.contains('bp-soc-grip'), ffRow = g.classList.contains('bp-ff-grip'), ffOpt = g.classList.contains('bp-ffo-grip'), scr = g.classList.contains('bp-scr-grip'), kind = social ? '.bp-soc-row' : ffRow ? '.bp-ff-row' : ffOpt ? '.bp-ffo-row' : scr ? '.bp-scr-row' : '.bp-acc-row';
   const row = g.closest(kind), rows = [...blockPanel.querySelectorAll(kind)], from = rows.indexOf(row), h = row.offsetHeight, y0 = e.clientY;
   let to = from;
   // Held (CAP-T12READS-H.json): the row waits in its new place at 0.4, the rows between make room, and a plain copy
@@ -4337,6 +4339,7 @@ blockPanel.addEventListener('pointerdown', (e) => {
     if (to === from) { renderBlockPanel(); return; }
     if (social) changeSocialList((l) => { const [it] = l.splice(from, 1); l.splice(to, 0, it); }, `Social link moved to ${to + 1}`);
     else if (ffRow || ffOpt) setForm((b) => { if (ffOpt) { moveOption(ffField(b), from, to); return; } const [it] = b.fields.splice(from, 1); b.fields.splice(to, 0, it); }, `Field moved to ${to + 1}`);
+    else if (scr) setScrolling((b) => { b.items = [...scrollItems(b)]; const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
     else setAccordion((b) => { const [it] = b.items.splice(from, 1); b.items.splice(to, 0, it); }, `Item moved to ${to + 1}`);
   };
   g.addEventListener('pointermove', move); g.addEventListener('pointerup', up); g.addEventListener('pointercancel', up);
