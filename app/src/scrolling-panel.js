@@ -7,9 +7,9 @@
 // (editor.js setScrolling); Text Style and Item Spacing set its words. The list (CAP-T12SCROLLLIST.json, each read twice):
 // Add Item appends "Dream it" and stays on the list; a row opens its view, whose Text shows on the block at each key and is
 // one undo step, Duplicate puts a copy after it and Delete takes it, both back to the list; the trash deletes at once and the
-// last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step.
-// Not built: the moving wave text, so Direction, Speed, Pause on hover and Fade edges keep their value and change nothing
-// drawn; Attach link (read: the link editor beside the panel, a link over the whole block, then a summary row).
+// last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step. The words move along
+// the wave by marquee.js (CAP-T12WAVE.json). Attach link opens the shared link editor (editor.js onLinkAction) beside the
+// panel; a page links the whole block (render.js .marquee-hitbox) and the Link row shows it (block-panel.js linkRowHtml).
 import { escapeHtml as esc } from './render.js';
 import { linkRowHtml } from './block-panel.js';
 
