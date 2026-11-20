@@ -195,12 +195,12 @@ add('Text and no items: the text rides the path', lone.first === 'Hello wave' &&
 // An emptied first item (its Text cleared): the line keeps its height and the other words stay drawn, as on the old code.
 const gap = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[0].blocks[0]; b.items = ['', '〰️']; fe.load(next); await sleep(900); const d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), svg = el && el.querySelector('.marquee-svg'), t = svg && svg.querySelector('text'); return JSON.stringify({ h: svg ? parseFloat(svg.style.height) : null, w: t ? Math.round(t.getBBox().width) : 0, words: t ? [...t.querySelectorAll('tspan')].slice(0, 2).map((x) => x.textContent) : [] });`);
 add('An emptied first item: the line keeps its height, the rest drawn', gap.h === O4.default.svgHeight && gap.w > 1000 && gap.words[1] === '〰️', JSON.stringify(gap));
-// Attach link (CAP-T12SCROLLLIST.json scroll9-a, scroll10-a): the link editor opens beside the panel, its field 320 left of
-// the panel and level with the button (field 276 by 44); a page pick links the whole block, target _self; the Link row then
-// shows the page, its path, Edit, Copy and Remove Link. Real presses on a fresh block.
+// Attach link (CAP-T12SCROLLLIST.json scroll9-a, scroll10-a): the link editor opens beside the panel, its field at the
+// oracle's distance left of the panel and level with the button; a page pick links the whole block, target _self; the Link
+// row shows the page, its path, Edit, Copy and Remove Link. Real presses on a fresh block. Not matched, so not checked: the
+// oracle's field still showed /about after Escape, and its one Undo press after that left the link (see the answer list).
 const SL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SCROLLLIST.json', import.meta.url))).runs;
-const LK = SL['scroll10-a'].reads;
-const depth = () => qs(`return String(fe.undoDepth);`);
+const LK = SL['scroll10-a'].reads, A9 = SL['scroll9-a'].reads, dx9 = A9.field.box[0] - A9.panel.box[0], dy9 = A9.field.box[1] - A9.attachLink.box[1];
 await fresh();
 await press('#block-panel [data-btab="Content"]');
 const box = (sel) => qs(`const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height].map((v) => Math.round(v * 10) / 10));`);
@@ -209,15 +209,26 @@ const attach = box('#block-panel [data-link="open"]'), panel = box('#block-panel
 await press('#block-panel [data-link="open"]'); await pause(300);
 const field = box('#link-popover .lk-row');
 add('Attach link: the link editor opens', !!field && linkOf().editor, `${field}`);
-add('Attach link: its field 320 left of the panel, level with the button', !!field && !!panel && !!attach && near(field[0], panel[0] - 320) && near(field[1], attach[1]) && near(field[2], 276) && near(field[3], 44), `field ${field}, panel ${panel}, button ${attach}`);
-const d0 = depth();
+add(`Attach link: its field ${-dx9} left of the panel, ${dy9} below the button`, !!field && !!panel && !!attach && near(field[0] - panel[0], dx9) && near(field[1] - attach[1], dy9) && near(field[2], A9.field.box[2]) && near(field[3], A9.field.box[3]), `field ${field}, panel ${panel}, button ${attach}`);
 await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
 mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
 const linked = linkOf(), picked = LK['after About, Escape'].link, after = LK['undo the link'].link;
 add('A page pick: the block links to it, target _self', linked.href === picked.href && linked.a?.[0] === picked.href && linked.a?.[1] === picked.target, JSON.stringify(linked));
 add('The link covers the whole block', linked.covers, JSON.stringify(linked));
 add('The Link row: the page, its path, Edit, Copy, Remove Link', JSON.stringify(linked.row) === JSON.stringify(after.linkRow), JSON.stringify(linked.row));
-add('A page pick: one undo step', depth() === d0 + 1, `${d0} > ${depth()}`);
+// With a link over the line, Pause on hover still stops the words under the mouse in Preview (inferred: the oracle's published
+// pause needs a Save; its editor doesn't pause, as read).
+await press('#block-panel [data-btab="Design"]');
+await press('#block-panel input[aria-label="Pause on hover"]');
+await press('#preview'); await pause(600);
+const onLinked = qs(`const b = fe.model.sections[0].blocks[0], f = document.getElementById('site-frame'), q = f.contentDocument.getElementById('block-' + b.id).getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + q.left + 200, o.top + q.top + q.height / 2]);`);
+mouse(S, 'move', onLinked[0], onLinked[1]); await pause(400);
+const held = wave(); add('With a link, Pause on hover in Preview: the words stop', !held.none && Math.abs(held.rate) < 1, held.none ? 'no text path' : `${held.rate.toFixed(2)} px/s`);
+mouse(S, 'move', onLinked[0], onLinked[1] + 400); await pause(200);
+await press('#preview'); await pause(600);
+// Preview let go of the block: select it again and open its panel on Content.
+qs(`const s = fe.model.sections[0], b = s.blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+await press('#block-panel [data-btab="Content"]');
 await press('#block-panel [data-link="remove"]'); await pause(300);
 const unlinked = linkOf();
 add('Remove Link: no link, Attach link again', unlinked.href === null && unlinked.a === null && JSON.stringify(unlinked.row) === '["Attach link"]', JSON.stringify(unlinked));
