@@ -945,6 +945,18 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         await key('Meta+Shift+z'); row(`R2 rule S hold, ${c} redone again`, readText(S), X[`R1 ${c} redone again`], 'desktop');
         await esc(); row(`R2 rule S hold, ${c} let go${c === 'X' ? ' again' : ''}`, readText(S), X[`R1 ${c} let go${c === 'X' ? ' again' : ''}`], 'desktop');
       }
+      // Leaving a hold redone in an edit some other way (review-746; not read on the oracle, so the wants are ours): Cmd+Z in the
+      // edit takes it back as Undo outside one does (1/2/7/10, 12 rows), typing keeps the rows it grew, and a view switch closes the
+      // edit before the hold falls (1/2/5/15, 10 rows, as #740's B outside an edit).
+      { const ours = (name, r, want) => groupCases.push({ name, diffs: r.desktop === want.desktop && r.rows === want.rows ? [] : [`want ${want.desktop} with ${want.rows} rows, ours ${r.desktop} with ${r.rows}`] });
+        await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z'); await key('Meta+z'); await esc(); await esc();
+        ours('R2 rule S hold redone in an edit, Cmd+Z there, let go', readText(S), { desktop: '1/2/7/10', rows: 12 });
+        await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z');
+        evalJs(S, `(async () => { const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow; const pm = d.querySelector('.fe-block[data-block-id="t"] [contenteditable=true]'); pm.focus(); const t = d.createTreeWalker(pm, 4).nextNode(), r = d.createRange(); r.setStart(t, Math.floor(t.length / 2)); r.collapse(true); const s = W.getSelection(); s.removeAllRanges(); s.addRange(r); const dt = new W.DataTransfer(); dt.setData('text/html', ${JSON.stringify(html(0))}); dt.setData('text/plain', 'x'); pm.dispatchEvent(new W.ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return 1; })()`); await pause(1000);
+        const grown = readText(S); await esc(); await esc();
+        ours('R2 rule S hold redone in an edit, typed, let go', readText(S), { desktop: grown.desktop, rows: grown.rows });
+        await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z'); await view('bp-mobile'); await view('bp-desktop'); await esc();
+        ours('R2 rule S hold redone in an edit, phone and back', readText(S), { desktop: '1/2/5/15', rows: 10 }); }
     }
   }
   for (const n of [2, 3, 4]) {

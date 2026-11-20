@@ -5208,6 +5208,10 @@ function textOnly(ed, snap) {
 // open until a step takes the block itself away (CAP-Y2EDIT.json, CAP-ESC2.json, CAP-Y2KEYS.json, CAP-Y2KEYS2.json).
 function textUndo(ed) {
   let to = ed.marks.at(-1), fromPage = false;
+  // A hold redone in this edit is taken back by its Undo as undo() takes one, to come back with the next redo (review-746;
+  // not read on the oracle: without it the Text fell to 4 rows for text that needs 6).
+  const hold = unsettled?.lost && unsettled.bid === ed.bid ? unsettled : null;
+  const takeHold = () => { if (hold) { unsettled = null; holdUndone = { hold, json: redoStack.at(-1) }; } };
   if (ed.atMark) {
     if (ed.marks.length > 1) { ed.marks.pop(); to = ed.marks.at(-1); }
     else {
@@ -5215,13 +5219,14 @@ function textUndo(ed) {
       if (!to) return;
       if (!hasText(ed, to)) { finishTextEdit(); undo(); return; }
       undoStack.pop();
-      if (!textOnly(ed, to)) { redoStack.push(textSnap(ed, ed.ce.innerHTML, ed.area)); textOnOtherStep(ed, to); return; }
+      if (!textOnly(ed, to)) { redoStack.push(textSnap(ed, ed.ce.innerHTML, ed.area)); takeHold(); textOnOtherStep(ed, to); return; }
       fromPage = true;
       ed.marks = [to];
     }
   }
   const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b);
   redoStack.push(textRises.get(now) ?? now);
+  takeHold();
   showTextStep(ed, to);
   // The text got shorter, so the rows fall (textFall). A step off the page's list has its rows already.
   const lost = height - textHeight(b);
@@ -5273,6 +5278,9 @@ function textRedo(ed) {
 function onTextInput(e) {
   const ed = editing;
   const b = B(ed.sid, ed.bid);
+  // Typed into, a hold redone in this edit is dropped: the typing has set the rows, and the held lost rows would cut them
+  // (review-746; not read on the oracle, the Text keeps its grown rows as on main).
+  if (unsettled?.lost && unsettled.bid === ed.bid) unsettled = null;
   // Anything typed or changed: the steps undone are gone (CAP-Y2KEYS.json). Undo lights up.
   if (ed.atMark || redoStack.length) { ed.atMark = false; redoStack.length = 0; updateUi(); }
   if (e?.inputType) {
@@ -7659,7 +7667,8 @@ function setBp(next) {
   if (next === bp) return;
   // A rule S hold falls as the view changes, before the phone shows (CAP-R2HOLDVIEWUNDO-A/B.json B: held 1/2/7/15, on the phone
   // and back on desktop 1/2/5/15). Not read: a narrowing's hold, which still drops its rows.
-  if (unsettled?.lost && unsettled.bp === bp) settleTextRows();
+  // With the edit open it closes first, so the fall is not undone by the edit putting back its own area (review-746).
+  if (unsettled?.lost && unsettled.bp === bp) { if (editing) finishTextEdit(); settleTextRows(); }
   // An undone hold is gone for good once the view changes: redone on the phone, or back on desktop and redone there, it never
   // falls (CAP-R2REDOPHONE-A/B.json P and Q, CAP-R2REDOROUNDTRIP.json R1 and R2: 1/2/7/15 with 12 rows to the end).
   holdUndone = null;
