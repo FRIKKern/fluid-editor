@@ -915,6 +915,22 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
       await start(); browser(S, 'press', 'Meta+z'); await pause(250); row('R2 rule S hold, E undone', readText(S), V['R1 E undone'], 'desktop');
       browser(S, 'press', 'Meta+Shift+z'); await pause(250); row('R2 rule S hold, E redone', readText(S), V['R1 E redone'], 'desktop');
       await esc(); row('R2 rule S hold, E let go', readText(S), V['R1 E let go'], 'desktop');
+      // Undone on desktop and redone on the phone, the hold is gone for good: neither Escape there nor back on desktop lets it fall
+      // (CAP-R2REDOPHONE-A.json R1, -B.json R2 agrees). P: Escape on the phone, then desktop; Q: back to desktop first. P's phone
+      // area and its Escape on the phone are read but not compared: only Q fails on the old code.
+      const U = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2REDOPHONE-A.json', import.meta.url))).reads;
+      for (const c of ['P', 'Q']) {
+        await start(); browser(S, 'press', 'Meta+z'); await pause(250); await view('bp-mobile'); browser(S, 'press', 'Meta+Shift+z'); await pause(250);
+        if (c === 'P') { const r = readText(S), w = U['R1 P redone on the phone']; groupCases.push({ name: 'R2 rule S hold, P redone on the phone', diffs: [r.desktop !== w.stack[0].desktop && `desktop area: oracle ${w.stack[0].desktop}, ours ${r.desktop}`].filter(Boolean) }); await esc(); }
+        await view('bp-desktop'); row(`R2 rule S hold, ${c} back on desktop`, readText(S), U[`R1 ${c} back on desktop`], 'desktop');
+        await esc(); row(`R2 rule S hold, ${c} let go`, readText(S), U[c === 'P' ? 'R1 P Escape again' : 'R1 Q let go'], 'desktop');
+      }
+      // Undone, to the phone and back, then redone on desktop: still gone (CAP-R2REDOROUNDTRIP.json R1, R2 agrees).
+      { const W = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2REDOROUNDTRIP.json', import.meta.url))).reads;
+        await start(); browser(S, 'press', 'Meta+z'); await pause(250); await view('bp-mobile'); await view('bp-desktop');
+        row('R2 rule S hold, W undone, phone and back', readText(S), W['R1 W undone, phone and back'], 'desktop');
+        browser(S, 'press', 'Meta+Shift+z'); await pause(250); row('R2 rule S hold, W redone on desktop', readText(S), W['R1 W redone on desktop'], 'desktop');
+        await esc(); row('R2 rule S hold, W let go', readText(S), W['R1 W let go'], 'desktop'); }
     }
   }
   for (const n of [2, 3, 4]) {
