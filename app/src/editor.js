@@ -273,9 +273,7 @@ function redo() {
   model = JSON.parse(json);
   // A rule S hold undone comes back with its Redo and falls when let go (CAP-R2HOLDVIEWUNDO-A/B.json E: held 1/2/7/15, Cmd+Z
   // 1/2/7/10, Cmd+Shift+Z 1/2/7/15, Escape 1/2/5/15).
-  // Redone in the other view it is gone for good: neither Escape there nor back in its own view lets it fall
-  // (CAP-R2REDOPHONE-A/B.json: undone on desktop, redone on the phone, 1/2/7/15 with 12 rows to the end).
-  if (holdUndone?.json === json) { if (holdUndone.hold.bp === bp) unsettled = holdUndone.hold; holdUndone = null; }
+  if (holdUndone?.json === json) { unsettled = holdUndone.hold; holdUndone = null; }
   note('Redo');
   renderAll();
   refitUndone(undoStack.at(-1));
@@ -7652,6 +7650,9 @@ function setBp(next) {
   // A rule S hold falls as the view changes, before the phone shows (CAP-R2HOLDVIEWUNDO-A/B.json B: held 1/2/7/15, on the phone
   // and back on desktop 1/2/5/15). Not read: a narrowing's hold, which still drops its rows.
   if (unsettled?.lost && unsettled.bp === bp) settleTextRows();
+  // An undone hold is gone for good once the view changes: redone on the phone, or back on desktop and redone there, it never
+  // falls (CAP-R2REDOPHONE-A/B.json P and Q, CAP-R2REDOROUNDTRIP.json R1 and R2: 1/2/7/15 with 12 rows to the end).
+  holdUndone = null;
   cornerFour = null;
   if (shapeUi?.kind === 'anchor') closeShapePop();
   if (editing) finishTextEdit();
