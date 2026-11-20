@@ -57,8 +57,9 @@ export function scrollingDesignHtml(c) {
     + labelled('Item Spacing', 'spacing', c.spacing, 'em', 0, 3, 0.1) + '</div>';
 }
 
-// The presses. api: block() the selected Scrolling block or null; set(change, label, before, live) changes it (one undo
-// step unless live); view(n) opens item n's view, or Content's list with null.
+// The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
+// step unless live); snapshot() the model; commit(before, label) takes a step for what is in the model; view(n) opens item
+// n's view, or Content's list with null.
 let flushText = () => {};
 export function wireScrolling(panel, api) {
   const DEF = { size: 1.5, direction: 'left', speed: 1, spacing: 0.5 };
@@ -80,8 +81,8 @@ export function wireScrolling(panel, api) {
       // The list's and the view's changes: each one undo step, and Duplicate and Delete go back to the list.
       const items = (x) => (x.items = [...scrollItems(x)]);
       if (act === 'add') api.set((x) => items(x).push(SCROLL_NEW_ITEM), 'Item added');
-      else if (act === 'dup') { api.view(null, true); api.set((x) => { const l = items(x); l.splice(n + 1, 0, l[n]); }, 'Item duplicated'); }
-      else if (act === 'del' && scrollItems(b).length > 1) { api.view(null, true); api.set((x) => items(x).splice(n, 1), 'Item deleted'); }
+      else if (act === 'dup') { api.view(null); api.set((x) => { const l = items(x); l.splice(n + 1, 0, l[n]); }, 'Item duplicated'); }
+      else if (act === 'del' && scrollItems(b).length > 1) { api.view(null); api.set((x) => items(x).splice(n, 1), 'Item deleted'); }
       return;
     }
     const o = e.target.closest('button[data-scr-set]');
@@ -105,10 +106,21 @@ export function wireScrolling(panel, api) {
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
   // again would swallow the click.
   let textBefore = null, pending = null, down = false;
-  const flush = () => { if (!pending) return; const p = pending; pending = null; if (api.block()?.id === p.bid) api.set((x) => { (x.items = [...scrollItems(x)])[p.n] = p.v; }, 'Item text changed', p.before, false, true); };
+  // An undo or another change since the typing took it away with the model: nothing is left to take. Another block
+  // selected meanwhile: the words are in the model already, so only the step is taken.
+  const flush = () => {
+    if (!pending) return;
+    const p = pending;
+    pending = null;
+    if (api.snapshot() !== p.at) return;
+    if (api.block()?.id === p.bid) api.set((x) => { (x.items = [...scrollItems(x)])[p.n] = p.v; }, 'Item text changed', p.before, false, true);
+    else api.commit(p.before, 'Item text changed');
+  };
   flushText = flush;
   addEventListener('pointerdown', () => { down = true; }, true);
-  addEventListener('pointerup', () => { down = false; setTimeout(flush, 0); }, true);
+  // A press's click takes it first, ahead of the press's own work (Undo then undoes the typing); a press with no click after.
+  addEventListener('click', flush, true);
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { down = false; setTimeout(flush, 0); }, true);
   panel.addEventListener('input', (e) => {
     const f = e.target.closest('[data-scr-text]'), b = api.block();
     if (!f || !b) return;
@@ -120,7 +132,7 @@ export function wireScrolling(panel, api) {
   panel.addEventListener('change', (e) => {
     const f = e.target.closest('[data-scr-text]'), b = api.block();
     if (!f || !b || textBefore?.bid !== b.id || textBefore.at !== api.snapshot()) return;
-    pending = { bid: b.id, n: Number(f.dataset.scrText), v: f.value, before: textBefore.snap };
+    pending = { bid: b.id, n: Number(f.dataset.scrText), v: f.value, before: textBefore.snap, at: textBefore.at };
     textBefore = null;
     if (!down) flush();
   });

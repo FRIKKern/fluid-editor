@@ -716,6 +716,8 @@ function letGoOutOfView() {
   select(null);
 }
 function select(next) {
+  // A Scrolling item's Text left by a press on the canvas: its step is taken before the selection moves (scrolling-panel.js).
+  if (document.activeElement?.matches?.('#block-panel [data-scr-text]')) document.activeElement.blur();
   if (unsettled && (next?.sid !== unsettled.sid || next?.bid !== unsettled.bid)) settleTextRows();
   sel = next;
   if (!boxUp) leftRings = null;
@@ -1988,6 +1990,7 @@ function renderBlockPanel() {
   if (b.type !== 'image' || b.empty || designTab !== 'Design') fxView = null;
   if (fxView === 'settings' && !b.effect) fxView = 'list'; // undo can take the effect away
   if (b.type !== 'accordion' || (accView?.startsWith('acc-item:') && !b.items[Number(accView.slice(9))])) accView = null; // undo can take the item away
+  if (scrView && (scrView.bid !== b.id || b.type !== 'scrolling' || scrView.n >= (b.items || [0]).length)) scrView = null; // undo can take the item away
   const content = b.type === 'button' ? { label: b.label, href: b.href, pages: siteLinkGroups() } : b.type === 'image' ? { src: b.src, href: b.href, pages: siteLinkGroups(), alt: b.alt, filename: b.filename, empty: !!b.empty, focal: b.focal, aspect: b.aspect, lightbox: !!b.lightbox }
     : b.type === 'video' && !b.html ? { kind: 'video', description: b.description, video: b.video }
     : b.type === 'markdown' ? { kind: 'markdown', text: b.text || '' }
@@ -2003,7 +2006,6 @@ function renderBlockPanel() {
     : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
-  if (scrView && (scrView.bid !== b.id || b.type !== 'scrolling' || scrView.n >= (b.items || [0]).length)) scrView = null; // undo can take the item away
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
   if (b.type === 'markdown') designTab = 'Content'; // it has no other tab (CAP-T10MD3.json)
   if (content?.kind === 'newsletter' ? designTab === 'Animation' : designTab === 'Storage') designTab = content ? 'Content' : 'Design'; // only a Newsletter has Storage, and it has no Animation
@@ -4173,6 +4175,7 @@ wireScrolling(blockPanel, {
   block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
   set: setScrolling,
   snapshot: () => JSON.stringify(model),
+  commit: (before, label) => commit(before, label),
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
 function setAccordion(change, label, before = JSON.stringify(model)) {
