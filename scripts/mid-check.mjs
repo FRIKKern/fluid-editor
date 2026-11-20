@@ -957,6 +957,15 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         ours('R2 rule S hold redone in an edit, typed, let go', readText(S), { desktop: grown.desktop, rows: grown.rows });
         await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z'); await view('bp-mobile'); await view('bp-desktop'); await esc();
         ours('R2 rule S hold redone in an edit, phone and back', readText(S), { desktop: '1/2/5/15', rows: 10 }); }
+      // The same in another Text's edit: t held, Cmd+Z, double-click u below it, Cmd+Shift+Z brings t's hold back, Cmd+Z there takes
+      // it back again, and let go t stays as undone (review-746 re-review; not read on the oracle).
+      { const b = V['R1 B pasted'], lay = (a) => ({ desktop: { area: a, z: 1, justify: 'flex-start', align: 'flex-start' }, mobile: { area: [1, 2, 3, 10], z: 1, justify: 'flex-start', align: 'flex-start' } });
+        evalJs(S, `(async () => { fe.setBp('desktop'); fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 14, mobile: 6 }, blocks: [{ id: 't', type: 'text', label: 't', html: ${JSON.stringify(`<p>Start of a l${para}ong text here</p>`)}, layout: ${JSON.stringify(lay(b.stack[0].desktop.split('/').map(Number)))} }, { id: 'u', type: 'text', label: 'u', html: '<p>${T3}</p>', layout: ${JSON.stringify(lay([9, 2, 11, 10]))} }] }] }); await new Promise((r) => setTimeout(r, 250)); fe.select('s', 't'); return 1; })()`); await pause(300);
+        await drag(5 * 58.78125); await key('Meta+z');
+        evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); d.querySelector('.fe-block[data-block-id="u"]').id = 'fx-b'; return 1; })()`); browser(S, 'frame', '#site-frame'); browser(S, 'dblclick', '#fx-b'); browser(S, 'frame', 'main'); await pause(400);
+        await key('Meta+Shift+z'); await key('Meta+z'); await esc(); await esc();
+        const ta = evalJs(S, `JSON.stringify(fe.model.sections[0].blocks.find((x) => x.id === 't').layout.desktop.area.join('/'))`);
+        groupCases.push({ name: 'R2 rule S hold redone in another Text\'s edit, Cmd+Z there, let go', diffs: ta === '1/2/7/10' ? [] : [`want t 1/2/7/10, ours ${ta}`] }); }
     }
   }
   for (const n of [2, 3, 4]) {

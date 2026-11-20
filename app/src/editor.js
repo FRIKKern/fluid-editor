@@ -5210,7 +5210,7 @@ function textUndo(ed) {
   let to = ed.marks.at(-1), fromPage = false;
   // A hold redone in this edit is taken back by its Undo as undo() takes one, to come back with the next redo (review-746;
   // not read on the oracle: without it the Text fell to 4 rows for text that needs 6).
-  const hold = unsettled?.lost && unsettled.bid === ed.bid ? unsettled : null;
+  const hold = unsettled?.lost ? unsettled : null; // any block's, as undo() takes it: a redo in one Text's edit can bring back another's
   const takeHold = () => { if (hold) { unsettled = null; holdUndone = { hold, json: redoStack.at(-1) }; } };
   if (ed.atMark) {
     if (ed.marks.length > 1) { ed.marks.pop(); to = ed.marks.at(-1); }
