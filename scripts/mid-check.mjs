@@ -902,6 +902,20 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
     await start(); await esc(); row('R2 rule S hold typed into, C let go first', readText(S), R['R1 C let go first'], 'desktop');
     evalJs(S, `fe.select('s', 't')`); await pause(100); await typeIn(html(2)); await esc(); await esc();
     row('R2 rule S hold typed into, C typed after let go', readText(S), R['R1 C typed after let go'], 'desktop');
+    // A rule S hold across a view switch and Undo then Redo (CAP-R2HOLDVIEWUNDO-A.json R1, -B.json R2 agrees): the view switch lets it
+    // fall before the phone shows; Undo takes the drop back, Redo brings the hold back and Escape lets it fall.
+    { const V = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2HOLDVIEWUNDO-A.json', import.meta.url))).reads;
+      const start = async () => { const b = V['R1 B pasted']; loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200); await drag(5 * 58.78125); };
+      const view = async (id) => { browser(S, 'click', `#${id}`); await pause(400); };
+      await start(); row('R2 rule S hold, B at the drop', readText(S), V['R1 B held'], 'desktop');
+      await view('bp-mobile'); const ph = readText(S), wp = V['R1 B on the phone'];
+      groupCases.push({ name: 'R2 rule S hold, B on the phone', diffs: [ph.desktop !== wp.stack[0].desktop && `desktop area: oracle ${wp.stack[0].desktop}, ours ${ph.desktop}`, ph.phone !== wp.stack[0].phone && `phone area: oracle ${wp.stack[0].phone}, ours ${ph.phone}`].filter(Boolean) });
+      await esc(); await view('bp-desktop'); row('R2 rule S hold, B back on desktop', readText(S), V['R1 B back on desktop'], 'desktop');
+      await esc(); row('R2 rule S hold, B Escape again', readText(S), V['R1 B Escape again'], 'desktop');
+      await start(); browser(S, 'press', 'Meta+z'); await pause(250); row('R2 rule S hold, E undone', readText(S), V['R1 E undone'], 'desktop');
+      browser(S, 'press', 'Meta+Shift+z'); await pause(250); row('R2 rule S hold, E redone', readText(S), V['R1 E redone'], 'desktop');
+      await esc(); row('R2 rule S hold, E let go', readText(S), V['R1 E let go'], 'desktop');
+    }
   }
   for (const n of [2, 3, 4]) {
     const b = P[`R1 n4w${n} narrowed`];

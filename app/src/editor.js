@@ -229,12 +229,14 @@ function undo(button = false) {
     && [linkPop, pinPop, addMenu, layersPanel, contextMenu, layoutsPanel, $('button-style-menu'), $('arrange-menu')].every((el) => el.hidden);
   if (ed) finishTextEdit();
   if (!undoStack.length) { if (ed) select(null); return; }
+  const hold = unsettled?.lost ? unsettled : null;
   unsettled = null;
   stored = null;
   const held = leaveField();
   if (shapeUi && !shapeUi.section && sel && B(sel.sid, sel.bid)?.type === 'video') closeShapePop(); // CAP-T7COLOR3.json
   const now = JSON.stringify(model);
   redoStack.push(textRises.get(now) ?? now);
+  if (hold) holdUndone = { hold, json: redoStack.at(-1) };
   // The layout a section shows before Undo sets the step of the one it goes back to, with the Layouts panel open or
   // closed (restep: CAP-U10WALK2.json, CAP-U10UNDOCLOSED-A.json). Only sections the Undo changes, in the same mix.
   const was = new Map(model.sections.map((s) => { const m = s.id === layoutsSid ? layoutsMix : sectionMix(s); return [s.id, [JSON.stringify(s), m?.key, m?.list.length ? layoutShown(s, m, null) : null]]; }));
@@ -267,7 +269,11 @@ function redo() {
   const held = leaveField();
   undoStack.push(JSON.stringify(model));
   const had = new Set(model.sections.flatMap((o) => o.blocks.map((x) => x.id)));
-  model = JSON.parse(redoStack.pop());
+  const json = redoStack.pop();
+  model = JSON.parse(json);
+  // A rule S hold undone comes back with its Redo and falls when let go (CAP-R2HOLDVIEWUNDO-A/B.json E: held 1/2/7/15, Cmd+Z
+  // 1/2/7/10, Cmd+Shift+Z 1/2/7/15, Escape 1/2/5/15).
+  if (holdUndone?.json === json) { unsettled = holdUndone.hold; holdUndone = null; }
   note('Redo');
   renderAll();
   refitUndone(undoStack.at(-1));
@@ -1239,6 +1245,7 @@ function fitTextRows(s, b, g) {
 // Widened under rule S, the rows it would lose last the same way, and fall then (lost).
 // Time alone does nothing. No undo step of its own. Growing pushes as typing does.
 let unsettled = null;
+let holdUndone = null; // a rule S hold that Undo took away, with the redo step that brings it back
 let scrolledMove = null; // the block last moved while the page scrolled under it (R5 above)
 function settleTextRows() {
   const u = unsettled;
@@ -7640,6 +7647,9 @@ $('export').addEventListener('click', async () => {
 
 function setBp(next) {
   if (next === bp) return;
+  // A rule S hold falls as the view changes, before the phone shows (CAP-R2HOLDVIEWUNDO-A/B.json B: held 1/2/7/15, on the phone
+  // and back on desktop 1/2/5/15). Not read: a narrowing's hold, which still drops its rows.
+  if (unsettled?.lost && unsettled.bp === bp) settleTextRows();
   cornerFour = null;
   if (shapeUi?.kind === 'anchor') closeShapePop();
   if (editing) finishTextEdit();
