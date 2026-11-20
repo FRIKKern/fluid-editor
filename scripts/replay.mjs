@@ -27,10 +27,14 @@ const READ = (sid) => `(() => {
     if (Object.hasOwn(blocks, b.id)) dupes.push(b.id);
     blocks[b.id] = { area: b.layout[fe.bp].area, z: b.layout[fe.bp].z };
   }
-  // The trace loads its section alone (lib/trace-model.mjs), so a block in any other section is a stray the gesture left.
-  const others = [];
-  for (const o of all) if (o !== s) for (const b of o.blocks) for (const k of [b, ...(b.children || [])]) others.push(o.id + '/' + k.id);
-  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes, others });
+  // The trace loads its section alone (lib/trace-model.mjs), so any other section is a stray the gesture left, with
+  // or without blocks: each one is named in sections, and each block in it in others.
+  const others = [], sections = [];
+  for (const o of all) if (o !== s) {
+    sections.push(o.id);
+    for (const b of o.blocks) for (const k of [b, ...(b.children || [])]) others.push(o.id + '/' + k.id);
+  }
+  return JSON.stringify({ rows: s.rows[fe.bp], blocks, dupes, others, sections });
 })()`;
 
 // A trace with a recorded view puts the target at the same height in the canvas window as on
