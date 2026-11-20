@@ -4,15 +4,17 @@
 // - Hidden, no box, or see-through by its own or a parent's opacity (as before).
 // - Paint a hit test can't see, on the outline and every parent: a filter, a mask or a blend mode. A right page has none of them
 //   there. And the outline's own border: every side solid enough to draw (a style, 1px or more), all four the top's color (the
-//   color rows read only the top), and no border image.
+//   color rows read only the top), and no border image. Paint of its own over that border: a CSS outline, or a ::before or
+//   ::after (a hit test there returns the outline itself). A right page has none (task-7e0bc2b4f1d3572d).
 // - Laid out on its section: the box as laid out within 2px of the section's box in the frame (placeChrome's own layout), so
 //   an outline laid out at 0x0, or anywhere else, fails even where it is drawn (task-135ffb783a541425).
 // - A hit test at 4 points on its border: left and right halfway down the part in view, top and bottom a quarter of the way along.
 //   The points come from the box as laid out (offsets, which ignore transforms), cut to the chrome's laid-out box and the window.
 //   For that read every element is made hit-testable (pointer-events), so the outline must be the topmost thing at each point.
 //   That catches an outline clipped (clip-path, an overflow, content-visibility), moved or shrunk by a transform or translate,
-//   and any element laid over it, pointer-events none or not (an inline !important one still wins). No point in view fails too.
-// Paint with no box of its own (a sibling's shadow or outline) can still cover it unseen.
+//   and any element laid over it, pointer-events none or not. An inline !important pointer-events beats the sheet, so for the
+//   read those are set to auto too and put back (a right page has none). No point in view fails too.
+// Another element's paint with no box of its own there (its shadow or outline) can still cover it unseen.
 // The extra sheet goes on and off in the same task, so no frame is ever drawn with it.
 export const outlineDrawn = `(ch) => {
   const sheet = new CSSStyleSheet();
@@ -38,6 +40,8 @@ export const outlineDrawn = `(ch) => {
       if (st === 'none' || st === 'hidden' || !(parseFloat(w) >= 1)) return 'border ' + side.toLowerCase() + ' ' + st + ' ' + w;
     }
     if (c.borderImageSource !== 'none') return 'border image';
+    if (c.outlineStyle !== 'none' && parseFloat(c.outlineWidth) > 0) return 'own outline ' + c.outlineStyle + ' ' + c.outlineWidth;
+    for (const ps of ['::before', '::after']) { const pc = getComputedStyle(e, ps).content; if (pc !== 'none' && pc !== 'normal') return ps + ' content ' + pc; }
     const col = [c.borderTopColor, c.borderRightColor, c.borderBottomColor, c.borderLeftColor];
     if (col.some((x) => x !== col[0])) return 'border colors ' + col.join(' / ');
     const b = laid(e), k = laid(ch);
@@ -50,10 +54,12 @@ export const outlineDrawn = `(ch) => {
     const pts = [[b.l + 1.5, my], [b.r - 1.5, my], [qx, b.t + 1.5], [qx, b.b - 1.5]].filter(([x, y]) => x >= v.l && x < v.r && y >= v.t && y < v.b);
     if (!pts.length) return 'off view';
     const prev = [...document.adoptedStyleSheets];
+    const imp = [...document.querySelectorAll('[style*="pointer-events"]')].filter((n) => n.style.getPropertyPriority('pointer-events') === 'important' && n.style.pointerEvents !== 'auto').map((n) => [n, n.style.pointerEvents]);
     document.adoptedStyleSheets = [...prev, sheet];
+    for (const [n] of imp) n.style.setProperty('pointer-events', 'auto', 'important');
     try {
       for (const [x, y] of pts) { const t = document.elementFromPoint(x, y); if (t !== e) return 'under ' + name(t); }
-    } finally { document.adoptedStyleSheets = prev; }
+    } finally { document.adoptedStyleSheets = prev; for (const [n, v] of imp) n.style.setProperty('pointer-events', v, 'important'); }
     return 0;
   };
 }`;
