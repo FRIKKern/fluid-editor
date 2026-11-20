@@ -189,8 +189,34 @@ viewport(S, 1600, 1000); await pause(800);
 // A block with text and no items (the imported Home page, a heading a layout turns into Scrolling) draws its text too.
 const lone = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = next.sections[0].blocks[0]; delete b.items; b.text = 'Hello wave'; fe.load(next); await sleep(900); const d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id); const ts = el ? [...el.querySelectorAll('textPath tspan')] : []; const t = el && el.querySelector('.marquee-svg text'); return JSON.stringify({ first: ts[0] ? ts[0].textContent : null, n: ts.length, w: t ? Math.round(t.getBBox().width) : 0 });`);
 add('Text and no items: the text rides the path', lone.first === 'Hello wave' && lone.w > 1000, JSON.stringify(lone));
+// Attach link (CAP-T12SCROLLLIST.json scroll9-a, scroll10-a): the link editor opens beside the panel, its field 320 left of
+// the panel and level with the button (field 276 by 44); a page pick links the whole block, target _self; the Link row then
+// shows the page, its path, Edit, Copy and Remove Link. Real presses on a fresh block.
+const SL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SCROLLLIST.json', import.meta.url))).runs;
+const LK = SL['scroll10-a'].reads;
+const depth = () => qs(`return String(fe.undoDepth);`);
+await fresh();
+await press('#block-panel [data-btab="Content"]');
+const box = (sel) => qs(`const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left, r.top, r.width, r.height].map((v) => Math.round(v * 10) / 10));`);
+const linkOf = () => qs(`const b = fe.model.sections[0].blocks[0], d = document.getElementById('site-frame').contentDocument, el = b && d.getElementById('block-' + b.id), a = el && el.querySelector('a.marquee-hitbox'), fb = el && el.closest('.fe-block'); const ab = a && a.getBoundingClientRect(), bb = fb && fb.getBoundingClientRect(); const row = [...document.querySelectorAll('#block-panel .bp-link-name, #block-panel .bp-link-sub, #block-panel [data-link="edit"]:not(.bp-link-url), #block-panel [data-link="copy"], #block-panel [data-link="remove"], #block-panel [data-link="open"]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.textContent.trim()); return JSON.stringify({ href: b?.href ?? null, a: a ? [a.getAttribute('href'), a.getAttribute('target')] : null, covers: !!(ab && bb && Math.abs(ab.width - bb.width) < 1 && ab.height > 0.9 * bb.height), row, editor: !document.getElementById('link-popover').hidden });`);
+const attach = box('#block-panel [data-link="open"]'), panel = box('#block-panel');
+await press('#block-panel [data-link="open"]'); await pause(300);
+const field = box('#link-popover .lk-row');
+add('Attach link: the link editor opens', !!field && linkOf().editor, `${field}`);
+add('Attach link: its field 320 left of the panel, level with the button', !!field && !!panel && !!attach && near(field[0], panel[0] - 320) && near(field[1], attach[1]) && near(field[2], 276) && near(field[3], 44), `field ${field}, panel ${panel}, button ${attach}`);
+const d0 = depth();
+await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
+mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
+const linked = linkOf(), picked = LK['after About, Escape'].link, after = LK['undo the link'].link;
+add('A page pick: the block links to it, target _self', linked.href === picked.href && linked.a?.[0] === picked.href && linked.a?.[1] === picked.target, JSON.stringify(linked));
+add('The link covers the whole block', linked.covers, JSON.stringify(linked));
+add('The Link row: the page, its path, Edit, Copy, Remove Link', JSON.stringify(linked.row) === JSON.stringify(after.linkRow), JSON.stringify(linked.row));
+add('A page pick: one undo step', depth() === d0 + 1, `${d0} > ${depth()}`);
+await press('#block-panel [data-link="remove"]'); await pause(300);
+const unlinked = linkOf();
+add('Remove Link: no link, Attach link again', unlinked.href === null && unlinked.a === null && JSON.stringify(unlinked.row) === '["Attach link"]', JSON.stringify(unlinked));
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 79;
+const CASES = 86;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
