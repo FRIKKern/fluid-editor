@@ -933,6 +933,29 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         await esc(); row('R2 rule S hold, W let go', readText(S), W['R1 W let go'], 'desktop'); }
     }
   }
+  // A Text narrowed 2 columns grows to fit at the drop; Cmd+Z, double-click, Cmd+Shift+Z brings the narrowing back inside the
+  // edit, and Cmd+Z there takes it back to the width and rows it had (CAP-R2NARROWUNDO-A.json R1, -B.json R2 agrees, 15/15).
+  // N undoes in the edit, M lets go after the redo. Rows read inside the edit push a diff when the edit is not open.
+  { const N = JSON.parse(readFileSync(new URL('../parity/findings/CAP-R2NARROWUNDO-A.json', import.meta.url))).reads;
+    const esc = async () => { browser(S, 'press', 'Escape'); await pause(200); };
+    const key = async (k) => { browser(S, 'press', k); await pause(250); };
+    const drag = async (dx) => { const p = evalJs(S, `(() => { const f = document.getElementById('site-frame'), q = f.getBoundingClientRect(), r = f.contentDocument.querySelector('.fe-block[data-block-id="t"]').getBoundingClientRect(); return JSON.stringify([q.left + r.right, q.top + r.top + r.height / 2]); })()`);
+      mouse(S, 'move', p[0], p[1]); await pause(30); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30);
+      for (let n = 1; n <= 12; n++) { mouse(S, 'move', p[0] + (dx * n) / 12, p[1], { buttons: 1 }); await pause(12); }
+      mouse(S, 'up', p[0] + dx, p[1]); await pause(200); };
+    const edit = async () => { evalJs(S, `(() => { const d = document.getElementById('site-frame').contentDocument; d.querySelectorAll('#fx-b').forEach((x) => x.removeAttribute('id')); d.querySelector('.fe-block[data-block-id="t"]').id = 'fx-b'; return 1; })()`); browser(S, 'frame', '#site-frame'); browser(S, 'dblclick', '#fx-b'); browser(S, 'frame', 'main'); await pause(400); };
+    const open = () => evalJs(S, `document.getElementById('site-frame').contentDocument.querySelector('.fe-block[data-block-id="t"]').classList.contains('is-text-editing')`);
+    const inEdit = (name, w) => { const r = readText(S); row(name, r, w, 'desktop'); if (!open()) groupCases.at(-1).diffs.push('the edit is not open'); };
+    const start = async () => { const b = N['R1 N pasted']; loadText(S, { html: `<p>Start of a l${para}ong text here</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: b.section.rows, mobile: 6 }, bp: 'desktop' }); await pause(200); await drag(-2 * 58.78125); };
+    await start(); row('R2 narrowing, N at the drop', readText(S), N['R1 N held'], 'desktop');
+    await key('Meta+z'); row('R2 narrowing, N undone', readText(S), N['R1 N undone'], 'desktop');
+    await edit(); await key('Meta+Shift+z'); inEdit('R2 narrowing, N redone in the edit', N['R1 N redone in the edit']);
+    await key('Meta+z'); inEdit('R2 narrowing, N undone in the edit', N['R1 N undone in the edit']);
+    await esc(); row('R2 narrowing, N edit closed', readText(S), N['R1 N edit closed'], 'desktop');
+    await esc(); row('R2 narrowing, N let go', readText(S), N['R1 N let go'], 'desktop');
+    await start(); await key('Meta+z'); await edit(); await key('Meta+Shift+z'); groupCases.push({ name: 'R2 narrowing, M redone in the edit', diffs: open() ? [] : ['the edit is not open'] });
+    await esc(); row('R2 narrowing, M edit closed', readText(S), N['R1 M edit closed'], 'desktop');
+    await esc(); row('R2 narrowing, M let go', readText(S), N['R1 M let go'], 'desktop'); }
   for (const n of [2, 3, 4]) {
     const b = P[`R1 n4w${n} narrowed`];
     loadText(S, { html: `<p>${T3}</p>`, desktop: b.stack[0].desktop.split('/').map(Number), mobile: b.stack[0].phone.split('/').map(Number), rows: { desktop: 8, mobile: b.section.rows }, bp: 'mobile' }); await pause(200);
