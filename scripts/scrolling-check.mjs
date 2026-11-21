@@ -221,6 +221,7 @@ add('The Link row: the page, its path, Edit, Copy, Remove Link', JSON.stringify(
 await press('#block-panel [data-btab="Design"]');
 await press('#block-panel input[aria-label="Pause on hover"]');
 await press('#preview'); await pause(600);
+moves('With a link, Pause on hover in Preview, the mouse off', O4.default, 2);
 const onLinked = qs(`const b = fe.model.sections[0].blocks[0], f = document.getElementById('site-frame'), q = f.contentDocument.getElementById('block-' + b.id).getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + q.left + 200, o.top + q.top + q.height / 2]);`);
 mouse(S, 'move', onLinked[0], onLinked[1]); await pause(400);
 const held = wave(); add('With a link, Pause on hover in Preview: the words stop', !held.none && Math.abs(held.rate) < 1, held.none ? 'no text path' : `${held.rate.toFixed(2)} px/s`);
@@ -232,6 +233,50 @@ await press('#block-panel [data-btab="Content"]');
 await press('#block-panel [data-link="remove"]'); await pause(300);
 const unlinked = linkOf();
 add('Remove Link: no link, Attach link again', unlinked.href === null && unlinked.a === null && JSON.stringify(unlinked.row) === '["Attach link"]', JSON.stringify(unlinked));
+// Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
+// 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
+// the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
+await fresh();
+await press('#block-panel [data-btab="Design"]');
+await press('#preview'); await pause(600);
+const spot = () => qs(`const b = fe.model.sections[0].blocks[0], f = document.getElementById('site-frame'), q = f.contentDocument.getElementById('block-' + b.id).getBoundingClientRect(), o = f.getBoundingClientRect(); return JSON.stringify([o.left + q.left + 200, o.top + q.top + q.height / 2]);`);
+const pv = spot();
+moves('Preview, the mouse off the block', O4.default, 2);
+mouse(S, 'move', pv[0], pv[1]); await pause(400);
+moves('Preview, Pause on hover off, the mouse on it', O4.default, 2);
+mouse(S, 'move', pv[0], pv[1] + 400); await pause(200);
+await press('#preview'); await pause(600);
+qs(`const s = fe.model.sections[0], b = s.blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+await press('#block-panel [data-btab="Design"]');
+await press('#block-panel input[aria-label="Pause on hover"]');
+await press('#preview'); await pause(600);
+moves('Pause on hover in Preview, the mouse off', O4.default, 2);
+const pv2 = spot();
+mouse(S, 'move', pv2[0], pv2[1]); await pause(400);
+const pvHeld = wave(); add('Pause on hover in Preview: the words stop', !pvHeld.none && Math.abs(pvHeld.rate) < 1, pvHeld.none ? 'no text path' : `${pvHeld.rate.toFixed(2)} px/s`);
+mouse(S, 'move', pv2[0], pv2[1] + 400); await pause(400);
+moves('Pause on hover in Preview, the mouse gone: on again', O4.default, 2);
+await press('#preview'); await pause(600);
+// The page's own line, no editor around it: the start offset over 1.5 s by animation frame, as wave() reads it.
+const pageWave = () => qs(`const m = document.querySelector('.marquee'), tp = m && m.querySelector('textPath'), svg = m && m.querySelector('.marquee-svg'); if (!tp) return JSON.stringify({ none: true }); const box = (m.closest('.sqs-block-scrolling') || m).getBoundingClientRect(); const mm = [], t0 = performance.now(); await new Promise((res) => { const tick = () => { mm.push([performance.now() - t0, Number(tp.getAttribute('startOffset'))]); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); else res(); }; requestAnimationFrame(tick); }); let T = 0, D = 0; for (let i = 1; i < mm.length; i++) { const dv = mm[i][1] - mm[i - 1][1]; if (Math.abs(dv) < 50) { T += mm[i][0] - mm[i - 1][0]; D += dv; } } const fs = parseFloat(getComputedStyle(svg).fontSize), gapPx = Number(m.dataset.spacing) * fs, set = [...m.querySelectorAll('.marquee-item')].reduce((a, e) => a + Math.round(e.getBoundingClientRect().width) + gapPx, 0); return JSON.stringify({ rate: T ? D / T * 1000 : 0, lo: Math.min(...mm.map((x) => x[1])), hi: Math.max(...mm.map((x) => x[1])), set, on: [box.left + 200, box.top + box.height / 2] });`);
+const onPage = async (where) => {
+  const off = qs(`const e = document.querySelector('.sqs-block-scrolling'); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + 200, r.bottom + 300]);`);
+  if (off) { mouse(S, 'move', off[0], off[1]); await pause(400); }
+  const w0 = pageWave();
+  add(`${where}, the mouse off: ${O4.default.motion.pxPerS} px/s`, !w0.none && Math.abs(w0.rate - O4.default.motion.pxPerS) <= 2 && w0.lo > -w0.set - 0.5 && w0.hi <= 0, w0.none ? 'no text path' : `${w0.rate.toFixed(2)} px/s, ${w0.lo}..${w0.hi}`);
+  if (w0.none) { add(`${where}, Pause on hover, the mouse on it: the words stop`, false, 'no text path'); add(`${where}, the mouse gone: on again`, false, 'no text path'); return; }
+  mouse(S, 'move', w0.on[0], w0.on[1]); await pause(400);
+  const held2 = pageWave(); add(`${where}, Pause on hover, the mouse on it: the words stop`, !held2.none && Math.abs(held2.rate) < 1, `${held2.rate?.toFixed(2)} px/s`);
+  mouse(S, 'move', w0.on[0], w0.on[1] + 400); await pause(400);
+  const again = pageWave(); add(`${where}, the mouse gone: on again`, !again.none && Math.abs(again.rate - O4.default.motion.pxPerS) <= 2, `${again.rate?.toFixed(2)} px/s`);
+};
+await press('#save'); await pause(400);
+goto(S, `${BASE}/page.html?saved`); await pause(1500);
+await onPage('The saved page');
+// The exported page (Export's own HTML, render.js exportHtml) of the same saved model, opened as a page of its own.
+const exported = qs(`const { exportHtml } = await import('./src/render.js'); const css = await (await fetch('src/site.css')).text(); return JSON.stringify(URL.createObjectURL(new Blob([exportHtml(JSON.parse(localStorage.getItem('fluid-editor:model:v2')), css)], { type: 'text/html' })));`);
+goto(S, exported); await pause(1500);
+await onPage('The exported page');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
 const CASES = 87;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
