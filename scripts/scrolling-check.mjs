@@ -233,6 +233,24 @@ await press('#block-panel [data-btab="Content"]');
 await press('#block-panel [data-link="remove"]'); await pause(300);
 const unlinked = linkOf();
 add('Remove Link: no link, Attach link again', unlinked.href === null && unlinked.a === null && JSON.stringify(unlinked.row) === '["Attach link"]', JSON.stringify(unlinked));
+// A press on Undo with the link editor still open closes it and keeps the link, Redo off; the next press takes the link
+// (CAP-T12LINKUNDO.json B, R1 and R2 alike). Real presses on a fresh block.
+{ const LU = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12LINKUNDO.json', import.meta.url))).runs.R1.reads;
+  const st = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'); return JSON.stringify({ href: b?.href ?? null, open: !p.hidden, row: [...document.querySelectorAll('#block-panel [data-link]')].filter((x) => x.getBoundingClientRect().width > 0).map((x) => x.dataset.link), redo: !document.getElementById('redo').disabled });`);
+  await fresh(); await press('#block-panel [data-btab="Content"]');
+  await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
+  const o1 = LU['R1 B Undo'], o2 = LU['R1 B Undo again'], redoOn = (o) => o.undo.find((x) => x[0] === 'Redo')[1] === false;
+  await press('#undo'); const u1 = st();
+  add('Link editor open, Undo: it closes, the link stays', u1.href === o1.link.a[0] && u1.open === (o1.link.popField !== null) && u1.redo === redoOn(o1) && u1.row.includes('remove'), JSON.stringify(u1));
+  await press('#undo'); const u2 = st();
+  add('Then Undo again: the link goes, Redo on', u2.href === null && o2.link.a === null && u2.redo === redoOn(o2) && JSON.stringify(u2.row) === '["open"]', JSON.stringify(u2));
+  // A press down on Undo let go off it closes the editor with no click; Enter on Undo then is a plain Undo and takes the link
+  // (review-752; not read on the oracle, so the want is ours: the flag from that press must not swallow it).
+  await fresh(); await press('#block-panel [data-btab="Content"]');
+  await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
+  const u = at('#undo'); mouse(S, 'move', u[0], u[1]); await pause(60); mouse(S, 'down', u[0], u[1], { buttons: 1 }); await pause(40); const away = at('.bar-left', 0.1); mouse(S, 'move', away[0], away[1], { buttons: 1 }); await pause(40); mouse(S, 'up', away[0], away[1]); await pause(300);
+  const off = st(); qs(`document.getElementById('undo').focus(); return 'true';`); browser(S, 'press', 'Enter'); await pause(400); const keyed = st();
+  add('Undo pressed and let go off it, then Enter on Undo: the link goes', off.href === '/about' && !off.open && keyed.href === null, JSON.stringify({ off, keyed })); }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
 // area, the section's rows, the block's height and the line's top and height in it. Y's 0 is not compared: the oracle falls
@@ -294,7 +312,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 115;
+const CASES = 118;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
