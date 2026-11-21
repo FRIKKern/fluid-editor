@@ -419,8 +419,9 @@ body.is-preview .image-lightbox img { cursor: pointer; }
 :where(.accordion-item__description) { font-size: 16px; line-height: 22.4px; }
 .accordion-item__description.sqsrte-large, .accordion-item__description.sqsrte-small { line-height: 1.4; }
 
-/* Scrolling block (T12), measured on the oracle Home page. A new one has no wave: one line, centred. */
-.scrolling-block--flat > .sqs-block-content { margin-block: auto; }
+/* Scrolling block (T12), measured on the oracle Home page. The line is centred in the block's rows, with a wave or flat
+   (CAP-T12WAVEROWS.json: its top is half the spare height, 3.6 at Wave Intensity 30, 14.7 at 90, 18.6 flat). */
+.scrolling-block > .sqs-block-content { margin-block: auto; }
 .marquee {
   --v: var(--marquee-font-size-value, 5);
   font-size: min(calc((var(--v) - 1) * 1.2vw + 1rem), max(calc((var(--v) - 1) * 0.012 * var(--maxPageWidth) + 1rem), calc(var(--v) * 1rem)));
