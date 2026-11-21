@@ -1,0 +1,1012 @@
+{
+  "item": "CAP-R2NARROWUNDO-B",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-21",
+  "startedAt": "2026-11-21T09:04:57.423Z",
+  "engine": "chrome",
+  "question": "Second read of CAP-R2NARROWUNDO-A (task-5ffe2a9b66131d8a): a Text narrowed 2 columns, Cmd+Z, open the edit, Cmd+Shift+Z, Cmd+Z in the edit, Escape twice. M: redo in the edit then let go; P: let go, undo, redo. Blocks Probe, unsaved.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "window",
+      1600,
+      1000
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 N pasted",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -117.56,
+      0
+    ],
+    [
+      "read",
+      "R2 N held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "read",
+      "R2 N undone",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "editText",
+      0,
+      0
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "read",
+      "R2 N redone in the edit",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "read",
+      "R2 N undone in the edit",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R2 N edit closed",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 N let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -117.56,
+      0
+    ],
+    [
+      "read",
+      "R2 M held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "editText",
+      0,
+      0
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "read",
+      "R2 M edit closed",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 M let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Text"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "pick",
+      0,
+      "new"
+    ],
+    [
+      "click",
+      "Write"
+    ],
+    [
+      "keys",
+      "Start of a long text here"
+    ],
+    [
+      "pasteMid",
+      0,
+      "new",
+      "<p>Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines. Row height follows the width so a layout keeps its proportions when the window changes and text wraps onto more lines.</p>"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      -117.56,
+      0
+    ],
+    [
+      "read",
+      "R2 P held",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 P let go",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "pick",
+      0,
+      0
+    ],
+    [
+      "press",
+      "Meta+z"
+    ],
+    [
+      "read",
+      "R2 P undone",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Meta+Shift+z"
+    ],
+    [
+      "read",
+      "R2 P redone",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "R2 P let go again",
+      {
+        "stack": 0,
+        "section": 0,
+        "textH": [
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "reads": {
+    "R2 N pasted": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N held": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N undone": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N redone in the edit": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N undone in the edit": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N edit closed": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 N let go": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_430",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 M held": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 M edit closed": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 M let go": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "0_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 P held": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 P let go": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 P undone": {
+      "textH": 201.7,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_412",
+          "type": "csr",
+          "desktop": "1/2/7/10",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 P redone": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "R2 P let go again": {
+      "textH": 291.3,
+      "section": {
+        "frame": [
+          1600,
+          945
+        ],
+        "box": [
+          0,
+          0,
+          1600,
+          832
+        ],
+        "rows": 12,
+        "rowSizes": "30.1x12",
+        "rowGap": "11px",
+        "columnGap": "11px",
+        "scrollY": 0,
+        "blocks": 1
+      },
+      "stack": [
+        {
+          "id": "2_412",
+          "type": "csr",
+          "desktop": "1/2/9/8",
+          "phone": "1/2/3/10",
+          "z": [
+            "1",
+            "1"
+          ]
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
