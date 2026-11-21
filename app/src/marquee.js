@@ -41,6 +41,8 @@ export function runMarquees(document) {
     if (sig === st.sig) return true;
     st.sig = sig;
     const id = `marquee-path-${m.dataset.marqueeId || Math.random().toString(36).slice(2)}`;
+    // The line is as high as its drawing, h + A (the oracle's .Marquee: 34 flat, 64 at 30), not site.css's unrounded 1.4em + A.
+    m.style.height = `${h + A}px`;
     svg.style.height = `${h + A}px`;
     svg.style.transform = `translateY(${r1(0.1 * h)}px)`;
     const xs = []; let x = 0;
