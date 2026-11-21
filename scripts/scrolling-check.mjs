@@ -259,11 +259,11 @@ moves('Pause on hover in Preview, the mouse gone: on again', O4.default, 2);
 await press('#preview'); await pause(600);
 // The page's own line, no editor around it: the start offset over 1.5 s by animation frame, as wave() reads it.
 const pageWave = () => qs(`const m = document.querySelector('.marquee'), tp = m && m.querySelector('textPath'), svg = m && m.querySelector('.marquee-svg'); if (!tp) return JSON.stringify({ none: true }); const box = (m.closest('.sqs-block-scrolling') || m).getBoundingClientRect(); const mm = [], t0 = performance.now(); await new Promise((res) => { const tick = () => { mm.push([performance.now() - t0, Number(tp.getAttribute('startOffset'))]); if (performance.now() - t0 < 1500) requestAnimationFrame(tick); else res(); }; requestAnimationFrame(tick); }); let T = 0, D = 0; for (let i = 1; i < mm.length; i++) { const dv = mm[i][1] - mm[i - 1][1]; if (Math.abs(dv) < 50) { T += mm[i][0] - mm[i - 1][0]; D += dv; } } const fs = parseFloat(getComputedStyle(svg).fontSize), gapPx = Number(m.dataset.spacing) * fs, set = [...m.querySelectorAll('.marquee-item')].reduce((a, e) => a + Math.round(e.getBoundingClientRect().width) + gapPx, 0); return JSON.stringify({ rate: T ? D / T * 1000 : 0, lo: Math.min(...mm.map((x) => x[1])), hi: Math.max(...mm.map((x) => x[1])), set, on: [box.left + 200, box.top + box.height / 2] });`);
-const onPage = async (where) => {
+const onPage = async (where, protocol) => {
   const off = qs(`const e = document.querySelector('.sqs-block-scrolling'); if (!e) return 'null'; const r = e.getBoundingClientRect(); return JSON.stringify([r.left + 200, r.bottom + 300]);`);
   if (off) { mouse(S, 'move', off[0], off[1]); await pause(400); }
-  const w0 = pageWave();
-  add(`${where}, the mouse off: ${O4.default.motion.pxPerS} px/s`, !w0.none && Math.abs(w0.rate - O4.default.motion.pxPerS) <= 2 && w0.lo > -w0.set - 0.5 && w0.hi <= 0, w0.none ? 'no text path' : `${w0.rate.toFixed(2)} px/s, ${w0.lo}..${w0.hi}`);
+  const w0 = pageWave(), at0 = qs(`return JSON.stringify(location.protocol);`);
+  add(`${where}, the mouse off: ${O4.default.motion.pxPerS} px/s`, at0 === protocol && !w0.none && Math.abs(w0.rate - O4.default.motion.pxPerS) <= 2 && w0.lo > -w0.set - 0.5 && w0.hi <= 0, at0 !== protocol ? `on a ${at0} page` : w0.none ? 'no text path' : `${w0.rate.toFixed(2)} px/s, ${w0.lo}..${w0.hi}`);
   if (w0.none) { add(`${where}, Pause on hover, the mouse on it: the words stop`, false, 'no text path'); add(`${where}, the mouse gone: on again`, false, 'no text path'); return; }
   mouse(S, 'move', w0.on[0], w0.on[1]); await pause(400);
   const held2 = pageWave(); add(`${where}, Pause on hover, the mouse on it: the words stop`, !held2.none && Math.abs(held2.rate) < 1, `${held2.rate?.toFixed(2)} px/s`);
@@ -272,13 +272,13 @@ const onPage = async (where) => {
 };
 await press('#save'); await pause(400);
 goto(S, `${BASE}/page.html?saved`); await pause(1500);
-await onPage('The saved page');
+await onPage('The saved page', 'http:');
 // The exported page (Export's own HTML, render.js exportHtml) of the same saved model, opened as a page of its own.
 const exported = qs(`const { exportHtml } = await import('./src/render.js'); const css = await (await fetch('src/site.css')).text(); return JSON.stringify(URL.createObjectURL(new Blob([exportHtml(JSON.parse(localStorage.getItem('fluid-editor:model:v2')), css)], { type: 'text/html' })));`);
 goto(S, exported); await pause(1500);
-await onPage('The exported page');
+await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 87;
+const CASES = 99;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
