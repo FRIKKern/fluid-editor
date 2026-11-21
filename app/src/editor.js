@@ -4580,6 +4580,7 @@ function placeLinkPop() {
 // The field holds the focus on URL, the pill on Email and Phone (LINKMENU.json).
 function drawLinkPop(kind, href, newTab) {
   delete linkPop.dataset.cleared;
+  delete linkPop.dataset.picked;
   linkPop.dataset.kind = kind;
   linkPop.innerHTML = linkPopoverHtml(href, siteLinkGroups(), newTab, kind);
   placeLinkPop();
@@ -4590,6 +4591,7 @@ function drawLinkPop(kind, href, newTab) {
 // and, on a typed link cut short, a tip only under the mouse (CAP-E7REOPEN2.json to CAP-E7REOPEN4.json).
 function drawLinkBox(b) {
   delete linkPop.dataset.cleared;
+  delete linkPop.dataset.picked;
   linkPop.dataset.kind = 'box';
   linkPop.classList.add('is-box');
   linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
@@ -4679,7 +4681,7 @@ function switchLinkKind(kind) {
   liveLink((b) => { delete b.href; if (kind === 'url' && hadLink) b.newTab = true; else delete b.newTab; });
 }
 linkPop.addEventListener('input', (e) => {
-  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; showLinkList(true); }
+  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; delete linkPop.dataset.picked; showLinkList(true); }
   const f = e.target.closest('[data-f]');
   if (!f) return;
   if (f.dataset.f === 'phone') f.value = phoneDigits(f.value);
@@ -4758,7 +4760,7 @@ linkPop.addEventListener('click', (e) => {
   const kind = e.target.closest('.lk-kind');
   if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
-  if (pg) { applyLink(pg.dataset.href); return; }
+  if (pg) { applyLink(pg.dataset.href); linkPop.dataset.picked = '1'; return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     flushLinkStep();
@@ -4788,9 +4790,10 @@ linkPop.addEventListener('change', (e) => {
 // A click anywhere else closes the editor (read for the panel's tabs).
 // A press on Undo with a Scrolling block's link editor open on a page just picked only closes it, the link kept; the next
 // press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link after a page pick
-// only: with nothing picked or a link typed without Enter, and for Cmd+Z or a keyboard press on Undo, it undoes as before.
+// in this opening only: with nothing picked, a link typed without Enter, the editor reopened by Edit on a link it already
+// has, and for Cmd+Z or a keyboard press on Undo, it undoes as before.
 let undoClosedLink = false;
-const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href; };
+const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href; };
 const closeLinkOutside = (e) => {
   undoClosedLink = false;
   if (linkPop.contains(e.target)) return;
