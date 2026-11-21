@@ -1,6 +1,6 @@
 {
   "check": "mid-gesture flags, guides, center snap and group resize",
-  "pass": 1332,
+  "pass": 1341,
   "known": [
     "hold phone, full width -24,12",
     "hold CAP-X2T9 R1 w6 1545 -1",
@@ -9,7 +9,7 @@
     "R2 rule S, CAP-R2SUBPIXEL R1 c3 L15 at the drop",
     "R2 rule S, CAP-R2ENDLINE-C R1 c3 L15 at the drop"
   ],
-  "total": 1338,
+  "total": 1347,
   "results": [
     {
       "trace": "T0004-snap-03",
@@ -4805,6 +4805,42 @@
     },
     {
       "name": "R2 rule S hold redone in another Text's edit, Cmd+Z there, let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N at the drop",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N undone",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N redone in the edit",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N undone in the edit",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N edit closed",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, N let go",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, M redone in the edit",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, M edit closed",
+      "diffs": []
+    },
+    {
+      "name": "R2 narrowing, M let go",
       "diffs": []
     },
     {
