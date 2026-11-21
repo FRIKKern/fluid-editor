@@ -5231,13 +5231,15 @@ function textUndo(ed) {
       ed.marks = [to];
     }
   }
-  const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b);
+  const b = B(ed.sid, ed.bid), now = textSnap(ed, ed.ce.innerHTML, ed.area), height = textHeight(b), cols = [ed.area[1], ed.area[3]];
   redoStack.push(textRises.get(now) ?? now);
   takeHold();
   showTextStep(ed, to);
-  // The text got shorter, so the rows fall (textFall). A step off the page's list has its rows already.
+  // The text got shorter, so the rows fall (textFall). A step off the page's list has its rows already. So does a step to
+  // other columns, a narrowing redone in this edit: it comes back as it was, 1/2/7/10 with 12 rows, not 1/2/6/8 with 9
+  // (CAP-R2NARROWUNDO-A/B.json N, 15/15 alike).
   const lost = height - textHeight(b);
-  if (lost > 0 && !fromPage) {
+  if (lost > 0 && !fromPage && ed.area[1] === cols[0] && ed.area[3] === cols[1]) {
     const was = to;
     to = textFall(ed, now, was, lost, textHeight(b));
     showTextStep(ed, to);
