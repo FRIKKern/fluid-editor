@@ -232,8 +232,24 @@ await press('#block-panel [data-btab="Content"]');
 await press('#block-panel [data-link="remove"]'); await pause(300);
 const unlinked = linkOf();
 add('Remove Link: no link, Attach link again', unlinked.href === null && unlinked.a === null && JSON.stringify(unlinked.row) === '["Attach link"]', JSON.stringify(unlinked));
+// The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
+// Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
+// area, the section's rows, the block's height and the line's top and height in it. Y's 0 is not compared: the oracle falls
+// to 1 row there, the line overflowing, where X's 0 keeps 2 (its rule not found).
+{ const WR = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEROWS.json', import.meta.url))).runs.R1.reads;
+  const lay = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), fb = el.closest('.fe-block').getBoundingClientRect(), m = el.querySelector('.marquee').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ desktop: b.layout.desktop.area.join('/'), rows: s.rows.desktop, block: r(fb.height), marquee: [r(m.top - fb.top), r(m.height)] });`);
+  const same = (what, o) => { const w = lay(), near1 = (a, b) => Math.abs(a - b) <= 0.15; add(what, w.desktop === o.desktop && w.rows === o.rows && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1]), `${JSON.stringify(w)} (oracle ${JSON.stringify({ desktop: o.desktop, rows: o.rows, block: o.block, marquee: o.marquee })})`); };
+  const waveTo = async (v) => { await press('#block-panel [data-scr-range="wave"]', v === 0 ? 0.005 : Math.min(0.995, v / 180)); await pause(300); };
+  await fresh(); await press('#block-panel [data-btab="Design"]');
+  same('Wave rows X: a new block', WR['R1 X default'].layout);
+  for (const [v, k] of [[30, 'up 30'], [60, 'up 60'], [90, 'up 90'], [120, 'up 120'], [150, 'up 150'], [180, 'up 180'], [150, 'down 150'], [120, 'down 120'], [90, 'down 90'], [60, 'down 60'], [30, 'down 30'], [0, 'down 0'], [90, '90 again']]) {
+    await waveTo(v); same(`Wave rows X: ${k}`, WR[`R1 X ${k}`].layout);
+  }
+  await fresh(); await press('#block-panel [data-btab="Design"]');
+  await waveTo(120); same('Wave rows Y: a new block to 120', WR['R1 Y 120'].layout);
+  await waveTo(0); await waveTo(60); same('Wave rows Y: 0, then 60', WR['R1 Y 60'].layout); }
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 87;
+const CASES = 103;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
