@@ -4786,9 +4786,14 @@ linkPop.addEventListener('change', (e) => {
   setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
 });
 // A click anywhere else closes the editor (read for the panel's tabs).
+// A press on Undo with a Scrolling block's link editor open only closes it, the link kept; the next press takes the link
+// (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link only; Cmd+Z there is not read.
+let undoClosedLink = false;
 const closeLinkOutside = (e) => {
+  undoClosedLink = false;
   if (linkPop.contains(e.target)) return;
   linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
+  undoClosedLink = !linkPop.hidden && !!e.target.closest?.('#undo') && B(linkSid, linkPop.dataset.bid)?.type === 'scrolling';
   closeLinkPopover();
 };
 document.addEventListener('pointerdown', closeLinkOutside, true);
@@ -7558,7 +7563,7 @@ document.addEventListener('click', (e) => {
   finishTextEdit();
   if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
 }, true);
-$('undo').addEventListener('click', () => undo(true));
+$('undo').addEventListener('click', () => { if (undoClosedLink) { undoClosedLink = false; updateUi(); return; } undo(true); });
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
   if (persist()) {

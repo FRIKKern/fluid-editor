@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 115,
- "total": 115,
+ "pass": 117,
+ "total": 117,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -353,6 +353,14 @@
   },
   {
    "what": "Remove Link: no link, Attach link again",
+   "ok": true
+  },
+  {
+   "what": "Link editor open, Undo: it closes, the link stays",
+   "ok": true
+  },
+  {
+   "what": "Then Undo again: the link goes, Redo on",
    "ok": true
   },
   {
