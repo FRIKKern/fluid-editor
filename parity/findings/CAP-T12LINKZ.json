@@ -1,0 +1,3079 @@
+{
+ "item": "CAP-T12LINKZ",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-22",
+ "engine": "chrome",
+ "question": "T12 (task-4cbaae7d818cec62): Cmd+Z in a Scrolling block's link field. A new section and Scrolling block on Blocks Probe at 1600 by 1000, Edit, Content, Attach link, the About page picked (or nothing picked), then Cmd+Z, Cmd+Shift+Z, Escape, a press away (the panel's Content tab) or the Undo button, read after each step. Two clean rounds (R1, R2) in one Chrome session, each scenario on its own entry, nothing saved.",
+ "visited": "Blocks Probe",
+ "readsAre": "block: the new block's state in its section (n blocks, gone, data-is-selected, desktop grid area, opacity; others: other blocks' area and selected); pop: the link editor's field [value, left, top] or null when closed, options: page rows showing, linkRow: the panel's Link row texts; focus: [document, tag, label, value] of the focused element; undo: [name, disabled] for Save, Undo, Redo. Each scenario on a fresh section and Scrolling block, left by Exit Without Saving (exits).",
+ "answer": [
+  "Z8 (R1, R2): after a page pick on Attach link, Cmd+Z in the field takes the pick: Redo on, the editor stays open, its field focused on /about. A second Cmd+Z changes nothing seen: the block stays, the editor open on /about. The third takes the block and the editor closes.",
+  "Z12 (R1, R2): Attach link with nothing picked, Cmd+Z: Redo on, the block and the editor stay; the second Cmd+Z takes the block. Opening Attach link is a step of its own (Z11, R1: with the panel on Content and no link editor, one Cmd+Z takes the block).",
+  "Z9 (R1, R2): a pick, a press away (the Link row shows About), then Undo: the link goes; Undo again: nothing seen; the third Undo takes the block.",
+  "Z3 (R1, R2): a pick, Cmd+Z, then Escape and Escape again: the editor stays open, field focused on /about; a press away then sets /about again (Link row About), Redo off.",
+  "Z4 (R1, R2): a pick, Cmd+Z, a press away: the link is /about again, Redo off; Undo then takes it, Redo on.",
+  "Z5 (R1, R2): a pick, Cmd+Z, Cmd+Shift+Z: Redo off; a press away: the link is /about, Redo off.",
+  "Z1, Z2, Z6 (R1): the same with Cmd+Z twice, also after one Escape; Z0 (R1): a pick and a press away keeps /about.",
+  "Z10 (R1, R2): Attach link with nothing picked, Escape and Escape again: the editor stays open, its empty field focused. Not built here (ours closes it; filed)."
+ ],
+ "runs": {
+  "R1": {
+   "reads": {
+    "R1 Z1 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z1 picked": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z1 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z1 Cmd+Z again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z0 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z0 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Edit",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z3 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z3 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z3 Escape": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z3 Escape again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z3 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z4 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z4 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z4 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z4 Undo": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z2 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z2 Escape": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z2 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z2 Cmd+Z again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z5 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z5 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z5 Cmd+Shift+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z5 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Edit",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z6 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z6 Cmd+Z x2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z6 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z6 Undo": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z8 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z8 Cmd+Z 1": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z8 Cmd+Z 2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z8 Cmd+Z 3": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Save",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z9 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z9 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Edit",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z9 Undo 1": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z9 Undo 2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z9 Undo 3": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z10 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z10 Escape": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z10 Escape again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z10 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z11 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z11 Cmd+Z": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z12 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z12 open": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 6,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 Z12 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 6,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R1 Z12 Cmd+Z again": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Save",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    }
+   },
+   "exits": {
+    "Z1": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z0": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z3": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z4": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z2": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z5": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z6": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z8": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z9": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z10": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z11": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z12": [
+     "top Exit",
+     "dialog Exit"
+    ]
+   }
+  },
+  "R2": {
+   "reads": {
+    "R2 Z3 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z3 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z3 Escape": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z3 Escape again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z3 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z4 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z4 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z4 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z4 Undo": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z5 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z5 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z5 Cmd+Shift+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z5 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Edit",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z8 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z8 Cmd+Z 1": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z8 Cmd+Z 2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "/about",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z8 Cmd+Z 3": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Save",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z9 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z9 away": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "About",
+       "/about",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Edit",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z9 Undo 1": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z9 Undo 2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z9 Undo 3": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z12 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z12 open": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 6,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z12 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 6,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z12 Cmd+Z again": {
+     "block": {
+      "n": 0,
+      "gone": true,
+      "selected": null,
+      "area": null,
+      "opacity": null,
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Save",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R2 Z10 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z10 Escape": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z10 Escape again": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 Z10 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    }
+   },
+   "exits": {
+    "Z3": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z4": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z5": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z8": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z9": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z12": [
+     "top Exit",
+     "dialog Exit"
+    ],
+    "Z10": [
+     "top Exit",
+     "dialog Exit"
+    ]
+   }
+  }
+ }
+}
