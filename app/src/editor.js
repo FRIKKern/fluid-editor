@@ -1292,20 +1292,25 @@ function onCancel(e) {
 // The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
 // short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
 // section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
+// A short Quote (CAP-X8QUOTEBELOW.json, r1 and r2 each read twice; q1, q2, m5; fitted after the reads): its d is the rows
+// its content needs, rounded up (0.42 short gives 1, so a Shape across L grows 1), and a block that starts below L stays,
+// one free row away or two, whether the next gesture moves the Quote or pulls its bottom handle. Not read for a Quote: a
+// block that starts on L, one that ends on L, a Quote more than a row short.
 let stored = null;
 function storedRows(g) {
   const m = measure(feEl(g.sid)), s = S(g.sid);
-  let d = 0, L = 0, t0 = 0, tid = null;
+  let d = 0, L = 0, t0 = 0, tid = null, quote = false;
   for (const id of g.kept.keys()) {
-    const b = B(g.sid, id), a = lay(b).area, over = Math.round(contentRows(b, m, false, false, true) - (a[2] - a[0]));
-    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; }
+    const b = B(g.sid, id), a = lay(b).area, x = contentRows(b, m, false, false, true), q = b.standin === 'quote';
+    const over = q ? Math.ceil(x - 0.02) - (a[2] - a[0]) : Math.round(x - (a[2] - a[0]));
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; quote = q; }
   }
   if (d <= 0) return null;
   const areas = new Map();
   for (const b of s.blocks) {
     const a = [...lay(b).area];
     if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
-    else if (a[2] >= L) { a[0] += d; a[2] += d; }
+    else if (a[2] >= L && !(quote && a[0] > L)) { a[0] += d; a[2] += d; }
     areas.set(b.id, a);
   }
   return { sid: g.sid, bp, areas, d };

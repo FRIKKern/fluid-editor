@@ -1,0 +1,1426 @@
+{
+ "item": "CAP-X8QUOTEBELOW",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-22",
+ "startedAt": "2026-11-22T05:24:37.380Z",
+ "predictions": {
+  "file": "CAP-X8QUOTEBELOW-PREDICTED.json",
+  "commit": "a4bf0f342b73c6f0c78671b97f2f0cf6d954493d",
+  "committedAt": "2026-11-22T06:24:29+01:00",
+  "sha256": "5ecef3eb6b4a5ccabc2c7cc60d4b1c3ec54a4c7873cdd5fb94bca0be6bcff751"
+ },
+ "engine": "chrome",
+ "question": "X8, the short Quote (q1, q2, m5): which blocks wholly below the Quote's bottom line move at its next gesture. r1: the lower Shape on L + 1, the Quote dragged down 2 rows; r2: m5's places, the Quote's bottom handle down 1 row. Each case twice (a, b), predictions in CAP-X8QUOTEBELOW-PREDICTED.json.",
+ "steps": [
+  [
+   "toPage",
+   "Blocks Probe"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Quote"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "e",
+   118,
+   0
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   288
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "s",
+   0,
+   -82
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r1a start",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "shiftClick",
+   0,
+   1
+  ],
+  [
+   "shiftClick",
+   0,
+   2
+  ],
+  [
+   "groupDrag",
+   0,
+   -470,
+   0
+  ],
+  [
+   "read",
+   "r1a dropped",
+   {
+    "areas": 0,
+    "path": 1,
+    "gridAll": 0,
+    "contentH": [
+     0,
+     0
+    ]
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "middle",
+   0,
+   82
+  ],
+  [
+   "read",
+   "r1a next",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r1a next let go",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Quote"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "e",
+   118,
+   0
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   329
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "s",
+   0,
+   -82
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r2a start",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "shiftClick",
+   0,
+   1
+  ],
+  [
+   "shiftClick",
+   0,
+   2
+  ],
+  [
+   "groupDrag",
+   0,
+   -470,
+   0
+  ],
+  [
+   "read",
+   "r2a dropped",
+   {
+    "areas": 0,
+    "path": 1,
+    "gridAll": 0,
+    "contentH": [
+     0,
+     0
+    ]
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "s",
+   0,
+   41
+  ],
+  [
+   "read",
+   "r2a next",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r2a next let go",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Quote"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "e",
+   118,
+   0
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   288
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "s",
+   0,
+   -82
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r1b start",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "shiftClick",
+   0,
+   1
+  ],
+  [
+   "shiftClick",
+   0,
+   2
+  ],
+  [
+   "groupDrag",
+   0,
+   -470,
+   0
+  ],
+  [
+   "read",
+   "r1b dropped",
+   {
+    "areas": 0,
+    "path": 1,
+    "gridAll": 0,
+    "contentH": [
+     0,
+     0
+    ]
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "middle",
+   0,
+   82
+  ],
+  [
+   "read",
+   "r1b next",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r1b next let go",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "exit"
+  ],
+  [
+   "enter"
+  ],
+  [
+   "blank"
+  ],
+  [
+   "add",
+   0,
+   "Quote"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "e",
+   118,
+   0
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   41
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "add",
+   0,
+   "Shape"
+  ],
+  [
+   "pause",
+   600
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "middle",
+   705,
+   329
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   1
+  ],
+  [
+   "drag",
+   0,
+   1,
+   "s",
+   0,
+   -82
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r2b start",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "shiftClick",
+   0,
+   1
+  ],
+  [
+   "shiftClick",
+   0,
+   2
+  ],
+  [
+   "groupDrag",
+   0,
+   -470,
+   0
+  ],
+  [
+   "read",
+   "r2b dropped",
+   {
+    "areas": 0,
+    "path": 1,
+    "gridAll": 0,
+    "contentH": [
+     0,
+     0
+    ]
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "select",
+   0,
+   0
+  ],
+  [
+   "drag",
+   0,
+   0,
+   "s",
+   0,
+   41
+  ],
+  [
+   "read",
+   "r2b next",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "press",
+   "Escape"
+  ],
+  [
+   "deselect",
+   0
+  ],
+  [
+   "read",
+   "r2b next let go",
+   {
+    "areas": 0,
+    "path": 1
+   }
+  ],
+  [
+   "exit"
+  ]
+ ],
+ "reads": {
+  "r1a start": {
+   "areas": [
+    [
+     "1/2/7/10",
+     "1/2/7/10"
+    ],
+    [
+     "2/14/6/20",
+     "7/2/13/10"
+    ],
+    [
+     "8/14/14/20",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1a dropped": {
+   "contentH": 218.8,
+   "areas": [
+    [
+     "1/2/7/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "gridAll": [
+    {
+     "css": [
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/7",
+      "grid-area: 1/2/7/7"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "1/2/7/7"
+    },
+    {
+     "css": [
+      "grid-area: 7/2/13/10",
+      "grid-area: 7/2/13/10",
+      "grid-area: 2/9/6/12",
+      "grid-area: 2/9/6/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "2/9/6/12"
+    },
+    {
+     "css": [
+      "grid-area: 13/2/19/10",
+      "grid-area: 13/2/19/10",
+      "grid-area: 8/9/14/12",
+      "grid-area: 8/9/14/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "8/9/14/12"
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1a next": {
+   "areas": [
+    [
+     "3/2/10/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1a next let go": {
+   "areas": [
+    [
+     "3/2/10/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2a start": {
+   "areas": [
+    [
+     "1/2/7/10",
+     "1/2/7/10"
+    ],
+    [
+     "2/14/6/20",
+     "7/2/13/10"
+    ],
+    [
+     "9/14/15/20",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2a dropped": {
+   "contentH": 218.8,
+   "areas": [
+    [
+     "1/2/7/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "gridAll": [
+    {
+     "css": [
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/7",
+      "grid-area: 1/2/7/7"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "1/2/7/7"
+    },
+    {
+     "css": [
+      "grid-area: 7/2/13/10",
+      "grid-area: 7/2/13/10",
+      "grid-area: 2/9/6/12",
+      "grid-area: 2/9/6/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "2/9/6/12"
+    },
+    {
+     "css": [
+      "grid-area: 13/2/19/10",
+      "grid-area: 13/2/19/10",
+      "grid-area: 9/9/15/12",
+      "grid-area: 9/9/15/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "9/9/15/12"
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2a next": {
+   "areas": [
+    [
+     "1/2/9/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2a next let go": {
+   "areas": [
+    [
+     "1/2/9/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1b start": {
+   "areas": [
+    [
+     "1/2/7/10",
+     "1/2/7/10"
+    ],
+    [
+     "2/14/6/20",
+     "7/2/13/10"
+    ],
+    [
+     "8/14/14/20",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1b dropped": {
+   "contentH": 218.8,
+   "areas": [
+    [
+     "1/2/7/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "gridAll": [
+    {
+     "css": [
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/7",
+      "grid-area: 1/2/7/7"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "1/2/7/7"
+    },
+    {
+     "css": [
+      "grid-area: 7/2/13/10",
+      "grid-area: 7/2/13/10",
+      "grid-area: 2/9/6/12",
+      "grid-area: 2/9/6/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "2/9/6/12"
+    },
+    {
+     "css": [
+      "grid-area: 13/2/19/10",
+      "grid-area: 13/2/19/10",
+      "grid-area: 8/9/14/12",
+      "grid-area: 8/9/14/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "8/9/14/12"
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1b next": {
+   "areas": [
+    [
+     "3/2/10/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r1b next let go": {
+   "areas": [
+    [
+     "3/2/10/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "8/9/14/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2b start": {
+   "areas": [
+    [
+     "1/2/7/10",
+     "1/2/7/10"
+    ],
+    [
+     "2/14/6/20",
+     "7/2/13/10"
+    ],
+    [
+     "9/14/15/20",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2b dropped": {
+   "contentH": 218.8,
+   "areas": [
+    [
+     "1/2/7/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "gridAll": [
+    {
+     "css": [
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/10",
+      "grid-area: 1/2/7/7",
+      "grid-area: 1/2/7/7"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "1/2/7/7"
+    },
+    {
+     "css": [
+      "grid-area: 7/2/13/10",
+      "grid-area: 7/2/13/10",
+      "grid-area: 2/9/6/12",
+      "grid-area: 2/9/6/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "2/9/6/12"
+    },
+    {
+     "css": [
+      "grid-area: 13/2/19/10",
+      "grid-area: 13/2/19/10",
+      "grid-area: 9/9/15/12",
+      "grid-area: 9/9/15/12"
+     ],
+     "attrs": [
+      "tabindex=0"
+     ],
+     "computed": "9/9/15/12"
+    }
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2b next": {
+   "areas": [
+    [
+     "1/2/9/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  },
+  "r2b next let go": {
+   "areas": [
+    [
+     "1/2/9/7",
+     "1/2/7/10"
+    ],
+    [
+     "2/9/6/12",
+     "7/2/13/10"
+    ],
+    [
+     "9/9/15/12",
+     "13/2/19/10"
+    ]
+   ],
+   "path": "/blocks-probe",
+   "save": "changed"
+  }
+ },
+ "errors": [],
+ "visited": "Blocks Probe",
+ "leftDirty": false,
+ "exitSteps": [],
+ "readBack": {
+  "before": {
+   "path": "/blocks-probe",
+   "sections": 0,
+   "blocks": 0
+  },
+  "after": {
+   "path": "/blocks-probe",
+   "sections": 0,
+   "blocks": 0
+  },
+  "same": true
+ },
+ "answer": [
+  "r1 (the lower Shape on L + 1, the Quote dragged down 2 rows): the Shape stays, a and b alike. H-self right, H-gap wrong.",
+  "r2 (m5's places, the Quote's bottom handle down 1 row): the Shape stays, a and b alike. H-gap right, H-self wrong. The Quote ends 1/2/9/7 in both (its row and d = 1).",
+  "So neither pushed rule scores both cases (1 of 2 each). What fits all the Quote's reads (q1, q2 in CAP-X8LAG, m5 in CAP-X8LAG2 and CAP-X8QUOTE, r1, r2 here): d is the Quote's need rounded up (1 for 0.42 short), a block across L grows d, and a block that starts below L stays. That rule was fitted after these reads, so it is not scored as fresh. Not read for a Quote: a block starting on L, one ending on L, a Quote more than a row short."
+ ]
+}

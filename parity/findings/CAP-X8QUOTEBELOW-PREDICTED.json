@@ -1,0 +1,55 @@
+{
+ "item": "CAP-X8QUOTEBELOW-PREDICTED",
+ "question": "X8, the short Quote (q1, q2, m5): which blocks wholly below the Quote's bottom line L move at the next gesture. Setup as m5 (CAP-X8LAG2.json, CAP-X8QUOTE.json): a Quote widened, a Shape across its rows shortened to end above L, a second Shape below L, the three made narrower as a group from the east (Quote 0.42 rows short, so d = 1 here). r1: the lower Shape one row closer (starts on L + 1), next gesture the Quote dragged down 2 rows, as in m5. r2: m5's places, next gesture the Quote's bottom handle down 1 row. Read on Blocks Probe, each case twice (a, b), nothing saved.",
+ "rules": {
+  "H-self": "d = the Quote's overflow rounded up (1). When the next gesture moves the short block itself, blocks that start below L stay; otherwise the X8LAG rule as built (blocks ending on or below L move d).",
+  "H-gap": "d = 1. A block that starts below L moves d only when at most d rows lie between it and L (l4 moved across 1 free row; m5's lower Shape had 2); the block the gesture drags is held where the rows put it (l6)."
+ },
+ "predicted": {
+  "r1 dropped": [
+   "1/2/7/7",
+   "2/9/6/12",
+   "8/9/14/12"
+  ],
+  "r1 next": {
+   "H-self": [
+    "3/2/10/7",
+    "2/9/6/12",
+    "8/9/14/12"
+   ],
+   "H-gap": [
+    "3/2/10/7",
+    "2/9/6/12",
+    "9/9/15/12"
+   ]
+  },
+  "r2 dropped": [
+   "1/2/7/7",
+   "2/9/6/12",
+   "9/9/15/12"
+  ],
+  "r2 next": {
+   "H-self": [
+    "1/2/9/7",
+    "2/9/6/12",
+    "10/9/16/12"
+   ],
+   "H-gap": [
+    "1/2/9/7",
+    "2/9/6/12",
+    "9/9/15/12"
+   ]
+  }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first, as in CAP-X8QUOTE.json). If the setup lands elsewhere, the case is scored on whether the lower Shape moved.",
+ "cases": {
+  "r1": [
+   "r1a next",
+   "r1b next"
+  ],
+  "r2": [
+   "r2a next",
+   "r2b next"
+  ]
+ }
+}
