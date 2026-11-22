@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 146,
- "total": 146,
+ "pass": 153,
+ "total": 153,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -353,6 +353,34 @@
   },
   {
    "what": "Remove Link: no link, Attach link again",
+   "ok": true
+  },
+  {
+   "what": "Link editor open, Undo: it closes, the link stays",
+   "ok": true
+  },
+  {
+   "what": "Then Undo again: the link goes, Redo on",
+   "ok": true
+  },
+  {
+   "what": "Undo pressed and let go off it, then Enter on Undo: the link goes",
+   "ok": true
+  },
+  {
+   "what": "Reopened by Edit, About again, Undo: link goes",
+   "ok": true
+  },
+  {
+   "what": "Reopened by Edit, Contact picked, Undo: About",
+   "ok": true
+  },
+  {
+   "what": "Pick, then new tab, Undo: the new tab goes",
+   "ok": true
+  },
+  {
+   "what": "Pick, then an arrow key, Undo: the move goes",
    "ok": true
   },
   {
