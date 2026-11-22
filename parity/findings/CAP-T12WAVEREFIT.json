@@ -1,0 +1,2065 @@
+{
+ "item": "CAP-T12WAVEREFIT",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-22",
+ "engine": "chrome",
+ "question": "T12 (task-ca4d810ea42c90cc): after a Wave Intensity fall leaves a Scrolling block's line running over (180>90 = 3 rows for a 124 line, 120>0 = 1 row for a 34 line, CAP-T12WAVEDROP), do Speed, Direction and Pause on hover move its rows? A new Scrolling block per plan on Blocks Probe at a 1600 by 1000 window, Design tab, Wave Intensity pressed on the range, then the named presses. Plans A and C fall 180>90, B and D 120>0, each with the three presses in another order. R1 read A, R2 read B, C and D, R3 read A, C, D and B: every plan read in two sessions. Nothing saved, each session left by Exit Without Saving.",
+ "visited": "Blocks Probe",
+ "readsAre": "layout: desktop and phone grid areas, rows (the section's row count), rowSizes, block (height), marquee and svg ([top in the block, height]), ctl (each Direction, Speed and Pause on hover control's label and on state), value (the range). The read's name is the session, the plan, and the presses in order, '>' between them.",
+ "answer": [
+  "Speed (0.5x, 2x), Direction (right) and Pause on hover move no rows after a fall that left the line running over: 180>90 keeps 3 rows (1/2/4/26, block 124, the line 124 from its top) and 120>0 keeps 1 row (1/2/2/26, block 34) through all three presses, in each of the four orders.",
+  "Both sessions of each plan read alike, every step. The phone area stays 1/2/3/10 throughout.",
+  "Not read: Text Style, Text Size, Fade edges, Item Spacing and the items after such a fall; a block made taller by hand; the phone view."
+ ],
+ "localGuesses": {
+  "written": "2026-11-22, before any read",
+  "guesses": [
+   "G1 (the task's guess): after a fall leaves the line running over, Speed, Direction and Pause on hover move no rows. A: 180>90 = 3 rows, stays 3 through each press. B: 120>0 = 1 row, stays 1.",
+   "G2 (main today): each press refits the rows to the line: A goes to 4, B to 2, on the first press."
+  ],
+  "result": "G1 held in 24 of 24 press reads; G2 (main) missed every one."
+ },
+ "runs": {
+  "R1": {
+   "path": "/blocks-probe",
+   "reads": {
+    "R1 A default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R1 A 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "180"
+     }
+    },
+    "R1 A 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R1 A 180>90>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R1 A 180>90>Animation speed 2x>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R1 A 180>90>Animation speed 2x>Animation direction right>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    }
+   },
+   "log": [
+    "read R1 A default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 A 180",
+    "wave press 90",
+    "read R1 A 180>90",
+    "pressed Animation speed 2x",
+    "read R1 A 180>90>Animation speed 2x",
+    "pressed Animation direction right",
+    "read R1 A 180>90>Animation speed 2x>Animation direction right",
+    "pressed Pause on hover",
+    "read R1 A 180>90>Animation speed 2x>Animation direction right>Pause on hover"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  },
+  "R2": {
+   "path": "/blocks-probe",
+   "reads": {
+    "R2 B default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R2 B 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "120"
+     }
+    },
+    "R2 B 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 B 120>0>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 B 120>0>Pause on hover>Animation speed 0.5x": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 B 120>0>Pause on hover>Animation speed 0.5x>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 C default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R2 C 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "180"
+     }
+    },
+    "R2 C 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R2 C 180>90>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R2 C 180>90>Pause on hover>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R2 C 180>90>Pause on hover>Animation direction right>Animation speed 0.5x": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R2 D default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R2 D 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "120"
+     }
+    },
+    "R2 D 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 D 120>0>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 D 120>0>Animation direction right>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R2 D 120>0>Animation direction right>Animation speed 2x>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    }
+   },
+   "log": [
+    "read R2 B default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R2 B 120",
+    "wave press 0",
+    "read R2 B 120>0",
+    "pressed Pause on hover",
+    "read R2 B 120>0>Pause on hover",
+    "pressed Animation speed 0.5x",
+    "read R2 B 120>0>Pause on hover>Animation speed 0.5x",
+    "pressed Animation direction right",
+    "read R2 B 120>0>Pause on hover>Animation speed 0.5x>Animation direction right",
+    "read R2 C default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 C 180",
+    "wave press 90",
+    "read R2 C 180>90",
+    "pressed Pause on hover",
+    "read R2 C 180>90>Pause on hover",
+    "pressed Animation direction right",
+    "read R2 C 180>90>Pause on hover>Animation direction right",
+    "pressed Animation speed 0.5x",
+    "read R2 C 180>90>Pause on hover>Animation direction right>Animation speed 0.5x",
+    "read R2 D default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R2 D 120",
+    "wave press 0",
+    "read R2 D 120>0",
+    "pressed Animation direction right",
+    "read R2 D 120>0>Animation direction right",
+    "pressed Animation speed 2x",
+    "read R2 D 120>0>Animation direction right>Animation speed 2x",
+    "pressed Pause on hover",
+    "read R2 D 120>0>Animation direction right>Animation speed 2x>Pause on hover"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  },
+  "R3": {
+   "path": "/blocks-probe",
+   "reads": {
+    "R3 A default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R3 A 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "180"
+     }
+    },
+    "R3 A 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 A 180>90>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 A 180>90>Animation speed 2x>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 A 180>90>Animation speed 2x>Animation direction right>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 C default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R3 C 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "180"
+     }
+    },
+    "R3 C 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 C 180>90>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 C 180>90>Pause on hover>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 C 180>90>Pause on hover>Animation direction right>Animation speed 0.5x": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "90"
+     }
+    },
+    "R3 D default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R3 D 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "120"
+     }
+    },
+    "R3 D 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 D 120>0>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 D 120>0>Animation direction right>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 D 120>0>Animation direction right>Animation speed 2x>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "true"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 B default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": []
+     }
+    },
+    "R3 B 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "120"
+     }
+    },
+    "R3 B 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        false
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 B 120>0>Pause on hover": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false"
+       ],
+       [
+        "Animation speed 1x",
+        "true"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 B 120>0>Pause on hover>Animation speed 0.5x": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "true"
+       ],
+       [
+        "Animation direction right",
+        "false"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    },
+    "R3 B 120>0>Pause on hover>Animation speed 0.5x>Animation direction right": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation direction left",
+        "false"
+       ],
+       [
+        "Animation direction right",
+        "true"
+       ],
+       [
+        "Animation speed 0.5x",
+        "true"
+       ],
+       [
+        "Animation speed 1x",
+        "false"
+       ],
+       [
+        "Animation speed 2x",
+        "false"
+       ],
+       [
+        "Pause on hover",
+        true
+       ]
+      ],
+      "value": "0"
+     }
+    }
+   },
+   "log": [
+    "read R3 A default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R3 A 180",
+    "wave press 90",
+    "read R3 A 180>90",
+    "pressed Animation speed 2x",
+    "read R3 A 180>90>Animation speed 2x",
+    "pressed Animation direction right",
+    "read R3 A 180>90>Animation speed 2x>Animation direction right",
+    "pressed Pause on hover",
+    "read R3 A 180>90>Animation speed 2x>Animation direction right>Pause on hover",
+    "read R3 C default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R3 C 180",
+    "wave press 90",
+    "read R3 C 180>90",
+    "pressed Pause on hover",
+    "read R3 C 180>90>Pause on hover",
+    "pressed Animation direction right",
+    "read R3 C 180>90>Pause on hover>Animation direction right",
+    "pressed Animation speed 0.5x",
+    "read R3 C 180>90>Pause on hover>Animation direction right>Animation speed 0.5x",
+    "read R3 D default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R3 D 120",
+    "wave press 0",
+    "read R3 D 120>0",
+    "pressed Animation direction right",
+    "read R3 D 120>0>Animation direction right",
+    "pressed Animation speed 2x",
+    "read R3 D 120>0>Animation direction right>Animation speed 2x",
+    "pressed Pause on hover",
+    "read R3 D 120>0>Animation direction right>Animation speed 2x>Pause on hover",
+    "read R3 B default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R3 B 120",
+    "wave press 0",
+    "read R3 B 120>0",
+    "pressed Pause on hover",
+    "read R3 B 120>0>Pause on hover",
+    "pressed Animation speed 0.5x",
+    "read R3 B 120>0>Pause on hover>Animation speed 0.5x",
+    "pressed Animation direction right",
+    "read R3 B 120>0>Pause on hover>Animation speed 0.5x>Animation direction right"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  }
+ }
+}
