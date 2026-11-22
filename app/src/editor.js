@@ -4621,6 +4621,8 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
   linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
+  // An opening on no link yet (Attach link): only a page pick there makes a press on Undo just close it (CAP-T12LINKUNDO.json).
+  if (target ? target.href : b.href) delete linkPop.dataset.fresh; else linkPop.dataset.fresh = '1';
   linkPop.hidden = false;
   if (fromBar) { markLinkBar(); setTbTip(null); }
   if (fromBar && (b.type === 'button' || b.type === 'stack') && b.href) { drawLinkBox(b); return; } // a linked Stack opens the same box (CAP-E7BOX2.json)
@@ -4760,7 +4762,7 @@ linkPop.addEventListener('click', (e) => {
   const kind = e.target.closest('.lk-kind');
   if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
-  if (pg) { applyLink(pg.dataset.href); linkPop.dataset.picked = '1'; return; }
+  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) linkPop.dataset.picked = '1'; return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     flushLinkStep();
@@ -4784,14 +4786,16 @@ linkPop.addEventListener('click', (e) => {
   f.focus();
 });
 linkPop.addEventListener('change', (e) => {
-  if (!e.target.matches('.lk-box') || linkTarget) return;
+  if (!e.target.matches('.lk-box')) return;
+  delete linkPop.dataset.picked; // the last step is the box now, and Undo undoes it
+  if (linkTarget) return;
   setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
 });
 // A click anywhere else closes the editor (read for the panel's tabs).
 // A press on Undo with a Scrolling block's link editor open on a page just picked only closes it, the link kept; the next
-// press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link after a page pick
-// in this opening only: with nothing picked, a link typed without Enter, the editor reopened by Edit on a link it already
-// has, and for Cmd+Z or a keyboard press on Undo, it undoes as before.
+// press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link, the last pick in
+// that opening only. Everything else undoes as before: nothing picked, a link typed without Enter, the editor reopened by
+// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, Cmd+Z or a keyboard press on Undo.
 let undoClosedLink = false;
 const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href; };
 const closeLinkOutside = (e) => {
