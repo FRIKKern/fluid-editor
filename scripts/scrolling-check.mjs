@@ -197,8 +197,10 @@ const gap = qs(`const next = JSON.parse(JSON.stringify(fe.model)); const b = nex
 add('An emptied first item: the line keeps its height, the rest drawn', gap.h === O4.default.svgHeight && gap.w > 1000 && gap.words[1] === '〰️', JSON.stringify(gap));
 // Attach link (CAP-T12SCROLLLIST.json scroll9-a, scroll10-a): the link editor opens beside the panel, its field at the
 // oracle's distance left of the panel and level with the button; a page pick links the whole block, target _self; the Link
-// row shows the page, its path, Edit, Copy and Remove Link. Real presses on a fresh block. Not matched, so not checked: the
-// oracle's field still showed /about after Escape, and its one Undo press after that left the link (see the answer list).
+// row shows the page, its path, Edit, Copy and Remove Link. Real presses on a fresh block. Escape, once and twice, leaves the
+// editor open with its field focused on /about (CAP-T12LINKESC.json R3, alike with scroll10-a); a press on the Content tab
+// then closes it (a press elsewhere closes it, read for the panel's tabs). Not matched, so not checked: the oracle's one Undo
+// press after Escape left the link (see the answer list).
 const SL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SCROLLLIST.json', import.meta.url))).runs;
 const LK = SL['scroll10-a'].reads, A9 = SL['scroll9-a'].reads, dx9 = A9.field.box[0] - A9.panel.box[0], dy9 = A9.field.box[1] - A9.attachLink.box[1];
 await fresh();
@@ -211,7 +213,14 @@ const field = box('#link-popover .lk-row');
 add('Attach link: the link editor opens', !!field && linkOf().editor, `${field}`);
 add(`Attach link: its field ${-dx9} left of the panel, ${dy9} below the button`, !!field && !!panel && !!attach && near(field[0] - panel[0], dx9) && near(field[1] - attach[1], dy9) && near(field[2], A9.field.box[2]) && near(field[3], A9.field.box[3]), `field ${field}, panel ${panel}, button ${attach}`);
 await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
-mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
+const ESC = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12LINKESC.json', import.meta.url))).runs.R3.reads;
+const escaped = () => qs(`const p = document.getElementById('link-popover'), i = p && p.querySelector('.lk-input'); return JSON.stringify({ open: !!p && !p.hidden && !!i && i.getBoundingClientRect().width > 0, focus: !!i && document.activeElement === i, value: i ? i.value : null });`);
+for (const [k, what] of [['R3 A Escape', 'Escape'], ['R3 A Escape again', 'Escape again']]) {
+  mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
+  const o = ESC[k], w = escaped();
+  add(`${what} in the link field: the editor stays open, the field focused on ${o.link.popField[0]}`, w.open && w.focus && w.value === o.link.popField[0] && o.focus[1] === 'INPUT', JSON.stringify(w));
+}
+await press('#block-panel [data-btab="Content"]'); await pause(300);
 const linked = linkOf(), picked = LK['after About, Escape'].link, after = LK['undo the link'].link;
 add('A page pick: the block links to it, target _self', linked.href === picked.href && linked.a?.[0] === picked.href && linked.a?.[1] === picked.target, JSON.stringify(linked));
 add('The link covers the whole block', linked.covers, JSON.stringify(linked));
@@ -303,7 +312,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 146;
+const CASES = 148;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);

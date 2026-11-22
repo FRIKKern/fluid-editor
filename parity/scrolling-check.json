@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 146,
- "total": 146,
+ "pass": 148,
+ "total": 148,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -329,6 +329,14 @@
   },
   {
    "what": "Attach link: its field 320 left of the panel, 0 below the button",
+   "ok": true
+  },
+  {
+   "what": "Escape in the link field: the editor stays open, the field focused on /about",
+   "ok": true
+  },
+  {
+   "what": "Escape again in the link field: the editor stays open, the field focused on /about",
    "ok": true
   },
   {
