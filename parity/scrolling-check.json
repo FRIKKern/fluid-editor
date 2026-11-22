@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 220,
- "total": 220,
+ "pass": 228,
+ "total": 228,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -392,7 +392,39 @@
    "ok": true
   },
   {
-   "what": "Pick, then an arrow key, Undo: the move goes",
+   "what": "Link field, nothing picked, Cmd+D: no copy",
+   "ok": true
+  },
+  {
+   "what": "Link field, a pick and Escape, Cmd+D: no copy",
+   "ok": true
+  },
+  {
+   "what": "Link field, nothing picked, Cmd+Shift+H: not hidden",
+   "ok": true
+  },
+  {
+   "what": "Link field, a pick and Escape, Cmd+Shift+H: not hidden",
+   "ok": true
+  },
+  {
+   "what": "Link editor after a pick, Tab: the focus on Clear",
+   "ok": true
+  },
+  {
+   "what": "Link editor after a pick, ArrowRight on Clear: not moved",
+   "ok": true
+  },
+  {
+   "what": "Link editor after a pick, ArrowDown on Clear: not moved",
+   "ok": true
+  },
+  {
+   "what": "Link editor after a pick, Tab again: the focus on the new-tab box",
+   "ok": true
+  },
+  {
+   "what": "Link editor after a pick, ArrowLeft on the box: not moved",
    "ok": true
   },
   {

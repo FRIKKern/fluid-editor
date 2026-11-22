@@ -1779,7 +1779,12 @@ function onKey(e) {
   // In a field outside the panel (the link editor for every block kind, a chart cell; any input, its checkbox too) the
   // text keys are the field's: Backspace, Delete, the arrows and a typed letter (Shift+S) leave the block alone. Other
   // shortcuts, Cmd+Z and Escape go on as before. The panel's own fields stop their keys already. Not read on the oracle.
-  if (e.target.closest?.('input, textarea, select') && (e.key === 'Backspace' || e.key === 'Delete' || ARROWS[e.key] || (!mod && e.key.length === 1))) return;
+  // Cmd+D and Cmd+Shift+H there leave the block too, and so do the arrows on the link editor's own buttons (its Clear):
+  // no copy, not hidden, not moved (CAP-T12LINKKEYS.json, R1 and R2 alike, read in a Scrolling block's link field).
+  const inField = e.target.closest?.('input, textarea, select');
+  if (inField && (e.key === 'Backspace' || e.key === 'Delete' || ARROWS[e.key] || (!mod && e.key.length === 1))) return;
+  if (inField && mod && !e.altKey && (e.code === 'KeyD' || (e.shiftKey && e.code === 'KeyH'))) return;
+  if (ARROWS[e.key] && linkPop.contains(e.target)) return;
   // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
   if (sel && !gesture && mod && e.shiftKey && !e.altKey && e.code === 'KeyH') {
     e.preventDefault();
@@ -4842,8 +4847,8 @@ linkPop.addEventListener('change', (e) => {
 // A press on Undo with a Scrolling block's link editor open on a page just picked only closes it, the link kept; the next
 // press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link, the last pick in
 // that opening only. Everything else undoes as before: nothing picked, a link typed without Enter, the editor reopened by
-// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, any step taken after it (an arrow key
-// moving the block), Cmd+Z or a keyboard press on Undo. The pick must still be the last step: same undo depth, same model.
+// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, any step taken after it, Cmd+Z or a
+// keyboard press on Undo. The pick must still be the last step: same undo depth, same model.
 const undoStepNow = () => `${undoStack.length} ${JSON.stringify(model)}`;
 let linkPickedAt = null;
 let undoClosedLink = null; // the step a press on Undo saw when it only closed the editor; its click skips only on that step
