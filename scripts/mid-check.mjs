@@ -1370,6 +1370,41 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
       groupCases.push({ name: `next gesture after a short Text ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
     } }
+  // A short Quote's next gesture (CAP-X8LAG.json q1 q2, CAP-X8LAG2.json m5, CAP-X8QUOTEBELOW.json r1a r2a): a new Quote
+  // widened and Shapes placed as read, the group made narrower from the east by 470 px, then the next gesture: the Quote
+  // dragged down 2 rows, its bottom handle down 1 row, or the group widened back. A Shape across the Quote's line grows 1;
+  // one that starts below it stays.
+  { const R = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8QUOTEBELOW'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    for (const [n, kind] of [['q1', 'move'], ['q2', 'group'], ['m5', 'move'], ['r1a', 'move'], ['r2a', 's']]) {
+      const start = R[`${n} start`].areas.map((a) => a[0].split('/').map(Number)), want = R[`${n} next`].areas.map((a) => a[0]);
+      const got = evalJs(S, `(async () => {
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        fe.setBp('desktop');
+        fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 30, mobile: 40 }, blocks: [] }] }); await sleep(150);
+        const start = ${JSON.stringify(start)};
+        // Two Shapes added in one millisecond share an id: each gets its place in the list after it.
+        fe.addBlock('s', 'Quote'); for (let i = 1; i < start.length; i++) fe.addBlock('s', 'Shape'); await sleep(200);
+        const next = JSON.parse(JSON.stringify(fe.model)); next.sections[0].blocks.forEach((b, i) => { b.id += '-' + i; b.layout.desktop.area = start[i]; b.layout.desktop.z = i + 1; }); fe.load(next); await sleep(250);
+        const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, ids = fe.model.sections[0].blocks.map((b) => b.id), block = (i) => d.querySelector('.fe-block[data-block-id="' + ids[i] + '"]');
+        const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, at = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+        const down = (el, x, y, more = {}) => el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...more, clientX: x, clientY: y, buttons: 1 }));
+        const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+        const up = (x, y, more = {}) => d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, ...more, clientX: x, clientY: y, buttons: 0 }));
+        const pull = async (h, dx, dy) => { const [x, y] = at(h); down(h, x, y); move(x + 14, y); await sleep(15); move(x, y); await sleep(15); for (let k = 1; k <= 8; k++) { move(x + k * dx / 8, y + k * dy / 8); await sleep(15); } up(x + dx, y + dy); await sleep(100); };
+        const group = () => d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="e"]');
+        // The group by shift presses; it must hold every block before the drop.
+        const all = () => { const g = group()?.closest('.fe-indicator')?.getBoundingClientRect(); if (!g) return false; const r = ids.map((_, i) => block(i).getBoundingClientRect()); return g.top <= Math.min(...r.map((q) => q.top)) + 2 && g.bottom >= Math.max(...r.map((q) => q.bottom)) - 2 && g.right >= Math.max(...r.map((q) => q.right)) - 2; };
+        fe.select('s', ids[0]); await sleep(60);
+        for (let i = 1; i < ids.length; i++) { const [x, y] = at(block(i)); down(block(i), x, y, { shiftKey: true }); up(x, y, { shiftKey: true }); await sleep(60); }
+        if (!all()) return JSON.stringify(['no group of all']);
+        await pull(group(), -470, 0);
+        if ('${kind}' === 'group') { if (!group()) return JSON.stringify(['no group after the drop']); await pull(group(), 470, 0); }
+        else if ('${kind}' === 's') { fe.select(null); await sleep(30); fe.select('s', ids[0]); await sleep(60); const h = [...d.querySelectorAll('.fe-handle[data-dir="s"]')].find((e) => e.getBoundingClientRect().width > 0); if (!h) return JSON.stringify(['no bottom handle']); await pull(h, 0, 41); }
+        else { fe.select(null); await sleep(30); const [x, y] = at(block(0)); down(block(0), x, y); for (let k = 1; k <= 8; k++) { move(x, y + k * 82 / 8); await sleep(15); } up(x, y + 82); await sleep(100); }
+        fe.select(null);
+        return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
+      groupCases.push({ name: `next gesture after a short Quote ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
+    } }
 }
 // 81: a pressed block is selected on let go, not on the press nor while it is dragged (CAP-SELECTLETGO.json, part a and c).
 { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SELECTLETGO.json', import.meta.url))).reads, on = (k) => R[k].block.data['data-is-selected'];
