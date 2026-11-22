@@ -263,9 +263,8 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   const off = st(); qs(`document.getElementById('undo').focus(); return 'true';`); browser(S, 'press', 'Enter'); await pause(400); const keyed = st();
   add('Undo pressed and let go off it, then Enter on Undo: the link goes', off.href === '/about' && !off.open && keyed.href === null, JSON.stringify({ off, keyed }));
   // Only a pick in an opening on no link yet: not read on the oracle, so these wants are main's (review-752 round 3). The
-  // editor reopened by Edit, the same page or another picked there, the new-tab box pressed after the pick, or a step taken
-  // after it with the editor open (Tab to the field's Clear, then an arrow key moves the block, review-752 round 4): Undo
-  // undoes.
+  // editor reopened by Edit, the same page or another picked there, or the new-tab box pressed after the pick: Undo undoes.
+  // (An arrow key on the field's Clear was the step taken after the pick here; it moves nothing now, CAP-T12LINKKEYS.json.)
   const sn = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'); return JSON.stringify({ blk: !!b, href: b?.href ?? null, newTab: !!b?.newTab, open: !p.hidden, depth: fe.undoDepth, redo: !document.getElementById('redo').disabled });`);
   const about = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
   const reopen = async () => { await about(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="edit"]'); await pause(300); };
@@ -280,9 +279,25 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   await about(); await press('#link-popover .lk-newtab'); await pause(300);
   const tab = [sn(), ...await twice()];
   add('Pick, then new tab, Undo: the new tab goes', tab[0].open && tab[0].newTab && tab[1].href === '/about' && !tab[1].newTab && !tab[1].open && tab[1].redo && tab[2].href === null, JSON.stringify(tab));
-  await about(); const picked = sn(); browser(S, 'press', 'Tab'); await pause(200); browser(S, 'press', 'ArrowLeft'); await pause(400);
-  const moved = [sn(), ...await twice()];
-  add('Pick, then an arrow key, Undo: the move goes', moved[0].open && moved[0].href === '/about' && moved[0].depth === picked.depth + 1 && moved[1].depth === picked.depth && moved[1].href === '/about' && !moved[1].open && moved[1].redo && moved[2].href === null, JSON.stringify([picked, ...moved]));
+  // Cmd+D, Cmd+Shift+H and the arrows from the link editor leave the block (CAP-T12LINKKEYS.json, R1 and R2 alike; on the
+  // oracle with the block selected and no panel, Cmd+D copies it and Cmd+Shift+H hides it, CD and CH): no copy, not hidden,
+  // not moved, the editor open, the field as it was. Nothing picked (D0, H0) and after a pick and Escape (D1, H1); Tab to the
+  // field's Clear, ArrowRight and ArrowDown, Tab to the new-tab box, ArrowLeft (A1).
+  { const K = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12LINKKEYS.json', import.meta.url))).runs.R1.reads;
+    const ks = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], p = document.getElementById('link-popover'), f = p.querySelector('.lk-input'), a = document.activeElement; return JSON.stringify({ n: s.blocks.length, area: b.layout.desktop.area.join('/'), hidden: !!b.layout.desktop.hidden, open: !p.hidden, field: !p.hidden && f ? f.value : null, focus: a === f ? 'field' : a?.matches?.('.lk-clear') ? 'clear' : a?.matches?.('.lk-box') ? 'box' : a?.tagName, depth: fe.undoDepth });`);
+    const kw = (k) => { const o = K[k]; return { n: o.block.n, area: o.block.area, hidden: o.block.opacity === '0', open: o.pop.field !== null, field: o.pop.field?.[0] ?? null, focus: o.focus[2] === 'Enter link, search, or add files' ? 'field' : o.focus[2] === 'Clear selected page' ? 'clear' : o.focus[1] === 'INPUT' ? 'box' : o.focus[1] }; };
+    const same = (w, o, d0) => w.n === o.n && w.area === o.area && w.hidden === o.hidden && w.open === o.open && w.field === o.field && w.focus === o.focus && w.depth === d0;
+    const linkOpen = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); };
+    const pickEsc = async () => { await about(); mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400); };
+    for (const [sc, setup, k, what] of [['D0', linkOpen, 'Meta+d', 'nothing picked, Cmd+D: no copy'], ['D1', pickEsc, 'Meta+d', 'a pick and Escape, Cmd+D: no copy'], ['H0', linkOpen, 'Meta+Shift+h', 'nothing picked, Cmd+Shift+H: not hidden'], ['H1', pickEsc, 'Meta+Shift+h', 'a pick and Escape, Cmd+Shift+H: not hidden']]) {
+      await setup(); const d0 = ks().depth; browser(S, 'press', k); await pause(400); const w = ks(), o = kw(`R1 ${sc} ${k === 'Meta+d' ? 'Cmd+D' : 'Cmd+Shift+H'}`);
+      add(`Link field, ${what}`, same(w, o, d0), JSON.stringify({ ours: w, oracle: o }));
+    }
+    await about(); const d0 = ks().depth;
+    for (const [k, read, what] of [['Tab', 'Tab', 'Tab: the focus on Clear'], ['ArrowRight', 'ArrowRight', 'ArrowRight on Clear: not moved'], ['ArrowDown', 'ArrowDown', 'ArrowDown on Clear: not moved'], ['Tab', 'Tab2', 'Tab again: the focus on the new-tab box'], ['ArrowLeft', 'ArrowLeft', 'ArrowLeft on the box: not moved']]) {
+      browser(S, 'press', k); await pause(400); const w = ks(), o = kw(`R1 A1 ${read}`);
+      add(`Link editor after a pick, ${what}`, same(w, o, d0), JSON.stringify({ ours: w, oracle: o }));
+    } }
   // Keys that edit the link field's text are the field's: Backspace takes one character and the block stays, an arrow moves
   // the caret, not the block, and Shift+S types an S, no stack (task-6235ac4449d70e0a; on main all three act on the block).
   const fk = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'), f = p.querySelector('.lk-input'); return JSON.stringify({ type: b?.type ?? null, area: b ? b.layout.desktop.area.join('/') : null, open: !p.hidden, field: !p.hidden && f ? f.value : null, depth: fe.undoDepth });`);
@@ -442,7 +457,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 220;
+const CASES = 228;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
