@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 153,
- "total": 153,
+ "pass": 159,
+ "total": 159,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -332,6 +332,18 @@
    "ok": true
   },
   {
+   "what": "Escape in the link field: the editor stays open, the field focused on /about",
+   "ok": true
+  },
+  {
+   "what": "Escape again in the link field: the editor stays open, the field focused on /about",
+   "ok": true
+  },
+  {
+   "what": "After the two Escapes, Undo: the editor closes, the link stays",
+   "ok": true
+  },
+  {
    "what": "A page pick: the block links to it, target _self",
    "ok": true
   },
@@ -381,6 +393,18 @@
   },
   {
    "what": "Pick, then an arrow key, Undo: the move goes",
+   "ok": true
+  },
+  {
+   "what": "Nothing picked, Escape twice: the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Picked, then Email, Escape: the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Picked, the kind menu open, Escape: the editor closes",
    "ok": true
   },
   {
