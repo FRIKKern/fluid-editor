@@ -1,0 +1,118 @@
+{
+ "item": "CAP-X8QUOTEMORE-PREDICTED",
+ "question": "X8, the short Quote: the three cases #756 left not read (task-ca25395cb2024351). Setup as r1 in CAP-X8QUOTEBELOW.json: a new Quote widened east 118 px, a Shape at rows 2 on, a second Shape lower, both at columns 14 to 20; the three made narrower as a group from the east; the next gesture drags the Quote down 2 rows. s1: the lower Shape starts on the Quote's line L (7/14/13/20, group -470, Quote 0.42 short). s2: the upper Shape ends on L and starts below the Quote's top (2/14/7/20), the lower on L + 1 (group -470). s3: the upper Shape across L (2/14/8/20), the lower on L + 1, the group made narrower by 520 px (ours: the Quote 1.08 rows short). s4: as s3 by 600 px (ours: 2.57 rows short). Read on Blocks Probe, each case twice (a, b), nothing saved.",
+ "rules": {
+  "H-main": "As built in #756 (ours today): d = the Quote's need rounded up; a block across L grows d, and so does one ending on L that starts on or above the Quote's top; a block that starts below L stays; any other block ending on or below L moves d (so one starting on L moves, and one ending on L that starts below the Quote's top moves).",
+  "H-stay": "For a Quote only the blocks across L grow d; every other block stays (s1's lower Shape and s2's upper Shape stay). d as H-main.",
+  "H-round": "d = the Quote's overflow rounded to the nearest row, as for a Text (s3: 1, s4: 3); the rest as H-main."
+ },
+ "predicted": {
+  "s1 dropped": [
+   "1/2/7/7",
+   "2/9/6/12",
+   "7/9/13/12"
+  ],
+  "s1 next": {
+   "H-main": [
+    "3/2/10/7",
+    "2/9/6/12",
+    "8/9/14/12"
+   ],
+   "H-stay": [
+    "3/2/10/7",
+    "2/9/6/12",
+    "7/9/13/12"
+   ],
+   "H-round": [
+    "3/2/10/7",
+    "2/9/6/12",
+    "8/9/14/12"
+   ]
+  },
+  "s2 dropped": [
+   "1/2/7/7",
+   "2/9/7/12",
+   "8/9/14/12"
+  ],
+  "s2 next": {
+   "H-main": [
+    "3/2/10/7",
+    "3/9/8/12",
+    "8/9/14/12"
+   ],
+   "H-stay": [
+    "3/2/10/7",
+    "2/9/7/12",
+    "8/9/14/12"
+   ],
+   "H-round": [
+    "3/2/10/7",
+    "3/9/8/12",
+    "8/9/14/12"
+   ]
+  },
+  "s3 dropped": [
+   "1/2/7/6",
+   "2/8/8/11",
+   "8/8/14/11"
+  ],
+  "s3 next": {
+   "H-main": [
+    "3/2/11/6",
+    "2/8/10/11",
+    "8/8/14/11"
+   ],
+   "H-stay": [
+    "3/2/11/6",
+    "2/8/10/11",
+    "8/8/14/11"
+   ],
+   "H-round": [
+    "3/2/10/6",
+    "2/8/9/11",
+    "8/8/14/11"
+   ]
+  },
+  "s4 dropped": [
+   "1/2/7/5",
+   "2/7/8/10",
+   "8/7/14/10"
+  ],
+  "s4 next": {
+   "H-main": [
+    "3/2/12/5",
+    "2/7/11/10",
+    "8/7/14/10"
+   ],
+   "H-stay": [
+    "3/2/12/5",
+    "2/7/11/10",
+    "8/7/14/10"
+   ],
+   "H-round": [
+    "3/2/12/5",
+    "2/7/11/10",
+    "8/7/14/10"
+   ]
+  }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first). The dropped areas are ours (main); if the oracle's drop lands elsewhere, a case is scored on d (the Quote's and the across Shape's growth) and on whether each other Shape moved. s4 does not split H-main from H-round (both give 3).",
+ "cases": {
+  "s1": [
+   "s1a next",
+   "s1b next"
+  ],
+  "s2": [
+   "s2a next",
+   "s2b next"
+  ],
+  "s3": [
+   "s3a next",
+   "s3b next"
+  ],
+  "s4": [
+   "s4a next",
+   "s4b next"
+  ]
+ }
+}
