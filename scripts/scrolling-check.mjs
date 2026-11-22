@@ -272,8 +272,8 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   add('Pick, then an arrow key, Undo: the move goes', moved[0].open && moved[0].href === '/about' && moved[0].depth === picked.depth + 1 && moved[1].depth === picked.depth && moved[1].href === '/about' && !moved[1].open && moved[1].redo && moved[2].href === null, JSON.stringify([picked, ...moved])); }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
-// area, the section's rows, the block's height and the line's top and height in it. Y's 0 is not compared: the oracle falls
-// to 1 row there, the line overflowing, where X's 0 keeps 2 (its rule not found).
+// area, the section's rows, the block's height and the line's top and height in it. Y's 0 falls to 1 row, the line running
+// over, where X's 0 keeps 2: a fall of two steps or more moves the block's foot up by the fall (CAP-T12WAVEDROP.json).
 { const WR = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEROWS.json', import.meta.url))).runs.R1.reads;
   const lay = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), fb = el.closest('.fe-block').getBoundingClientRect(), m = el.querySelector('.marquee').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ desktop: b.layout.desktop.area.join('/'), rows: s.rows.desktop, block: r(fb.height), marquee: [r(m.top - fb.top), r(m.height)] });`);
   const same = (what, o) => { const w = lay(), near1 = (a, b) => Math.abs(a - b) <= 0.15; add(what, w.desktop === o.desktop && w.rows === o.rows && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1]), `${JSON.stringify(w)} (oracle ${JSON.stringify({ desktop: o.desktop, rows: o.rows, block: o.block, marquee: o.marquee })})`); };
@@ -285,7 +285,16 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   }
   await fresh(); await press('#block-panel [data-btab="Design"]');
   await waveTo(120); same('Wave rows Y: a new block to 120', WR['R1 Y 120'].layout);
-  await waveTo(0); await waveTo(60); same('Wave rows Y: 0, then 60', WR['R1 Y 60'].layout); }
+  await waveTo(0); same('Wave rows Y: 120 to 0, 1 row', WR['R1 Y 0'].layout);
+  await waveTo(60); same('Wave rows Y: 0, then 60', WR['R1 Y 60'].layout);
+  // Falls of one step and of more, on one block, each path from a rise (CAP-T12WAVEDROP.json, C2 and A2 and B2 the second
+  // reads of C1, A1 and B1, alike): C's nine paths, then A's 120>30>0 and B's 180>120>90.
+  const WD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDROP.json', import.meta.url))).runs;
+  await fresh(); await press('#block-panel [data-btab="Design"]');
+  const walk = async (run, tag, paths) => { const reads = WD[run].reads; for (const [n, steps] of paths) for (const [j, v] of steps.entries()) { const k = `${tag} ${n} ${steps.slice(0, j + 1).join('>')}`; await waveTo(v); same(`Wave fall: ${run[0]} ${k.slice(3)}`, reads[k].layout); } };
+  await walk('C1', 'R3', [[1, [180, 90, 30]], [2, [180, 30]], [3, [150, 90, 60]], [4, [180, 120, 60]], [5, [150, 30]], [6, [180, 90, 120]], [7, [180, 60, 30]], [8, [180, 30, 0]], [9, [180, 0]]]);
+  await walk('A2', 'R2', [[8, [120, 30, 0]]]);
+  await walk('B2', 'R2', [[1, [180, 120, 90]]]); }
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -331,7 +340,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 122;
+const CASES = 153;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
