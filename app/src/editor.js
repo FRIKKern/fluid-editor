@@ -1292,25 +1292,29 @@ function onCancel(e) {
 // The short block grows d, a block across L grows d, and so does one ending on L that starts on or above the
 // short block's top; any other block that ends on or below L moves d, and blocks above L stay, in the whole
 // section (CAP-X8LAG2.json). A press, a select, typing and undo don't do it. Candidate, refit 2.
-// A short Quote (CAP-X8QUOTEBELOW.json, r1 and r2 each read twice; q1, q2, m5; fitted after the reads): its d is the rows
-// its content needs, rounded up (0.42 short gives 1, so a Shape across L grows 1), and a block that starts below L stays,
-// one free row away or two, whether the next gesture moves the Quote or pulls its bottom handle. Not read for a Quote: a
-// block that starts on L, one that ends on L, a Quote more than a row short.
+// A short Quote (CAP-X8QUOTEBELOW.json, r1 and r2; q1, q2, m5; CAP-X8QUOTEMORE.json s1 to s4, predictions pushed first, each
+// case read twice): the Quote itself grows the rows its content needs, rounded up (0.42 short: 1, 1.08: 2, 2.57: 3). The other
+// blocks take d as for a Text, the overflow rounded (0, 1, 3), except that a block across L grows at least 1. So at 0.42 a
+// block that starts on L, ends on L or starts below it stays, and at 1.08 a Shape across L grows 1 and one below moves 1.
+// (The shortness is ours: 0.42, 1.08 and 2.57 rows for s1, s3 and s4; the oracle's Quote content reads 218.8, 252.9, 321.3 px.)
+// Not read for a Quote: a block ending on L that starts on or above its top (it grows as one across L), or a block that
+// starts on L or ends on L when the Quote is more than half a row short (they move d, the Text rule).
 let stored = null;
 function storedRows(g) {
   const m = measure(feEl(g.sid)), s = S(g.sid);
-  let d = 0, L = 0, t0 = 0, tid = null, quote = false;
+  let d = 0, L = 0, t0 = 0, tid = null, rest = 0, quote = false;
   for (const id of g.kept.keys()) {
     const b = B(g.sid, id), a = lay(b).area, x = contentRows(b, m, false, false, true), q = b.standin === 'quote';
     const over = q ? Math.ceil(x - 0.02) - (a[2] - a[0]) : Math.round(x - (a[2] - a[0]));
-    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; quote = q; }
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; quote = q; rest = Math.round(x - (a[2] - a[0])); }
   }
   if (d <= 0) return null;
-  const areas = new Map();
+  const areas = new Map(), grow = quote ? Math.max(1, rest) : d, move = quote ? rest : d;
   for (const b of s.blocks) {
     const a = [...lay(b).area];
-    if (b.id === tid || (a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += d;
-    else if (a[2] >= L && !(quote && a[0] > L)) { a[0] += d; a[2] += d; }
+    if (b.id === tid) a[2] += d;
+    else if ((a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += grow;
+    else if (a[2] >= L) { a[0] += move; a[2] += move; }
     areas.set(b.id, a);
   }
   return { sid: g.sid, bp, areas, d };
