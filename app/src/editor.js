@@ -4597,6 +4597,7 @@ function placeLinkPop() {
 // The field holds the focus on URL, the pill on Email and Phone (LINKMENU.json).
 function drawLinkPop(kind, href, newTab) {
   delete linkPop.dataset.cleared;
+  delete linkPop.dataset.picked;
   linkPop.dataset.kind = kind;
   linkPop.innerHTML = linkPopoverHtml(href, siteLinkGroups(), newTab, kind);
   placeLinkPop();
@@ -4607,6 +4608,7 @@ function drawLinkPop(kind, href, newTab) {
 // and, on a typed link cut short, a tip only under the mouse (CAP-E7REOPEN2.json to CAP-E7REOPEN4.json).
 function drawLinkBox(b) {
   delete linkPop.dataset.cleared;
+  delete linkPop.dataset.picked;
   linkPop.dataset.kind = 'box';
   linkPop.classList.add('is-box');
   linkPop.innerHTML = linkBoxHtml(b.href, siteLinkGroups(), location.origin);
@@ -4636,6 +4638,8 @@ function openLinkPopover(b, place, target = null, fromBar = false) {
   linkPop.classList.toggle('is-md', !!target?.markdown || !!target?.atClose);
   linkPop.classList.remove('is-summary', 'is-box', 'tip-held');
   linkPop.dataset.bid = b.id;
+  // An opening on no link yet (Attach link): only a page pick there makes a press on Undo just close it (CAP-T12LINKUNDO.json).
+  if (target ? target.href : b.href) delete linkPop.dataset.fresh; else linkPop.dataset.fresh = '1';
   linkPop.hidden = false;
   if (fromBar) { markLinkBar(); setTbTip(null); }
   if (fromBar && (b.type === 'button' || b.type === 'stack') && b.href) { drawLinkBox(b); return; } // a linked Stack opens the same box (CAP-E7BOX2.json)
@@ -4696,7 +4700,7 @@ function switchLinkKind(kind) {
   liveLink((b) => { delete b.href; if (kind === 'url' && hadLink) b.newTab = true; else delete b.newTab; });
 }
 linkPop.addEventListener('input', (e) => {
-  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; showLinkList(true); }
+  if (e.target.matches('.lk-input')) { delete linkPop.dataset.cleared; delete linkPop.dataset.picked; showLinkList(true); }
   const f = e.target.closest('[data-f]');
   if (!f) return;
   if (f.dataset.f === 'phone') f.value = phoneDigits(f.value);
@@ -4780,7 +4784,7 @@ linkPop.addEventListener('click', (e) => {
   const kind = e.target.closest('.lk-kind');
   if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
-  if (pg) { applyLink(pg.dataset.href); return; }
+  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) { linkPop.dataset.picked = '1'; linkPickedAt = undoStepNow(); } return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     flushLinkStep();
@@ -4804,14 +4808,28 @@ linkPop.addEventListener('click', (e) => {
   f.focus();
 });
 linkPop.addEventListener('change', (e) => {
-  if (!e.target.matches('.lk-box') || linkTarget) return;
+  if (!e.target.matches('.lk-box')) return;
+  delete linkPop.dataset.picked; // the last step is the box now, and Undo undoes it
+  if (linkTarget) return;
   setButton((b) => { if (e.target.checked) b.newTab = true; else delete b.newTab; }, 'Link changed');
 });
 // A click anywhere else closes the editor (read for the panel's tabs).
+// A press on Undo with a Scrolling block's link editor open on a page just picked only closes it, the link kept; the next
+// press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link, the last pick in
+// that opening only. Everything else undoes as before: nothing picked, a link typed without Enter, the editor reopened by
+// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, any step taken after it (an arrow key
+// moving the block), Cmd+Z or a keyboard press on Undo. The pick must still be the last step: same undo depth, same model.
+const undoStepNow = () => `${undoStack.length} ${JSON.stringify(model)}`;
+let linkPickedAt = null;
+let undoClosedLink = null; // the step a press on Undo saw when it only closed the editor; its click skips only on that step
+const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href && linkPickedAt === undoStepNow(); };
 const closeLinkOutside = (e) => {
+  undoClosedLink = null;
   if (linkPop.contains(e.target)) return;
   linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
+  const keep = !linkPop.hidden && !!e.target.closest?.('#undo') && scrollLinkPicked();
   closeLinkPopover();
+  if (keep) undoClosedLink = undoStepNow();
 };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
@@ -7582,7 +7600,7 @@ document.addEventListener('click', (e) => {
   finishTextEdit();
   if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
 }, true);
-$('undo').addEventListener('click', () => undo(true));
+$('undo').addEventListener('click', (e) => { const skip = !!undoClosedLink && e.detail > 0 && undoClosedLink === undoStepNow(); undoClosedLink = null; if (skip) { updateUi(); return; } undo(true); });
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
   if (persist()) {
