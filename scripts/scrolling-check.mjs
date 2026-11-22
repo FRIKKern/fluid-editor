@@ -264,7 +264,8 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   add('Undo pressed and let go off it, then Enter on Undo: the link goes', off.href === '/about' && !off.open && keyed.href === null, JSON.stringify({ off, keyed }));
   // Only a pick in an opening on no link yet: not read on the oracle, so these wants are main's (review-752 round 3). The
   // editor reopened by Edit, the same page or another picked there, the new-tab box pressed after the pick, or a step taken
-  // after it with the editor open (an arrow key in the field moves the block, review-752 round 4): Undo undoes.
+  // after it with the editor open (Tab to the field's Clear, then an arrow key moves the block, review-752 round 4): Undo
+  // undoes.
   const sn = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'); return JSON.stringify({ blk: !!b, href: b?.href ?? null, newTab: !!b?.newTab, open: !p.hidden, depth: fe.undoDepth, redo: !document.getElementById('redo').disabled });`);
   const about = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
   const reopen = async () => { await about(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="edit"]'); await pause(300); };
@@ -278,9 +279,19 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   await about(); await press('#link-popover .lk-newtab'); await pause(300);
   const tab = [sn(), ...await twice()];
   add('Pick, then new tab, Undo: the new tab goes', tab[0].open && tab[0].newTab && tab[1].href === '/about' && !tab[1].newTab && !tab[1].open && tab[1].redo && tab[2].href === null, JSON.stringify(tab));
-  await about(); const picked = sn(); browser(S, 'press', 'ArrowLeft'); await pause(400);
+  await about(); const picked = sn(); browser(S, 'press', 'Tab'); await pause(200); browser(S, 'press', 'ArrowLeft'); await pause(400);
   const moved = [sn(), ...await twice()];
-  add('Pick, then an arrow key, Undo: the move goes', moved[0].open && moved[0].href === '/about' && moved[0].depth === picked.depth + 1 && moved[1].depth === picked.depth && moved[1].href === '/about' && !moved[1].open && moved[1].redo && moved[2].href === null, JSON.stringify([picked, ...moved])); }
+  add('Pick, then an arrow key, Undo: the move goes', moved[0].open && moved[0].href === '/about' && moved[0].depth === picked.depth + 1 && moved[1].depth === picked.depth && moved[1].href === '/about' && !moved[1].open && moved[1].redo && moved[2].href === null, JSON.stringify([picked, ...moved]));
+  // Keys that edit the link field's text are the field's: Backspace takes one character and the block stays, an arrow moves
+  // the caret, not the block, and Shift+S types an S, no stack (task-6235ac4449d70e0a; on main all three act on the block).
+  const fk = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'), f = p.querySelector('.lk-input'); return JSON.stringify({ type: b?.type ?? null, area: b ? b.layout.desktop.area.join('/') : null, open: !p.hidden, field: !p.hidden && f ? f.value : null, depth: fe.undoDepth });`);
+  const keys = async (ks) => { for (const k of ks) { browser(S, 'press', k); await pause(200); } await pause(200); };
+  await about(); const k0 = fk(); await keys(['End', 'x']); const kx = fk(); await keys(['Backspace']); const kb = fk();
+  add('Link field: Backspace takes a character, the block stays', kx.field === '/aboutx' && kb.type === 'scrolling' && kb.open && kb.field === '/about' && kb.depth === k0.depth, JSON.stringify([k0, kx, kb]));
+  await about(); await keys(['ArrowLeft', 'ArrowDown']); const ka = fk();
+  add('Link field: arrow keys leave the block where it is', ka.type === 'scrolling' && ka.area === k0.area && ka.depth === k0.depth && ka.open, JSON.stringify([k0, ka]));
+  await about(); await keys(['End', 'Shift+S']); const ks = fk();
+  add('Link field: Shift+S types an S, no stack', ks.type === 'scrolling' && ks.open && ks.field === '/aboutS' && ks.depth === k0.depth, JSON.stringify([k0, ks])); }
 // Escape keeps the editor open only as read (a URL link, the page just picked); elsewhere it closes as before (review-757;
 // not read on the oracle, so these wants are ours): nothing picked (the first Escape takes the list), Email, the kind menu open.
 { const esc = async (n) => { for (let i = 0; i < n; i++) { mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400); } return escaped(); };
@@ -363,7 +374,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 159;
+const CASES = 162;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
