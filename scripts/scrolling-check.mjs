@@ -252,8 +252,9 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   const off = st(); qs(`document.getElementById('undo').focus(); return 'true';`); browser(S, 'press', 'Enter'); await pause(400); const keyed = st();
   add('Undo pressed and let go off it, then Enter on Undo: the link goes', off.href === '/about' && !off.open && keyed.href === null, JSON.stringify({ off, keyed }));
   // Only a pick in an opening on no link yet: not read on the oracle, so these wants are main's (review-752 round 3). The
-  // editor reopened by Edit, the same page or another picked there, or the new-tab box pressed after the pick: Undo undoes.
-  const sn = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'); return JSON.stringify({ blk: !!b, href: b?.href ?? null, newTab: !!b?.newTab, open: !p.hidden, redo: !document.getElementById('redo').disabled });`);
+  // editor reopened by Edit, the same page or another picked there, the new-tab box pressed after the pick, or a step taken
+  // after it with the editor open (an arrow key in the field moves the block, review-752 round 4): Undo undoes.
+  const sn = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'); return JSON.stringify({ blk: !!b, href: b?.href ?? null, newTab: !!b?.newTab, open: !p.hidden, depth: fe.undoDepth, redo: !document.getElementById('redo').disabled });`);
   const about = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
   const reopen = async () => { await about(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="edit"]'); await pause(300); };
   const twice = async () => { await press('#undo'); const a = sn(); await press('#undo'); return [a, sn()]; };
@@ -265,7 +266,10 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   add('Reopened by Edit, Contact picked, Undo: About', other[0].open && other[0].href === '/contact' && other[1].href === '/about' && !other[1].open && other[1].redo && other[2].href === null, JSON.stringify(other));
   await about(); await press('#link-popover .lk-newtab'); await pause(300);
   const tab = [sn(), ...await twice()];
-  add('Pick, then new tab, Undo: the new tab goes', tab[0].open && tab[0].newTab && tab[1].href === '/about' && !tab[1].newTab && !tab[1].open && tab[1].redo && tab[2].href === null, JSON.stringify(tab)); }
+  add('Pick, then new tab, Undo: the new tab goes', tab[0].open && tab[0].newTab && tab[1].href === '/about' && !tab[1].newTab && !tab[1].open && tab[1].redo && tab[2].href === null, JSON.stringify(tab));
+  await about(); const picked = sn(); browser(S, 'press', 'ArrowLeft'); await pause(400);
+  const moved = [sn(), ...await twice()];
+  add('Pick, then an arrow key, Undo: the move goes', moved[0].open && moved[0].href === '/about' && moved[0].depth === picked.depth + 1 && moved[1].depth === picked.depth && moved[1].href === '/about' && !moved[1].open && moved[1].redo && moved[2].href === null, JSON.stringify([picked, ...moved])); }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
 // area, the section's rows, the block's height and the line's top and height in it. Y's 0 is not compared: the oracle falls
@@ -327,7 +331,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 121;
+const CASES = 122;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);

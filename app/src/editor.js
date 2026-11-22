@@ -4762,7 +4762,7 @@ linkPop.addEventListener('click', (e) => {
   const kind = e.target.closest('.lk-kind');
   if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
-  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) linkPop.dataset.picked = '1'; return; }
+  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) { linkPop.dataset.picked = '1'; linkPickedAt = undoStepNow(); } return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     flushLinkStep();
@@ -4795,15 +4795,19 @@ linkPop.addEventListener('change', (e) => {
 // A press on Undo with a Scrolling block's link editor open on a page just picked only closes it, the link kept; the next
 // press takes the link (CAP-T12LINKUNDO.json A and B, R1 and R2 alike). Read on Scrolling's Attach link, the last pick in
 // that opening only. Everything else undoes as before: nothing picked, a link typed without Enter, the editor reopened by
-// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, Cmd+Z or a keyboard press on Undo.
-let undoClosedLink = false;
-const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href; };
+// Edit on a link it has (a pick there too), the new-tab box pressed after the pick, any step taken after it (an arrow key
+// moving the block), Cmd+Z or a keyboard press on Undo. The pick must still be the last step: same undo depth, same model.
+const undoStepNow = () => `${undoStack.length} ${JSON.stringify(model)}`;
+let linkPickedAt = null;
+let undoClosedLink = null; // the step a press on Undo saw when it only closed the editor; its click skips only on that step
+const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href && linkPickedAt === undoStepNow(); };
 const closeLinkOutside = (e) => {
-  undoClosedLink = false;
+  undoClosedLink = null;
   if (linkPop.contains(e.target)) return;
   linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
-  undoClosedLink = !linkPop.hidden && !!e.target.closest?.('#undo') && scrollLinkPicked();
+  const keep = !linkPop.hidden && !!e.target.closest?.('#undo') && scrollLinkPicked();
   closeLinkPopover();
+  if (keep) undoClosedLink = undoStepNow();
 };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
@@ -7574,7 +7578,7 @@ document.addEventListener('click', (e) => {
   finishTextEdit();
   if (e.target.closest?.('#bp-desktop, #bp-mobile')) select(null); // The other view lets the block go (CAP-ESC2.json)
 }, true);
-$('undo').addEventListener('click', (e) => { const skip = undoClosedLink && e.detail > 0; undoClosedLink = false; if (skip) { updateUi(); return; } undo(true); });
+$('undo').addEventListener('click', (e) => { const skip = !!undoClosedLink && e.detail > 0 && undoClosedLink === undoStepNow(); undoClosedLink = null; if (skip) { updateUi(); return; } undo(true); });
 $('redo').addEventListener('click', redo);
 $('save').addEventListener('click', () => {
   if (persist()) {
