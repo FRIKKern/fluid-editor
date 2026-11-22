@@ -4190,7 +4190,7 @@ function accordionEscape() {
 // a line that grows takes the rows that hold it, running over by up to 0.13 of a row (a 60 line keeps 2 rows of 59, as a
 // stand-in's phone height does); a fall from a line that ran over its rows keeps them, down to the rows that hold the new line;
 // a fall from a line that fit moves the foot up by the fall, also a fall of one step, and snaps it down (180 to 150 leaves 5
-// rows for a line that needs 6). The give on that snap is read between 0.03 and 0.14 of a row (180 to 90 to 30 keeps 2 rows).
+// rows for a line that needs 6). The give on that snap is read between 0.03 and 0.17 of a row (180 to 90 to 30 keeps 2 rows).
 // The desktop rows stay. Not read in the phone view: the other Design presses, Text Size and the items (they fit as before).
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
