@@ -4169,11 +4169,23 @@ function accordionEscape() {
 // it, both ways, in the view being edited: Wave Intensity 0 to 150 took 2 rows to 5, Medium 7, Small back to 5, Large 9.
 // The other view and the blocks below are not read: the other view stays, as an Accordion's does (inferred).
 // keep: the panel stays as it is (an item's Text taken when the field is left, so a press that left it still lands).
+// Wave Intensity's rows on the desktop (CAP-T12WAVEDROP.json, 124 steps in six sessions, every path read twice): a line
+// that grows takes the rows that hold it; a line that falls by one step (30 px) lets them go to the rows that hold it, never
+// more than it had; a line that falls by two steps or more moves the block's foot up by the fall and snaps it down to the
+// row pitch, at least 1 row, so the line can run over (180 to 90 leaves 3 rows for a line that needs 4, 120 to 0 leaves 1).
+// Where between 30 and 60 px the second rule starts was not read (the range moves by 30). Not read: a drag or arrow keys
+// through the steps, a block made taller by hand, Text Size and the items. The press's change after its input moves no
+// rows: the input took the step.
+const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
-  const b = B(sel.sid, sel.bid);
+  const b = B(sel.sid, sel.bid), w0 = b.wave, c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
   change(b);
   renderSectionDom(sel.sid);
-  const need = contentRows(b, formPitch(b)), a = lay(b).area;
+  const m = formPitch(b), fit = contentRows(b, m), a = lay(b).area, fall = c0 - scrollContent(b);
+  let need = fit;
+  if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(rows0 * m.pitch - m.rg, c0) - fall) / m.pitch + 1e-6));
+  else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
+  else if (b.wave === w0 && /^wave /.test(label)) need = rows0;
   if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
   if (live) return;
   commit(before, label);
