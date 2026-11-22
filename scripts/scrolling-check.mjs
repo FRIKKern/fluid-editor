@@ -328,7 +328,24 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   const walk = async (run, tag, paths) => { const reads = WD[run].reads; for (const [n, steps] of paths) for (const [j, v] of steps.entries()) { const k = `${tag} ${n} ${steps.slice(0, j + 1).join('>')}`; await waveTo(v); same(`Wave fall: ${run[0]} ${k.slice(3)}`, reads[k].layout); } };
   await walk('C1', 'R3', [[1, [180, 90, 30]], [2, [180, 30]], [3, [150, 90, 60]], [4, [180, 120, 60]], [5, [150, 30]], [6, [180, 90, 120]], [7, [180, 60, 30]], [8, [180, 30, 0]], [9, [180, 0]]]);
   await walk('A2', 'R2', [[8, [120, 30, 0]]]);
-  await walk('B2', 'R2', [[1, [180, 120, 90]]]); }
+  await walk('B2', 'R2', [[1, [180, 120, 90]]]);
+  // After a fall that left the line running over, Speed, Direction and Pause on hover keep the rows (CAP-T12WAVEREFIT.json,
+  // R3; R1 and R2 read alike). A fresh block per plan, the presses in the oracle's order.
+  const WF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEREFIT.json', import.meta.url))).runs.R3.reads;
+  const PRESS = { 'Animation speed 2x': '[aria-label="Animation speed 2x"]', 'Animation speed 0.5x': '[aria-label="Animation speed 0.5x"]', 'Animation direction right': '[aria-label="Animation direction right"]', 'Pause on hover': 'input[aria-label="Pause on hover"]' };
+  for (const [P, waves, presses] of [['A', [180, 90], ['Animation speed 2x', 'Animation direction right', 'Pause on hover']], ['B', [120, 0], ['Pause on hover', 'Animation speed 0.5x', 'Animation direction right']], ['C', [180, 90], ['Pause on hover', 'Animation direction right', 'Animation speed 0.5x']], ['D', [120, 0], ['Animation direction right', 'Animation speed 2x', 'Pause on hover']]]) {
+    await fresh(); await press('#block-panel [data-btab="Design"]');
+    for (const v of waves) await waveTo(v);
+    const done = [...waves];
+    for (const l of presses) {
+      done.push(l); await press(`#block-panel ${PRESS[l]}`);
+      // The press must have landed: the block's Speed, Direction and Pause on hover as the oracle's controls read.
+      const o = WF[`R3 ${P} ${done.join('>')}`].layout, on = (k) => o.ctl.find((c) => c[0] === k)?.[1] === 'true' || o.ctl.find((c) => c[0] === k)?.[1] === true;
+      const want = JSON.stringify([on('Animation speed 2x') ? 2 : on('Animation speed 0.5x') ? 0.5 : 1, on('Animation direction right') ? 'right' : 'left', on('Pause on hover')]);
+      const got = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(JSON.stringify([b.speed ?? 1, b.direction || 'left', !!b.pauseHover]));`);
+      if (got !== want) add(`Wave refit ${P}: ${done.join('>')}`, false, `controls ${got} (oracle ${want})`); else same(`Wave refit ${P}: ${done.join('>')}`, o);
+    }
+  } }
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -374,7 +391,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 162;
+const CASES = 174;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
