@@ -1,0 +1,2683 @@
+{
+  "item": "CAP-X8QUOTEMORE",
+  "oracle": "/blocks-probe",
+  "capturedAt": "2026-11-22",
+  "startedAt": "2026-11-22T13:34:54.105Z",
+  "predictions": {
+    "file": "CAP-X8QUOTEMORE-PREDICTED.json",
+    "commit": "cd145bd29b8d73f4e45dee5a2bc9e38057fbea65",
+    "committedAt": "2026-11-22T14:34:31+01:00",
+    "sha256": "763fa4a32bb472c6580ef782c79514904b156381879671ac695d79d038a25aab"
+  },
+  "engine": "chrome",
+  "question": "X8, the short Quote: the three cases #756 left not read (task-ca25395cb2024351). Setup as r1 in CAP-X8QUOTEBELOW.json: a new Quote widened east 118 px, a Shape at rows 2 on, a second Shape lower, both at columns 14 to 20; the three made narrower as a group from the east; the next gesture drags the Quote down 2 rows. s1: the lower Shape starts on the Quote's line L (7/14/13/20, group -470, Quote 0.42 short). s2: the upper Shape ends on L and starts below the Quote's top (2/14/7/20), the lower on L + 1 (group -470). s3: the upper Shape across L (2/14/8/20), the lower on L + 1, the group made narrower by 520 px (ours: the Quote 1.08 rows short). s4: as s3 by 600 px (ours: 2.57 rows short). Read on Blocks Probe, each case twice (a, b), nothing saved.",
+  "steps": [
+    [
+      "toPage",
+      "Blocks Probe"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      247
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -82
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1a start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -470,
+      0
+    ],
+    [
+      "read",
+      "s1a dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s1a next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1a next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2a start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -470,
+      0
+    ],
+    [
+      "read",
+      "s2a dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s2a next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2a next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3a start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -520,
+      0
+    ],
+    [
+      "read",
+      "s3a dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s3a next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3a next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4a start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -600,
+      0
+    ],
+    [
+      "read",
+      "s4a dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s4a next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4a next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      247
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -82
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1b start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -470,
+      0
+    ],
+    [
+      "read",
+      "s1b dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s1b next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s1b next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      1
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "s",
+      0,
+      -41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2b start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -470,
+      0
+    ],
+    [
+      "read",
+      "s2b dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s2b next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s2b next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3b start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -520,
+      0
+    ],
+    [
+      "read",
+      "s3b dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s3b next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s3b next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "exit"
+    ],
+    [
+      "enter"
+    ],
+    [
+      "blank"
+    ],
+    [
+      "add",
+      0,
+      "Quote"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "e",
+      118,
+      0
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      41
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "add",
+      0,
+      "Shape"
+    ],
+    [
+      "pause",
+      600
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      1,
+      "middle",
+      705,
+      288
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4b start",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "select",
+      0,
+      0
+    ],
+    [
+      "shiftClick",
+      0,
+      1
+    ],
+    [
+      "shiftClick",
+      0,
+      2
+    ],
+    [
+      "groupDrag",
+      0,
+      -600,
+      0
+    ],
+    [
+      "read",
+      "s4b dropped",
+      {
+        "areas": 0,
+        "path": 1,
+        "gridAll": 0,
+        "contentH": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "drag",
+      0,
+      0,
+      "middle",
+      0,
+      82
+    ],
+    [
+      "read",
+      "s4b next",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "press",
+      "Escape"
+    ],
+    [
+      "deselect",
+      0
+    ],
+    [
+      "read",
+      "s4b next let go",
+      {
+        "areas": 0,
+        "path": 1
+      }
+    ]
+  ],
+  "reads": {
+    "s1a start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/6/20",
+          "7/2/13/10"
+        ],
+        [
+          "7/14/13/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1a dropped": {
+      "contentH": 218.8,
+      "areas": [
+        [
+          "1/2/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/7",
+            "grid-area: 1/2/7/7"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/7"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/9/6/12",
+            "grid-area: 2/9/6/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/9/6/12"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 7/9/13/12",
+            "grid-area: 7/9/13/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "7/9/13/12"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1a next": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1a next let go": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2a start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/7/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2a dropped": {
+      "contentH": 218.8,
+      "areas": [
+        [
+          "1/2/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/7",
+            "grid-area: 1/2/7/7"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/7"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/9/7/12",
+            "grid-area: 2/9/7/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/9/7/12"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/9/14/12",
+            "grid-area: 8/9/14/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/9/14/12"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2a next": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2a next let go": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3a start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/8/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3a dropped": {
+      "contentH": 252.9,
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/8/11",
+          "7/2/13/10"
+        ],
+        [
+          "8/8/14/11",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/6",
+            "grid-area: 1/2/7/6"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/6"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/8/8/11",
+            "grid-area: 2/8/8/11"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/8/8/11"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/8/14/11",
+            "grid-area: 8/8/14/11"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/8/14/11"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3a next": {
+      "areas": [
+        [
+          "3/2/11/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/9/11",
+          "7/2/13/10"
+        ],
+        [
+          "9/8/15/11",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3a next let go": {
+      "areas": [
+        [
+          "3/2/11/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/9/11",
+          "7/2/13/10"
+        ],
+        [
+          "9/8/15/11",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4a start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/8/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4a dropped": {
+      "contentH": 321.3,
+      "areas": [
+        [
+          "1/2/7/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/8/10",
+          "7/2/13/10"
+        ],
+        [
+          "8/7/14/10",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/5",
+            "grid-area: 1/2/7/5"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/5"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/7/8/10",
+            "grid-area: 2/7/8/10"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/7/8/10"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/7/14/10",
+            "grid-area: 8/7/14/10"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/7/14/10"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4a next": {
+      "areas": [
+        [
+          "3/2/12/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/11/10",
+          "7/2/13/10"
+        ],
+        [
+          "11/7/17/10",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4a next let go": {
+      "areas": [
+        [
+          "3/2/12/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/11/10",
+          "7/2/13/10"
+        ],
+        [
+          "11/7/17/10",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1b start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/6/20",
+          "7/2/13/10"
+        ],
+        [
+          "7/14/13/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1b dropped": {
+      "contentH": 218.8,
+      "areas": [
+        [
+          "1/2/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/7",
+            "grid-area: 1/2/7/7"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/7"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/9/6/12",
+            "grid-area: 2/9/6/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/9/6/12"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 7/9/13/12",
+            "grid-area: 7/9/13/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "7/9/13/12"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1b next": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s1b next let go": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/6/12",
+          "7/2/13/10"
+        ],
+        [
+          "7/9/13/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2b start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/7/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2b dropped": {
+      "contentH": 218.8,
+      "areas": [
+        [
+          "1/2/7/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/7",
+            "grid-area: 1/2/7/7"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/7"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/9/7/12",
+            "grid-area: 2/9/7/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/9/7/12"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/9/14/12",
+            "grid-area: 8/9/14/12"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/9/14/12"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2b next": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s2b next let go": {
+      "areas": [
+        [
+          "3/2/10/7",
+          "1/2/7/10"
+        ],
+        [
+          "2/9/7/12",
+          "7/2/13/10"
+        ],
+        [
+          "8/9/14/12",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3b start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/8/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3b dropped": {
+      "contentH": 252.9,
+      "areas": [
+        [
+          "1/2/7/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/8/11",
+          "7/2/13/10"
+        ],
+        [
+          "8/8/14/11",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/6",
+            "grid-area: 1/2/7/6"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/6"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/8/8/11",
+            "grid-area: 2/8/8/11"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/8/8/11"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/8/14/11",
+            "grid-area: 8/8/14/11"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/8/14/11"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3b next": {
+      "areas": [
+        [
+          "3/2/11/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/9/11",
+          "7/2/13/10"
+        ],
+        [
+          "9/8/15/11",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s3b next let go": {
+      "areas": [
+        [
+          "3/2/11/6",
+          "1/2/7/10"
+        ],
+        [
+          "2/8/9/11",
+          "7/2/13/10"
+        ],
+        [
+          "9/8/15/11",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4b start": {
+      "areas": [
+        [
+          "1/2/7/10",
+          "1/2/7/10"
+        ],
+        [
+          "2/14/8/20",
+          "7/2/13/10"
+        ],
+        [
+          "8/14/14/20",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4b dropped": {
+      "contentH": 321.3,
+      "areas": [
+        [
+          "1/2/7/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/8/10",
+          "7/2/13/10"
+        ],
+        [
+          "8/7/14/10",
+          "13/2/19/10"
+        ]
+      ],
+      "gridAll": [
+        {
+          "css": [
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/10",
+            "grid-area: 1/2/7/5",
+            "grid-area: 1/2/7/5"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "1/2/7/5"
+        },
+        {
+          "css": [
+            "grid-area: 7/2/13/10",
+            "grid-area: 7/2/13/10",
+            "grid-area: 2/7/8/10",
+            "grid-area: 2/7/8/10"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "2/7/8/10"
+        },
+        {
+          "css": [
+            "grid-area: 13/2/19/10",
+            "grid-area: 13/2/19/10",
+            "grid-area: 8/7/14/10",
+            "grid-area: 8/7/14/10"
+          ],
+          "attrs": [
+            "tabindex=0"
+          ],
+          "computed": "8/7/14/10"
+        }
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4b next": {
+      "areas": [
+        [
+          "3/2/12/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/11/10",
+          "7/2/13/10"
+        ],
+        [
+          "11/7/17/10",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    },
+    "s4b next let go": {
+      "areas": [
+        [
+          "3/2/12/5",
+          "1/2/7/10"
+        ],
+        [
+          "2/7/11/10",
+          "7/2/13/10"
+        ],
+        [
+          "11/7/17/10",
+          "13/2/19/10"
+        ]
+      ],
+      "path": "/blocks-probe",
+      "save": "changed"
+    }
+  },
+  "errors": [],
+  "visited": "Blocks Probe",
+  "leftDirty": true,
+  "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+  ],
+  "readBack": {
+    "before": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "after": {
+      "path": "/blocks-probe",
+      "sections": 0,
+      "blocks": 0
+    },
+    "same": true
+  }
+}
