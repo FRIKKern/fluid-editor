@@ -272,7 +272,8 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   const twice = async () => { await press('#undo'); const a = sn(); await press('#undo'); return [a, sn()]; };
   await reopen(); await press('#link-popover .lk-input'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300);
   const same = [sn(), ...await twice()];
-  add('Reopened by Edit, About again, Undo: link goes', same[0].open && same[0].href === '/about' && same[1].href === null && !same[1].open && same[1].redo && !same[2].blk, JSON.stringify(same));
+  // The second Undo takes Attach link's own step, so the block stays (CAP-T12LINKZ.json Z9 Undo 2).
+  add('Reopened by Edit, About again, Undo: link goes', same[0].open && same[0].href === '/about' && same[1].href === null && !same[1].open && same[1].redo && same[2].blk && same[2].href === null, JSON.stringify(same));
   await reopen(); for (const k of ['Meta+a', 'c', 'o', 'n']) { browser(S, 'press', k); await pause(150); } await pause(300); await press('#link-popover .lk-page[aria-label^="Contact"]'); await pause(300);
   const other = [sn(), ...await twice()];
   add('Reopened by Edit, Contact picked, Undo: About', other[0].open && other[0].href === '/contact' && other[1].href === '/about' && !other[1].open && other[1].redo && other[2].href === null, JSON.stringify(other));
@@ -304,6 +305,40 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   await open(); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); await press('#link-popover .lk-pill'); await pause(200);
   const menu = await esc(1), menuOpen = qs(`return JSON.stringify(!document.getElementById('link-popover').hidden);`);
   add('Picked, the kind menu open, Escape: the editor closes', !menuOpen, JSON.stringify({ ...menu, menuOpen })); }
+// Cmd+Z in the link field after a page pick (CAP-T12LINKZ.json, R1 and R2 alike). Attach link is a step of its own that
+// changes nothing seen: Cmd+Z takes the pick, then that step (the block stays, the editor open on /about), then the block.
+// Escape after the pick's Cmd+Z leaves the editor open; a press away sets the page in the field again, Redo off.
+{ const Z = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12LINKZ.json', import.meta.url))).runs.R1.reads;
+  const want = (k) => { const o = Z[k]; return { blk: !o.block.gone, open: o.pop.field !== null, field: o.pop.field?.[0] ?? null, focus: o.focus?.[1] === 'INPUT', redo: o.undo.find((x) => x[0] === 'Redo')[1] === false, row: o.pop.linkRow }; };
+  const zs = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'), f = p.querySelector('.lk-input'); return JSON.stringify({ blk: !!b, href: b?.href ?? null, open: !p.hidden, field: !p.hidden && f ? f.value : null, focus: !!f && document.activeElement === f, redo: !document.getElementById('redo').disabled });`);
+  const like = (w, o) => w.blk === o.blk && w.open === o.open && w.field === o.field && w.redo === o.redo && (!o.open || w.focus === o.focus);
+  const key = async (k) => { mouse(S, 'move', 10, 10); browser(S, 'press', k); await pause(400); };
+  const open = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); };
+  const pick = async () => { await open(); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
+  const away = async () => { await press('#block-panel [data-btab="Content"]'); await pause(300); };
+  await pick();
+  for (const [n, what] of [[1, 'the pick goes, the editor stays open on it'], [2, 'again: the block stays, the editor open'], [3, 'a third time: the block goes, the editor closes']]) {
+    await key('Meta+z'); const w = zs(), o = want(`R1 Z8 Cmd+Z ${n}`);
+    add(`Pick, Cmd+Z in the field ${what}`, like(w, o) && w.href === null, JSON.stringify({ ours: w, oracle: o }));
+  }
+  await pick(); await key('Meta+z');
+  for (const [k, what] of [['Escape', 'Escape'], ['Escape again', 'Escape again']]) {
+    await key('Escape'); const w = zs(), o = want(`R1 Z3 ${k}`);
+    add(`Pick, Cmd+Z, ${what}: the editor stays open on ${o.field}`, like(w, o), JSON.stringify({ ours: w, oracle: o }));
+  }
+  await away(); { const w = zs(), o = want('R1 Z3 away'); add('Then a press away: the page is set again, Redo off', !w.open && w.href === '/about' && w.redo === o.redo && o.row[0] === 'About', JSON.stringify({ ours: w, oracle: o })); }
+  await pick(); await key('Meta+z'); await key('Meta+Shift+z');
+  { const w = zs(), o = want('R1 Z5 Cmd+Shift+Z'); add('Pick, Cmd+Z, Cmd+Shift+Z: the pick back, Redo off', like(w, o) && w.href === '/about', JSON.stringify({ ours: w, oracle: o })); }
+  await pick(); await away();
+  for (const n of [1, 2, 3]) {
+    await press('#undo'); await pause(300); const w = zs(), o = want(`R1 Z9 Undo ${n}`);
+    add(`Pick, a press away, Undo ${n}: ${['the link goes', 'the block stays', 'the block goes'][n - 1]}`, w.blk === o.blk && !w.open && w.href === null && w.redo === o.redo, JSON.stringify({ ours: w, oracle: o }));
+  }
+  await open();
+  for (const [k, what] of [['Cmd+Z', 'the block and the editor stay, Redo on'], ['Cmd+Z again', 'again: the block goes']]) {
+    await key('Meta+z'); const w = zs(), o = want(`R1 Z12 ${k}`);
+    add(`Attach link, nothing picked, Cmd+Z: ${what}`, like(w, o), JSON.stringify({ ours: w, oracle: o }));
+  } }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
 // area, the section's rows, the block's height and the line's top and height in it. Y's 0 falls to 1 row, the line running
@@ -407,7 +442,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 208;
+const CASES = 220;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
