@@ -4600,6 +4600,10 @@ function onLinkAction(act, el) {
   if (act === 'remove') { closeLinkPopover(); setButton((x) => { delete x.href; delete x.newTab; }, 'Link removed'); return; }
   // open or edit: the panel is redrawn while the editor is open, so the place is read once.
   const panelBox = blockPanel.getBoundingClientRect(), box = el.getBoundingClientRect();
+  // Attach link on a Scrolling block with no link is an undo step of its own that changes nothing seen: after a page pick,
+  // the first Cmd+Z or Undo takes the pick, the next leaves the block as it is, the third takes the block; with nothing
+  // picked, the first leaves it and the second takes it (CAP-T12LINKZ.json Z8, Z9, Z12, R1 and R2 alike).
+  if (act === 'open' && b.type === 'scrolling' && !b.href) commit(JSON.stringify(model), 'Link opened', true);
   openLinkPopover(b, (st, height) => linkPopoverPosition(panelBox, box, st, height));
 }
 // What Enter or a page applies to: the selected button (default) or a saved text range.
@@ -4757,10 +4761,12 @@ linkPop.addEventListener('keydown', (e) => {
     if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
     // A Scrolling block's link editor stays open on Escape, once or twice, its field focused with the link in it
     // (CAP-T12LINKESC.json R3, CAP-T12SCROLLLIST.json scroll10-a, and two more sessions alike, each after a page pick on
-    // Attach link). Only that state is kept: a URL link, the page just picked (scrollLinkPicked), no list or kind menu
+    // Attach link). Only that state is kept: a URL link, the page picked in this opening (scrollLinkShown), no list or kind menu
     // showing. Everything else closes as before (not read: nothing picked, a link typed, Email or Phone, the kind menu).
+    // Cmd+Z on the pick keeps it so: the field still shows the page, and Escape, once and twice, leaves the editor open
+    // (CAP-T12LINKZ.json Z3, R1 and R2 alike).
     const list = linkPop.querySelector('.lk-pages:not([hidden])');
-    if (!list && !linkTarget && linkPop.dataset.kind === 'url' && linkPop.querySelector('.lk-menu')?.hidden !== false && scrollLinkPicked()) { linkPop.querySelector('.lk-input')?.focus(); return; }
+    if (!list && !linkTarget && linkPop.dataset.kind === 'url' && linkPop.querySelector('.lk-menu')?.hidden !== false && scrollLinkShown()) { linkPop.querySelector('.lk-input')?.focus(); return; }
     if (!linkPop.dataset.cleared && list) showLinkList(false);
     else closeLinkToBar();
   }
@@ -4803,7 +4809,7 @@ linkPop.addEventListener('click', (e) => {
   const kind = e.target.closest('.lk-kind');
   if (kind) { if (!kind.disabled) switchLinkKind(kind.dataset.kind); return; }
   const pg = e.target.closest('.lk-page');
-  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) { linkPop.dataset.picked = '1'; linkPickedAt = undoStepNow(); } return; }
+  if (pg) { applyLink(pg.dataset.href); if (linkPop.dataset.fresh) { linkPop.dataset.picked = pg.dataset.href; linkPickedAt = undoStepNow(); } return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     flushLinkStep();
@@ -4841,6 +4847,8 @@ linkPop.addEventListener('change', (e) => {
 const undoStepNow = () => `${undoStack.length} ${JSON.stringify(model)}`;
 let linkPickedAt = null;
 let undoClosedLink = null; // the step a press on Undo saw when it only closed the editor; its click skips only on that step
+// The page picked in this opening still in the field, picked last or taken back by Cmd+Z since (Escape above).
+const scrollLinkShown = () => { const b = B(linkSid, linkPop.dataset.bid), v = linkPop.dataset.picked; return b?.type === 'scrolling' && !!v && linkPop.querySelector('.lk-input')?.value === v && (!b.href || b.href === v); };
 const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href && linkPickedAt === undoStepNow(); };
 const closeLinkOutside = (e) => {
   undoClosedLink = null;

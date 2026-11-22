@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 208,
- "total": 208,
+ "pass": 220,
+ "total": 220,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -417,6 +417,54 @@
   },
   {
    "what": "Picked, the kind menu open, Escape: the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z in the field the pick goes, the editor stays open on it",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z in the field again: the block stays, the editor open",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z in the field a third time: the block goes, the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z, Escape: the editor stays open on /about",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z, Escape again: the editor stays open on /about",
+   "ok": true
+  },
+  {
+   "what": "Then a press away: the page is set again, Redo off",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z, Cmd+Shift+Z: the pick back, Redo off",
+   "ok": true
+  },
+  {
+   "what": "Pick, a press away, Undo 1: the link goes",
+   "ok": true
+  },
+  {
+   "what": "Pick, a press away, Undo 2: the block stays",
+   "ok": true
+  },
+  {
+   "what": "Pick, a press away, Undo 3: the block goes",
+   "ok": true
+  },
+  {
+   "what": "Attach link, nothing picked, Cmd+Z: the block and the editor stay, Redo on",
+   "ok": true
+  },
+  {
+   "what": "Attach link, nothing picked, Cmd+Z: again: the block goes",
    "ok": true
   },
   {
