@@ -4186,14 +4186,23 @@ function accordionEscape() {
 // through the steps, a block made taller by hand, Text Size and the items. The press's change after its input moves no
 // rows: the input took the step. Speed, Direction and Pause on hover move no rows either, also when a fall left the line
 // running over (CAP-T12WAVEREFIT.json, four orders, each read in two sessions); Fade edges and Item Spacing are not read there.
+// Wave Intensity's rows in the phone view (CAP-T12WAVEPHONE.json, nine paths, each read in two sessions) follow their own rule:
+// a line that grows takes the rows that hold it, running over by up to 0.13 of a row (a 60 line keeps 2 rows of 59, as a
+// stand-in's phone height does); a fall from a line that ran over its rows keeps them, down to the rows that hold the new line;
+// a fall from a line that fit moves the foot up by the fall, also a fall of one step, and snaps it down (180 to 150 leaves 5
+// rows for a line that needs 6). The give on that snap is read between 0.03 and 0.17 of a row (180 to 90 to 30 keeps 2 rows).
+// The desktop rows stay. Not read in the phone view: the other Design presses, Text Size and the items (they fit as before).
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = b.wave, c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
   change(b);
   renderSectionDom(sel.sid);
-  const m = formPitch(b), fit = contentRows(b, m), a = lay(b).area, fall = c0 - scrollContent(b);
+  const m = formPitch(b), phone = bp === 'mobile' && b.wave !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
+  const fit = phone ? Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)) : contentRows(b, m), h0 = rows0 * m.pitch - m.rg;
   let need = fit;
-  if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(rows0 * m.pitch - m.rg, c0) - fall) / m.pitch + 1e-6));
+  if (phone && fall > 0) need = c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13));
+  else if (phone) need = fit;
+  else if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
   else if (b.wave === w0 && /^(wave|speed|direction|pauseHover) /.test(label)) need = rows0;
   if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
