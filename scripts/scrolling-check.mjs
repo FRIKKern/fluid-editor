@@ -345,7 +345,23 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
       const got = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(JSON.stringify([b.speed ?? 1, b.direction || 'left', !!b.pauseHover]));`);
       if (got !== want) add(`Wave refit ${P}: ${done.join('>')}`, false, `controls ${got} (oracle ${want})`); else same(`Wave refit ${P}: ${done.join('>')}`, o);
     }
-  } }
+  }
+  // The phone view's own rule (CAP-T12WAVEPHONE.json, R2 and R4; R1 and R3 read alike): a fresh block made on the desktop in a
+  // section of 2 phone rows (the oracle's), then the phone view and the plan's presses. The phone area, the section's phone rows,
+  // the block, the line in it, and the desktop area that stays.
+  const WP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEPHONE.json', import.meta.url))).runs;
+  const layP = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), fb = el.closest('.fe-block').getBoundingClientRect(), m = el.querySelector('.marquee').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ desktop: b.layout.desktop.area.join('/'), phone: b.layout.mobile.area.join('/'), rows: s.rows.mobile, block: r(fb.height), marquee: [r(m.top - fb.top), r(m.height)] });`);
+  for (const [run, P, steps] of [['R2', 1, [180, 90, 30]], ['R2', 2, [120, 0]], ['R2', 3, [180, 0]], ['R2', 4, [30, 60, 90, 120, 150, 180, 150]], ['R2', 5, [120, 30, 0]], ['R4', 6, [180, 150, 120, 90, 60, 30, 0]], ['R4', 7, [150, 120, 90, 60]], ['R4', 8, [60, 30, 0]], ['R4', 9, [90, 60, 0]]]) {
+    qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 2 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); fe.setBp('mobile'); await sleep(800); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+    await press('#block-panel [data-btab="Design"]');
+    const reads = WP[run].reads, near1 = (x, y) => Math.abs(x - y) <= 0.15;
+    for (const [j, v] of steps.entries()) {
+      await waveTo(v);
+      const k = steps.slice(0, j + 1).join('>'), o = reads[`${run} ${P} ${k}`].layout, w = layP();
+      add(`Wave phone ${P}: ${k}`, w.phone === o.phone && w.rows === o.rows && w.desktop === o.desktop && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1]), `${JSON.stringify(w)} (oracle ${JSON.stringify({ desktop: o.desktop, phone: o.phone, rows: o.rows, block: o.block, marquee: o.marquee })})`);
+    }
+  }
+  qs(`fe.setBp('desktop'); await sleep(400); return 'true';`); }
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -391,7 +407,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 174;
+const CASES = 208;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
