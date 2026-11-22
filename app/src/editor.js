@@ -1772,6 +1772,10 @@ function onKey(e) {
     if (mod && !e.altKey && !e.shiftKey && (e.code === 'KeyB' || e.code === 'KeyI')) { e.preventDefault(); applyFormat(e.code === 'KeyB' ? 'bold' : 'italic'); if (editing) syncToggles(textBar, editing.ce, win.getSelection(), editing.strikeNext); return; }
     return;
   }
+  // A key that edits a field's text is the field's, outside the panel too (the link editor, for every block kind):
+  // Backspace, Delete, the arrows and a typed letter (Shift+S) leave the block alone. Other shortcuts, Cmd+Z and Escape go
+  // on as before. The panel's own fields stop their keys already. Not read on the oracle: the browser's own field keys.
+  if (e.target.closest?.('input, textarea, select') && (e.key === 'Backspace' || e.key === 'Delete' || ARROWS[e.key] || (!mod && e.key.length === 1))) return;
   // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
   if (sel && !gesture && mod && e.shiftKey && !e.altKey && e.code === 'KeyH') {
     e.preventDefault();
