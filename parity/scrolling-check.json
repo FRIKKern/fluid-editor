@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 156,
- "total": 156,
+ "pass": 159,
+ "total": 159,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -393,6 +393,18 @@
   },
   {
    "what": "Pick, then an arrow key, Undo: the move goes",
+   "ok": true
+  },
+  {
+   "what": "Nothing picked, Escape twice: the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Picked, then Email, Escape: the editor closes",
+   "ok": true
+  },
+  {
+   "what": "Picked, the kind menu open, Escape: the editor closes",
    "ok": true
   },
   {

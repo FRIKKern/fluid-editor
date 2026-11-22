@@ -4739,9 +4739,10 @@ linkPop.addEventListener('keydown', (e) => {
     if (linkTarget?.markdown) { const t = linkTarget; linkTarget = null; linkPop.hidden = true; t.done(); if (codeModal.hidden) { designOpen = null; select(null); } return; }
     // A Scrolling block's link editor stays open on Escape, once or twice, its field focused with the link in it
     // (CAP-T12LINKESC.json R3, CAP-T12SCROLLLIST.json scroll10-a, and two more sessions alike, each after a page pick on
-    // Attach link). Not read: Escape with the list showing (it still takes the list), with nothing picked or a link typed.
+    // Attach link). Only that state is kept: a URL link, the page just picked (scrollLinkPicked), no list or kind menu
+    // showing. Everything else closes as before (not read: nothing picked, a link typed, Email or Phone, the kind menu).
     const list = linkPop.querySelector('.lk-pages:not([hidden])');
-    if (!list && !linkTarget && B(linkSid, linkPop.dataset.bid)?.type === 'scrolling') { linkPop.querySelector('.lk-input')?.focus(); return; }
+    if (!list && !linkTarget && linkPop.dataset.kind === 'url' && linkPop.querySelector('.lk-menu')?.hidden !== false && scrollLinkPicked()) { linkPop.querySelector('.lk-input')?.focus(); return; }
     if (!linkPop.dataset.cleared && list) showLinkList(false);
     else closeLinkToBar();
   }
