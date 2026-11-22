@@ -1,0 +1,449 @@
+{
+ "item": "CAP-T12LINKESC",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-22",
+ "engine": "chrome",
+ "question": "T12 (task-5915efcb656283aa): Escape in a Scrolling block's link field. A new Scrolling block on Blocks Probe at 1600 by 1000, Content, Attach link, the About page picked, then Escape and Escape again (A); B: the pick alone, then Undo twice. Read after each step: the block's link, the link editor's field (value and box), the panel's Link row, Undo/Redo/Save and the focused element. One session (R3), nothing saved, left by Exit Without Saving. It repeats oracleF's link probe, R1 and R2 on 2026-11-21 (CAP-T12LINKUNDO), and CAP-T12SCROLLLIST.json scroll10-a ('after About, Escape').",
+ "visited": "Blocks Probe",
+ "readsAre": "link: the block's link (a: href, target, class), popField: the link editor's field [value, left, top] or null when closed, linkRow: the panel's Link row; focus: [document, tag, label, value] of the focused element; undo: [name, disabled] for Save, Undo, Redo",
+ "answer": [
+  "Escape, once and twice, leaves the link editor open with its field focused holding /about; the panel's Link row still reads Attach link while it is open. R3 here; the same in oracleF's link-R1 and link-R2 (2026-11-21, stored with CAP-T12LINKUNDO), Escape twice each, and in CAP-T12SCROLLLIST.json scroll10-a, Escape once: four sessions alike.",
+  "Not read: Escape with the page list showing, with nothing picked, or with a link typed."
+ ],
+ "runs": {
+  "R3": {
+   "path": "/blocks-probe",
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ],
+   "log": [
+    "pressed Edit",
+    "pressed Content",
+    "snap R3 A before",
+    "panel Attach link",
+    "snap R3 A after About",
+    "snap R3 A Escape",
+    "snap R3 A Escape again",
+    "pressed Undo",
+    "snap R3 A Undo",
+    "pressed Undo",
+    "snap R3 A Undo again",
+    "pressed Edit",
+    "pressed Content",
+    "panel Attach link",
+    "snap R3 B after About",
+    "pressed Undo",
+    "snap R3 B Undo",
+    "pressed Undo",
+    "snap R3 B Undo again"
+   ],
+   "reads": {
+    "R3 A before": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": null,
+      "wrapperTag": "DIV",
+      "popField": null,
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 A after About": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": [
+       "/about",
+       940,
+       590
+      ],
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 A Escape": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": [
+       "/about",
+       940,
+       590
+      ],
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 A Escape again": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": [
+       "/about",
+       940,
+       590
+      ],
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 A Undo": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": null,
+      "linkRow": [
+       [
+        "P",
+        "About",
+        605
+       ],
+       [
+        "SPAN",
+        "/about",
+        627
+       ],
+       [
+        "SPAN",
+        "Edit",
+        675
+       ],
+       [
+        "SPAN",
+        "Copy",
+        675
+       ],
+       [
+        "SPAN",
+        "Remove Link",
+        675
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 A Undo again": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": null,
+      "wrapperTag": "DIV",
+      "popField": null,
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    },
+    "R3 B after About": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": [
+       "/about",
+       940,
+       590
+      ],
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "/about"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 B Undo": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": [
+       "/about",
+       "_self",
+       "Marquee-hitbox"
+      ],
+      "wrapperTag": "DIV",
+      "popField": null,
+      "linkRow": [
+       [
+        "P",
+        "About",
+        605
+       ],
+       [
+        "SPAN",
+        "/about",
+        627
+       ],
+       [
+        "SPAN",
+        "Edit",
+        675
+       ],
+       [
+        "SPAN",
+        "Copy",
+        675
+       ],
+       [
+        "SPAN",
+        "Remove Link",
+        675
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R3 B Undo again": {
+     "link": {
+      "linkTo": "",
+      "newWin": "false",
+      "a": null,
+      "wrapperTag": "DIV",
+      "popField": null,
+      "linkRow": [
+       [
+        "SPAN",
+        "Attach link",
+        601
+       ]
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Undo",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    }
+   }
+  }
+ }
+}
