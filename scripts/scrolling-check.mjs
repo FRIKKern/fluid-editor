@@ -308,12 +308,29 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   add('Link field: arrow keys leave the block where it is', ka.type === 'scrolling' && ka.area === k0.area && ka.depth === k0.depth && ka.open, JSON.stringify([k0, ka]));
   await about(); await keys(['End', 'Shift+S']); const ks = fk();
   add('Link field: Shift+S types an S, no stack', ks.type === 'scrolling' && ks.open && ks.field === '/aboutS' && ks.depth === k0.depth, JSON.stringify([k0, ks])); }
-// Escape keeps the editor open only as read (a URL link, the page just picked); elsewhere it closes as before (review-757;
-// not read on the oracle, so these wants are ours): nothing picked (the first Escape takes the list), Email, the kind menu open.
+// Escape keeps the editor open only as read (a URL link, the page just picked, or nothing picked); elsewhere it closes as
+// before (review-757; not read on the oracle, so these wants are ours): Email, the kind menu open.
 { const esc = async (n) => { for (let i = 0; i < n; i++) { mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400); } return escaped(); };
   const open = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); };
-  await open(); const none = await esc(2);
-  add('Nothing picked, Escape twice: the editor closes', !none.open, JSON.stringify(none));
+  // Attach link with nothing picked: the first Escape takes the page list, the next ones leave the editor open on its empty
+  // field, and Cmd+Z then takes Attach link's own step, Redo on (CAP-T12LINKZ.json Z10 R1 and R2, Z13 J1, all alike).
+  { const Z = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12LINKZ.json', import.meta.url))).runs;
+    const wz = (r, k) => { const o = Z[r].reads[k]; return { blk: !o.block.gone, open: o.pop.field !== null, focus: o.focus?.[1] === 'INPUT', value: o.pop.field?.[0] ?? null, list: o.pop.options > 0, redo: o.undo.find((x) => x[0] === 'Redo')[1] === false }; };
+    const nz = () => qs(`const b = fe.model.sections[0].blocks[0], p = document.getElementById('link-popover'), i = p.querySelector('.lk-input'); return JSON.stringify({ blk: !!b, open: !p.hidden && !!i && i.getBoundingClientRect().width > 0, focus: !!i && document.activeElement === i, value: !p.hidden && i ? i.value : null, list: !p.hidden && !!p.querySelector('.lk-pages:not([hidden])'), redo: !document.getElementById('redo').disabled });`);
+    const like = (w, o) => Object.keys(o).every((k) => w[k] === o[k]);
+    await open();
+    for (const [r, k, j, what] of [['R1', 'R1 Z10 Escape', 'J1 Z13 Escape 1', 'Escape: the list goes, the editor open on its empty field'], ['R1', 'R1 Z10 Escape again', 'J1 Z13 Escape 2', 'Escape again: the editor stays open'], ['J1', null, 'J1 Z13 Escape 3', 'a third Escape: still open']]) {
+      await esc(1); const w = nz(), o = wz(r, k || j), o2 = wz('J1', j);
+      add(`Nothing picked, ${what}`, like(w, o) && like(o, o2), JSON.stringify({ ours: w, oracle: o }));
+    }
+    mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
+    { const w = nz(), o = wz('R1', 'R1 Z10 Cmd+Z'); add('Nothing picked, Escapes, then Cmd+Z: the block and the editor stay, Redo on', like(w, o), JSON.stringify({ ours: w, oracle: o })); }
+    // Only the untouched opening was read: a letter typed and taken back, or Email and back to URL, closes on the second
+    // Escape as before (review-764; not read, so these wants are ours).
+    await open(); await press('#link-popover .lk-input'); for (const k of ['x', 'Backspace']) { browser(S, 'press', k); await pause(150); }
+    { const w = await esc(2); add('Nothing picked, a letter typed and taken back, Escape twice: the editor closes', !w.open, JSON.stringify(w)); }
+    await open(); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="email"]'); await pause(200); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="url"]'); await pause(300);
+    { const w0 = nz(), w = await esc(2); add('Nothing picked, Email and back to URL, Escape twice: the editor closes', w0.open && w0.value === '' && !w.open, JSON.stringify([w0, w])); } }
   await open(); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="email"]'); await pause(300);
   const mail = await esc(1), mailOpen = qs(`return JSON.stringify(!document.getElementById('link-popover').hidden);`);
   add('Picked, then Email, Escape: the editor closes', !mailOpen, JSON.stringify({ ...mail, mailOpen }));
@@ -457,7 +474,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 228;
+const CASES = 233;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
