@@ -424,6 +424,32 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
       if (got !== want) add(`Wave refit ${P}: ${done.join('>')}`, false, `controls ${got} (oracle ${want})`); else same(`Wave refit ${P}: ${done.join('>')}`, o);
     }
   }
+  // After such a fall Fade edges and Item Spacing keep the rows as well, while Text Size refits them to its line; a block made
+  // taller by hand keeps its rows at Fade edges and Speed (CAP-T12REFIT2.json, R2; R1 read alike). Each step and the let go.
+  { const RF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12REFIT2.json', import.meta.url))).runs.R2.reads;
+    const P2 = { 'Fade edges': 'input[aria-label="Fade edges"]', 'Large text size': '[aria-label="Large text size"]', 'Medium text size': '[aria-label="Medium text size"]', 'Animation speed 2x': '[aria-label="Animation speed 2x"]' };
+    // The bottom handle of the selected block, pulled down dy px by real mouse steps.
+    const pullDown = async (dy) => { const p = qs(`const f = document.getElementById('site-frame'), fr = f.getBoundingClientRect(), h = [...f.contentDocument.querySelectorAll('.fe-handle[data-dir="s"]')].find((e) => e.getBoundingClientRect().width > 0); if (!h) return 'null'; const r = h.getBoundingClientRect(); return JSON.stringify([fr.left + r.left + r.width / 2, fr.top + r.top + r.height / 2]);`); if (!p) return false; mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); for (let n = 1; n <= 8; n++) { mouse(S, 'move', p[0], p[1] + dy * n / 8, { buttons: 1 }); await pause(30); } mouse(S, 'up', p[0], p[1] + dy); await pause(400); return true; };
+    // What the press set, as the oracle's controls and ranges read: Fade edges, Text Size, Speed and Item Spacing.
+    const controls = (o) => { const on = (k) => o.ctl.some((c) => c[0] === k && (c[1] === 'true' || c[1] === true)); return JSON.stringify([on('Fade edges'), on('Large text size') ? 'L' : on('Medium text size') ? 'M' : 'S', on('Animation speed 2x') ? 2 : 1, Number(o.ranges.find((r) => r[0] === 'Item Spacing')[1])]); };
+    for (const [P, pre, l] of [['F', [180, 90], 'Fade edges'], ['G', [180, 90], 'spacing 0.9'], ['H', [180, 90], 'Large text size'], ['I', [120, 0], 'Medium text size'], ['J', ['pull 82'], 'Fade edges'], ['K', ['pull 82'], 'Animation speed 2x']]) {
+      await fresh();
+      for (const v of pre.filter((v) => typeof v === 'string')) if (!await pullDown(82)) add(`Refit after a fall ${P}: ${v}`, false, 'no bottom handle');
+      // The pull closes the panel, as on the oracle: Edit opens it again.
+      if (pre.some((v) => typeof v === 'string')) qs(`const b = fe.model.sections[0].blocks[0]; fe.select(fe.model.sections[0].id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+      await press('#block-panel [data-btab="Design"]');
+      for (const v of pre.filter((v) => typeof v === 'number')) await waveTo(v);
+      const done = [...pre, l].join('>');
+      same(`Refit after a fall ${P}: ${pre.join('>')}`, RF[`R2 ${P} ${pre.join('>')}`].layout);
+      if (l.startsWith('spacing ')) await press('#block-panel [data-scr-range="spacing"]', 0.9); else await press(`#block-panel ${P2[l]}`);
+      await pause(300);
+      const o = RF[`R2 ${P} ${done}`].layout, want = controls(o);
+      const got = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(JSON.stringify([!!b.fadeEdges, b.sizeMore ? 'more' : ({ 1.5: 'S', 4: 'M', 8: 'L' })[b.size ?? 1.5] ?? String(b.size), b.speed ?? 1, b.spacing ?? 0.5]));`);
+      if (got !== want) add(`Refit after a fall ${P}: ${done}`, false, `controls ${got} (oracle ${want})`); else same(`Refit after a fall ${P}: ${done}`, o);
+      qs(`fe.select(null); await sleep(300); return 'true';`);
+      same(`Refit after a fall ${P}: ${done}, let go`, RF[`R2 ${P} ${done} let go`].layout);
+    }
+  }
   // The phone view's own rule (CAP-T12WAVEPHONE.json, R2 and R4; R1 and R3 read alike): a fresh block made on the desktop in a
   // section of 2 phone rows (the oracle's), then the phone view and the plan's presses. The phone area, the section's phone rows,
   // the block, the line in it, and the desktop area that stays.
@@ -505,7 +531,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 247;
+const CASES = 265;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);

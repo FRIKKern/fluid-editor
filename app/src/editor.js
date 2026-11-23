@@ -4206,9 +4206,10 @@ function accordionEscape() {
 // more than it had; a line that falls by two steps or more moves the block's foot up by the fall and snaps it down to the
 // row pitch, at least 1 row, so the line can run over (180 to 90 leaves 3 rows for a line that needs 4, 120 to 0 leaves 1).
 // Where between 30 and 60 px the second rule starts was not read (the range moves by 30). Not read: a drag or arrow keys
-// through the steps, a block made taller by hand, Text Size and the items. The press's change after its input moves no
+// through the steps and the items. The press's change after its input moves no
 // rows: the input took the step. Speed, Direction and Pause on hover move no rows either, also when a fall left the line
-// running over (CAP-T12WAVEREFIT.json, four orders, each read in two sessions); Fade edges and Item Spacing are not read there.
+// running over (CAP-T12WAVEREFIT.json, four orders, each read in two sessions); for Fade edges, Item Spacing, Text Size and a
+// block made taller by hand see below (CAP-T12REFIT2.json).
 // Wave Intensity's rows in the phone view (CAP-T12WAVEPHONE.json, nine paths, each read in two sessions) follow their own rule:
 // a line that grows takes the rows that hold it, running over by up to 0.13 of a row (a 60 line keeps 2 rows of 59, as a
 // stand-in's phone height does); a fall from a line that ran over its rows keeps them, down to the rows that hold the new line;
@@ -4227,7 +4228,9 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   else if (phone) need = fit;
   else if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
-  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover) /.test(label)) need = rows0;
+  // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
+  // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
+  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
   if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
   if (live) return;
   commit(before, label);

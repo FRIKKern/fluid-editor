@@ -1,0 +1,3180 @@
+{
+ "item": "CAP-T12REFIT2",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-23",
+ "engine": "chrome",
+ "question": "T12 (task-f38983d37d8db815), after #759 (CAP-T12WAVEREFIT): do Fade edges, Item Spacing and Text Size move a Scrolling block's rows after a Wave Intensity fall that left its line running over, and does a Design press move the rows of a block made taller by hand? A new Scrolling block per plan on Blocks Probe at a 1600 by 1000 window, Design tab. F: 180>90, Fade edges. G: 180>90, Item Spacing pressed on its range at 0.9 (0.5em to 2.7em). H: 180>90, Large text size. I: 120>0, Medium text size. J: the bottom handle pulled down 82 px (2 rows), Fade edges. K: the same pull, Animation speed 2x. Each plan read after every step and again after Escape (let go). R1 read F to K, R2 K to F: every plan in two sessions. Nothing saved, each session left by Exit Without Saving.",
+ "visited": "Blocks Probe",
+ "readsAre": "layout: desktop and phone grid areas, rows (the section's row count), rowSizes, block (height), marquee and svg ([top in the block, height]), ctl (each Direction, Speed, Pause on hover, Fade edges and Text Size control's label and on state), value (the first range), ranges (each range: its label, value, min, max). The read's name is the session, the plan, and the steps in order, '>' between them.",
+ "answer": [
+  "After a fall that left the line running over, Fade edges and Item Spacing move no rows, as Speed does (#759): 180>90 keeps 3 rows (1/2/4/26, block 124) through each.",
+  "Text Size refits the rows to the new line: Large after 180>90 takes 7 rows (1/2/8/26, block 277); Medium after 120>0 takes 3 rows (1/2/4/26, block 112.3, the line 93 high, 9.6 from its top).",
+  "A block made taller by hand (1/2/3/26 pulled to 1/2/5/26, the line 34 high, 59.7 from its top) keeps its rows at Fade edges and at Animation speed 2x.",
+  "R1 and R2 read alike in all 28 reads (areas, rows, block, line, controls on, ranges). The phone area stays 1/2/3/10 throughout.",
+  "Not read: Text Style; Text Size on a block made taller by hand; Item Spacing by a drag or the number box; the phone view."
+ ],
+ "localGuesses": {
+  "written": "none: no guess was written down before the reads",
+  "main": "main today refits the rows to the line at every press but Wave, Speed, Direction and Pause on hover; it is wrong for Fade edges and Item Spacing after a fall and for Fade edges on a block made taller by hand"
+ },
+ "runs": {
+  "R1": {
+   "path": "/blocks-probe",
+   "reads": {
+    "R1 F default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 F 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 F 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 F 180>90>Fade edges": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        true,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 F 180>90>Fade edges let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 G default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 G 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 G 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 G 180>90>spacing 0.9": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "2.7",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 G 180>90>spacing 0.9 let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 H default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 H 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 H 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 H 180>90>Large text size": {
+     "layout": {
+      "desktop": "1/2/8/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.1406px 30.0938px",
+      "block": 277,
+      "marquee": [
+       0,
+       277
+      ],
+      "svg": [
+       18.7,
+       277
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 H 180>90>Large text size let go": {
+     "layout": {
+      "desktop": "1/2/8/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.1406px 30.0938px",
+      "block": 277,
+      "marquee": [
+       0,
+       277
+      ],
+      "svg": [
+       18.7,
+       277
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 I default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 I 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "120",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 I 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 I 120>0>Medium text size": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.6,
+       93
+      ],
+      "svg": [
+       18.9,
+       93
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Medium text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 I 120>0>Medium text size let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.6,
+       93
+      ],
+      "svg": [
+       18.9,
+       93
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 J default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 J pull 82": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 J pull 82>Fade edges": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        true,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 J pull 82>Fade edges let go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 K default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 K pull 82": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R1 K pull 82>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 2x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R1 K pull 82>Animation speed 2x let go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    }
+   },
+   "log": [
+    "read R1 F default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 F 180",
+    "wave press 90",
+    "read R1 F 180>90",
+    "pressed Fade edges",
+    "read R1 F 180>90>Fade edges",
+    "read R1 F 180>90>Fade edges let go",
+    "read R1 G default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 G 180",
+    "wave press 90",
+    "read R1 G 180>90",
+    "spacing press 0.9",
+    "read R1 G 180>90>spacing 0.9",
+    "read R1 G 180>90>spacing 0.9 let go",
+    "read R1 H default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 H 180",
+    "wave press 90",
+    "read R1 H 180>90",
+    "pressed Large text size",
+    "read R1 H 180>90>Large text size",
+    "read R1 H 180>90>Large text size let go",
+    "read R1 I default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R1 I 120",
+    "wave press 0",
+    "read R1 I 120>0",
+    "pressed Medium text size",
+    "read R1 I 120>0>Medium text size",
+    "read R1 I 120>0>Medium text size let go",
+    "read R1 J default",
+    "pulled down 82",
+    "read R1 J pull 82",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Fade edges",
+    "read R1 J pull 82>Fade edges",
+    "read R1 J pull 82>Fade edges let go",
+    "read R1 K default",
+    "pulled down 82",
+    "read R1 K pull 82",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Animation speed 2x",
+    "read R1 K pull 82>Animation speed 2x",
+    "read R1 K pull 82>Animation speed 2x let go"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  },
+  "R2": {
+   "path": "/blocks-probe",
+   "reads": {
+    "R2 K default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 K pull 82": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 K pull 82>Animation speed 2x": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 2x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 K pull 82>Animation speed 2x let go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 J default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 J pull 82": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 J pull 82>Fade edges": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        true,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 J pull 82>Fade edges let go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 I default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 I 120": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "120",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 I 120>0": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 I 120>0>Medium text size": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.6,
+       93
+      ],
+      "svg": [
+       18.9,
+       93
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Medium text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "0",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 I 120>0>Medium text size let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.6,
+       93
+      ],
+      "svg": [
+       18.9,
+       93
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 H default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 H 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 H 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 H 180>90>Large text size": {
+     "layout": {
+      "desktop": "1/2/8/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.1406px 30.0938px",
+      "block": 277,
+      "marquee": [
+       0,
+       277
+      ],
+      "svg": [
+       18.7,
+       277
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 H 180>90>Large text size let go": {
+     "layout": {
+      "desktop": "1/2/8/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.1406px 30.0938px",
+      "block": 277,
+      "marquee": [
+       0,
+       277
+      ],
+      "svg": [
+       18.7,
+       277
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 G default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 G 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 G 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 G 180>90>spacing 0.9": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "2.7",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 G 180>90>spacing 0.9 let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 F default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    },
+    "R2 F 180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "180",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 F 180>90": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 F 180>90>Fade edges": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        true,
+        "css-1h34l1u"
+       ]
+      ],
+      "value": "90",
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90",
+        "0",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5",
+        "0",
+        "3"
+       ]
+      ]
+     }
+    },
+    "R2 F 180>90>Fade edges let go": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "34px 30.0938px",
+      "block": 124,
+      "marquee": [
+       0,
+       124
+      ],
+      "svg": [
+       3.4,
+       124
+      ],
+      "ctl": [],
+      "ranges": []
+     }
+    }
+   },
+   "log": [
+    "read R2 K default",
+    "pulled down 82",
+    "read R2 K pull 82",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Animation speed 2x",
+    "read R2 K pull 82>Animation speed 2x",
+    "read R2 K pull 82>Animation speed 2x let go",
+    "read R2 J default",
+    "pulled down 82",
+    "read R2 J pull 82",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Fade edges",
+    "read R2 J pull 82>Fade edges",
+    "read R2 J pull 82>Fade edges let go",
+    "read R2 I default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R2 I 120",
+    "wave press 0",
+    "read R2 I 120>0",
+    "pressed Medium text size",
+    "read R2 I 120>0>Medium text size",
+    "read R2 I 120>0>Medium text size let go",
+    "read R2 H default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 H 180",
+    "wave press 90",
+    "read R2 H 180>90",
+    "pressed Large text size",
+    "read R2 H 180>90>Large text size",
+    "read R2 H 180>90>Large text size let go",
+    "read R2 G default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 G 180",
+    "wave press 90",
+    "read R2 G 180>90",
+    "spacing press 0.9",
+    "read R2 G 180>90>spacing 0.9",
+    "read R2 G 180>90>spacing 0.9 let go",
+    "read R2 F default",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 F 180",
+    "wave press 90",
+    "read R2 F 180>90",
+    "pressed Fade edges",
+    "read R2 F 180>90>Fade edges",
+    "read R2 F 180>90>Fade edges let go"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  }
+ }
+}
