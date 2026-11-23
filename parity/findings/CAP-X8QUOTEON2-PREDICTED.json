@@ -1,0 +1,66 @@
+{
+ "item": "CAP-X8QUOTEON2-PREDICTED",
+ "question": "X8, a short Quote, round 2 (task-643d0da61bec5e35): tests the rule fitted after CAP-X8QUOTEON.json t2 (a Shape above L that starts below the Quote's top moved d). Setup as t2 there (a new Quote widened east 118 px, two Shapes at columns 14 to 20, the group made narrower from the east by 520 px, ours: the Quote 1.08 rows short), then the Quote dragged down 2 rows. u1: the upper Shape starts on the Quote's top row and ends above L (1/14/5/20), the lower on L + 1 (8/14/14/20). u2: the upper Shape starts below the Quote's top and ends above L (3/14/5/20), the lower on L + 3 (10/14/16/20). Read on Blocks Probe, each case on its own entry, twice (a, b), nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-below": "Fitted after t2: besides the blocks that grow (across L, or ending on L from the Quote's top), every block that starts below the Quote's top moves d; one that starts on or above the top and ends above L stays. u1's upper stays, u2's upper moves 1; both lower Shapes move 1.",
+  "H-rows": "Every block inside the Quote's rows (ending below its top) moves d unless it grows: u1's upper moves 1 too.",
+  "H-main": "Ours today (#761): a block ending above L stays: both upper Shapes stay; both lower Shapes move 1."
+ },
+ "predicted": {
+  "u1 dropped": [
+   "1/2/7/6",
+   "1/8/5/11",
+   "8/8/14/11"
+  ],
+  "u1 next": {
+   "H-below": [
+    "3/2/11/6",
+    "1/8/5/11",
+    "9/8/15/11"
+   ],
+   "H-rows": [
+    "3/2/11/6",
+    "2/8/6/11",
+    "9/8/15/11"
+   ],
+   "H-main": [
+    "3/2/11/6",
+    "1/8/5/11",
+    "9/8/15/11"
+   ]
+  },
+  "u2 dropped": [
+   "1/2/7/6",
+   "3/8/5/11",
+   "10/8/16/11"
+  ],
+  "u2 next": {
+   "H-below": [
+    "3/2/11/6",
+    "4/8/6/11",
+    "11/8/17/11"
+   ],
+   "H-rows": [
+    "3/2/11/6",
+    "4/8/6/11",
+    "11/8/17/11"
+   ],
+   "H-main": [
+    "3/2/11/6",
+    "3/8/5/11",
+    "11/8/17/11"
+   ]
+  }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first). Dropped areas follow CAP-X8QUOTEON.json t2; if a drop lands elsewhere, a case is scored on whether each Shape grew, moved or stayed. u1 splits H-rows from the other two; u2 splits H-main from the other two.",
+ "cases": {
+  "u1": [
+   "u1a next",
+   "u1b next"
+  ],
+  "u2": [
+   "u2a next",
+   "u2b next"
+  ]
+ }
+}
