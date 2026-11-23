@@ -1,0 +1,92 @@
+{
+ "item": "CAP-X8QUOTEON-PREDICTED",
+ "question": "X8, a short Quote's blocks on its line L (task-643d0da61bec5e35), the cases #761 named not read. Setup as CAP-X8QUOTEMORE.json: a new Quote widened east 118 px, a Shape at columns 14 to 20, a second Shape lower; the three made narrower as a group from the east; the next gesture drags the Quote down 2 rows. t1: the upper Shape ends on L and starts on the Quote's top row (1/14/7/20), the lower on L + 1 (8/14/14/20), group -470 (ours: the Quote 0.42 rows short). t2: as s1, the upper Shape above L (2/14/6/20), the lower starting on L (7/14/13/20), group -520 (ours: 1.08 rows short). t3: as s2, the upper Shape ending on L and starting below the Quote's top (2/14/7/20), the lower on L + 1, group -520. Read on Blocks Probe, each case on its own entry, twice (a, b), nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-main": "Ours today (#761): the Quote grows its need rounded up; d for the others is the overflow rounded (0.42: 0, 1.08: 1). A block across L, or ending on L and starting on or above the Quote's top, grows max(1, d); any other block ending on or below L moves d. So t1's upper Shape grows 1, t2's lower Shape moves 1, t3's upper Shape moves 1 and its lower moves 1.",
+  "H-stay": "Blocks on L (starting on it or ending on it, not across it) stay, at any shortness, as s1 and s2 did at 0.42; the rest as H-main. t1's upper stays, t2's lower stays, t3's upper stays and its lower moves 1.",
+  "H-grow": "A block ending on L grows as one across L, wherever it starts: t1's upper grows 1, t3's upper grows 1 (2/8/8/11); a block starting on L moves d (t2's lower moves 1)."
+ },
+ "predicted": {
+  "t1 dropped": [
+   "1/2/7/7",
+   "1/9/7/12",
+   "8/9/14/12"
+  ],
+  "t1 next": {
+   "H-main": [
+    "3/2/10/7",
+    "1/9/8/12",
+    "8/9/14/12"
+   ],
+   "H-stay": [
+    "3/2/10/7",
+    "1/9/7/12",
+    "8/9/14/12"
+   ],
+   "H-grow": [
+    "3/2/10/7",
+    "1/9/8/12",
+    "8/9/14/12"
+   ]
+  },
+  "t2 dropped": [
+   "1/2/7/6",
+   "2/8/6/11",
+   "7/8/13/11"
+  ],
+  "t2 next": {
+   "H-main": [
+    "3/2/11/6",
+    "2/8/6/11",
+    "8/8/14/11"
+   ],
+   "H-stay": [
+    "3/2/11/6",
+    "2/8/6/11",
+    "7/8/13/11"
+   ],
+   "H-grow": [
+    "3/2/11/6",
+    "2/8/6/11",
+    "8/8/14/11"
+   ]
+  },
+  "t3 dropped": [
+   "1/2/7/6",
+   "2/8/7/11",
+   "8/8/14/11"
+  ],
+  "t3 next": {
+   "H-main": [
+    "3/2/11/6",
+    "3/8/8/11",
+    "9/8/15/11"
+   ],
+   "H-stay": [
+    "3/2/11/6",
+    "2/8/7/11",
+    "9/8/15/11"
+   ],
+   "H-grow": [
+    "3/2/11/6",
+    "2/8/8/11",
+    "9/8/15/11"
+   ]
+  }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first). The dropped areas are taken from CAP-X8QUOTEMORE.json's s-reads; if the oracle's drop lands elsewhere, a case is scored on the Quote's growth and on whether each Shape grew, moved or stayed. t1 does not split H-main from H-grow; t2 does not split H-main from H-grow.",
+ "cases": {
+  "t1": [
+   "t1a next",
+   "t1b next"
+  ],
+  "t2": [
+   "t2a next",
+   "t2b next"
+  ],
+  "t3": [
+   "t3a next",
+   "t3b next"
+  ]
+ }
+}

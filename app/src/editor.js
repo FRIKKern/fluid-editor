@@ -1297,8 +1297,10 @@ function onCancel(e) {
 // blocks take d as for a Text, the overflow rounded (0, 1, 3), except that a block across L grows at least 1. So at 0.42 a
 // block that starts on L, ends on L or starts below it stays, and at 1.08 a Shape across L grows 1 and one below moves 1.
 // (The shortness is ours: 0.42, 1.08 and 2.57 rows for s1, s3 and s4; the oracle's Quote content reads 218.8, 252.9, 321.3 px.)
-// Not read for a Quote: a block ending on L that starts on or above its top (it grows as one across L), or a block that
-// starts on L or ends on L when the Quote is more than half a row short (they move d, the Text rule).
+// Blocks on L (CAP-X8QUOTEON.json t1 to t3; CAP-X8QUOTEON2.json u1, u2, predictions pushed first; each case read twice): one
+// ending on L from the Quote's top row grows as one across L; at 1.08 one starting on L or ending on L below the top moves d.
+// Unlike a Text, a block above L that starts below the Quote's top moves d too (t2, u2); one from its top row stays (u1).
+// Not read for a Quote: a block outside the group, one that starts above its top, a group with a short Text as well.
 let stored = null;
 function storedRows(g) {
   const m = measure(feEl(g.sid)), s = S(g.sid);
@@ -1314,7 +1316,7 @@ function storedRows(g) {
     const a = [...lay(b).area];
     if (b.id === tid) a[2] += d;
     else if ((a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += grow;
-    else if (a[2] >= L) { a[0] += move; a[2] += move; }
+    else if (a[2] >= L || (quote && a[0] > t0)) { a[0] += move; a[2] += move; }
     areas.set(b.id, a);
   }
   return { sid: g.sid, bp, areas, d };
