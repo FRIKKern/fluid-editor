@@ -146,7 +146,8 @@ export function wireScrolling(panel, api) {
     r.style.setProperty('--p', `${((v - r.min) / (r.max - r.min)) * 100}%`);
     const f = panel.querySelector(`[data-scr-field="${key}"]`);
     if (f) f.value = `${num(v)}${f.dataset.unit}`;
-    api.set((x) => write(x, key, v), '', null, true);
+    // The label names the key for setScrolling's rows rule; a live step is no undo step, so it is not shown.
+    api.set((x) => write(x, key, v), `${key} ${v}`, null, true);
     rangeBefore.at = api.snapshot();
   });
 }

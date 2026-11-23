@@ -4227,7 +4227,9 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   else if (phone) need = fit;
   else if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
-  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover) /.test(label)) need = rows0;
+  // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
+  // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
+  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
   if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
   if (live) return;
   commit(before, label);
