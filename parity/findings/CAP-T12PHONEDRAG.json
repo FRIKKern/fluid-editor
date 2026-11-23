@@ -1,0 +1,707 @@
+{
+ "item": "CAP-T12PHONEDRAG",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-23",
+ "engine": "chrome",
+ "question": "T12 (task-ba76b4e4788ced7e): a Scrolling block's phone rows after a real drag along Wave Intensity's range in the phone view, and after Text Size L then a wave fall. On Blocks Probe at a 1600 by 1000 window, one new section and Scrolling block per plan, made on the desktop; then Mobile View (the frame 428 wide), and per block: select, Edit, Design, then the plan's steps, a read after each. Plans: a, a press at 180, then a drag from 180 to 90 (24 moves, then let go); b, a press at 120, a drag to 30; c, Large text size, then presses at 30 and 0; d, a press at 180, a drag to 0. R1 and R2 are two clean rounds, each its own edit session, nothing saved, each left by Exit Without Saving.",
+ "visited": "Blocks Probe",
+ "readsAre": "layout as in CAP-T12WAVEPHONE.json: desktop and phone grid areas, rows (the section's phone rows after 'phone'), rowSizes, block (height), marquee and svg ([top in the block, height]); value: the range's value after the step. Read names: round, plan, then 'default', 'phone', or the steps with '>' between them ('drag v' is a drag that ended at v, 'L' the Large text size press).",
+ "answer": [
+  "R1 and R2 read alike at every step.",
+  "A drag counts its steps: 180 dragged to 90 leaves 3 phone rows for a 120 line (a press from 180 to 90 leaves 4, CAP-T12WAVEPHONE.json plan 1); 120 dragged to 30 leaves 1 row for a 60 line (a press leaves 2); 180 dragged to 0 leaves 1 row. The range ends on the value dragged to.",
+  "Text Size L on a new block in the phone view takes 4 phone rows for its 128 line; then 30 takes 5 (a 158 line), and 0 takes 3 rows for 128 px: the foot moves up by the 30 px fall and snaps down to the pitch, as for Small (CAP-T12WAVEPHONE.json).",
+  "The desktop area stays 1/2/3/26 throughout."
+ ],
+ "runs": {
+  "R1": {
+   "path": "/blocks-probe",
+   "frameWidth": 428,
+   "reads": {
+    "R1 a default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R1 b default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R1 c default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R1 d default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R1 a phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R1 a 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ]
+     },
+     "value": "180"
+    },
+    "R1 a 180>drag 90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/4/10",
+      "rows": 3,
+      "rowSizes": "32.6562px",
+      "block": 120,
+      "marquee": [
+       0,
+       120
+      ],
+      "svg": [
+       3,
+       120
+      ]
+     },
+     "value": "90"
+    },
+    "R1 b phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R1 b 120": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 5,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       7,
+       150
+      ],
+      "svg": [
+       10,
+       150
+      ]
+     },
+     "value": "120"
+    },
+    "R1 b 120>drag 30": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/2/10",
+      "rows": 1,
+      "rowSizes": "60px",
+      "block": 60,
+      "marquee": [
+       0,
+       60
+      ],
+      "svg": [
+       3,
+       60
+      ]
+     },
+     "value": "30"
+    },
+    "R1 c phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R1 c L": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       0.5,
+       128
+      ],
+      "svg": [
+       13.3,
+       128
+      ]
+     },
+     "value": "0"
+    },
+    "R1 c L>30": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 5,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       3,
+       158
+      ],
+      "svg": [
+       15.8,
+       158
+      ]
+     },
+     "value": "30"
+    },
+    "R1 c L>30>0": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/4/10",
+      "rows": 3,
+      "rowSizes": "35.3281px",
+      "block": 128,
+      "marquee": [
+       0,
+       128
+      ],
+      "svg": [
+       12.8,
+       128
+      ]
+     },
+     "value": "0"
+    },
+    "R1 d phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R1 d 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ]
+     },
+     "value": "180"
+    },
+    "R1 d 180>drag 0": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/2/10",
+      "rows": 1,
+      "rowSizes": "30px",
+      "block": 30,
+      "marquee": [
+       0,
+       30
+      ],
+      "svg": [
+       3,
+       30
+      ]
+     },
+     "value": "0"
+    }
+   },
+   "log": [
+    "read R1 a default",
+    "read R1 b default",
+    "read R1 c default",
+    "read R1 d default",
+    "pressed Mobile View",
+    "read R1 a phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 a 180",
+    "wave drag 180>90",
+    "read R1 a 180>drag 90",
+    "read R1 b phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R1 b 120",
+    "wave drag 120>30",
+    "read R1 b 120>drag 30",
+    "read R1 c phone",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Large text size",
+    "read R1 c L",
+    "wave press 30",
+    "read R1 c L>30",
+    "wave press 0",
+    "read R1 c L>30>0",
+    "read R1 d phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R1 d 180",
+    "wave drag 180>0",
+    "read R1 d 180>drag 0"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  },
+  "R2": {
+   "path": "/blocks-probe",
+   "frameWidth": 428,
+   "reads": {
+    "R2 a default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R2 b default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R2 c default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R2 d default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ]
+     }
+    },
+    "R2 a phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R2 a 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ]
+     },
+     "value": "180"
+    },
+    "R2 a 180>drag 90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/4/10",
+      "rows": 3,
+      "rowSizes": "32.6562px",
+      "block": 120,
+      "marquee": [
+       0,
+       120
+      ],
+      "svg": [
+       3,
+       120
+      ]
+     },
+     "value": "90"
+    },
+    "R2 b phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R2 b 120": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 5,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       7,
+       150
+      ],
+      "svg": [
+       10,
+       150
+      ]
+     },
+     "value": "120"
+    },
+    "R2 b 120>drag 30": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/2/10",
+      "rows": 1,
+      "rowSizes": "60px",
+      "block": 60,
+      "marquee": [
+       0,
+       60
+      ],
+      "svg": [
+       3,
+       60
+      ]
+     },
+     "value": "30"
+    },
+    "R2 c phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R2 c L": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       0.5,
+       128
+      ],
+      "svg": [
+       13.3,
+       128
+      ]
+     },
+     "value": "0"
+    },
+    "R2 c L>30": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 5,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       3,
+       158
+      ],
+      "svg": [
+       15.8,
+       158
+      ]
+     },
+     "value": "30"
+    },
+    "R2 c L>30>0": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/4/10",
+      "rows": 3,
+      "rowSizes": "35.3281px",
+      "block": 128,
+      "marquee": [
+       0,
+       128
+      ],
+      "svg": [
+       12.8,
+       128
+      ]
+     },
+     "value": "0"
+    },
+    "R2 d phone": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 2,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ]
+     }
+    },
+    "R2 d 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ]
+     },
+     "value": "180"
+    },
+    "R2 d 180>drag 0": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/2/10",
+      "rows": 1,
+      "rowSizes": "30px",
+      "block": 30,
+      "marquee": [
+       0,
+       30
+      ],
+      "svg": [
+       3,
+       30
+      ]
+     },
+     "value": "0"
+    }
+   },
+   "log": [
+    "read R2 a default",
+    "read R2 b default",
+    "read R2 c default",
+    "read R2 d default",
+    "pressed Mobile View",
+    "read R2 a phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 a 180",
+    "wave drag 180>90",
+    "read R2 a 180>drag 90",
+    "read R2 b phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 120",
+    "read R2 b 120",
+    "wave drag 120>30",
+    "read R2 b 120>drag 30",
+    "read R2 c phone",
+    "pressed Edit",
+    "pressed Design",
+    "pressed Large text size",
+    "read R2 c L",
+    "wave press 30",
+    "read R2 c L>30",
+    "wave press 0",
+    "read R2 c L>30>0",
+    "read R2 d phone",
+    "pressed Edit",
+    "pressed Design",
+    "wave press 179",
+    "read R2 d 180",
+    "wave drag 180>0",
+    "read R2 d 180>drag 0"
+   ],
+   "exitSteps": [
+    "top Exit",
+    "dialog Exit"
+   ]
+  }
+ }
+}
