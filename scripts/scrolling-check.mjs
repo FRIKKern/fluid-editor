@@ -294,12 +294,14 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
     for (const [sc, setup, k, what] of [['D0', linkOpen, 'Meta+d', 'nothing picked, Cmd+D: no copy'], ['D1', pickEsc, 'Meta+d', 'a pick and Escape, Cmd+D: no copy'], ['H0', linkOpen, 'Meta+Shift+h', 'nothing picked, Cmd+Shift+H: not hidden'], ['H1', pickEsc, 'Meta+Shift+h', 'a pick and Escape, Cmd+Shift+H: not hidden']]) {
       await setup(); const d0 = ks().depth; browser(S, 'press', k); await pause(400); const w = ks(), o = kw(`R1 ${sc} ${k === 'Meta+d' ? 'Cmd+D' : 'Cmd+Shift+H'}`);
       add(`Link field, ${what}`, same(w, o, d0), JSON.stringify({ ours: w, oracle: o }));
-      // The browser's own Cmd+Shift+H (Chrome on a Mac: open the home page in this tab) stays cancelled, as before #763
-      // (task-83d0746d126345f0). Headless shows no browser shortcut, so the row reads the keydown's defaultPrevented.
+      // The browser's own Cmd+Shift+H and Cmd+D (Chrome on a Mac: open the home page in this tab, bookmark this page) stay
+      // cancelled, as before #763 (task-83d0746d126345f0, task-a78ac14b16c8d5bd). Headless shows no browser shortcut, so the
+      // row reads the keydown's defaultPrevented.
       if (sc[0] === 'H') add(`Link field, ${what.split(',')[0]}, Cmd+Shift+H: the browser default is cancelled`, kd() === 'KeyH true', kd());
+      else add(`Link field, ${what.split(',')[0]}, Cmd+D: the browser default is cancelled`, kd() === 'KeyD true', kd());
     }
     // Cmd+Shift+D (Chrome: bookmark all tabs) alike: cancelled, and no copy. Not read on the oracle; the want is main's
-    // before #763. Cmd+D's own default is #763's, not pinned here.
+    // before #763.
     await linkOpen(); { const d0 = ks().depth; browser(S, 'press', 'Meta+Shift+d'); await pause(400); const w = ks(), p = kd();
       add('Link field, nothing picked, Cmd+Shift+D: the browser default is cancelled, no copy', p === 'KeyD true' && w.n === 1 && w.open && w.depth === d0, JSON.stringify({ w, p })); }
     await about(); const d0 = ks().depth;
@@ -529,7 +531,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 263;
+const CASES = 265;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
