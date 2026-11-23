@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 228,
- "total": 228,
+ "pass": 231,
+ "total": 231,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -440,7 +440,19 @@
    "ok": true
   },
   {
-   "what": "Nothing picked, Escape twice: the editor closes",
+   "what": "Nothing picked, Escape: the list goes, the editor open on its empty field",
+   "ok": true
+  },
+  {
+   "what": "Nothing picked, Escape again: the editor stays open",
+   "ok": true
+  },
+  {
+   "what": "Nothing picked, a third Escape: still open",
+   "ok": true
+  },
+  {
+   "what": "Nothing picked, Escapes, then Cmd+Z: the block and the editor stay, Redo on",
    "ok": true
   },
   {

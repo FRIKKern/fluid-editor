@@ -3,7 +3,7 @@
  "oracle": "/blocks-probe",
  "capturedAt": "2026-11-22",
  "engine": "chrome",
- "question": "T12 (task-4cbaae7d818cec62): Cmd+Z in a Scrolling block's link field. A new section and Scrolling block on Blocks Probe at 1600 by 1000, Edit, Content, Attach link, the About page picked (or nothing picked), then Cmd+Z, Cmd+Shift+Z, Escape, a press away (the panel's Content tab) or the Undo button, read after each step. Two clean rounds (R1, R2) in one Chrome session, each scenario on its own entry, nothing saved.",
+ "question": "T12 (task-4cbaae7d818cec62): Cmd+Z in a Scrolling block's link field. A new section and Scrolling block on Blocks Probe at 1600 by 1000, Edit, Content, Attach link, the About page picked (or nothing picked), then Cmd+Z, Cmd+Shift+Z, Escape, a press away (the panel's Content tab) or the Undo button, read after each step. Two clean rounds (R1, R2) in one Chrome session, each scenario on its own entry, nothing saved. J1 (2026-11-23, oracleJ, its own Chrome session): Z13, Attach link with nothing picked, then Escape three times and Cmd+Z.",
  "visited": "Blocks Probe",
  "readsAre": "block: the new block's state in its section (n blocks, gone, data-is-selected, desktop grid area, opacity; others: other blocks' area and selected); pop: the link editor's field [value, left, top] or null when closed, options: page rows showing, linkRow: the panel's Link row texts; focus: [document, tag, label, value] of the focused element; undo: [name, disabled] for Save, Undo, Redo. Each scenario on a fresh section and Scrolling block, left by Exit Without Saving (exits).",
  "answer": [
@@ -14,7 +14,7 @@
   "Z4 (R1, R2): a pick, Cmd+Z, a press away: the link is /about again, Redo off; Undo then takes it, Redo on.",
   "Z5 (R1, R2): a pick, Cmd+Z, Cmd+Shift+Z: Redo off; a press away: the link is /about, Redo off.",
   "Z1, Z2, Z6 (R1): the same with Cmd+Z twice, also after one Escape; Z0 (R1): a pick and a press away keeps /about.",
-  "Z10 (R1, R2): Attach link with nothing picked, Escape and Escape again: the editor stays open, its empty field focused. Not built here (ours closes it; filed)."
+  "Z10 (R1, R2) and Z13 (J1, a fresh session on 2026-11-23): Attach link with nothing picked shows the page list; the first Escape takes the list, and Escape again (and a third time, Z13) leaves the editor open, its empty field focused, Undo and Redo as they were. Cmd+Z after that takes Attach link's step: Redo on, the editor still open."
  ],
  "runs": {
   "R1": {
@@ -3070,6 +3070,258 @@
      "dialog Exit"
     ],
     "Z10": [
+     "top Exit",
+     "dialog Exit"
+    ]
+   }
+  },
+  "J1": {
+   "reads": {
+    "J1 Z13 start": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0"
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "J1 Z13 open": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 6,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "J1 Z13 Escape 1": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "J1 Z13 Escape 2": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "J1 Z13 Escape 3": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "J1 Z13 Cmd+Z": {
+     "block": {
+      "n": 1,
+      "gone": false,
+      "selected": "true",
+      "area": "1/2/3/26",
+      "opacity": "1",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      ""
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       false
+      ]
+     ]
+    }
+   },
+   "exits": {
+    "Z13": [
      "top Exit",
      "dialog Exit"
     ]

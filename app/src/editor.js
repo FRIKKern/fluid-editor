@@ -4767,11 +4767,12 @@ linkPop.addEventListener('keydown', (e) => {
     // A Scrolling block's link editor stays open on Escape, once or twice, its field focused with the link in it
     // (CAP-T12LINKESC.json R3, CAP-T12SCROLLLIST.json scroll10-a, and two more sessions alike, each after a page pick on
     // Attach link). Only that state is kept: a URL link, the page picked in this opening (scrollLinkShown), no list or kind menu
-    // showing. Everything else closes as before (not read: nothing picked, a link typed, Email or Phone, the kind menu).
+    // showing. Everything else closes as before (not read: a link typed, Email or Phone, the kind menu).
     // Cmd+Z on the pick keeps it so: the field still shows the page, and Escape, once and twice, leaves the editor open
-    // (CAP-T12LINKZ.json Z3, R1 and R2 alike).
+    // (CAP-T12LINKZ.json Z3, R1 and R2 alike). So does Attach link with nothing picked: the first Escape takes the list, the
+    // next ones leave the editor open on its empty field (Z10 R1 and R2, Z13 J1).
     const list = linkPop.querySelector('.lk-pages:not([hidden])');
-    if (!list && !linkTarget && linkPop.dataset.kind === 'url' && linkPop.querySelector('.lk-menu')?.hidden !== false && scrollLinkShown()) { linkPop.querySelector('.lk-input')?.focus(); return; }
+    if (!list && !linkTarget && linkPop.dataset.kind === 'url' && linkPop.querySelector('.lk-menu')?.hidden !== false && (scrollLinkShown() || scrollLinkEmpty())) { linkPop.querySelector('.lk-input')?.focus(); return; }
     if (!linkPop.dataset.cleared && list) showLinkList(false);
     else closeLinkToBar();
   }
@@ -4854,6 +4855,8 @@ let linkPickedAt = null;
 let undoClosedLink = null; // the step a press on Undo saw when it only closed the editor; its click skips only on that step
 // The page picked in this opening still in the field, picked last or taken back by Cmd+Z since (Escape above).
 const scrollLinkShown = () => { const b = B(linkSid, linkPop.dataset.bid), v = linkPop.dataset.picked; return b?.type === 'scrolling' && !!v && linkPop.querySelector('.lk-input')?.value === v && (!b.href || b.href === v); };
+// A fresh Attach link on a Scrolling block with no link: nothing picked or cleared, the field empty.
+const scrollLinkEmpty = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.fresh && !b.href && !linkPop.dataset.picked && !linkPop.dataset.cleared && linkPop.querySelector('.lk-input')?.value === ''; };
 const scrollLinkPicked = () => { const b = B(linkSid, linkPop.dataset.bid); return b?.type === 'scrolling' && !!linkPop.dataset.picked && !!b.href && linkPop.querySelector('.lk-input')?.value === b.href && linkPickedAt === undoStepNow(); };
 const closeLinkOutside = (e) => {
   undoClosedLink = null;
