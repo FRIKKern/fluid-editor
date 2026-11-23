@@ -1,0 +1,24 @@
+{
+ "item": "CAP-X8QUOTEREST3-PREDICTED",
+ "question": "X8, a short Quote (task-45b78f71ceb19857), cases fitted after CAP-X8QUOTEREST.json round a, where a Line above L from below the Quote's top stayed (v3a) and, with the group 600 px narrower, a Shape there moved 1 while the one below L moved 3 (v4a). Setup as there: a new Quote widened east 118 px (1/2/7/10), blocks placed as below, the group of all made narrower from the east, then the Quote dragged down 2 rows. w1: a Shape 1 row tall where v3's Line was (3/14/4/20), a Shape below L (10/14/16/20), 520 px. w2: a Button above L from below the top (3/14/5/20), a Shape below L, 520 px. w3: a Shape from row 2 to 6 (2/14/6/20), a Shape below L, 600 px. x5: v5 with the written Text added first and moved to column 14, then the Quote added (1/2/7/10) and a Shape below L; the Quote is selected first. Read on Blocks Probe, each case on its own entry, in two captures (rounds a and b), nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-main": "Ours today (#765): a block above L that starts below a short Quote's top moves the Quote's rounded overflow (1 at 520 px, 3 at 600 px), whatever its kind or height.",
+  "H-kind": "Only Shapes move there: a Line or a Button above L from below the top stays (v3a).",
+  "H-height": "Only blocks 2 or more rows tall move there: a 1-row block stays, whatever its kind (v3a).",
+  "H-one": "A block above L from below the top moves 1, not the overflow (v4a).",
+  "H-prop": "It moves its share of the overflow, round(over * (bottom - top of Quote) / (L - top of Quote)): v4a's 3-to-5 Shape would move 2, so v4a already refutes it at 600 px; listed to be sure for rows 2 to 6.",
+  "H-quote": "x5: the Quote sets d and L even when a written Text in the group runs over more."
+ },
+ "predicted": {
+  "w1 dropped": ["1/2/7/6", "3/8/4/11", "10/8/16/11"],
+  "w1 next": { "H-main": ["3/2/11/6", "4/8/5/11", "11/8/17/11"], "H-kind": ["3/2/11/6", "4/8/5/11", "11/8/17/11"], "H-height": ["3/2/11/6", "3/8/4/11", "11/8/17/11"] },
+  "w2 dropped": ["1/2/7/6", "3/8/5/11", "10/8/16/11"],
+  "w2 next": { "H-main": ["3/2/11/6", "4/8/6/11", "11/8/17/11"], "H-kind": ["3/2/11/6", "3/8/5/11", "11/8/17/11"], "H-height": ["3/2/11/6", "4/8/6/11", "11/8/17/11"] },
+  "w3 dropped": ["1/2/7/5", "2/7/6/10", "10/7/16/10"],
+  "w3 next": { "H-main": ["3/2/12/5", "5/7/9/10", "13/7/19/10"], "H-one": ["3/2/12/5", "3/7/7/10", "13/7/19/10"], "H-prop": ["3/2/12/5", "4/7/8/10", "13/7/19/10"] },
+  "x5 dropped": ["1/9/6/13", "1/2/7/7", "10/9/16/12"],
+  "x5 next": { "H-main": ["1/9/10/13", "3/2/12/7", "13/9/19/12"], "H-quote": "the Quote grows its own rows and the Text grows as a block across L; the Shape moves the Quote's rounded overflow" }
+ },
+ "note": "Areas are desktop areas in the read's block order (x5: the Text first, then the Quote, then the Shape). Dropped areas are ours; a drop that lands elsewhere is scored on whether each block grew, moved (and by how much) or stayed.",
+ "cases": { "w1": ["w1a next", "w1b next"], "w2": ["w2a next", "w2b next"], "w3": ["w3a next", "w3b next"], "x5": ["x5a next", "x5b next"] }
+}
