@@ -1300,7 +1300,7 @@ function onCancel(e) {
 // Blocks on L (CAP-X8QUOTEON.json t1 to t3; CAP-X8QUOTEON2.json u1, u2, predictions pushed first; each case read twice): one
 // ending on L from the Quote's top row grows as one across L; at 1.08 one starting on L or ending on L below the top moves d.
 // Unlike a Text, a block above L that starts below the Quote's top moves too (t2, u2); one from its top row stays (u1).
-// CAP-X8QUOTEREST.json to CAP-X8QUOTEREST5.json (v, w, x5; predictions pushed first, each case read in two captures): such a
+// CAP-X8QUOTEREST.json to CAP-X8QUOTEREST6.json (v, w, x5; predictions pushed first, each case read in two captures): such a
 // block moves by its middle line c, as if the overflow r (rows, unrounded) stretched the Quote's rows evenly: round(r * (c - top)
 // / (L - top)). So a 1-row block on row 3 stays at 1.08 (v3 a Line, w1 a Shape), a Button on rows 3-5 moves 1 (w2), and at 2.57
 // rows 3-5 move 1 (v4), 4-6 move 2 (w4). Blocks outside the group take the same rules (v1), and one that starts above the

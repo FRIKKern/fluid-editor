@@ -1409,7 +1409,7 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
       groupCases.push({ name: `next gesture after a short Quote ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
     } }
-  // CAP-X8QUOTEREST.json to CAP-X8QUOTEREST5.json (each case in two captures, predictions pushed first): the short-Quote cases #765
+  // CAP-X8QUOTEREST.json to CAP-X8QUOTEREST6.json (each case in two captures, predictions pushed first; v5 also v5b, v5c): the short-Quote cases #765
   // left unread, each replayed from its read start, then the Quote dragged down 2 rows. v1: two Shapes outside the group; v2: the Quote on
   // row 3, a Shape from above its top; v3: a Line and a Button; v4, w3, w4: 600 px; w1, w5: 1-row Shapes; w2: a Button; v5, x5: a
   // written Text in the group (v5's Quote 9 rows, x5's short). A block above L from below the Quote's top moves by its middle line.
