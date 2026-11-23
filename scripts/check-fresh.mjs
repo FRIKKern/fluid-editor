@@ -43,8 +43,10 @@ CAP-X6FLICKRPHONE CAP-X6FLOORSPHONE CAP-X6PHONEROWS CAP-X6SUMMARYFAR CAP-X6SUMMA
 CAP-X8NEXT CAP-X8QUOTE CAP-X8ROWS CAP-X8ROWS2 CAP-X8ROWS3 CAP-X8TYPES CAP-X8TYPES2 CAP-Y2KEYS CAP-Y2KEYS2 CAP-Y2KEYS3
 CAP-Y2KEYS4 CAP-Y2KEYS5 CAP-Y2KEYS6 CAP-Y2KEYS7 CAP-Y2KEYS8 CAP-Y2KEYS9 CAP-Y2SCORE CAP-Z3PATH CAP-Z3PATH2 CAP-Z3SCORE
 CAP-U10ENDSPREDICT
+CAP-X8QUOTEREST CAP-X8QUOTEREST2 CAP-X8QUOTEREST3 CAP-X8QUOTEREST4 CAP-X8QUOTEREST5
 `.trim().split(/\s+/));
 // CAP-U10ENDSPREDICT joined by the lead's ruling: its predictions were pushed in c9ebc9d before the reads, which predate #515.
+// CAP-X8QUOTEREST to REST5 by the lead's ruling (#768): each case's two reads are in two captures (task: two sessions), predictions pushed first.
 
 const CLAIM = /predictions? (were )?pushed|pushed first|-PREDICTED/i;
 const claims = (f, hasSibling) => !!f.predictions || hasSibling || CLAIM.test(String(f.question || ''));

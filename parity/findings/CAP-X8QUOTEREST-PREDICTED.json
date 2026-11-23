@@ -1,0 +1,49 @@
+{
+ "item": "CAP-X8QUOTEREST-PREDICTED",
+ "question": "X8, a short Quote, the cases #765 named not read (task-45b78f71ceb19857). Each case: a new Quote widened east 118 px (1/2/7/10), blocks placed as below, a group of the Quote and the named blocks made narrower from the east, then the Quote dragged down 2 rows. v1: a Shape in the group above L from below the Quote's top (3/14/5/20), and two Shapes outside the group: one above L from below the top (3/20/5/26), one below L (9/20/15/26). v2: the Quote moved down 2 rows first (3/2/9/10), a Shape that starts above its top and ends above L (1/14/5/20), one below L (11/14/17/20). v3: a Line above L from below the top (3/14/4/18) and a Button below L (10/14/12/20). v4: u2's Shapes (3/14/5/20, 10/14/16/20) and the group 600 px narrower (ours: the Quote 2.57 rows short). v5: a written Text (the X8LAG sentence three times) moved to column 14, and a Shape below L (10/14/16/20); ours: the Text runs over more than the Quote. Groups 520 px narrower unless named. Read on Blocks Probe, each case on its own entry, in two captures (rounds a and b), nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-main": "Ours today (#765): the short block with the most overflow sets d and L; in the whole section, a block across L grows, any block ending on or below L moves, and for a Quote a block starting below its top moves too; others stay. Kinds don't matter.",
+  "H-group": "v1: blocks outside the group stay.",
+  "H-text": "v1: outside the group, only the Text rule holds: the block below L moves, the one above L from below the top stays.",
+  "H-rows": "v2: a block inside the Quote's rows (ending below its top) moves, even one that starts above the top.",
+  "H-kind": "v3: kinds other than a Shape stay unless they end on or below L (the Line stays).",
+  "H-one": "v4: a block above L from below the top moves 1, not d.",
+  "H-quote": "v5: the Quote sets d and L even with a written Text in the group (the Text is not first)."
+ },
+ "predicted": {
+  "v1 dropped": ["1/2/7/6", "3/8/5/11", "3/20/5/26", "9/20/15/26"],
+  "v1 next": {
+   "H-main": ["3/2/11/6", "4/8/6/11", "4/20/6/26", "10/20/16/26"],
+   "H-group": ["3/2/11/6", "4/8/6/11", "3/20/5/26", "9/20/15/26"],
+   "H-text": ["3/2/11/6", "4/8/6/11", "3/20/5/26", "10/20/16/26"]
+  },
+  "v2 dropped": ["3/2/9/6", "1/8/5/11", "11/8/17/11"],
+  "v2 next": {
+   "H-main": ["5/2/13/6", "1/8/5/11", "12/8/18/11"],
+   "H-rows": ["5/2/13/6", "2/8/6/11", "12/8/18/11"]
+  },
+  "v3 dropped": ["1/2/7/6", "3/8/4/10", "10/8/12/11"],
+  "v3 next": {
+   "H-main": ["3/2/11/6", "4/8/5/10", "11/8/13/11"],
+   "H-kind": ["3/2/11/6", "3/8/4/10", "11/8/13/11"]
+  },
+  "v4 dropped": ["1/2/7/5", "3/7/5/10", "10/7/16/10"],
+  "v4 next": {
+   "H-main": ["3/2/12/5", "6/7/8/10", "13/7/19/10"],
+   "H-one": ["3/2/12/5", "4/7/6/10", "13/7/19/10"]
+  },
+  "v5 dropped": ["1/2/7/7", "1/9/6/13", "10/9/16/12"],
+  "v5 next": {
+   "H-main": ["3/2/12/7", "1/9/10/13", "13/9/19/12"],
+   "H-quote": "the Text grows as a block across L or one ending on L from the top row would; the Shape moves the Quote's rounded overflow"
+  }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first, then the blocks in the order added). Dropped areas are ours; if a drop lands elsewhere, a case is scored on whether each block grew, moved (and by how much) or stayed. Starts are as designed: a start read that differs is scored from the read start, and named.",
+ "cases": {
+  "v1": ["v1a next", "v1b next"],
+  "v2": ["v2a next", "v2b next"],
+  "v3": ["v3a next", "v3b next"],
+  "v4": ["v4a next", "v4b next"],
+  "v5": ["v5a next", "v5b next"]
+ }
+}
