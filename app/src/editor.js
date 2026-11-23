@@ -1782,10 +1782,12 @@ function onKey(e) {
   // text keys are the field's: Backspace, Delete, the arrows and a typed letter (Shift+S) leave the block alone. Other
   // shortcuts, Cmd+Z and Escape go on as before. The panel's own fields stop their keys already. Not read on the oracle.
   // Cmd+D and Cmd+Shift+H there leave the block too, and so do the arrows on the link editor's own buttons (its Clear):
-  // no copy, not hidden, not moved (CAP-T12LINKKEYS.json, R1 and R2 alike, read in a Scrolling block's link field).
+  // no copy, not hidden, not moved (CAP-T12LINKKEYS.json, R1 and R2 alike, read in a Scrolling block's link field). With a
+  // block picked, Cmd+Shift+H and Cmd+Shift+D still cancel the browser's own shortcut (Chrome on a Mac: the home page, bookmark
+  // all tabs), as before (task-83d0746d126345f0). Cmd+D's bookmark default is left alone.
   const inField = e.target.closest?.('input, textarea, select');
   if (inField && (e.key === 'Backspace' || e.key === 'Delete' || ARROWS[e.key] || (!mod && e.key.length === 1))) return;
-  if (inField && mod && !e.altKey && (e.code === 'KeyD' || (e.shiftKey && e.code === 'KeyH'))) return;
+  if (inField && mod && !e.altKey && (e.code === 'KeyD' || (e.shiftKey && e.code === 'KeyH'))) { if (e.shiftKey && sel && !gesture) e.preventDefault(); return; }
   if (ARROWS[e.key] && linkPop.contains(e.target)) return;
   // Cmd+Shift+H hides the selection on desktop (the oracle's right-click menu shows the shortcut).
   if (sel && !gesture && mod && e.shiftKey && !e.altKey && e.code === 'KeyH') {
