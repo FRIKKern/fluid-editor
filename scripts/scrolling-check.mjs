@@ -324,7 +324,13 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
       add(`Nothing picked, ${what}`, like(w, o) && like(o, o2), JSON.stringify({ ours: w, oracle: o }));
     }
     mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
-    { const w = nz(), o = wz('R1', 'R1 Z10 Cmd+Z'); add('Nothing picked, Escapes, then Cmd+Z: the block and the editor stay, Redo on', like(w, o), JSON.stringify({ ours: w, oracle: o })); } }
+    { const w = nz(), o = wz('R1', 'R1 Z10 Cmd+Z'); add('Nothing picked, Escapes, then Cmd+Z: the block and the editor stay, Redo on', like(w, o), JSON.stringify({ ours: w, oracle: o })); }
+    // Only the untouched opening was read: a letter typed and taken back, or Email and back to URL, closes on the second
+    // Escape as before (review-764; not read, so these wants are ours).
+    await open(); await press('#link-popover .lk-input'); for (const k of ['x', 'Backspace']) { browser(S, 'press', k); await pause(150); }
+    { const w = await esc(2); add('Nothing picked, a letter typed and taken back, Escape twice: the editor closes', !w.open, JSON.stringify(w)); }
+    await open(); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="email"]'); await pause(200); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="url"]'); await pause(300);
+    { const w0 = nz(), w = await esc(2); add('Nothing picked, Email and back to URL, Escape twice: the editor closes', w0.open && w0.value === '' && !w.open, JSON.stringify([w0, w])); } }
   await open(); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); await press('#link-popover .lk-pill'); await press('#link-popover .lk-kind[data-kind="email"]'); await pause(300);
   const mail = await esc(1), mailOpen = qs(`return JSON.stringify(!document.getElementById('link-popover').hidden);`);
   add('Picked, then Email, Escape: the editor closes', !mailOpen, JSON.stringify({ ...mail, mailOpen }));
@@ -468,7 +474,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 231;
+const CASES = 233;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
