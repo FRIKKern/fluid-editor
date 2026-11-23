@@ -1375,8 +1375,11 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
   // dragged down 2 rows, its bottom handle down 1 row, or the group widened back. A Shape across the Quote's line grows 1;
   // one that starts below it stays. CAP-X8QUOTEMORE.json s1a to s4a (b alike): a Shape starting on the line, one ending on
   // it, and the group made narrower by 520 or 600 px, so the Quote is more than a row short: the others take d rounded.
-  { const R = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8QUOTEBELOW', 'CAP-X8QUOTEMORE'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
-    for (const [n, kind, dx = -470] of [['q1', 'move'], ['q2', 'group'], ['m5', 'move'], ['r1a', 'move'], ['r2a', 's'], ['s1a', 'move'], ['s2a', 'move'], ['s3a', 'move', -520], ['s4a', 'move', -600]]) {
+  // CAP-X8QUOTEON.json t1a to t3a and CAP-X8QUOTEON2.json u1a, u2a (b alike): a Shape ending on L from the Quote's top row
+  // grows; at 520 px one starting on L, one ending on L below the top and one above L starting below the top move d; one
+  // above L from the top row stays.
+  { const R = Object.assign({}, ...['CAP-X8LAG', 'CAP-X8LAG2', 'CAP-X8QUOTEBELOW', 'CAP-X8QUOTEMORE', 'CAP-X8QUOTEON', 'CAP-X8QUOTEON2'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    for (const [n, kind, dx = -470] of [['q1', 'move'], ['q2', 'group'], ['m5', 'move'], ['r1a', 'move'], ['r2a', 's'], ['s1a', 'move'], ['s2a', 'move'], ['s3a', 'move', -520], ['s4a', 'move', -600], ['t1a', 'move'], ['t2a', 'move', -520], ['t3a', 'move', -520], ['u1a', 'move', -520], ['u2a', 'move', -520]]) {
       const start = R[`${n} start`].areas.map((a) => a[0].split('/').map(Number)), want = R[`${n} next`].areas.map((a) => a[0]);
       const got = evalJs(S, `(async () => {
         const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
