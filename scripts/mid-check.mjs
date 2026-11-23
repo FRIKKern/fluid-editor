@@ -1409,6 +1409,49 @@ for (const [what, area0, after, extra] of [['shape', '2 / 15 / 12 / 25', '2 / 15
         return JSON.stringify(fe.model.sections[0].blocks.map((b) => b.layout.desktop.area.join('/'))); })()`);
       groupCases.push({ name: `next gesture after a short Quote ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
     } }
+  // CAP-X8QUOTEREST.json to CAP-X8QUOTEREST5.json (each case in two captures, predictions pushed first): the short-Quote cases #765
+  // left unread, each replayed from its read start, then the Quote dragged down 2 rows. v1: two Shapes outside the group; v2: the Quote on
+  // row 3, a Shape from above its top; v3: a Line and a Button; v4, w3, w4: 600 px; w1, w5: 1-row Shapes; w2: a Button; v5, x5: a
+  // written Text in the group (v5's Quote 9 rows, x5's short). A block above L from below the Quote's top moves by its middle line.
+  { const R = Object.assign({}, ...['CAP-X8QUOTEREST', 'CAP-X8QUOTEREST2', 'CAP-X8QUOTEREST3', 'CAP-X8QUOTEREST4', 'CAP-X8QUOTEREST5'].map((n) => JSON.parse(readFileSync(new URL(`../parity/findings/${n}.json`, import.meta.url))).reads));
+    const one = 'Old stones by the water, a bench and a view of the far shore, then the path turns back toward the trees and the long road home.';
+    const CASES = { v1: { kinds: ['Quote', 'Shape', 'Shape', 'Shape'], members: [0, 1], dx: -520 }, v2: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -520 },
+      v3: { kinds: ['Quote', 'Line', 'Button'], members: [0, 1, 2], dx: -520 }, v4: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -600 },
+      v5: { kinds: ['Quote', 'Text', 'Shape'], members: [0, 1, 2], dx: -520 }, w1: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -520 },
+      w2: { kinds: ['Quote', 'Button', 'Shape'], members: [0, 1, 2], dx: -520 }, w3: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -600 },
+      w4: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -600 }, w5: { kinds: ['Quote', 'Shape', 'Shape'], members: [0, 1, 2], dx: -520 },
+      x5: { kinds: ['Quote', 'Text', 'Shape'], members: [0, 1, 2], dx: -520 } };
+    for (const n of ['v1a', 'v2a', 'v3a', 'v4a', 'v5a', 'w1a', 'w2a', 'w3a', 'w4a', 'w5a', 'x5a']) {
+      const c = CASES[n.slice(0, 2)], start = R[`${n} start`].areas.map((a) => a[0]), want = R[`${n} next`].areas.map((a) => a[0]);
+      const got = evalJs(S, `(async () => {
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        const c = ${JSON.stringify(c)}, start = ${JSON.stringify(start)}, text = ${JSON.stringify([one, one, one].join(' '))};
+        fe.setBp('desktop');
+        fe.load({ version: 1, title: 't', sections: [{ id: 's', theme: '', height: 'small', valign: 'top', gap: 11, rowGap: 11, rows: { desktop: 30, mobile: 40 }, blocks: [] }] }); await sleep(150);
+        for (const k of c.kinds) fe.addBlock('s', k); await sleep(200);
+        const next = JSON.parse(JSON.stringify(fe.model));
+        next.sections[0].blocks.forEach((b, i) => { b.id += '-' + i; b.layout.desktop.area = start[i].split('/').map(Number); b.layout.desktop.z = i + 1; if (b.type === 'text') b.html = '<p>' + text + '</p>'; });
+        fe.load(next); await sleep(250);
+        const f = document.getElementById('site-frame'), d = f.contentDocument, W = f.contentWindow, ids = fe.model.sections[0].blocks.map((b) => b.id), block = (i) => d.querySelector('.fe-block[data-block-id="' + ids[i] + '"]');
+        const o = { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true, button: 0 }, at = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+        const down = (el, x, y, more = {}) => el.dispatchEvent(new W.PointerEvent('pointerdown', { ...o, ...more, clientX: x, clientY: y, buttons: 1 }));
+        const move = (x, y) => d.dispatchEvent(new W.PointerEvent('pointermove', { ...o, clientX: x, clientY: y, buttons: 1 }));
+        const up = (x, y, more = {}) => d.dispatchEvent(new W.PointerEvent('pointerup', { ...o, ...more, clientX: x, clientY: y, buttons: 0 }));
+        const pull = async (h, dx, dy) => { const [x, y] = at(h); down(h, x, y); move(x + 14, y); await sleep(15); move(x, y); await sleep(15); for (let k = 1; k <= 8; k++) { move(x + k * dx / 8, y + k * dy / 8); await sleep(15); } up(x + dx, y + dy); await sleep(100); };
+        const group = () => d.querySelector('.fe-indicator.is-group .fe-handle[data-dir="e"]');
+        // The group by shift presses; it must hold every member, and only them, before the drop.
+        const all = () => { const g = group()?.closest('.fe-indicator')?.getBoundingClientRect(); if (!g) return false; const r = c.members.map((i) => block(i).getBoundingClientRect()); return g.top <= Math.min(...r.map((q) => q.top)) + 2 && g.bottom >= Math.max(...r.map((q) => q.bottom)) - 2 && g.right >= Math.max(...r.map((q) => q.right)) - 2 && g.right <= Math.max(...r.map((q) => q.right)) + 2; };
+        fe.select('s', ids[0]); await sleep(60);
+        for (const i of c.members.slice(1)) { const [x, y] = at(block(i)); down(block(i), x, y, { shiftKey: true }); up(x, y, { shiftKey: true }); await sleep(60); }
+        if (!all()) return JSON.stringify(['no group of the members']);
+        await pull(group(), c.dx, 0);
+        fe.select(null); await sleep(30);
+        const [x, y] = at(block(0)); down(block(0), x, y); for (let k = 1; k <= 8; k++) { move(x, y + k * 82 / 8); await sleep(15); } up(x, y + 82); await sleep(100);
+        fe.select(null);
+        // In the read's order: a drop can reorder the model's list.
+        return JSON.stringify(ids.map((id) => fe.model.sections[0].blocks.find((b) => b.id === id).layout.desktop.area.join('/'))); })()`);
+      groupCases.push({ name: `next gesture after a short Quote ${n}`, diffs: want.flatMap((a, i) => (got[i] === a ? [] : [`block ${i}: oracle ${a}, ours ${got[i]}`])) });
+    } }
 }
 // 81: a pressed block is selected on let go, not on the press nor while it is dragged (CAP-SELECTLETGO.json, part a and c).
 { const R = JSON.parse(readFileSync(new URL('../parity/findings/CAP-SELECTLETGO.json', import.meta.url))).reads, on = (k) => R[k].block.data['data-is-selected'];

@@ -1295,28 +1295,38 @@ function onCancel(e) {
 // A short Quote (CAP-X8QUOTEBELOW.json, r1 and r2; q1, q2, m5; CAP-X8QUOTEMORE.json s1 to s4, predictions pushed first, each
 // case read twice): the Quote itself grows the rows its content needs, rounded up (0.42 short: 1, 1.08: 2, 2.57: 3). The other
 // blocks take d as for a Text, the overflow rounded (0, 1, 3), except that a block across L grows at least 1. So at 0.42 a
-// block that starts on L, ends on L or starts below it stays, and at 1.08 a Shape across L grows 1 and one below moves 1.
+// block that starts on L, ends on L below the top or starts below it stays, and at 1.08 a Shape across L grows 1 and one below moves 1.
 // (The shortness is ours: 0.42, 1.08 and 2.57 rows for s1, s3 and s4; the oracle's Quote content reads 218.8, 252.9, 321.3 px.)
 // Blocks on L (CAP-X8QUOTEON.json t1 to t3; CAP-X8QUOTEON2.json u1, u2, predictions pushed first; each case read twice): one
 // ending on L from the Quote's top row grows as one across L; at 1.08 one starting on L or ending on L below the top moves d.
-// Unlike a Text, a block above L that starts below the Quote's top moves d too (t2, u2); one from its top row stays (u1).
-// Not read for a Quote: a block outside the group, one that starts above its top, a group with a short Text as well.
+// Unlike a Text, a block above L that starts below the Quote's top moves too (t2, u2); one from its top row stays (u1).
+// CAP-X8QUOTEREST.json to CAP-X8QUOTEREST5.json (v, w, x5; predictions pushed first, each case read in two captures): such a
+// block moves by its middle line c, as if the overflow r (rows, unrounded) stretched the Quote's rows evenly: round(r * (c - top)
+// / (L - top)). So a 1-row block on row 3 stays at 1.08 (v3 a Line, w1 a Shape), a Button on rows 3-5 moves 1 (w2), and at 2.57
+// rows 3-5 move 1 (v4), 4-6 move 2 (w4). Blocks outside the group take the same rules (v1), and one that starts above the
+// Quote's top and ends above L stays (v2, the Quote on row 3). A Quote in a group whose written Text runs over more grows only
+// its own overflow, not the Text's d, even across L: 1 when short (x5), none when not (v5). Not read: a Quote other than the one
+// the next gesture drags, a short Text that is not the one running over most, a block ending on L below the top when r is
+// over 1.5, a Quote's own shortness numbers (ours).
 let stored = null;
 function storedRows(g) {
-  const m = measure(feEl(g.sid)), s = S(g.sid);
-  let d = 0, L = 0, t0 = 0, tid = null, rest = 0, quote = false;
+  const m = measure(feEl(g.sid)), s = S(g.sid), own = new Map();
+  let d = 0, L = 0, t0 = 0, tid = null, r = 0, quote = false;
   for (const id of g.kept.keys()) {
     const b = B(g.sid, id), a = lay(b).area, x = contentRows(b, m, false, false, true), q = b.standin === 'quote';
     const over = q ? Math.ceil(x - 0.02) - (a[2] - a[0]) : Math.round(x - (a[2] - a[0]));
-    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; quote = q; rest = Math.round(x - (a[2] - a[0])); }
+    if (over > 0) own.set(id, over);
+    if (over > d) { d = over; L = a[2]; t0 = a[0]; tid = id; quote = q; r = x - (a[2] - a[0]); }
   }
   if (d <= 0) return null;
-  const areas = new Map(), grow = quote ? Math.max(1, rest) : d, move = quote ? rest : d;
+  const rest = Math.round(r), areas = new Map(), grow = quote ? Math.max(1, rest) : d, move = quote ? rest : d;
   for (const b of s.blocks) {
     const a = [...lay(b).area];
     if (b.id === tid) a[2] += d;
+    else if (own.has(b.id) || (g.kept.has(b.id) && b.standin === 'quote')) a[2] += own.get(b.id) || 0;
     else if ((a[0] < L && a[2] > L) || (a[2] === L && a[0] <= t0)) a[2] += grow;
-    else if (a[2] >= L || (quote && a[0] > t0)) { a[0] += move; a[2] += move; }
+    else if (a[2] >= L) { a[0] += move; a[2] += move; }
+    else if (quote && a[0] > t0) { const k = Math.round(r * ((a[0] + a[2]) / 2 - t0) / (L - t0)); a[0] += k; a[2] += k; }
     areas.set(b.id, a);
   }
   return { sid: g.sid, bp, areas, d };
