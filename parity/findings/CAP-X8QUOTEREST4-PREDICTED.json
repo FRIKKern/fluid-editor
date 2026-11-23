@@ -1,0 +1,17 @@
+{
+ "item": "CAP-X8QUOTEREST4-PREDICTED",
+ "question": "X8, a short Quote (task-45b78f71ceb19857), two cases fitted after CAP-X8QUOTEREST3.json round a, where a 1-row Shape above L from below the Quote's top stayed (w1a) and a Button there moved 1 (w2a). Setup as there: a new Quote widened east 118 px (1/2/7/10), a Shape as below, a Shape below L (10/14/16/20), the group of all made narrower from the east, then the Quote dragged down 2 rows. w4: 600 px, a Shape on rows 4 to 6 (4/14/6/20). w5: 520 px, a Shape 1 row tall on row 5 (5/14/6/20). Read on Blocks Probe, each case on its own entry, in two captures (rounds a and b), nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-center": "Fitted after w1a: the Quote's overflow r (rows) stretches its rows evenly, and a block above L that starts below its top moves round(r * (c - top) / (L - top)), c its middle line. Ours' r: 1.08 at 520 px, 2.57 at 600 px. w4: c 5, 2.57 * 4 / 6 = 1.71, moves 2. w5: c 5.5, 1.08 * 4.5 / 6 = 0.81, moves 1. It fits every read so far (t2, u1, u2, v1, v3, v4, w1, w2, w3).",
+  "H-step": "A block there 2 rows or taller moves 1 and a 1-row block stays: w4 moves 1, w5 stays.",
+  "H-main": "Ours today (#765): it moves r rounded: w4 moves 3, w5 moves 1."
+ },
+ "predicted": {
+  "w4 dropped": ["1/2/7/5", "4/7/6/10", "10/7/16/10"],
+  "w4 next": { "H-center": ["3/2/12/5", "6/7/8/10", "13/7/19/10"], "H-step": ["3/2/12/5", "5/7/7/10", "13/7/19/10"], "H-main": ["3/2/12/5", "7/7/9/10", "13/7/19/10"] },
+  "w5 dropped": ["1/2/7/6", "5/8/6/11", "10/8/16/11"],
+  "w5 next": { "H-center": ["3/2/11/6", "6/8/7/11", "11/8/17/11"], "H-step": ["3/2/11/6", "5/8/6/11", "11/8/17/11"], "H-main": ["3/2/11/6", "6/8/7/11", "11/8/17/11"] }
+ },
+ "note": "Areas are desktop areas in the read's block order (Quote first). Dropped areas are ours; a drop that lands elsewhere is scored on how far each block moved.",
+ "cases": { "w4": ["w4a next", "w4b next"], "w5": ["w5a next", "w5b next"] }
+}
