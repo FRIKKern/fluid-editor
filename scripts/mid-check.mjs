@@ -5,7 +5,7 @@
 // X2: where a held block sits and the center line on phones (HOLD.json).
 // Runs on headless Chrome. Writes parity/mid-check.json. Usage: npm run mid-check.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, waitFor, mouse, cdp, browser, cleanStart } from './lib/cmux.mjs';
 import { modelFor } from './lib/trace-model.mjs';
 import { BASE } from './lib/base.mjs';
 import { replayLinkBox, SEE, oracleSees } from './lib/link-box-replay.mjs';
@@ -18,6 +18,7 @@ const dir = new URL('../traces/', import.meta.url);
 const traces = readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(new URL(f, dir), 'utf8'))).filter((t) => t.mid && ['drag', 'resize'].includes(t.gesture.kind));
 if (!traces.length) throw new Error('no traces with a mid state');
 
+cleanStart(S, BASE);
 let pass = 0;
 const results = [];
 for (const t of traces) {
