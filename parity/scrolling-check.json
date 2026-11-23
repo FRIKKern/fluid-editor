@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 242,
- "total": 242,
+ "pass": 245,
+ "total": 245,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -404,7 +404,19 @@
    "ok": true
   },
   {
+   "what": "Link field, nothing picked, Cmd+Shift+H: the browser default is cancelled",
+   "ok": true
+  },
+  {
    "what": "Link field, a pick and Escape, Cmd+Shift+H: not hidden",
+   "ok": true
+  },
+  {
+   "what": "Link field, a pick and Escape, Cmd+Shift+H: the browser default is cancelled",
+   "ok": true
+  },
+  {
+   "what": "Link field, nothing picked, Cmd+Shift+D: the browser default is cancelled, no copy",
    "ok": true
   },
   {

@@ -287,12 +287,21 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
     const ks = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], p = document.getElementById('link-popover'), f = p.querySelector('.lk-input'), a = document.activeElement; return JSON.stringify({ n: s.blocks.length, area: b.layout.desktop.area.join('/'), hidden: !!b.layout.desktop.hidden, open: !p.hidden, field: !p.hidden && f ? f.value : null, focus: a === f ? 'field' : a?.matches?.('.lk-clear') ? 'clear' : a?.matches?.('.lk-box') ? 'box' : a?.tagName, depth: fe.undoDepth });`);
     const kw = (k) => { const o = K[k]; return { n: o.block.n, area: o.block.area, hidden: o.block.opacity === '0', open: o.pop.field !== null, field: o.pop.field?.[0] ?? null, focus: o.focus[2] === 'Enter link, search, or add files' ? 'field' : o.focus[2] === 'Clear selected page' ? 'clear' : o.focus[1] === 'INPUT' ? 'box' : o.focus[1] }; };
     const same = (w, o, d0) => w.n === o.n && w.area === o.area && w.hidden === o.hidden && w.open === o.open && w.field === o.field && w.focus === o.focus && w.depth === d0;
+    qs(`window.__kdp = ''; window.addEventListener('keydown', (e) => { window.__kdp = e.code + ' ' + e.defaultPrevented; }); return 'true';`);
+    const kd = () => qs(`return window.__kdp;`);
     const linkOpen = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); };
     const pickEsc = async () => { await about(); mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400); };
     for (const [sc, setup, k, what] of [['D0', linkOpen, 'Meta+d', 'nothing picked, Cmd+D: no copy'], ['D1', pickEsc, 'Meta+d', 'a pick and Escape, Cmd+D: no copy'], ['H0', linkOpen, 'Meta+Shift+h', 'nothing picked, Cmd+Shift+H: not hidden'], ['H1', pickEsc, 'Meta+Shift+h', 'a pick and Escape, Cmd+Shift+H: not hidden']]) {
       await setup(); const d0 = ks().depth; browser(S, 'press', k); await pause(400); const w = ks(), o = kw(`R1 ${sc} ${k === 'Meta+d' ? 'Cmd+D' : 'Cmd+Shift+H'}`);
       add(`Link field, ${what}`, same(w, o, d0), JSON.stringify({ ours: w, oracle: o }));
+      // The browser's own Cmd+Shift+H (Chrome on a Mac: open the home page in this tab) stays cancelled, as before #763
+      // (task-83d0746d126345f0). Headless shows no browser shortcut, so the row reads the keydown's defaultPrevented.
+      if (sc[0] === 'H') add(`Link field, ${what.split(',')[0]}, Cmd+Shift+H: the browser default is cancelled`, kd() === 'KeyH true', kd());
     }
+    // Cmd+Shift+D (Chrome: bookmark all tabs) alike: cancelled, and no copy. Not read on the oracle; the want is main's
+    // before #763. Cmd+D's own default is #763's, not pinned here.
+    await linkOpen(); { const d0 = ks().depth; browser(S, 'press', 'Meta+Shift+d'); await pause(400); const w = ks(), p = kd();
+      add('Link field, nothing picked, Cmd+Shift+D: the browser default is cancelled, no copy', p === 'KeyD true' && w.n === 1 && w.open && w.depth === d0, JSON.stringify({ w, p })); }
     await about(); const d0 = ks().depth;
     for (const [k, read, what] of [['Tab', 'Tab', 'Tab: the focus on Clear'], ['ArrowRight', 'ArrowRight', 'ArrowRight on Clear: not moved'], ['ArrowDown', 'ArrowDown', 'ArrowDown on Clear: not moved'], ['Tab', 'Tab2', 'Tab again: the focus on the new-tab box'], ['ArrowLeft', 'ArrowLeft', 'ArrowLeft on the box: not moved']]) {
       browser(S, 'press', k); await pause(400); const w = ks(), o = kw(`R1 A1 ${read}`);
@@ -494,7 +503,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 242;
+const CASES = 245;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
