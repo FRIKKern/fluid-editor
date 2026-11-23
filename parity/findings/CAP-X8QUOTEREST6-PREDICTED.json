@@ -1,0 +1,14 @@
+{
+ "item": "CAP-X8QUOTEREST6-PREDICTED",
+ "question": "X8, a short Quote (task-45b78f71ceb19857): v5 of CAP-X8QUOTEREST.json read again, twice in one capture (v5b, v5c), the same steps: a new Quote widened east 118 px, a Text added over it and written (the X8LAG sentence three times), moved to column 14, a Shape below (10/14/16/20), the group of all made narrower by 520 px, then the Quote dragged down 2 rows. In v5a the Quote started 9 rows tall (not short) and, across the Text's line, did not grow. Read on Blocks Probe, nothing saved. Predictions pushed before the capture.",
+ "rules": {
+  "H-built": "As built on #768 (fitted after v5a and x5a): a kept Quote that is not the block running over most grows only its own overflow, none when it is not short; the Text grows to its content, the Shape below moves the Text's d.",
+  "H-across": "Ours before #768: the Quote, across the Text's line, grows the Text's d."
+ },
+ "predicted": {
+  "v5 start": ["1/2/10/10", "1/14/6/22", "10/14/16/20"],
+  "v5 next": { "H-built": ["3/2/12/7", "1/9/10/13", "13/9/19/12"], "H-across": ["3/2/15/7", "1/9/10/13", "13/9/19/12"] }
+ },
+ "note": "Areas are desktop areas in the read's block order. If the start differs from v5a's, the case is scored on whether the Quote grew.",
+ "cases": { "v5": ["v5b next", "v5c next"] }
+}
