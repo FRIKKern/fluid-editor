@@ -89,6 +89,15 @@ export function goto(surface, url) {
   run(['--surface', surface, 'goto', url]);
 }
 
+// A check starts from a clean editor: what an earlier check left in this browser's storage (its saved page, a block clip,
+// saved sections) is cleared, so the editor's next load boots its demo page (task-a5684aee320b6736). The app writes storage
+// only on a press (Save, Copy), so nothing puts it back before the check's own next load.
+export function cleanStart(surface, base) {
+  goto(surface, `${base}/index.html?replay`);
+  waitFor(surface, '(() => !!window.fe)()', 20);
+  evalJs(surface, `(() => { localStorage.clear(); return 'true'; })()`);
+}
+
 export function viewport(surface, w, h) {
   if (isCdp(surface)) return cdp(surface, { op: 'viewport', w, h });
   run(['--surface', surface, 'viewport', String(w), String(h)]);

@@ -5,7 +5,7 @@
 // Usage: npm run text-check (dev server on 5178, FLUID_SURFACE a visible tab), under 2 min.
 // npm run text-check -- --full also replays every CAP-E4 file with real keys, about 7 min.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser, mouse, drag } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, waitFor, cdp, browser, mouse, drag, cleanStart } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { replay } from './lib/text-replay.mjs';
 import { takesText } from './oracle/takes-text.mjs';
@@ -43,6 +43,7 @@ const sized = (where) => {
   }
 };
 viewport(S, 1600, 945);
+cleanStart(S, BASE);
 sized('the start');
 const results = [];
 for (const [name, act, value, oracleHtml] of CASES) {
