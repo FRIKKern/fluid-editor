@@ -4231,7 +4231,20 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
   else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
-  if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
+  // In the phone view a block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the
+  // section keeps the rows under the lowest block (CAP-T12PHONE3.json, a Text block and a second Scrolling block on the row
+  // the foot ends on, R1 and R2 alike). Not read: a block with rows between, the desktop, more than two blocks.
+  if (need !== a[2] - a[0]) {
+    const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
+    const below = bp === 'mobile' ? s.blocks.filter((o) => o !== b && o.layout[bp].area[0] >= f0) : [];
+    setFormRows(b, s, need, true);
+    if (below.length) {
+      const dy = lay(b).area[2] - f0;
+      for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
+      s.rows[bp] = r0 + low() - l0;
+      renderSectionDom(s.id);
+    }
+  }
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();
