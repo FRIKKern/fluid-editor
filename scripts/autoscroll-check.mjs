@@ -3,7 +3,7 @@
 // step, the spread the oracle itself shows between neighbouring distances.
 // Writes parity/autoscroll-check.json. Usage: npm run autoscroll-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, cleanStart } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -11,6 +11,7 @@ const F = JSON.parse(readFileSync(new URL('../parity/findings/AUTOSCROLL.json', 
 const [fw, fh] = F.frame;
 ensureVisible(S);
 viewport(S, fw, fh + 55);
+cleanStart(S, BASE);
 goto(S, `${BASE}/index.html?replay`); await pause(2200);
 const results = [];
 for (const [name, want] of Object.entries(F.totals)) {

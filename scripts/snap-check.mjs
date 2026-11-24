@@ -2,13 +2,14 @@
 // the oracle, and compare the px where the target changes and what it changes to, within 1px.
 // Writes parity/snap-check.json. Usage: npm run snap-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, cleanStart } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/SNAP.json', import.meta.url)));
 ensureVisible(S);
 viewport(S, 1600, 1000);
+cleanStart(S, BASE);
 goto(S, `${BASE}/index.html?replay`); await pause(2200);
 const LEGS = [['xOut', 'x', 0, 'x+'], ['xBack', 'x', null, 'x-'], ['xHome', 'x', null, 'x0'], ['yOut', 'y', 0, 'y+'], ['yBack', 'y', null, 'y-'], ['yHome', 'y', null, 'y0']];
 let pass = 0, total = 0;
