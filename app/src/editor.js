@@ -4199,7 +4199,7 @@ function accordionEscape() {
 }
 // Scrolling's rows (CAP-ROWSSCROLLING.json and -2.json, two reads alike): a change of its content's height fits the rows to
 // it, both ways, in the view being edited: Wave Intensity 0 to 150 took 2 rows to 5, Medium 7, Small back to 5, Large 9.
-// The other view and the blocks below are not read: the other view stays, as an Accordion's does (inferred).
+// The other view stays, as an Accordion's does (inferred); for blocks below in the phone view see setScrolling (CAP-T12PHONE3).
 // keep: the panel stays as it is (an item's Text taken when the field is left, so a press that left it still lands).
 // Wave Intensity's rows on the desktop (CAP-T12WAVEDROP.json, 124 steps in six sessions, every path read twice): a line
 // that grows takes the rows that hold it; a line that falls by one step (30 px) lets them go to the rows that hold it, never
@@ -4215,7 +4215,8 @@ function accordionEscape() {
 // stand-in's phone height does); a fall from a line that ran over its rows keeps them, down to the rows that hold the new line;
 // a fall from a line that fit moves the foot up by the fall, also a fall of one step, and snaps it down (180 to 150 leaves 5
 // rows for a line that needs 6). The give on that snap is read between 0.03 and 0.17 of a row (180 to 90 to 30 keeps 2 rows).
-// The desktop rows stay. Not read in the phone view: the other Design presses, Text Size and the items (they fit as before).
+// The desktop rows stay. After such a fall Speed, Fade edges and Item Spacing keep the phone rows and Medium text size refits
+// them (CAP-T12PHONE3.json, R1 and R2 alike). Not read in the phone view: Text Style, Direction, Pause on hover and the items.
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = b.wave, c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
@@ -4231,7 +4232,21 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
   else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
-  if (need !== a[2] - a[0]) setFormRows(b, S(sel.sid), need, true);
+  // In the phone view a block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the
+  // section keeps the rows under the lowest block (CAP-T12PHONE3.json, a Text block and a second Scrolling block on the row
+  // the foot ends on, R1 and R2 alike). Not read: a block with rows between, a block hidden in the phone view (it stays),
+// Text Size or an item with a block below, the desktop, more than two blocks.
+  if (need !== a[2] - a[0]) {
+    const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
+    const below = bp === 'mobile' ? s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && o.layout[bp].area[0] >= f0) : [];
+    setFormRows(b, s, need, true);
+    if (below.length) {
+      const dy = lay(b).area[2] - f0;
+      for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
+      s.rows[bp] = r0 + low() - l0;
+      renderSectionDom(s.id);
+    }
+  }
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();

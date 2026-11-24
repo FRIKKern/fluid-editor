@@ -485,6 +485,35 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
         add(`Phone ${st === 'L' || done[0] === 'L' ? 'Text Size L' : 'drag'} ${P}: ${k}`, JSON.stringify(l) === JSON.stringify(o2.layout) && String(w.wave) === o.value && (done[0] !== 'L' || size === 'L') && w.phone === l.phone && w.rows === l.rows && w.desktop === l.desktop && near1(w.block, l.block) && near1(w.marquee[0], l.marquee[0]) && near1(w.marquee[1], l.marquee[1]), `${JSON.stringify({ ...w, size })} (oracle ${JSON.stringify({ desktop: l.desktop, phone: l.phone, rows: l.rows, block: l.block, marquee: l.marquee, value: o.value })})`);
       }
     } }
+  // In the phone view, a press after a fall that left the line running over (180 to 150: 5 rows for a 180 line): Speed, Fade
+  // edges and Item Spacing keep the rows, Text Size refits them (Medium: 7). A block below the Scrolling block in its section,
+  // a Text block or a second Scrolling block, follows the foot: it starts on the row the Scrolling block ends on, as it rises
+  // and as it falls (CAP-T12PHONE3.json, R2; R1 read alike). Each step and the let go.
+  { const PH = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12PHONE3.json', import.meta.url))).runs.R2.reads, near1 = (x, y) => Math.abs(x - y) <= 0.15;
+    const P3 = { 'Fade edges': 'input[aria-label="Fade edges"]', 'Medium text size': '[aria-label="Medium text size"]', 'Animation speed 2x': '[aria-label="Animation speed 2x"]' };
+    // A section as the oracle's: the Scrolling block on 1/2/3/26 (phone 1/2/3/10) and the other block on desktop 1/2/3/10 or
+    // 1/2/3/26, phone 3/2/5/10, 4 phone rows.
+    const twoBlocks = async (kind) => { qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 4 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); fe.addBlock(s.id, ${JSON.stringify(kind)}, true); await sleep(300); const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0], [a, o] = t.blocks; t.rows = { desktop: 8, mobile: 4 }; a.layout.desktop.area = [1, 2, 3, 26]; a.layout.mobile.area = [1, 2, 3, 10]; o.layout.desktop.area = ${kind === 'Text' ? '[1, 2, 3, 10]' : '[1, 2, 3, 26]'}; o.layout.mobile.area = [3, 2, 5, 10]; fe.load(m); await sleep(300); fe.setBp('mobile'); await sleep(800); fe.select(t.id, a.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`); await press('#block-panel [data-btab="Design"]'); };
+    // The other block: its phone area, its top under the Scrolling block's top, and its height.
+    const other = () => qs(`const s = fe.model.sections[0], [a, o] = s.blocks, d = document.getElementById('site-frame').contentDocument, q = (b) => d.getElementById('block-' + b.id).closest('.fe-block').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify(o ? { phone: o.layout.mobile.area.join('/'), desktop: o.layout.desktop.area.join('/'), top: r(q(o).top - q(a).top), height: r(q(o).height) } : null);`);
+    const controls = (o) => { const on = (k) => o.ctl.some((c) => c[0] === k && (c[1] === 'true' || c[1] === true)); return JSON.stringify([on('Fade edges'), on('Large text size') ? 'L' : on('Medium text size') ? 'M' : 'S', on('Animation speed 2x') ? 2 : 1, Number(o.ranges.find((r) => r[0] === 'Item Spacing')[1])]); };
+    const sameP = (what, o) => { const w = layP(), x = o.all.find((b) => !b.me), t = x && other();
+      add(what, w.phone === o.phone && w.rows === o.rows && w.desktop === o.desktop && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1]) && (!x || (t && t.phone === x.phone && t.desktop === x.desktop && near1(t.top, x.top) && near1(t.height, x.height))), `${JSON.stringify({ ...w, other: t })} (oracle ${JSON.stringify({ desktop: o.desktop, phone: o.phone, rows: o.rows, block: o.block, marquee: o.marquee, other: x })})`); };
+    for (const [P, steps, kind] of [['p', [180, 150, 'Animation speed 2x']], ['q', [180, 150, 'Fade edges']], ['r', [180, 150, 'Medium text size']], ['s', [180, 150, 'spacing 0.9']], ['u', [180, 90], 'Text'], ['v', [180, 90], 'Scrolling']]) {
+      if (kind) await twoBlocks(kind); else await phoneBlock();
+      const done = [];
+      for (const st of steps) {
+        if (typeof st === 'number') await waveTo(st); else if (st.startsWith('spacing ')) await press('#block-panel [data-scr-range="spacing"]', 0.9); else await press(`#block-panel ${P3[st]}`);
+        await pause(300); done.push(String(st));
+        const k = done.join('>'), o = PH[`R2 ${P} ${k}`].layout;
+        const got = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(JSON.stringify([!!b.fadeEdges, b.sizeMore ? 'more' : ({ 1.5: 'S', 4: 'M', 8: 'L' })[b.size ?? 1.5] ?? String(b.size), b.speed ?? 1, b.spacing ?? 0.5]));`);
+        const wave = qs(`return JSON.stringify(fe.model.sections[0].blocks[0].wave ?? 0);`);
+        // The press must have landed: the block's wave, Fade edges, Text Size, Speed and Item Spacing as the oracle's panel.
+        if (got !== controls(o) || String(wave) !== o.ranges.find((r) => r[0] === 'Wave Intensity')[1]) add(`Phone press ${P}: ${k}`, false, `controls ${got} wave ${wave} (oracle ${controls(o)} ${JSON.stringify(o.ranges)})`); else sameP(`Phone press ${P}: ${k}`, o);
+      }
+      qs(`fe.select(null); await sleep(300); return 'true';`);
+      sameP(`Phone press ${P}: ${done.join('>')}, let go`, PH[`R2 ${P} ${done.join('>')} let go`].layout);
+    } }
   qs(`fe.setBp('desktop'); await sleep(400); return 'true';`); }
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
@@ -531,7 +560,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 265;
+const CASES = 287;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
