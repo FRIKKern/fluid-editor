@@ -383,6 +383,21 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
     await key('Meta+z'); const w = zs(), o = want(`R1 Z12 ${k}`);
     add(`Attach link, nothing picked, Cmd+Z: ${what}`, like(w, o), JSON.stringify({ ours: w, oracle: o }));
   } }
+// While Attach link's editor is open the panel's Link row still reads Attach link, a page picked in it or not; a press away
+// shows the page (CAP-T12LINKZ.json Z1, Z5; CAP-T12LINKKEYS.json A1, D1; R1 and R2 alike). Opened by Edit on a link it has,
+// the row keeps the link (not read on the oracle, so the want is main's).
+{ const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}`, import.meta.url))).runs;
+  const Z = runs('CAP-T12LINKZ.json'), K = runs('CAP-T12LINKKEYS.json');
+  const both = (o, k) => { const a = o.R1.reads[`R1 ${k}`].pop, b = o.R2?.reads[`R2 ${k}`]?.pop; return b && JSON.stringify(a.linkRow) === JSON.stringify(b.linkRow) ? a : null; };
+  const key = async (k) => { mouse(S, 'move', 10, 10); browser(S, 'press', k); await pause(400); };
+  const pick = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
+  const rowIs = (what, o, extra = true) => { const w = linkOf(); add(what, !!o && extra && w.editor === (o.field !== null) && JSON.stringify(w.row) === JSON.stringify(o.linkRow), JSON.stringify({ ours: w, oracle: o && o.linkRow })); };
+  await pick(); rowIs('Link editor open after a pick: the Link row reads Attach link', both(K, 'A1 picked'), linkOf().href === '/about');
+  await key('Escape'); rowIs('Then Escape, the editor open: Attach link still', both(K, 'D1 Escape'));
+  await pick(); await key('Meta+z'); await key('Meta+Shift+z'); rowIs('Pick, Cmd+Z, Cmd+Shift+Z, the editor open: Attach link still', both(Z, 'Z5 Cmd+Shift+Z'), linkOf().href === '/about');
+  await press('#block-panel [data-btab="Content"]'); await pause(300); rowIs('Then a press away: the Link row shows About', both(Z, 'Z5 away'));
+  await press('#block-panel [data-link="edit"]'); await pause(300);
+  { const w = linkOf(); add('Opened by Edit on its link: the Link row keeps the link', w.editor && JSON.stringify(w.row) === JSON.stringify(Z.R1.reads['R1 Z5 away'].pop.linkRow), JSON.stringify(w)); } }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
 // area, the section's rows, the block's height and the line's top and height in it. Y's 0 falls to 1 row, the line running
@@ -563,7 +578,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 335;
+const CASES = 340;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
