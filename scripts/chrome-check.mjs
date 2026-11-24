@@ -5,7 +5,7 @@
 // Our icons are drawn by us (O2), so the check compares boxes and colors, not pixels.
 // Writes parity/chrome-check.json. Usage: npm run chrome-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible, requireSameEngine, mouse } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, requireSameEngine, mouse, cleanStart } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
@@ -13,6 +13,7 @@ const F = JSON.parse(readFileSync(new URL('../parity/findings/TOOLBARGEO.json', 
 requireSameEngine(S, 'chrome-check', F);
 ensureVisible(S);
 viewport(S, 1600, 1000);
+cleanStart(S, BASE);
 goto(S, `${BASE}/index.html?replay`); await pause(2500);
 const near = (a, b) => a.length === b.length && a.every((v, i) => Math.abs(v - b[i]) <= 1);
 let pass = 0, total = 0;

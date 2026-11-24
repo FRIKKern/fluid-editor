@@ -1,13 +1,14 @@
 // X4: hold the same drags as parity/findings/NEAR.json in our editor and compare which blocks
 // carry data-is-near-dragged-block. Writes parity/near-check.json. Usage: npm run near-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, ensureVisible } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, ensureVisible, cleanStart } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const F = JSON.parse(readFileSync(new URL('../parity/findings/NEAR.json', import.meta.url)));
 ensureVisible(S);
 viewport(S, 1600, 1000);
+cleanStart(S, BASE);
 goto(S, `${BASE}/index.html?replay`); await pause(2200);
 let pass = 0, total = 0;
 const results = [];
