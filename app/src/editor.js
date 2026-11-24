@@ -4234,11 +4234,14 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
   // In the phone view a block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the
   // section keeps the rows under the lowest block (CAP-T12PHONE3.json, a Text block and a second Scrolling block on the row
-  // the foot ends on, R1 and R2 alike). Not read: a block with rows between, a block hidden in the phone view (it stays),
-// Text Size or an item with a block below, the desktop, more than two blocks.
+  // the foot ends on, R1 and R2 alike). The blocks that follow are those that share a column with it and start on or below
+  // its top row, also with rows between and three of them; a block above it, or beside or below it in other columns, stays
+  // (CAP-T12BLOCKS.json, plans U, D, F, G, N, O and M, R1 and R2 alike). Not read: a block that starts above its top and
+  // reaches below it, a block hidden in the phone view (it stays), Text Size or an item with a block below, the desktop.
   if (need !== a[2] - a[0]) {
     const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
-    const below = bp === 'mobile' ? s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && o.layout[bp].area[0] >= f0) : [];
+    const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
+    const below = bp === 'mobile' ? s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o)) : [];
     setFormRows(b, s, need, true);
     if (below.length) {
       const dy = lay(b).area[2] - f0;
