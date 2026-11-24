@@ -9,7 +9,9 @@
 // one undo step, Duplicate puts a copy after it and Delete takes it, both back to the list; the trash deletes at once and the
 // last item has none; the grip moves an item (editor.js, with the Accordion's). Each is one undo step. The words move along
 // the wave by marquee.js (CAP-T12WAVE.json). Attach link opens the shared link editor (editor.js onLinkAction) beside the
-// panel; a page links the whole block (render.js .marquee-hitbox) and the Link row shows it (block-panel.js linkRowHtml).
+// panel; a page links the whole block (render.js .marquee-hitbox) and the Link row shows it (block-panel.js linkRowHtml) once the
+// editor closes: while an opening on no link yet stays open the row still reads Attach link (c.linkHeld; CAP-T12LINKKEYS.json
+// D1, H1, A1 and CAP-T12LINKZ.json Z1, Z3, Z5, Z8, R1 and R2 alike).
 import { escapeHtml as esc } from './render.js';
 import { linkRowHtml } from './block-panel.js';
 
@@ -34,7 +36,15 @@ export function scrollingContentHtml(c) {
       + `<div class="bp-scr-acts"><button type="button" data-scr="dup:${c.item}">Duplicate</button><button type="button" class="is-red" data-scr="del:${c.item}">Delete</button></div>`;
   }
   return `<div class="bp-scr-list">${c.items.map((t, n) => `<div class="bp-acc-row bp-scr-row">${grip}<span class="bp-acc-t" aria-hidden="true">T</span><button type="button" class="bp-acc-name" data-scr="open:${n}" aria-label="${esc(t)}">${esc(t)}</button>${c.items.length > 1 ? `<button type="button" class="bp-acc-trash" data-scr="del:${n}" aria-label="Delete ${esc(t)}">${pi('<path d="M5 7h14M10 7V4h4v3M7 7v13h10V7M10.5 11v5M13.5 11v5"/>')}</button>` : ''}<button type="button" class="bp-acc-go" data-scr="open:${n}" aria-hidden="true" tabindex="-1">${pi('<path d="M9 6l6 6-6 6"/>')}</button></div>`).join('')}</div>`
-    + `<button type="button" class="bp-scr-add" data-scr="add">Add Item</button><div class="bp-scr-cap is-link">Link</div>${c.href ? linkRowHtml(c.href, c.pages) : '<button type="button" class="bp-scr-attach bp-attach" data-link="open">Attach link</button>'}`;
+    + `<button type="button" class="bp-scr-add" data-scr="add">Add Item</button><div class="bp-scr-cap is-link">Link</div>${c.href && !c.linkHeld ? linkRowHtml(c.href, c.pages) : `<button type="button" class="bp-scr-attach bp-attach" data-link="open"${c.linkHeld ? ' data-held' : ''}>Attach link</button>`}`;
+}
+
+// The editor closed, by a press away or on Undo: the held Attach link turns into the Link row, only that button, so the press
+// that closed it lands where it was (CAP-T12LINKUNDO.json A and B Undo: the row shows About).
+export function showHeldLink(panel, href, pages) {
+  const held = panel.querySelector('.bp-scr-attach[data-held]');
+  if (!held) return;
+  if (href) held.outerHTML = linkRowHtml(href, pages); else delete held.dataset.held;
 }
 
 const seg = (cap, key, cur, opts) => `<div class="bp-scr-cap">${cap}</div><div class="bp-scr-seg is-${opts.length}" role="radiogroup" aria-label="${cap}">${opts.map(([v, label, face]) => `<button type="button" role="radio" class="bp-scr-opt${String(cur) === String(v) ? ' is-on' : ''}" aria-checked="${String(cur) === String(v)}" aria-label="${label}" data-scr-set="${key}" data-v="${v}">${face}</button>`).join('')}</div>`;

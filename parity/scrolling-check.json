@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 287,
- "total": 287,
+ "pass": 292,
+ "total": 292,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -537,6 +537,26 @@
   },
   {
    "what": "Attach link, nothing picked, Cmd+Z: again: the block goes",
+   "ok": true
+  },
+  {
+   "what": "Link editor open after a pick: the Link row reads Attach link",
+   "ok": true
+  },
+  {
+   "what": "Then Escape, the editor open: Attach link still",
+   "ok": true
+  },
+  {
+   "what": "Pick, Cmd+Z, Cmd+Shift+Z, the editor open: Attach link still",
+   "ok": true
+  },
+  {
+   "what": "Then a press away: the Link row shows About",
+   "ok": true
+  },
+  {
+   "what": "Opened by Edit on its link: the Link row keeps the link",
    "ok": true
   },
   {

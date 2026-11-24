@@ -40,7 +40,7 @@ import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, P
 import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { tileOf } from './standin-tiles.js';
-import { scrollOf, scrollItems, wireScrolling, SCROLL_ITEMS } from './scrolling-panel.js';
+import { scrollOf, scrollItems, wireScrolling, showHeldLink, SCROLL_ITEMS } from './scrolling-panel.js';
 import { MARQUEE_SCRIPT } from './marquee.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
@@ -2043,7 +2043,7 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
-    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), href: b.href, pages: siteLinkGroups(), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
+    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), href: b.href, linkHeld: scrollLinkHeld(b), pages: siteLinkGroups(), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
@@ -4573,6 +4573,7 @@ function closeLinkPopover() {
   if (linkPop.hidden) return;
   linkPop.hidden = true;
   markLinkBar();
+  { const b = sel && B(sel.sid, sel.bid); showHeldLink(blockPanel, b?.type === 'scrolling' && b.id === linkPop.dataset.bid ? b.href : null, siteLinkGroups()); }
   // The box, an Email and a Phone reach a text link only now (parity/findings/CAP-LINK.json, LINKBOX.json, LINKMENU.json).
   const t = linkTarget;
   linkTarget = null;
@@ -4599,6 +4600,9 @@ function closeLinkPopover() {
   }
   t.after?.();
 }
+// While Attach link's editor is open on a Scrolling block, its Link row still reads Attach link (scrolling-panel.js).
+// Read only on an opening on no link yet; opened by Edit on a link it has, the row shows the link as before.
+function scrollLinkHeld(b) { return !linkPop.hidden && !linkTarget && !!linkPop.dataset.fresh && linkPop.dataset.bid === b.id; }
 const SITE_PAGES = ['Services', 'About', 'Contact', 'Home'];
 function siteLinkGroups() {
   // The oracle lists each page as name and path, e.g. Services/services. Our header stores no
