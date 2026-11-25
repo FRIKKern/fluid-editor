@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 517,
- "total": 517,
+ "pass": 522,
+ "total": 522,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -1985,6 +1985,26 @@
   },
   {
    "what": "Drag N: open>90>drag back 300>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag D: open>90",
+   "ok": true
+  },
+  {
+   "what": "Drag D: open>90>drag back 300",
+   "ok": true
+  },
+  {
+   "what": "Drag D: open>90>drag back 300>go",
+   "ok": true
+  },
+  {
+   "what": "Drag D: open>90>drag back 300>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag D: open>90>drag back 300>go>z>z",
    "ok": true
   },
   {
