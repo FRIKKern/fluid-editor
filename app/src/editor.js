@@ -4216,7 +4216,8 @@ function accordionEscape() {
 // a fall from a line that fit moves the foot up by the fall, also a fall of one step, and snaps it down (180 to 150 leaves 5
 // rows for a line that needs 6). The give on that snap is read between 0.03 and 0.17 of a row (180 to 90 to 30 keeps 2 rows).
 // The desktop rows stay. After such a fall Speed, Fade edges and Item Spacing keep the phone rows and Medium text size refits
-// them (CAP-T12PHONE3.json, R1 and R2 alike). Not read in the phone view: Text Style, Direction, Pause on hover and the items.
+// them (CAP-T12PHONE3.json, R1 and R2 alike); Text Style, Direction and Pause on hover keep them too (CAP-T12BLOCKS.json, plans
+// A, B and C, R1 and R2 alike). Not read in the phone view: the items.
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = b.wave, c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
@@ -4230,8 +4231,10 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   else if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
-  // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
-  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
+  // (CAP-T12REFIT2.json, R1 and R2 alike). Text Style keeps them as well: Paragraph after a fall leaves the rows and the line's
+  // height as they were, on the desktop and in the phone view (CAP-T12BLOCKS.json, plans H and A, R1 and R2 alike). Not read:
+  // Text Style back to Heading (it keeps them too; inferred), the items.
+  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing|scrollStyle) /.test(label)) need = rows0;
   // In the phone view a block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the
   // section keeps the rows under the lowest block (CAP-T12PHONE3.json, a Text block and a second Scrolling block on the row
   // the foot ends on, R1 and R2 alike). The blocks that follow are those that share a column with it and start on or below
