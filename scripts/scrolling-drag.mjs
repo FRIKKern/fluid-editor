@@ -2,12 +2,12 @@
 // with a Text block under it, made on the desktop as the oracle's (N: the Scrolling block alone, on the desktop); in the
 // phone view 90 pressed, then a real drag whose values come a set time apart, let go on the last one; then Escape and Cmd+Z
 // step by step. Values 300 or 700 ms apart are one step (P, G), 1100 or 1500 ms apart one step each (H, S, C), also with the
-// pointer moving between them (J); a drag out and back let go on its start takes a step too (B, C, N), though no change fires.
-// Each row checks the blocks' areas in both views, the Scrolling block's line in the view shown, in the phone view the
-// section's rows, and Undo and Redo (a blank section added after the build leaves one step under the plan's, as the
-// oracle's block adds do). The drag's moves go through one DevTools session, so the time between two values is the gap
-// asked for, not a process start. Not rows: D (the desktop's Text block during a drag) and the areas of C's step at 150 on
-// the way back, where ours differs for another reason (the finding's answer; task-da2c4efe4c7f0b8a, task-d73c54f41e110d95).
+// pointer moving between them (J); a drag out and back let go on its start takes a step too (B, C, D, N), though no change
+// fires. D, on the desktop: the Text block under it follows the foot down and stays as it falls. Each row checks the blocks'
+// areas in both views, the Scrolling block's line and the section's rows in the view shown, and Undo and Redo (a blank
+// section added after the build leaves one step under the plan's, as the oracle's block adds do). The drag's moves go
+// through one DevTools session, so the time between two values is the gap asked for, not a process start. Not rows: the
+// areas of C's step at 150 on the way back, where ours differs for another reason (the finding's answer; task-d73c54f41e110d95).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -19,6 +19,7 @@ const PLANS = {
   B: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2 },
   J: { phone: true, vals: [90, 120, 150, 180], gap: 1500, name: 'jiggle 1500', z: 4, jiggle: 300 },
   N: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 1, alone: true },
+  D: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2 },
   // The step at 150 on the way back: its line and Undo only (C>z>z, see above).
   C: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7, lineOnly: ['go>z>z'] },
 };
@@ -46,7 +47,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`);
   const same = (what, read, lineOnly = false) => {
     const o = read.layout, w = ours(), me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
-    const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && (w.view !== 'mobile' || w.rows === o.rows);
+    const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
     const ok = (lineOnly || areas) && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
     add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
   };
