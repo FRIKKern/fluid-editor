@@ -4913,8 +4913,13 @@ const closeLinkOutside = (e) => {
   if (linkPop.contains(e.target)) return;
   linkBarClosed = !linkPop.hidden && linkFromBar && !!e.target.closest?.('#block-toolbar [data-tb="link"]');
   const keep = !linkPop.hidden && !!e.target.closest?.('#undo') && scrollLinkPicked();
+  // A press on the held Attach link closes the editor and leaves the focus on the Link row's Edit, not opening it again
+  // (CAP-T12HELDLINK.json P1 and P2, R1 and R2 alike). The pointerdown's default is stopped, so the press moves no focus.
+  const held = !linkPop.hidden && !!e.target.closest?.('#block-panel .bp-scr-attach[data-held]');
   closeLinkPopover();
   if (keep) undoClosedLink = undoStepNow();
+  const edit = held && blockPanel.querySelector('.bp-link-actions [data-link="edit"]');
+  if (edit) { e.preventDefault(); edit.focus(); }
 };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.
