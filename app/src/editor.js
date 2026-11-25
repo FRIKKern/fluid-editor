@@ -4294,8 +4294,12 @@ function scrollRows(b, a, need, live) {
   const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
   setFormRows(b, s, need, true);
   if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
-    const dy = lay(b).area[2] - f0;
-    for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
+    // A block the fall would take onto the Scrolling block's top row or above lands on its foot instead, just under it:
+    // 150 then 0 leaves a Text block from 1/2/3/10 at 2/2/4/10, 180 then 60 at 3/2/5/10; 180 then 90 moves it the plain way,
+    // to 2/2/4/10 on the block's rows (CAP-T12TOPFALL.json, desktop, R1 and R2 alike). In the phone view such a block is
+    // stretched, not moved (F); there this only keeps it off row 0.
+    const foot = lay(b).area[2], dy = foot - f0;
+    for (const o of below) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
     renderSectionDom(s.id);
