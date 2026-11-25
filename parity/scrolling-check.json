@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 594,
- "total": 594,
+ "pass": 597,
+ "total": 597,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -1680,7 +1680,7 @@
    "ok": true
   },
   {
-   "what": "Follow guard: a drag let go on its start, a phone hand move, then a desktop move: the phone stays",
+   "what": "Follow guard: a drag, Escape before the let go, a phone hand move, then a desktop move: the phone stays",
    "ok": true
   },
   {
@@ -2024,7 +2024,7 @@
    "ok": true
   },
   {
-   "what": "Drag C: mobile>open>90>drag back 1500>go>z>z, its line and Undo",
+   "what": "Drag C: mobile>open>90>drag back 1500>go>z>z",
    "ok": true
   },
   {
@@ -2333,6 +2333,18 @@
   },
   {
    "what": "Top fall Z: arr ArrowDown ArrowDown>arr ArrowDown ArrowDown>open>180>60>go>z>z",
+   "ok": true
+  },
+  {
+   "what": "Layout turn, phone wave 90, layout 1: another Scrolling turn, no phone wave",
+   "ok": true
+  },
+  {
+   "what": "Layout turn, phone wave 90, layout 1 then 2: the Text, no phone wave",
+   "ok": true
+  },
+  {
+   "what": "Layout turn, phone wave 90, layout 1 then 2: the Text's phone button is off",
    "ok": true
   },
   {
