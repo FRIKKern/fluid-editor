@@ -1,5 +1,5 @@
 // scrolling-check's rows for the blocks below a Scrolling block as its Wave Intensity falls by one step (CAP-T12BELOW.json,
-// R2; R1 read alike). One new section per plan, a Scrolling block and a Text block added after it, made on the desktop as the
+// R2; R1 read alike). One new section per plan, a Scrolling block and a second block added after it, made on the desktop as the
 // oracle's and arranged by arrow keys there, or in the phone view for a phone plan. Each plan is the oracle's section as its
 // 'open' read found it: both blocks' desktop and phone areas and the section's rows. Then the view it was read in, Edit,
 // Design, the plan's steps (a press on Wave Intensity, or a real ArrowLeft on the range), a let go, and each Cmd+Z, a row
@@ -8,12 +8,18 @@
 // Desktop: the Text block under the foot (a, 3/2/5/10), a row below (b, 4/2/6/10), 180 then 150; from 150 to 120 (c); 180
 // then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g). g's Cmd+Z are
 // not rows: the oracle's first gives back 150 with the rows a growth takes (1/2/7/10), ours the 1/2/6/10 the fall left
-// (task-e0483f7527887d8c). The plans for a block on the Scrolling block's own area (h to r) are not rows here.
+// (task-e0483f7527887d8c). A block with the Scrolling block's own area is stretched with it, not moved, as its foot grows
+// and left as it falls: two Scrolling blocks as added (l: 150 then 0; m: 90, 180, 120), the Scrolling block made the Text
+// block's 1/2/3/10 (p); in the phone view the Text block moved onto the top row (F of CAP-T12TOPFALL.json and h: 90, 150,
+// 60; i: 180, 150) and a second Scrolling block there (k). A block on the top row with another area moves as CAP-T12TOPFALL
+// A: q (a second Scrolling block made 1/2/3/14), n (a Button block), r (phone, the Text block made 1/2/3/6); and one on the
+// second row as its C: o (a second Scrolling block), j (phone).
 import { readFileSync } from 'node:fs';
 
-const OB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12BELOW.json', import.meta.url))).runs.R2.reads;
+const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
+const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL') };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
-const DN2 = 'arr ArrowDown ArrowDown>';
+const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
 // Plan, view, the arrangement steps before 'open', the kind of the second block, the steps (a number is a press there), and
 // the Cmd+Z count when it is not one per step.
 export const PLANS = [
@@ -21,6 +27,15 @@ export const PLANS = [
   ['c', 'desktop', DN2, 'Text', [150, 120]], ['d', 'desktop', DN2, 'Text', [180, 'ArrowLeft']],
   ['e', 'mobile', 'mobile>', 'Text', [180, 150]], ['f', 'mobile', 'mobile>arr ArrowDown>', 'Text', [180, 150]],
   ['g', 'mobile', 'mobile>', 'Text', [180, 150, 120], 0],
+  // A block with the Scrolling block's own area, stretched: two Scrolling blocks as added (l, m), the Scrolling block made the
+  // Text block's 1/2/3/10 (p); phone, the Text block on the top row (F of CAP-T12TOPFALL, h, i), a second Scrolling block
+  // there (k). Moved: on the top row with another area (q 1/2/3/14, n a Button, r phone 1/2/3/6), on the second row (o, j).
+  ['l', 'desktop', '', 'Scrolling', [150, 0]], ['m', 'desktop', '', 'Scrolling', [90, 180, 120]],
+  ['p', 'desktop', 'place 0 1/2/3/10>', 'Text', [150, 0]], ['F', 'mobile', `mobile>${UP2}`, 'Text', [150, 0]],
+  ['h', 'mobile', `mobile>${UP2}`, 'Text', [90, 150, 60]], ['i', 'mobile', `mobile>${UP2}`, 'Text', [180, 150]],
+  ['k', 'mobile', `mobile>${UP2}`, 'Scrolling', [150, 0]], ['q', 'desktop', 'place 1 1/2/3/14>', 'Scrolling', [150, 0]],
+  ['n', 'desktop', '', 'Button', [150, 0]], ['r', 'mobile', `mobile>${UP2}place 1 1/2/3/6>`, 'Text', [150, 0]],
+  ['o', 'desktop', 'arr ArrowDown>', 'Scrolling', [150, 0]], ['j', 'mobile', 'mobile>arr ArrowUp>', 'Text', [150, 0]],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 

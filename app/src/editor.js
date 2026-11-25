@@ -4296,14 +4296,23 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
 function scrollRows(b, a, need, live, stay = false) {
   const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
   const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[1] < a[3] && q[3] > a[1]; };
-  const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
+  // A block with the Scrolling block's own area is stretched with it, not moved, in either view and of any kind: its top
+  // stays, its end follows the foot down as it grows, and it stays as the foot falls. Two Scrolling blocks on 1/2/3/26, 150
+  // takes both to 1/2/6/26 and 0 leaves the second there; a Text block on 1/2/3/10 under a Scrolling block made 1/2/3/10
+  // the same; in the phone view a Text block or a second Scrolling block moved onto the top row (both 1/2/3/10), 150 takes
+  // it to 1/2/7/10 and 0 leaves it (CAP-T12BELOW.json l, m, p, h, i and k, CAP-T12TOPFALL.json F, CAP-T12PAUSEBACK.json W
+  // by a drag, R1 and R2 alike). A block on the top row with another area moves (q, n and r below). Not read: a block that
+  // shares the top and columns but not the end row.
+  const own = a.join('/'), blocks = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden);
+  const twins = blocks.filter((o) => o.layout[bp].area.join('/') === own), below = blocks.filter((o) => !twins.includes(o) && follows(o));
   setFormRows(b, s, need, true);
-  if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
+  if ((below.length || twins.length) && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
     // A block the fall would take onto the Scrolling block's top row or above lands on its foot instead, just under it:
     // 150 then 0 leaves a Text block from 1/2/3/10 at 2/2/4/10, 180 then 60 at 3/2/5/10; 180 then 90 moves it the plain way,
-    // to 2/2/4/10 on the block's rows (CAP-T12TOPFALL.json, desktop, R1 and R2 alike). In the phone view such a block is
-    // stretched, not moved (F); there this only keeps it off row 0.
+    // to 2/2/4/10 on the block's rows (CAP-T12TOPFALL.json, desktop, R1 and R2 alike; in the phone view CAP-T12BELOW.json j
+    // and r, R1 and R2 alike).
     const foot = lay(b).area[2], dy = foot - f0;
+    for (const o of twins) if (dy > 0) o.layout[bp].area[2] = foot;
     for (const o of below) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
