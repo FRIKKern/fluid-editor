@@ -4255,12 +4255,16 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // it, a row below, or on its rows from its top follows, one below in other columns stays (CAP-T12BLOCKS.json, plans I, K,
   // Q and R, R1 and R2 alike). Not read: a block that starts above its top and reaches below it, a block hidden in the view
   // (it stays), Text Size or an item with a block below.
+  // A drag on the desktop (live 'drag': the range's moves while held, not a press's own input) takes them down as the foot
+  // grows and leaves them as it falls: 90 out to 180 and back left a Text block 3/2/5/10 at 5/2/7/10 and the section 12 rows,
+  // the Scrolling block back at 1/2/5/26 (CAP-T12WAVEDRAG.json D, R2 and R3 alike). The phone view's blocks follow it back
+  // up (B). Not read: a desktop drag's fall after a pause of a second or more.
   if (need !== a[2] - a[0]) {
     const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
     const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
     const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
     setFormRows(b, s, need, true);
-    if (below.length) {
+    if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
       const dy = lay(b).area[2] - f0;
       for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
       if (bp === 'mobile' && dy) footAt = '';
