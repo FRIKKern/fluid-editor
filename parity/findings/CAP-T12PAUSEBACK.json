@@ -1,0 +1,7807 @@
+{
+ "item": "CAP-T12PAUSEBACK",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-25",
+ "engine": "chrome",
+ "question": "T12 (task-23e237fca6436f9b, task-067e929f7d111a09), after CAP-T12WAVEDRAG: is a Wave Intensity drag's last stretch an undo step when it lets go on the value a pause left? And what does a press on another block do while a drag is held? On Blocks Probe at a 1600 by 1000 window, one new section per plan with a new Scrolling block and a Text block added after it, made on the desktop (desktop 1/2/3/26 and 1/2/3/10); T and N the Scrolling block alone; W a second Scrolling block instead of the Text block (it lands on 1/2/3/26 too). The Scrolling block selected, Edit, Design ('open'), then real pointer input through one DevTools session, the state read at each hold; then Escape ('go') and Cmd+Z, a read after each. U (desktop) and V (Mobile View, the frame 428 wide): 90 pressed, then a drag from 90: 300 ms there, 120 held 1300 ms, 150 300 ms, 120 300 ms, let go on 120. T: the same on the Scrolling block alone. N, alone: a drag from 0, 60 held 1300 ms, 120 300 ms, back to 0 300 ms, let go on 0. W: a drag from 0 to 60 and 120, 1200 ms apart, then 600 ms on 120, the pointer moved still held onto the second block's middle on the page, a second press there 300 ms (the button still down), let go there. R1 ran U, W, V with other plans (KLUWMV) and T, N (TNR); R2 the other order (VMWULK, RNT). Nothing saved: every session left by Exit Without Saving.",
+ "visited": "Blocks Probe",
+ "readsAre": "reads: as CAP-T12TOPFALL (layout of the Scrolling block and every block in its section, the section rows in the view shown, the line, Undo and Redo, the panel's ranges; 'wave' the panel's Wave Intensity value). inputs: for each drag, states ([name, state]: value is the range's value, focus the focused element, undo [Undo on, Redo on], selected the selected blocks' ids, lines each Scrolling block's drawing height on the page) and log (the page's input, change and pointer events on the range, ms from the first). switchPoint: W's second block middle on the page, and what lies there. blockIds: each plan's blocks, as added.",
+ "answer": [
+  "A drag's last stretch is an undo step also when it lets go on the value a pause left, and the model is as that pause's step left it. T, alone: 90 (1/2/5/26), the drag ends on 120 (1/2/5/26, line 154): Escape, Cmd+Z leaves 1/2/5/26 and the line at 154 with Redo on, Cmd+Z again the line at 124 (90), a third the section as built. A change fires at the let go (120 is not where the drag began).",
+  "With a Text block the same three steps: U ends 1/2/5/26 with the Text block at 4/2/6/10 (150 took it down, the one-step fall back to 120 left it); Cmd+Z 1/2/5/26 and 3/2/5/10 (the pause's 120), again the same areas (90), then the section as built. V in the phone view: 1/2/5/10 and 5/2/7/10, Cmd+Z 1/2/6/10 and 6/2/8/10 (the pause's 120), then 1/2/5/10 (90), then as built.",
+  "N, alone: 0, 60 held, 120, back to 0, let go on 0 (no change fires): two steps, Cmd+Z gives 60 (1/2/4/26, line 94), again the section as built.",
+  "Another block can't be selected during a drag. W: moved over the second block with the button down, the range follows the pointer to 0 (the block lies left of the panel), the first block's line falls to 34 and the second block's stays 34; a second press there changes nothing, the first block stays selected and the panel stays open on it; the let go there is the drag's let go. The first block ends 1/2/2/26 with Wave Intensity 0 and the second block keeps 0. Cmd+Z gives 60 (the first block 1/2/4/26), again the section as built.",
+  "W also shows the second Scrolling block, on the first's top row, stretched as the first grows (1/2/3/26 to 1/2/5/26 on the way to 120, read after the let go) and left so as it falls, not moved down as a Text block is (CAP-T12TOPFALL A). Not built here: task-d91d6e0d2f550874.",
+  "R1 and R2 read alike in every read and drag state (the block ids, and Undo and Redo at a plan's start, apart).",
+  "Not read: a pause shorter than 1.3 s before the way back; Item Spacing and Text Size; a drag let go over the page with no second press (ours keeps that let go); a touch."
+ ],
+ "localGuesses": {
+  "written": "none written before the reads; ours on main takes no step for T's last stretch (the change finds the model as the pause left it), so Cmd+Z goes back to 90 at once"
+ },
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "file": "K-R1.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    },
+    {
+     "file": "T-R1.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T10:35:53.109Z",
+   "reads": {
+    "R1 U default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 U open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 U open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 U open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 11,
+      "rowSizes": "30.2969px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.9,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R1 U open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 11,
+      "rowSizes": "30.2969px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.9,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 U open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.4062px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.8,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 U open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 U open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 W open>drag switch": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 157.3
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 W open>drag switch>go": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 157.3
+       }
+      ]
+     }
+    },
+    "R1 W open>drag switch>go>z": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.1,
+       94
+      ],
+      "svg": [
+       12.5,
+       94
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 94,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 112.3
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 112.3
+       }
+      ]
+     }
+    },
+    "R1 W open>drag switch>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V mobile": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V mobile>open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 V mobile>open>90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 120,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 V mobile>open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "29.25px 24px",
+      "block": 150,
+      "marquee": [
+       0,
+       150
+      ],
+      "svg": [
+       3,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 150
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 161,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R1 V mobile>open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "29.25px 24px",
+      "block": 150,
+      "marquee": [
+       0,
+       150
+      ],
+      "svg": [
+       3,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 150
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 161,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V mobile>open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       7,
+       150
+      ],
+      "svg": [
+       10,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/6/10",
+        "top": 0,
+        "height": 164
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "6/2/8/10",
+        "top": 175,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V mobile>open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 120,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V mobile>open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V mobile>open>90>drag pause back>go>z>z>z>desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 T default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 N default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 T open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 T open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 T open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R1 T open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     }
+    },
+    "R1 T open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     }
+    },
+    "R1 T open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       }
+      ]
+     }
+    },
+    "R1 T open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 N open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 N open>drag pause start": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 N open>drag pause start>go": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       }
+      ]
+     }
+    },
+    "R1 N open>drag pause start>go>z": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.1,
+       94
+      ],
+      "svg": [
+       12.5,
+       94
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 94,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 112.3
+       }
+      ]
+     }
+    },
+    "R1 N open>drag pause start>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R1 U open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       312,
+       "120"
+      ],
+      [
+       "input",
+       1779,
+       "150"
+      ],
+      [
+       "input",
+       2213,
+       "120"
+      ],
+      [
+       "pointerup",
+       2601,
+       "120"
+      ],
+      [
+       "change",
+       2602,
+       "120"
+      ]
+     ]
+    },
+    "R1 W open>drag switch": {
+     "states": [
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1958"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "moved onto block 2, held",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1958"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "second press on block 2",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "DIV.fe-block-yui_3_17_2_1_1795602845032_2252"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1958"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "let go on block 2",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "DIV.fe-block-yui_3_17_2_1_1795602845032_2252"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_1958"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       1211,
+       "60"
+      ],
+      [
+       "input",
+       2594,
+       "120"
+      ],
+      [
+       "input",
+       3345,
+       "0"
+      ]
+     ]
+    },
+    "R1 V mobile>open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_3072"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          120
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_3072"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          150
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_3072"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          180
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_3072"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          150
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795602845032_3072"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795602845032_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_1958",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2252",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_2557",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795602845032_3072",
+          150
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       312,
+       "120"
+      ],
+      [
+       "input",
+       1778,
+       "150"
+      ],
+      [
+       "input",
+       2194,
+       "120"
+      ],
+      [
+       "pointerup",
+       2587,
+       "120"
+      ],
+      [
+       "change",
+       2588,
+       "120"
+      ]
+     ]
+    },
+    "R1 T open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       323,
+       "120"
+      ],
+      [
+       "input",
+       1771,
+       "150"
+      ],
+      [
+       "input",
+       2190,
+       "120"
+      ],
+      [
+       "pointerup",
+       2585,
+       "120"
+      ],
+      [
+       "change",
+       2585,
+       "120"
+      ]
+     ]
+    },
+    "R1 N open>drag pause start": {
+     "states": [
+      [
+       "held 0",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         true
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_713"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 60",
+       {
+        "value": "60",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_713"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          94
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_713"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 0",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_713"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604788455_713"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604788455_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_713",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604788455_1014",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       325,
+       "60"
+      ],
+      [
+       "input",
+       1778,
+       "120"
+      ],
+      [
+       "input",
+       2257,
+       "0"
+      ],
+      [
+       "pointerup",
+       2612,
+       "0"
+      ]
+     ]
+    }
+   },
+   "switchPoint": {
+    "R1 W open>drag switch": [
+     800,
+     833.796875,
+     "frame"
+    ]
+   },
+   "blockIds": {
+    "T": [
+     "yui_3_17_2_1_1795604788455_412"
+    ],
+    "N": [
+     "yui_3_17_2_1_1795604788455_713"
+    ],
+    "U": [
+     "yui_3_17_2_1_1795602845032_1443",
+     "yui_3_17_2_1_1795602845032_1737"
+    ],
+    "V": [
+     "yui_3_17_2_1_1795602845032_3072",
+     "yui_3_17_2_1_1795602845032_3366"
+    ],
+    "W": [
+     "yui_3_17_2_1_1795602845032_1958",
+     "yui_3_17_2_1_1795602845032_2252"
+    ]
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "file": "K-R2.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    },
+    {
+     "file": "T-R2.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T11:00:30.999Z",
+   "reads": {
+    "R2 V default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 U default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 V mobile": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V mobile>open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 V mobile>open>90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 120,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 V mobile>open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "29.25px 24px",
+      "block": 150,
+      "marquee": [
+       0,
+       150
+      ],
+      "svg": [
+       3,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 150
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 161,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R2 V mobile>open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "29.25px 24px",
+      "block": 150,
+      "marquee": [
+       0,
+       150
+      ],
+      "svg": [
+       3,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 150
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 161,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V mobile>open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/6/10",
+      "rows": 7,
+      "rowSizes": "24px",
+      "block": 164,
+      "marquee": [
+       7,
+       150
+      ],
+      "svg": [
+       10,
+       150
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 150,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/6/10",
+        "top": 0,
+        "height": 164
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "6/2/8/10",
+        "top": 175,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V mobile>open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 120,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V mobile>open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 30,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V mobile>open>90>drag pause back>go>z>z>z>desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 W open>drag switch": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 157.3
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 W open>drag switch>go": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 157.3
+       }
+      ]
+     }
+    },
+    "R2 W open>drag switch>go>z": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.1,
+       94
+      ],
+      "svg": [
+       12.5,
+       94
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 94,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 112.3
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 112.3
+       }
+      ]
+     }
+    },
+    "R2 W open>drag switch>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 U open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 U open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 U open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 11,
+      "rowSizes": "30.2969px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.9,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R2 U open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 11,
+      "rowSizes": "30.2969px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.9,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 U open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.4062px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.8,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 U open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 U open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 N default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 T default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 N open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 N open>drag pause start": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 N open>drag pause start>go": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       }
+      ]
+     }
+    },
+    "R2 N open>drag pause start>go>z": {
+     "layout": {
+      "desktop": "1/2/4/26",
+      "phone": "1/2/3/10",
+      "rows": 9,
+      "rowSizes": "30.0938px",
+      "block": 112.3,
+      "marquee": [
+       9.1,
+       94
+      ],
+      "svg": [
+       12.5,
+       94
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 94,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/4/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 112.3
+       }
+      ]
+     }
+    },
+    "R2 N open>drag pause start>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 T open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 T open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 T open>90>drag pause back": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "120"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     },
+     "wave": [
+      "120",
+      ""
+     ]
+    },
+    "R2 T open>90>drag pause back>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     }
+    },
+    "R2 T open>90>drag pause back>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.25px 30.0938px",
+      "block": 154,
+      "marquee": [
+       0,
+       154
+      ],
+      "svg": [
+       3.4,
+       154
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 154,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 154
+       }
+      ]
+     }
+    },
+    "R2 T open>90>drag pause back>go>z>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       }
+      ]
+     }
+    },
+    "R2 T open>90>drag pause back>go>z>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R2 V mobile>open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          120
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          30
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          150
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          30
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          180
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          30
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          150
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          30
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_412"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          150
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          30
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          30
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       311,
+       "120"
+      ],
+      [
+       "input",
+       1778,
+       "150"
+      ],
+      [
+       "input",
+       2210,
+       "120"
+      ],
+      [
+       "pointerup",
+       2600,
+       "120"
+      ],
+      [
+       "change",
+       2601,
+       "120"
+      ]
+     ]
+    },
+    "R2 W open>drag switch": {
+     "states": [
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "moved onto block 2, held",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "second press on block 2",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "DIV.fe-block-yui_3_17_2_1_1795604403851_1737"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "let go on block 2",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "DIV.fe-block-yui_3_17_2_1_1795604403851_1737"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_1443"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       1212,
+       "60"
+      ],
+      [
+       "input",
+       2596,
+       "120"
+      ],
+      [
+       "input",
+       3329,
+       "0"
+      ]
+     ]
+    },
+    "R2 U open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_2042"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_2042"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_2042"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          184
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_2042"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795604403851_2042"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795604403851_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1443",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_1737",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2042",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_2557",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795604403851_3072",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       311,
+       "120"
+      ],
+      [
+       "input",
+       1828,
+       "150"
+      ],
+      [
+       "input",
+       2278,
+       "120"
+      ],
+      [
+       "pointerup",
+       2669,
+       "120"
+      ],
+      [
+       "change",
+       2669,
+       "120"
+      ]
+     ]
+    },
+    "R2 N open>drag pause start": {
+     "states": [
+      [
+       "held 0",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         true
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_928"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 60",
+       {
+        "value": "60",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_928"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          94
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_928"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          154
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "held 0",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_928"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "0",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_928"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       327,
+       "60"
+      ],
+      [
+       "input",
+       1792,
+       "120"
+      ],
+      [
+       "input",
+       2194,
+       "0"
+      ],
+      [
+       "pointerup",
+       2547,
+       "0"
+      ]
+     ]
+    },
+    "R2 T open>90>drag pause back": {
+     "states": [
+      [
+       "held 90",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_1229"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          124
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_1229"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          154
+         ]
+        ]
+       }
+      ],
+      [
+       "held 150",
+       {
+        "value": "150",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_1229"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          184
+         ]
+        ]
+       }
+      ],
+      [
+       "held 120",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_1229"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          154
+         ]
+        ]
+       }
+      ],
+      [
+       "up",
+       {
+        "value": "120",
+        "focus": {
+         "tag": "INPUT",
+         "type": "range",
+         "isRange": true,
+         "sameRangeLabel": "Wave Intensity",
+         "label": "Wave Intensity",
+         "inFrame": false,
+         "frameFocus": null
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795605428847_1229"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795605428847_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_928",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795605428847_1229",
+          154
+         ]
+        ]
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "90"
+      ],
+      [
+       "input",
+       315,
+       "120"
+      ],
+      [
+       "input",
+       1731,
+       "150"
+      ],
+      [
+       "input",
+       2131,
+       "120"
+      ],
+      [
+       "pointerup",
+       2517,
+       "120"
+      ],
+      [
+       "change",
+       2517,
+       "120"
+      ]
+     ]
+    }
+   },
+   "switchPoint": {
+    "R2 W open>drag switch": [
+     800,
+     210.828125,
+     "frame"
+    ]
+   },
+   "blockIds": {
+    "T": [
+     "yui_3_17_2_1_1795605428847_1229"
+    ],
+    "N": [
+     "yui_3_17_2_1_1795605428847_928"
+    ],
+    "U": [
+     "yui_3_17_2_1_1795604403851_2042",
+     "yui_3_17_2_1_1795604403851_2336"
+    ],
+    "V": [
+     "yui_3_17_2_1_1795604403851_412",
+     "yui_3_17_2_1_1795604403851_706"
+    ],
+    "W": [
+     "yui_3_17_2_1_1795604403851_1443",
+     "yui_3_17_2_1_1795604403851_1737"
+    ]
+   }
+  }
+ }
+}
