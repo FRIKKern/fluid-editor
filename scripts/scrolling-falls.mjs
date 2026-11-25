@@ -3,10 +3,11 @@
 // block's rows from its top), one row lower (C, 2/2/4/10), or both blocks moved two rows down (X, Y, Z). Two presses, a let
 // go and two Cmd+Z. A fall of two steps or more moves the Text block up by as much as the foot, unless that would put it on
 // the Scrolling block's top row or above: then it lands on the foot, just under the block (A, B, E, G, H, I, J, C, X, Z).
-// Q and Y move it the plain way, still on the Scrolling block's rows. Each row checks both blocks' desktop and phone areas,
-// the section's desktop rows, the Scrolling block's height and line, the Text block's top and height, and on a press row
-// the wave value. Not rows: P (180 then 150, a one-step fall: the Text block stays, task-78bc0672904da5dc) and F (the phone
-// view, where the Text block on the top row is stretched, not moved, task-f965eec8e625ed9a).
+// Q and Y move it the plain way, still on the Scrolling block's rows. A fall of one step leaves it (P, 180 then 150: it starts
+// above the old foot; scrolling-below.mjs has blocks at or under the foot, which follow). Each row checks both blocks'
+// desktop and phone areas, the section's desktop rows, the Scrolling block's height and line, the Text block's top and
+// height, and on a press row the wave value. Not rows: F (the phone view, where the Text block on the top row is stretched,
+// not moved, task-f965eec8e625ed9a).
 import { readFileSync } from 'node:fs';
 
 const OT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12TOPFALL.json', import.meta.url))).runs.R2.reads;
@@ -15,7 +16,7 @@ const ARR = 'arr ArrowDown ArrowDown>arr ArrowDown ArrowDown>';
 // Plan, the steps that arranged it before Edit, the two presses (179 is the press at the range's end, 180).
 export const PLANS = [
   ['A', '', [150, 0]], ['B', '', [180, 0]], ['E', '', [150, 30]], ['G', '', [120, 0]], ['H', '', [90, 0]],
-  ['I', '', [180, 60]], ['J', '', [180, 30]], ['Q', '', [180, 90]], ['C', 'arr ArrowDown>', [150, 0]],
+  ['I', '', [180, 60]], ['J', '', [180, 30]], ['Q', '', [180, 90]], ['P', '', [180, 150]], ['C', 'arr ArrowDown>', [150, 0]],
   ['X', ARR, [150, 0]], ['Y', ARR, [180, 90]], ['Z', ARR, [180, 60]],
 ];
 
