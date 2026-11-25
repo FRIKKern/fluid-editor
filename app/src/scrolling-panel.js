@@ -129,11 +129,23 @@ export function wireScrolling(panel, api) {
     const drag = before != null && !!rangeBefore.drag;
     rangeBefore = null;
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
-    api.set((x) => write(x, key, v), `${key} ${v}`, before ?? undefined);
+    // Arrow keys on Wave Intensity (CAP-T12WAVEKEYS.json, R1 and R2 alike): each key moves it one step of 30 and the range
+    // keeps the focus, also after a press on it; keys 1.2 s apart are an undo step each, three keys within half a second
+    // one step. Under a second joins the last key's step here, as a drag's pause (inferred between 0.25 and 1.2 s).
+    const focused = !!r && document.activeElement === r, at = performance.now(), now = api.snapshot();
+    const join = r && keyed && lastKey?.key === key && lastKey.bid === b.id && (before ?? now) === lastKey.at && at - lastKey.t < DRAG_PAUSE && api.merge(lastKey.snap);
+    const snap = join ? lastKey.snap : before ?? now;
+    api.set((x) => write(x, key, v), `${key} ${v}`, snap);
     // A drag let go back on the value a pause left takes its step too, the model as that step left it (CAP-T12PAUSEBACK.json
     // T, the Scrolling block alone: 90, 120 with a pause, 150, 120, let go; Cmd+Z leaves 120, the next 90).
     if (drag && api.snapshot() === before) api.commit(before, `${key} ${v}`, false, true);
+    lastKey = r && keyed ? { key, bid: b.id, snap, at: api.snapshot(), t: at } : null;
+    if (focused) panel.querySelector(`[data-scr-range="${key}"]`)?.focus();
   });
+  // A key on a range: its change is a key's, not a press's (any pointer press ends that).
+  let keyed = false, lastKey = null;
+  panel.addEventListener('keydown', (e) => { if (e.target.closest('[data-scr-range]')) keyed = true; }, true);
+  addEventListener('pointerdown', () => { keyed = false; lastKey = null; }, true);
   // An item's Text shows on the block at each key; the typing is one undo step, taken when the field is left (CAP-T12SCROLLLIST.json).
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
   // again would swallow the click.
