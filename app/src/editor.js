@@ -40,7 +40,7 @@ import { animListHtml, animPickerHtml, animEditorHtml, animOptionsHtml, barAt, P
 import { messageBox, cleanMessage } from './form-message.js';
 import { standinPanelOf, PLAN_PARTS, planHeight } from './standin-panels.js';
 import { tileOf } from './standin-tiles.js';
-import { scrollOf, scrollItems, wireScrolling, showHeldLink, SCROLL_ITEMS } from './scrolling-panel.js';
+import { scrollOf, scrollItems, wireScrolling, showHeldLink, SCROLL_ITEMS, waveIn } from './scrolling-panel.js';
 import { MARQUEE_SCRIPT } from './marquee.js';
 import { hasOverrides, resetOverrides, pushOverrides, markPhoneLabels, markAnimLabels, phoneButtonHtml, PHONE_MENU_HTML, phoneMenuPlace } from './phone-overrides.js';
 import { newField, writeFieldText, writeFieldSet, postOf, followOf, addFollow, deleteFollow, deleteOption, moveOption, formView, setFormView, bindPhonePrefix } from './form-fields.js';
@@ -2050,7 +2050,7 @@ function renderBlockPanel() {
     : b.type === 'embed' ? { kind: 'embed', html: b.html, as: b.embedAs || 'link', url: b.embedUrl, invalid: b.embedInvalid, description: b.description }
     : b.standin === 'quote' ? { kind: 'quote', ...quoteOf(b), appear: b.appear }
     : b.standin === 'newsletter' ? { kind: 'newsletter', ...newsletterOf(b), post: postOf(b), pages: siteLinkGroups() }
-    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b), href: b.href, linkHeld: scrollLinkHeld(b), pages: siteLinkGroups(), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
+    : b.type === 'scrolling' ? { kind: 'scrolling', ...scrollOf(b, bp), href: b.href, linkHeld: scrollLinkHeld(b), pages: siteLinkGroups(), item: scrView?.bid === b.id && designTab === 'Content' ? scrView.n : null }
     : standinPanelOf(b) ? { kind: 'standin', name: b.label, values: b.sp || {} } : null;
   if (spView && (spView.bid !== b.id || content?.kind !== 'standin')) spView = null;
   if ((!content || content.kind === 'line') && designTab === 'Content') designTab = 'Design';
@@ -4225,23 +4225,25 @@ function accordionEscape() {
 // The desktop rows stay. After such a fall Speed, Fade edges and Item Spacing keep the phone rows and Medium text size refits
 // them (CAP-T12PHONE3.json, R1 and R2 alike); Text Style, Direction and Pause on hover keep them too (CAP-T12BLOCKS.json, plans
 // A, B and C, R1 and R2 alike). Not read in the phone view: the items.
+// Each view's rows go by its own Wave Intensity (scrolling-panel.js waveIn): a phone change leaves the desktop line flat, and a
+// desktop move after it keeps the desktop rows (CAP-T12WAVEVIEWS.json, CAP-T12FOLLOW.json V).
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
-  const b = B(sel.sid, sel.bid), w0 = b.wave, c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
+  const b = B(sel.sid, sel.bid), w0 = waveIn(b, bp), c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
   change(b);
   renderSectionDom(sel.sid);
-  const m = formPitch(b), phone = bp === 'mobile' && b.wave !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
+  const m = formPitch(b), w = waveIn(b, bp), phone = bp === 'mobile' && w !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
   const fit = phone ? Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)) : contentRows(b, m), h0 = rows0 * m.pitch - m.rg;
   let need = fit;
   if (phone && fall > 0) need = c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13));
   else if (phone) need = fit;
-  else if (b.wave !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
-  else if (b.wave !== w0 && fall > 0) need = Math.min(rows0, fit);
+  else if (w !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
+  else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Text Style keeps them as well: Paragraph after a fall leaves the rows and the line's
   // height as they were, on the desktop and in the phone view (CAP-T12BLOCKS.json, plans H and A, R1 and R2 alike). Not read:
   // Text Style back to Heading (it keeps them too; inferred), the items.
-  else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing|scrollStyle) /.test(label)) need = rows0;
+  else if (w === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing|scrollStyle) /.test(label)) need = rows0;
   // A block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the section keeps the rows
   // under the lowest block (CAP-T12PHONE3.json, in the phone view: a Text block and a second Scrolling block on the row the
   // foot ends on, R1 and R2 alike). The blocks that follow are those that share a column with it and start on or below its
@@ -4274,6 +4276,7 @@ wireScrolling(blockPanel, {
   set: setScrolling,
   snapshot: () => JSON.stringify(model),
   commit: (before, label) => commit(before, label),
+  phone: () => bp === 'mobile',
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
 function setAccordion(change, label, before = JSON.stringify(model)) {

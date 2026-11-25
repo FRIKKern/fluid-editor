@@ -34,7 +34,7 @@ export function runMarquees(document) {
     if (!svg || !items.length) return false;
     // h from the tallest item: an emptied item is 0 high.
     const fs = parseFloat(win.getComputedStyle(svg).fontSize), h = Math.round(Math.max(...items.map((e) => e.getBoundingClientRect().height)));
-    const A = Number(m.dataset.wave) || 0, W = m.getBoundingClientRect().width, gap = (Number(m.dataset.spacing) || 0) * fs;
+    const A = Number(m.dataset.waveM != null && win.matchMedia('(max-width: 767px)').matches ? m.dataset.waveM : m.dataset.wave) || 0, W = m.getBoundingClientRect().width, gap = (Number(m.dataset.spacing) || 0) * fs;
     const widths = items.map((e) => Math.round(e.getBoundingClientRect().width)), words = items.map((e) => e.textContent);
     if (!words.join('').trim()) { if (st.sig !== '') { svg.innerHTML = ''; st.sig = ''; } return false; }
     const sig = JSON.stringify([fs, h, A, W, gap, widths, words]);

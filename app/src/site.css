@@ -428,6 +428,8 @@ body.is-preview .image-lightbox img { cursor: pointer; }
   line-height: 1.4em; letter-spacing: .01rem; white-space: nowrap; overflow: hidden;
   height: calc(1.4em + var(--marquee-wave, 120px)); display: flex; align-items: center;
 }
+/* A phone's own Wave Intensity (CAP-T12WAVEVIEWS.json). */
+@media (max-width: 767px) { .marquee { height: calc(1.4em + var(--marquee-wave-m, var(--marquee-wave, 120px))); } }
 .marquee.is-paragraph { letter-spacing: normal; }
 /* The words are measured hidden and drawn along a wave by marquee.js (CAP-T12WAVE.json). Fade edges masks the drawing. */
 .marquee-display { position: relative; flex: 1; align-self: stretch; min-width: 0; }

@@ -7,6 +7,7 @@ import { evalJs, goto, viewport, pause, mouse, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { blockRows } from './scrolling-blocks.mjs';
 import { followRows } from './scrolling-follow.mjs';
+import { viewRows } from './scrolling-views.mjs';
 
 if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
 const S = process.env.FLUID_SURFACE;
@@ -487,7 +488,7 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   // section of 2 phone rows (the oracle's), then the phone view and the plan's presses. The phone area, the section's phone rows,
   // the block, the line in it, and the desktop area that stays.
   const WP = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEPHONE.json', import.meta.url))).runs;
-  const layP = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), fb = el.closest('.fe-block').getBoundingClientRect(), m = el.querySelector('.marquee').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ desktop: b.layout.desktop.area.join('/'), phone: b.layout.mobile.area.join('/'), rows: s.rows.mobile, block: r(fb.height), marquee: [r(m.top - fb.top), r(m.height)], wave: b.wave ?? 0 });`);
+  const layP = () => qs(`const s = fe.model.sections[0], b = s.blocks[0], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + b.id), fb = el.closest('.fe-block').getBoundingClientRect(), m = el.querySelector('.marquee').getBoundingClientRect(), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ desktop: b.layout.desktop.area.join('/'), phone: b.layout.mobile.area.join('/'), rows: s.rows.mobile, block: r(fb.height), marquee: [r(m.top - fb.top), r(m.height)], wave: b.waveMobile ?? b.wave ?? 0 });`);
   const phoneBlock = async () => { qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 2 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); fe.setBp('mobile'); await sleep(800); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`); await press('#block-panel [data-btab="Design"]'); };
   for (const [run, P, steps] of [['R2', 1, [180, 90, 30]], ['R2', 2, [120, 0]], ['R2', 3, [180, 0]], ['R2', 4, [30, 60, 90, 120, 150, 180, 150]], ['R2', 5, [120, 30, 0]], ['R4', 6, [180, 150, 120, 90, 60, 30, 0]], ['R4', 7, [150, 120, 90, 60]], ['R4', 8, [60, 30, 0]], ['R4', 9, [90, 60, 0]]]) {
     await phoneBlock();
@@ -540,7 +541,7 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
         await pause(300); done.push(String(st));
         const k = done.join('>'), o = PH[`R2 ${P} ${k}`].layout;
         const got = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(JSON.stringify([!!b.fadeEdges, b.sizeMore ? 'more' : ({ 1.5: 'S', 4: 'M', 8: 'L' })[b.size ?? 1.5] ?? String(b.size), b.speed ?? 1, b.spacing ?? 0.5]));`);
-        const wave = qs(`return JSON.stringify(fe.model.sections[0].blocks[0].wave ?? 0);`);
+        const wave = qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify(b.waveMobile ?? b.wave ?? 0);`);
         // The press must have landed: the block's wave, Fade edges, Text Size, Speed and Item Spacing as the oracle's panel.
         if (got !== controls(o) || String(wave) !== o.ranges.find((r) => r[0] === 'Wave Intensity')[1]) add(`Phone press ${P}: ${k}`, false, `controls ${got} wave ${wave} (oracle ${controls(o)} ${JSON.stringify(o.ranges)})`); else sameP(`Phone press ${P}: ${k}`, o);
       }
@@ -552,6 +553,7 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
 await blockRows({ qs, press, add, pause, browser, mouse, S });
 // After a wave fall in the phone view the phone still follows a desktop move (CAP-T12FOLLOW.json, scrolling-follow.mjs).
 await followRows({ qs, press, add, pause, browser, mouse, S });
+await viewRows({ qs, press, add, pause, browser, mouse, S });
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -597,7 +599,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 426;
+const CASES = 464;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);

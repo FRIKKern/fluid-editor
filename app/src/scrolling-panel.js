@@ -24,7 +24,11 @@ export const SCROLL_NEW_ITEM = 'Dream it';
 export const scrollItems = (b) => b.items || [b.text || ''];
 const sizeKey = (c) => (c.sizeMore ? 'more' : Object.keys(SCROLL_SIZES).find((k) => SCROLL_SIZES[k] === c.size) || 'more');
 // What the panel shows, from the block.
-export const scrollOf = (b) => ({ items: scrollItems(b), wave: b.wave ?? 0, size: b.size ?? 1.5, sizeMore: !!b.sizeMore, style: b.scrollStyle || 'heading', direction: b.direction || 'left', speed: b.speed ?? 1, pause: !!b.pauseHover, fade: !!b.fadeEdges, spacing: b.spacing ?? 0.5 });
+// Wave Intensity is the view's own: set in the phone view it is the phone's (waveMobile, dotted, the phone button on) and
+// the desktop keeps its line and rows; until then the phone follows the desktop's (CAP-T12WAVEVIEWS.json, R1 and R2 alike).
+// waveIn is the stored value (none on an imported block, which draws 120; render.js).
+export const waveIn = (b, view) => (view === 'mobile' && b.waveMobile != null ? b.waveMobile : b.wave);
+export const scrollOf = (b, view = 'desktop') => ({ items: scrollItems(b), wave: waveIn(b, view) ?? 0, size: b.size ?? 1.5, sizeMore: !!b.sizeMore, style: b.scrollStyle || 'heading', direction: b.direction || 'left', speed: b.speed ?? 1, pause: !!b.pauseHover, fade: !!b.fadeEdges, spacing: b.spacing ?? 0.5 });
 const num = (v) => Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
 const grip = '<span class="bp-acc-grip bp-scr-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>';
@@ -69,11 +73,11 @@ export function scrollingDesignHtml(c) {
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
 // step unless live); snapshot() the model; commit(before, label) takes a step for what is in the model; view(n) opens item
-// n's view, or Content's list with null.
+// n's view, or Content's list with null; phone() is true in the phone view.
 let flushText = () => {};
 export function wireScrolling(panel, api) {
   const DEF = { size: 1.5, direction: 'left', speed: 1, spacing: 0.5 };
-  const write = (b, key, v) => { if (v === DEF[key] && key !== 'size') delete b[key]; else b[key] = v; };
+  const write = (b, key, v) => { if (key === 'wave' && api.phone()) b.waveMobile = v; else if (v === DEF[key] && key !== 'size') delete b[key]; else b[key] = v; };
   // The model before a range's drag, for its key and block, and the model its last input left. A drag that ends where it
   // began fires no change, so any other press drops it, and so does any change made since (Cmd+Z, Redo, another edit):
   // a later commit never takes an older snapshot.
