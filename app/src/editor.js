@@ -114,10 +114,11 @@ function note(text) {
 // placed: a section whose phone places the edit set itself (a View Layouts pick), so it doesn't follow desktop then.
 function commit(before, label, force = false, base = before, placed = null) {
   const foot = footAt !== null && JSON.stringify(model) === footAt; footAt = null;
+  const alone = waveAlone !== null && JSON.stringify(model) === waveAlone ? sel?.sid : null; waveAlone = null;
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(base, placed, foot);
+  followPhoneRows(base, placed, foot, alone);
   note(label);
   updateUi();
 }
@@ -129,11 +130,17 @@ let softening = false; // one Escape: the model follows, the page isn't touched
 // Only a commit of that same model took its phone moves from the foot: a hand move after a drag dropped by Escape (its let go
 // takes no step then) leaves another model, and the next commit clears it (scrolling-check's Follow guard).
 let footAt = null;
-function followPhoneRows(before, placed = null, foot = false) {
+// A desktop Wave step whose foot moved no other block is no desktop edit for the phone: in a section made here that follows
+// the desktop, 150 then 0 leaves the second Scrolling block 1/2/6/26 around the first's 1/2/2/26 and the phone keeps the first
+// on top; the next step, 90, stretches the second and the phone puts it first (CAP-T12TWIN.json v; CAP-T12BELOW.json l, m
+// and p). A drag goes by its last step (CAP-T12PAUSEBACK.json W, whose last step is a fall). The model as that step left it,
+// up to the next commit, as footAt. Not read: a drag whose growth made such a block and whose last step moved none.
+let waveAlone = null;
+function followPhoneRows(before, placed = null, foot = false, alone = null) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
     const was = old.sections.find((o) => o.id === s.id);
-    if (!was || editing?.sid === s.id || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
+    if (!was || editing?.sid === s.id || s.id === alone || JSON.stringify(was.blocks) === JSON.stringify(s.blocks)) continue;
     // The first phone edit of a section that still follows desktop keeps the DOM order, even when a block moves
     // below another (CAP-A2PHONEEDIT e1 to e7, 7 of 7, two reads each). A later edit follows rule R or sorts again.
     const first = bp === 'mobile' && was.phoneFollows === true && !was.phoneEdited;
@@ -4286,6 +4293,7 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   if (need !== a[2] - a[0]) scrollRows(b, a, need, live, !phone && w !== w0 && fall > 0 && fall < m.pitch);
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
   if (footAt !== null) footAt = JSON.stringify(model);
+  if (waveAlone !== null) waveAlone = JSON.stringify(model);
   if (dragRows) dragRows.at = JSON.stringify(model);
   if (live) return;
   commit(before, label);
@@ -4302,9 +4310,12 @@ function scrollRows(b, a, need, live, stay = false) {
   // the same; in the phone view a Text block or a second Scrolling block moved onto the top row (both 1/2/3/10), 150 takes
   // it to 1/2/7/10 and 0 leaves it (CAP-T12BELOW.json l, m, p, h, i and k, CAP-T12TOPFALL.json F, CAP-T12PAUSEBACK.json W
   // by a drag, R1 and R2 alike). A block on the top row with another area moves (q, n and r below). Not read: a block that
-  // shares the top and columns but not the end row.
-  const own = a.join('/'), blocks = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden);
-  const twins = blocks.filter((o) => o.layout[bp].area.join('/') === own), below = blocks.filter((o) => !twins.includes(o) && follows(o));
+  // A block with the same top row and columns but another end, as the second Scrolling block 1/2/6/26 after 150 and 0 left
+  // the first 1/2/2/26, is stretched by the foot's growth too: 90 takes the first to 1/2/5/26 and it to 1/2/9/26; in the
+  // phone view 1/2/7/10 to 1/2/10/10 (CAP-T12TWIN.json v and x, R1 and R2 alike). Not read: such a block shorter than it.
+  const blocks = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden), desk = () => JSON.stringify(blocks.map((o) => o.layout.desktop.area));
+  const twins = blocks.filter((o) => { const q = o.layout[bp].area; return q[0] === a[0] && q[1] === a[1] && q[3] === a[3]; });
+  const below = blocks.filter((o) => !twins.includes(o) && follows(o)), d0 = desk();
   setFormRows(b, s, need, true);
   if ((below.length || twins.length) && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
     // A block the fall would take onto the Scrolling block's top row or above lands on its foot instead, just under it:
@@ -4312,12 +4323,14 @@ function scrollRows(b, a, need, live, stay = false) {
     // to 2/2/4/10 on the block's rows (CAP-T12TOPFALL.json, desktop, R1 and R2 alike; in the phone view CAP-T12BELOW.json j
     // and r, R1 and R2 alike).
     const foot = lay(b).area[2], dy = foot - f0;
-    for (const o of twins) if (dy > 0) o.layout[bp].area[2] = foot;
+    for (const o of twins) if (dy > 0) o.layout[bp].area[2] += dy;
     for (const o of below) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
     renderSectionDom(s.id);
   }
+  // A desktop step that changes no other block's area leaves the phone stack as it is (waveAlone).
+  waveAlone = bp === 'desktop' && desk() === d0 ? '' : null;
 }
 wireScrolling(blockPanel, {
   block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
