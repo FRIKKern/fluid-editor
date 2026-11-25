@@ -6,7 +6,9 @@
 // after each. Each row checks both blocks' desktop and phone areas, the section's rows in that view, the Scrolling block's
 // height and line, the other block's top and height, and on a step row the wave in that view.
 // Desktop: the Text block under the foot (a, 3/2/5/10), a row below (b, 4/2/6/10), 180 then 150; from 150 to 120 (c); 180
-// then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g).
+// then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g). g's Cmd+Z are
+// not rows: the oracle's first gives back 150 with the rows a growth takes (1/2/7/10), ours the 1/2/6/10 the fall left
+// (task-e0483f7527887d8c). The plans for a block on the Scrolling block's own area (h to r) are not rows here.
 import { readFileSync } from 'node:fs';
 
 const OB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12BELOW.json', import.meta.url))).runs.R2.reads;
