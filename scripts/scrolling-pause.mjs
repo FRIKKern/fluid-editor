@@ -7,8 +7,8 @@
 // T: 90 > 120 (a pause) > 150 > 120, let go: the last stretch is a step though the model is as the pause left it; U on the
 // desktop and V in the phone view the same with a Text block; N: 0 > 60 (a pause) > 120 > 0, let go on its start. W checks
 // during the drag that moving onto the second block and pressing there selects nothing else and writes nothing into it:
-// the range's value, the selected block and both lines; then the first block's area. Not rows: W's second block's area
-// (on the oracle it stretches with the first: task-d91d6e0d2f550874) and W's Cmd+Z after the second press (ours loses that let go; no mouse can
+// the range's value, the selected block and both lines; then both blocks' areas (the second, on the first's area, stretched
+// with it as it grew and left as it fell). Not rows: W's Cmd+Z after the second press (ours loses that let go; no mouse can
 // press twice while held).
 import { readFileSync } from 'node:fs';
 
@@ -44,9 +44,9 @@ export async function pauseRows({ qs, press, add, pause, browser, mouse, S }) {
     qs(`const W = ${spec}, add = ${p.alone ? 'null' : p.two ? "'Scrolling'" : "'Text'"}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (add) { fe.addBlock(s.id, add, true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
   const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks[0], t = s.blocks[1], d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`);
-  const same = (what, read, meOnly = false) => {
+  const same = (what, read) => {
     const o = read.layout, w = ours(), me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
-    const ok = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (meOnly || (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other)) && (w.view !== 'mobile' || w.rows === o.rows)
+    const ok = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && (w.view !== 'mobile' || w.rows === o.rows)
       && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
     add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
   };
@@ -92,7 +92,7 @@ export async function pauseRows({ qs, press, add, pause, browser, mouse, S }) {
       }
     } finally { c.close(); }
     await pause(600);
-    same(`Pause ${P}: ${k}`, OP.reads[`R2 ${P} ${k}`], p.two);
+    same(`Pause ${P}: ${k}`, OP.reads[`R2 ${P} ${k}`]);
     if (p.two) { qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`); continue; }
     qs(`fe.select(null); await sleep(300); return 'true';`);
     k += '>go'; same(`Pause ${P}: ${k}`, OP.reads[`R2 ${P} ${k}`]);

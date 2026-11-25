@@ -6,8 +6,8 @@
 // Q and Y move it the plain way, still on the Scrolling block's rows. A fall of one step leaves it (P, 180 then 150: it starts
 // above the old foot; scrolling-below.mjs has blocks at or under the foot, which follow). Each row checks both blocks'
 // desktop and phone areas, the section's desktop rows, the Scrolling block's height and line, the Text block's top and
-// height, and on a press row the wave value. Not rows: F (the phone view, where the Text block on the top row is stretched,
-// not moved, task-f965eec8e625ed9a).
+// height, and on a press row the wave value. F (the phone view, where the Text block on the top row has the Scrolling
+// block's area and is stretched, not moved) is a row in scrolling-below.mjs.
 import { readFileSync } from 'node:fs';
 
 const OT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12TOPFALL.json', import.meta.url))).runs.R2.reads;
