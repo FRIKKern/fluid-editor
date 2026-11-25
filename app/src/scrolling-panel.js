@@ -72,7 +72,7 @@ export function scrollingDesignHtml(c) {
 }
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
-// step unless live); snapshot() the model; commit(before, label, held, force) takes a step for what is in the model (held: the
+// step unless live; live 'drag' for a range's moves while held); snapshot() the model; commit(before, label, held, force) takes a step for what is in the model (held: the
 // panel is left as it is; force: a step also when nothing changed); view(n) opens item
 // n's view, or Content's list with null; phone() is true in the phone view.
 let flushText = () => {};
@@ -131,7 +131,7 @@ export function wireScrolling(panel, api) {
   // An item's Text shows on the block at each key; the typing is one undo step, taken when the field is left (CAP-T12SCROLLLIST.json).
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
   // again would swallow the click.
-  let textBefore = null, pending = null, down = false;
+  let textBefore = null, pending = null, down = false, moved = false;
   // An undo or another change since the typing took it away with the model: nothing is left to take. Another block
   // selected meanwhile: the words are in the model already, so only the step is taken.
   const flush = () => {
@@ -143,7 +143,9 @@ export function wireScrolling(panel, api) {
     else api.commit(p.before, 'Item text changed');
   };
   flushText = flush;
-  addEventListener('pointerdown', () => { down = true; }, true);
+  addEventListener('pointerdown', () => { down = true; moved = false; }, true);
+  // A move while held: the range's inputs from now on are a drag's, not the press's own (setScrolling, a desktop drag).
+  addEventListener('pointermove', () => { if (down) moved = true; }, true);
   // A press's click takes it first, ahead of the press's own work (Undo then undoes the typing); a press with no click after.
   addEventListener('click', flush, true);
   for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { down = false; setTimeout(flush, 0); }, true);
@@ -175,7 +177,7 @@ export function wireScrolling(panel, api) {
     const f = panel.querySelector(`[data-scr-field="${key}"]`);
     if (f) f.value = `${num(v)}${f.dataset.unit}`;
     // The label names the key for setScrolling's rows rule; a live step is no undo step, so it is not shown.
-    api.set((x) => write(x, key, v), `${key} ${v}`, null, true);
+    api.set((x) => write(x, key, v), `${key} ${v}`, null, down && moved ? 'drag' : true);
     rangeBefore.at = api.snapshot();
   });
 }
