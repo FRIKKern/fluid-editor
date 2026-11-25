@@ -70,14 +70,14 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300);
   const at = (fx) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'), r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
   const p = at(0.5), q = at(0.995), path = [1, 2, 3, 4, 5, 6].map((i) => p[0] + ((q[0] - p[0]) * i) / 6);
-  const below0 = ours().other[1];
+  const below0 = ours().other[1], depth = () => qs(`return JSON.stringify(fe.undoDepth);`), d0 = depth();
   mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(100);
   for (const x of path) { mouse(S, 'move', x, p[1], { buttons: 1 }); await pause(120); }
   const moved = ours().other[1] !== below0;
-  const depth = () => qs(`return JSON.stringify(fe.undoDepth);`), d0 = depth();
   browser(S, 'press', 'Escape'); await pause(400);
   mouse(S, 'up', q[0], q[1]); await pause(400);
-  // The path's own read: the let go took no step, so the foot move is still pending at the hand move.
+  // The path's own read: no step since the drag began (a pause of a second in it would take one), nor at the let go, so
+  // the foot move is still pending at the hand move.
   const noStep = depth() === d0;
   { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
   browser(S, 'press', 'ArrowDown'); await pause(400);
