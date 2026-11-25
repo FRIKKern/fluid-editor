@@ -3,11 +3,11 @@
 // phone view 90 pressed, then a real drag whose values come a set time apart, let go on the last one; then Escape and Cmd+Z
 // step by step. Values 300 or 700 ms apart are one step (P, G), 1100 or 1500 ms apart one step each (H, S, C), also with the
 // pointer moving between them (J); a drag out and back let go on its start takes a step too (B, C, D, N), though no change
-// fires. D, on the desktop: the Text block under it follows the foot down and stays as it falls. Each row checks the blocks'
-// areas in both views, the Scrolling block's line and the section's rows in the view shown, and Undo and Redo (a blank
-// section added after the build leaves one step under the plan's, as the oracle's block adds do). The drag's moves go
-// through one DevTools session, so the time between two values is the gap asked for, not a process start. Not rows: the
-// areas of C's step at 150 on the way back, where ours differs for another reason (the finding's answer; task-d73c54f41e110d95).
+// fires. D, on the desktop: the Text block under it follows the foot down and stays as it falls. C and B, in the phone
+// view: a fall takes the rows that hold the line (C's step at 150 on the way back), the let go the fall rule. Each row
+// checks the blocks' areas in both views, the Scrolling block's line and the section's rows in the view shown, and Undo and
+// Redo (a blank section added after the build leaves one step under the plan's, as the oracle's block adds do). The drag's
+// moves go through one DevTools session, so the time between two values is the gap asked for, not a process start.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -44,10 +44,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
   const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`);
-  const same = (what, read, lineOnly = false) => {
+  const same = (what, read) => {
     const o = read.layout, w = ours(), me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
     const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
-    const ok = (lineOnly || areas) && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
+    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
     add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
   };
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
@@ -77,11 +77,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     qs(`fe.select(null); await sleep(300); return 'true';`);
     k += '>go';
     same(`Drag ${P}: ${k}`, OD[`R3 ${P} ${k}`]);
-    for (let i = 0, zs = 'go'; i < p.z; i++) {
+    for (let i = 0; i < p.z; i++) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
-      k += '>z'; zs += '>z';
-      const lineOnly = !!p.lineOnly?.includes(zs);
-      same(`Drag ${P}: ${k}${lineOnly ? ', its line and Undo' : ''}`, OD[`R3 ${P} ${k}`], lineOnly);
+      k += '>z';
+      same(`Drag ${P}: ${k}`, OD[`R3 ${P} ${k}`]);
     }
     qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
   }
