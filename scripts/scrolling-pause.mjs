@@ -8,7 +8,7 @@
 // desktop and V in the phone view the same with a Text block; N: 0 > 60 (a pause) > 120 > 0, let go on its start. W checks
 // during the drag that moving onto the second block and pressing there selects nothing else and writes nothing into it:
 // the range's value, the selected block and both lines; then the first block's area. Not rows: W's second block's area
-// (on the oracle it stretches with the first) and W's Cmd+Z after the second press (ours loses that let go; no mouse can
+// (on the oracle it stretches with the first: task-d91d6e0d2f550874) and W's Cmd+Z after the second press (ours loses that let go; no mouse can
 // press twice while held).
 import { readFileSync } from 'node:fs';
 
