@@ -95,7 +95,8 @@ export function wireScrolling(panel, api) {
   const stepNow = (b, held, force = false) => { if (rangeBefore?.bid !== b.id || rangeBefore.at !== api.snapshot() || (!force && rangeBefore.snap === rangeBefore.at)) return false; api.commit(rangeBefore.snap, `${rangeBefore.key} ${rangeBefore.v}`, held, force); return true; };
   const letGo = () => { const b = api.block(); if (rangeBefore?.drag && b && stepNow(b, false, true)) rangeBefore = null; };
   // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
-  addEventListener('pointerup', () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
+  // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
