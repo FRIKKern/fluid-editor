@@ -57,10 +57,11 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
       same(`Follow ${P}: ${k}`, OF[`R2 ${P} ${k}`].layout, done.at(-1) === 'mobile');
     }
   }
-  // A guard, not read on the oracle: after a Wave drag in the phone view that moved the block below and was let go on its
-  // start value (no change, no commit), a hand move of that block still stops the phone following, as any phone hand move
-  // does (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as they were. The drag's move of the block
-  // below is read after the let go, which takes the rows of its fall (editor.js settleScrollDrag; CAP-T12WAVEDRAG.json B).
+  // A guard, not read on the oracle: a Wave drag in the phone view that moved the block below, then Escape before the let go.
+  // Escape takes the selection off the block, so the let go takes no step and the foot move is still pending (editor.js
+  // footAt). A hand move of the block below after it still stops the phone following, as any phone hand move does
+  // (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as they were. Only this path reaches a hand move with
+  // a foot move pending: any let go of a drag takes a step since CAP-T12WAVEDRAG (scrolling-panel.js letGo).
   build('V');
   qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
   { const [sid, bid] = idOf('scrolling');
@@ -68,13 +69,16 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   await press('#block-panel [data-btab="Design"]');
   await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300);
   const at = (fx) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'), r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
-  const p = at(0.5), q = at(0.995), path = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0].map((i) => p[0] + ((q[0] - p[0]) * i) / 6);
-  const below0 = ours().other[1];
+  const p = at(0.5), q = at(0.995), path = [1, 2, 3, 4, 5, 6].map((i) => p[0] + ((q[0] - p[0]) * i) / 6);
+  const below0 = ours().other[1], depth = () => qs(`return JSON.stringify(fe.undoDepth);`), d0 = depth();
   mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(100);
   for (const x of path) { mouse(S, 'move', x, p[1], { buttons: 1 }); await pause(120); }
-  mouse(S, 'up', p[0], p[1]); await pause(400);
   const moved = ours().other[1] !== below0;
-  qs(`fe.select(null); await sleep(300); return 'true';`);
+  browser(S, 'press', 'Escape'); await pause(400);
+  mouse(S, 'up', q[0], q[1]); await pause(400);
+  // The path's own read: no step since the drag began (a pause of a second in it would take one), nor at the let go, so
+  // the foot move is still pending at the hand move.
+  const noStep = depth() === d0;
   { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
   browser(S, 'press', 'ArrowDown'); await pause(400);
   qs(`fe.select(null); await sleep(300); fe.setBp('desktop'); await sleep(800); return 'true';`);
@@ -83,6 +87,6 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   for (const key of ['ArrowDown', 'ArrowDown', 'ArrowDown']) { browser(S, 'press', key); await pause(400); }
   qs(`fe.select(null); await sleep(300); return 'true';`);
   const after = ours();
-  add('Follow guard: a drag let go on its start, a phone hand move, then a desktop move: the phone stays', moved && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ movedInDrag: moved, before, after }));
+  add('Follow guard: a drag, Escape before the let go, a phone hand move, then a desktop move: the phone stays', moved && noStep && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ movedInDrag: moved, noStepAtLetGo: noStep, before, after }));
   qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
 }

@@ -29,6 +29,12 @@ goto(S, `${BASE}/index.html`); await pause(1200);
 evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 goto(S, `${BASE}/index.html`); await pause(2000);
 const qs = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); ${body} })()`);
+// The Chrome this check needs: scrollbars that take no width. A headless Chrome 158 started without --hide-scrollbars=false
+// draws 15 px bars; once the Large line makes the page taller than the frame, the frame's bar moves the centred page 7.5 px
+// left and 'Large: first word' reads 92.6 against the oracle's 100.1 (task-c7154f23e7531b13). scripts/headless.mjs starts
+// Chrome with that flag, but it uses any Chrome already up on the port.
+const bar = qs(`const t = document.createElement('div'); t.style.cssText = 'position:absolute;left:0;top:0;width:100px;height:50px;overflow:scroll'; document.body.append(t); const w = t.offsetWidth - t.clientWidth; t.remove(); return JSON.stringify(w);`);
+if (bar !== 0) throw new Error(`scrolling-check needs a Chrome whose scrollbars take no width; this one's take ${bar} px. Start it with scripts/headless.mjs (--hide-scrollbars=false) on a free port.`);
 // The oracle's probe: one section of 8 rows, the new block at its top.
 const sid = qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(400); return JSON.stringify(s.id);`);
 const at = (sel, fx = 0.5) => qs(`const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
