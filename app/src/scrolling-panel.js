@@ -124,9 +124,13 @@ export function wireScrolling(panel, api) {
     const r = t.closest('[data-scr-range]'), f = t.closest('[data-scr-field]');
     if (!r && !f) return;
     const key = (r || f).dataset.scrRange || f.dataset.scrField, before = rangeBefore?.key === key && rangeBefore.bid === b.id && rangeBefore.at === api.snapshot() ? rangeBefore.snap : null;
+    const drag = before != null && !!rangeBefore.drag;
     rangeBefore = null;
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
     api.set((x) => write(x, key, v), `${key} ${v}`, before ?? undefined);
+    // A drag let go back on the value a pause left takes its step too, the model as that step left it (CAP-T12PAUSEBACK.json
+    // T, the Scrolling block alone: 90, 120 with a pause, 150, 120, let go; Cmd+Z leaves 120, the next 90).
+    if (drag && api.snapshot() === before) api.commit(before, `${key} ${v}`, false, true);
   });
   // An item's Text shows on the block at each key; the typing is one undo step, taken when the field is left (CAP-T12SCROLLLIST.json).
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
