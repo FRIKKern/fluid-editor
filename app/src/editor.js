@@ -4199,7 +4199,7 @@ function accordionEscape() {
 }
 // Scrolling's rows (CAP-ROWSSCROLLING.json and -2.json, two reads alike): a change of its content's height fits the rows to
 // it, both ways, in the view being edited: Wave Intensity 0 to 150 took 2 rows to 5, Medium 7, Small back to 5, Large 9.
-// The other view stays, as an Accordion's does (inferred); for blocks below in the phone view see setScrolling (CAP-T12PHONE3).
+// The other view stays, as an Accordion's does (inferred); for blocks below see setScrolling (CAP-T12PHONE3, CAP-T12BLOCKS).
 // keep: the panel stays as it is (an item's Text taken when the field is left, so a press that left it still lands).
 // Wave Intensity's rows on the desktop (CAP-T12WAVEDROP.json, 124 steps in six sessions, every path read twice): a line
 // that grows takes the rows that hold it; a line that falls by one step (30 px) lets them go to the rows that hold it, never
@@ -4232,16 +4232,18 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Not read: Text Style, the items.
   else if (b.wave === w0 && /^(wave|speed|direction|pauseHover|fadeEdges|spacing) /.test(label)) need = rows0;
-  // In the phone view a block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the
-  // section keeps the rows under the lowest block (CAP-T12PHONE3.json, a Text block and a second Scrolling block on the row
-  // the foot ends on, R1 and R2 alike). The blocks that follow are those that share a column with it and start on or below
-  // its top row, also with rows between and three of them; a block above it, or beside or below it in other columns, stays
-  // (CAP-T12BLOCKS.json, plans U, D, F, G, N, O and M, R1 and R2 alike). Not read: a block that starts above its top and
-  // reaches below it, a block hidden in the phone view (it stays), Text Size or an item with a block below, the desktop.
+  // A block below the Scrolling block follows its foot, down as it grows and up as it shrinks, and the section keeps the rows
+  // under the lowest block (CAP-T12PHONE3.json, in the phone view: a Text block and a second Scrolling block on the row the
+  // foot ends on, R1 and R2 alike). The blocks that follow are those that share a column with it and start on or below its
+  // top row, also with rows between and three of them; a block above it, or beside or below it in other columns, stays
+  // (CAP-T12BLOCKS.json, plans U, D, E, F, G, N, O and M, R1 and R2 alike). The desktop does the same: a Text block under
+  // it, a row below, or on its rows from its top follows, one below in other columns stays (CAP-T12BLOCKS.json, plans I, K,
+  // Q and R, R1 and R2 alike). Not read: a block that starts above its top and reaches below it, a block hidden in the view
+  // (it stays), Text Size or an item with a block below.
   if (need !== a[2] - a[0]) {
     const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
     const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
-    const below = bp === 'mobile' ? s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o)) : [];
+    const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
     setFormRows(b, s, need, true);
     if (below.length) {
       const dy = lay(b).area[2] - f0;

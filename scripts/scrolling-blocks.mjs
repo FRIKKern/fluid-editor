@@ -1,6 +1,7 @@
-// scrolling-check's rows for a Scrolling block among other blocks in the phone view, with Cmd+Z after the wave steps
-// (CAP-T12BLOCKS.json, R2; R1 read alike in all 119 reads): a block under it, a row below, three under it, one sharing a
-// column on its top row, one above it, one beside and one below it in other columns. Each plan is the oracle's section as
+// scrolling-check's rows for a Scrolling block among other blocks, with Cmd+Z after the wave steps (CAP-T12BLOCKS.json, R2;
+// R1 read alike in all 119 reads). On the desktop: a Text block under it, a row below, on its rows from its top, and below it
+// in other columns. In the phone view: a block under it, a row below, three under it, one sharing a column on its top row,
+// one above it, one beside and one below it in other columns. Each plan is the oracle's section as
 // arranged ('start'): its blocks' desktop and phone areas and its rows. Then the view it was read in, Edit, Design, the
 // plan's steps, a let go, and each Cmd+Z, a row after each. Each row checks every block's areas, the section's rows in that
 // view, the Scrolling block's height and its line, and each other block's top and height. A press row also checks that the
@@ -11,6 +12,7 @@ const OB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12BLOCKS.jso
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 // Plan, view, steps: a number is a press on Wave Intensity there; 'z' is Cmd+Z after the let go.
 export const PLANS = [
+  ['I', 'desktop', [180, 90, 'z', 'z']], ['K', 'desktop', [180, 90, 'z', 'z']], ['Q', 'desktop', [180, 90, 'z', 'z']], ['R', 'desktop', [180, 90, 'z', 'z']],
   ['U', 'mobile', [180, 90, 'z', 'z']], ['D', 'mobile', [180, 90, 'z', 'z']], ['E', 'mobile', [180, 90, 'z', 'z']], ['F', 'mobile', [180, 90, 'z', 'z']],
   ['G', 'mobile', [180, 90, 'z', 'z']], ['N', 'mobile', [180, 90, 'z', 'z']], ['O', 'mobile', [180, 90, 'z', 'z']], ['M', 'mobile', [180, 90, 'z', 'z']],
 ];
