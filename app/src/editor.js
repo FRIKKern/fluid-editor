@@ -113,10 +113,11 @@ function note(text) {
 // base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
 // placed: a section whose phone places the edit set itself (a View Layouts pick), so it doesn't follow desktop then.
 function commit(before, label, force = false, base = before, placed = null) {
+  const foot = footAt !== null && JSON.stringify(model) === footAt; footAt = null;
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
-  followPhoneRows(base, placed);
+  followPhoneRows(base, placed, foot);
   note(label);
   updateUi();
 }
@@ -124,7 +125,11 @@ function commit(before, label, force = false, base = before, placed = null) {
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
 let softening = false; // one Escape: the model follows, the page isn't touched
-function followPhoneRows(before, placed = null) {
+// The model as setScrolling left it after a Scrolling block's foot moved blocks in the phone view, up to the next commit.
+// Only a commit of that same model took its phone moves from the foot: a live drag let go with no change, an undo or a
+// hand move since leaves another model, and the next commit clears it.
+let footAt = null;
+function followPhoneRows(before, placed = null, foot = false) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
     const was = old.sections.find((o) => o.id === s.id);
@@ -135,7 +140,7 @@ function followPhoneRows(before, placed = null) {
     // A View Layouts pick on a section made here keeps the phone places it sets: every CAP-U10MIXPICK2 pick was read on
     // an Add Blank section, and the phone areas right after it are the layout's (57 of 57), where following desktop would
     // restack 8 of them. Whether the section follows desktop again on a later edit: not read, ours still does.
-    const reflowed = s.id !== placed && phoneFollowsMove(s, was);
+    const reflowed = s.id !== placed && phoneFollowsMove(s, was, foot);
     if (first && s.phoneEdited) { if (reflowed && !softening) renderSectionDom(s.id); continue; }
     // Rule R (fitted on CAP-A2SECONDEDIT; predictions first, CAP-A2RESIZEAHEAD-PREDICTED.json: 6 of 6 fresh, two reads each):
     // on a later phone edit, a block resized on the phone goes to its row's place, then ahead of the first block it overlaps.
@@ -159,7 +164,9 @@ function followPhoneRows(before, placed = null) {
 
 // A section built here follows any desktop move or resize on the phone until the phone is moved by
 // hand (CAP-DESKMOVE*.json). A saved page has no flag: a saved section can't be read (0006), so it stays.
-function phoneFollowsMove(s, was) {
+// foot: the blocks that moved on the phone moved only to follow a Scrolling block's foot as Wave Intensity changed its
+// rows; that is no hand move, so a later desktop move still reorders the phone (CAP-T12FOLLOW.json, plan V against W).
+function phoneFollowsMove(s, was, foot = false) {
   if (s.phoneFollows == null) return false;
   const same = s.blocks.flatMap((b) => { const o = was.blocks.find((x) => x.id === b.id); return o ? [[b, o]] : []; });
   const changed = (name, part) => same.some(([b, o]) => part(b.layout[name].area).join() !== part(o.layout[name].area).join());
@@ -172,7 +179,7 @@ function phoneFollowsMove(s, was) {
     if (!gone.length) for (const [b, o] of same) { const n = b.layout.mobile.area, p = o.layout.mobile.area; if (n[2] - n[0] !== p[2] - p[0] || n[3] - n[1] !== p[3] - p[1]) b.phoneResized = true; }
     // Why it stopped counts for a new block later: a hand move, or overlap from a phone resize (CAP-A2ROUND2 m1 against f1).
     if (!gone.length && s.phoneFollows !== false) {
-      const moved = changed('mobile', (a) => a.slice(0, 2));
+      const moved = !foot && changed('mobile', (a) => a.slice(0, 2));
       if (moved || phoneOverlaps(s)) { s.phoneFollows = false; s.phoneStop = moved ? 'move' : 'overlap'; }
     }
     return gone.length > 0;
@@ -4251,10 +4258,13 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
     if (below.length) {
       const dy = lay(b).area[2] - f0;
       for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
+      if (bp === 'mobile' && dy) footAt = '';
       s.rows[bp] = r0 + low() - l0;
       renderSectionDom(s.id);
     }
   }
+  // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
+  if (footAt !== null) footAt = JSON.stringify(model);
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();

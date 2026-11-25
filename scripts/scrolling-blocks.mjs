@@ -6,8 +6,9 @@
 // beside and one below it in other columns. Each plan is the oracle's section as
 // arranged ('start'): its blocks' desktop and phone areas and its rows. Then the view it was read in, Edit, Design, the
 // plan's steps, a let go, and each Cmd+Z, a row after each. Each row checks every block's areas, the section's rows in that
-// view, the Scrolling block's height and its line, and each other block's top and height. A press row also checks that the
-// press landed: the wave, Text Style, Direction, Pause on hover, Fade edges and Item Spacing as the oracle's panel read.
+// view, the Scrolling block's height, its line and whether its words are a heading or a paragraph (the read's h1 and
+// paragraph: after Text Style, Cmd+Z brings the heading back), and each other block's top and height. A press row also
+// checks that the press landed: the wave, Text Style, Direction, Pause on hover, Fade edges and Item Spacing as the oracle's panel read.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
@@ -35,14 +36,16 @@ export async function blockRows({ qs, press, add, pause, browser, mouse, S }) {
     await press('#block-panel [data-btab="Design"]');
   };
   // Ours, in the view shown: each block's areas, top in the section and height; the section's rows; the Scrolling block's line.
-  const ours = (view) => qs(`const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, el = (b) => d.getElementById('block-' + b.id).closest('.fe-block'), r = (v) => Math.round(v * 10) / 10; const a = s.blocks.find((b) => b.type === 'scrolling'), fb = el(a).getBoundingClientRect(), mq = d.getElementById('block-' + a.id).querySelector('.marquee').getBoundingClientRect(); return JSON.stringify({ rows: s.rows[${JSON.stringify(view)}], block: r(fb.height), marquee: [r(mq.top - fb.top), r(mq.height)], all: [a, ...s.blocks.filter((b) => b !== a)].map((b) => { const q = el(b).getBoundingClientRect(); return { desktop: b.layout.desktop.area.join('/'), phone: b.layout.mobile.area.join('/'), top: r(q.top - fb.top), height: r(q.height) }; }) });`);
+  const ours = (view) => qs(`const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, el = (b) => d.getElementById('block-' + b.id).closest('.fe-block'), r = (v) => Math.round(v * 10) / 10; const a = s.blocks.find((b) => b.type === 'scrolling'), fb = el(a).getBoundingClientRect(), me = d.getElementById('block-' + a.id).querySelector('.marquee'), mq = me.getBoundingClientRect(); return JSON.stringify({ rows: s.rows[${JSON.stringify(view)}], block: r(fb.height), marquee: [r(mq.top - fb.top), r(mq.height)], words: me.classList.contains('is-paragraph') ? 'paragraph' : 'heading', all: [a, ...s.blocks.filter((b) => b !== a)].map((b) => { const q = el(b).getBoundingClientRect(); return { desktop: b.layout.desktop.area.join('/'), phone: b.layout.mobile.area.join('/'), top: r(q.top - fb.top), height: r(q.height) }; }) });`);
   const sameB = (what, view, o) => {
     const w = ours(view), me = o.all.find((b) => b.me), [a, ...rest] = w.all, by = (x, y) => (x.phone + x.desktop < y.phone + y.desktop ? -1 : 1);
     // The other blocks are Text blocks alike, so they pair up by their areas; tops are from the Scrolling block's top.
+    // The oracle's words: a heading (h1) or a paragraph (p); a read with both or neither matches neither.
+    const words = o.h1 === true && o.paragraph === false ? 'heading' : o.h1 === false && o.paragraph === true ? 'paragraph' : `h1 ${o.h1}, paragraph ${o.paragraph}`;
     const others = o.all.filter((b) => !b.me).map((b) => ({ ...b, top: Math.round((b.top - me.top) * 10) / 10 })).sort(by), mine = [...rest].sort(by);
-    const ok = w.rows === o.rows && a.desktop === me.desktop && a.phone === me.phone && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1])
+    const ok = w.rows === o.rows && w.words === words && a.desktop === me.desktop && a.phone === me.phone && near1(w.block, o.block) && near1(w.marquee[0], o.marquee[0]) && near1(w.marquee[1], o.marquee[1])
       && mine.length === others.length && mine.every((b, k) => b.desktop === others[k].desktop && b.phone === others[k].phone && near1(b.top, others[k].top) && near1(b.height, others[k].height));
-    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, block: o.block, marquee: o.marquee, all: o.all })})`);
+    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, block: o.block, marquee: o.marquee, words, all: o.all })})`);
   };
   // What the panel shows, as the oracle's controls read: wave, Text Style, Direction, Pause on hover, Fade edges, Item Spacing.
   const controls = (o) => { const on = (k) => o.ctl.some((c) => c[0] === k && (c[1] === 'true' || c[1] === true)); return JSON.stringify([Number(o.ranges.find((r) => r[0] === 'Wave Intensity')[1]), o.paragraph ? 'paragraph' : 'heading', on('Animation direction right') ? 'right' : 'left', on('Pause on hover'), on('Fade edges'), Number(o.ranges.find((r) => r[0] === 'Item Spacing')[1])]); };
