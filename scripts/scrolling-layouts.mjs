@@ -2,8 +2,8 @@
 // not read on the oracle: a heading alone takes View Layouts' layout 0, which turns it into a Scrolling block; in the phone
 // view Wave Intensity 90 makes the phone its own wave (waveMobile, CAP-T12WAVEVIEWS.json). Layout 1 turns it into another
 // Scrolling turn, at that layout's wave, and layout 2 into the Text again. Each pick builds the block afresh from the heading,
-// so the phone's wave goes with the first pick, and the Text has no phone overrides: its phone button is off. Presses and
-// picks are real mouse input.
+// so the phone's wave goes at the next pick (layout 1), and the Text has no phone overrides: its phone button is off.
+// Presses and picks are real mouse input.
 export async function layoutRows({ qs, press, add, pause, browser, mouse, S }) {
   const real = async (p) => { mouse(S, 'move', p[0], p[1]); await pause(50); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(30); mouse(S, 'up', p[0], p[1]); await pause(500); };
   const centre = (find) => qs(`const e = ${find}; if (!e) return 'null'; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]);`);
