@@ -7,8 +7,8 @@
 // arranged ('start'): its blocks' desktop and phone areas and its rows. Then the view it was read in, Edit, Design, the
 // plan's steps, a let go, and each Cmd+Z, a row after each. Each row checks every block's areas, the section's rows in that
 // view, the Scrolling block's height, its line and whether its words are a heading or a paragraph (the read's h1 and
-// paragraph: after Text Style, Cmd+Z brings the heading back), and each other block's top and height. A press row also checks that the
-// press landed: the wave, Text Style, Direction, Pause on hover, Fade edges and Item Spacing as the oracle's panel read.
+// paragraph: after Text Style, Cmd+Z brings the heading back), and each other block's top and height. A press row also
+// checks that the press landed: the wave, Text Style, Direction, Pause on hover, Fade edges and Item Spacing as the oracle's panel read.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
