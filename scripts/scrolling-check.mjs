@@ -11,6 +11,7 @@ import { viewRows } from './scrolling-views.mjs';
 import { dragRows } from './scrolling-drag.mjs';
 import { keyRows } from './scrolling-keys.mjs';
 import { fallRows } from './scrolling-falls.mjs';
+import { layoutRows } from './scrolling-layouts.mjs';
 
 if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
 const S = process.env.FLUID_SURFACE;
@@ -30,6 +31,12 @@ goto(S, `${BASE}/index.html`); await pause(1200);
 evalJs(S, `(() => { localStorage.clear(); return 'true'; })()`);
 goto(S, `${BASE}/index.html`); await pause(2000);
 const qs = (body) => evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); ${body} })()`);
+// The Chrome this check needs: scrollbars that take no width. A headless Chrome 158 started without --hide-scrollbars=false
+// draws 15 px bars; once the Large line makes the page taller than the frame, the frame's bar moves the centred page 7.5 px
+// left and 'Large: first word' reads 92.6 against the oracle's 100.1 (task-c7154f23e7531b13). scripts/headless.mjs starts
+// Chrome with that flag, but it uses any Chrome already up on the port.
+const bar = qs(`const t = document.createElement('div'); t.style.cssText = 'position:absolute;left:0;top:0;width:100px;height:50px;overflow:scroll'; document.body.append(t); const w = t.offsetWidth - t.clientWidth; t.remove(); return JSON.stringify(w);`);
+if (bar !== 0) throw new Error(`scrolling-check needs a Chrome whose scrollbars take no width; this one's take ${bar} px. Start it with scripts/headless.mjs (--hide-scrollbars=false) on a free port.`);
 // The oracle's probe: one section of 8 rows, the new block at its top.
 const sid = qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(400); return JSON.stringify(s.id);`);
 const at = (sel, fx = 0.5) => qs(`const e = [...document.querySelectorAll(${JSON.stringify(sel)})].find((x) => x.getBoundingClientRect().width > 0); if (!e) return 'null'; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
@@ -578,6 +585,8 @@ await dragRows({ qs, press, add, pause, browser, mouse, S });
 await keyRows({ qs, press, add, pause, browser, mouse, S });
 // A big fall with a Text block on the top row (CAP-T12TOPFALL.json): scrolling-falls.mjs.
 await fallRows({ qs, press, add, pause, browser, mouse, S });
+// A phone Wave Intensity on a View Layouts pick's Scrolling turn, then the next picks (scrolling-layouts.mjs).
+await layoutRows({ qs, press, add, pause, browser, mouse, S });
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -623,7 +632,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 634;
+const CASES = 637;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
