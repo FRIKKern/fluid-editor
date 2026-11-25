@@ -126,6 +126,7 @@ export function wireScrolling(panel, api) {
     const r = t.closest('[data-scr-range]'), f = t.closest('[data-scr-field]');
     if (!r && !f) return;
     const key = (r || f).dataset.scrRange || f.dataset.scrField, before = rangeBefore?.key === key && rangeBefore.bid === b.id && rangeBefore.at === api.snapshot() ? rangeBefore.snap : null;
+    const drag = before != null && !!rangeBefore.drag;
     rangeBefore = null;
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
     // Arrow keys on Wave Intensity (CAP-T12WAVEKEYS.json, R1 and R2 alike): each key moves it one step of 30 and the range
@@ -135,6 +136,9 @@ export function wireScrolling(panel, api) {
     const join = r && keyed && lastKey?.key === key && lastKey.bid === b.id && (before ?? now) === lastKey.at && at - lastKey.t < DRAG_PAUSE && api.merge(lastKey.snap);
     const snap = join ? lastKey.snap : before ?? now;
     api.set((x) => write(x, key, v), `${key} ${v}`, snap);
+    // A drag let go back on the value a pause left takes its step too, the model as that step left it (CAP-T12PAUSEBACK.json
+    // T, the Scrolling block alone: 90, 120 with a pause, 150, 120, let go; Cmd+Z leaves 120, the next 90).
+    if (drag && api.snapshot() === before) api.commit(before, `${key} ${v}`, false, true);
     lastKey = r && keyed ? { key, bid: b.id, snap, at: api.snapshot(), t: at } : null;
     if (focused) panel.querySelector(`[data-scr-range="${key}"]`)?.focus();
   });
