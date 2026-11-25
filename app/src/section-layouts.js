@@ -206,7 +206,7 @@ export function applyLayout(s, mix, n, base, lines, words) {
       // The Scrolling turn (CAP-U10SC1.json to SC5, CAP-U10TEXTMIX-A2.json and -D): at a few full-width layouts the
       // heading's Text becomes a Scrolling block, its items its words run together (a list's items too, no space) and an
       // asterisk, at that layout's text size and wave; the next pick makes it the Text again.
-      if (b.textHtml != null) { Object.assign(b, { type: 'text', html: b.textHtml }); for (const x of ['textHtml', 'text', 'size', 'wave']) delete b[x]; }
+      if (b.textHtml != null) { Object.assign(b, { type: 'text', html: b.textHtml }); for (const x of ['textHtml', 'text', 'size', 'wave', 'waveMobile']) delete b[x]; }
       if (L.scroll?.block === r + k) {
         Object.assign(b, { type: 'scrolling', textHtml: b.html, text: `${marqueeWords(b.html)} *`, size: L.scroll.size, wave: L.scroll.wave });
         delete b.html;

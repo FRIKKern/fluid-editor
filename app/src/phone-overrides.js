@@ -7,10 +7,12 @@ import { rowOn } from './animations.js';
 const BAGS = ['designMobile', 'btnMobile', 'formMobile', 'socialMobile'];
 const filled = (o) => !!o && Object.keys(o).length > 0;
 // A row's own phone values count, and still do once that row is removed on the phone (CAP-L6ANIMPHONE.json, read three times).
-export const hasOverrides = (b) => BAGS.some((k) => filled(b[k])) || !!b.animPhoneGone || !!b.animations?.some((a) => a.phone);
+// A Scrolling block's own phone Wave Intensity counts too (CAP-T12WAVEVIEWS.json Z: the button on, the label dotted).
+export const hasOverrides = (b) => BAGS.some((k) => filled(b[k])) || !!b.animPhoneGone || !!b.animations?.some((a) => a.phone) || b.waveMobile != null;
 export function resetOverrides(b) {
   for (const k of BAGS) delete b[k];
   delete b.animPhoneGone;
+  delete b.waveMobile;
   if (b.animations?.some((a) => a.phone)) b.animations = b.animations.map((a) => rowOn(a, 'desktop'));
 }
 
@@ -33,6 +35,8 @@ export function pushOverrides(b) {
   }
   for (const [k, v] of Object.entries(b.formMobile || {})) setFormView(b, 'desktop', k, v);
   for (const [k, v] of Object.entries(b.socialMobile || {})) { if (v) b[k] = v; else delete b[k]; }
+  // The menu on a phone Wave Intensity was not read; it goes as the other values (inferred).
+  if (b.waveMobile != null) b.wave = b.waveMobile;
   if (b.animations) b.animations = b.animations.map((a) => rowOn(a, 'mobile'));
   resetOverrides(b);
 }
@@ -48,6 +52,7 @@ export function phoneLabels(b) {
     out.add('Layout');
     if ((b.btnMobile.align || 'center') !== (b.halign || 'center')) out.add('Alignment');
   }
+  if (b.waveMobile != null) out.add('Wave Intensity');
   out.delete(undefined);
   return out;
 }

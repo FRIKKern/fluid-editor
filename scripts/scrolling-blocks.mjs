@@ -63,7 +63,7 @@ export async function blockRows({ qs, press, add, pause, browser, mouse, S }) {
       await pause(300); done.push(st === 180 ? '180' : String(st));
       const k = done.join('>'), o = OB[`R2 ${P} ${k}`].layout;
       if (!left) {
-        const got = qs(`const b = fe.model.sections[0].blocks.find((x) => x.type === 'scrolling'); return JSON.stringify(JSON.stringify([b.wave ?? 0, b.scrollStyle || 'heading', b.direction || 'left', !!b.pauseHover, !!b.fadeEdges, b.spacing ?? 0.5]));`);
+        const got = qs(`const b = fe.model.sections[0].blocks.find((x) => x.type === 'scrolling'); return JSON.stringify(JSON.stringify([(fe.bp === 'mobile' ? b.waveMobile ?? b.wave : b.wave) ?? 0, b.scrollStyle || 'heading', b.direction || 'left', !!b.pauseHover, !!b.fadeEdges, b.spacing ?? 0.5]));`);
         if (got !== controls(o)) { add(`Blocks ${P}: ${k}`, false, `controls ${got} (oracle ${controls(o)})`); continue; }
       }
       sameB(`Blocks ${P}: ${k}`, view, o);
