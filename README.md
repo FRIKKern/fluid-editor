@@ -25,15 +25,13 @@ A grid editor that behaves like Squarespace Fluid Engine, 1:1. Same grid, same p
 ## News
 
 <!-- news:start -->
+**Tuesday 24 November.** 1 pull request merged. In the phone view, a block below a Scrolling block now follows the Scrolling block's foot when its Wave Intensity changes its rows, up or down, as the oracle does, and the section grows or shrinks with it. Before, the block below stayed where it was, under the Scrolling block. scrolling-check grew from 265 to 287 rows. [The full day](docs/news/2026-11-24.md)
+- **Scrolling block:** in the phone view a block below follows the Scrolling block's foot, and the section with it ([#772](https://github.com/FRIKKern/fluid-editor/pull/772))
+
 **Monday 23 November.** 8 pull requests merged. A Scrolling block now keeps its rows when Fade edges or Item Spacing is pressed after a wave fall, and when Fade edges is pressed on a block made taller by hand, as the oracle does. In its link editor, Escape with nothing picked now leaves the editor open, and Cmd+D, Cmd+Shift+H and Cmd+Shift+D no longer set off Chrome's own bookmark or home shortcuts, which Sunday's change had let through. A short Quote's next gesture moves a block above its line by where the block's middle sits, read in 11 new cases. [The full day](docs/news/2026-11-23.md)
 - **Scrolling block:** Fade edges and Item Spacing keep the rows after a fall, Fade edges after a hand resize; phone drags read and pinned ([#770](https://github.com/FRIKKern/fluid-editor/pull/770), [#766](https://github.com/FRIKKern/fluid-editor/pull/766))
 - **Link editor:** Escape with nothing picked leaves it open; Cmd+D, Cmd+Shift+H and Cmd+Shift+D cancel Chrome's own shortcut again ([#764](https://github.com/FRIKKern/fluid-editor/pull/764), [#767](https://github.com/FRIKKern/fluid-editor/pull/767), [#771](https://github.com/FRIKKern/fluid-editor/pull/771))
 - **Quote:** a block above a short Quote's line moves by its middle line; blocks starting below its top move too ([#765](https://github.com/FRIKKern/fluid-editor/pull/765), [#768](https://github.com/FRIKKern/fluid-editor/pull/768))
-
-**Sunday 22 November.** 11 pull requests merged, one of them Saturday's News. A Scrolling block now changes its rows as the oracle does when its Wave Intensity falls, on desktop and in the phone view, and keeps them when Speed, Direction or Pause on hover is pressed after. Its link editor now answers Undo, Escape, Cmd+Z, Cmd+D and the arrow keys as the oracle's, and Backspace in any link field no longer deletes the whole block. A short Quote's next gesture now moves the blocks around it as the oracle does; scrolling-check grew from 115 to 228 rows over the day. [The full day](docs/news/2026-11-22.md)
-- **Scrolling block:** a wave fall moves the foot up, with the phone's own rule; Speed, Direction and Pause on hover keep the rows after ([#754](https://github.com/FRIKKern/fluid-editor/pull/754), [#760](https://github.com/FRIKKern/fluid-editor/pull/760), [#759](https://github.com/FRIKKern/fluid-editor/pull/759))
-- **Link editor:** Backspace, arrows and letters stay in the field; Undo, Escape, Cmd+Z, Cmd+D and Cmd+Shift+H as on the oracle ([#758](https://github.com/FRIKKern/fluid-editor/pull/758), [#752](https://github.com/FRIKKern/fluid-editor/pull/752), [#757](https://github.com/FRIKKern/fluid-editor/pull/757), [#762](https://github.com/FRIKKern/fluid-editor/pull/762), [#763](https://github.com/FRIKKern/fluid-editor/pull/763))
-- **Quote:** a short Quote's next gesture grows or moves the blocks around its line as on the oracle ([#756](https://github.com/FRIKKern/fluid-editor/pull/756), [#761](https://github.com/FRIKKern/fluid-editor/pull/761))
 <!-- news:end -->
 
 ## Where things live (one fact, one home)
