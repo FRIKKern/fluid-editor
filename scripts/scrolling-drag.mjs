@@ -9,7 +9,7 @@
 // Redo (a blank section added after the build leaves one step under the plan's, as the oracle's block adds do). The drag's
 // moves go through one DevTools session, so the time between two values is the gap asked for, not a process start.
 // X is C by touch, ended by a pointercancel (touchCancel; no change fires): not read on the oracle, it is held to C's reads,
-// as a drag ended by a pointerup.
+// as a drag ended by a pointerup. Y is S the same way, let go away from its start, held to S's reads.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -24,6 +24,7 @@ const PLANS = {
   D: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2 },
   C: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7 },
   X: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7, od: 'C', cancel: true },
+  Y: { phone: true, vals: [90, 120, 150, 180], gap: 1500, name: 'out 1500', z: 4, od: 'S', cancel: true },
 };
 
 async function session(S) {
