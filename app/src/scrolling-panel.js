@@ -73,7 +73,8 @@ export function scrollingDesignHtml(c) {
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
 // step unless live; live 'drag' for a range's moves while held); snapshot() the model; commit(before, label, held, force) takes a step for what is in the model (held: the
-// panel is left as it is; force: a step also when nothing changed); view(n) opens item
+// panel is left as it is; force: a step also when nothing changed); settle() gives a drag's last fall its rows at the let go,
+// true when that changed the model; view(n) opens item
 // n's view, or Content's list with null; phone() is true in the phone view.
 let flushText = () => {};
 export function wireScrolling(panel, api) {
@@ -93,7 +94,8 @@ export function wireScrolling(panel, api) {
   // and back, Cmd+Z leaves it as it was).
   const stepNow = (b, held, force = false) => { if (rangeBefore?.bid !== b.id || rangeBefore.at !== api.snapshot() || (!force && rangeBefore.snap === rangeBefore.at)) return false; api.commit(rangeBefore.snap, `${rangeBefore.key} ${rangeBefore.v}`, held, force); return true; };
   const letGo = () => { const b = api.block(); if (rangeBefore?.drag && b && stepNow(b, false, true)) rangeBefore = null; };
-  addEventListener('pointerup', () => setTimeout(letGo, 0), true);
+  // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
+  addEventListener('pointerup', () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
