@@ -4279,7 +4279,11 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // grows and leaves them as it falls: 90 out to 180 and back left a Text block 3/2/5/10 at 5/2/7/10 and the section 12 rows,
   // the Scrolling block back at 1/2/5/26 (CAP-T12WAVEDRAG.json D, R2 and R3 alike). The phone view's blocks follow it back
   // up (B). Not read: a desktop drag's fall after a pause of a second or more.
-  if (need !== a[2] - a[0]) scrollRows(b, a, need, live);
+  // A one-step fall on the desktop leaves a block that starts above the old foot, on the Scrolling block's rows: 180 then 150
+  // takes it from 1/2/7/26 to 1/2/6/26 and a Text block at 5/2/7/10 stays, the section at 12 rows (CAP-T12TOPFALL.json P, and
+  // by ArrowLeft CAP-T12WAVEKEYS.json K). A block at or under the old foot follows it up: 7/2/9/10 to 6/2/8/10, a row below
+  // 8/2/10/10 to 7/2/9/10, 150 to 120 6/2/8/10 to 5/2/7/10, and by ArrowLeft (CAP-T12BELOW.json a to d, R1 and R2 alike).
+  if (need !== a[2] - a[0]) scrollRows(b, a, need, live, !phone && w !== w0 && fall > 0 && fall < m.pitch);
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
   if (footAt !== null) footAt = JSON.stringify(model);
   if (dragRows) dragRows.at = JSON.stringify(model);
@@ -4288,9 +4292,10 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   if (!keep) renderBlockPanel();
 }
 // The Scrolling block b (area a) takes need rows, and the blocks below follow its foot (setScrolling).
-function scrollRows(b, a, need, live) {
+// stay: a one-step desktop fall, where a block that starts above the old foot stays.
+function scrollRows(b, a, need, live, stay = false) {
   const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
-  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
+  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[1] < a[3] && q[3] > a[1]; };
   const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
   setFormRows(b, s, need, true);
   if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
