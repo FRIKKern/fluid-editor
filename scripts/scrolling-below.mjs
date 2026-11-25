@@ -13,11 +13,13 @@
 // block's 1/2/3/10 (p); in the phone view the Text block moved onto the top row (F of CAP-T12TOPFALL.json and h: 90, 150,
 // 60; i: 180, 150) and a second Scrolling block there (k). A block on the top row with another area moves as CAP-T12TOPFALL
 // A: q (a second Scrolling block made 1/2/3/14), n (a Button block), r (phone, the Text block made 1/2/3/6); and one on the
-// second row as its C: o (a second Scrolling block), j (phone).
+// second row as its C: o (a second Scrolling block), j (phone). After 150 and 0, 90 stretches the second Scrolling block
+// by the growth, and on the desktop the phone stack turns only on that step (v; x in the phone view, CAP-T12TWIN.json). The
+// section follows the desktop on the phone, as one made in the editor does.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
-const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL') };
+const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN') };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
 // Plan, view, the arrangement steps before 'open', the kind of the second block, the steps (a number is a press there), and
@@ -36,6 +38,9 @@ export const PLANS = [
   ['k', 'mobile', `mobile>${UP2}`, 'Scrolling', [150, 0]], ['q', 'desktop', 'place 1 1/2/3/14>', 'Scrolling', [150, 0]],
   ['n', 'desktop', '', 'Button', [150, 0]], ['r', 'mobile', `mobile>${UP2}place 1 1/2/3/6>`, 'Text', [150, 0]],
   ['o', 'desktop', 'arr ArrowDown>', 'Scrolling', [150, 0]], ['j', 'mobile', 'mobile>arr ArrowUp>', 'Text', [150, 0]],
+  // CAP-T12TWIN: after 150 and 0 the second block has the top row and columns but another end; 90 stretches it by 3 rows, and
+  // on the desktop the phone stack turns only then (v); in the phone view (x).
+  ['v', 'desktop', '', 'Scrolling', [150, 0, 90]], ['x', 'mobile', `mobile>${UP2}`, 'Scrolling', [150, 0, 90]],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 
@@ -47,10 +52,11 @@ export async function belowRows({ qs, press, add, pause, browser, mouse, S }) {
     const low = (k) => Math.max(...o.all.map((b) => area(b[k])[2])) - 1;
     const rows = { desktop: view === 'desktop' ? o.rows : d0.rows, mobile: view === 'mobile' ? o.rows : low('phone') };
     const spec = JSON.stringify({ rows, kind, blocks: [me, other].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
-    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; delete s.phoneFollows; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const id0 = fe.model.sections[0].blocks[0].id; fe.addBlock(s.id, W.kind, true); await sleep(300); const ids = [id0, fe.model.sections[0].blocks.find((b) => b.id !== id0).id]; const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; ids.forEach((id, k) => { const b = t.blocks.find((x) => x.id === id); b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.setBp(${JSON.stringify(view)}); await sleep(800); fe.select(t.id, id0); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return JSON.stringify(ids);`);
+    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const id0 = fe.model.sections[0].blocks[0].id; fe.addBlock(s.id, W.kind, true); await sleep(300); const ids = [id0, fe.model.sections[0].blocks.find((b) => b.id !== id0).id]; const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; ids.forEach((id, k) => { const b = t.blocks.find((x) => x.id === id); b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.setBp(${JSON.stringify(view)}); await sleep(800); fe.select(t.id, id0); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return JSON.stringify(ids);`);
   };
   // Ours, in the view shown: the selected Scrolling block and the other block, by the ids build gave them as added (a commit
-  // may put the section's blocks in another order, and two Scrolling blocks look alike).
+  // may put the section's blocks in another order, and two Scrolling blocks look alike). The section follows the desktop on
+  // the phone, as a section made in the editor (and the oracle's new one) does.
   let ids = null;
   const ours = (view) => qs(`const s = fe.model.sections[0], d = document.getElementById('site-frame').contentDocument, el = (b) => d.getElementById('block-' + b.id).closest('.fe-block'), r = (v) => Math.round(v * 10) / 10; const [a, t] = ${JSON.stringify(ids)}.map((id) => s.blocks.find((b) => b.id === id)), fb = el(a).getBoundingClientRect(), mq = d.getElementById('block-' + a.id).querySelector('.marquee').getBoundingClientRect(), q = el(t).getBoundingClientRect(); return JSON.stringify({ rows: s.rows[${JSON.stringify(view)}], wave: (${JSON.stringify(view)} === 'mobile' ? a.waveMobile ?? a.wave : a.wave) ?? 0, block: r(fb.height), line: r(mq.height), me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')], top: r(q.top - fb.top), height: r(q.height) });`);
   const same = (what, view, read) => {
