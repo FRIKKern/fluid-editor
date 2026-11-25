@@ -407,7 +407,7 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
 // then lets the block go (P1). With nothing picked the editor stays open on its empty field, the focus in it (P0).
 { const H = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12HELDLINK.json', import.meta.url))).runs;
   const both = (k) => { const a = H.R1.reads[`R1 ${k}`], b = H.R2.reads[`R2 ${k}`]; return JSON.stringify([a.pop, a.focus, a.block.sel]) === JSON.stringify([b.pop, b.focus, b.block.sel]) ? a : null; };
-  const where = () => qs(`const e = document.activeElement, i = document.querySelector('#link-popover .lk-input'), d = document.getElementById('site-frame').contentDocument; return JSON.stringify({ edit: !!e && e.matches('#block-panel .bp-link-actions [data-link="edit"]'), field: !!e && e === i, attach: [...document.querySelectorAll('#block-panel [data-link="open"]')].some((x) => x.getBoundingClientRect().width > 0), picked: d.querySelectorAll('[data-is-selected="true"]').length, panel: document.getElementById('block-panel').getBoundingClientRect().width > 0 });`);
+  const where = () => qs(`const e = document.activeElement, i = document.querySelector('#link-popover .lk-input'), d = document.getElementById('site-frame').contentDocument; return JSON.stringify({ edit: !!e && e.matches('#block-panel .bp-link-actions [data-link="edit"]'), url: !!e && e.matches('#block-panel .bp-link .bp-link-url'), field: !!e && e === i, attach: [...document.querySelectorAll('#block-panel [data-link="open"]')].some((x) => x.getBoundingClientRect().width > 0), picked: d.querySelectorAll('[data-is-selected="true"]').length, panel: document.getElementById('block-panel').getBoundingClientRect().width > 0 });`);
   const row = (what, o, more) => { const w = linkOf(), f = where(); add(what, !!o && w.editor === (o.pop.field !== null) && JSON.stringify(w.row) === JSON.stringify(o.pop.linkRow) && more(w, f, o), JSON.stringify({ ours: { ...w, ...f }, oracle: o && { ...o.pop, focus: o.focus, sel: o.block.sel } })); };
   const pick = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#link-popover .lk-page[aria-label="About/about"]'); await pause(300); };
   await pick(); await press('#block-panel [data-link="open"]'); await pause(400);
@@ -417,7 +417,21 @@ add('Remove Link: no link, Attach link again', unlinked.href === null && unlinke
   mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
   row('Then Escape: the block let go, the panel closed', both('P1 Escape'), (w, f, o) => o.block.sel === 'false' && !f.picked && !f.panel);
   await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); await press('#block-panel [data-link="open"]'); await pause(400);
-  row('Held Attach link pressed, nothing picked: the editor stays open', both('P0 pressed'), (w, f, o) => w.href === null && o.pop.field[0] === '' && f.field && o.focus[1] === 'INPUT'); }
+  row('Held Attach link pressed, nothing picked: the editor stays open', both('P0 pressed'), (w, f, o) => w.href === null && o.pop.field[0] === '' && f.field && o.focus[1] === 'INPUT');
+  // A link typed in the field and not entered, then a press on Attach link (CAP-T12TYPEDLINK.json T1 and T2, R1 and R2
+  // alike): the editor closes on the link, the row shows it, the focus on the row's link itself; none left to press again,
+  // and Escape lets the block go.
+  const T = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12TYPEDLINK.json', import.meta.url))).runs;
+  const twice = (k) => { const a = T.R1.reads[`R1 ${k}`], b = T.R2.reads[`R2 ${k}`]; return JSON.stringify([a.pop, a.focus, a.block.sel]) === JSON.stringify([b.pop, b.focus, b.block.sel]) ? a : null; };
+  const typed = async () => { await fresh(); await press('#block-panel [data-btab="Content"]'); await press('#block-panel [data-link="open"]'); await pause(300); for (const k of 'example.com') { browser(S, 'press', k); await pause(60); } await pause(300); };
+  await typed();
+  row('A link typed, no Enter: the editor open on it, Attach link still', twice('T1 typed'), (w, f, o) => w.href === null && f.field && qs(`return JSON.stringify(document.querySelector('#link-popover .lk-input').value);`) === o.pop.field[0]);
+  await press('#block-panel [data-link="open"]'); await pause(400);
+  row('Then Attach link pressed: the row shows the typed link', twice('T1 pressed'), (w, f, o) => w.href === o.pop.linkRow[0]);
+  row('Then Attach link pressed: the focus on the row\'s link', twice('T1 pressed'), (w, f, o) => o.focus[1] === 'BUTTON' && o.focus[2] === o.pop.linkRow[0] && f.url);
+  row('Then Attach link pressed: no Attach link left', twice('T2 no Attach link'), (w, f) => !f.attach);
+  mouse(S, 'move', 10, 10); browser(S, 'press', 'Escape'); await pause(400);
+  row('A typed link taken, then Escape: the block let go', twice('T1 Escape'), (w, f, o) => o.block.sel === 'false' && !f.picked && !f.panel); }
 // The block's rows round a wave, and the line centred in them (CAP-T12WAVEROWS.json, R1 and R2 alike, 18 of 18): X walks
 // Wave Intensity up by 30 to 180, down to 0 and to 90 again; Y takes a fresh block straight to 120, 0 and 60. Each step: the
 // area, the section's rows, the block's height and the line's top and height in it. Y's 0 falls to 1 row, the line running
@@ -603,7 +617,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 512;
+const CASES = 517;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
