@@ -20,8 +20,7 @@ const PLANS = {
   J: { phone: true, vals: [90, 120, 150, 180], gap: 1500, name: 'jiggle 1500', z: 4, jiggle: 300 },
   N: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 1, alone: true },
   D: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2 },
-  // The step at 150 on the way back: its line and Undo only (C>z>z, see above).
-  C: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7, lineOnly: ['go>z>z'] },
+  C: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7 },
 };
 
 async function session(S) {

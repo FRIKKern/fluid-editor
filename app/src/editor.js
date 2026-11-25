@@ -4231,14 +4231,33 @@ function accordionEscape() {
 // Each view's rows go by its own Wave Intensity (scrolling-panel.js waveIn): a phone change leaves the desktop line flat, and a
 // desktop move after it keeps the desktop rows (CAP-T12WAVEVIEWS.json, CAP-T12FOLLOW.json V).
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
+// A drag's fall in the phone view takes the rows that hold the line, as a rise does: the step at 150 on the way back from 180
+// holds 1/2/7/10 as on the way out, and 120 1/2/6/10. Its let go then takes the last move's fall by the rule above, from the
+// rows the value before it had: 120 to 90 leaves 1/2/4/10 (CAP-T12WAVEDRAG.json C and B, R2 and R3 alike). dragFall is
+// that last move, up to the next change. Not read: a let go after a fall with a change event (a value other than the start).
+let dragFall = null;
+const phoneFall = (m, rows0, c0, h0, fall, fit) => (c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13)));
+function settleScrollDrag() {
+  const d = dragFall;
+  dragFall = null;
+  if (!d || bp !== 'mobile' || sel?.bid !== d.bid || d.at !== JSON.stringify(model)) return false;
+  const b = B(sel.sid, sel.bid), m = formPitch(b), a = lay(b).area;
+  const need = phoneFall(m, d.rows0, d.c0, d.h0, d.fall, Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)));
+  if (need === a[2] - a[0]) return false;
+  scrollRows(b, a, need, false);
+  if (footAt !== null) footAt = JSON.stringify(model);
+  return true;
+}
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = waveIn(b, bp), c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
+  dragFall = null;
   change(b);
   renderSectionDom(sel.sid);
   const m = formPitch(b), w = waveIn(b, bp), phone = bp === 'mobile' && w !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
   const fit = phone ? Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)) : contentRows(b, m), h0 = rows0 * m.pitch - m.rg;
   let need = fit;
-  if (phone && fall > 0) need = c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13));
+  if (phone && fall > 0 && live === 'drag') dragFall = { bid: b.id, rows0, c0, h0, fall };
+  else if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fit;
   else if (w !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
@@ -4259,24 +4278,27 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // grows and leaves them as it falls: 90 out to 180 and back left a Text block 3/2/5/10 at 5/2/7/10 and the section 12 rows,
   // the Scrolling block back at 1/2/5/26 (CAP-T12WAVEDRAG.json D, R2 and R3 alike). The phone view's blocks follow it back
   // up (B). Not read: a desktop drag's fall after a pause of a second or more.
-  if (need !== a[2] - a[0]) {
-    const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
-    const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
-    const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
-    setFormRows(b, s, need, true);
-    if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
-      const dy = lay(b).area[2] - f0;
-      for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
-      if (bp === 'mobile' && dy) footAt = '';
-      s.rows[bp] = r0 + low() - l0;
-      renderSectionDom(s.id);
-    }
-  }
+  if (need !== a[2] - a[0]) scrollRows(b, a, need, live);
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
   if (footAt !== null) footAt = JSON.stringify(model);
+  if (dragFall) dragFall.at = JSON.stringify(model);
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();
+}
+// The Scrolling block b (area a) takes need rows, and the blocks below follow its foot (setScrolling).
+function scrollRows(b, a, need, live) {
+  const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
+  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= a[0] && q[1] < a[3] && q[3] > a[1]; };
+  const below = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden && follows(o));
+  setFormRows(b, s, need, true);
+  if (below.length && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
+    const dy = lay(b).area[2] - f0;
+    for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
+    if (bp === 'mobile' && dy) footAt = '';
+    s.rows[bp] = r0 + low() - l0;
+    renderSectionDom(s.id);
+  }
 }
 wireScrolling(blockPanel, {
   block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
@@ -4284,6 +4306,7 @@ wireScrolling(blockPanel, {
   snapshot: () => JSON.stringify(model),
   commit: (before, label, held = false, force = false) => { panelHeld = held; try { commit(before, label, force); } finally { panelHeld = false; } },
   phone: () => bp === 'mobile',
+  settle: settleScrollDrag,
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
 function setAccordion(change, label, before = JSON.stringify(model)) {
