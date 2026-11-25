@@ -1,0 +1,1820 @@
+{
+ "item": "CAP-T12FOLLOW",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-25",
+ "engine": "chrome",
+ "question": "T12 (task-34ff9da2918b1413): after a Wave Intensity fall in the phone view moves a block below the Scrolling block, does the phone still follow a desktop move? On Blocks Probe at a 1600 by 1000 window, one new section per plan with a new Scrolling block and a Text block added after it, made on the desktop (desktop 1/2/3/26 and 1/2/3/10, phone 1/2/3/10 and 3/2/5/10, as CAP-T12BLOCKS plan U). Mobile View (the frame 428 wide), select the Scrolling block, Edit, Design, the steps with a read after each, Escape (let go) and a read; then Desktop View (the frame 1600 wide) and a read, the Scrolling block selected and moved down by three ArrowDown keys and a read, the Text block selected and moved right by two ArrowRight keys and a read, then Mobile View and a read. V: 180>90. W: no wave steps (the same presses otherwise). R1 read V then W and R2 W then V, in separate edit sessions. Nothing saved: both sessions left by Exit Without Saving. The same probe and read as CAP-T12BLOCKS.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12BLOCKS: layout of the Scrolling block and every block in its section (desktop and phone areas, top and height), the section rows in the view shown, the line, Undo and Redo, the panel controls and ranges. 'desktop' and 'mobile' in a read's name are the view presses; 'S Down Down Down' and 'T Right Right' the key moves of the Scrolling and the Text block.",
+ "answer": [
+  "The phone still follows the desktop after the fall. V: 180>90 in the phone view takes the Scrolling block to 1/2/5/10 and the Text block to 5/2/7/10 (as CAP-T12BLOCKS U). On the desktop the Scrolling block moved down to 4/2/6/26 turns the phone order: the Text block goes to 1/2/3/10 and the Scrolling block to 3/2/7/10, keeping its 4 phone rows; the section keeps 6 phone rows. W (no fall) turns it the same way with 2 phone rows: 1/2/3/10 and 3/2/5/10. The Text block moved right on the desktop (1/4/3/12) leaves the phone areas in both.",
+  "On the desktop the line stays as before the fall: the Scrolling block keeps 2 rows (71.2 high) and its drawing 34 high, the rows unstretched, before and after the move; in the phone view again it is 129 high, as after the fall. Whether the desktop panel then shows Wave Intensity 90 was not read.",
+  "R1 and R2 read alike in all 16 reads.",
+  "Not read: a hand move in the phone view after the fall; a desktop resize; a fall with a block below on the desktop and then a phone move."
+ ],
+ "localGuesses": {
+  "written": "none written before the reads; ours on main (since #772) keeps the phone areas after V's desktop move"
+ },
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "startedAt": "2026-11-25T03:17:23.651Z",
+     "path": "/blocks-probe",
+     "frameWidth": 428,
+     "sectionsBefore": 0,
+     "plans": "VW",
+     "log": [
+      "V added Scrolling yui_3_17_2_1_1795576645112_412",
+      "V added Text yui_3_17_2_1_1795576645112_706",
+      "W added Scrolling yui_3_17_2_1_1795576645112_928",
+      "W added Text yui_3_17_2_1_1795576645112_1222",
+      "read R1 V default",
+      "read R1 W default",
+      "pressed Mobile View",
+      "read R1 V start",
+      "pressed Edit",
+      "pressed Design",
+      "wave press 179",
+      "read R1 V 180",
+      "wave press 90",
+      "read R1 V 180>90",
+      "read R1 V 180>90 let go",
+      "pressed Desktop View",
+      "V view desktop frame 1600",
+      "read R1 V 180>90>desktop",
+      "V keys 0 ArrowDown ArrowDown ArrowDown -> 4/2/6/26",
+      "read R1 V 180>90>desktop>S Down Down Down",
+      "V keys 1 ArrowRight ArrowRight -> 1/4/3/12",
+      "read R1 V 180>90>desktop>S Down Down Down>T Right Right",
+      "pressed Mobile View",
+      "V view mobile frame 428",
+      "read R1 V 180>90>desktop>S Down Down Down>T Right Right>mobile",
+      "read R1 W start",
+      "pressed Edit",
+      "pressed Design",
+      "read R1 W  let go",
+      "pressed Desktop View",
+      "W view desktop frame 1600",
+      "read R1 W desktop",
+      "W keys 0 ArrowDown ArrowDown ArrowDown -> 4/2/6/26",
+      "read R1 W desktop>S Down Down Down",
+      "W keys 1 ArrowRight ArrowRight -> 1/4/3/12",
+      "read R1 W desktop>S Down Down Down>T Right Right",
+      "pressed Mobile View",
+      "W view mobile frame 428",
+      "read R1 W desktop>S Down Down Down>T Right Right>mobile"
+     ],
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "reads": {
+    "R1 V default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V start": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 9,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/8/10",
+        "top": 0,
+        "height": 234
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "8/2/10/10",
+        "top": 245,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 V 180>90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 V 180>90 let go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 V 180>90>desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V 180>90>desktop>S Down Down Down": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V 180>90>desktop>S Down Down Down>T Right Right": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 V 180>90>desktop>S Down Down Down>T Right Right>mobile": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 70,
+        "height": 129
+       }
+      ]
+     }
+    },
+    "R1 W start": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 W  let go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R1 W desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W desktop>S Down Down Down": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W desktop>S Down Down Down>T Right Right": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 W desktop>S Down Down Down>T Right Right>mobile": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    }
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "startedAt": "2026-11-25T03:20:03.170Z",
+     "path": "/blocks-probe",
+     "frameWidth": 428,
+     "sectionsBefore": 0,
+     "plans": "WV",
+     "log": [
+      "W added Scrolling yui_3_17_2_1_1795576788467_445",
+      "W added Text yui_3_17_2_1_1795576788467_739",
+      "V added Scrolling yui_3_17_2_1_1795576788467_961",
+      "V added Text yui_3_17_2_1_1795576788467_1255",
+      "read R2 W default",
+      "read R2 V default",
+      "pressed Mobile View",
+      "read R2 W start",
+      "pressed Edit",
+      "pressed Design",
+      "read R2 W  let go",
+      "pressed Desktop View",
+      "W view desktop frame 1600",
+      "read R2 W desktop",
+      "W keys 0 ArrowDown ArrowDown ArrowDown -> 4/2/6/26",
+      "read R2 W desktop>S Down Down Down",
+      "W keys 1 ArrowRight ArrowRight -> 1/4/3/12",
+      "read R2 W desktop>S Down Down Down>T Right Right",
+      "pressed Mobile View",
+      "W view mobile frame 428",
+      "read R2 W desktop>S Down Down Down>T Right Right>mobile",
+      "read R2 V start",
+      "pressed Edit",
+      "pressed Design",
+      "wave press 179",
+      "read R2 V 180",
+      "wave press 90",
+      "read R2 V 180>90",
+      "read R2 V 180>90 let go",
+      "pressed Desktop View",
+      "V view desktop frame 1600",
+      "read R2 V 180>90>desktop",
+      "V keys 0 ArrowDown ArrowDown ArrowDown -> 4/2/6/26",
+      "read R2 V 180>90>desktop>S Down Down Down",
+      "V keys 1 ArrowRight ArrowRight -> 1/4/3/12",
+      "read R2 V 180>90>desktop>S Down Down Down>T Right Right",
+      "pressed Mobile View",
+      "V view mobile frame 428",
+      "read R2 V 180>90>desktop>S Down Down Down>T Right Right>mobile"
+     ],
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "reads": {
+    "R2 W default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 V default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W start": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 W  let go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 W desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W desktop>S Down Down Down": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W desktop>S Down Down Down>T Right Right": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 W desktop>S Down Down Down>T Right Right>mobile": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/5/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V start": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 4,
+      "rowSizes": "24px",
+      "block": 59,
+      "marquee": [
+       14.5,
+       30
+      ],
+      "svg": [
+       17.5,
+       30
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 70,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V 180": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/8/10",
+      "rows": 9,
+      "rowSizes": "24px",
+      "block": 234,
+      "marquee": [
+       12,
+       210
+      ],
+      "svg": [
+       15,
+       210
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/8/10",
+        "top": 0,
+        "height": 234
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "8/2/10/10",
+        "top": 245,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 V 180>90": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 V 180>90 let go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 129
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 140,
+        "height": 59
+       }
+      ]
+     }
+    },
+    "R2 V 180>90>desktop": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/5/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/5/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "5/2/7/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 V 180>90>desktop>S Down Down Down": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 V 180>90>desktop>S Down Down Down>T Right Right": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 V 180>90>desktop>S Down Down Down>T Right Right>mobile": {
+     "layout": {
+      "desktop": "4/2/6/26",
+      "phone": "3/2/7/10",
+      "rows": 6,
+      "rowSizes": "24px",
+      "block": 129,
+      "marquee": [
+       4.5,
+       120
+      ],
+      "svg": [
+       7.5,
+       120
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": false,
+        "kind": "other",
+        "desktop": "1/4/3/12",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 59
+       },
+       {
+        "me": true,
+        "kind": "scrolling",
+        "desktop": "4/2/6/26",
+        "phone": "3/2/7/10",
+        "top": 70,
+        "height": 129
+       }
+      ]
+     }
+    }
+   }
+  }
+ }
+}
