@@ -1,0 +1,88 @@
+// scrolling-check's rows for a Wave Intensity drag's undo steps (CAP-T12WAVEDRAG.json, R3; R2 read alike). A Scrolling block
+// with a Text block under it, made on the desktop as the oracle's (N: the Scrolling block alone, on the desktop); in the
+// phone view 90 pressed, then a real drag whose values come a set time apart, let go on the last one; then Escape and Cmd+Z
+// step by step. Values 300 or 700 ms apart are one step (P, G), 1100 or 1500 ms apart one step each (H, S, C), also with the
+// pointer moving between them (J); a drag out and back let go on its start takes a step too (B, C, N), though no change fires.
+// Each row checks the blocks' areas in both views, the Scrolling block's line in the view shown, in the phone view the
+// section's rows, and Undo and Redo (a blank section added after the build leaves one step under the plan's, as the
+// oracle's block adds do). The drag's moves go through one DevTools session, so the time between two values is the gap
+// asked for, not a process start. Not rows: D (the desktop's Text block during a drag) and the areas of C's step at 150 on
+// the way back, where ours differs for another reason (the finding's answer; their tasks).
+import { readFileSync } from 'node:fs';
+
+const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
+const PLANS = {
+  P: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2 },
+  G: { phone: true, vals: [90, 120, 150, 180], gap: 700, name: 'out 700', z: 2 },
+  H: { phone: true, vals: [90, 120, 150, 180], gap: 1100, name: 'out 1100', z: 2 },
+  S: { phone: true, vals: [90, 120, 150, 180], gap: 1500, name: 'out 1500', z: 4 },
+  B: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2 },
+  J: { phone: true, vals: [90, 120, 150, 180], gap: 1500, name: 'jiggle 1500', z: 4, jiggle: 300 },
+  N: { phone: false, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 1, alone: true },
+  // The step at 150 on the way back: its line and Undo only (C>z>z, see above).
+  C: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 1500, name: 'back 1500', z: 7, lineOnly: ['go>z>z'] },
+};
+
+async function session(S) {
+  const port = Number(S.split(':')[1]);
+  const page = (await (await fetch(`http://127.0.0.1:${port}/json/list`)).json()).find((t) => t.type === 'page' && !t.url.startsWith('chrome://'));
+  const ws = new WebSocket(page.webSocketDebuggerUrl);
+  await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
+  let seq = 0; const pending = new Map();
+  ws.onmessage = (m) => { const x = JSON.parse(m.data); if (x.id && pending.has(x.id)) { pending.get(x.id)(x); pending.delete(x.id); } };
+  const send = (method, params) => new Promise((res) => { const id = ++seq; pending.set(id, res); ws.send(JSON.stringify({ id, method, params })); });
+  return { send, close: () => ws.close() };
+}
+
+export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
+  const area = (t) => t.split('/').map(Number);
+  const near1 = (a, b) => Math.abs(a - b) <= 1;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const build = (P) => {
+    const o = OD[`R3 ${P} default`].layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
+    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
+  };
+  const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`);
+  const same = (what, read, lineOnly = false) => {
+    const o = read.layout, w = ours(), me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
+    const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && (w.view !== 'mobile' || w.rows === o.rows);
+    const ok = (lineOnly || areas) && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
+    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
+  };
+  const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
+  for (const [P, p] of Object.entries(PLANS)) {
+    build(P);
+    if (p.phone) qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
+    const [sid, bid] = qs(`const s = fe.model.sections[0]; return JSON.stringify([s.id, s.blocks.find((b) => b.type === 'scrolling').id]);`);
+    qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+    await press('#block-panel [data-btab="Design"]');
+    let k = `${p.phone ? 'mobile>' : ''}open>90`;
+    await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300);
+    same(`Drag ${P}: ${k}`, OD[`R3 ${P} ${k}`]);
+    // The drag: a press on the range at its first value, a move to each next value gap ms apart, let go gap ms after the last.
+    const xs = p.vals.map((v) => rangeX(v)), y = xs[0][1], c = await session(S);
+    try {
+      await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+      await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
+      // J: between two values the pointer moves 3 px either way every jiggle ms, the value staying.
+      const wait = async (x) => { if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
+      for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0]); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
+      await wait(xs.at(-1)[0]);
+      await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
+    } finally { c.close(); }
+    await pause(600);
+    k += `>drag ${p.name}`;
+    same(`Drag ${P}: ${k}`, OD[`R3 ${P} ${k}`]);
+    qs(`fe.select(null); await sleep(300); return 'true';`);
+    k += '>go';
+    same(`Drag ${P}: ${k}`, OD[`R3 ${P} ${k}`]);
+    for (let i = 0, zs = 'go'; i < p.z; i++) {
+      qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
+      k += '>z'; zs += '>z';
+      const lineOnly = !!p.lineOnly?.includes(zs);
+      same(`Drag ${P}: ${k}${lineOnly ? ', its line and Undo' : ''}`, OD[`R3 ${P} ${k}`], lineOnly);
+    }
+    qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
+  }
+}

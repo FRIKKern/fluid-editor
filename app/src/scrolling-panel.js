@@ -72,7 +72,8 @@ export function scrollingDesignHtml(c) {
 }
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
-// step unless live); snapshot() the model; commit(before, label) takes a step for what is in the model; view(n) opens item
+// step unless live); snapshot() the model; commit(before, label, held, force) takes a step for what is in the model (held: the
+// panel is left as it is; force: a step also when nothing changed); view(n) opens item
 // n's view, or Content's list with null; phone() is true in the phone view.
 let flushText = () => {};
 export function wireScrolling(panel, api) {
@@ -81,7 +82,18 @@ export function wireScrolling(panel, api) {
   // The model before a range's drag, for its key and block, and the model its last input left. A drag that ends where it
   // began fires no change, so any other press drops it, and so does any change made since (Cmd+Z, Redo, another edit):
   // a later commit never takes an older snapshot.
+  // A drag's undo steps (CAP-T12WAVEDRAG.json, Wave Intensity in the phone view and on the desktop, read twice): a pause of
+  // a second or more between two values ends a step, and letting go takes the last one, also when the value is back where
+  // the drag began (no change fires then). Values 300 to 870 ms apart are one step, 1100 ms or more apart one step each;
+  // 1000 ms is inferred, as in typing (editor.js TYPING_PAUSE). Item Spacing and Text Size's range: not read, the same here.
+  const DRAG_PAUSE = 1000;
   let rangeBefore = null;
+  // held: the drag goes on, so the panel stays as it is (drawn again, its range would drop the drag).
+  // A let go takes its step even when the model is back where the drag began (N: the Scrolling block alone, 90 out to 180
+  // and back, Cmd+Z leaves it as it was).
+  const stepNow = (b, held, force = false) => { if (rangeBefore?.bid !== b.id || rangeBefore.at !== api.snapshot() || (!force && rangeBefore.snap === rangeBefore.at)) return false; api.commit(rangeBefore.snap, `${rangeBefore.key} ${rangeBefore.v}`, held, force); return true; };
+  const letGo = () => { const b = api.block(); if (rangeBefore?.drag && b && stepNow(b, false, true)) rangeBefore = null; };
+  addEventListener('pointerup', () => setTimeout(letGo, 0), true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
@@ -154,9 +166,11 @@ export function wireScrolling(panel, api) {
   panel.addEventListener('input', (e) => {
     const r = e.target.closest('[data-scr-range]'), b = api.block();
     if (!r || !b) return;
-    const key = r.dataset.scrRange, v = Number(r.value);
+    const key = r.dataset.scrRange, v = Number(r.value), t = performance.now();
+    if (rangeBefore?.key === key && t - rangeBefore.t >= DRAG_PAUSE && stepNow(b, true)) rangeBefore.snap = rangeBefore.at = api.snapshot();
     const now = api.snapshot();
     if (rangeBefore?.key !== key || rangeBefore.bid !== b.id || rangeBefore.at !== now) rangeBefore = { key, bid: b.id, snap: now };
+    rangeBefore.t = t; rangeBefore.v = v; rangeBefore.drag = down;
     r.style.setProperty('--p', `${((v - r.min) / (r.max - r.min)) * 100}%`);
     const f = panel.querySelector(`[data-scr-field="${key}"]`);
     if (f) f.value = `${num(v)}${f.dataset.unit}`;

@@ -2023,7 +2023,10 @@ dialogEl.addEventListener('scroll', () => dialogEl.style.setProperty('--dl-scrol
 let dlgTab = null; // the open tab of T12's dialog
 let shapeUi = null; // the open popup of a shape's Design tab: { kind, bid, custom }
 let codeCommit = false;
+// A step taken while a range in the panel is still held leaves the panel as it is (scrolling-panel.js DRAG_PAUSE).
+let panelHeld = false;
 function renderBlockPanel() {
+  if (panelHeld) return;
   settleVideoColors();
   if (shapeUi && !shapeUi.section && (!sel || shapeUi.bid !== sel.bid || designOpen !== sel.bid)) closeShapePop();
   if (shapeUi?.kind === 'anchor') queueMicrotask(() => { if (shapeUi?.kind === 'anchor') renderShapePop(); }); // an undo too
@@ -4275,7 +4278,7 @@ wireScrolling(blockPanel, {
   block: () => (sel && !sel.more?.length && B(sel.sid, sel.bid)?.type === 'scrolling' ? B(sel.sid, sel.bid) : null),
   set: setScrolling,
   snapshot: () => JSON.stringify(model),
-  commit: (before, label) => commit(before, label),
+  commit: (before, label, held = false, force = false) => { panelHeld = held; try { commit(before, label, force); } finally { panelHeld = false; } },
   phone: () => bp === 'mobile',
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });

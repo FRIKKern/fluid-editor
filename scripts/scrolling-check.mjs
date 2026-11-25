@@ -8,6 +8,7 @@ import { BASE } from './lib/base.mjs';
 import { blockRows } from './scrolling-blocks.mjs';
 import { followRows } from './scrolling-follow.mjs';
 import { viewRows } from './scrolling-views.mjs';
+import { dragRows } from './scrolling-drag.mjs';
 
 if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
 const S = process.env.FLUID_SURFACE;
@@ -554,6 +555,8 @@ await blockRows({ qs, press, add, pause, browser, mouse, S });
 // After a wave fall in the phone view the phone still follows a desktop move (CAP-T12FOLLOW.json, scrolling-follow.mjs).
 await followRows({ qs, press, add, pause, browser, mouse, S });
 await viewRows({ qs, press, add, pause, browser, mouse, S });
+// A Wave Intensity drag's undo steps (CAP-T12WAVEDRAG.json): scrolling-drag.mjs.
+await dragRows({ qs, press, add, pause, browser, mouse, S });
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
 // 60 px/s left at 1x as in the editor (O4.default), and Pause on hover stops them only under the mouse. A rate of 0 with
 // the mouse off the block is a frozen line, not a pause. Real mouse moves; Save is a real press.
@@ -599,7 +602,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 464;
+const CASES = 512;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
