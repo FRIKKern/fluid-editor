@@ -1,17 +1,22 @@
-// scrolling-check's rows for a Scrolling block among other blocks, with Cmd+Z after the wave steps (CAP-T12BLOCKS.json, R2;
-// R1 read alike in all 119 reads). On the desktop: a Text block under it, a row below, on its rows from its top, and below it
-// in other columns. In the phone view: a block under it, a row below, three under it, one sharing a column on its top row,
-// one above it, one beside and one below it in other columns. Each plan is the oracle's section as
+// scrolling-check's rows for Text Style, Direction, Pause on hover, Fade edges and Item Spacing after a wave fall, with Cmd+Z
+// after them (Fade edges and Item Spacing in the phone view: CAP-T12BLOCKS2.json, R2; R1 read alike),
+// and for a Scrolling block among other blocks, with Cmd+Z after the wave steps (CAP-T12BLOCKS.json, R2; R1 read alike in
+// all 119 reads). On the desktop: a Text block under it, a row below, on its rows from its top, and below it in other columns.
+// In the phone view: a block under it, a row below, three under it, one sharing a column on its top row, one above it, one
+// beside and one below it in other columns. Each plan is the oracle's section as
 // arranged ('start'): its blocks' desktop and phone areas and its rows. Then the view it was read in, Edit, Design, the
 // plan's steps, a let go, and each Cmd+Z, a row after each. Each row checks every block's areas, the section's rows in that
 // view, the Scrolling block's height and its line, and each other block's top and height. A press row also checks that the
-// press landed: the wave, Text Style, Direction, Pause on hover and Fade edges as the oracle's panel read.
+// press landed: the wave, Text Style, Direction, Pause on hover, Fade edges and Item Spacing as the oracle's panel read.
 import { readFileSync } from 'node:fs';
 
-const OB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12BLOCKS.json', import.meta.url))).runs.R2.reads;
+const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
+const OB = { ...R2('CAP-T12BLOCKS'), ...R2('CAP-T12BLOCKS2') };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 // Plan, view, steps: a number is a press on Wave Intensity there; 'z' is Cmd+Z after the let go.
 export const PLANS = [
+  ['H', 'desktop', [180, 90, 'style P', 'z']], ['J', 'desktop', [180, 90, 'Fade edges', 'z']],
+  ['S', 'mobile', [180, 150, 'Fade edges', 'z']], ['T', 'mobile', [180, 150, 'spacing 0.9', 'z']], ['A', 'mobile', [180, 150, 'style P', 'z']], ['B', 'mobile', [180, 150, 'Animation direction right', 'z']], ['C', 'mobile', [180, 150, 'Pause on hover', 'z']],
   ['I', 'desktop', [180, 90, 'z', 'z']], ['K', 'desktop', [180, 90, 'z', 'z']], ['Q', 'desktop', [180, 90, 'z', 'z']], ['R', 'desktop', [180, 90, 'z', 'z']],
   ['U', 'mobile', [180, 90, 'z', 'z']], ['D', 'mobile', [180, 90, 'z', 'z']], ['E', 'mobile', [180, 90, 'z', 'z']], ['F', 'mobile', [180, 90, 'z', 'z']],
   ['G', 'mobile', [180, 90, 'z', 'z']], ['N', 'mobile', [180, 90, 'z', 'z']], ['O', 'mobile', [180, 90, 'z', 'z']], ['M', 'mobile', [180, 90, 'z', 'z']],
@@ -39,8 +44,8 @@ export async function blockRows({ qs, press, add, pause, browser, mouse, S }) {
       && mine.length === others.length && mine.every((b, k) => b.desktop === others[k].desktop && b.phone === others[k].phone && near1(b.top, others[k].top) && near1(b.height, others[k].height));
     add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, block: o.block, marquee: o.marquee, all: o.all })})`);
   };
-  // What the panel shows, as the oracle's controls read: wave, Text Style, Direction, Pause on hover, Fade edges.
-  const controls = (o) => { const on = (k) => o.ctl.some((c) => c[0] === k && (c[1] === 'true' || c[1] === true)); return JSON.stringify([Number(o.ranges.find((r) => r[0] === 'Wave Intensity')[1]), o.paragraph ? 'paragraph' : 'heading', on('Animation direction right') ? 'right' : 'left', on('Pause on hover'), on('Fade edges')]); };
+  // What the panel shows, as the oracle's controls read: wave, Text Style, Direction, Pause on hover, Fade edges, Item Spacing.
+  const controls = (o) => { const on = (k) => o.ctl.some((c) => c[0] === k && (c[1] === 'true' || c[1] === true)); return JSON.stringify([Number(o.ranges.find((r) => r[0] === 'Wave Intensity')[1]), o.paragraph ? 'paragraph' : 'heading', on('Animation direction right') ? 'right' : 'left', on('Pause on hover'), on('Fade edges'), Number(o.ranges.find((r) => r[0] === 'Item Spacing')[1])]); };
   for (const [P, view, steps] of PLANS) {
     await build(P, view);
     sameB(`Blocks ${P} (${view === 'mobile' ? 'phone' : 'desktop'}): start`, view, OB[`R2 ${P} start`].layout);
@@ -49,12 +54,13 @@ export async function blockRows({ qs, press, add, pause, browser, mouse, S }) {
       if (st === 'z' && !left) { qs(`fe.select(null); await sleep(300); return 'true';`); sameB(`Blocks ${P}: ${done.join('>')}, let go`, view, OB[`R2 ${P} ${done.join('>')} let go`].layout); left = true; }
       if (st === 'z') { qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400); }
       else if (st === 'style P') { await press('#block-panel [data-acc-menu="scrollStyle"]'); await press('#shape-pop [data-acc-opt="paragraph"]'); }
+      else if (st.startsWith?.('spacing ')) await press('#block-panel [data-scr-range="spacing"]', Number(st.split(' ')[1]));
       else if (typeof st === 'string') await press(`#block-panel ${PRESS[st]}`);
       else await press('#block-panel [data-scr-range="wave"]', st === 0 ? 0.005 : Math.min(0.995, st / 180));
       await pause(300); done.push(st === 180 ? '180' : String(st));
       const k = done.join('>'), o = OB[`R2 ${P} ${k}`].layout;
       if (!left) {
-        const got = qs(`const b = fe.model.sections[0].blocks.find((x) => x.type === 'scrolling'); return JSON.stringify(JSON.stringify([b.wave ?? 0, b.scrollStyle || 'heading', b.direction || 'left', !!b.pauseHover, !!b.fadeEdges]));`);
+        const got = qs(`const b = fe.model.sections[0].blocks.find((x) => x.type === 'scrolling'); return JSON.stringify(JSON.stringify([b.wave ?? 0, b.scrollStyle || 'heading', b.direction || 'left', !!b.pauseHover, !!b.fadeEdges, b.spacing ?? 0.5]));`);
         if (got !== controls(o)) { add(`Blocks ${P}: ${k}`, false, `controls ${got} (oracle ${controls(o)})`); continue; }
       }
       sameB(`Blocks ${P}: ${k}`, view, o);
