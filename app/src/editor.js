@@ -4283,6 +4283,8 @@ wireScrolling(blockPanel, {
   set: setScrolling,
   snapshot: () => JSON.stringify(model),
   commit: (before, label, held = false, force = false) => { panelHeld = held; try { commit(before, label, force); } finally { panelHeld = false; } },
+  // An arrow key under a second after the last one joins its step: the step it took is taken off, to be taken again.
+  merge: (before) => { if (undoStack.at(-1) !== before) return false; undoStack.pop(); return true; },
   phone: () => bp === 'mobile',
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
