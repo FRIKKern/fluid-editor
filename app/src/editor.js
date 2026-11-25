@@ -4931,11 +4931,14 @@ const closeLinkOutside = (e) => {
   const keep = !linkPop.hidden && !!e.target.closest?.('#undo') && scrollLinkPicked();
   // A press on the held Attach link closes the editor and leaves the focus on the Link row's Edit, not opening it again
   // (CAP-T12HELDLINK.json P1 and P2, R1 and R2 alike). The pointerdown's default is stopped, so the press moves no focus.
+  // After a link typed in the field and not entered, the same press takes the link and leaves the focus on the row's link
+  // itself (CAP-T12TYPEDLINK.json T1 and T2, R1 and R2 alike). With nothing typed the editor stays open (no link row then).
   const held = !linkPop.hidden && !!e.target.closest?.('#block-panel .bp-scr-attach[data-held]');
+  const typed = !linkPop.hidden && !held && !!e.target.closest?.('#block-panel .bp-scr-attach');
   closeLinkPopover();
   if (keep) undoClosedLink = undoStepNow();
-  const edit = held && blockPanel.querySelector('.bp-link-actions [data-link="edit"]');
-  if (edit) { e.preventDefault(); edit.focus(); }
+  const to = held ? blockPanel.querySelector('.bp-link-actions [data-link="edit"]') : typed && blockPanel.querySelector('#block-panel .bp-link .bp-link-url');
+  if (to) { e.preventDefault(); to.focus(); }
 };
 document.addEventListener('pointerdown', closeLinkOutside, true);
 // The values with a range of their own (BLOCKDESIGN.json); the others are a field of DESIGN_FIELDS.

@@ -1,0 +1,1265 @@
+{
+ "item": "CAP-T12TYPEDLINK",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-25",
+ "engine": "chrome",
+ "question": "T12 (task-7bec99da5ffb1068): a press on a Scrolling block's Link row while it reads Attach link, after a link was typed in its editor's field and not entered: what does the row show, is the editor open, and where is the focus? On Blocks Probe at a 1600 by 1000 window, each scenario in its own edit session: a new section, a new Scrolling block, Edit, Content. T1: Attach link (the editor opens, the focus in its field), example.com typed by keys, no Enter, a press on the row's Attach link, then Escape. T2: the same typing and press, then a second press on Attach link if there is one. Real mouse presses and keys. R1 ran T1, T2 and R2 T2, T1. Nothing saved: each session left by Exit Without Saving. The probe and reads of CAP-T12HELDLINK.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12HELDLINK: block (the Scrolling block's state and desktop area, link its data-link-to), pop (field: the link editor's field value and place, or null when it is closed; options: the page list's rows shown; linkRow: the panel's Link row), focus (where the focus is: top page or frame, tag, label or text, value, box), undo (Save, Undo, Redo and whether each is off).",
+ "answer": [
+  "T1 and T2: with example.com typed the row reads Attach link, the editor open on example.com and the focus in its field. A press on the row's Attach link closes the editor (field null) and the row shows the link: https://example.com, Edit, Copy, Remove Link, with no second line.",
+  "The focus is then on the row's link itself: the button labelled https://example.com, 244 by 66 at the row's left (1298, 590), not on Edit as after a pick (CAP-T12HELDLINK P1).",
+  "There is no Attach link left to press a second time (T2). Escape then lets the block go and the panel closes (T1; the focus on the page).",
+  "Save and Undo stay on and Redo off through each scenario. R1 and R2 read alike in every read (the block ids apart).",
+  "Not read: a typed link that is not a web address, a press elsewhere after typing, Enter or Tab after typing, Cmd+Z after the press."
+ ],
+ "localGuesses": {
+  "written": "none written before the reads; ours on main saves the link and the focus falls to the page"
+ },
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "scenario": "T1",
+     "ok": true,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    },
+    {
+     "scenario": "T2",
+     "ok": true,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T08:09:55.612Z",
+   "log": [
+    "pressed Edit",
+    "pressed Content",
+    "snap R1 T1 start",
+    "pressed panel Attach link",
+    "typed example.com",
+    "snap R1 T1 typed",
+    "pressed panel Attach link",
+    "snap R1 T1 pressed",
+    "key Escape",
+    "snap R1 T1 Escape",
+    "pressed Edit",
+    "pressed Content",
+    "snap R1 T2 start",
+    "pressed panel Attach link",
+    "typed example.com",
+    "snap R1 T2 typed",
+    "pressed panel Attach link",
+    "snap R1 T2 pressed",
+    "T2 second press: Error: nothing in the panel labelled Attach link",
+    "snap R1 T2 no Attach link"
+   ],
+   "reads": {
+    "R1 T1 start": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795592708932_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795592708932_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795592708932_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795592708932_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0",
+      [
+       1282,
+       301,
+       53,
+       55
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T1 typed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795592708932_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795592708932_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795592708932_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795592708932_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "example.com",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "example.com",
+      [
+       940,
+       590,
+       276,
+       44
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T1 pressed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795592708932_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795592708932_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795592708932_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795592708932_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T1 Escape": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795592708932_412"
+      ],
+      "n": 1,
+      "sel": "false",
+      "cls": "fe-block-yui_3_17_2_1_1795592708932_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795592708932_412",
+       "data-is-selected=false",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=false",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795592708932_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      "",
+      [
+       0,
+       0,
+       1600,
+       1000
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T2 start": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594245423_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594245423_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594245423_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594245423_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0",
+      [
+       1282,
+       301,
+       53,
+       55
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T2 typed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594245423_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594245423_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594245423_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594245423_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "example.com",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "example.com",
+      [
+       940,
+       590,
+       276,
+       44
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T2 pressed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594245423_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594245423_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594245423_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594245423_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R1 T2 no Attach link": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594245423_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594245423_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594245423_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594245423_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    }
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "scenario": "T2",
+     "ok": true,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    },
+    {
+     "scenario": "T1",
+     "ok": true,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T08:11:55.697Z",
+   "log": [
+    "pressed Edit",
+    "pressed Content",
+    "snap R2 T2 start",
+    "pressed panel Attach link",
+    "typed example.com",
+    "snap R2 T2 typed",
+    "pressed panel Attach link",
+    "snap R2 T2 pressed",
+    "T2 second press: Error: nothing in the panel labelled Attach link",
+    "snap R2 T2 no Attach link",
+    "pressed Edit",
+    "pressed Content",
+    "snap R2 T1 start",
+    "pressed panel Attach link",
+    "typed example.com",
+    "snap R2 T1 typed",
+    "pressed panel Attach link",
+    "snap R2 T1 pressed",
+    "key Escape",
+    "snap R2 T1 Escape"
+   ],
+   "reads": {
+    "R2 T2 start": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594297952_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594297952_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594297952_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594297952_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0",
+      [
+       1282,
+       301,
+       53,
+       55
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T2 typed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594297952_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594297952_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594297952_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594297952_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "example.com",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "example.com",
+      [
+       940,
+       590,
+       276,
+       44
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T2 pressed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594297952_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594297952_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594297952_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594297952_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T2 no Attach link": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594297952_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594297952_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594297952_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594297952_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T1 start": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594364119_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594364119_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594364119_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594364119_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "Content",
+      "0",
+      [
+       1282,
+       301,
+       53,
+       55
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T1 typed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594364119_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594364119_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594364119_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594364119_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": [
+       "example.com",
+       940,
+       590
+      ],
+      "options": 0,
+      "linkRow": [
+       "Attach link"
+      ]
+     },
+     "focus": [
+      "top",
+      "INPUT",
+      "Enter link, search, or add files",
+      "example.com",
+      [
+       940,
+       590,
+       276,
+       44
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T1 pressed": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594364119_412"
+      ],
+      "n": 1,
+      "sel": "true",
+      "cls": "fe-block-yui_3_17_2_1_1795594364119_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594364119_412",
+       "data-is-selected=true",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=true",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594364119_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": [
+       "https://example.com",
+       "Edit",
+       "Copy",
+       "Remove Link"
+      ]
+     },
+     "focus": [
+      "top",
+      "BUTTON",
+      "https://example.com",
+      "",
+      [
+       1298,
+       590,
+       244,
+       66
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    },
+    "R2 T1 Escape": {
+     "block": {
+      "ids": [
+       "yui_3_17_2_1_1795594364119_412"
+      ],
+      "n": 1,
+      "sel": "false",
+      "cls": "fe-block-yui_3_17_2_1_1795594364119_412 fe-block fluid-engine-block XfdLY4TeB3MSe45F nk9jBu4OE5gPd8ZV IC5PvU3EXQsLRm7p is-transitioning-visibility fluid-engine-1bt0omd",
+      "attrs": [
+       "tabindex=0",
+       "data-is-locked=false",
+       "data-fluid-engine-block=true",
+       "data-test=yui_3_17_2_1_1795594364119_412",
+       "data-is-selected=false",
+       "data-is-matching-width=false",
+       "data-is-matching-height=false",
+       "data-is-near-dragged-block=false",
+       "role=gridcell",
+       "aria-selected=false",
+       "draggable=false",
+       "id=yui_3_17_2_1_1795594364119_628"
+      ],
+      "op": "1",
+      "vis": "visible",
+      "disp": "block",
+      "box": [
+       100,
+       244,
+       1400,
+       71
+      ],
+      "area": "1/2/3/26",
+      "dskDisplay": null,
+      "link": "",
+      "others": []
+     },
+     "pop": {
+      "field": null,
+      "options": 0,
+      "linkRow": []
+     },
+     "focus": [
+      "top",
+      "BODY",
+      "HomeWebsiteProducts & Services",
+      "",
+      [
+       0,
+       0,
+       1600,
+       1000
+      ]
+     ],
+     "undo": [
+      [
+       "Save",
+       false
+      ],
+      [
+       "Undo",
+       false
+      ],
+      [
+       "Redo",
+       true
+      ]
+     ]
+    }
+   }
+  }
+ }
+}

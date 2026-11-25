@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 512,
- "total": 512,
+ "pass": 517,
+ "total": 517,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -577,6 +577,26 @@
   },
   {
    "what": "Held Attach link pressed, nothing picked: the editor stays open",
+   "ok": true
+  },
+  {
+   "what": "A link typed, no Enter: the editor open on it, Attach link still",
+   "ok": true
+  },
+  {
+   "what": "Then Attach link pressed: the row shows the typed link",
+   "ok": true
+  },
+  {
+   "what": "Then Attach link pressed: the focus on the row's link",
+   "ok": true
+  },
+  {
+   "what": "Then Attach link pressed: no Attach link left",
+   "ok": true
+  },
+  {
+   "what": "A typed link taken, then Escape: the block let go",
    "ok": true
   },
   {
