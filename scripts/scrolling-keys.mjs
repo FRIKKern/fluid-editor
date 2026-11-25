@@ -1,10 +1,10 @@
 // scrolling-check's rows for arrow keys on Wave Intensity (CAP-T12WAVEKEYS.json, R2; R1 read alike). A Scrolling block with a
-// Text block added after it (R: alone), made on the desktop as the oracle's; Edit, Design, a press on Wave Intensity, a press
+// Text block added after it, made on the desktop as the oracle's; Edit, Design, a press on Wave Intensity, a press
 // on the range's thumb, then real arrow keys a set time apart through one DevTools session, Escape and Cmd+Z. A key row
 // checks the range's value, that it has the focus, and Undo and Redo; a step row the Scrolling block's areas in both views
-// and its line, and with the panel open the block's wave. K: Right 3 times 1.2 s apart, then Left; L: Right 3 times about
-// 0.2 s apart (one step); M: in the phone view, Right twice; R: 180, Right at the end (no step), Down twice. The Text
-// block's own area is left out: after K's Left, a one-step fall, ours moves it and the oracle does not (task-78bc0672904da5dc).
+// and its line, the Text block's areas in both views, and with the panel open the block's wave. K: Right 3 times 1.2 s
+// apart, then Left (a one-step fall that leaves the Text block, on the Scrolling block's rows, where it is); L: Right 3
+// times about 0.2 s apart (one step); M: in the phone view, Right twice; R: 180, Right at the end (no step), Down twice.
 import { readFileSync } from 'node:fs';
 
 const OK = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEKEYS.json', import.meta.url))).runs.R2;
@@ -14,7 +14,7 @@ const PLANS = {
   K: { phone: false, press: 90, keys: [['ArrowRight', 3, 1200], ['ArrowLeft', 1, 1200, true]], z: 2 },
   L: { phone: false, press: 90, keys: [['ArrowRight', 3, 100]], z: 2 },
   M: { phone: true, press: 90, keys: [['ArrowRight', 2, 1200]], z: 2 },
-  R: { phone: false, press: 180, keys: [['ArrowRight', 1, 1200], ['ArrowDown', 2, 1200, true]], z: 3, alone: true },
+  R: { phone: false, press: 180, keys: [['ArrowRight', 1, 1200], ['ArrowDown', 2, 1200, true]], z: 3 },
 };
 
 async function session(S) {
@@ -40,11 +40,11 @@ export async function keyRows({ qs, press, add, pause, browser, mouse, S }) {
   };
   // The panel's range, the focus and Undo and Redo, as one expression for the DevTools session.
   const STATE = `(() => { const r = document.querySelector('#block-panel [data-scr-range="wave"]'), u = document.getElementById('undo'), z = document.getElementById('redo'); return JSON.stringify({ value: r ? r.value : null, focus: !!r && document.activeElement === r, undo: [!!u && !u.disabled, !!z && !z.disabled] }); })()`;
-  const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), el = document.getElementById('site-frame').contentDocument.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], line: r(el.querySelector('.marquee').getBoundingClientRect().height), wave: (fe.bp === 'mobile' ? a.waveMobile ?? a.wave : a.wave) ?? 0 });`);
+  const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), el = document.getElementById('site-frame').contentDocument.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; const t = s.blocks.find((b) => b !== a); return JSON.stringify({ me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], text: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), wave: (fe.bp === 'mobile' ? a.waveMobile ?? a.wave : a.wave) ?? 0 });`);
   const same = (what, read) => {
-    const o = read.layout, w = ours(), me = o.all.find((b) => b.me);
-    const ok = w.me[0] === me.desktop && w.me[1] === me.phone && near1(w.line, o.marquee[1]) && (!read.wave || String(w.wave) === read.wave[0]);
-    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ me: [me.desktop, me.phone], line: o.marquee[1], wave: read.wave?.[0] ?? null })})`);
+    const o = read.layout, w = ours(), me = o.all.find((b) => b.me), t = o.all.find((b) => !b.me), text = t ? [t.desktop, t.phone] : null;
+    const ok = w.me[0] === me.desktop && w.me[1] === me.phone && JSON.stringify(w.text) === JSON.stringify(text) && near1(w.line, o.marquee[1]) && (!read.wave || String(w.wave) === read.wave[0]);
+    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ me: [me.desktop, me.phone], text, line: o.marquee[1], wave: read.wave?.[0] ?? null })})`);
   };
   const sameKey = (what, w, o) => add(what, w.value === o.value && w.focus === o.focus.isRange && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1], `${JSON.stringify(w)} (oracle ${JSON.stringify({ value: o.value, focus: o.focus.isRange, undo: o.undo })})`);
   // Where press() put the Wave press: pressed again there, the range keeps its value, as a press on the oracle's thumb.
