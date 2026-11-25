@@ -9,6 +9,7 @@ import { blockRows } from './scrolling-blocks.mjs';
 import { followRows } from './scrolling-follow.mjs';
 import { viewRows } from './scrolling-views.mjs';
 import { dragRows } from './scrolling-drag.mjs';
+import { keyRows } from './scrolling-keys.mjs';
 import { fallRows } from './scrolling-falls.mjs';
 import { layoutRows } from './scrolling-layouts.mjs';
 
@@ -580,6 +581,8 @@ await followRows({ qs, press, add, pause, browser, mouse, S });
 await viewRows({ qs, press, add, pause, browser, mouse, S });
 // A Wave Intensity drag's undo steps (CAP-T12WAVEDRAG.json): scrolling-drag.mjs.
 await dragRows({ qs, press, add, pause, browser, mouse, S });
+// Arrow keys on Wave Intensity (CAP-T12WAVEKEYS.json): scrolling-keys.mjs.
+await keyRows({ qs, press, add, pause, browser, mouse, S });
 // A big fall with a Text block on the top row (CAP-T12TOPFALL.json): scrolling-falls.mjs.
 await fallRows({ qs, press, add, pause, browser, mouse, S });
 // A phone Wave Intensity on a View Layouts pick's Scrolling turn, then the next picks (scrolling-layouts.mjs).
@@ -629,7 +632,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 607;
+const CASES = 647;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
