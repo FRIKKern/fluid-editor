@@ -59,7 +59,8 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   }
   // A guard, not read on the oracle: after a Wave drag in the phone view that moved the block below and was let go on its
   // start value (no change, no commit), a hand move of that block still stops the phone following, as any phone hand move
-  // does (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as they were.
+  // does (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as they were. The drag's move of the block
+  // below is read after the let go, which takes the rows of its fall (editor.js settleScrollDrag; CAP-T12WAVEDRAG.json B).
   build('V');
   qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
   { const [sid, bid] = idOf('scrolling');
@@ -71,8 +72,8 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   const below0 = ours().other[1];
   mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(100);
   for (const x of path) { mouse(S, 'move', x, p[1], { buttons: 1 }); await pause(120); }
-  const moved = ours().other[1] !== below0;
   mouse(S, 'up', p[0], p[1]); await pause(400);
+  const moved = ours().other[1] !== below0;
   qs(`fe.select(null); await sleep(300); return 'true';`);
   { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
   browser(S, 'press', 'ArrowDown'); await pause(400);
