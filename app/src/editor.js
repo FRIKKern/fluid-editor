@@ -113,7 +113,7 @@ function note(text) {
 // base: what the phone order compares with, when a text's save while typing already laid the section out (textSave).
 // placed: a section whose phone places the edit set itself (a View Layouts pick), so it doesn't follow desktop then.
 function commit(before, label, force = false, base = before, placed = null) {
-  const foot = footFollowed; footFollowed = false;
+  const foot = footAt !== null && JSON.stringify(model) === footAt; footAt = null;
   if (!force && JSON.stringify(model) === before) return;
   undoStack.push(before);
   redoStack.length = 0;
@@ -125,8 +125,10 @@ function commit(before, label, force = false, base = before, placed = null) {
 // A2: only a section whose blocks an edit changed. A saved page stays as it loads, and undo brings
 // the order back with the model. Not while its text is being edited: the close commits again.
 let softening = false; // one Escape: the model follows, the page isn't touched
-// Blocks moved in the phone view only by following a Scrolling block's foot (setScrolling), up to the next commit.
-let footFollowed = false;
+// The model as setScrolling left it after a Scrolling block's foot moved blocks in the phone view, up to the next commit.
+// Only a commit of that same model took its phone moves from the foot: a live drag let go with no change, an undo or a
+// hand move since leaves another model, and the next commit clears it.
+let footAt = null;
 function followPhoneRows(before, placed = null, foot = false) {
   const old = JSON.parse(before);
   for (const s of model.sections) {
@@ -4256,11 +4258,13 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
     if (below.length) {
       const dy = lay(b).area[2] - f0;
       for (const o of below) { o.layout[bp].area[0] += dy; o.layout[bp].area[2] += dy; }
-      if (bp === 'mobile' && dy) footFollowed = true;
+      if (bp === 'mobile' && dy) footAt = '';
       s.rows[bp] = r0 + low() - l0;
       renderSectionDom(s.id);
     }
   }
+  // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
+  if (footAt !== null) footAt = JSON.stringify(model);
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();
