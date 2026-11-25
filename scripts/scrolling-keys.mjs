@@ -88,4 +88,15 @@ export async function keyRows({ qs, press, add, pause, browser, mouse, S }) {
     }
     qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
   }
+  // Not read, ours as before: the range keeps the focus after a press, and Cmd+Z there still undoes the press (review-2).
+  build('R');
+  const [sid, bid] = qs(`const s = fe.model.sections[0]; return JSON.stringify([s.id, s.blocks[0].id]);`);
+  qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+  await press('#block-panel [data-btab="Design"]');
+  await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300);
+  mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
+  const w = qs(`const s = fe.model.sections[0], a = s.blocks[0], r = document.querySelector('#block-panel [data-scr-range="wave"]'); return JSON.stringify({ focus: !!r && document.activeElement === r, wave: a.wave ?? 0, value: r ? r.value : null, me: a.layout.desktop.area.join('/') });`);
+  const me = OK.reads['R2 R default'].layout.all.find((b) => b.me).desktop;
+  add('Keys: open>90>Cmd+Z in the range (not read)', w.wave === 0 && w.value === '0' && w.me === me, `${JSON.stringify(w)} (want wave 0, ${me})`);
+  qs(`fe.select(null); await sleep(300); return 'true';`);
 }

@@ -4574,7 +4574,9 @@ async function readPicture(file) {
 // and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
 // not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
 // Not read, so left to the field: Cmd+Shift+Z in a Design field with typing not yet taken, and Cmd+Z there with nothing to undo.
-const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield]')
+// A Scrolling block's range keeps the focus after a press or a key (CAP-T12WAVEKEYS.json), and Cmd+Z there is the page's,
+// as it was when the range lost the focus; inferred, not read.
+const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield], input[type="range"][data-scr-range]')
   || (e.target.matches('input[type="text"][data-design]') && (e.target.value === e.target.defaultValue || (!e.shiftKey && undoStack.length > 0))));
 // The typing kept through an undo is taken by Enter or the blur, as typing is; inferred, not read.
 const keptField = (e) => {
