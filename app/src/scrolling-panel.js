@@ -92,10 +92,13 @@ export function wireScrolling(panel, api) {
   // held: the drag goes on, so the panel stays as it is (drawn again, its range would drop the drag).
   // A let go takes its step even when the model is back where the drag began (N: the Scrolling block alone, 90 out to 180
   // and back, Cmd+Z leaves it as it was).
-  const stepNow = (b, held, force = false) => { if (rangeBefore?.bid !== b.id || rangeBefore.at !== api.snapshot() || (!force && rangeBefore.snap === rangeBefore.at)) return false; api.commit(rangeBefore.snap, `${rangeBefore.key} ${rangeBefore.v}`, held, force); return true; };
-  const letGo = () => { const b = api.block(); if (rangeBefore?.drag && b && stepNow(b, false, true)) rangeBefore = null; };
+  const stepNow = (b, held, force = false, r = rangeBefore) => { if (r?.bid !== b.id || r.at !== api.snapshot() || (!force && r.snap === r.at)) return false; api.commit(r.snap, `${r.key} ${r.v}`, held, force); return true; };
+  // The drag is dropped before its let-go step: that step draws the panel again, and a range that kept the focus (a touch
+  // drag ended by a pointercancel) fires its change then, which must find no drag to take a second step from.
+  const letGo = () => { const b = api.block(), r = rangeBefore; if (!r?.drag || !b) return; rangeBefore = null; if (!stepNow(b, false, true, r)) rangeBefore = r; };
   // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
-  addEventListener('pointerup', () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
+  // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
