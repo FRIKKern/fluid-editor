@@ -18,7 +18,8 @@ export async function layoutRows({ qs, press, add, pause, browser, mouse, S }) {
   const pick = async (n) => { const t = centre(`document.querySelector('[data-layout="${n}"]')`); if (t) await real(t); return !!t; };
   const blk = () => qs(`const b = fe.model.sections[0].blocks[0]; return JSON.stringify({ type: b.type, wave: b.wave ?? null, waveMobile: b.waveMobile ?? null });`);
   const close = async () => { browser(S, 'press', 'Escape'); await pause(400); qs(`fe.select(null); await sleep(300); return 'true';`); };
-  qs(`const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0], t = s.blocks.find((b) => b.type === 'text'); m.sections = [s]; delete s.phoneEdited; s.blocks = [{ ...JSON.parse(JSON.stringify(t)), html: '<h2>Heading words here</h2>' }]; fe.setBp('desktop'); fe.load(m); await sleep(400); return 'true';`);
+  // The heading is a new Text block in an emptied section, so the part needs no block an earlier part leaves.
+  qs(`const m = JSON.parse(JSON.stringify(fe.model)), s = m.sections[0]; m.sections = [s]; delete s.phoneEdited; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(m); await sleep(300); fe.addBlock(s.id, 'Text', true); await sleep(300); const n = JSON.parse(JSON.stringify(fe.model)); n.sections[0].blocks[0].html = '<h2>Heading words here</h2>'; fe.load(n); await sleep(400); return 'true';`);
   const opened = await openLayouts(), p0 = opened && await pick(0), turn = blk();
   await close();
   const [sid, bid] = qs(`const s = fe.model.sections[0]; return JSON.stringify([s.id, s.blocks[0].id]);`);
