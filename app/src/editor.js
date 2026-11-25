@@ -4313,7 +4313,13 @@ function scrollRows(b, a, need, live, stay = false) {
     // and r, R1 and R2 alike).
     const foot = lay(b).area[2], dy = foot - f0;
     for (const o of twins) if (dy > 0) o.layout[bp].area[2] = foot;
-    for (const o of below) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
+    // A desktop drag's growth takes down only a block the new foot reaches, by the foot's change: 90 pressed, a drag out to
+    // 180, back to 90 and out to 180 again leaves a Text block from 3/2/5/10 at 7/2/9/10 (on the foot again after the way
+    // back, CAP-T12WAVEDRAG D) and one from 6/2/8/10 at 8/2/10/10, not 10/2/12/10, the section 12 rows (CAP-T12DRAGAGAIN.json
+    // s and u, R1 and R2 alike, read after the let go; t, out again to 150, 6/2/8/10). Not read: the states during the drag,
+    // a press growth that does not reach a block below (ours moves it), a block on the new foot's row, one the moved one reaches.
+    const reach = live === 'drag' && bp === 'desktop' && dy > 0 ? foot : Infinity;
+    for (const o of below) if (o.layout[bp].area[0] < reach) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
     renderSectionDom(s.id);

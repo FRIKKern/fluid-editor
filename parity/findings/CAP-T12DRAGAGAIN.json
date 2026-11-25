@@ -1,0 +1,3876 @@
+{
+ "item": "CAP-T12DRAGAGAIN",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-25",
+ "engine": "chrome",
+ "question": "T12 (task-49c7ca40040f661a), after CAP-T12WAVEDRAG D: a desktop Wave Intensity drag that grows, falls and grows again: where does the Text block below end? On Blocks Probe at a 1600 by 1000 window, one new section per plan with a new Scrolling block and a Text block added after it, made on the desktop (desktop 1/2/3/26 and 1/2/3/10, phone 1/2/3/10 and 3/2/5/10); u first moves the Text block three rows down by arrow keys (4/2/6/10, 'arr'). Then the Scrolling block selected, Edit, Design ('open'), a press on Wave Intensity at 90, then a real drag through one DevTools session: a press on the range at 90, a move to each next value 300 ms apart (inputs about 400 ms apart), let go 300 ms after the last; a read, Escape (let go, 'go') and a read, then two Cmd+Z with a read after each. s and u: 90>120>150>180>150>120>90>120>150>180; t: the same, ending on 150. R1 ran s t u, R2 u t s, two edit sessions. Nothing saved: every session left by Exit Without Saving.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12BELOW: layout of the Scrolling block and every block in its section, the section rows in the view shown, the Scrolling block's height and line, Undo and Redo, the panel's ranges; 'wave' is the panel's Wave Intensity value; 'inputs' the page's own record of pointerdown, input, change and pointerup on the range. The read's name is the run, the plan, and the steps in order, '>' between them ('z' is Cmd+Z).",
+ "answer": [
+  "Only the end of each drag is read (after the let go); the states in between are not. s: 90 leaves the Scrolling block 1/2/5/26 and the Text block 3/2/5/10 (on the foot); the drag out to 180, back to 90 and out to 180 again ends 1/2/7/26 with the Text block at 7/2/9/10, the section 14 rows. CAP-T12WAVEDRAG D read the first half: out to 180 and back to 90 leaves it at 5/2/7/10, on the foot again; so the second growth (foot 5 to 7) took it down by 2.",
+  "t, the same out again only to 150 (foot 6): it ends 1/2/6/26 with the Text block at 6/2/8/10, the section 13 rows (from D's 5/2/7/10, down by 1).",
+  "u, the Text block a row under the foot (90: 6/2/8/10): the same drag ends 1/2/7/26 with the Text block at 8/2/10/10, the section 12 rows. A block moved down by every growth would end at 10/2/12/10 and 14 rows. The rule that fits s, t, u and D: a desktop drag's growth takes down, by the foot's change, only a block the new foot reaches (u's Text block is taken to 8/2/10/10 by the first growth, left there by the way back, and the second growth's foot, 7, does not reach it); as the foot falls blocks stay (D). Inferred, not read: u's state between.",
+  "Each drag is one undo step (its inputs about 400 ms apart): Escape keeps the areas, Cmd+Z gives back the 90 press's state (1/2/5/26 with 3/2/5/10, or 6/2/8/10 in u), the next the section as built. A change fires at the let go.",
+  "R1 and R2 read alike in all 22 reads, apart from Undo and Redo at a plan's start (Redo stays on from the plan before).",
+  "Not read: the states during the drag; a press growth that does not reach a block below; a block on the new foot's row; a block the moved block then reaches; the phone view; values a second or more apart."
+ ],
+ "localGuesses": {
+  "written": "before the reads, ours on main: a desktop drag takes a block below down by every growth, so u ends 10/2/12/10 and 14 rows; s 7/2/9/10 and 14 rows"
+ },
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "file": "X-R1.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T19:51:40.907Z",
+   "log": [
+    "s added Scrolling yui_3_17_2_1_1795631932182_412",
+    "s added Text yui_3_17_2_1_1795631932182_706",
+    "t added Scrolling yui_3_17_2_1_1795631932182_928",
+    "t added Text yui_3_17_2_1_1795631932182_1222",
+    "u added Scrolling yui_3_17_2_1_1795631932182_1443",
+    "u added Text yui_3_17_2_1_1795631932182_1737",
+    "read R1 s default",
+    "read R1 t default",
+    "read R1 u default",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 s open",
+    "wave press 90",
+    "read R1 s open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150>180 gap 300",
+    "read R1 s open>90>drag out back out",
+    "read R1 s open>90>drag out back out>go",
+    "Cmd+Z",
+    "read R1 s open>90>drag out back out>go>z",
+    "Cmd+Z",
+    "read R1 s open>90>drag out back out>go>z>z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 t open",
+    "wave press 90",
+    "read R1 t open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150 gap 300",
+    "read R1 t open>90>drag out back part",
+    "read R1 t open>90>drag out back part>go",
+    "Cmd+Z",
+    "read R1 t open>90>drag out back part>go>z",
+    "Cmd+Z",
+    "read R1 t open>90>drag out back part>go>z>z",
+    "u keys arr 1 ArrowDown ArrowDown ArrowDown -> 4/2/6/10",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open",
+    "wave press 90",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150>180 gap 300",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go",
+    "Cmd+Z",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z",
+    "Cmd+Z",
+    "read R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z>z"
+   ],
+   "reads": {
+    "R1 s default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 t default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 u default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 s open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 s open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 s open>90>drag out back out": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 14,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "7/2/9/10",
+        "phone": "3/2/5/10",
+        "top": 246.6,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 s open>90>drag out back out>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 14,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "7/2/9/10",
+        "phone": "3/2/5/10",
+        "top": 246.6,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 s open>90>drag out back out>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 s open>90>drag out back out>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 t open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 t open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 t open>90>drag out back part": {
+     "layout": {
+      "desktop": "1/2/6/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.0938px",
+      "block": 194.5,
+      "marquee": [
+       5.2,
+       184
+      ],
+      "svg": [
+       8.6,
+       184
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "150"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 184,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/6/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 194.5
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "150",
+      ""
+     ]
+    },
+    "R1 t open>90>drag out back part>go": {
+     "layout": {
+      "desktop": "1/2/6/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.0938px",
+      "block": 194.5,
+      "marquee": [
+       5.2,
+       184
+      ],
+      "svg": [
+       8.6,
+       184
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 184,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/6/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 194.5
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 t open>90>drag out back part>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 t open>90>drag out back part>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "8/2/10/10",
+        "phone": "3/2/5/10",
+        "top": 287.7,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "8/2/10/10",
+        "phone": "3/2/5/10",
+        "top": 287.7,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R1 s open>90>drag out back out": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      310,
+      "120"
+     ],
+     [
+      "input",
+      794,
+      "150"
+     ],
+     [
+      "input",
+      1209,
+      "180"
+     ],
+     [
+      "input",
+      1626,
+      "150"
+     ],
+     [
+      "input",
+      2025,
+      "120"
+     ],
+     [
+      "input",
+      2426,
+      "90"
+     ],
+     [
+      "input",
+      2826,
+      "120"
+     ],
+     [
+      "input",
+      3244,
+      "150"
+     ],
+     [
+      "input",
+      3692,
+      "180"
+     ],
+     [
+      "pointerup",
+      4121,
+      "180"
+     ],
+     [
+      "change",
+      4122,
+      "180"
+     ]
+    ],
+    "R1 t open>90>drag out back part": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      312,
+      "120"
+     ],
+     [
+      "input",
+      746,
+      "150"
+     ],
+     [
+      "input",
+      1145,
+      "180"
+     ],
+     [
+      "input",
+      1561,
+      "150"
+     ],
+     [
+      "input",
+      1979,
+      "120"
+     ],
+     [
+      "input",
+      2378,
+      "90"
+     ],
+     [
+      "input",
+      2761,
+      "120"
+     ],
+     [
+      "input",
+      3163,
+      "150"
+     ],
+     [
+      "pointerup",
+      3566,
+      "150"
+     ],
+     [
+      "change",
+      3566,
+      "150"
+     ]
+    ],
+    "R1 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      357,
+      "120"
+     ],
+     [
+      "input",
+      868,
+      "150"
+     ],
+     [
+      "input",
+      1379,
+      "180"
+     ],
+     [
+      "input",
+      1778,
+      "150"
+     ],
+     [
+      "input",
+      2179,
+      "120"
+     ],
+     [
+      "input",
+      2578,
+      "90"
+     ],
+     [
+      "input",
+      2979,
+      "120"
+     ],
+     [
+      "input",
+      3362,
+      "150"
+     ],
+     [
+      "input",
+      3762,
+      "180"
+     ],
+     [
+      "pointerup",
+      4177,
+      "180"
+     ],
+     [
+      "change",
+      4177,
+      "180"
+     ]
+    ]
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "file": "X-R2.json",
+     "ok": true,
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "startedAt": "2026-11-25T19:56:03.017Z",
+   "log": [
+    "u added Scrolling yui_3_17_2_1_1795636485133_412",
+    "u added Text yui_3_17_2_1_1795636485133_706",
+    "t added Scrolling yui_3_17_2_1_1795636485133_928",
+    "t added Text yui_3_17_2_1_1795636485133_1222",
+    "s added Scrolling yui_3_17_2_1_1795636485133_1443",
+    "s added Text yui_3_17_2_1_1795636485133_1737",
+    "read R2 u default",
+    "read R2 t default",
+    "read R2 s default",
+    "u keys arr 1 ArrowDown ArrowDown ArrowDown -> 4/2/6/10",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open",
+    "wave press 90",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150>180 gap 300",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go",
+    "Cmd+Z",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z",
+    "Cmd+Z",
+    "read R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z>z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 t open",
+    "wave press 90",
+    "read R2 t open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150 gap 300",
+    "read R2 t open>90>drag out back part",
+    "read R2 t open>90>drag out back part>go",
+    "Cmd+Z",
+    "read R2 t open>90>drag out back part>go>z",
+    "Cmd+Z",
+    "read R2 t open>90>drag out back part>go>z>z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 s open",
+    "wave press 90",
+    "read R2 s open>90",
+    "cdrag 90>120>150>180>150>120>90>120>150>180 gap 300",
+    "read R2 s open>90>drag out back out",
+    "read R2 s open>90>drag out back out>go",
+    "Cmd+Z",
+    "read R2 s open>90>drag out back out>go>z",
+    "Cmd+Z",
+    "read R2 s open>90>drag out back out>go>z>z"
+   ],
+   "reads": {
+    "R2 u default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 t default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 s default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "8/2/10/10",
+        "phone": "3/2/5/10",
+        "top": 287.7,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 12,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "8/2/10/10",
+        "phone": "3/2/5/10",
+        "top": 287.7,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "4/2/6/10",
+        "phone": "3/2/5/10",
+        "top": 123.3,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 t open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 t open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 t open>90>drag out back part": {
+     "layout": {
+      "desktop": "1/2/6/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.0938px",
+      "block": 194.5,
+      "marquee": [
+       5.2,
+       184
+      ],
+      "svg": [
+       8.6,
+       184
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "150"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 184,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/6/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 194.5
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "150",
+      ""
+     ]
+    },
+    "R2 t open>90>drag out back part>go": {
+     "layout": {
+      "desktop": "1/2/6/26",
+      "phone": "1/2/3/10",
+      "rows": 13,
+      "rowSizes": "30.0938px",
+      "block": 194.5,
+      "marquee": [
+       5.2,
+       184
+      ],
+      "svg": [
+       8.6,
+       184
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 184,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/6/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 194.5
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "6/2/8/10",
+        "phone": "3/2/5/10",
+        "top": 205.5,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 t open>90>drag out back part>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 t open>90>drag out back part>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 s open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 s open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 s open>90>drag out back out": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 14,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "7/2/9/10",
+        "phone": "3/2/5/10",
+        "top": 246.6,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 s open>90>drag out back out>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 14,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "7/2/9/10",
+        "phone": "3/2/5/10",
+        "top": 246.6,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 s open>90>drag out back out>go>z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 s open>90>drag out back out>go>z>z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R2 u arr ArrowDown ArrowDown ArrowDown>open>90>drag out back out": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      310,
+      "120"
+     ],
+     [
+      "input",
+      770,
+      "150"
+     ],
+     [
+      "input",
+      1344,
+      "180"
+     ],
+     [
+      "input",
+      1777,
+      "150"
+     ],
+     [
+      "input",
+      2177,
+      "120"
+     ],
+     [
+      "input",
+      2577,
+      "90"
+     ],
+     [
+      "input",
+      2960,
+      "120"
+     ],
+     [
+      "input",
+      3360,
+      "150"
+     ],
+     [
+      "input",
+      3777,
+      "180"
+     ],
+     [
+      "pointerup",
+      4187,
+      "180"
+     ],
+     [
+      "change",
+      4188,
+      "180"
+     ]
+    ],
+    "R2 t open>90>drag out back part": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      313,
+      "120"
+     ],
+     [
+      "input",
+      862,
+      "150"
+     ],
+     [
+      "input",
+      1279,
+      "180"
+     ],
+     [
+      "input",
+      1695,
+      "150"
+     ],
+     [
+      "input",
+      2148,
+      "120"
+     ],
+     [
+      "input",
+      2630,
+      "90"
+     ],
+     [
+      "input",
+      3013,
+      "120"
+     ],
+     [
+      "input",
+      3411,
+      "150"
+     ],
+     [
+      "pointerup",
+      3827,
+      "150"
+     ],
+     [
+      "change",
+      3828,
+      "150"
+     ]
+    ],
+    "R2 s open>90>drag out back out": [
+     [
+      "pointerdown",
+      0,
+      "90"
+     ],
+     [
+      "input",
+      312,
+      "120"
+     ],
+     [
+      "input",
+      746,
+      "150"
+     ],
+     [
+      "input",
+      1178,
+      "180"
+     ],
+     [
+      "input",
+      1628,
+      "150"
+     ],
+     [
+      "input",
+      2061,
+      "120"
+     ],
+     [
+      "input",
+      2462,
+      "90"
+     ],
+     [
+      "input",
+      2863,
+      "120"
+     ],
+     [
+      "input",
+      3334,
+      "150"
+     ],
+     [
+      "input",
+      3829,
+      "180"
+     ],
+     [
+      "pointerup",
+      4242,
+      "180"
+     ],
+     [
+      "change",
+      4245,
+      "180"
+     ]
+    ]
+   }
+  }
+ }
+}
