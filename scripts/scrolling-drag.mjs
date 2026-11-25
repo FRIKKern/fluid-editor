@@ -7,7 +7,7 @@
 // section's rows, and Undo and Redo (a blank section added after the build leaves one step under the plan's, as the
 // oracle's block adds do). The drag's moves go through one DevTools session, so the time between two values is the gap
 // asked for, not a process start. Not rows: D (the desktop's Text block during a drag) and the areas of C's step at 150 on
-// the way back, where ours differs for another reason (the finding's answer; their tasks).
+// the way back, where ours differs for another reason (the finding's answer; task-da2c4efe4c7f0b8a, task-d73c54f41e110d95).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;

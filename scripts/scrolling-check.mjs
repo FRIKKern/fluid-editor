@@ -67,7 +67,8 @@ for (let k = seen.length - 2; k >= 0; k--) {
   add(`undo to step ${k}`, u.area === want.area && u.rows === want.rows && words(u) === words(want), `${u.area} ${u.rows} ${words(u)} (want ${want.area} ${want.rows} ${words(want)})`);
 }
 // A drag: many inputs show on the block as it goes, letting go is one step. A drag that ends where it began fires no
-// change; a press after it, then another drag, must still undo one step at a time.
+// change, and its let go is still a step: Cmd+Z after it takes back only that (CAP-T12WAVEDRAG.json N), not the Medium
+// press before it; a press after it, then another drag, must still undo one step at a time.
 const range = at('#block-panel [data-scr-range="wave"]'), w = qs(`return JSON.stringify(document.querySelector('#block-panel [data-scr-range="wave"]').getBoundingClientRect().width);`);
 const drag = async (to, back = false) => { const x0 = range[0] - w / 2 + 4; mouse(S, 'move', x0, range[1]); await pause(60); mouse(S, 'down', x0, range[1], { buttons: 1 }); for (let n = 1; n <= 10; n++) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } if (back) for (let n = 9; n >= 0; n--) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } const x = back ? x0 : x0 + to - 4; mouse(S, 'up', x, range[1]); await pause(400); };
 const start = state();
@@ -83,7 +84,7 @@ await drag(w * 0.4, true);
 qs(`fe.undo(); await sleep(250); return 'true';`); const undone = state();
 await drag(w * 0.75);
 qs(`fe.undo(); await sleep(250); return 'true';`); const back2 = state();
-add('Drag back to start, Cmd+Z, drag: undo takes one step', back2.area === undone.area && back2.rows === undone.rows && undone.area !== medium.area, JSON.stringify({ undone, back2 }));
+add('Drag back to start, Cmd+Z, drag: undo takes one step', back2.area === undone.area && back2.rows === undone.rows && undone.area === medium.area && undone.rows === medium.rows, JSON.stringify({ medium, undone, back2 }));
 // The Content list (CAP-T12SCROLLLIST.json, each read twice on the oracle, real mouse and keys): a fresh block, then
 // the oracle's walk. Each row compares the block's words in order and the list's names with what the oracle drew.
 qs(`const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { desktop: 8, mobile: 8 }; s.blocks = []; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); const b = fe.model.sections[0].blocks[0]; fe.select(s.id, b.id); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(400); return 'true';`);
