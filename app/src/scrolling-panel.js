@@ -98,7 +98,13 @@ export function wireScrolling(panel, api) {
   const letGo = () => { const b = api.block(), r = rangeBefore; if (!r?.drag || !b) return; rangeBefore = null; if (!stepNow(b, false, true, r)) rangeBefore = r; };
   // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
   // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
-  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); setTimeout(letGo, 0); }, true);
+  const settle = () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); };
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { settle(); setTimeout(letGo, 0); }, true);
+  // Escape while the drag is still held ends it as its let go does, before the Escape takes the selection off: in the phone
+  // view 90 out to 180 and back to 90 at 300 ms keeps 1/2/4/10 (the Text block 4/2/6/10) after the Escape and after the
+  // pointer is let go, one undo step; Cmd+Z gives back 1/2/5/10 as after the press (CAP-T12DRAGEND.json E, R1 and R2 alike).
+  // The pointerup after it finds no drag. Not read: on the desktop (the same here), by touch.
+  addEventListener('keydown', (e) => { if (e.key !== 'Escape' || !down || !rangeBefore?.drag) return; settle(); letGo(); }, true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;

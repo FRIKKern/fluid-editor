@@ -127,8 +127,8 @@ function commit(before, label, force = false, base = before, placed = null) {
 // the order back with the model. Not while its text is being edited: the close commits again.
 let softening = false; // one Escape: the model follows, the page isn't touched
 // The model as setScrolling left it after a Scrolling block's foot moved blocks in the phone view, up to the next commit.
-// Only a commit of that same model took its phone moves from the foot: a hand move after a drag dropped by Escape (its let go
-// takes no step then) leaves another model, and the next commit clears it (scrolling-check's Follow guard).
+// Only a commit of that same model took its phone moves from the foot: a hand move made while one is pending leaves another
+// model, and the next commit clears it. A drag's let go and an Escape while it is held take their step first (scrolling-panel.js).
 let footAt = null;
 // A desktop Wave step whose foot moved no other block is no desktop edit for the phone: in a section made here that follows
 // the desktop, 150 then 0 leaves the second Scrolling block 1/2/6/26 around the first's 1/2/2/26 and the phone keeps the first
