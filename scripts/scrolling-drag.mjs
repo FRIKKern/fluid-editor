@@ -12,6 +12,8 @@
 // as a drag ended by a pointerup. Y is S the same way, let go away from its start, held to S's reads.
 // s, t and u (CAP-T12DRAGAGAIN.json), on the desktop: out to 180, back to 90 and out again; the growth takes down only a
 // block the new foot reaches, so u's Text block, left two rows under the foot by the way back, stays as it grows again.
+// E and F (CAP-T12DRAGEND.json), in the phone view: Escape while B's drag is still held ends it as its let go does (one step,
+// the fall's rows kept); a slow drag out to 180 and back to 120, let go there, then Cmd+Z one value a step.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
