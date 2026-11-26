@@ -20,6 +20,8 @@
 // h and i (CAP-T12HELD.json H and I), in the phone view: B's drag and F's slow one with a row while held after each move (read
 // in the drag's own DevTools session), as the oracle's: each value takes the press rules' rows as it goes, the fall's too.
 // E's row held before the Escape is the same rule.
+// U and V (CAP-T12HELD.json), on the desktop and in the phone view: 90 pressed, a drag 90>120>150 held, a real Cmd+Z while it is
+// held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -57,6 +59,9 @@ const PLANS = {
   // each move (each) and after the last (end). The oracle's rows were read in the drag's own DevTools session.
   h: { phone: true, vals: OBO.slice(0, 7), gap: 300, name: 'back 300 held', z: 2, od: 'H', held: { each: [80], end: [80, 400, 1200, 2500] } },
   i: { phone: true, vals: OBO.slice(0, 6), gap: 1500, name: '90>180>120 1500 held', z: 6, od: 'I', held: { each: [80, 1200], end: [80, 1200] } },
+  // U, V: a real Cmd+Z gap ms after the last move, the pointer still held; rows held before it and 80 and 800 ms after it.
+  U: { phone: false, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'U', undoHeld: true },
+  V: { phone: true, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'V', undoHeld: true },
 };
 
 async function session(S) {
@@ -75,19 +80,20 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].held ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
-  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`;
+  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], wave: document.querySelector('#block-panel [data-scr-range="wave"]')?.value ?? null });`;
   const ours = () => qs(OURS);
   const same = (what, read, w = ours()) => {
     const o = read.layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
     const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
-    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
-    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
+    // A read taken in the drag's session also holds the range's value (U, V).
+    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (read.value == null || w.wave === read.value);
+    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo, wave: read.value })})`);
   };
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
@@ -105,9 +111,23 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const touch = (type, i) => c.send('Input.dispatchTouchEvent', { type, touchPoints: i == null ? [] : [{ x: xs[i][0], y }] });
     try {
       // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
-      if (p.held) {
-        const states = Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states);
-        const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states) : null;
+      const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+      if (p.undoHeld) {
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+        await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
+        for (let i = 1; i < xs.length; i++) { await sleep(p.gap); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
+        await sleep(p.gap);
+        const row = async (n) => same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L, value: states[n].st.value }, await oursIn());
+        await row('held');
+        const Z = { key: 'z', code: 'KeyZ', windowsVirtualKeyCode: 90, modifiers: 4 };
+        await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', ...Z, commands: ['undo'] });
+        await c.send('Input.dispatchKeyEvent', { type: 'keyUp', ...Z });
+        await sleep(80); await row('cmd+z held +80');
+        await sleep(720); await row('cmd+z held +800');
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
+        await sleep(80); await row('up +80');
+      } else if (p.held) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         await sleep(p.gap);
