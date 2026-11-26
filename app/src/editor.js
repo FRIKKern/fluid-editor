@@ -2979,7 +2979,7 @@ function setFormRows(b, s, need, spare = false) {
 // rows that hold its line, as a growth to that value does, and the blocks below follow the foot: 180, 150 and 120 (1/2/8/10,
 // 1/2/6/10, 1/2/6/10 kept as the line ran over), then the first Cmd+Z gives back 150 at 1/2/7/10, not the 1/2/6/10 the fall
 // left, with a Text block from 6/2/8/10 at 7/2/9/10 and the section 8 rows; the next 180 at 1/2/8/10, the next the section
-// as built (CAP-T12BELOW.json g, R1 and R2 alike, read again by oracleQ). A Cmd+Z that takes the value down keeps the stored
+// as built (CAP-T12BELOW.json g, R1 and R2 alike, and CAP-T12DRAGEND.json g). A Cmd+Z that takes the value down keeps the stored
 // rows: back to 0 after 150, 0 and 90 leaves the 1 row the fall left (CAP-T12TWIN.json x). Not read: the same on the
 // desktop (it keeps the stored rows here), after a phone fall of two steps, a block left taller than its line, Redo.
 function refitScrollingUndone(prev) {
