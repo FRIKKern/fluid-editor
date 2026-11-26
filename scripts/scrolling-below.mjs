@@ -3,8 +3,9 @@
 // oracle's and arranged by arrow keys there, or in the phone view for a phone plan. Each plan is the oracle's section as its
 // 'open' read found it: both blocks' desktop and phone areas and the section's rows. Then the view it was read in, Edit,
 // Design, the plan's steps (a press on Wave Intensity, or a real ArrowLeft on the range), a let go, and each Cmd+Z, a row
-// after each. Each row checks both blocks' desktop and phone areas, the section's rows in that view, the Scrolling block's
-// height and line, the other block's top and height, and on a step row the wave in that view.
+// after each; for a phone plan whose read has it, one more back in Desktop View after the last Cmd+Z. Each row checks both
+// blocks' desktop and phone areas, the section's rows in that view, the Scrolling block's height and line, the other block's
+// top and height, and on a step row the wave in that view.
 // Desktop: the Text block under the foot (a, 3/2/5/10), a row below (b, 4/2/6/10), 180 then 150; from 150 to 120 (c); 180
 // then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g), whose first
 // Cmd+Z gives back 150 with the rows a growth takes (1/2/7/10), not the 1/2/6/10 the fall left. A block with the Scrolling block's own area is stretched with it, not moved, as its foot grows
@@ -80,6 +81,8 @@ export async function belowRows({ qs, press, add, pause, browser, mouse, S }) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
       k += '>z'; same(`Below ${P}: ${k}`, view, OB[`R2 ${P} ${k}`]);
     }
+    // A phone plan's last read, back in Desktop View after the last Cmd+Z (stored for e to k, r, F and x).
+    if (OB[`R2 ${P} ${k}>desktop`]) { qs(`fe.setBp('desktop'); await sleep(800); return 'true';`); k += '>desktop'; same(`Below ${P}: ${k}`, 'desktop', OB[`R2 ${P} ${k}`]); }
   }
   qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
 }
