@@ -52,8 +52,8 @@ const PLANS = {
   // T is K by touch, ended by a pointercancel: not read on the oracle, held to K's reads, as X to C's.
   T: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight', od: 'K', cancel: true },
   // Q and R are P with a second pointer (pointerId 2, dispatched pointer events) pressed and lifted (Q) or cancelled (R)
-  // between 150 and 180 while the mouse still holds the range: not read on the oracle, held to P's reads. Only the holding
-  // pointer lets the drag go, so it stays one step.
+  // between 150 and 180 while the mouse still holds the range: not read on the oracle, held to P's reads. Only the pointer
+  // that pressed the range lets the drag go, so it stays one step.
   Q: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointerup' },
   R: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointercancel' },
   // V and A: the second pointer goes down first, before the mouse presses the range. V: it lifts between 150 and 180, P's
