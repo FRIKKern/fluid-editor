@@ -16,6 +16,7 @@ import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
 const OA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGAGAIN.json', import.meta.url))).runs.R2.reads;
+const OE = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGEND.json', import.meta.url))).runs.R2.reads;
 const OBO = [90, 120, 150, 180, 150, 120, 90, 120, 150, 180];
 const PLANS = {
   P: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2 },
@@ -34,6 +35,10 @@ const PLANS = {
   s: { phone: false, vals: OBO, gap: 300, name: 'out back out', z: 2, again: true },
   t: { phone: false, vals: OBO.slice(0, -1), gap: 300, name: 'out back part', z: 2, again: true },
   u: { phone: false, vals: OBO, gap: 300, name: 'out back out', z: 2, again: true, pre: 'arr ArrowDown ArrowDown ArrowDown>' },
+  // CAP-T12DRAGEND.json (R2; R1 read alike), in the phone view: E as B with a real Escape while the pointer is still held, a
+  // row after the Escape, then the let go; F 90 out to 180 and back to 120 at 1500 ms, let go on 120.
+  E: { phone: true, vals: OBO.slice(0, 7), gap: 300, name: 'esc 90>180>90', z: 2, end: true, escape: true },
+  F: { phone: true, vals: OBO.slice(0, 6), gap: 1500, name: '90>180>120', z: 6, end: true },
 };
 
 async function session(S) {
@@ -52,7 +57,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].end ? OE[`R2 ${P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
@@ -92,6 +97,14 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         const wait = async (x) => { if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
         for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0]); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await wait(xs.at(-1)[0]);
+        // E: a real Escape gap ms after the last move, the pointer still held, and a row after it. The row held before it is
+        // none: ours shows 1/2/5/10 there, the oracle 1/2/4/10 (task-29c5c1878048849f).
+        if (p.escape) {
+          await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
+          await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
+          await sleep(800);
+          same(`Drag ${P}: ${k}>drag ${p.name} escape held`, read(P, `${k}>drag ${p.name} escape held`));
+        }
         await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
       }
     } finally { c.close(); }
