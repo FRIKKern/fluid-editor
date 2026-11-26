@@ -271,6 +271,7 @@ function undo(button = false) {
   if (!sectionPanel.hidden && secSid()) segShown = [secSid(), Object.fromEntries(['height', 'valign'].map((a) => [a, sectionPanel.querySelector(`[data-sact="${a}"][aria-pressed="true"]`)?.dataset.v]))];
   renderAll();
   refitUndone(now);
+  refitScrollingUndone(now);
   syncLayouts();
   if (ed || bare) select(null); else backToField(held);
 }
@@ -2974,6 +2975,23 @@ function setFormRows(b, s, need, spare = false) {
   else { if (spare) s.rows[bp] += lowest() - low; growRows(s); }
   renderSectionDom(s.id);
 }
+// In the phone view a Cmd+Z that takes a Scrolling block's Wave Intensity back up (it undoes a fall) gives it at least the
+// rows that hold its line, as a growth to that value does, and the blocks below follow the foot: 180, 150 and 120 (1/2/8/10,
+// 1/2/6/10, 1/2/6/10 kept as the line ran over), then the first Cmd+Z gives back 150 at 1/2/7/10, not the 1/2/6/10 the fall
+// left, with a Text block from 6/2/8/10 at 7/2/9/10 and the section 8 rows; the next 180 at 1/2/8/10, the next the section
+// as built (CAP-T12BELOW.json g, R1 and R2 alike, read again by oracleQ). A Cmd+Z that takes the value down keeps the stored
+// rows: back to 0 after 150, 0 and 90 leaves the 1 row the fall left (CAP-T12TWIN.json x). Not read: the same on the
+// desktop (it keeps the stored rows here), after a phone fall of two steps, a block left taller than its line, Redo.
+function refitScrollingUndone(prev) {
+  if (bp !== 'mobile') return;
+  const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
+  for (const s of model.sections) for (const b of s.blocks) {
+    const o = was.get(b.id);
+    if (b.type !== 'scrolling' || !o || lay(b).hidden || !((waveIn(b, bp) ?? 0) > (waveIn(o, bp) ?? 0)) || !blockEl(b.id)?.offsetHeight) continue;
+    const a = lay(b).area, fit = Math.max(1, Math.ceil(contentRows(b, formPitch(b), false, false, true) - 0.13));
+    if (fit > a[2] - a[0]) scrollRows(b, a, fit, false, false, s);
+  }
+}
 // Newsletter's Undo and Redo (CAP-T12NLUNDO.json, its six reads all fit the rule pushed beside the predictions in
 // CAP-T12NLUNDO-PREDICTED.json): a step that changes the block's content gives it the rows that content needs, ceil(x - 0.02),
 // whatever they were before the step. A Title emptied as typed held 5 rows (CAP-T12NEWSLETTER.json titleEmpty) and comes
@@ -4301,8 +4319,9 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
 }
 // The Scrolling block b (area a) takes need rows, and the blocks below follow its foot (setScrolling).
 // stay: a one-step desktop fall, where a block that starts above the old foot stays.
-function scrollRows(b, a, need, live, stay = false) {
-  const s = S(sel.sid), f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
+// s: its section (an undo's refit has no selection).
+function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
+  const f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
   const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[1] < a[3] && q[3] > a[1]; };
   // A block with the Scrolling block's own area is stretched with it, not moved, in either view and of any kind: its top
   // stays, its end follows the foot down as it grows, and it stays as the foot falls. Two Scrolling blocks on 1/2/3/26, 150

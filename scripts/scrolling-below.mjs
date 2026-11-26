@@ -6,9 +6,8 @@
 // after each. Each row checks both blocks' desktop and phone areas, the section's rows in that view, the Scrolling block's
 // height and line, the other block's top and height, and on a step row the wave in that view.
 // Desktop: the Text block under the foot (a, 3/2/5/10), a row below (b, 4/2/6/10), 180 then 150; from 150 to 120 (c); 180
-// then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g). g's Cmd+Z are
-// not rows: the oracle's first gives back 150 with the rows a growth takes (1/2/7/10), ours the 1/2/6/10 the fall left
-// (task-e0483f7527887d8c). A block with the Scrolling block's own area is stretched with it, not moved, as its foot grows
+// then ArrowLeft (d). Phone: the Text block under it (e), a row below (f), 180 then 150; 180, 150 and 120 (g), whose first
+// Cmd+Z gives back 150 with the rows a growth takes (1/2/7/10), not the 1/2/6/10 the fall left. A block with the Scrolling block's own area is stretched with it, not moved, as its foot grows
 // and left as it falls: two Scrolling blocks as added (l: 150 then 0; m: 90, 180, 120), the Scrolling block made the Text
 // block's 1/2/3/10 (p); in the phone view the Text block moved onto the top row (F of CAP-T12TOPFALL.json and h: 90, 150,
 // 60; i: 180, 150) and a second Scrolling block there (k). A block on the top row with another area moves as CAP-T12TOPFALL
@@ -28,7 +27,7 @@ export const PLANS = [
   ['a', 'desktop', DN2, 'Text', [180, 150]], ['b', 'desktop', 'arr ArrowDown ArrowDown ArrowDown>', 'Text', [180, 150]],
   ['c', 'desktop', DN2, 'Text', [150, 120]], ['d', 'desktop', DN2, 'Text', [180, 'ArrowLeft']],
   ['e', 'mobile', 'mobile>', 'Text', [180, 150]], ['f', 'mobile', 'mobile>arr ArrowDown>', 'Text', [180, 150]],
-  ['g', 'mobile', 'mobile>', 'Text', [180, 150, 120], 0],
+  ['g', 'mobile', 'mobile>', 'Text', [180, 150, 120]],
   // A block with the Scrolling block's own area, stretched: two Scrolling blocks as added (l, m), the Scrolling block made the
   // Text block's 1/2/3/10 (p); phone, the Text block on the top row (F of CAP-T12TOPFALL, h, i), a second Scrolling block
   // there (k). Moved: on the top row with another area (q 1/2/3/14, n a Button, r phone 1/2/3/6), on the second row (o, j).
