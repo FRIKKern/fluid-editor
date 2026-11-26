@@ -16,6 +16,8 @@
 // the fall's rows kept); a slow drag out to 180 and back to 120, let go there, then Cmd+Z one value a step.
 // K, on the desktop: D's drag let go on its start (no change fires), then one ArrowRight with no press: the range kept the
 // focus, so the key steps the value and the blocks stay. T is K by touch, ended by a pointercancel (not read; K's reads).
+// Q and R, in the phone view: P with a second pointer pressed and lifted (Q) or cancelled (R) mid-drag; only the holding
+// pointer lets the drag go (not read; P's reads).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -48,6 +50,11 @@ const PLANS = {
   K: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight' },
   // T is K by touch, ended by a pointercancel: not read on the oracle, held to K's reads, as X to C's.
   T: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight', od: 'K', cancel: true },
+  // Q and R are P with a second pointer (pointerId 2, dispatched pointer events) pressed and lifted (Q) or cancelled (R)
+  // between 150 and 180 while the mouse still holds the range: not read on the oracle, held to P's reads. Only the holding
+  // pointer lets the drag go, so it stays one step.
+  Q: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointerup' },
+  R: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointercancel' },
 };
 
 async function session(S) {
@@ -103,8 +110,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         // J: between two values the pointer moves 3 px either way every jiggle ms, the value staying.
-        const wait = async (x) => { if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
-        for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0]); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
+        // Q, R: the second pointer's down and its end a third and two thirds into the wait before the last value.
+        const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
+        const wait = async (x, i) => { if (p.second && i === xs.length - 1) { await sleep(p.gap / 3); await other('pointerdown'); await sleep(p.gap / 3); await other(p.second); return sleep(p.gap / 3); } if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
+        for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0], i); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await wait(xs.at(-1)[0]);
         // E: a real Escape gap ms after the last move, the pointer still held, and a row after it. The row held before it is
         // none: ours shows 1/2/5/10 there, the oracle 1/2/4/10 (task-29c5c1878048849f).
