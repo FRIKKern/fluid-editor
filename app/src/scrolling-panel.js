@@ -73,8 +73,7 @@ export function scrollingDesignHtml(c) {
 
 // The presses. api: block() the selected Scrolling block or null; set(change, label, before, live, keep) changes it (one undo
 // step unless live; live 'drag' for a range's moves while held); snapshot() the model; commit(before, label, held, force) takes a step for what is in the model (held: the
-// panel is left as it is; force: a step also when nothing changed); settle() gives a drag's last fall its rows at the let go,
-// true when that changed the model; view(n) opens item
+// panel is left as it is; force: a step also when nothing changed); view(n) opens item
 // n's view, or Content's list with null; phone() is true in the phone view.
 let flushText = () => {};
 export function wireScrolling(panel, api) {
@@ -106,15 +105,13 @@ export function wireScrolling(panel, api) {
     if (!stepNow(b, false, true, r)) { rangeBefore = r; return; }
     if (f) panel.querySelector(`[data-scr-range="${f}"]`)?.focus();
   };
-  // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
   // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
-  const settle = () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); };
-  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { settle(); setTimeout(letGo, 0); }, true);
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => setTimeout(letGo, 0), true);
   // Escape while the drag is still held ends it as its let go does, before the Escape takes the selection off: in the phone
   // view 90 out to 180 and back to 90 at 300 ms keeps 1/2/4/10 (the Text block 4/2/6/10) after the Escape and after the
   // pointer is let go, one undo step; Cmd+Z gives back 1/2/5/10 as after the press (CAP-T12DRAGEND.json E, R1 and R2 alike).
   // The pointerup after it finds no drag. Not read: on the desktop (the same here), by touch.
-  addEventListener('keydown', (e) => { if (e.key !== 'Escape' || !down || !rangeBefore?.drag) return; settle(); letGo(); }, true);
+  addEventListener('keydown', (e) => { if (e.key !== 'Escape' || !down || !rangeBefore?.drag) return; letGo(); }, true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
