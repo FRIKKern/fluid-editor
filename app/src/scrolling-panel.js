@@ -95,7 +95,17 @@ export function wireScrolling(panel, api) {
   const stepNow = (b, held, force = false, r = rangeBefore) => { if (r?.bid !== b.id || r.at !== api.snapshot() || (!force && r.snap === r.at)) return false; api.commit(r.snap, `${r.key} ${r.v}`, held, force); return true; };
   // The drag is dropped before its let-go step: that step draws the panel again, and a range that kept the focus (a touch
   // drag ended by a pointercancel) fires its change then, which must find no drag to take a second step from.
-  const letGo = () => { const b = api.block(), r = rangeBefore; if (!r?.drag || !b) return; rangeBefore = null; if (!stepNow(b, false, true, r)) rangeBefore = r; };
+  // The range keeps the focus through that step, which draws the panel again: on the desktop 90 out to 180 and back to 90 let
+  // go on 90, then one ArrowRight with no press steps Wave Intensity to 120 and the block stays (CAP-T12DRAGEND.json K, R1
+  // and R2 alike). Not read: the same after a phone drag or a touch drag ended by a pointercancel (the same here).
+  const letGo = () => {
+    const b = api.block(), r = rangeBefore;
+    if (!r?.drag || !b) return;
+    rangeBefore = null;
+    const f = document.activeElement?.closest?.('[data-scr-range]')?.dataset.scrRange;
+    if (!stepNow(b, false, true, r)) { rangeBefore = r; return; }
+    if (f) panel.querySelector(`[data-scr-range="${f}"]`)?.focus();
+  };
   // At the let go the drag's last fall takes its rows first (editor.js settleScrollDrag), and the step takes them along.
   // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
   const settle = () => { if (rangeBefore?.drag && rangeBefore.at === api.snapshot() && api.settle()) rangeBefore.at = api.snapshot(); };

@@ -39,6 +39,9 @@ const PLANS = {
   // row after the Escape, then the let go; F 90 out to 180 and back to 120 at 1500 ms, let go on 120.
   E: { phone: true, vals: OBO.slice(0, 7), gap: 300, name: 'esc 90>180>90', z: 2, end: true, escape: true },
   F: { phone: true, vals: OBO.slice(0, 6), gap: 1500, name: '90>180>120', z: 6, end: true },
+  // K, on the desktop: as D, then one real ArrowRight with no press first. The range kept the focus through the let go (no
+  // change fires), so the key steps Wave Intensity to 120 and the blocks stay.
+  K: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight' },
 };
 
 async function session(S) {
@@ -111,6 +114,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     await pause(600);
     k += `>drag ${p.name}`;
     same(`Drag ${P}: ${k}`, read(P, k));
+    if (p.key) { browser(S, 'press', p.key); await pause(1200); k += `>${p.key} x1 1200`; same(`Drag ${P}: ${k}`, read(P, k)); }
     qs(`fe.select(null); await sleep(300); return 'true';`);
     k += '>go';
     same(`Drag ${P}: ${k}`, read(P, k));
