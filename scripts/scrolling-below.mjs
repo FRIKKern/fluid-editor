@@ -80,6 +80,8 @@ export async function belowRows({ qs, press, add, pause, browser, mouse, S }) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
       k += '>z'; same(`Below ${P}: ${k}`, view, OB[`R2 ${P} ${k}`]);
     }
+    // A phone plan's last read, back in Desktop View after the last Cmd+Z (stored for e to k, r, F and x).
+    if (OB[`R2 ${P} ${k}>desktop`]) { qs(`fe.setBp('desktop'); await sleep(800); return 'true';`); k += '>desktop'; same(`Below ${P}: ${k}`, 'desktop', OB[`R2 ${P} ${k}`]); }
   }
   qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
 }
