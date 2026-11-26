@@ -81,13 +81,17 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
-  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] });`;
+  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], sel: [a, t].map((b) => (b ? d.querySelector('.fe-block[data-block-id="' + b.id + '"]')?.dataset.isSelected === 'true' : null)), wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
   const ours = () => qs(OURS);
-  const same = (what, read, w = ours()) => {
+  // picked: the row also holds the selection (each block's sel) and the panel (its Wave Intensity value, null when closed)
+  // to the read, as E's escape held row: the oracle reads the block let go and the panel closed there.
+  // w: ours read already (the held rows read it in the drag's own session).
+  const same = (what, read, picked = false, w = ours()) => {
     const o = read.layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
     const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
-    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1];
-    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo })})`);
+    const sel = [me.sel, other ? other.sel : null], wave = read.wave ? read.wave[0] : null;
+    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave));
+    add(what, ok, `${JSON.stringify(picked ? w : { ...w, sel: undefined, wave: undefined })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}) })})`);
   };
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
@@ -117,7 +121,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
           for (const o of i === xs.length - 1 ? p.held.end : p.held.each) {
             await sleep(o - t); t = o;
             const n = `held ${i} ${p.vals[i]} +${o}`;
-            same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L }, await oursIn());
+            same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L }, false, await oursIn());
           }
           if (i < xs.length - 1) await sleep(Math.max(0, p.gap - t));
         }
@@ -134,13 +138,14 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         const wait = async (x) => { if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
         for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0]); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await wait(xs.at(-1)[0]);
-        // E: a row held gap ms after the last move, then a real Escape, the pointer still held, and a row after it.
+        // E: a row held gap ms after the last move, then a real Escape, the pointer still held, and a row after it that also
+        // holds the selection and the panel (the oracle's: nothing selected, the panel closed).
         if (p.escape) {
           same(`Drag ${P}: ${k}>drag ${p.name} held`, read(P, `${k}>drag ${p.name} held`));
           await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
           await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
           await sleep(800);
-          same(`Drag ${P}: ${k}>drag ${p.name} escape held`, read(P, `${k}>drag ${p.name} escape held`));
+          same(`Drag ${P}: ${k}>drag ${p.name} escape held`, read(P, `${k}>drag ${p.name} escape held`), true);
         }
         await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
       }
