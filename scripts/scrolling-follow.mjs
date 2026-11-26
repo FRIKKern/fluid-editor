@@ -77,14 +77,33 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   mouse(S, 'up', q[0], q[1]); await pause(400);
   // The path's own read: one step, the Escape's (a pause of a second in the drag would take another).
   const oneStep = depth() === d0 + 1;
-  { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
-  browser(S, 'press', 'ArrowDown'); await pause(400);
-  qs(`fe.select(null); await sleep(300); fe.setBp('desktop'); await sleep(800); return 'true';`);
-  const before = ours();
-  { const [sid, bid] = idOf('scrolling'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
-  for (const key of ['ArrowDown', 'ArrowDown', 'ArrowDown']) { browser(S, 'press', key); await pause(400); }
-  qs(`fe.select(null); await sleep(300); return 'true';`);
-  const after = ours();
-  add('Follow guard: a drag, Escape before the let go, a phone hand move, then a desktop move: the phone stays', moved && oneStep && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ movedInDrag: moved, oneStepAtEscape: oneStep, before, after }));
-  qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
+  const stays = async (what, path) => {
+    { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
+    browser(S, 'press', 'ArrowDown'); await pause(400);
+    qs(`fe.select(null); await sleep(300); fe.setBp('desktop'); await sleep(800); return 'true';`);
+    const before = ours();
+    { const [sid, bid] = idOf('scrolling'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
+    for (const key of ['ArrowDown', 'ArrowDown', 'ArrowDown']) { browser(S, 'press', key); await pause(400); }
+    qs(`fe.select(null); await sleep(300); return 'true';`);
+    const after = ours();
+    add(`Follow guard: ${what}, a phone hand move, then a desktop move: the phone stays`, Object.values(path).every(Boolean) && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ ...path, before, after }));
+    qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
+  };
+  await stays('a drag, Escape before the let go', { movedInDrag: moved, oneStepAtEscape: oneStep });
+  // A guard with a foot move still pending at the hand move: in the phone view 180, 150 and 120, then Cmd+Z gives back 150
+  // one row taller than its step left it, and the block below follows the foot (CAP-T12BELOW.json g; editor.js
+  // refitScrollingUndone). That move takes no step, so it is pending at the hand move after it (editor.js footAt): only a
+  // commit of the model the foot left takes its moves from the foot, and this hand move leaves another. Not read on the oracle.
+  build('V');
+  qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
+  { const [sid, bid] = idOf('scrolling');
+    qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`); }
+  await press('#block-panel [data-btab="Design"]');
+  const fell = [];
+  for (const st of [180, 150, 120]) { await press('#block-panel [data-scr-range="wave"]', Math.min(0.995, st / 180)); await pause(300); fell.push(ours()); }
+  const d1 = depth();
+  qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
+  const back = ours(), top = (t) => Number(t.split('/')[0]);
+  // The path's own read: one step undone, the block a row taller than at 150 and the block below a row lower.
+  await stays('in the phone view 180, 150, 120 and a Cmd+Z that moves the block below', { stepUndone: depth() === d1 - 1, footMoved: top(back.other[1]) === top(fell[1].other[1]) + 1 && back.me[1] !== fell[1].me[1] });
 }
