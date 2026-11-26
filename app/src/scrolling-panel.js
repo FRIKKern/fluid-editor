@@ -170,6 +170,7 @@ export function wireScrolling(panel, api) {
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
   // again would swallow the click.
   // holder: the pointerId of the press that is down; another pointer's down, moves and up while it is held are not its.
+  // A press on a range takes it over: a pointer resting elsewhere first (a finger on the stage) does not hold the drag.
   let textBefore = null, pending = null, down = false, moved = false, holder = null;
   // An undo or another change since the typing took it away with the model: nothing is left to take. Another block
   // selected meanwhile: the words are in the model already, so only the step is taken.
@@ -182,7 +183,7 @@ export function wireScrolling(panel, api) {
     else api.commit(p.before, 'Item text changed');
   };
   flushText = flush;
-  addEventListener('pointerdown', (e) => { if (down && e.pointerId !== holder) return; down = true; moved = false; holder = e.pointerId; }, true);
+  addEventListener('pointerdown', (e) => { if (down && e.pointerId !== holder && !e.target.closest?.('[data-scr-range]')) return; down = true; moved = false; holder = e.pointerId; }, true);
   // A move while held: the range's inputs from now on are a drag's, not the press's own (setScrolling, a desktop drag).
   addEventListener('pointermove', (e) => { if (down && e.pointerId === holder) moved = true; }, true);
   // A press's click takes it first, ahead of the press's own work (Undo then undoes the typing); a press with no click after.

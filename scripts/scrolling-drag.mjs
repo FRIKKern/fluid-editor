@@ -17,7 +17,8 @@
 // K, on the desktop: D's drag let go on its start (no change fires), then one ArrowRight with no press: the range kept the
 // focus, so the key steps the value and the blocks stay. T is K by touch, ended by a pointercancel (not read; K's reads).
 // Q and R, in the phone view: P with a second pointer pressed and lifted (Q) or cancelled (R) mid-drag; only the holding
-// pointer lets the drag go (not read; P's reads).
+// pointer lets the drag go (not read; P's reads). V and A: that pointer down first; V lifts it mid-drag (P's reads), A after
+// the go (B's reads).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -55,6 +56,10 @@ const PLANS = {
   // pointer lets the drag go, so it stays one step.
   Q: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointerup' },
   R: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', second: 'pointercancel' },
+  // V and A: the second pointer goes down first, before the mouse presses the range. V: it lifts between 150 and 180, P's
+  // reads. A: it stays down through the let go and lifts after the go, B's reads (the let go still takes its step).
+  V: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', first: 'mid' },
+  A: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2, od: 'B', first: 'go' },
 };
 
 async function session(S) {
@@ -103,6 +108,9 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const xs = p.vals.map((v) => rangeX(v)), y = xs[0][1], c = await session(S);
     // X: the same by touch, and a touchCancel (a pointercancel, no pointerup) in place of the let go.
     const touch = (type, i) => c.send('Input.dispatchTouchEvent', { type, touchPoints: i == null ? [] : [{ x: xs[i][0], y }] });
+    // Q, R, V, A: a second pointer (pointerId 2) by dispatched pointer events. Q and R: its down and its end a third and two
+    // thirds into the wait before the last value; V: down before the press, lifted halfway into that wait; A: lifted after the go.
+    const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
       if (p.cancel) {
         await touch('touchStart', 0);
@@ -111,11 +119,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         await touch('touchCancel');
       } else {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+        if (p.first) { await other('pointerdown'); await sleep(100); }
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         // J: between two values the pointer moves 3 px either way every jiggle ms, the value staying.
-        // Q, R: the second pointer's down and its end a third and two thirds into the wait before the last value.
-        const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
-        const wait = async (x, i) => { if (p.second && i === xs.length - 1) { await sleep(p.gap / 3); await other('pointerdown'); await sleep(p.gap / 3); await other(p.second); return sleep(p.gap / 3); } if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
+        const wait = async (x, i) => { if (p.second && i === xs.length - 1) { await sleep(p.gap / 3); await other('pointerdown'); await sleep(p.gap / 3); await other(p.second); return sleep(p.gap / 3); } if (p.first === 'mid' && i === xs.length - 1) { await sleep(p.gap / 2); await other('pointerup'); return sleep(p.gap / 2); } if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
         for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0], i); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await wait(xs.at(-1)[0]);
         // E: a real Escape gap ms after the last move, the pointer still held, and a row after it that also holds the
@@ -137,6 +144,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     qs(`fe.select(null); await sleep(300); return 'true';`);
     k += '>go';
     same(`Drag ${P}: ${k}`, read(P, k));
+    if (p.first === 'go') qs(`document.body.dispatchEvent(new PointerEvent('pointerup', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })); await sleep(300); return 'true';`);
     for (let i = 0; i < p.z; i++) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
       k += '>z';
