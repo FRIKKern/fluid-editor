@@ -57,11 +57,10 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
       same(`Follow ${P}: ${k}`, OF[`R2 ${P} ${k}`].layout, done.at(-1) === 'mobile');
     }
   }
-  // A guard, not read on the oracle: a Wave drag in the phone view that moved the block below, then Escape before the let go.
-  // Escape takes the selection off the block, so the let go takes no step and the foot move is still pending (editor.js
-  // footAt). A hand move of the block below after it still stops the phone following, as any phone hand move does
-  // (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as they were. Only this path reaches a hand move with
-  // a foot move pending: any let go of a drag takes a step since CAP-T12WAVEDRAG (scrolling-panel.js letGo).
+  // A guard: a Wave drag in the phone view that moved the block below, then Escape before the let go. Escape ends the drag as
+  // its let go does, one step (CAP-T12DRAGEND.json E; scrolling-panel.js). A hand move of the block below after it still stops
+  // the phone following, as any phone hand move does (CAP-DESKMOVE*.json): the next desktop move leaves the phone areas as
+  // they were (not read on the oracle after a drag).
   build('V');
   qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
   { const [sid, bid] = idOf('scrolling');
@@ -76,9 +75,8 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   const moved = ours().other[1] !== below0;
   browser(S, 'press', 'Escape'); await pause(400);
   mouse(S, 'up', q[0], q[1]); await pause(400);
-  // The path's own read: no step since the drag began (a pause of a second in it would take one), nor at the let go, so
-  // the foot move is still pending at the hand move.
-  const noStep = depth() === d0;
+  // The path's own read: one step, the Escape's (a pause of a second in the drag would take another).
+  const oneStep = depth() === d0 + 1;
   { const [sid, bid] = idOf('text'); qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(300); return 'true';`); }
   browser(S, 'press', 'ArrowDown'); await pause(400);
   qs(`fe.select(null); await sleep(300); fe.setBp('desktop'); await sleep(800); return 'true';`);
@@ -87,6 +85,6 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   for (const key of ['ArrowDown', 'ArrowDown', 'ArrowDown']) { browser(S, 'press', key); await pause(400); }
   qs(`fe.select(null); await sleep(300); return 'true';`);
   const after = ours();
-  add('Follow guard: a drag, Escape before the let go, a phone hand move, then a desktop move: the phone stays', moved && noStep && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ movedInDrag: moved, noStepAtLetGo: noStep, before, after }));
+  add('Follow guard: a drag, Escape before the let go, a phone hand move, then a desktop move: the phone stays', moved && oneStep && after.me[0] !== before.me[0] && after.me[1] === before.me[1] && after.other[1] === before.other[1] && after.follows === false, JSON.stringify({ movedInDrag: moved, oneStepAtEscape: oneStep, before, after }));
   qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
 }
