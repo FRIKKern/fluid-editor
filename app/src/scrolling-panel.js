@@ -105,8 +105,9 @@ export function wireScrolling(panel, api) {
     if (!stepNow(b, false, true, r)) { rangeBefore = r; return; }
     if (f) panel.querySelector(`[data-scr-range="${f}"]`)?.focus();
   };
-  // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way.
-  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => setTimeout(letGo, 0), true);
+  // A touch drag the browser ends with a pointercancel (no pointerup, no change) lets go the same way. Only the pointer that
+  // holds the range lets it go: another one lifted or cancelled meanwhile (a second finger) leaves the drag held.
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, (e) => { if (down && e.pointerId !== holder) return; setTimeout(letGo, 0); }, true);
   // Escape while the drag is still held ends it as its let go does, before the Escape takes the selection off: in the phone
   // view 90 out to 180 and back to 90 at 300 ms keeps 1/2/4/10 (the Text block 4/2/6/10) after the Escape and after the
   // pointer is let go, one undo step; Cmd+Z gives back 1/2/5/10 as after the press (CAP-T12DRAGEND.json E, R1 and R2 alike).
@@ -181,7 +182,9 @@ export function wireScrolling(panel, api) {
   // An item's Text shows on the block at each key; the typing is one undo step, taken when the field is left (CAP-T12SCROLLLIST.json).
   // Left by a press (Back, Duplicate, Delete), the step waits for that press's click: taken at its mousedown, the panel drawn
   // again would swallow the click.
-  let textBefore = null, pending = null, down = false, moved = false;
+  // holder: the pointerId of the press that is down; another pointer's down, moves and up while it is held are not its.
+  // A press on a range takes it over: a pointer resting elsewhere first (a finger on the stage) does not hold the drag.
+  let textBefore = null, pending = null, down = false, moved = false, holder = null;
   // An undo or another change since the typing took it away with the model: nothing is left to take. Another block
   // selected meanwhile: the words are in the model already, so only the step is taken.
   const flush = () => {
@@ -193,12 +196,12 @@ export function wireScrolling(panel, api) {
     else api.commit(p.before, 'Item text changed');
   };
   flushText = flush;
-  addEventListener('pointerdown', () => { down = true; moved = false; }, true);
+  addEventListener('pointerdown', (e) => { if (down && e.pointerId !== holder && !e.target.closest?.('[data-scr-range]')) return; down = true; moved = false; holder = e.pointerId; }, true);
   // A move while held: the range's inputs from now on are a drag's, not the press's own (setScrolling, a desktop drag).
-  addEventListener('pointermove', () => { if (down) moved = true; }, true);
+  addEventListener('pointermove', (e) => { if (down && e.pointerId === holder) moved = true; }, true);
   // A press's click takes it first, ahead of the press's own work (Undo then undoes the typing); a press with no click after.
   addEventListener('click', flush, true);
-  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => { down = false; setTimeout(flush, 0); }, true);
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, (e) => { if (down && e.pointerId !== holder) return; down = false; holder = null; setTimeout(flush, 0); }, true);
   panel.addEventListener('input', (e) => {
     const f = e.target.closest('[data-scr-text]'), b = api.block();
     if (!f || !b) return;
