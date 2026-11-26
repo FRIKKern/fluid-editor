@@ -16,10 +16,14 @@
 // second row as its C: o (a second Scrolling block), j (phone). After 150 and 0, 90 stretches the second Scrolling block
 // by the growth, and on the desktop the phone stack turns only on that step (v; x in the phone view, CAP-T12TWIN.json). The
 // section follows the desktop on the phone, as one made in the editor does.
+// Xh and Yh (CAP-T12HELD.json X and Y), desktop: a press growth takes a Text block below down by the foot's change though
+// the new foot does not reach it.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
-const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN') };
+// CAP-T12HELD's X and Y as Xh and Yh (TOPFALL has an X and a Y), its Cmd+Z 'Z' as 'z'.
+const OH = Object.fromEntries(Object.entries(R2('CAP-T12HELD')).filter(([k]) => /^R2 [XY] /.test(k)).map(([k, v]) => [k.replace(/^R2 ([XY]) /, 'R2 $1h ').replace(/>Z/g, '>z'), v]));
+const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
 // Plan, view, the arrangement steps before 'open', the kind of the second block, the steps (a number is a press there), and
@@ -41,6 +45,10 @@ export const PLANS = [
   // CAP-T12TWIN: after 150 and 0 the second block has the top row and columns but another end; 90 stretches it by 3 rows, and
   // on the desktop the phone stack turns only then (v); in the phone view (x).
   ['v', 'desktop', '', 'Scrolling', [150, 0, 90]], ['x', 'mobile', `mobile>${UP2}`, 'Scrolling', [150, 0, 90]],
+  // CAP-T12HELD X and Y (R2; R1 read alike): a press growth takes a Text block below down by the foot's change though the new
+  // foot does not reach it (task-48d33619e462ed30): from 6/2/8/10 (Xh) or 8/2/10/10 (Yh), 90 then 180. Two Cmd+Z: the
+  // oracle's third takes back the placing.
+  ['Xh', 'desktop', 'place 1 6/2/8/10>', 'Text', [90, 180], 2], ['Yh', 'desktop', 'place 1 8/2/10/10>', 'Text', [90, 180], 2],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 

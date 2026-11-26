@@ -4301,6 +4301,9 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   commit(before, label);
   if (!keep) renderBlockPanel();
 }
+// footFell: the foot of a desktop drag has fallen since the press that began it (scrollRows' reach).
+let footFell = false;
+addEventListener('pointerdown', () => { footFell = false; }, true);
 // The Scrolling block b (area a) takes need rows, and the blocks below follow its foot (setScrolling).
 // stay: a one-step desktop fall, where a block that starts above the old foot stays.
 // s: its section (an undo's refit has no selection).
@@ -4320,6 +4323,7 @@ function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
   const twins = blocks.filter((o) => { const q = o.layout[bp].area; return q[0] === a[0] && q[1] === a[1] && q[3] === a[3]; });
   const below = blocks.filter((o) => !twins.includes(o) && follows(o)), d0 = desk();
   setFormRows(b, s, need, true);
+  if (live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0) footFell = true;
   if ((below.length || twins.length) && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
     // A block the fall would take onto the Scrolling block's top row or above lands on its foot instead, just under it:
     // 150 then 0 leaves a Text block from 1/2/3/10 at 2/2/4/10, 180 then 60 at 3/2/5/10; 180 then 90 moves it the plain way,
@@ -4327,13 +4331,17 @@ function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
     // and r, R1 and R2 alike).
     const foot = lay(b).area[2], dy = foot - f0;
     for (const o of twins) if (dy > 0) o.layout[bp].area[2] += dy;
-    // A desktop drag's growth takes down only a block the new foot reaches (its top on or above the new foot's row), by the
-    // foot's change: 90 pressed, a drag out to 180, back to 90 and out to 180 again leaves a Text block from 3/2/5/10 at
-    // 7/2/9/10 (on the foot again after the way back, CAP-T12WAVEDRAG D) and one from 6/2/8/10 at 8/2/10/10, not 10/2/12/10,
-    // the section 12 rows (CAP-T12DRAGAGAIN.json s and u, R1 and R2 alike, read after the let go; t, out again to 150,
-    // 6/2/8/10). u's 8 needs the 150 step (foot 6) to take the block from 6, on its row. Not read: the states during the
-    // drag, a press growth that does not reach a block below (ours moves it), a block the moved one then reaches.
-    const reach = live === 'drag' && bp === 'desktop' && dy > 0 ? foot : Infinity;
+    // A desktop drag's growth after its foot has fallen takes down only a block the new foot reaches (its top on or above
+    // the new foot's row), by the foot's change: 90 pressed, a drag out to 180, back to 90 and out to 180 again leaves a
+    // Text block from 3/2/5/10 at 7/2/9/10 (on the foot again after the way back, CAP-T12WAVEDRAG D) and one from 6/2/8/10
+    // at 8/2/10/10, not 10/2/12/10, the section 12 rows (CAP-T12DRAGAGAIN.json s and u, R1 and R2 alike, read after the let
+    // go; t, out again to 150, 6/2/8/10). u's 8 needs the 150 step (foot 6) to take the block from 6, on its row. Not read:
+    // the states during the drag, a block the moved one then reaches.
+    // Before the drag's foot has fallen, a growth takes every block below down, as a press does: from 0, Text blocks at
+    // 6/2/8/10 and 8/2/10/10 go down by each step of the foot, 60 (foot 4) 7/2/9/10 and 9/2/11/10, 180 (foot 7) 10/2/12/10
+    // and 12/2/14/10, and a press 90 then 180 takes one from 6/2/8/10 or 8/2/10/10 down by 2 and 2 more (CAP-T12HELD.json W, X
+    // and Y, R1 and R2 alike). Not read: a growth after a fall of the value that left the foot where it was.
+    const reach = live === 'drag' && bp === 'desktop' && dy > 0 && footFell ? foot : Infinity;
     for (const o of below) if (o.layout[bp].area[0] <= reach) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + dy <= a[0] ? foot : q[0] + dy; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
