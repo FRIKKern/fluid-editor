@@ -14,6 +14,8 @@
 // block the new foot reaches, so u's Text block, left two rows under the foot by the way back, stays as it grows again.
 // E and F (CAP-T12DRAGEND.json), in the phone view: Escape while B's drag is still held ends it as its let go does (one step,
 // the fall's rows kept); a slow drag out to 180 and back to 120, let go there, then Cmd+Z one value a step.
+// K, on the desktop: D's drag let go on its start (no change fires), then one ArrowRight with no press: the range kept the
+// focus, so the key steps the value and the blocks stay. T is K by touch, ended by a pointercancel (not read; K's reads).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -44,6 +46,8 @@ const PLANS = {
   // K, on the desktop: as D, then one real ArrowRight with no press first. The range kept the focus through the let go (no
   // change fires), so the key steps Wave Intensity to 120 and the blocks stay.
   K: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight' },
+  // T is K by touch, ended by a pointercancel: not read on the oracle, held to K's reads, as X to C's.
+  T: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight', od: 'K', cancel: true },
 };
 
 async function session(S) {
@@ -62,7 +66,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].end ? OE[`R2 ${P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
