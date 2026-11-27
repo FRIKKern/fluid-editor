@@ -137,9 +137,10 @@ let footAt = null;
 // then puts the second first (CAP-T12TWIN.json v); 150, 60 (the first 1/2/3/26, the second 1/2/6/26) and 0 put the second
 // first at 0 (CAP-T12SHORT.json H); 150, Large, Medium, Small at Small (I); a drag 0 out to 120 and back to 0 at 300 or 1500
 // ms puts it first at 30 on the way back, held, the first going from 1/2/4/26 to 1/2/3/26 inside the second's 1/2/5/26 (E,
-// F), and one let go on 60 keeps it (G; CAP-T12PAUSEBACK.json W, its fall from two blocks on 1/2/5/26). H and I were
-// written as predictions first. Each step does it as it goes, a drag's live ones too, and the commit after leaves it: the
-// model as the step left it, up to the next commit, as footAt. Not read: a step that changes no rows, three blocks.
+// R1 and R2 alike; F, R2 only), and one let go on 60 keeps it (G, R2 only; CAP-T12PAUSEBACK.json W, its fall from two
+// blocks on 1/2/5/26). H and I were written as predictions first. Each step does it as it goes, a drag's live ones too, and
+// the commit after leaves it: the model as the step left it, up to the next commit, as footAt. Not read: a step that
+// changes no rows, three blocks.
 let waveAlone = null;
 function followPhoneRows(before, placed = null, foot = false, alone = null, lag = false) {
   const old = JSON.parse(before);

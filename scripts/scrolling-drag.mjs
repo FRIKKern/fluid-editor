@@ -82,7 +82,7 @@ const PLANS = {
   // W (CAP-T12HELD.json), on the desktop: Text blocks at 6/2/8/10 and 8/2/10/10, no press, a drag from 0 out to 180 with a row
   // held after each move: each growth takes both down by the foot's change, though the foot never reaches them.
   W: { phone: false, vals: [0, 30, 60, 90, 120, 150, 180], gap: 300, name: 'out 0>180', z: 1, od: 'W', pre: 'place 1 6/2/8/10>place 2 8/2/10/10>', start: true, held: { each: [80], end: [80] } },
-  // Es, Fs and Gs (CAP-T12SHORT.json E, F and G, R2; R1 read alike), on the desktop: a second Scrolling block (kind) as added,
+  // Es, Fs and Gs (CAP-T12SHORT.json E, F and G, R2; E read alike in R1, F and G in R2 only), on the desktop: a second Scrolling block (kind) as added,
   // both on 1/2/3/26, a drag from 0 out to 120 and back with a row held after each move. Each live step sets the phone stack
   // from the desktop as it was before it: back at 60 (from both on 1/2/5/26) it stays, at 30 (from the first's 1/2/4/26 inside
   // the second's 1/2/5/26) the second goes first, held and after the let go on 0 (Es at 300 ms, Fs at 1500 ms, its rows 80
