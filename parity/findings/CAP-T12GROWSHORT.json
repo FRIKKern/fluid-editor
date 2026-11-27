@@ -1,0 +1,5953 @@
+{
+ "item": "CAP-T12GROWSHORT",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-27",
+ "engine": "chrome",
+ "question": "T12 (task-125d810e78c55b8d): on the desktop, does a block on a Scrolling block's rows that ends above its foot follow the foot as Wave Intensity grows past rows the Scrolling block was given by hand? On Blocks Probe at a 1600 by 1000 window, one new section per plan with a new Scrolling block and a Text block added after it, made on the desktop (desktop 1/2/3/26 and 1/2/3/10); 'place i r0/c0/r1/c1' moves and resizes block i by hand. Ga: the Scrolling block placed at 1/2/5/26, the Text block as added (1/2/3/10); Gb and Gc: the same and the Text block placed at 2/2/4/10. Then the Scrolling block selected, Edit, Design ('open'); Ga and Gb a press on 180 (the range's end); Gc a mouse drag 0>30>...>180 through one DevTools session, a move every 300 ms, a quick read 80 ms after each, let go right after the last. Then Escape and a press on the page (go) and Cmd+Z until as built. Written as predictions first (predictions.txt in the lane folder). R1 ran Ga Gb Gc in one session, R2 Gc Gb Ga in another. Exit without saving each time.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12DRAGFALL: layout of the Scrolling block and every block in its section (me: the Scrolling block; line: its drawing's height; sel: selected; kind; desktop and phone areas, top in the section and height), the section rows in the view shown, the Scrolling block's height, line (marquee and svg: top in the block and height), Undo and Redo, the panel's ranges; 'wave' is the panel's Wave Intensity value. 'inputs' holds each drag's quick reads (states: [name, { t: the page's clock, L: the layout as in reads, st: value, focus (isRange: the range has it), Undo/Redo, selected blocks, lines }]) and its events by the page's clock from the first (log: type, ms, the range's value). The read's name is the run, the plan, and the steps in order, '>' between them ('Z' is Cmd+Z, skipped when the section is back as built).",
+ "answer": [
+  "On the desktop a block on the Scrolling block's rows that ends above its foot neither follows nor is stretched as the foot grows past rows given by hand. Ga: the Scrolling block made 1/2/5/26, the Text block as added 1/2/3/10 (on its top row, other columns); a press on 180 takes the Scrolling block to 1/2/7/26 (the line needs 6 rows) and the section from 8 to 10 rows, and the Text block stays 1/2/3/10. Gb: the Text block at 2/2/4/10 stays as 180 takes the Scrolling block to 1/2/7/26. Gc: Gb by a drag from 0 out to 180, read 80 ms after each move: the hand-made rows hold through 120 (1/2/5/26, 8 rows), 150 takes 1/2/6/26 (9) and 180 1/2/7/26 (10); the Text block stays 2/2/4/10 throughout.",
+  "Escape keeps every area. Cmd+Z after it gives the Scrolling block 1/2/2/26 (Ga 6 rows, Gb and Gc 7), not the 1/2/5/26 it was made (as CAP-T12SHORT C and task-b4fedc8255866002), the Text block where it was; the next Cmd+Z takes back the place. R1 and R2 read alike in every read, held reads too.",
+  "Not read: the phone view, a fall, a block that starts below the Scrolling block's top and ends exactly on its foot."
+ ],
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "file": "R1d.json",
+     "ok": true,
+     "startedAt": "2026-11-27T17:00:07.617Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "Ga added Scrolling yui_3_17_2_1_1795798775061_412",
+    "Ga added Text yui_3_17_2_1_1795798775061_706",
+    "Gb added Scrolling yui_3_17_2_1_1795798775061_928",
+    "Gb added Text yui_3_17_2_1_1795798775061_1222",
+    "Gc added Scrolling yui_3_17_2_1_1795798775061_1443",
+    "Gc added Text yui_3_17_2_1_1795798775061_1737",
+    "read R1 Ga default",
+    "read R1 Gb default",
+    "read R1 Gc default",
+    "Ga place 0 1/2/5/26 -> 1/2/5/26",
+    "read R1 Ga place 0 1/2/5/26",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 Ga place 0 1/2/5/26>open",
+    "wave press 179",
+    "read R1 Ga place 0 1/2/5/26>open>180",
+    "read R1 Ga place 0 1/2/5/26>open>180>go",
+    "Cmd+Z",
+    "read R1 Ga place 0 1/2/5/26>open>180>go>Z",
+    "Cmd+Z",
+    "read R1 Ga place 0 1/2/5/26>open>180>go>Z>Z",
+    "Gb place 0 1/2/5/26 -> 1/2/5/26",
+    "read R1 Gb place 0 1/2/5/26",
+    "Gb place 1 2/2/4/10 -> 2/2/4/10",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open",
+    "wave press 179",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go",
+    "Cmd+Z",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z",
+    "Cmd+Z",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z",
+    "Cmd+Z",
+    "read R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z>Z",
+    "Gc place 0 1/2/5/26 -> 1/2/5/26",
+    "read R1 Gc place 0 1/2/5/26",
+    "Gc place 1 2/2/4/10 -> 2/2/4/10",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open",
+    "rdrag 0>30>60>90>120>150>180 gap 300 each 80 end 80",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go",
+    "Cmd+Z",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z",
+    "Cmd+Z",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z",
+    "Cmd+Z",
+    "read R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z>Z"
+   ],
+   "reads": {
+    "R1 Ga default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Ga place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Ga place 0 1/2/5/26>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 Ga place 0 1/2/5/26>open>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 Ga place 0 1/2/5/26>open>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Ga place 0 1/2/5/26>open>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 6,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 75.1
+       }
+      ]
+     }
+    },
+    "R1 Ga place 0 1/2/5/26>open>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 45,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 45,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R1 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180": {
+     "states": [
+      [
+       "held 1 30 +80",
+       {
+        "t": 1128737,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          44.7,
+          64
+         ],
+         "svg": [
+          48.1,
+          64
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "30"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 64,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "30",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           64
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 2 60 +80",
+       {
+        "t": 1129132,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          29.7,
+          94
+         ],
+         "svg": [
+          33.1,
+          94
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "60"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 94,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "60",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           94
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 3 90 +80",
+       {
+        "t": 1129525,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          14.7,
+          124
+         ],
+         "svg": [
+          18.1,
+          124
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "90"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 124,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "90",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           124
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 4 120 +80",
+       {
+        "t": 1129925,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.4062px 30.0938px",
+         "block": 154,
+         "marquee": [
+          0,
+          154
+         ],
+         "svg": [
+          3.4,
+          154
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "120"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 154,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 154
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.4,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "120",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           154
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 5 150 +80",
+       {
+        "t": 1130331,
+        "L": {
+         "desktop": "1/2/6/26",
+         "phone": "1/2/3/10",
+         "rows": 9,
+         "rowSizes": "30.0938px",
+         "block": 194.5,
+         "marquee": [
+          5.2,
+          184
+         ],
+         "svg": [
+          8.6,
+          184
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "150"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 184,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/6/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 194.5
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "150",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           184
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 6 180 +80",
+       {
+        "t": 1130736,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           214
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "up +80",
+       {
+        "t": 1130821,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           214
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "up +1800",
+       {
+        "t": 1132545,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798775061_1443"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798775061_412",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798775061_1443",
+           214
+          ]
+         ]
+        }
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       312,
+       "30"
+      ],
+      [
+       "input",
+       745,
+       "60"
+      ],
+      [
+       "input",
+       1128,
+       "90"
+      ],
+      [
+       "input",
+       1528,
+       "120"
+      ],
+      [
+       "input",
+       1928,
+       "150"
+      ],
+      [
+       "input",
+       2328,
+       "180"
+      ],
+      [
+       "pointerup",
+       2505,
+       "180"
+      ],
+      [
+       "change",
+       2505,
+       "180"
+      ]
+     ],
+     "t0": 1128232
+    }
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "file": "R2a.json",
+     "ok": true,
+     "startedAt": "2026-11-27T17:03:38.928Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "Gc added Scrolling yui_3_17_2_1_1795798999578_412",
+    "Gc added Text yui_3_17_2_1_1795798999578_706",
+    "Gb added Scrolling yui_3_17_2_1_1795798999578_928",
+    "Gb added Text yui_3_17_2_1_1795798999578_1222",
+    "Ga added Scrolling yui_3_17_2_1_1795798999578_1443",
+    "Ga added Text yui_3_17_2_1_1795798999578_1737",
+    "read R2 Gc default",
+    "read R2 Gb default",
+    "read R2 Ga default",
+    "read R2 JJ default",
+    "Gc place 0 1/2/5/26 -> 1/2/5/26",
+    "read R2 Gc place 0 1/2/5/26",
+    "Gc place 1 2/2/4/10 -> 2/2/4/10",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open",
+    "rdrag 0>30>60>90>120>150>180 gap 300 each 80 end 80",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go",
+    "Cmd+Z",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z",
+    "Cmd+Z",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z",
+    "Cmd+Z",
+    "read R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z>Z",
+    "Gb place 0 1/2/5/26 -> 1/2/5/26",
+    "read R2 Gb place 0 1/2/5/26",
+    "Gb place 1 2/2/4/10 -> 2/2/4/10",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open",
+    "wave press 179",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go",
+    "Cmd+Z",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z",
+    "Cmd+Z",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z",
+    "Cmd+Z",
+    "read R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z>Z",
+    "Ga place 0 1/2/5/26 -> 1/2/5/26",
+    "read R2 Ga place 0 1/2/5/26",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 Ga place 0 1/2/5/26>open",
+    "wave press 179",
+    "read R2 Ga place 0 1/2/5/26>open>180",
+    "read R2 Ga place 0 1/2/5/26>open>180>go",
+    "Cmd+Z",
+    "read R2 Ga place 0 1/2/5/26>open>180>go>Z",
+    "Cmd+Z",
+    "read R2 Ga place 0 1/2/5/26>open>180>go>Z>Z",
+    "read R2 JJ place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 JJ place 2 8/2/10/10>open",
+    "wave press 179",
+    "read R2 JJ place 2 8/2/10/10>open>180",
+    "read R2 JJ place 2 8/2/10/10>open>180>go",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open",
+    "rdrag 180>120 gap 300 each 80 end 80",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go",
+    "Cmd+Z",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go>Z",
+    "Cmd+Z",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go>Z>Z",
+    "Cmd+Z",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 JJ place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go>Z>Z>Z>Z"
+   ],
+   "reads": {
+    "R2 Gc default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Ga default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 45,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go>Z>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 41.1,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 7,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "2/2/4/10",
+        "phone": "3/2/5/10",
+        "top": 45,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Gb place 0 1/2/5/26>place 1 2/2/4/10>open>180>go>Z>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Ga place 0 1/2/5/26": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Ga place 0 1/2/5/26>open": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       59.7,
+       34
+      ],
+      "svg": [
+       63.1,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 Ga place 0 1/2/5/26>open>180": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "180"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "180",
+      ""
+     ]
+    },
+    "R2 Ga place 0 1/2/5/26>open>180>go": {
+     "layout": {
+      "desktop": "1/2/7/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 235.6,
+      "marquee": [
+       10.8,
+       214
+      ],
+      "svg": [
+       14.2,
+       214
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 214,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/7/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 235.6
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 Ga place 0 1/2/5/26>open>180>go>Z": {
+     "layout": {
+      "desktop": "1/2/2/26",
+      "phone": "1/2/3/10",
+      "rows": 6,
+      "rowSizes": "34px 30.0938px",
+      "block": 34,
+      "marquee": [
+       0,
+       34
+      ],
+      "svg": [
+       3.4,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/2/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 34
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 75.1
+       }
+      ]
+     }
+    },
+    "R2 Ga place 0 1/2/5/26>open>180>go>Z>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "inputs": {
+    "R2 Gc place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180": {
+     "states": [
+      [
+       "held 1 30 +80",
+       {
+        "t": 1323531,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          44.7,
+          64
+         ],
+         "svg": [
+          48.1,
+          64
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "30"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 64,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "30",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           64
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 2 60 +80",
+       {
+        "t": 1323921,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          29.7,
+          94
+         ],
+         "svg": [
+          33.1,
+          94
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "60"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 94,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "60",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           94
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 3 90 +80",
+       {
+        "t": 1324304,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.0938px",
+         "block": 153.4,
+         "marquee": [
+          14.7,
+          124
+         ],
+         "svg": [
+          18.1,
+          124
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "90"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 124,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 153.4
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "90",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           124
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 4 120 +80",
+       {
+        "t": 1324698,
+        "L": {
+         "desktop": "1/2/5/26",
+         "phone": "1/2/3/10",
+         "rows": 8,
+         "rowSizes": "30.4062px 30.0938px",
+         "block": 154,
+         "marquee": [
+          0,
+          154
+         ],
+         "svg": [
+          3.4,
+          154
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "120"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 154,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/5/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 154
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.4,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "120",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           154
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 5 150 +80",
+       {
+        "t": 1325117,
+        "L": {
+         "desktop": "1/2/6/26",
+         "phone": "1/2/3/10",
+         "rows": 9,
+         "rowSizes": "30.0938px",
+         "block": 194.5,
+         "marquee": [
+          5.2,
+          184
+         ],
+         "svg": [
+          8.6,
+          184
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "150"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 184,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/6/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 194.5
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "150",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           184
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "held 6 180 +80",
+       {
+        "t": 1325533,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           214
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "up +80",
+       {
+        "t": 1325620,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           214
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ],
+      [
+       "up +1800",
+       {
+        "t": 1327342,
+        "L": {
+         "desktop": "1/2/7/26",
+         "phone": "1/2/3/10",
+         "rows": 10,
+         "rowSizes": "30.0938px",
+         "block": 235.6,
+         "marquee": [
+          10.8,
+          214
+         ],
+         "svg": [
+          14.2,
+          214
+         ],
+         "paragraph": false,
+         "h1": true,
+         "styleShown": [],
+         "undo": [
+          true,
+          false
+         ],
+         "ctl": [
+          [
+           "Animation",
+           null,
+           "css-1jjp8vb"
+          ],
+          [
+           "Small text size",
+           "true",
+           "css-9fjdvf"
+          ],
+          [
+           "Medium text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Large text size",
+           "false",
+           "css-1t62xde"
+          ],
+          [
+           "Animation direction left",
+           "true",
+           "css-99x3cu"
+          ],
+          [
+           "Animation direction right",
+           "false",
+           "css-10k8qz2"
+          ],
+          [
+           "Animation speed 0.5x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Animation speed 1x",
+           "true",
+           "css-1cl6kun"
+          ],
+          [
+           "Animation speed 2x",
+           "false",
+           "css-1x1syg4"
+          ],
+          [
+           "Pause on hover",
+           false,
+           "css-1h34l1u"
+          ],
+          [
+           "Fade edges",
+           false,
+           "css-1h34l1u"
+          ]
+         ],
+         "ranges": [
+          [
+           "Wave Intensity",
+           "180"
+          ],
+          [
+           "Item Spacing",
+           "0.5"
+          ]
+         ],
+         "all": [
+          {
+           "me": true,
+           "line": 214,
+           "sel": true,
+           "kind": "scrolling",
+           "desktop": "1/2/7/26",
+           "phone": "1/2/3/10",
+           "top": 0,
+           "height": 235.6
+          },
+          {
+           "me": false,
+           "line": null,
+           "sel": false,
+           "kind": "other",
+           "desktop": "2/2/4/10",
+           "phone": "3/2/5/10",
+           "top": 41.1,
+           "height": 71.2
+          }
+         ]
+        },
+        "st": {
+         "value": "180",
+         "focus": {
+          "tag": "INPUT",
+          "type": "range",
+          "isRange": true,
+          "sameRangeLabel": "Wave Intensity",
+          "label": "Wave Intensity",
+          "inFrame": false,
+          "frameFocus": null
+         },
+         "undo": [
+          true,
+          false
+         ],
+         "selected": [
+          "yui_3_17_2_1_1795798999578_412"
+         ],
+         "lines": [
+          [
+           "yui_3_17_2_1_1795798999578_412",
+           214
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_928",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1443",
+           34
+          ],
+          [
+           "yui_3_17_2_1_1795798999578_1958",
+           34
+          ]
+         ]
+        }
+       }
+      ]
+     ],
+     "log": [
+      [
+       "pointerdown",
+       0,
+       "0"
+      ],
+      [
+       "input",
+       314,
+       "30"
+      ],
+      [
+       "input",
+       696,
+       "60"
+      ],
+      [
+       "input",
+       1080,
+       "90"
+      ],
+      [
+       "input",
+       1464,
+       "120"
+      ],
+      [
+       "input",
+       1864,
+       "150"
+      ],
+      [
+       "input",
+       2280,
+       "180"
+      ],
+      [
+       "pointerup",
+       2463,
+       "180"
+      ],
+      [
+       "change",
+       2463,
+       "180"
+      ]
+     ],
+     "t0": 1323072
+    }
+   }
+  }
+ }
+}

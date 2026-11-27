@@ -1,0 +1,116 @@
+// scrolling-check's rows for which blocks follow a Scrolling block's foot on the desktop when its Wave Intensity falls by
+// two steps or more, by a press or by a drag that jumps there in one move (CAP-T12DRAGJUMP.json, R2; R1 read alike), and as
+// it grows past rows made by hand (CAP-T12GROWSHORT.json, R2; R1 read alike). One new section per plan, as the oracle's
+// section was at the plan's last 'open' read: the Scrolling block and a Text block or two, their desktop and phone areas,
+// the section's rows and the Scrolling block's Wave Intensity. Then Edit, Design, the plan's steps (a number is a press on
+// Wave Intensity; a drag moves the pointer one value at a time, 300 ms apart, with a row 80 ms after each move, read in the
+// drag's own DevTools session as the oracle's were), a let go, and each Cmd+Z the oracle's section had to take back, a row
+// after each. Each row checks every block's desktop and phone areas, the section's rows, the line and Undo and Redo.
+// J plans, the first Text block as added (1/2/3/10, under the foot at 3/2/5/10 after 90) and the second at 8/2/10/10: a block
+// that starts above the old foot stays while it starts on or above the new foot, and goes up by the fall once the new foot
+// is above its top, by a press or a drag alike. JA a drag 90 out to 180 and back to 90 in one move (the first Text block
+// from 5/2/7/10 to 2/2/4/10); JB back to 120 in one move (it stays) and out to 180 again; JD 90 out to 150 and back to 90 in
+// one move (it stays at 4/2/6/10); JE presses 90, 180, 120 (it stays); JF 90, 180, 90 (it goes up). JH and JI: after 180
+// the first Text block placed at 3/2/5/10 (JH, a press on 90: it stays) or 6/2/8/10 (JI, a press on 120: it goes up to
+// 4/2/6/10); JJ is JI by a drag 180 to 120 in one move. G plans, the Scrolling block made 1/2/5/26 by hand and a Text block
+// that ends above its foot (Ga as added, 1/2/3/10; Gb and Gc at 2/2/4/10): it stays as 180 (a press; Gc a drag from 0)
+// takes the Scrolling block to 1/2/7/26. No Cmd+Z rows for G: the oracle's first gives 1/2/2/26 (task-b4fedc8255866002).
+// Not here: JC and JG (180 to 0), where the second Text block goes up by the first's move, not by the foot's.
+import { readFileSync } from 'node:fs';
+
+const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT');
+const OUT = [90, 120, 150, 180];
+const R0 = [0, 30, 60, 90, 120, 150, 180];
+// pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
+const J = 'place 2 8/2/10/10>';
+const PLANS = {
+  JA: { pre: J, wave: 0, steps: [90, ['jump 180>90', [...OUT, 90]]], z: 2 },
+  JB: { pre: J, wave: 0, steps: [90, ['jump 180>120 out', [...OUT, 120, 180]]], z: 2 },
+  JD: { pre: J, wave: 0, steps: [90, ['jump 150>90', [90, 120, 150, 90]]], z: 2 },
+  JE: { pre: J, wave: 0, steps: [90, 180, 120], z: 3 },
+  JF: { pre: J, wave: 0, steps: [90, 180, 90], z: 3 },
+  JH: { pre: `${J}open>180>go>place 1 3/2/5/10>`, wave: 180, steps: [90], z: 1 },
+  JI: { pre: `${J}open>180>go>place 1 6/2/8/10>`, wave: 180, steps: [120], z: 1 },
+  JJ: { pre: `${J}open>180>go>place 1 6/2/8/10>`, wave: 180, steps: [['jump 180>120', [180, 120]]], z: 1 },
+  Ga: { pre: 'place 0 1/2/5/26>', wave: 0, steps: [180], z: 0, grow: true },
+  Gb: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [180], z: 0, grow: true },
+  Gc: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [['out 0>180', R0]], z: 0, grow: true },
+};
+
+async function session(S) {
+  const port = Number(S.split(':')[1]);
+  const page = (await (await fetch(`http://127.0.0.1:${port}/json/list`)).json()).find((t) => t.type === 'page' && !t.url.startsWith('chrome://'));
+  const ws = new WebSocket(page.webSocketDebuggerUrl);
+  await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
+  let seq = 0; const pending = new Map();
+  ws.onmessage = (m) => { const x = JSON.parse(m.data); if (x.id && pending.has(x.id)) { pending.get(x.id)(x); pending.delete(x.id); } };
+  const send = (method, params) => new Promise((res) => { const id = ++seq; pending.set(id, res); ws.send(JSON.stringify({ id, method, params })); });
+  return { send, close: () => ws.close() };
+}
+
+export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
+  const area = (t) => t.split('/').map(Number);
+  const near1 = (a, b) => Math.abs(a - b) <= 1;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const src = (p) => (p.grow ? GROW : JUMP);
+  const read = (P, k) => src(PLANS[P]).reads[`R2 ${P} ${k}`];
+  // The section as the oracle's last 'open' read found it; a blank section after it leaves one undo step under the plan's.
+  const build = (P) => {
+    const p = PLANS[P], o = read(P, `${p.pre}open`).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
+    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
+  };
+  let ids = [];
+  const OURS = () => `const s = fe.model.sections[0], bs = ${JSON.stringify(ids)}.map((id) => s.blocks.find((b) => b.id === id)), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + bs[0].id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ rows: s.rows[fe.bp], areas: bs.map((b) => b.layout.desktop.area.join('/') + '|' + b.layout.mobile.area.join('/')), line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
+  const ours = () => qs(OURS());
+  // Every block's areas in the order added, the section's rows, the line, Undo and Redo; on a step row the panel's value too.
+  const same = (what, read, w = ours()) => {
+    const o = read.layout, me = o.all.find((b) => b.me), want = [me, ...o.all.filter((b) => !b.me)].map((b) => `${b.desktop}|${b.phone}`);
+    const wave = read.wave ? read.wave[0] : null;
+    const ok = JSON.stringify(w.areas) === JSON.stringify(want) && w.rows === o.rows && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (wave == null || w.wave === wave);
+    add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ rows: o.rows, areas: want, line: o.marquee[1], undo: o.undo, wave })})`);
+  };
+  const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
+  for (const [P, p] of Object.entries(PLANS)) {
+    ids = build(P);
+    const sid = qs(`return JSON.stringify(fe.model.sections[0].id);`);
+    qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(ids[0])}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
+    await press('#block-panel [data-btab="Design"]');
+    let k = `${p.pre}open`;
+    same(`Jump ${P}: ${k}`, read(P, k));
+    for (const v of p.steps) {
+      if (typeof v === 'number') {
+        await press('#block-panel [data-scr-range="wave"]', v === 0 ? 0.005 : Math.min(0.995, v / 180)); await pause(1300);
+        k += `>${v}`; same(`Jump ${P}: ${k}`, read(P, k));
+        continue;
+      }
+      // A drag: pressed on its first value, a move to each next 300 ms apart, a row 80 ms after each, let go right after the last row.
+      const [name, vals] = v, xs = vals.map((x) => rangeX(x)), y = xs[0][1], c = await session(S);
+      const states = Object.fromEntries(src(p).inputs[`R2 ${P} ${k}>drag ${name}`].states);
+      const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS()} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+      try {
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+        await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
+        await sleep(300);
+        for (let i = 1; i < xs.length; i++) {
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 });
+          await sleep(80);
+          const n = `held ${i} ${vals[i]} +80`;
+          same(`Jump ${P}: ${k}>drag ${name} ${n}`, { layout: states[n].L }, await oursIn());
+          if (i < xs.length - 1) await sleep(220);
+        }
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
+      } finally { c.close(); }
+      await pause(600);
+      k += `>drag ${name}`; same(`Jump ${P}: ${k}`, read(P, k));
+    }
+    qs(`fe.select(null); await sleep(300); return 'true';`);
+    k += '>go'; same(`Jump ${P}: ${k}`, read(P, k));
+    for (let i = 0; i < p.z; i++) {
+      qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
+      k += '>Z'; same(`Jump ${P}: ${k}`, read(P, k));
+    }
+  }
+  qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
+}
