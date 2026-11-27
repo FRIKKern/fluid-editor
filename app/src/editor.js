@@ -4256,34 +4256,19 @@ function accordionEscape() {
 // Each view's rows go by its own Wave Intensity (scrolling-panel.js waveIn): a phone change leaves the desktop line flat, and a
 // desktop move after it keeps the desktop rows (CAP-T12WAVEVIEWS.json, CAP-T12FOLLOW.json V).
 const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?.offsetHeight ?? 0;
-// A drag in the phone view shows the rows that hold the line, on a fall too: the step at 150 on the way back from 180 holds
-// 1/2/7/10 as on the way out, and 120 1/2/6/10. Its let go takes the rows the rules above give for the drag's values one by
-// one from where it began: 180 to 150, 120 and 90 leaves 1/2/4/10 (CAP-T12WAVEDRAG.json C and B, R2 and R3 alike; and
-// CAP-T12PHONEDRAG.json, a fast drag 180 to 0 leaves 1 row). dragRows is those rows, up to the next change. Not read: a let go
-// after a fall with a change event (a value other than the start).
-let dragRows = null;
+// A drag in the phone view takes those rules at each value as it goes, held: 90 pressed, a drag out to 180 and back at 300 ms
+// shows 1/2/6/10 at 150 on the way back, 1/2/6/10 at 120 and 1/2/4/10 at 90, 80 ms after each move, and 90 stays 1/2/4/10
+// held 2.5 s and after the let go (CAP-T12HELD.json H, R1 and R2 alike; the same let go in CAP-T12WAVEDRAG.json B and C,
+// CAP-T12PHONEDRAG.json, a fast drag 180 to 0 leaves 1 row). Not read: a touch drag held, a view switch while held.
 const phoneFall = (m, rows0, c0, h0, fall, fit) => (c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13)));
-function settleScrollDrag() {
-  const d = dragRows;
-  dragRows = null;
-  if (!d || bp !== 'mobile' || sel?.bid !== d.bid || d.at !== JSON.stringify(model)) return false;
-  const b = B(sel.sid, sel.bid), a = lay(b).area;
-  if (d.rows === a[2] - a[0]) return false;
-  scrollRows(b, a, d.rows, false);
-  if (footAt !== null) footAt = JSON.stringify(model);
-  return true;
-}
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = waveIn(b, bp), c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
-  const d = live === 'drag' && bp === 'mobile' && dragRows?.bid === b.id && dragRows.at === JSON.stringify(model) ? dragRows.rows : rows0;
-  dragRows = null;
   change(b);
   renderSectionDom(sel.sid);
   const m = formPitch(b), w = waveIn(b, bp), phone = bp === 'mobile' && w !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
   const fit = phone ? Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)) : contentRows(b, m), h0 = rows0 * m.pitch - m.rg;
   let need = fit;
-  if (phone && live === 'drag') dragRows = { bid: b.id, rows: fall > 0 ? phoneFall(m, d, c0, d * m.pitch - m.rg, fall, fit) : fit };
-  else if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
+  if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fit;
   else if (w !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
@@ -4312,7 +4297,6 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
   if (footAt !== null) footAt = JSON.stringify(model);
   if (waveAlone !== null) waveAlone = JSON.stringify(model);
-  if (dragRows) dragRows.at = JSON.stringify(model);
   if (live) return;
   commit(before, label);
   if (!keep) renderBlockPanel();
@@ -4366,7 +4350,6 @@ wireScrolling(blockPanel, {
   // An arrow key under a second after the last one joins its step: the step it took is taken off, to be taken again.
   merge: (before) => { if (undoStack.at(-1) !== before) return false; undoStack.pop(); return true; },
   phone: () => bp === 'mobile',
-  settle: settleScrollDrag,
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
 function setAccordion(change, label, before = JSON.stringify(model)) {

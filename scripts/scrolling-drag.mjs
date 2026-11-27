@@ -4,7 +4,8 @@
 // step by step. Values 300 or 700 ms apart are one step (P, G), 1100 or 1500 ms apart one step each (H, S, C), also with the
 // pointer moving between them (J); a drag out and back let go on its start takes a step too (B, C, D, N), though no change
 // fires. D, on the desktop: the Text block under it follows the foot down and stays as it falls. C and B, in the phone
-// view: a fall takes the rows that hold the line (C's step at 150 on the way back), the let go the fall rule. Each row
+// view: each value takes the fall rule as it goes (h and i below); Cmd+Z back to C's step at 150 on the way back gives
+// 1/2/7/10, as a Cmd+Z that raises the wave refits (CAP-T12BELOW g). Each row
 // checks the blocks' areas in both views, the Scrolling block's line and the section's rows in the view shown, and Undo and
 // Redo (a blank section added after the build leaves one step under the plan's, as the oracle's block adds do). The drag's
 // moves go through one DevTools session, so the time between two values is the gap asked for, not a process start.
@@ -16,6 +17,9 @@
 // the fall's rows kept); a slow drag out to 180 and back to 120, let go there, then Cmd+Z one value a step.
 // K, on the desktop: D's drag let go on its start (no change fires), then one ArrowRight with no press: the range kept the
 // focus, so the key steps the value and the blocks stay. T is K by touch, ended by a pointercancel (not read; K's reads).
+// h and i (CAP-T12HELD.json H and I), in the phone view: B's drag and F's slow one with a row while held after each move (read
+// in the drag's own DevTools session), as the oracle's: each value takes the press rules' rows as it goes, the fall's too.
+// E's row held before the Escape is the same rule.
 // Q and R, in the phone view: P with a second pointer pressed and lifted (Q) or cancelled (R) mid-drag; only the holding
 // pointer lets the drag go (not read; P's reads). V and A: that pointer down first; V lifts it mid-drag (P's reads), A after
 // the go (B's reads).
@@ -24,6 +28,7 @@ import { readFileSync } from 'node:fs';
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
 const OA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGAGAIN.json', import.meta.url))).runs.R2.reads;
 const OE = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGEND.json', import.meta.url))).runs.R2.reads;
+const HELD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12HELD.json', import.meta.url))).runs.R2, OH = HELD.reads;
 const OBO = [90, 120, 150, 180, 150, 120, 90, 120, 150, 180];
 const PLANS = {
   P: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2 },
@@ -51,6 +56,10 @@ const PLANS = {
   K: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight' },
   // T is K by touch, ended by a pointercancel: not read on the oracle, held to K's reads, as X to C's.
   T: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: '90>180>90', z: 3, end: true, key: 'ArrowRight', od: 'K', cancel: true },
+  // CAP-T12HELD.json (R2; R1 read alike), in the phone view: h is B and i is F, with a row held at each offset (ms) after
+  // each move (each) and after the last (end). The oracle's rows were read in the drag's own DevTools session.
+  h: { phone: true, vals: OBO.slice(0, 7), gap: 300, name: 'back 300 held', z: 2, od: 'H', held: { each: [80], end: [80, 400, 1200, 2500] } },
+  i: { phone: true, vals: OBO.slice(0, 6), gap: 1500, name: '90>180>120 1500 held', z: 6, od: 'I', held: { each: [80, 1200], end: [80, 1200] } },
   // Q and R are P with a second pointer (pointerId 2, dispatched pointer events) pressed and lifted (Q) or cancelled (R)
   // between 150 and 180 while the mouse still holds the range: not read on the oracle, held to P's reads. Only the pointer
   // that pressed the range lets the drag go, so it stays one step.
@@ -78,17 +87,19 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].held ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
-  const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], sel: [a, t].map((b) => (b ? d.querySelector('.fe-block[data-block-id="' + b.id + '"]')?.dataset.isSelected === 'true' : null)), wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`);
+  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], sel: [a, t].map((b) => (b ? d.querySelector('.fe-block[data-block-id="' + b.id + '"]')?.dataset.isSelected === 'true' : null)), wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
+  const ours = () => qs(OURS);
   // picked: the row also holds the selection (each block's sel) and the panel (its Wave Intensity value, null when closed)
   // to the read, as E's escape held row: the oracle reads the block let go and the panel closed there.
-  const same = (what, read, picked = false) => {
-    const o = read.layout, w = ours(), me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
+  // w: ours read already (the held rows read it in the drag's own session).
+  const same = (what, read, picked = false, w = ours()) => {
+    const o = read.layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
     const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
     const sel = [me.sel, other ? other.sel : null], wave = read.wave ? read.wave[0] : null;
     const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave));
@@ -112,7 +123,25 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     // thirds into the wait before the last value; V: down before the press, lifted halfway into that wait; A: lifted after the go.
     const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
-      if (p.cancel) {
+      // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
+      if (p.held) {
+        const states = Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states);
+        const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+        await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
+        await sleep(p.gap);
+        for (let i = 1; i < xs.length; i++) {
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 });
+          let t = 0;
+          for (const o of i === xs.length - 1 ? p.held.end : p.held.each) {
+            await sleep(o - t); t = o;
+            const n = `held ${i} ${p.vals[i]} +${o}`;
+            same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L }, false, await oursIn());
+          }
+          if (i < xs.length - 1) await sleep(Math.max(0, p.gap - t));
+        }
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
+      } else if (p.cancel) {
         await touch('touchStart', 0);
         for (let i = 1; i < xs.length; i++) { await sleep(p.gap); await touch('touchMove', i); }
         await sleep(p.gap);
@@ -125,10 +154,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         const wait = async (x, i) => { if (p.second && i === xs.length - 1) { await sleep(p.gap / 3); await other('pointerdown'); await sleep(p.gap / 3); await other(p.second); return sleep(p.gap / 3); } if (p.first === 'mid' && i === xs.length - 1) { await sleep(p.gap / 2); await other('pointerup'); return sleep(p.gap / 2); } if (!p.jiggle) return sleep(p.gap); for (let t = p.jiggle, n = 0; t <= p.gap; t += p.jiggle, n++) { await sleep(p.jiggle); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + (n % 2 ? -3 : 3), y, button: 'left', buttons: 1 }); } };
         for (let i = 1; i < xs.length; i++) { await wait(xs[i - 1][0], i); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await wait(xs.at(-1)[0]);
-        // E: a real Escape gap ms after the last move, the pointer still held, and a row after it that also holds the
-        // selection and the panel (the oracle's: nothing selected, the panel closed). The row held before it is none: ours
-        // shows 1/2/5/10 there, the oracle 1/2/4/10 (task-29c5c1878048849f).
+        // E: a row held gap ms after the last move, then a real Escape, the pointer still held, and a row after it that also
+        // holds the selection and the panel (the oracle's: nothing selected, the panel closed).
         if (p.escape) {
+          same(`Drag ${P}: ${k}>drag ${p.name} held`, read(P, `${k}>drag ${p.name} held`));
           await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
           await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
           await sleep(800);
