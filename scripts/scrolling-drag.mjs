@@ -23,6 +23,8 @@
 // Q and R, in the phone view: P with a second pointer pressed and lifted (Q) or cancelled (R) mid-drag; only the holding
 // pointer lets the drag go (not read; P's reads). V and A: that pointer down first; V lifts it mid-drag (P's reads), A after
 // the go (B's reads).
+// zd and zp (CAP-T12HELD.json U and V), on the desktop and in the phone view: 90 pressed, a drag 90>120>150 held, a real Cmd+Z while it is
+// held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -69,6 +71,9 @@ const PLANS = {
   // reads. A: it stays down through the let go and lifts after the go, B's reads (the let go still takes its step).
   V: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', first: 'mid' },
   A: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2, od: 'B', first: 'go' },
+  // zd (U), zp (V): a real Cmd+Z gap ms after the last move, the pointer still held; rows held before it and 80 and 800 ms after it.
+  zd: { phone: false, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'U', undoHeld: true },
+  zp: { phone: true, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'V', undoHeld: true },
 };
 
 async function session(S) {
@@ -87,7 +92,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].held ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
@@ -102,8 +107,10 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const o = read.layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
     const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
     const sel = [me.sel, other ? other.sel : null], wave = read.wave ? read.wave[0] : null;
-    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave));
-    add(what, ok, `${JSON.stringify(picked ? w : { ...w, sel: undefined, wave: undefined })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}) })})`);
+    // A read taken in the drag's session also holds the range's value (zd, zp).
+    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave))
+      && (read.value == null || w.wave === read.value);
+    add(what, ok, `${JSON.stringify(picked || read.value != null ? w : { ...w, sel: undefined, wave: undefined })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}), ...(read.value != null ? { wave: read.value } : {}) })})`);
   };
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
@@ -124,9 +131,23 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
       // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
-      if (p.held) {
-        const states = Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states);
-        const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states) : null;
+      const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+      if (p.undoHeld) {
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
+        await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
+        for (let i = 1; i < xs.length; i++) { await sleep(p.gap); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
+        await sleep(p.gap);
+        const row = async (n) => same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L, value: states[n].st.value }, false, await oursIn());
+        await row('held');
+        const Z = { key: 'z', code: 'KeyZ', windowsVirtualKeyCode: 90, modifiers: 4 };
+        await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', ...Z, commands: ['undo'] });
+        await c.send('Input.dispatchKeyEvent', { type: 'keyUp', ...Z });
+        await sleep(80); await row('cmd+z held +80');
+        await sleep(720); await row('cmd+z held +800');
+        await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
+        await sleep(80); await row('up +80');
+      } else if (p.held) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         await sleep(p.gap);

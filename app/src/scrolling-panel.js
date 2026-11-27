@@ -113,6 +113,21 @@ export function wireScrolling(panel, api) {
   // pointer is let go, one undo step; Cmd+Z gives back 1/2/5/10 as after the press (CAP-T12DRAGEND.json E, R1 and R2 alike).
   // The pointerup after it finds no drag. Not read: on the desktop (the same here), by touch.
   addEventListener('keydown', (e) => { if (e.key !== 'Escape' || !down || !rangeBefore?.drag) return; letGo(); }, true);
+  // Cmd+Z while the drag is still held takes back the drag so far, not the step before it: 90 pressed, a drag 90>120>150 held,
+  // Cmd+Z leaves the value at 90 and the rows as after the press, Undo and Redo on, on the desktop and in the phone view; the
+  // let go then fires no change and takes no step, and one Cmd+Z more gives the section as built (CAP-T12HELD.json U and V,
+  // R1 and R2 alike). So the drag's step is taken before the page's undo takes it back, and the drag is dropped: the change
+  // the range fires inside that undo, and its let go, find none. Not read: Cmd+Shift+Z or moves while still held after it,
+  // a drag with a step a pause took, by touch.
+  let undoneDrag = false;
+  addEventListener('keydown', (e) => {
+    const b = api.block();
+    if (!(e.metaKey || e.ctrlKey) || e.shiftKey || e.code !== 'KeyZ' || !down || !rangeBefore?.drag || !b) return;
+    stepNow(b, true);
+    rangeBefore = null;
+    undoneDrag = true;
+  }, true);
+  for (const t of ['pointerup', 'pointercancel']) addEventListener(t, () => setTimeout(() => { undoneDrag = false; }, 0), true);
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
@@ -138,6 +153,7 @@ export function wireScrolling(panel, api) {
   });
   panel.addEventListener('change', (e) => {
     const b = api.block(), t = e.target;
+    if (undoneDrag && t.closest('[data-scr-range]')) return;
     if (!b) return;
     if (t.matches('input[type=checkbox][data-scr-set]')) { rangeBefore = null; const key = t.dataset.scrSet, on = t.checked; api.set((x) => { if (on) x[key] = true; else delete x[key]; }, `${key} ${on ? 'on' : 'off'}`); return; }
     const r = t.closest('[data-scr-range]'), f = t.closest('[data-scr-field]');
