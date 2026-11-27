@@ -4313,20 +4313,23 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // Q and R, R1 and R2 alike). Not read: a block that starts above its top and reaches below it, a block hidden in the view
   // (it stays), Text Size or an item with a block below.
   // A drag on the desktop (live 'drag': the range's moves while held, not a press's own input) takes them down as the foot
-  // grows; as it falls it takes up a block that starts at or under the old foot and leaves one that starts above it, as a
-  // one-step fall below: Text blocks at 6/2/8/10 and 8/2/10/10, a drag 0 out to 180 (10/2/12/10, 12/2/14/10), back to 90
-  // (8/2/10/10, 10/2/12/10) and out again (10/2/12/10, 12/2/14/10); after a 90 press, a Text block on the foot at 3/2/5/10
-  // goes to 5/2/7/10 at 180 and stays there back down, one at 10/2/12/10 follows the foot down and up (CAP-T12DRAGFALL.json
-  // WT, R1 and R2 alike, WD, R2 and R3 alike; D in CAP-T12WAVEDRAG.json and s, t, u in CAP-T12DRAGAGAIN.json end the same).
-  // A real touch tap on the panel while the mouse holds the range changes none of it (WL, R1 and R2 alike). The phone
-  // view's blocks follow it back up (B). Not read: a desktop drag's fall after a pause of a second or more, or by more than
-  // one step between two moves.
-  // A one-step fall on the desktop leaves a block that starts above the old foot, on the Scrolling block's rows: 180 then 150
-  // takes it from 1/2/7/26 to 1/2/6/26 and a Text block at 5/2/7/10 stays, the section at 12 rows (CAP-T12TOPFALL.json P, and
-  // by ArrowLeft CAP-T12WAVEKEYS.json K). A block at or under the old foot follows it up: 7/2/9/10 to 6/2/8/10, a row below
-  // 8/2/10/10 to 7/2/9/10, 150 to 120 6/2/8/10 to 5/2/7/10, and by ArrowLeft (CAP-T12BELOW.json a to d, R1 and R2 alike).
+  // grows, and as it falls it takes them up as a press does (below): Text blocks at 6/2/8/10 and 8/2/10/10, a drag 0 out to
+  // 180 (10/2/12/10, 12/2/14/10), back to 90 (8/2/10/10, 10/2/12/10) and out again (10/2/12/10, 12/2/14/10); after a 90
+  // press, a Text block on the foot at 3/2/5/10 goes to 5/2/7/10 at 180 and stays there back down, one at 10/2/12/10 follows
+  // the foot down and up (CAP-T12DRAGFALL.json WT, R1 and R2 alike, WD, R2 and R3 alike; D in CAP-T12WAVEDRAG.json and s, t,
+  // u in CAP-T12DRAGAGAIN.json end the same). A real touch tap on the panel while the mouse holds the range changes none of
+  // it (WL, R1 and R2 alike). The phone view's blocks follow it back up (B). Not read: a desktop drag's fall after a pause of
+  // a second or more.
+  // A fall on the desktop, by a press or a drag and of any size, leaves a block that starts above the old foot while it starts
+  // on or above the new foot, and takes it up by the foot's fall once the new foot is above its top. 180 then 150 takes the
+  // Scrolling block from 1/2/7/26 to 1/2/6/26 and a Text block at 5/2/7/10 stays, the section at 12 rows (CAP-T12TOPFALL.json
+  // P, and by ArrowLeft CAP-T12WAVEKEYS.json K); 180 then 120 (1/2/5/26) leaves it there too and takes one at 6/2/8/10 to
+  // 4/2/6/10; 180 then 90 (1/2/4/26) takes it to 2/2/4/10 and leaves one at 3/2/5/10; a drag 150 then 90 in one move leaves
+  // one at 4/2/6/10 (CAP-T12DRAGJUMP.json JA, JB, JD, JE, JF, JH, JI and JJ, R1 and R2 alike, presses and drags alike;
+  // CAP-T12TOPFALL.json Q, I, Y). A block at or under the old foot follows it up: 7/2/9/10 to 6/2/8/10, a row below 8/2/10/10
+  // to 7/2/9/10, 150 to 120 6/2/8/10 to 5/2/7/10, and by ArrowLeft (CAP-T12BELOW.json a to d, R1 and R2 alike).
   const refit = need !== a[2] - a[0];
-  if (refit) scrollRows(b, a, need, live, !phone && w !== w0 && fall > 0 && (fall < m.pitch || live === 'drag'));
+  if (refit) scrollRows(b, a, need, live, !phone && w !== w0 && fall > 0);
   // The phone stack from the desktop before this step (waveAlone), a drag's live step too; its commit then leaves it.
   if (refit && bp === 'desktop') { followPhoneRows(prev, null, false, null, true); waveAlone = ''; }
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
@@ -4337,14 +4340,14 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   if (!keep) renderBlockPanel();
 }
 // The Scrolling block b (area a) takes need rows, and the blocks below follow its foot (setScrolling).
-// stay: a one-step desktop fall or a desktop drag's fall, where a block that starts above the old foot stays.
+// stay: a desktop fall, where a block that starts on or above the new foot stays (a[0] + need: the new foot).
 // s: its section (an undo's refit has no selection).
 function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
   const f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
   // A block that ends above the old foot, on the Scrolling block's rows, neither follows nor is stretched (twins below): in
   // the phone view a Text block on 3/2/5/10 inside a block made 1/2/12/10 by hand stays as the fall to 90 takes the foot to
   // 10 (CAP-T12REFIT3.json G3, R1 and R2 alike).
-  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[2] >= f0 && q[1] < a[3] && q[3] > a[1]; };
+  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? a[0] + need + 1 : a[0]) && q[2] >= f0 && q[1] < a[3] && q[3] > a[1]; };
   // A block with the Scrolling block's own area is stretched with it, not moved, in either view and of any kind: its top
   // stays, its end follows the foot down as it grows, and it stays as the foot falls. Two Scrolling blocks on 1/2/3/26, 150
   // takes both to 1/2/6/26 and 0 leaves the second there; a Text block on 1/2/3/10 under a Scrolling block made 1/2/3/10
