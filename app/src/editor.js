@@ -2997,7 +2997,8 @@ function setFormRows(b, s, need, spare = false) {
 // left, with a Text block from 6/2/8/10 at 7/2/9/10 and the section 8 rows; the next 180 at 1/2/8/10, the next the section
 // as built (CAP-T12BELOW.json g, R1 and R2 alike, and CAP-T12DRAGEND.json g). A Cmd+Z that takes the value down keeps the stored
 // rows: back to 0 after 150, 0 and 90 leaves the 1 row the fall left (CAP-T12TWIN.json x). Not read: the same on the
-// desktop (it keeps the stored rows here), after a phone fall of two steps, a block left taller than its line, Redo.
+// desktop (it keeps the stored rows here), after a phone fall of two steps, Redo. A block left taller than its line keeps its
+// rows: G3's block made 1/2/12/10 by hand, the Cmd+Z back to 150 gives 1/2/12/10 again (CAP-T12REFIT3.json, R1 and R2 alike).
 function refitScrollingUndone(prev) {
   if (bp !== 'mobile') return;
   const was = new Map(JSON.parse(prev).sections.flatMap((s) => s.blocks.map((b) => [b.id, b])));
