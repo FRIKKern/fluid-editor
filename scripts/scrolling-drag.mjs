@@ -25,6 +25,8 @@
 // the go (B's reads).
 // zd and zp (CAP-T12HELD.json U and V), on the desktop and in the phone view: 90 pressed, a drag 90>120>150 held, a real Cmd+Z while it is
 // held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step.
+// W (CAP-T12HELD.json), on the desktop: two Text blocks stacked below, a drag from 0 out to 180 with a row held after each
+// move: before the foot has fallen, each growth takes both down, as a press does (s, t and u: after it, only those reached).
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -74,6 +76,9 @@ const PLANS = {
   // zd (U), zp (V): a real Cmd+Z gap ms after the last move, the pointer still held; rows held before it and 80 and 800 ms after it.
   zd: { phone: false, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'U', undoHeld: true },
   zp: { phone: true, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'V', undoHeld: true },
+  // W (CAP-T12HELD.json), on the desktop: Text blocks at 6/2/8/10 and 8/2/10/10, no press, a drag from 0 out to 180 with a row
+  // held after each move: each growth takes both down by the foot's change, though the foot never reaches them.
+  W: { phone: false, vals: [0, 30, 60, 90, 120, 150, 180], gap: 300, name: 'out 0>180', z: 1, od: 'W', pre: 'place 1 6/2/8/10>place 2 8/2/10/10>', start: true, held: { each: [80], end: [80] } },
 };
 
 async function session(S) {
@@ -92,25 +97,27 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const read = (P, k) => (PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
-    const o = (PLANS[P].again ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me);
-    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
-    qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
+    const o = (PLANS[P].again || PLANS[P].start ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
+    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return 'true';`);
   };
-  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], sel: [a, t].map((b) => (b ? d.querySelector('.fe-block[data-block-id="' + b.id + '"]')?.dataset.isSelected === 'true' : null)), wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
+  const OURS = `const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), t = s.blocks.find((b) => b !== a), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ view: fe.bp, rows: s.rows[fe.bp], me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], other: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, more: s.blocks.filter((b) => b !== a && b !== t).map((b) => [b.layout.desktop.area.join('/'), b.layout.mobile.area.join('/')]), line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], sel: [a, t].map((b) => (b ? d.querySelector('.fe-block[data-block-id="' + b.id + '"]')?.dataset.isSelected === 'true' : null)), wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
   const ours = () => qs(OURS);
   // picked: the row also holds the selection (each block's sel) and the panel (its Wave Intensity value, null when closed)
   // to the read, as E's escape held row: the oracle reads the block let go and the panel closed there.
   // w: ours read already (the held rows read it in the drag's own session).
   const same = (what, read, picked = false, w = ours()) => {
-    const o = read.layout, me = o.all.find((b) => b.me), other = o.all.find((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
-    const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows;
+    const o = read.layout, me = o.all.find((b) => b.me), [other, ...more] = o.all.filter((b) => !b.me), two = (b) => (b ? [b.desktop, b.phone].join() : null);
+    // W: a third block and more, in the order added.
+    const areas = two({ desktop: w.me[0], phone: w.me[1] }) === two(me) && (w.other ? two({ desktop: w.other[0], phone: w.other[1] }) : null) === two(other) && w.rows === o.rows
+      && JSON.stringify(w.more.map(([d, ph]) => two({ desktop: d, phone: ph }))) === JSON.stringify(more.map(two));
     const sel = [me.sel, other ? other.sel : null], wave = read.wave ? read.wave[0] : null;
     // A read taken in the drag's session also holds the range's value (zd, zp).
     const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave))
       && (read.value == null || w.wave === read.value);
-    add(what, ok, `${JSON.stringify(picked || read.value != null ? w : { ...w, sel: undefined, wave: undefined })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}), ...(read.value != null ? { wave: read.value } : {}) })})`);
+    add(what, ok, `${JSON.stringify(picked || read.value != null ? w : { ...w, sel: undefined, wave: undefined })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, more: more.map((b) => [b.desktop, b.phone]), line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}), ...(read.value != null ? { wave: read.value } : {}) })})`);
   };
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
@@ -119,8 +126,9 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const [sid, bid] = qs(`const s = fe.model.sections[0]; return JSON.stringify([s.id, s.blocks.find((b) => b.type === 'scrolling').id]);`);
     qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
     await press('#block-panel [data-btab="Design"]');
-    let k = `${p.phone ? 'mobile>' : ''}open>90`;
-    await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300);
+    // W: no press first; its drag starts at the 0 the block was added with.
+    let k = `${p.phone ? 'mobile>' : ''}open${p.start ? '' : '>90'}`;
+    if (!p.start) { await press('#block-panel [data-scr-range="wave"]', 0.5); await pause(300); }
     same(`Drag ${P}: ${k}`, read(P, k));
     // The drag: a press on the range at its first value, a move to each next value gap ms apart, let go gap ms after the last.
     const xs = p.vals.map((v) => rangeX(v)), y = xs[0][1], c = await session(S);
@@ -131,7 +139,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
       // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
-      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states) : null;
+      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${p.pre || ''}${k}>drag ${p.name}`].states) : null;
       const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
       if (p.undoHeld) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
