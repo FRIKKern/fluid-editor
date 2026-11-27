@@ -228,7 +228,8 @@ function phoneFollowsMove(s, was, foot = false, lag = false) {
 // Typing not yet taken in a Design field stays there through the undo, still not taken (CAP-T15FIELDENDS.json): the field
 // shows its value before the blur, so the blur takes nothing, and gets the typing back after the redraw.
 const leaveField = () => {
-  // A Scrolling block's range keeps the focus through Cmd+Z and Cmd+Shift+Z there (CAP-T12KEYJOIN.json M and N).
+  // A Scrolling block's range keeps the focus through Cmd+Z and Cmd+Shift+Z there (CAP-T12KEYJOIN.json M and N: Wave
+  // Intensity on the desktop; Item Spacing, Text Size's range and the phone view inferred, not read).
   const r = document.activeElement?.closest?.('#block-panel input[type="range"][data-scr-range]');
   if (r) return { q: `input[type="range"][data-scr-range="${r.dataset.scrRange}"]`, text: null, range: true };
   const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
@@ -4665,8 +4666,9 @@ async function readPicture(file) {
 // and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
 // not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
 // Not read, so left to the field: Cmd+Shift+Z in a Design field with typing not yet taken, and Cmd+Z there with nothing to undo.
-// A Scrolling block's range keeps the focus after a press or a key (CAP-T12WAVEKEYS.json), and Cmd+Z and Cmd+Shift+Z there
-// are the page's and leave it the focus (CAP-T12KEYJOIN.json M and N, two runs each).
+// A Scrolling block's range keeps the focus after a press or a key (CAP-T12WAVEKEYS.json), and Cmd+Z and Cmd+Shift+Z
+// there are the page's and leave it the focus (CAP-T12KEYJOIN.json M and N, two runs each, Wave Intensity on the desktop;
+// the other ranges and the phone view inferred, not read).
 const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield], input[type="range"][data-scr-range]')
   || (e.target.matches('input[type="text"][data-design]') && (e.target.value === e.target.defaultValue || (!e.shiftKey && undoStack.length > 0))));
 // The typing kept through an undo is taken by Enter or the blur, as typing is; inferred, not read.
