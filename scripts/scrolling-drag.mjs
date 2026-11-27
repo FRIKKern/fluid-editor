@@ -24,7 +24,8 @@
 // pointer lets the drag go (not read; P's reads). V and A: that pointer down first; V lifts it mid-drag (P's reads), A after
 // the go (B's reads).
 // zd and zp (CAP-T12HELD.json U and V), on the desktop and in the phone view: 90 pressed, a drag 90>120>150 held, a real Cmd+Z while it is
-// held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step.
+// held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step. The
+// range keeps the focus through the Cmd+Z and the let go (matched since #818; these rows hold it).
 // W (CAP-T12HELD.json), on the desktop: two Text blocks stacked below, a drag from 0 out to 180 with a row held after each
 // move: before the foot has fallen, each growth takes both down, as a press does (s, t and u: after it, only those reached).
 // qp, qt, bk, bo, bl and bn (CAP-T12DRAGMID.json QP, QT, BK, BO, BL and BN): a change the range fires while the drag is still held takes no
@@ -91,6 +92,7 @@ const PLANS = {
   V: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2, od: 'P', first: 'mid' },
   A: { phone: true, vals: [90, 120, 150, 180, 150, 120, 90], gap: 300, name: 'back 300', z: 2, od: 'B', first: 'go' },
   // zd (U), zp (V): a real Cmd+Z gap ms after the last move, the pointer still held; rows held before it and 80 and 800 ms after it.
+  // Each also holds the focus to the read: the range keeps it through the Cmd+Z and the let go (R1 and R2 alike).
   zd: { phone: false, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'U', undoHeld: true },
   zp: { phone: true, vals: [90, 120, 150], gap: 300, name: 'z 90>150', z: 1, od: 'V', undoHeld: true },
   // W (CAP-T12HELD.json), on the desktop: Text blocks at 6/2/8/10 and 8/2/10/10, no press, a drag from 0 out to 180 with a row
@@ -230,7 +232,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         for (let i = 1; i < xs.length; i++) { await sleep(p.gap); await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 }); }
         await sleep(p.gap);
-        const row = async (n) => same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L, value: states[n].st.value }, false, await oursIn());
+        const row = async (n) => same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L, value: states[n].st.value, focus: states[n].st.focus.isRange }, false, await oursIn());
         await row('held');
         const Z = { key: 'z', code: 'KeyZ', windowsVirtualKeyCode: 90, modifiers: 4 };
         await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', ...Z, commands: ['undo'] });
