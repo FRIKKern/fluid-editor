@@ -18,7 +18,8 @@
 // section follows the desktop on the phone, as one made in the editor does.
 // Xh and Yh (CAP-T12HELD.json X and Y), desktop: a press growth takes a Text block below down by the foot's change though
 // the new foot does not reach it. As and Bs (CAP-T12SHORT.json A and B): a block on the top row and columns that ends above
-// the foot stays as it grows. Ds (D): the phone stack follows the desktop as it was before each step.
+// the foot stays as it grows. Ds (D): the phone stack follows the desktop as it was before each step. Hs, Is (H, I) and Hb,
+// Hd, He and Ib (CAP-T12SHORTFALL.json): a fall of two steps or more, and a Text Size fall, on the desktop.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
@@ -26,9 +27,12 @@ const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`
 const OH = Object.fromEntries(Object.entries(R2('CAP-T12HELD')).filter(([k]) => /^R2 [XY] /.test(k)).map(([k, v]) => [k.replace(/^R2 ([XY]) /, 'R2 $1h ').replace(/>Z/g, '>z'), v]));
 // CAP-T12SHORT's A (R3), B and D (R2) as As, Bs and Ds (TOPFALL has an A), its Cmd+Z 'Z' as 'z'.
 const SHORT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SHORT.json', import.meta.url))).runs;
-const OS = Object.fromEntries([['R3', /^R3 A /], ['R2', /^R2 [BD] /]].flatMap(([r, re]) => Object.entries(SHORT[r].reads).filter(([k]) => re.test(k)))
-  .map(([k, v]) => [k.replace(/^R[23] ([ABD]) /, 'R2 $1s ').replace(/>Z/g, '>z'), v]));
-const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH, ...OS };
+const OS = Object.fromEntries([['R3', /^R3 [AHI] /], ['R2', /^R2 [BD] /]].flatMap(([r, re]) => Object.entries(SHORT[r].reads).filter(([k]) => re.test(k)))
+  .map(([k, v]) => [k.replace(/^R[23] ([ABDHI]) /, 'R2 $1s ').replace(/>Z/g, '>z'), v]));
+// CAP-T12SHORTFALL's HB, HD, HE and IB (R2) as Hb, Hd, He and Ib.
+const OF = Object.fromEntries(Object.entries(R2('CAP-T12SHORTFALL')).filter(([k]) => /^R2 (HB|HD|HE|IB) /.test(k))
+  .map(([k, v]) => [k.replace(/^R2 ([HI])([BDE]) /, (_, a, b) => `R2 ${a}${b.toLowerCase()} `).replace(/>Z/g, '>z'), v]));
+const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH, ...OS, ...OF };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
 // Plan, view, the arrangement steps before 'open', the kind of the second block, the steps (a number is a press there), and
@@ -61,9 +65,16 @@ export const PLANS = [
   ['As', 'desktop', 'place 0 1/2/4/26>', 'Scrolling', [150, 0, 180], 2], ['Bs', 'desktop', 'place 1 1/2/3/10>place 0 1/2/5/10>', 'Text', [180, 0], 1],
   // CAP-T12SHORT D (R2, R1 alike; task-ec9304ac83796f57): two Scrolling blocks as added, on the desktop; each step sets the
   // phone stack from the desktop as it was before it. Ds: 150, Medium, Small (from both on 1/2/8/26: kept), Large (from the
-  // first's 1/2/6/26 inside the second's 1/2/8/26: the second first). H and I have no rows yet: ours gives other rows at
-  // their turning step (H's 0 after 60, I's Medium after Large).
+  // first's 1/2/6/26 inside the second's 1/2/8/26: the second first).
   ['Ds', 'desktop', '', 'Scrolling', [150, 'Medium text size', 'Small text size', 'Large text size']],
+  // CAP-T12SHORT H and I (R3, R4 alike; task-3a0edc5b392a8307), and CAP-T12SHORTFALL (R2, R1 alike): a fall of two steps or
+  // more leaves the rows while the block has no more than the new line needs (Hs and He 0 after 60: 1/2/3/26; Hb with a Text
+  // block), and moves the foot up by the fall from more (Hd: 180, 90, 0 to 1/2/2/26); a desktop Text Size fall does the same,
+  // a Text block below following as on a Wave fall (Is, Ib: Large, Medium 1/2/7/26, Small 1/2/5/26). No Cmd+Z rows: the
+  // oracle's first gives back other areas than the step's before (task-b4fedc8255866002).
+  ['Hs', 'desktop', '', 'Scrolling', [150, 60, 0], 0], ['Is', 'desktop', '', 'Scrolling', [150, 'Large text size', 'Medium text size', 'Small text size'], 0],
+  ['Hb', 'desktop', '', 'Text', [150, 60, 0], 0], ['Hd', 'desktop', '', 'Scrolling', [180, 90, 0], 0], ['He', 'desktop', '', 'Scrolling', [120, 60, 0], 0],
+  ['Ib', 'desktop', '', 'Text', [150, 'Large text size', 'Medium text size', 'Small text size'], 0],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 
