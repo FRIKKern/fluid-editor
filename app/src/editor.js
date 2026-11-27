@@ -63,6 +63,8 @@ let gesture = null; // move or resize session
 let pressFresh = false;
 const undoStack = [];
 const redoStack = [];
+// Each Undo and Redo that ran: an arrow key on a Scrolling block's range after one starts a step of its own (scrolling-panel.js).
+let undoRuns = 0;
 const notes = [];
 let doc = null;
 let win = null;
@@ -219,6 +221,9 @@ function phoneFollowsMove(s, was, foot = false) {
 // Typing not yet taken in a Design field stays there through the undo, still not taken (CAP-T15FIELDENDS.json): the field
 // shows its value before the blur, so the blur takes nothing, and gets the typing back after the redraw.
 const leaveField = () => {
+  // A Scrolling block's range keeps the focus through Cmd+Z and Cmd+Shift+Z there (CAP-T12KEYJOIN.json M and N).
+  const r = document.activeElement?.closest?.('#block-panel input[type="range"][data-scr-range]');
+  if (r) return { q: `input[type="range"][data-scr-range="${r.dataset.scrRange}"]`, text: null, range: true };
   const f = document.activeElement?.closest?.('#block-panel input[data-afield], #block-panel input[type="text"][data-design]');
   if (!f) return null;
   const q = f.dataset.afield ? `input[data-afield="${f.dataset.afield}"]` : `input[type="text"][data-design="${f.dataset.design}"]`;
@@ -231,6 +236,7 @@ const backToField = (held) => {
   const f = held && blockPanel.querySelector(held.q);
   if (!f) return;
   // A value set by script is not one the field's change sees, so Enter or the blur takes it by hand (keptField below).
+  if (held.range) { f.focus(); return; }
   if (held.text !== null) { f.value = held.text; f.dataset.kept = '1'; }
   caretAtEnd(f);
 };
@@ -262,6 +268,7 @@ function undo(button = false) {
     const m = s.id === layoutsSid ? openedMix() : sectionMix(s);
     if (m && m.key === key) restep(s, m, left, wordsAt(s.id));
   }
+  undoRuns++;
   note('Undo');
   // The open section panel keeps the custom height it showed, number and slider, and its pressed Height and
   // Alignment buttons, until it opens again; the section takes the state undone (difference 99, CAP-P3UNDO.json,
@@ -290,6 +297,7 @@ function redo() {
   // A rule S hold undone comes back with its Redo and falls when let go (CAP-R2HOLDVIEWUNDO-A/B.json E: held 1/2/7/15, Cmd+Z
   // 1/2/7/10, Cmd+Shift+Z 1/2/7/15, Escape 1/2/5/15).
   if (holdUndone?.json === json) { unsettled = holdUndone.hold; holdUndone = null; }
+  undoRuns++;
   note('Redo');
   renderAll();
   refitUndone(undoStack.at(-1));
@@ -4363,6 +4371,7 @@ wireScrolling(blockPanel, {
   commit: (before, label, held = false, force = false) => { panelHeld = held; try { commit(before, label, force); } finally { panelHeld = false; } },
   // An arrow key under a second after the last one joins its step: the step it took is taken off, to be taken again.
   merge: (before) => { if (undoStack.at(-1) !== before) return false; undoStack.pop(); return true; },
+  undos: () => undoRuns,
   phone: () => bp === 'mobile',
   view: (n) => { scrView = n == null ? null : { bid: sel.bid, n }; renderBlockPanel(); },
 });
@@ -4648,8 +4657,8 @@ async function readPicture(file) {
 // and the field keeps the focus (CAP-T15FIELDS3.json, read twice). In a Design field too, but the typing stays in the field,
 // not taken, with the focus and the caret at its end; a second Cmd+Z undoes the step before (CAP-T15FIELDENDS.json, two runs).
 // Not read, so left to the field: Cmd+Shift+Z in a Design field with typing not yet taken, and Cmd+Z there with nothing to undo.
-// A Scrolling block's range keeps the focus after a press or a key (CAP-T12WAVEKEYS.json), and Cmd+Z there is the page's,
-// as it was when the range lost the focus; inferred, not read.
+// A Scrolling block's range keeps the focus after a press or a key (CAP-T12WAVEKEYS.json), and Cmd+Z and Cmd+Shift+Z there
+// are the page's and leave it the focus (CAP-T12KEYJOIN.json M and N, two runs each).
 const pageUndoIn = (e) => (e.metaKey || e.ctrlKey) && e.code === 'KeyZ' && (e.target.matches('input[data-afield], input[type="range"][data-scr-range]')
   || (e.target.matches('input[type="text"][data-design]') && (e.target.value === e.target.defaultValue || (!e.shiftKey && undoStack.length > 0))));
 // The typing kept through an undo is taken by Enter or the blur, as typing is; inferred, not read.
