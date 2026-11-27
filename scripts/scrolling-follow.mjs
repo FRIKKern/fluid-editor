@@ -6,6 +6,7 @@
 // On the oracle the desktop line stays flat after a fall in the phone view (answer 2), so a desktop move keeps its 2 desktop
 // rows: Wave Intensity is each view's own (CAP-T12WAVEVIEWS.json).
 import { readFileSync } from 'node:fs';
+import { moves } from './lib/cmux.mjs';
 
 const OF = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12FOLLOW.json', import.meta.url))).runs.R2.reads;
 // Plan, steps in the phone view (a number is a press on Wave Intensity there), then the steps after the let go.
@@ -70,8 +71,9 @@ export async function followRows({ qs, press, add, pause, browser, mouse, S }) {
   const at = (fx) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'), r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
   const p = at(0.5), q = at(0.995), path = [1, 2, 3, 4, 5, 6].map((i) => p[0] + ((q[0] - p[0]) * i) / 6);
   const below0 = ours().other[1], depth = () => qs(`return JSON.stringify(fe.undoDepth);`), d0 = depth();
-  mouse(S, 'move', p[0], p[1]); await pause(60); mouse(S, 'down', p[0], p[1], { buttons: 1 }); await pause(100);
-  for (const x of path) { mouse(S, 'move', x, p[1], { buttons: 1 }); await pause(120); }
+  // One call, its moves 120 ms apart and the button still down for the Escape: a node start for each move put a second
+  // between two values under a 1.1 s gap plant, and that is an undo step of its own (DRAG_PAUSE), so oneStepAtEscape read false.
+  moves(S, [p, ...path.map((x) => [x, p[1]])], { gapMs: 120, held: true, keep: true }); await pause(120);
   const moved = ours().other[1] !== below0;
   browser(S, 'press', 'Escape'); await pause(400);
   mouse(S, 'up', q[0], q[1]); await pause(400);
