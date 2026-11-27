@@ -172,15 +172,21 @@ export function wireScrolling(panel, api) {
     const v = r ? Number(r.value) : Math.max(Number(f.dataset.min), Math.min(Number(f.dataset.max), Math.round((parseFloat(f.value) || 0) * 10) / 10));
     // Arrow keys on Wave Intensity (CAP-T12WAVEKEYS.json, R1 and R2 alike): each key moves it one step of 30 and the range
     // keeps the focus, also after a press on it; keys 1.2 s apart are an undo step each, three keys within half a second
-    // one step. Under a second joins the last key's step here, as a drag's pause (inferred between 0.25 and 1.2 s).
+    // one step. Under a second joins the last key's step here, as a drag's pause (inferred between 0.25 and 1.2 s). Keys
+    // that join and end on the value they began from still leave their step, which Cmd+Z takes with no change showing; a
+    // Cmd+Z or Cmd+Shift+Z in between ends the run, so the next key is a step of its own (CAP-T12KEYJOIN.json L and N, two
+    // runs each: 90, Right and Left 300 ms apart, then Cmd+Z shows 90 with Redo on; 90, Right, Cmd+Z, Cmd+Shift+Z and Right
+    // 200 ms apart, then Cmd+Z gives 120).
     const focused = !!r && document.activeElement === r, at = performance.now(), now = api.snapshot();
-    const join = r && keyed && lastKey?.key === key && lastKey.bid === b.id && (before ?? now) === lastKey.at && at - lastKey.t < DRAG_PAUSE && api.merge(lastKey.snap);
+    const join = r && keyed && lastKey?.key === key && lastKey.bid === b.id && (before ?? now) === lastKey.at && at - lastKey.t < DRAG_PAUSE
+      && lastKey.u === api.undos() && api.merge(lastKey.snap);
     const snap = join ? lastKey.snap : before ?? now;
     api.set((x) => write(x, key, v), `${key} ${v}`, snap);
+    if (join && api.snapshot() === snap) api.commit(snap, `${key} ${v}`, false, true);
     // A drag let go back on the value a pause left takes its step too, the model as that step left it (CAP-T12PAUSEBACK.json
     // T, the Scrolling block alone: 90, 120 with a pause, 150, 120, let go; Cmd+Z leaves 120, the next 90).
     if (drag && api.snapshot() === before) api.commit(before, `${key} ${v}`, false, true);
-    lastKey = r && keyed ? { key, bid: b.id, snap, at: api.snapshot(), t: at } : null;
+    lastKey = r && keyed ? { key, bid: b.id, snap, at: api.snapshot(), t: at, u: api.undos() } : null;
     if (focused) panel.querySelector(`[data-scr-range="${key}"]`)?.focus();
   });
   // A key on a range: its change is a key's, not a press's (any pointer press ends that).
