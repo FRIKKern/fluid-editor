@@ -88,18 +88,19 @@ export function stoppedSlot(blocks, w, h, place = [1, 2]) {
 // so that block lands last: it goes last, then first on the next edit, whichever block was edited.
 const stackOf = (blocks) => [...blocks].sort((p, q) => p.layout.mobile.area[0] - q.layout.mobile.area[0] || p.layout.mobile.area[1] - q.layout.mobile.area[1]);
 const startsOneRow = (b) => b.layout.mobile.area[0] === 1 && b.layout.mobile.area[2] === 2;
-const box = (b) => b.layout.desktop.area;
 const shareColumns = (A, B) => A[3] > B[1] && B[3] > A[1];
 const boxArea = (A) => (A[3] - A[1]) * (A[2] - A[0]);
-const inside = (a, b) => {
+const inside = (a, b, box) => {
   const A = box(a), B = box(b);
   const w = Math.min(A[3], B[3]) - Math.max(A[1], B[1]), h = Math.min(A[2], B[2]) - Math.max(A[0], B[0]);
   return w > 0 && h > 0 && boxArea(A) < boxArea(B) && w * h >= 0.8 * boxArea(A);
 };
-function desktopOrder(stack) {
+// areas: the desktop areas to order by, by block id (followDesktopEdit's from); the blocks' own otherwise.
+function desktopOrder(stack, areas = null) {
+  const box = (b) => areas?.get(b.id) ?? b.layout.desktop.area;
   const sorted = [...stack].sort((p, q) => box(p)[0] - box(q)[0] || box(p)[1] - box(q)[1]);
   // The first of the smallest blocks this one sits inside.
-  const host = (b) => sorted.filter((o) => inside(b, o)).reduce((best, o) => (!best || boxArea(box(o)) < boxArea(box(best)) ? o : best), null);
+  const host = (b) => sorted.filter((o) => inside(b, o, box)).reduce((best, o) => (!best || boxArea(box(o)) < boxArea(box(best)) ? o : best), null);
   const tops = [];
   const place = (b) => {
     tops.push(b);
@@ -135,9 +136,10 @@ function layStack(s, old, order) {
 }
 
 // Any desktop move or resize, of one block or a group. Returns true if a block moved on the phone.
-export function followDesktopEdit(s) {
+// from: blocks whose desktop areas set the order in place of the ones now (a Scrolling block's step, editor.js setScrolling).
+export function followDesktopEdit(s, from = null) {
   const old = stackOf(s.blocks);
-  return layStack(s, old, turned(desktopOrder(old), old[0]));
+  return layStack(s, old, turned(desktopOrder(old, from && new Map(from.map((b) => [b.id, b.layout.desktop.area]))), old[0]));
 }
 
 // A new block in such a section; it isn't in s.blocks yet. It comes last in the old stack, so it
