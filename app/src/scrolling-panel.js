@@ -119,6 +119,13 @@ export function wireScrolling(panel, api) {
   // R1 and R2 alike). So the drag's step is taken before the page's undo takes it back, and the drag is dropped: the change
   // the range fires inside that undo, and its let go, find none. Not read: Cmd+Shift+Z or moves while still held after it,
   // a drag with a step a pause took, by touch.
+  // A change the range fires while its drag is still held (a touch tap elsewhere, whose mouse events end Chrome's own drag;
+  // the range losing the focus) takes no step, and a press it brings drops nothing: the drag goes on, and its let go takes
+  // the one step. In the phone view 90 pressed, a drag 90>120>150>180 at 300 ms with a touch tap on the Wave Intensity label
+  // or on the stage beside the frame before 180: the change fires at 150, the value goes on to 180 and the rows with it, and
+  // Cmd+Z after the let go gives 90's rows; on the desktop the range blurred mid-drag, the same, and the let go leaves the
+  // focus where it went (CAP-T12DRAGMID.json QP, QT, BK and BO, R1 and R2 alike). Not read: a tap with a touch drag held.
+  const held = () => down && !!rangeBefore?.drag;
   let undoneDrag = false;
   addEventListener('keydown', (e) => {
     const b = api.block();
@@ -131,7 +138,7 @@ export function wireScrolling(panel, api) {
   panel.addEventListener('click', (e) => {
     const b = api.block();
     if (!b) return;
-    if (!e.target.closest('[data-scr-range]')) rangeBefore = null;
+    if (!e.target.closest('[data-scr-range]') && !held()) rangeBefore = null;
     const nav = e.target.closest('[data-scr]');
     if (nav) {
       flushText();
@@ -158,6 +165,7 @@ export function wireScrolling(panel, api) {
     if (t.matches('input[type=checkbox][data-scr-set]')) { rangeBefore = null; const key = t.dataset.scrSet, on = t.checked; api.set((x) => { if (on) x[key] = true; else delete x[key]; }, `${key} ${on ? 'on' : 'off'}`); return; }
     const r = t.closest('[data-scr-range]'), f = t.closest('[data-scr-field]');
     if (!r && !f) return;
+    if (r && held()) return;
     const key = (r || f).dataset.scrRange || f.dataset.scrField, before = rangeBefore?.key === key && rangeBefore.bid === b.id && rangeBefore.at === api.snapshot() ? rangeBefore.snap : null;
     const drag = before != null && !!rangeBefore.drag;
     rangeBefore = null;
