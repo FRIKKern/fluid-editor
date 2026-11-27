@@ -4259,7 +4259,7 @@ const scrollContent = (b) => blockEl(b.id)?.querySelector('.sqs-block-content')?
 // A drag in the phone view takes those rules at each value as it goes, held: 90 pressed, a drag out to 180 and back at 300 ms
 // shows 1/2/6/10 at 150 on the way back, 1/2/6/10 at 120 and 1/2/4/10 at 90, 80 ms after each move, and 90 stays 1/2/4/10
 // held 2.5 s and after the let go (CAP-T12HELD.json H, R1 and R2 alike; the same let go in CAP-T12WAVEDRAG.json B and C,
-// CAP-T12PHONEDRAG.json, a fast drag 180 to 0 leaves 1 row). Not read: a touch drag held.
+// CAP-T12PHONEDRAG.json, a fast drag 180 to 0 leaves 1 row). Not read: a touch drag held, a view switch while held.
 const phoneFall = (m, rows0, c0, h0, fall, fit) => (c0 > h0 + 0.5 ? Math.min(rows0, fit) : Math.max(1, Math.floor((h0 - fall) / m.pitch + 0.13)));
 function setScrolling(change, label, before = JSON.stringify(model), live = false, keep = false) {
   const b = B(sel.sid, sel.bid), w0 = waveIn(b, bp), c0 = scrollContent(b), a0 = lay(b).area, rows0 = a0[2] - a0[0];
