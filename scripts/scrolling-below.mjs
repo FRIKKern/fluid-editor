@@ -17,13 +17,18 @@
 // by the growth, and on the desktop the phone stack turns only on that step (v; x in the phone view, CAP-T12TWIN.json). The
 // section follows the desktop on the phone, as one made in the editor does.
 // Xh and Yh (CAP-T12HELD.json X and Y), desktop: a press growth takes a Text block below down by the foot's change though
-// the new foot does not reach it.
+// the new foot does not reach it. As and Bs (CAP-T12SHORT.json A and B): a block on the top row and columns that ends above
+// the foot stays as it grows.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
 // CAP-T12HELD's X and Y as Xh and Yh (TOPFALL has an X and a Y), its Cmd+Z 'Z' as 'z'.
 const OH = Object.fromEntries(Object.entries(R2('CAP-T12HELD')).filter(([k]) => /^R2 [XY] /.test(k)).map(([k, v]) => [k.replace(/^R2 ([XY]) /, 'R2 $1h ').replace(/>Z/g, '>z'), v]));
-const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH };
+// CAP-T12SHORT's A (R3) and B (R2) as As and Bs (TOPFALL has an A), its Cmd+Z 'Z' as 'z'.
+const SHORT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SHORT.json', import.meta.url))).runs;
+const OS = Object.fromEntries([...Object.entries(SHORT.R3.reads).filter(([k]) => /^R3 A /.test(k)), ...Object.entries(SHORT.R2.reads).filter(([k]) => /^R2 B /.test(k))]
+  .map(([k, v]) => [k.replace(/^R[23] ([AB]) /, 'R2 $1s ').replace(/>Z/g, '>z'), v]));
+const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH, ...OS };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
 // Plan, view, the arrangement steps before 'open', the kind of the second block, the steps (a number is a press there), and
@@ -49,6 +54,11 @@ export const PLANS = [
   // foot does not reach it (task-48d33619e462ed30): from 6/2/8/10 (Xh) or 8/2/10/10 (Yh), 90 then 180. Two Cmd+Z: the
   // oracle's third takes back the placing.
   ['Xh', 'desktop', 'place 1 6/2/8/10>', 'Text', [90, 180], 2], ['Yh', 'desktop', 'place 1 8/2/10/10>', 'Text', [90, 180], 2],
+  // CAP-T12SHORT A and B (task-1da13692169f8f73; R1 read alike): a block on the top row and columns that ends above the
+  // Scrolling block's foot stays as it grows. As: a second Scrolling block on 1/2/3/26, the first made 1/2/4/26; 150 leaves it,
+  // 0 takes the first to 1/2/2/26, and 180 then stretches it, now the longer, to 1/2/8/26. Bs: a Text block on 1/2/3/10, the
+  // Scrolling block made 1/2/5/10; 180 and 0 leave it.
+  ['As', 'desktop', 'place 0 1/2/4/26>', 'Scrolling', [150, 0, 180], 2], ['Bs', 'desktop', 'place 1 1/2/3/10>place 0 1/2/5/10>', 'Text', [180, 0], 1],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 

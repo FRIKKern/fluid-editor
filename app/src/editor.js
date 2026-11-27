@@ -4315,13 +4315,19 @@ function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
   // takes both to 1/2/6/26 and 0 leaves the second there; a Text block on 1/2/3/10 under a Scrolling block made 1/2/3/10
   // the same; in the phone view a Text block or a second Scrolling block moved onto the top row (both 1/2/3/10), 150 takes
   // it to 1/2/7/10 and 0 leaves it (CAP-T12BELOW.json l, m, p, h, i and k, CAP-T12TOPFALL.json F, CAP-T12PAUSEBACK.json W
-  // by a drag, R1 and R2 alike). A block on the top row with another area moves (q, n and r below). Not read: a block that
+  // by a drag, R1 and R2 alike). A block on the top row with another area moves (q, n and r below).
   // A block with the same top row and columns but another end, as the second Scrolling block 1/2/6/26 after 150 and 0 left
   // the first 1/2/2/26, is stretched by the foot's growth too: 90 takes the first to 1/2/5/26 and it to 1/2/9/26; in the
-  // phone view 1/2/7/10 to 1/2/10/10 (CAP-T12TWIN.json v and x, R1 and R2 alike). Not read: such a block shorter than it.
+  // phone view 1/2/7/10 to 1/2/10/10 (CAP-T12TWIN.json v and x, R1 and R2 alike).
+  // Only one that ends on or below the old foot: a shorter one stays, neither stretched nor moved. A second Scrolling block
+  // on 1/2/3/26 under the first made 1/2/4/26 by hand stays as 150 takes the first to 1/2/6/26, and 180 after 0 (the first
+  // 1/2/2/26) stretches it to 1/2/8/26 with the first 1/2/7/26; a Text block on 1/2/3/10 under the Scrolling block made
+  // 1/2/5/10 stays as 180 takes it to 1/2/7/10 (CAP-T12SHORT.json A, R1 and R3 alike, and B, R1 and R2 alike); a drag does
+  // the same (C, read; its rows wait on the hand-made rows a growth keeps there). Not read: the phone view.
   const blocks = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden), desk = () => JSON.stringify(blocks.map((o) => o.layout.desktop.area));
-  const twins = blocks.filter((o) => { const q = o.layout[bp].area; return q[0] === a[0] && q[1] === a[1] && q[3] === a[3]; });
-  const below = blocks.filter((o) => !twins.includes(o) && follows(o)), d0 = desk();
+  const onTop = blocks.filter((o) => { const q = o.layout[bp].area; return q[0] === a[0] && q[1] === a[1] && q[3] === a[3]; });
+  const twins = onTop.filter((o) => o.layout[bp].area[2] >= f0);
+  const below = blocks.filter((o) => !onTop.includes(o) && follows(o)), d0 = desk();
   setFormRows(b, s, need, true);
   if (live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0) footFell = true;
   if ((below.length || twins.length) && !(live === 'drag' && bp === 'desktop' && lay(b).area[2] < f0)) {
