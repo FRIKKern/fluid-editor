@@ -1903,6 +1903,11 @@ function onKey(e) {
     commit(before, 'Duplicated a block');
     return;
   }
+  // With a Scrolling block's panel open and the focus on the page, not in the panel (a drag's range blurred), an arrow key
+  // moves nothing: one real ArrowRight after the let go leaves the value, the rows, the block's areas and Undo and Redo as
+  // they were (CAP-T12DRAGMID.json BK, BO, BL and BN, R1 to R4 alike, desktop). Not read: ArrowUp and ArrowDown (inferred),
+  // the phone view (inferred), another block kind's panel, the focus on the panel itself, an arrow with a modifier.
+  if (ARROWS[e.key] && sel && !gesture && !mod && !e.altKey && !e.shiftKey && designOpen === sel.bid && !blockPanel.hidden && !blockPanel.contains(e.target) && B(sel.sid, sel.bid)?.type === 'scrolling') { e.preventDefault(); return; }
   // A child picked from Layers lives in its stack: arrow keys do nothing (S3.json fromLayers.arrowKeys).
   if (ARROWS[e.key] && sel && !gesture && parentStack(sel.sid, sel.bid)) { e.preventDefault(); return; }
   if (ARROWS[e.key] && sel && !gesture && mod) {

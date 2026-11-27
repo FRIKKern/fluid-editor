@@ -31,11 +31,11 @@
 // qp, qt, bk, bo, bl and bn (CAP-T12DRAGMID.json QP, QT, BK, BO, BL and BN): a change the range fires while the drag is still held takes no
 // step and leaves the drag going. qp and qt, in the phone view: P's drag with a real touch tap on the Wave Intensity label
 // (qp) or on the stage beside the frame (qt) before the last move. bk and bo, on the desktop: D's drag (bk) or 90 out to 180
-// (bo) with the range blurred halfway into the wait before the last move; the let go leaves the focus off the range. The
-// oracle then pressed one real ArrowRight, which changed nothing (value, rows, Undo and Redo; its row read right after it):
-// ours skips it (here it moves the block, a separate rule) and holds the go and Cmd+Z rows to the reads after it. Rows held
-// through the drag hold the value and the focus too. bl and bn: bk's and bo's drags blurred after the last move, so the let
-// go fires no change and takes its own step; the focus stays off the range there too.
+// (bo) with the range blurred halfway into the wait before the last move; the let go leaves the focus off the range. Then
+// one real ArrowRight, the focus on the page and the panel open: it changes nothing (value, rows, block areas, Undo and
+// Redo; its row read right after it). Rows held through the drag hold the value and the focus too. bl and bn: bk's and
+// bo's drags blurred after the last move, so the let go fires no change and takes its own step; the focus stays off the
+// range there too.
 // Es, Fs and Gs (CAP-T12SHORT.json), on the desktop: two Scrolling blocks, a drag out to 120 and back; each live step sets the
 // phone stack from the desktop before it.
 // Cs (CAP-T12SHORT.json C), on the desktop: the first of them made taller by hand; a growth keeps its rows while its line fits.
@@ -111,12 +111,12 @@ const PLANS = {
   // 80 ms after its touchEnd, gap ms after the last move and 80 ms after the let go. bk, bo: the blur half a gap into that wait.
   qp: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300 tap label', z: 2, od: 'QP', mid: 'tap', where: 'label' },
   qt: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300 tap stage', z: 2, od: 'QT', mid: 'tap', where: 'stage' },
-  bk: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur 90>180>90', z: 2, od: 'BK', mid: 'blur', quietKey: 'ArrowRight x1 1200' },
-  bo: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur 90>180', z: 2, od: 'BO', mid: 'blur', quietKey: 'ArrowRight x1 1200' },
+  bk: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur 90>180>90', z: 2, od: 'BK', mid: 'blur', key: 'ArrowRight' },
+  bo: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur 90>180', z: 2, od: 'BO', mid: 'blur', key: 'ArrowRight' },
   // bl, bn (R4; R3 read alike): bk's and bo's drags with the blur half a gap after the last move, so the let go fires no
   // change (bl: back on the press's 90; bn: the blur's change took 180) and its own step is taken: the focus stays off.
-  bl: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur after 90>180>90', z: 2, od: 'BL', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
-  bn: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur after 90>180', z: 2, od: 'BN', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
+  bl: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur after 90>180>90', z: 2, od: 'BL', mid: 'after', run: 'R4', key: 'ArrowRight' },
+  bn: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur after 90>180', z: 2, od: 'BN', mid: 'after', run: 'R4', key: 'ArrowRight' },
   // Cs (CAP-T12SHORT.json C, R2; R1 read alike), on the desktop: a second Scrolling block (kind) on 1/2/3/26 under the first
   // made 1/2/4/26 by hand, a drag from 0 to 120, back to 0 and out to 120 again, a row held after each move: the growth keeps
   // the hand-made rows at 30 and 60, the second stays while it ends above the foot and is stretched once the foot is back on
@@ -150,9 +150,8 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
-  const quiet = (p, k) => (p.quietKey ? k.replace(`>drag ${p.name}>`, `>drag ${p.name}>${p.quietKey}>`) : k);
   const mr = (p) => p.run || 'R2';
-  const read = (P, k) => (PLANS[P].mid ? MIDS[mr(PLANS[P])].reads[`${mr(PLANS[P])} ${PLANS[P].od} ${quiet(PLANS[P], k).replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? (PLANS[P].short ? SHORT.reads : PLANS[P].fall ? FALL.reads : OH)[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].mid ? MIDS[mr(PLANS[P])].reads[`${mr(PLANS[P])} ${PLANS[P].od} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? (PLANS[P].short ? SHORT.reads : PLANS[P].fall ? FALL.reads : OH)[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again || PLANS[P].start || PLANS[P].fall ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
