@@ -8,8 +8,9 @@
 // G1: CAP-T12BELOW g's first Cmd+Z refits the phone block to 1/2/7/10; a desktop move of the Text block after it leaves the
 // phone blocks where they are. G2: a desktop fall (180 then 150) taken back by a Cmd+Z in the phone view, the phone with no
 // wave of its own: the phone block gets 180's growth rows (1/2/8/10). Both matched before these rows were added: guards.
-// Not here: the finding's G3 (a phone block made 1/2/12/10 by hand keeps its rows at 150 and loses 2 at the fall to 90, which
-// ours does not; task-c272a67694f09f1e waits on that rule).
+// G3: in the phone view a Scrolling block made 1/2/12/10 by hand keeps its rows at 150, the fall to 90 takes off the line's
+// fall (1/2/10/10), the Text block inside it stays, and the Cmd+Z back to 150 gives 1/2/12/10 again. Its later Cmd+Z rows
+// are not here: the oracle's place by the handle took two undo steps, ours is built with none.
 import { readFileSync } from 'node:fs';
 
 const OB = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12REFIT3.json', import.meta.url))).runs.R2.reads;
@@ -18,6 +19,7 @@ const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const PLANS = [
   ['G1', 'mobile', 'mobile>', [180, 150, 120, 'go', 'z', 'desktop', 'down', 'mobile', 'desktop']],
   ['G2', 'desktop', '', [180, 150, 'go', 'mobile', 'z', 'z', 'desktop']],
+  ['G3', 'mobile', 'mobile>place 0 1/2/12/10>', [150, 90, 'go', 'z']],
 ];
 const NAME = { down: 'arr ArrowDown' };
 

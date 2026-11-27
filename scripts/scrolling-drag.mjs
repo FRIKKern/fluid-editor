@@ -37,6 +37,7 @@
 // go fires no change and takes its own step; the focus stays off the range there too.
 // Es, Fs and Gs (CAP-T12SHORT.json), on the desktop: two Scrolling blocks, a drag out to 120 and back; each live step sets the
 // phone stack from the desktop before it.
+// Cs (CAP-T12SHORT.json C), on the desktop: the first of them made taller by hand; a growth keeps its rows while its line fits.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -110,6 +111,11 @@ const PLANS = {
   // change (bl: back on the press's 90; bn: the blur's change took 180) and its own step is taken: the focus stays off.
   bl: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur after 90>180>90', z: 2, od: 'BL', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
   bn: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur after 90>180', z: 2, od: 'BN', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
+  // Cs (CAP-T12SHORT.json C, R2; R1 read alike), on the desktop: a second Scrolling block (kind) on 1/2/3/26 under the first
+  // made 1/2/4/26 by hand, a drag from 0 to 120, back to 0 and out to 120 again, a row held after each move: the growth keeps
+  // the hand-made rows at 30 and 60, the second stays while it ends above the foot and is stretched once the foot is back on
+  // its end. No Cmd+Z row: the oracle's first gives the first block 1/2/2/26, not the 1/2/4/26 it was made (task-b4fedc8255866002).
+  Cs: { phone: false, vals: [0, 30, 60, 90, 120, 90, 60, 30, 0, 30, 60, 90, 120], gap: 300, name: '0>120>0>120', z: 0, od: 'C', pre: 'place 0 1/2/4/26>', start: true, kind: 'Scrolling', short: true, held: { each: [80], end: [80] } },
 };
 
 async function session(S) {
