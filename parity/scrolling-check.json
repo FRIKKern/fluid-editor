@@ -1,7 +1,7 @@
 {
  "check": "a new Scrolling block's Design rows and their undo",
- "pass": 1213,
- "total": 1213,
+ "pass": 1401,
+ "total": 1401,
  "results": [
   {
    "what": "Wave Intensity 150: area",
@@ -2884,15 +2884,19 @@
    "ok": true
   },
   {
-   "what": "Drag bk: open>90>drag blur 90>180>90>go",
+   "what": "Drag bk: open>90>drag blur 90>180>90>ArrowRight x1 1200",
    "ok": true
   },
   {
-   "what": "Drag bk: open>90>drag blur 90>180>90>go>z",
+   "what": "Drag bk: open>90>drag blur 90>180>90>ArrowRight x1 1200>go",
    "ok": true
   },
   {
-   "what": "Drag bk: open>90>drag blur 90>180>90>go>z>z",
+   "what": "Drag bk: open>90>drag blur 90>180>90>ArrowRight x1 1200>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag bk: open>90>drag blur 90>180>90>ArrowRight x1 1200>go>z>z",
    "ok": true
   },
   {
@@ -2920,15 +2924,19 @@
    "ok": true
   },
   {
-   "what": "Drag bo: open>90>drag blur 90>180>go",
+   "what": "Drag bo: open>90>drag blur 90>180>ArrowRight x1 1200",
    "ok": true
   },
   {
-   "what": "Drag bo: open>90>drag blur 90>180>go>z",
+   "what": "Drag bo: open>90>drag blur 90>180>ArrowRight x1 1200>go",
    "ok": true
   },
   {
-   "what": "Drag bo: open>90>drag blur 90>180>go>z>z",
+   "what": "Drag bo: open>90>drag blur 90>180>ArrowRight x1 1200>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag bo: open>90>drag blur 90>180>ArrowRight x1 1200>go>z>z",
    "ok": true
   },
   {
@@ -2952,15 +2960,19 @@
    "ok": true
   },
   {
-   "what": "Drag bl: open>90>drag blur after 90>180>90>go",
+   "what": "Drag bl: open>90>drag blur after 90>180>90>ArrowRight x1 1200",
    "ok": true
   },
   {
-   "what": "Drag bl: open>90>drag blur after 90>180>90>go>z",
+   "what": "Drag bl: open>90>drag blur after 90>180>90>ArrowRight x1 1200>go",
    "ok": true
   },
   {
-   "what": "Drag bl: open>90>drag blur after 90>180>90>go>z>z",
+   "what": "Drag bl: open>90>drag blur after 90>180>90>ArrowRight x1 1200>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag bl: open>90>drag blur after 90>180>90>ArrowRight x1 1200>go>z>z",
    "ok": true
   },
   {
@@ -2984,15 +2996,19 @@
    "ok": true
   },
   {
-   "what": "Drag bn: open>90>drag blur after 90>180>go",
+   "what": "Drag bn: open>90>drag blur after 90>180>ArrowRight x1 1200",
    "ok": true
   },
   {
-   "what": "Drag bn: open>90>drag blur after 90>180>go>z",
+   "what": "Drag bn: open>90>drag blur after 90>180>ArrowRight x1 1200>go",
    "ok": true
   },
   {
-   "what": "Drag bn: open>90>drag blur after 90>180>go>z>z",
+   "what": "Drag bn: open>90>drag blur after 90>180>ArrowRight x1 1200>go>z",
+   "ok": true
+  },
+  {
+   "what": "Drag bn: open>90>drag blur after 90>180>ArrowRight x1 1200>go>z>z",
    "ok": true
   },
   {
@@ -4705,6 +4721,742 @@
   },
   {
    "what": "Below Ds: open>150>Medium text size>Small text size>Large text size>go>z>z>z>z",
+   "ok": true
+  },
+  {
+   "what": "Below Hs: open",
+   "ok": true
+  },
+  {
+   "what": "Below Hs: open>150",
+   "ok": true
+  },
+  {
+   "what": "Below Hs: open>150>60",
+   "ok": true
+  },
+  {
+   "what": "Below Hs: open>150>60>0",
+   "ok": true
+  },
+  {
+   "what": "Below Hs: open>150>60>0>go",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open>150",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open>150>Large text size",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open>150>Large text size>Medium text size",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open>150>Large text size>Medium text size>Small text size",
+   "ok": true
+  },
+  {
+   "what": "Below Is: open>150>Large text size>Medium text size>Small text size>go",
+   "ok": true
+  },
+  {
+   "what": "Below Hb: open",
+   "ok": true
+  },
+  {
+   "what": "Below Hb: open>150",
+   "ok": true
+  },
+  {
+   "what": "Below Hb: open>150>60",
+   "ok": true
+  },
+  {
+   "what": "Below Hb: open>150>60>0",
+   "ok": true
+  },
+  {
+   "what": "Below Hb: open>150>60>0>go",
+   "ok": true
+  },
+  {
+   "what": "Below Hd: open",
+   "ok": true
+  },
+  {
+   "what": "Below Hd: open>180",
+   "ok": true
+  },
+  {
+   "what": "Below Hd: open>180>90",
+   "ok": true
+  },
+  {
+   "what": "Below Hd: open>180>90>0",
+   "ok": true
+  },
+  {
+   "what": "Below Hd: open>180>90>0>go",
+   "ok": true
+  },
+  {
+   "what": "Below He: open",
+   "ok": true
+  },
+  {
+   "what": "Below He: open>120",
+   "ok": true
+  },
+  {
+   "what": "Below He: open>120>60",
+   "ok": true
+  },
+  {
+   "what": "Below He: open>120>60>0",
+   "ok": true
+  },
+  {
+   "what": "Below He: open>120>60>0>go",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open>150",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open>150>Large text size",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open>150>Large text size>Medium text size",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open>150>Large text size>Medium text size>Small text size",
+   "ok": true
+  },
+  {
+   "what": "Below Ib: open>150>Large text size>Medium text size>Small text size>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90 held 1 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90 held 2 150 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90 held 3 180 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90 held 4 90 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JA: place 2 8/2/10/10>open>90>drag jump 180>90>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out held 1 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out held 2 150 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out held 3 180 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out held 4 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out held 5 180 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JB: place 2 8/2/10/10>open>90>drag jump 180>120 out>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90 held 1 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90 held 2 150 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90 held 3 90 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JD: place 2 8/2/10/10>open>90>drag jump 150>90>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0 held 1 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0 held 2 150 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0 held 3 180 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0 held 4 0 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JC: place 2 8/2/10/10>open>90>drag jump 180>0>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180>120",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180>120>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180>120>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180>120>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JE: place 2 8/2/10/10>open>90>180>120>go>Z>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180>0",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180>0>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180>0>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180>0>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JG: place 2 8/2/10/10>open>90>180>0>go>Z>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180>90>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180>90>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180>90>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JF: place 2 8/2/10/10>open>90>180>90>go>Z>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JH: place 2 8/2/10/10>open>180>go>place 1 3/2/5/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JH: place 2 8/2/10/10>open>180>go>place 1 3/2/5/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump JH: place 2 8/2/10/10>open>180>go>place 1 3/2/5/10>open>90>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JH: place 2 8/2/10/10>open>180>go>place 1 3/2/5/10>open>90>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JI: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JI: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>120",
+   "ok": true
+  },
+  {
+   "what": "Jump JI: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>120>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JI: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>120>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump JJ: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump JJ: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120 held 1 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump JJ: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120",
+   "ok": true
+  },
+  {
+   "what": "Jump JJ: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go",
+   "ok": true
+  },
+  {
+   "what": "Jump JJ: place 2 8/2/10/10>open>180>go>place 1 6/2/8/10>open>drag jump 180>120>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump Ga: place 0 1/2/5/26>open",
+   "ok": true
+  },
+  {
+   "what": "Jump Ga: place 0 1/2/5/26>open>180",
+   "ok": true
+  },
+  {
+   "what": "Jump Ga: place 0 1/2/5/26>open>180>go",
+   "ok": true
+  },
+  {
+   "what": "Jump Gb: place 0 1/2/5/26>place 1 2/2/4/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump Gb: place 0 1/2/5/26>place 1 2/2/4/10>open>180",
+   "ok": true
+  },
+  {
+   "what": "Jump Gb: place 0 1/2/5/26>place 1 2/2/4/10>open>180>go",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 1 30 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 2 60 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 3 90 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 4 120 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 5 150 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180 held 6 180 +80",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180",
+   "ok": true
+  },
+  {
+   "what": "Jump Gc: place 0 1/2/5/26>place 1 2/2/4/10>open>drag out 0>180>go",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180>0",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180>0>go",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180>0>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180>0>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump K1: place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump K2: place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180, the thumb pressed",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180, Home",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180>Home x1 1200",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180>Home x1 1200>go",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180>Home x1 1200>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M1: place 2 8/2/10/10>open>180>Home x1 1200>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90, the thumb pressed",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90, End",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90>End x1 1200",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90>End x1 1200>go",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90>End x1 1200>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M2: place 2 8/2/10/10>open>90>End x1 1200>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180, the thumb pressed",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180, PageDown",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180>PageDown x1 1200",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180>PageDown x1 1200>go",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M3: place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90, the thumb pressed",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90, PageUp",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90>PageUp x1 1200",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90>PageUp x1 1200>go",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump M4: place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump N4: open>Medium text size>go>place 1 2/2/12/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump N4: open>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+   "ok": true
+  },
+  {
+   "what": "Jump N4: open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+   "ok": true
+  },
+  {
+   "what": "Jump N4: open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump N5: open>30>Medium text size>go>place 1 2/2/12/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump N5: open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+   "ok": true
+  },
+  {
+   "what": "Jump N5: open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+   "ok": true
+  },
+  {
+   "what": "Jump N5: open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+   "ok": true
+  },
+  {
+   "what": "Jump N6: open>60>Medium text size>go>place 1 2/2/12/10>open",
+   "ok": true
+  },
+  {
+   "what": "Jump N6: open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+   "ok": true
+  },
+  {
+   "what": "Jump N6: open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+   "ok": true
+  },
+  {
+   "what": "Jump N6: open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
    "ok": true
   },
   {
