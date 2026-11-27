@@ -27,20 +27,21 @@
 // held: it takes back the drag so far, not the press (the value back at 90, Undo and Redo on); the let go takes no step.
 // W (CAP-T12HELD.json), on the desktop: two Text blocks stacked below, a drag from 0 out to 180 with a row held after each
 // move: before the foot has fallen, each growth takes both down, as a press does (s, t and u: after it, only those reached).
-// qp, qt, bk and bo (CAP-T12DRAGMID.json QP, QT, BK and BO): a change the range fires while the drag is still held takes no
+// qp, qt, bk, bo, bl and bn (CAP-T12DRAGMID.json QP, QT, BK, BO, BL and BN): a change the range fires while the drag is still held takes no
 // step and leaves the drag going. qp and qt, in the phone view: P's drag with a real touch tap on the Wave Intensity label
 // (qp) or on the stage beside the frame (qt) before the last move. bk and bo, on the desktop: D's drag (bk) or 90 out to 180
 // (bo) with the range blurred halfway into the wait before the last move; the let go leaves the focus off the range. The
 // oracle then pressed one real ArrowRight, which changed nothing (value, rows, Undo and Redo; its row read right after it):
 // ours skips it (here it moves the block, a separate rule) and holds the go and Cmd+Z rows to the reads after it. Rows held
-// through the drag hold the value and the focus too.
+// through the drag hold the value and the focus too. bl and bn: bk's and bo's drags blurred after the last move, so the let
+// go fires no change and takes its own step; the focus stays off the range there too.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
 const OA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGAGAIN.json', import.meta.url))).runs.R2.reads;
 const OE = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGEND.json', import.meta.url))).runs.R2.reads;
 const HELD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12HELD.json', import.meta.url))).runs.R2, OH = HELD.reads;
-const MID = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGMID.json', import.meta.url))).runs.R2, OM = MID.reads;
+const MIDS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGMID.json', import.meta.url))).runs;
 const OBO = [90, 120, 150, 180, 150, 120, 90, 120, 150, 180];
 const PLANS = {
   P: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2 },
@@ -93,6 +94,10 @@ const PLANS = {
   qt: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300 tap stage', z: 2, od: 'QT', mid: 'tap', where: 'stage' },
   bk: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur 90>180>90', z: 2, od: 'BK', mid: 'blur', quietKey: 'ArrowRight x1 1200' },
   bo: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur 90>180', z: 2, od: 'BO', mid: 'blur', quietKey: 'ArrowRight x1 1200' },
+  // bl, bn (R4; R3 read alike): bk's and bo's drags with the blur half a gap after the last move, so the let go fires no
+  // change (bl: back on the press's 90; bn: the blur's change took 180) and its own step is taken: the focus stays off.
+  bl: { phone: false, vals: OBO.slice(0, 7), gap: 300, name: 'blur after 90>180>90', z: 2, od: 'BL', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
+  bn: { phone: false, vals: [90, 120, 150, 180], gap: 300, name: 'blur after 90>180', z: 2, od: 'BN', mid: 'after', run: 'R4', quietKey: 'ArrowRight x1 1200' },
 };
 
 async function session(S) {
@@ -112,7 +117,8 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
   const quiet = (p, k) => (p.quietKey ? k.replace(`>drag ${p.name}>`, `>drag ${p.name}>${p.quietKey}>`) : k);
-  const read = (P, k) => (PLANS[P].mid ? OM[`R2 ${PLANS[P].od} ${quiet(PLANS[P], k).replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const mr = (p) => p.run || 'R2';
+  const read = (P, k) => (PLANS[P].mid ? MIDS[mr(PLANS[P])].reads[`${mr(PLANS[P])} ${PLANS[P].od} ${quiet(PLANS[P], k).replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? OH[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
     const o = (PLANS[P].again || PLANS[P].start ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
@@ -154,7 +160,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
       // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
-      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${p.pre || ''}${k}>drag ${p.name}`].states) : p.mid ? Object.fromEntries(MID.inputs[`R2 ${p.od} ${k}>drag ${p.name}`].states) : null;
+      const states = p.held || p.undoHeld ? Object.fromEntries(HELD.inputs[`R2 ${p.od} ${p.pre || ''}${k}>drag ${p.name}`].states) : p.mid ? Object.fromEntries(MIDS[mr(p)].inputs[`${mr(p)} ${p.od} ${k}>drag ${p.name}`].states) : null;
       const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
       if (p.mid) {
         // The tap's point: the label's left third, or the stage beside the frame and the panel near the window's foot.
@@ -165,7 +171,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         for (let i = 1; i < xs.length; i++) {
-          if (i < xs.length - 1) await sleep(p.gap);
+          if (i < xs.length - 1 || p.mid === 'after') await sleep(p.gap);
           else if (p.mid === 'tap') {
             await row(n0); await sleep(100);
             await c.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: tp[0], y: tp[1], id: 7, radiusX: 2, radiusY: 2, force: 1 }] }); await sleep(100);
@@ -177,7 +183,11 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
           }
           await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[i][0], y, button: 'left', buttons: 1 });
         }
-        await sleep(p.gap); await row('held last');
+        if (p.mid === 'after') {
+          await sleep(p.gap / 2); await row(n0);
+          await c.send('Runtime.evaluate', { expression: `document.activeElement?.blur(), 'ok'` }); await sleep(80); await row(n1);
+          await sleep(p.gap / 2 - 80);
+        } else { await sleep(p.gap); await row('held last'); }
         await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
         await sleep(80); await row('up +80');
       } else if (p.undoHeld) {
