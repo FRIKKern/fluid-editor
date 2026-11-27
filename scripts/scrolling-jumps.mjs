@@ -15,11 +15,14 @@
 // 4/2/6/10); JJ is JI by a drag 180 to 120 in one move. G plans, the Scrolling block made 1/2/5/26 by hand and a Text block
 // that ends above its foot (Ga as added, 1/2/3/10; Gb and Gc at 2/2/4/10): it stays as 180 (a press; Gc a drag from 0)
 // takes the Scrolling block to 1/2/7/26. No Cmd+Z rows for G: the oracle's first gives 1/2/2/26 (task-b4fedc8255866002).
-// Not here: JC and JG (180 to 0), where the second Text block goes up by the first's move, not by the foot's.
+// JC (a drag 180 to 0 in one move) and JG (presses 90, 180, 0): the first Text block lands on the foot and the second goes up
+// by the first's move, not by the foot's. K1 and K2 (CAP-T12FALLZERO.json, R2; R1 read alike), as JG with the second Text
+// block in other columns (K1, placed at 8/14/10/20) or a third one under it (K2, 11/2/13/10): every block goes up by the
+// first's move.
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
@@ -28,7 +31,9 @@ const PLANS = {
   JA: { pre: J, wave: 0, steps: [90, ['jump 180>90', [...OUT, 90]]], z: 2 },
   JB: { pre: J, wave: 0, steps: [90, ['jump 180>120 out', [...OUT, 120, 180]]], z: 2 },
   JD: { pre: J, wave: 0, steps: [90, ['jump 150>90', [90, 120, 150, 90]]], z: 2 },
+  JC: { pre: J, wave: 0, steps: [90, ['jump 180>0', [...OUT, 0]]], z: 2 },
   JE: { pre: J, wave: 0, steps: [90, 180, 120], z: 3 },
+  JG: { pre: J, wave: 0, steps: [90, 180, 0], z: 3 },
   JF: { pre: J, wave: 0, steps: [90, 180, 90], z: 3 },
   JH: { pre: `${J}open>180>go>place 1 3/2/5/10>`, wave: 180, steps: [90], z: 1 },
   JI: { pre: `${J}open>180>go>place 1 6/2/8/10>`, wave: 180, steps: [120], z: 1 },
@@ -36,6 +41,8 @@ const PLANS = {
   Ga: { pre: 'place 0 1/2/5/26>', wave: 0, steps: [180], z: 0, grow: true },
   Gb: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [180], z: 0, grow: true },
   Gc: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [['out 0>180', R0]], z: 0, grow: true },
+  K1: { pre: 'place 2 8/14/10/20>', wave: 0, steps: [90, 180, 0], z: 3, src: ZERO },
+  K2: { pre: 'place 2 8/2/10/10>place 3 11/2/13/10>', wave: 0, steps: [90, 180, 0], z: 3, src: ZERO },
 };
 
 async function session(S) {
@@ -53,7 +60,7 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   const area = (t) => t.split('/').map(Number);
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const src = (p) => (p.grow ? GROW : JUMP);
+  const src = (p) => p.src || (p.grow ? GROW : JUMP);
   const read = (P, k) => src(PLANS[P]).reads[`R2 ${P} ${k}`];
   // The section as the oracle's last 'open' read found it; a blank section after it leaves one undo step under the plan's.
   const build = (P) => {
