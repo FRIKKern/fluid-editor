@@ -4284,10 +4284,15 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   const m = formPitch(b), w = waveIn(b, bp), phone = bp === 'mobile' && w !== w0, a = lay(b).area, fall = c0 - scrollContent(b);
   const fit = phone ? Math.max(1, Math.ceil(contentRows(b, m, false, false, true) - 0.13)) : contentRows(b, m), h0 = rows0 * m.pitch - m.rg;
   let need = fit;
+  // A growth keeps the rows of a block made taller by hand while its line fits in them, then takes the rows the line needs:
+  // on the desktop 1/2/4/26 at Wave 0 stays 1/2/4/26 held at 30 and 60 and takes 1/2/5/26 at 90 (CAP-T12SHORT.json C, R1 and
+  // R2 alike); in the phone view 1/2/12/10 stays at a press to 150, and the press to 90 then takes off the line's fall, 2
+  // rows, to 1/2/10/10 (phoneFall; CAP-T12REFIT3.json G3, R1 and R2 alike).
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
-  else if (phone) need = fit;
+  else if (phone) need = fall < 0 ? Math.max(rows0, fit) : fit;
   else if (w !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
+  else if (w !== w0 && fall < 0) need = Math.max(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Text Style keeps them as well: Paragraph after a fall leaves the rows and the line's
   // height as they were, on the desktop and in the phone view (CAP-T12BLOCKS.json, plans H and A, R1 and R2 alike). Not read:
@@ -4328,7 +4333,10 @@ addEventListener('pointerdown', () => { footFell = false; }, true);
 // s: its section (an undo's refit has no selection).
 function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
   const f0 = a[2], r0 = s.rows[bp], low = () => Math.max(...s.blocks.map((o) => o.layout[bp].area[2])), l0 = low();
-  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[1] < a[3] && q[3] > a[1]; };
+  // A block that ends above the old foot, on the Scrolling block's rows, neither follows nor is stretched (twins below): in
+  // the phone view a Text block on 3/2/5/10 inside a block made 1/2/12/10 by hand stays as the fall to 90 takes the foot to
+  // 10 (CAP-T12REFIT3.json G3, R1 and R2 alike).
+  const follows = (o) => { const q = o.layout[bp].area; return q[0] >= (stay ? f0 : a[0]) && q[2] >= f0 && q[1] < a[3] && q[3] > a[1]; };
   // A block with the Scrolling block's own area is stretched with it, not moved, in either view and of any kind: its top
   // stays, its end follows the foot down as it grows, and it stays as the foot falls. Two Scrolling blocks on 1/2/3/26, 150
   // takes both to 1/2/6/26 and 0 leaves the second there; a Text block on 1/2/3/10 under a Scrolling block made 1/2/3/10
@@ -4342,7 +4350,7 @@ function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
   // on 1/2/3/26 under the first made 1/2/4/26 by hand stays as 150 takes the first to 1/2/6/26, and 180 after 0 (the first
   // 1/2/2/26) stretches it to 1/2/8/26 with the first 1/2/7/26; a Text block on 1/2/3/10 under the Scrolling block made
   // 1/2/5/10 stays as 180 takes it to 1/2/7/10 (CAP-T12SHORT.json A, R1 and R3 alike, and B, R1 and R2 alike); a drag does
-  // the same (C, read; its rows wait on the hand-made rows a growth keeps there). Not read: the phone view.
+  // the same (C, R1 and R2 alike). Not read: the phone view.
   const blocks = s.blocks.filter((o) => o !== b && !o.layout[bp].hidden);
   const onTop = blocks.filter((o) => { const q = o.layout[bp].area; return q[0] === a[0] && q[1] === a[1] && q[3] === a[3]; });
   const twins = onTop.filter((o) => o.layout[bp].area[2] >= f0);
