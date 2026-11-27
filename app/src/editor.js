@@ -202,7 +202,8 @@ function phoneFollowsMove(s, was, foot = false, lag = false) {
   }
   // Typing in a text counts as an edit even when no size changes, so the order turns (CAP-A2TYPED3 y5).
   const typed = same.some(([b, o]) => b.html !== o.html);
-  if (!(s.phoneFollows && (changed('desktop', (a) => a) || typed))) return gone.length > 0;
+  // lag 'kept': a Scrolling step that left the desktop rows still sets the stack from the desktop before it (setScrolling).
+  if (!(s.phoneFollows && (changed('desktop', (a) => a) || typed || lag === 'kept'))) return gone.length > 0;
   const top = () => s.blocks.reduce((t, b) => (b.layout.mobile.area[0] < t.layout.mobile.area[0] ? b : t));
   const first = top(), moved = followDesktopEdit(s, lag ? was.blocks : null), now = top();
   // A text edit that brings a one-phone-row block back to first on the phone drops each Text it changed to the
@@ -4294,9 +4295,18 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // on the desktop 1/2/4/26 at Wave 0 stays 1/2/4/26 held at 30 and 60 and takes 1/2/5/26 at 90 (CAP-T12SHORT.json C, R1 and
   // R2 alike); in the phone view 1/2/12/10 stays at a press to 150, and the press to 90 then takes off the line's fall, 2
   // rows, to 1/2/10/10 (phoneFall; CAP-T12REFIT3.json G3, R1 and R2 alike).
+  // A fall of two steps or more moves the foot only while the block has more rows than the new line needs; with no more, they
+  // stay: 150, 60 and 0 leave 1/2/3/26 at 0 (2 rows, a 94 line running over them, to a 34 line that needs 2), where 180, 90
+  // and 0 or 30 take 3 rows to 1/2/2/26 (CAP-T12SHORT.json H, R3 and R4 alike; CAP-T12SHORTFALL.json HA to HE, two sessions,
+  // a Text block or a second Scrolling block alike). A desktop Text Size fall takes the same rule, and the blocks below
+  // follow as on a Wave fall: Large to Medium takes 1/2/10/26 to 1/2/7/26, not the 1/2/8/26 that holds the line, and a Text
+  // block at 8/2/10/10 to 5/2/7/10; Small then 1/2/5/26, the Text block staying on the new foot (CAP-T12SHORT I, R3 and R4;
+  // CAP-T12SHORTFALL IB, two sessions). Not read: a fall from 3 rows or more to a line that still needs them all, a Text Size
+  // fall under 60 px (it refits, as before), Text Size in the phone view.
+  const sized = bp === 'desktop' && w === w0 && /^Text size /.test(label);
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fall < 0 ? Math.max(rows0, fit) : fit;
-  else if (w !== w0 && fall >= m.pitch) need = Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6));
+  else if ((w !== w0 || sized) && fall >= m.pitch) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
   else if (w !== w0 && fall < 0) need = Math.max(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
@@ -4329,9 +4339,12 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // CAP-T12TOPFALL.json Q, I, Y). A block at or under the old foot follows it up: 7/2/9/10 to 6/2/8/10, a row below 8/2/10/10
   // to 7/2/9/10, 150 to 120 6/2/8/10 to 5/2/7/10, and by ArrowLeft (CAP-T12BELOW.json a to d, R1 and R2 alike).
   const refit = need !== a[2] - a[0];
-  if (refit) scrollRows(b, a, need, live, !phone && w !== w0 && fall > 0);
-  // The phone stack from the desktop before this step (waveAlone), a drag's live step too; its commit then leaves it.
-  if (refit && bp === 'desktop') { followPhoneRows(prev, null, false, null, true); waveAlone = ''; }
+  if (refit) scrollRows(b, a, need, live, !phone && (w !== w0 || sized) && fall > 0);
+  // The phone stack from the desktop before this step (waveAlone), a drag's live step too; its commit then leaves it. A fall of
+  // two steps or more that leaves the rows sets it too: H's 0 turns it, the second first (CAP-T12SHORT.json H, R3 and R4;
+  // CAP-T12SHORTFALL.json HA and HE). Not read: another step that leaves the rows.
+  const kept = !refit && !phone && (w !== w0 || sized) && fall >= m.pitch;
+  if ((refit || kept) && bp === 'desktop') { followPhoneRows(prev, null, false, null, refit || 'kept'); waveAlone = ''; }
   // A pending foot move follows the live steps after it, so the drag's last model is the one its commit takes.
   if (footAt !== null) footAt = JSON.stringify(model);
   if (waveAlone !== null) waveAlone = JSON.stringify(model);
