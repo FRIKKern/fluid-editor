@@ -18,16 +18,16 @@
 // section follows the desktop on the phone, as one made in the editor does.
 // Xh and Yh (CAP-T12HELD.json X and Y), desktop: a press growth takes a Text block below down by the foot's change though
 // the new foot does not reach it. As and Bs (CAP-T12SHORT.json A and B): a block on the top row and columns that ends above
-// the foot stays as it grows.
+// the foot stays as it grows. Ds (D): the phone stack follows the desktop as it was before each step.
 import { readFileSync } from 'node:fs';
 
 const R2 = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2.reads;
 // CAP-T12HELD's X and Y as Xh and Yh (TOPFALL has an X and a Y), its Cmd+Z 'Z' as 'z'.
 const OH = Object.fromEntries(Object.entries(R2('CAP-T12HELD')).filter(([k]) => /^R2 [XY] /.test(k)).map(([k, v]) => [k.replace(/^R2 ([XY]) /, 'R2 $1h ').replace(/>Z/g, '>z'), v]));
-// CAP-T12SHORT's A (R3) and B (R2) as As and Bs (TOPFALL has an A), its Cmd+Z 'Z' as 'z'.
+// CAP-T12SHORT's A (R3), B and D (R2) as As, Bs and Ds (TOPFALL has an A), its Cmd+Z 'Z' as 'z'.
 const SHORT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SHORT.json', import.meta.url))).runs;
-const OS = Object.fromEntries([...Object.entries(SHORT.R3.reads).filter(([k]) => /^R3 A /.test(k)), ...Object.entries(SHORT.R2.reads).filter(([k]) => /^R2 B /.test(k))]
-  .map(([k, v]) => [k.replace(/^R[23] ([AB]) /, 'R2 $1s ').replace(/>Z/g, '>z'), v]));
+const OS = Object.fromEntries([['R3', /^R3 A /], ['R2', /^R2 [BD] /]].flatMap(([r, re]) => Object.entries(SHORT[r].reads).filter(([k]) => re.test(k)))
+  .map(([k, v]) => [k.replace(/^R[23] ([ABD]) /, 'R2 $1s ').replace(/>Z/g, '>z'), v]));
 const OB = { ...R2('CAP-T12BELOW'), ...R2('CAP-T12TOPFALL'), ...R2('CAP-T12TWIN'), ...OH, ...OS };
 const near1 = (x, y) => Math.abs(x - y) <= 0.15;
 const DN2 = 'arr ArrowDown ArrowDown>', UP2 = 'arr ArrowUp ArrowUp>';
@@ -59,6 +59,11 @@ export const PLANS = [
   // 0 takes the first to 1/2/2/26, and 180 then stretches it, now the longer, to 1/2/8/26. Bs: a Text block on 1/2/3/10, the
   // Scrolling block made 1/2/5/10; 180 and 0 leave it.
   ['As', 'desktop', 'place 0 1/2/4/26>', 'Scrolling', [150, 0, 180], 2], ['Bs', 'desktop', 'place 1 1/2/3/10>place 0 1/2/5/10>', 'Text', [180, 0], 1],
+  // CAP-T12SHORT D (R2, R1 alike; task-ec9304ac83796f57): two Scrolling blocks as added, on the desktop; each step sets the
+  // phone stack from the desktop as it was before it. Ds: 150, Medium, Small (from both on 1/2/8/26: kept), Large (from the
+  // first's 1/2/6/26 inside the second's 1/2/8/26: the second first). H and I have no rows yet: ours gives other rows at
+  // their turning step (H's 0 after 60, I's Medium after Large).
+  ['Ds', 'desktop', '', 'Scrolling', [150, 'Medium text size', 'Small text size', 'Large text size']],
 ];
 const NAME = { ArrowLeft: 'ArrowLeft x1 1200' };
 
@@ -90,6 +95,7 @@ export async function belowRows({ qs, press, add, pause, browser, mouse, S }) {
     same(`Below ${P}: ${k}`, view, OB[`R2 ${P} ${k}`]);
     for (const v of steps) {
       if (v === 'ArrowLeft') browser(S, 'press', 'ArrowLeft');
+      else if (typeof v === 'string') await press(`#block-panel [aria-label="${v}"]`);
       else await press('#block-panel [data-scr-range="wave"]', v === 0 ? 0.005 : Math.min(0.995, v / 180));
       await pause(1300);
       k += `>${NAME[v] ?? v}`; same(`Below ${P}: ${k}`, view, OB[`R2 ${P} ${k}`]);
