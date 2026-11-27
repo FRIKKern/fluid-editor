@@ -3,7 +3,7 @@
 // argv[2] is JSON: { port, op, frame?, ... }
 //   eval js | wait js timeoutSec | goto url | reload | viewport w h | screenshot file
 //   click sel | dblclick sel | hover sel | press key | fill sel text | dialog accept
-//   mouse type x y buttons mods | moves points gapMs | drag from to steps holdMs mods pointerType | touch from to steps holdMs stamped
+//   mouse type x y buttons mods | moves points gapMs held | drag from to steps holdMs mods pointerType | touch from to steps holdMs stamped
 // `frame` is a selector for a same-origin iframe: js and selectors run inside it, and x, y are
 // in its coordinates. Input events always go to the top page, so they are shifted by the frame's box.
 import { execFileSync, spawn } from 'node:child_process';
@@ -207,11 +207,19 @@ try {
   }
   // Plain moves through each point in one process, gapMs apart: the time between them is the gap, not a node start
   // each (marks-check's way back has to beat the chrome's 200 ms timer). Prints the ms from the first move to the last.
+  // held: a drag. The left button goes down on the first point, stays down through the rest and comes up on the last
+  // (scrolling-check's drags: a second between two values is an undo step, app/src/scrolling-panel.js DRAG_PAUSE).
   if (cmd.op === 'moves') {
     const ps = [];
     for (const [x, y] of cmd.points) ps.push(await toPage(x, y));
-    const at = [];
-    for (const [n, p] of ps.entries()) { if (n && cmd.gapMs) await sleep(cmd.gapMs); await mouseEvent('mouseMoved', p); at.push(performance.now()); }
+    const at = [], hold = cmd.held ? { button: 'left', buttons: 1 } : {};
+    for (const [n, p] of ps.entries()) {
+      if (n && cmd.gapMs) await sleep(cmd.gapMs);
+      await mouseEvent('mouseMoved', p, n ? hold : {});
+      at.push(performance.now());
+      if (!n && cmd.held) { if (cmd.gapMs) await sleep(cmd.gapMs); await mouseEvent('mousePressed', p, { button: 'left', buttons: 1, clickCount: 1 }); }
+    }
+    if (cmd.held) await mouseEvent('mouseReleased', ps.at(-1), { button: 'left', clickCount: 1 });
     out = JSON.stringify(Math.round(at.at(-1) - at[0]));
   }
   if (cmd.op === 'wheel') {
