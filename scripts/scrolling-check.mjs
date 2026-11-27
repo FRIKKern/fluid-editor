@@ -3,7 +3,7 @@
 // After each: the block's area, the section's rows and the first two words' boxes (left and width); then each Cmd+Z goes back
 // one step to the new block. Presses are real mouse input. Writes parity/scrolling-check.json. Usage: FLUID_SURFACE=cdp:<port> npm run scrolling-check.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { evalJs, goto, viewport, pause, mouse, browser } from './lib/cmux.mjs';
+import { evalJs, goto, viewport, pause, mouse, moves as heldMoves, browser } from './lib/cmux.mjs';
 import { BASE } from './lib/base.mjs';
 import { blockRows } from './scrolling-blocks.mjs';
 import { followRows } from './scrolling-follow.mjs';
@@ -82,7 +82,10 @@ for (let k = seen.length - 2; k >= 0; k--) {
 // change, and its let go is still a step: Cmd+Z after it takes back only that (CAP-T12WAVEDRAG.json N), not the Medium
 // press before it; a press after it, then another drag, must still undo one step at a time.
 const range = at('#block-panel [data-scr-range="wave"]'), w = qs(`return JSON.stringify(document.querySelector('#block-panel [data-scr-range="wave"]').getBoundingClientRect().width);`);
-const drag = async (to, back = false) => { const x0 = range[0] - w / 2 + 4; mouse(S, 'move', x0, range[1]); await pause(60); mouse(S, 'down', x0, range[1], { buttons: 1 }); for (let n = 1; n <= 10; n++) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } if (back) for (let n = 9; n >= 0; n--) { mouse(S, 'move', x0 + (to - 4) * n / 10, range[1], { buttons: 1 }); await pause(30); } const x = back ? x0 : x0 + to - 4; mouse(S, 'up', x, range[1]); await pause(400); };
+// A drag is one call, its moves 30 ms apart. A node start for each move put 600 to 830 ms between the drag back's 60 and 30
+// at its turn (7 moves) under heavy, and a second there is an undo step of its own (DRAG_PAUSE): 'Drag back to start, Cmd+Z,
+// drag' then read Medium at 60 after the Cmd+Z, about 1 run in 3 under load (task-b98e2dd0259cb094).
+const drag = async (to, back = false) => { const x0 = range[0] - w / 2 + 4, out = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => [x0 + (to - 4) * n / 10, range[1]]); heldMoves(S, [[x0, range[1]], ...out, ...(back ? [...out.slice(0, -1).reverse(), [x0, range[1]]] : [])], { gapMs: 30, held: true }); await pause(400); };
 const start = state();
 await drag(w * 0.75); const dragged = state();
 qs(`fe.undo(); await sleep(250); return 'true';`); const dragUndo = state();
