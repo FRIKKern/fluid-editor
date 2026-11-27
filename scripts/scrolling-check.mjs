@@ -13,6 +13,7 @@ import { keyRows } from './scrolling-keys.mjs';
 import { pauseRows } from './scrolling-pause.mjs';
 import { fallRows } from './scrolling-falls.mjs';
 import { belowRows } from './scrolling-below.mjs';
+import { refitRows } from './scrolling-refit.mjs';
 import { layoutRows } from './scrolling-layouts.mjs';
 
 if (!process.env.FLUID_SURFACE) throw new Error('set FLUID_SURFACE');
@@ -591,6 +592,8 @@ await pauseRows({ qs, press, add, pause, browser, mouse, S });
 await fallRows({ qs, press, add, pause, browser, mouse, S });
 // The blocks below as the Wave falls by one step, on the desktop and in the phone view (CAP-T12BELOW.json): scrolling-below.mjs.
 await belowRows({ qs, press, add, pause, browser, mouse, S });
+// A Cmd+Z that takes the wave back up, then a desktop move; one in the phone view taking back a desktop fall (CAP-T12REFIT3.json): scrolling-refit.mjs.
+await refitRows({ qs, press, add, pause, browser, mouse, S });
 // A phone Wave Intensity on a View Layouts pick's Scrolling turn, then the next picks (scrolling-layouts.mjs).
 await layoutRows({ qs, press, add, pause, browser, mouse, S });
 // Outside the editor the same loop moves the words (marquee.js): in Preview, on the saved page and on the exported page,
@@ -638,7 +641,7 @@ const exported = qs(`const { exportHtml } = await import('./src/render.js'); con
 goto(S, exported); await pause(1500);
 await onPage('The exported page', 'blob:');
 // The cases are counted: a findings change that drops a row must not shrink the check unseen.
-const CASES = 1034;
+const CASES = 1105;
 writeFileSync(new URL('../parity/scrolling-check.json', import.meta.url), `${JSON.stringify({ check: 'a new Scrolling block\'s Design rows and their undo', pass, total, results }, null, 1)}\n`);
 console.log(`\n${pass}/${total} match${total === CASES ? '' : ` (expected ${CASES} cases)`}`);
 process.exit(pass === total && total === CASES ? 0 : 1);
