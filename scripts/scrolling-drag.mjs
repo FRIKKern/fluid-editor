@@ -39,6 +39,8 @@
 // Es, Fs and Gs (CAP-T12SHORT.json), on the desktop: two Scrolling blocks, a drag out to 120 and back; each live step sets the
 // phone stack from the desktop before it.
 // Cs (CAP-T12SHORT.json C), on the desktop: the first of them made taller by hand; a growth keeps its rows while its line fits.
+// Wt, Wl and Wd (CAP-T12DRAGFALL.json), on the desktop: a drag's fall takes up the blocks at or under the old foot and leaves
+// those above it; the growth out again takes every block below down; a touch tap by a second pointer changes nothing.
 import { readFileSync } from 'node:fs';
 
 const OD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEDRAG.json', import.meta.url))).runs.R3.reads;
@@ -46,8 +48,10 @@ const OA = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGAGAIN.
 const OE = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGEND.json', import.meta.url))).runs.R2.reads;
 const HELD = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12HELD.json', import.meta.url))).runs.R2, OH = HELD.reads;
 const SHORT = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12SHORT.json', import.meta.url))).runs.R2;
+const FALL = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGFALL.json', import.meta.url))).runs.R2;
 const MIDS = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12DRAGMID.json', import.meta.url))).runs;
 const OBO = [90, 120, 150, 180, 150, 120, 90, 120, 150, 180];
+const WB = [0, 30, 60, 90, 120, 150, 180, ...OBO.slice(4)];
 const PLANS = {
   P: { phone: true, vals: [90, 120, 150, 180], gap: 300, name: 'out 300', z: 2 },
   G: { phone: true, vals: [90, 120, 150, 180], gap: 700, name: 'out 700', z: 2 },
@@ -117,6 +121,16 @@ const PLANS = {
   // made 1/2/4/26 by hand, a drag from 0 to 120, back to 0 and out to 120 again, a row held after each move: the growth keeps
   // the hand-made rows at 30 and 60, the second stays while it ends above the foot and is stretched once the foot is back on
   // its end. No Cmd+Z row: the oracle's first gives the first block 1/2/2/26, not the 1/2/4/26 it was made (task-b4fedc8255866002).
+  // Wt, Wl and Wd (CAP-T12DRAGFALL.json WT, WL and WD, R2; WT and WL read alike in R1, WD in R3), on the desktop with touch
+  // emulation on, as the oracle's: as the drag's foot falls, a block at or under the old foot follows it up and one above it
+  // stays; the growth out again takes every block below down. Wt and Wl: W's Text blocks, 0 out to 180, back to 90 and out
+  // again; Wl taps the Wave Intensity label by touch half a gap after the way back reaches 90, the mouse still holding the
+  // range (a second pointer: no change to the rows). Wd: the first Text block as added, the second at 8/2/10/10, 90 pressed,
+  // then 90 out to 180, back and out again. Redo is not read while held (with touch emulation on the oracle shows none).
+  // Cmd+Z rows only back to the place: the oracle's later ones take back its place steps, ours is built with none.
+  Wt: { phone: false, vals: WB, gap: 300, name: 'out back out no tap', z: 1, od: 'WT', pre: 'place 1 6/2/8/10>place 2 8/2/10/10>', start: true, fall: true, touch: true, held: { each: [80], end: [80] } },
+  Wl: { phone: false, vals: WB, gap: 300, name: 'out back out tap label', z: 1, od: 'WL', pre: 'place 1 6/2/8/10>place 2 8/2/10/10>', start: true, fall: true, touch: true, tapAt: 9, held: { each: [80], end: [80] } },
+  Wd: { phone: false, vals: OBO, gap: 300, name: 'out back out from 90', z: 2, od: 'WD', pre: 'place 2 8/2/10/10>', fall: true, touch: true, held: { each: [80], end: [80] } },
   Cs: { phone: false, vals: [0, 30, 60, 90, 120, 90, 60, 30, 0, 30, 60, 90, 120], gap: 300, name: '0>120>0>120', z: 0, od: 'C', pre: 'place 0 1/2/4/26>', start: true, kind: 'Scrolling', short: true, held: { each: [80], end: [80] } },
 };
 
@@ -138,9 +152,9 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
   // The oracle's read for plan P at step k: CAP-T12WAVEDRAG's, or CAP-T12DRAGAGAIN's after the plan's arrangement.
   const quiet = (p, k) => (p.quietKey ? k.replace(`>drag ${p.name}>`, `>drag ${p.name}>${p.quietKey}>`) : k);
   const mr = (p) => p.run || 'R2';
-  const read = (P, k) => (PLANS[P].mid ? MIDS[mr(PLANS[P])].reads[`${mr(PLANS[P])} ${PLANS[P].od} ${quiet(PLANS[P], k).replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? (PLANS[P].short ? SHORT.reads : OH)[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
+  const read = (P, k) => (PLANS[P].mid ? MIDS[mr(PLANS[P])].reads[`${mr(PLANS[P])} ${PLANS[P].od} ${quiet(PLANS[P], k).replace(/>z/g, '>Z')}`] : PLANS[P].held || PLANS[P].undoHeld ? (PLANS[P].short ? SHORT.reads : PLANS[P].fall ? FALL.reads : OH)[`R2 ${PLANS[P].od} ${PLANS[P].pre || ''}${k.replace(/>z/g, '>Z')}`] : PLANS[P].end ? OE[`R2 ${PLANS[P].od || P} ${k.replace(/>z/g, '>Z')}`] : PLANS[P].again ? OA[`R2 ${P} ${PLANS[P].pre || ''}${k}`] : OD[`R3 ${PLANS[P].od || P} ${k}`]);
   const build = (P) => {
-    const o = (PLANS[P].again || PLANS[P].start ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
+    const o = (PLANS[P].again || PLANS[P].start || PLANS[P].fall ? read(P, 'open') : read(P, 'default')).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     return qs(`const W = ${spec}, text = ${!PLANS[P].alone}, kind = ${JSON.stringify(PLANS[P].kind || 'Text')}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, kind, true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
   };
@@ -159,7 +173,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
       && JSON.stringify(w.more.map(([d, ph]) => two({ desktop: d, phone: ph }))) === JSON.stringify(more.map(two));
     const sel = [me.sel, other ? other.sel : null], wave = read.wave ? read.wave[0] : null;
     // A read taken in the drag's session also holds the range's value (zd, zp).
-    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1] && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave))
+    const ok = areas && near1(w.line, o.marquee[1]) && w.undo[0] === o.undo[0] && (o.undo[1] === null || w.undo[1] === o.undo[1]) && (!picked || (w.sel[0] === sel[0] && w.sel[1] === sel[1] && w.wave === wave))
       && (read.value == null || w.wave === read.value) && (read.focus == null || w.focus === read.focus);
     add(what, ok, `${JSON.stringify({ ...(picked || read.value != null ? w : { ...w, sel: undefined, wave: undefined }), focus: read.focus == null ? undefined : w.focus })} (oracle ${JSON.stringify({ rows: o.rows, me: [me.desktop, me.phone], other: other ? [other.desktop, other.phone] : null, more: more.map((b) => [b.desktop, b.phone]), line: o.marquee[1], undo: o.undo, ...(picked ? { sel, wave } : {}), ...(read.value != null ? { wave: read.value } : {}), ...(read.focus != null ? { focus: read.focus } : {}) })})`);
   };
@@ -183,7 +197,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     const other = (type) => c.send('Runtime.evaluate', { expression: `document.body.dispatchEvent(new PointerEvent('${type}', { pointerId: 2, pointerType: 'touch', isPrimary: false, bubbles: true, cancelable: true, clientX: 10, clientY: 10 })), 'ok'` });
     try {
       // h, i: a row held at each offset after each move, read through the drag's own session as the oracle's was.
-      const states = p.held || p.undoHeld ? Object.fromEntries((p.short ? SHORT : HELD).inputs[`R2 ${p.od} ${p.pre || ''}${k}>drag ${p.name}`].states) : p.mid ? Object.fromEntries(MIDS[mr(p)].inputs[`${mr(p)} ${p.od} ${k}>drag ${p.name}`].states) : null;
+      const states = p.held || p.undoHeld ? Object.fromEntries((p.short ? SHORT : p.fall ? FALL : HELD).inputs[`R2 ${p.od} ${p.pre || ''}${k}>drag ${p.name}`].states) : p.mid ? Object.fromEntries(MIDS[mr(p)].inputs[`${mr(p)} ${p.od} ${k}>drag ${p.name}`].states) : null;
       const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS()} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
       if (p.mid) {
         // The tap's point: the label's left third, or the stage beside the frame and the panel near the window's foot.
@@ -228,6 +242,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
         await sleep(80); await row('up +80');
       } else if (p.held) {
+        if (p.touch) await c.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
         await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: xs[0][0], y, button: 'none', buttons: 0 }); await sleep(200);
         await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: xs[0][0], y, button: 'left', buttons: 1, clickCount: 1 });
         await sleep(p.gap);
@@ -238,6 +253,16 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
             await sleep(o - t); t = o;
             const n = `held ${i} ${p.vals[i]} +${o}`;
             same(`Drag ${P}: ${k}>drag ${p.name} ${n}`, { layout: states[n].L }, false, await oursIn());
+          }
+          // Wl: half a gap after the move to vals[tapAt], a real touch tap (touch emulation on) on the Wave Intensity label,
+          // as the oracle's; rows before it and 80 ms after its touchEnd.
+          if (p.tapAt === i) {
+            const tp = qs(`const e = document.querySelector('#block-panel .bp-scr-wave .sp-label'), r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * 0.3, r.top + r.height / 2]);`);
+            await sleep(p.gap / 2 - t); t = p.gap / 2;
+            same(`Drag ${P}: ${k}>drag ${p.name} held before tap`, { layout: states['held before tap'].L }, false, await oursIn());
+            await c.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: tp[0], y: tp[1], id: 7, radiusX: 2, radiusY: 2, force: 1 }] }); await sleep(100);
+            await c.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(80); t += 180;
+            same(`Drag ${P}: ${k}>drag ${p.name} tap +80`, { layout: states['tap +80'].L }, false, await oursIn());
           }
           if (i < xs.length - 1) await sleep(Math.max(0, p.gap - t));
         }
@@ -266,7 +291,7 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
         }
         await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: xs.at(-1)[0], y, button: 'left', buttons: 0, clickCount: 1 });
       }
-    } finally { c.close(); }
+    } finally { if (p.touch) await c.send('Emulation.setTouchEmulationEnabled', { enabled: false }); c.close(); }
     await pause(600);
     k += `>drag ${p.name}`;
     same(`Drag ${P}: ${k}`, read(P, k));
