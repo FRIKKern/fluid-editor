@@ -83,6 +83,17 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 22 }
+      # setup-chrome's apt-get update fails on any source that errors: packages.microsoft.com answered 403 and redded two
+      # main jobs on 2026-11-27 (runs 45949265108, 45981734294). Chrome's libraries come from Ubuntu's archive, so every
+      # other apt source is set aside first.
+      - name: Ubuntu's apt sources only
+        if: runner.os == 'Linux'
+        run: |
+          shopt -s nullglob
+          for f in /etc/apt/sources.list.d/*; do
+            if [ "$(basename "$f")" != ubuntu.sources ]; then sudo mv "$f" "$RUNNER_TEMP/"; echo "set aside $f"; fi
+          done
+          grep -rhE '^(deb|URIs:)' /etc/apt/sources.list /etc/apt/sources.list.d/ || true
       # The Mac lanes run Chrome 157; the same major here.
       - id: chrome
         uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0
