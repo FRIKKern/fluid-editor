@@ -18,8 +18,10 @@ const ours = (S, top) => evalJs(S, `(() => { const g = document.querySelector('.
 
 // Frames: for each row, the slot and a ghost, how it got from its first top to its last: 'still', 'jump' in one
 // frame, or 'slide' with how long it took; and when it was drawn: 'always', 'appears', 'goes' or 'never'.
+// The 600 ms of frames start at the move (or the let go) itself, after one frame of how it was before: started at the
+// sample's own call, a node start for the move under load ate the slide's ~200 ms (a 1.1 s gap read 'still', 14 of 22).
 const FRAME_NAMES = ['Line', 'Button', 'Shape'];
-const SAMPLE = `(() => { const N = ${JSON.stringify(FRAME_NAMES)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0 && getComputedStyle(e).visibility !== 'hidden').map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`;
+const SAMPLE = (on) => `(() => { const N = ${JSON.stringify(FRAME_NAMES)}; const out = window.__fxFrames = []; let t0 = performance.now(); const frame = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0 && getComputedStyle(e).visibility !== 'hidden').map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); }; const tick = () => { frame(); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; frame(); addEventListener('${on}', () => { t0 = performance.now(); requestAnimationFrame(tick); }, { capture: true, once: true }); return 1; })()`;
 function howItMoved(frames, held) {
   const series = { slot: frames.map((f) => [f[0], f[1]]) };
   for (const n of FRAME_NAMES) if (n !== held) series[n] = frames.map((f) => [f[0], f[2].find((t) => t[0] === n)?.[1] ?? null]);
@@ -50,7 +52,7 @@ async function frames(S, label, dy, pre, drop) {
   for (const v of pre) to(v);
   to(dy - (drop ? 0 : Math.sign(dy - y)));
   await pause(400);
-  evalJs(S, SAMPLE);
+  evalJs(S, SAMPLE(drop ? 'pointerup' : 'pointermove'));
   if (drop) mouse(S, 'up', cx, cy + y); else to(dy);
   await pause(800);
   const got = evalJs(S, `JSON.stringify(window.__fxFrames)`);
