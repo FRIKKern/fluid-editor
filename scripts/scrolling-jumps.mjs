@@ -15,20 +15,33 @@
 // 4/2/6/10); JJ is JI by a drag 180 to 120 in one move. G plans, the Scrolling block made 1/2/5/26 by hand and a Text block
 // that ends above its foot (Ga as added, 1/2/3/10; Gb and Gc at 2/2/4/10): it stays as 180 (a press; Gc a drag from 0)
 // takes the Scrolling block to 1/2/7/26. No Cmd+Z rows for G: the oracle's first gives 1/2/2/26 (task-b4fedc8255866002).
-// Not here: JC and JG (180 to 0), where the second Text block goes up by the first's move, not by the foot's.
+// JC (a drag 180 to 0 in one move) and JG (presses 90, 180, 0): the first Text block lands on the foot and the second goes up
+// by the first's move, not by the foot's. K1 and K2 (CAP-T12FALLZERO.json, R2; R1 read alike), as JG with the second Text
+// block in other columns (K1, placed at 8/14/10/20) or a third one under it (K2, 11/2/13/10): every block goes up by the
+// first's move.
+// M plans (CAP-T12RANGEKEYS.json, R2; R1 read alike), JG's layout: a key on the range moves it at once and the blocks as a
+// press there: M1 Home from 180 (to 0, as JG), M2 End from 90 (to 180), M3 PageDown from 180 (150, one step: the first Text
+// block stays on the new foot), M4 PageUp from 90 (120: no area moves). The key's rows also check the range's value, its
+// focus and Undo and Redo, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json, R2; R1 read alike): Text
+// Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it stays as the foot comes up
+// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26).
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
 const J = 'place 2 8/2/10/10>';
+const SIZES = { M: 4 };
+const KC = { PageUp: 33, PageDown: 34, End: 35, Home: 36 };
 const PLANS = {
   JA: { pre: J, wave: 0, steps: [90, ['jump 180>90', [...OUT, 90]]], z: 2 },
   JB: { pre: J, wave: 0, steps: [90, ['jump 180>120 out', [...OUT, 120, 180]]], z: 2 },
   JD: { pre: J, wave: 0, steps: [90, ['jump 150>90', [90, 120, 150, 90]]], z: 2 },
+  JC: { pre: J, wave: 0, steps: [90, ['jump 180>0', [...OUT, 0]]], z: 2 },
   JE: { pre: J, wave: 0, steps: [90, 180, 120], z: 3 },
+  JG: { pre: J, wave: 0, steps: [90, 180, 0], z: 3 },
   JF: { pre: J, wave: 0, steps: [90, 180, 90], z: 3 },
   JH: { pre: `${J}open>180>go>place 1 3/2/5/10>`, wave: 180, steps: [90], z: 1 },
   JI: { pre: `${J}open>180>go>place 1 6/2/8/10>`, wave: 180, steps: [120], z: 1 },
@@ -36,6 +49,15 @@ const PLANS = {
   Ga: { pre: 'place 0 1/2/5/26>', wave: 0, steps: [180], z: 0, grow: true },
   Gb: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [180], z: 0, grow: true },
   Gc: { pre: 'place 0 1/2/5/26>place 1 2/2/4/10>', wave: 0, steps: [['out 0>180', R0]], z: 0, grow: true },
+  K1: { pre: 'place 2 8/14/10/20>', wave: 0, steps: [90, 180, 0], z: 3, src: ZERO },
+  K2: { pre: 'place 2 8/2/10/10>place 3 11/2/13/10>', wave: 0, steps: [90, 180, 0], z: 3, src: ZERO },
+  M1: { pre: J, wave: 0, steps: [180, ['key', 'Home']], z: 2, src: KEYS },
+  M2: { pre: J, wave: 0, steps: [90, ['key', 'End']], z: 2, src: KEYS },
+  M3: { pre: J, wave: 0, steps: [180, ['key', 'PageDown']], z: 2, src: KEYS },
+  M4: { pre: J, wave: 0, steps: [90, ['key', 'PageUp']], z: 2, src: KEYS },
+  N4: { pre: 'open>Medium text size>go>place 1 2/2/12/10>', wave: 0, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
+  N5: { pre: 'open>30>Medium text size>go>place 1 2/2/12/10>', wave: 30, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
+  N6: { pre: 'open>60>Medium text size>go>place 1 2/2/12/10>', wave: 60, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
 };
 
 async function session(S) {
@@ -53,13 +75,13 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   const area = (t) => t.split('/').map(Number);
   const near1 = (a, b) => Math.abs(a - b) <= 1;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const src = (p) => (p.grow ? GROW : JUMP);
+  const src = (p) => p.src || (p.grow ? GROW : JUMP);
   const read = (P, k) => src(PLANS[P]).reads[`R2 ${P} ${k}`];
   // The section as the oracle's last 'open' read found it; a blank section after it leaves one undo step under the plan's.
   const build = (P) => {
     const p = PLANS[P], o = read(P, `${p.pre}open`).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
-    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
-    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
+    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, size: SIZES[p.size], blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; if (W.size) t.blocks[0].size = W.size; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
   };
   let ids = [];
   const OURS = () => `const s = fe.model.sections[0], bs = ${JSON.stringify(ids)}.map((id) => s.blocks.find((b) => b.id === id)), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + bs[0].id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ rows: s.rows[fe.bp], areas: bs.map((b) => b.layout.desktop.area.join('/') + '|' + b.layout.mobile.area.join('/')), line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
@@ -83,6 +105,33 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
       if (typeof v === 'number') {
         await press('#block-panel [data-scr-range="wave"]', v === 0 ? 0.005 : Math.min(0.995, v / 180)); await pause(1300);
         k += `>${v}`; same(`Jump ${P}: ${k}`, read(P, k));
+        continue;
+      }
+      // A Text Size button.
+      if (typeof v === 'string') {
+        await press(`#block-panel [aria-label="${v}"]`); await pause(1300);
+        k += `>${v}`; same(`Jump ${P}: ${k}`, read(P, k));
+        continue;
+      }
+      // A key on the range: a press on its thumb at the value it shows, the key, the range's value, its focus and Undo and Redo
+      // 1.2 s after each, read in one DevTools session as the oracle's were.
+      if (v[0] === 'key') {
+        const key = v[1], c = await session(S), [x, y] = rangeX(Number(ours().wave));
+        const want = Object.fromEntries(src(p).keys[`R2 ${P} ${k}>${key} x1 1200`].states);
+        const STATE = `(() => { const r = document.querySelector('#block-panel [data-scr-range="wave"]'); return JSON.stringify({ value: r.value, focus: document.activeElement === r, undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled] }); })()`;
+        const st = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: STATE, returnByValue: true })).result.result.value);
+        const sameKey = (what, w, o) => add(what, w.value === o.value && w.focus === o.focus.isRange && w.undo.join() === o.undo.join(), `${JSON.stringify(w)} (oracle ${JSON.stringify({ value: o.value, focus: o.focus.isRange, undo: o.undo })})`);
+        try {
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, button: 'none', buttons: 0 }); await sleep(200);
+          await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 }); await sleep(80);
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 0, clickCount: 1 }); await sleep(1200);
+          sameKey(`Jump ${P}: ${k}, the thumb pressed`, await st(), want.pressed);
+          await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
+          await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
+          await sleep(1200);
+          sameKey(`Jump ${P}: ${k}, ${key}`, await st(), want[`${key} 1`]);
+        } finally { c.close(); }
+        k += `>${key} x1 1200`; same(`Jump ${P}: ${k}`, read(P, k));
         continue;
       }
       // A drag: pressed on its first value, a move to each next 300 ms apart, a row 80 ms after each, let go right after the last row.
