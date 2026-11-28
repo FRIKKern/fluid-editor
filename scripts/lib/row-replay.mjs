@@ -34,6 +34,10 @@ function howItMoved(frames, held) {
     // The ghost's own 1px step to the last place isn't a move of its own.
     const big = steps.length === 1 ? (Math.abs(steps[0][1] - seen[seen.findIndex((x) => x === steps[0]) - 1][1]) <= 1 ? [] : steps) : steps;
     out[name] = !big.length ? 'still' : big.length === 1 ? 'jump' : `slide ${big.at(-1)[0] - big[0][0]}`;
+    // When it starts: the first big step, or the first frame it's drawn or not drawn as before.
+    const drawn = list.findIndex(([, y], k) => k && (y === null) !== (list[k - 1][1] === null));
+    const at = [big[0]?.[0], list[drawn]?.[0]].filter((t) => t !== undefined);
+    out[`${name} at`] = at.length ? Math.min(...at) : null;
     // And whether it was drawn: the moves above skip the frames without it, so a slot that never came, or one that
     // stayed after the drop, would read 'still' as the oracle's does. The oracle's slot appears on the move that starts
     // the drag (CAP-Z3PATH Line to 9) and goes at the drop (CAP-Z3SCORE dropped reads).
@@ -43,6 +47,21 @@ function howItMoved(frames, held) {
   return out;
 }
 const closeTo = (a, b) => { const [p, q] = [a, b].map((x) => x.split(' ')); return p[0] === q[0] && (p[0] !== 'slide' || Math.abs(p[1] - q[1]) <= 60); };
+// The oracle's times run from its sampler's call, and the move comes one node start after it (oracle-capture.mjs
+// rowFrames), so its start after the move is at most its time, and at least its time less the read's first change
+// of anything (the move came before that). Ours run from the move. One of the oracle's frames either way, for the
+// frame each side first sees it in. A drop whose slot goes 400 ms late read 'goes' and passed before.
+function startsIn(oracle) {
+  const firsts = [];
+  for (const k of [1, 2]) {
+    const key = (f) => JSON.stringify(f[k]);
+    const i = oracle.findIndex((f, j) => j && key(f) !== key(oracle[j - 1]));
+    if (i > 0) firsts.push(oracle[i][0]);
+  }
+  const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b);
+  return { first: Math.min(...firsts), frame: gaps[Math.floor(gaps.length / 2)] };
+}
+const onTime = (want, have, { first, frame }) => want === null || have === null || (have >= want - first - frame && have <= want + frame);
 
 async function frames(S, label, dy, pre, drop) {
   const [cx, cy] = place(S, label);
@@ -110,8 +129,8 @@ export async function rowReplay(S, finding, add) {
       if (!r && Object.keys(finding.reads).length) continue;
       const have = howItMoved(await frames(S, label, dy, pre, drop), label);
       if (!r) { add(name, undefined, JSON.stringify(have)); continue; }
-      const want = howItMoved(r.frames, label);
-      const bad = Object.keys(want).filter((k) => !closeTo(want[k], have[k]));
+      const want = howItMoved(r.frames, label), win = startsIn(r.frames);
+      const bad = Object.keys(want).filter((k) => (k.endsWith(' at') ? !onTime(want[k], have[k], win) : !closeTo(want[k], have[k])));
       add(name, !bad.length, `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`);
     } else if (op === 'press' && a[0] === 'Escape') { pressEscape(S);
     } else if (op === 'click' && a[0] === 'Open Layers Panel') { openLayers(S); await pause(200);
