@@ -389,6 +389,8 @@ const STEPS = {
     finding.reads[name] = { from: at, seen, after: snap() };
   },
   // A row walked through the y's in pre, then up to 1px before dy, then the last px with each animation frame kept for 600ms: the time, the slot's top and every row text's top. With drop, the frames are of the release at dy.
+  // One frame of how it was before, then the 600 ms run from the move (or the let go) itself, caught by a capture listener as row-replay.mjs's
+  // sampler does, so a time is the time after the event (t0: 'event'); the reads before had them from the sampler's call, a node start earlier.
   rowFrames: async (label, names, dy, name, pre = [], drop = false) => {
     const at = rowAt(label);
     mouse(S, 'move', at[0], at[1]); mouse(S, 'down', at[0], at[1]); await pause(150);
@@ -397,12 +399,12 @@ const STEPS = {
     for (const v of pre) to(v);
     to(dy - (drop ? 0 : Math.sign(dy - y)));
     await pause(400);
-    evalJs(S, `(() => { const N = ${JSON.stringify(names)}; const out = window.__fxFrames = []; const t0 = performance.now(); const tick = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 1; })()`);
+    evalJs(S, `(() => { const N = ${JSON.stringify(names)}; const out = window.__fxFrames = []; let t0 = performance.now(); const frame = () => { const slot = [...document.querySelectorAll('*')].find((e) => getComputedStyle(e).backgroundColor === 'rgb(72, 148, 255)' && e.getBoundingClientRect().width > 100); out.push([Math.round(performance.now() - t0), slot ? Math.round(slot.getBoundingClientRect().top * 10) / 10 : null, [...document.querySelectorAll('*')].filter((e) => e.childElementCount === 0 && N.includes(e.textContent.trim()) && e.getBoundingClientRect().width > 0).map((e) => [e.textContent.trim(), Math.round(e.getBoundingClientRect().top * 10) / 10])]); }; const tick = () => { frame(); if (performance.now() - t0 < 600) requestAnimationFrame(tick); }; frame(); addEventListener('${drop ? 'pointerup' : 'pointermove'}', () => { t0 = performance.now(); requestAnimationFrame(tick); }, { capture: true, once: true }); return 1; })()`);
     if (drop) mouse(S, 'up', at[0], at[1] + y); else to(dy);
     await pause(800);
     const frames = evalJs(S, `JSON.stringify(window.__fxFrames)`);
     if (!drop) { to(0); await pause(200); mouse(S, 'up', at[0], at[1]); await pause(500); }
-    finding.reads[name] = { from: at, frames };
+    finding.reads[name] = { from: at, frames, t0: 'event' };
   },
   // Every frame for ms: the transform and opacity of each small filled box in rect (top page) seen at the start, then of its parent and grandparent, and when the next press goes down, comes up and clicks. Then watchRead.
   watch: (rect, ms) => evalJs(S, `(() => { const [x0, y0, x1, y1] = ${JSON.stringify(rect)}; const els = [...document.querySelectorAll('div, span')].filter((e) => { const r = e.getBoundingClientRect(), c = getComputedStyle(e).backgroundColor; return r.width >= 8 && r.width <= 80 && r.height >= 8 && r.left >= x0 && r.right <= x1 && r.top >= y0 && r.bottom <= y1 && c !== 'rgba(0, 0, 0, 0)' && !e.closest('#sqs-site-frame'); }).slice(0, 8); window.__fxWatchEls = els; const w = window.__fxWatch = { boxes: els.map((e) => { const r = e.getBoundingClientRect(); return [e.tagName, ...[r.left, r.top, r.width, r.height].map((v) => Math.round(v * 10) / 10), getComputedStyle(e).backgroundColor]; }), frames: [], down: null }; const t0 = performance.now(); addEventListener('pointerdown', () => { if (w.down == null) w.down = Math.round(performance.now() - t0); }, { capture: true, once: true }); const tick = () => { w.frames.push([Math.round(performance.now() - t0), ...els.map((e) => [e, e.parentElement, e.parentElement?.parentElement].map((x) => { const c = x ? getComputedStyle(x) : null; return c ? [c.transform, c.opacity] : null; }))]); if (performance.now() - t0 < ${ms}) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return 'true'; })()`),
