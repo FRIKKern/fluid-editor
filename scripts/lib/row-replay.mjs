@@ -51,11 +51,13 @@ const closeTo = (a, b) => { const [p, q] = [a, b].map((x) => x.split(' ')); retu
 // rowFrames), so its start after the move is at most its time, and at least its time less the read's first change
 // of anything (the move came before that). Ours run from the move. One of the oracle's frames either way, for the
 // frame each side first sees it in. A drop whose slot goes 400 ms late read 'goes' and passed before.
-// A read timed from the event itself (t0 'event', CAP-Z3SCORE-EV) has its start after the move as ours do: then the window
-// is three of its frames each side (its slot comes 7 to 34 ms after the event, a drop's going 7 to 24 ms; ours 0 to 31).
+// A read timed from the event itself (t0 'event', the -EV reads) has its start after the move as ours do: then the window
+// is three of its frames early and two late. Ours sat 33 ms early to 9 ms late locally and 24 early to 12 late on hosted
+// CI (row-check's Starts line). At two frames late, a drop whose slot goes 40 ms late fails 'Shape down 100, dropped' in
+// every run; three let that read pass, and caught the drop only now and then on another read, at the edge.
 function startsIn(oracle, t0) {
   const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b), frame = gaps[Math.floor(gaps.length / 2)];
-  if (t0 === 'event') return { lo: 3 * frame, hi: 3 * frame };
+  if (t0 === 'event') return { lo: 3 * frame, hi: 2 * frame };
   const firsts = [];
   for (const k of [1, 2]) {
     const key = (f) => JSON.stringify(f[k]);
@@ -99,6 +101,8 @@ async function walk(S, label, path, drop) {
 
 const pressEscape = (S) => browser(S, 'press', 'Escape');
 const openLayers = (S) => evalJs(S, `(() => { const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); document.querySelector('button[data-sc="layers"]').click(); return 1; })()`);
+// How far each start of an event-timed read sits from the oracle's, ours less the oracle's in ms, for row-check to print.
+export const startGaps = [];
 // add(name, ok, detail). With no reads, as for predictions, ok is undefined and detail is what ours did.
 export async function rowReplay(S, finding, add) {
   viewport(S, 1600, 945);
@@ -134,6 +138,7 @@ export async function rowReplay(S, finding, add) {
       if (!r) { add(name, undefined, JSON.stringify(have)); continue; }
       const want = howItMoved(r.frames, label), win = startsIn(r.frames, r.t0);
       const bad = Object.keys(want).filter((k) => (k.endsWith(' at') ? !onTime(want[k], have[k], win) : !closeTo(want[k], have[k])));
+      if (r.t0 === 'event') for (const k of Object.keys(want)) if (k.endsWith(' at') && want[k] !== null && have[k] !== null) startGaps.push([have[k] - want[k], `${name}: ${k}`]);
       add(name, !bad.length, `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`);
     } else if (op === 'press' && a[0] === 'Escape') { pressEscape(S);
     } else if (op === 'click' && a[0] === 'Open Layers Panel') { openLayers(S); await pause(200);
